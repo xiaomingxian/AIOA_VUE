@@ -1,0 +1,451 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta content="IE=10" http-equiv="X-UA-Compatible"/>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+  <link href="officecontrol/ntkoStyle.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="officecontrol/ntkoofficecontrol.min.js"></script>
+  <script type="text/javascript" src="officecontrol/ntko.js"></script>
+  <script src="./js/jquery-1.7.1.js"></script>
+  <script type="text/javascript">
+    var ntko = document.getElementById("TANGER_OCX");
+    //个人ip端口配置
+    var urlContextPath = "/AIOA";
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
+    function getBasePath() {
+      var pathName = document.location.pathname;
+      var index = pathName.substr(1).indexOf("/");
+      var result = pathName.substr(0, index + 1);
+      return result;
+    }
+    //初始化去打开文档(cmd为文件类型1为底稿，2为正文，3办文单，4附件，5背景材料，6办文依据)
+    function init(cmd, stable, tableid) {
+      // var ntko = document.getElementById("TANGER_OCX");
+      if (cmd == 3 || cmd == 4 || cmd == 2) {
+        var fileType = "1";
+      }
+      if (cmd == 5 || cmd == 6) {
+        var fileType = "2";
+      }
+      if (cmd == 7) {
+        var fileType = "3";
+      }
+      //起草底稿ntko
+      if (cmd == 1) {
+        ntko.OpenFromURL("templateFiles/empty.doc");
+      }
+      //正文排版2，保存办文单7
+      if (cmd == 2 || cmd == 7) {
+        if (cmd == 2) {
+          var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
+        } else {
+          var url = urlContextPath + "/ntko/formalfile/queryById"
+        }
+        $.ajax({
+          type: "get",
+          dataType: "json",
+          url: url,
+          data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType},
+          success: function (data) {
+            var fileName = data.result.fileName;
+            var bookMarkMap = data.result;
+            var basePath = getBasePath();
+            var filePath = "/templateFiles/";
+            ntko.OpenFromURL(basePath + filePath + fileName);
+            if (cmd == 2) {
+              var zwFileName = data.result.zwFileName;
+              var dgFilePath = "/files/";
+              insertFromUrl(basePath + dgFilePath + zwFileName);
+            }
+            //插入书签
+            for (var bookMark in bookMarkMap) {
+              var BookmarkName = bookMark;
+              var value = bookMarkMap[bookMark];
+              setBookmarkValue(BookmarkName, value);
+            }
+          },
+          error: function (data) {
+            alert(data.result.message);
+          }
+        });
+      }
+      //查看底稿，正文，办文单
+      if (cmd == 3 || cmd == 4 || cmd == 5) {
+        //底稿
+        if (cmd == 3 || cmd == 4) {
+          var fileType = "1";
+        }
+        //正文
+        if (cmd == 5) {
+          var fileType = "2";
+        }
+        var url = urlContextPath + "/ntko/filentko/file";
+        $.ajax({
+          type: "get",
+          dataType: "json",
+          url: url,
+          data: {"stable": stable, "tableid": tableid, "fileType": fileType},
+          success: function (data) {
+            var basePath = getBasePath();
+            var filePath = "/files/";
+            var fileName = data.result;
+            ntko.OpenFromURL(basePath + filePath + fileName);
+          }
+        });
+      }
+      if (cmd == 8 || cmd == 6) {
+        //正文
+        if (cmd == 6) {
+          var fileType = "2";
+        }
+        //办文单
+        if (cmd == 8) {
+          var fileType = "3";
+        }
+        //是否排版
+        var i_is_typeset = 0;
+        //是否保存办文单
+        var i_is_approve = 0;
+        var url = urlContextPath + "/ntko/formalfile/queryStateById";
+        $.ajax({
+          type: "get",
+          dataType: "json",
+          url: url,
+          async: false,
+          data: {"stable": stable, "tableid": tableid},
+          success: function (data) {
+            //插入书签
+            var busDataMap = data.result;
+            for (var busData in busDataMap) {
+              var busDataName = busData;
+              var value = busDataMap[busData];
+              if ("i_is_typeset" == busDataName) {
+                i_is_typeset = value;
+              }
+              if ("i_is_approve" == busDataName) {
+                i_is_approve = value;
+              }
+            }
+          },
+        });
+
+        if (cmd == 6) {
+          //未保存正文，进行正文排版
+          if (i_is_typeset == 0) {
+            var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
+            $.ajax({
+              type: "get",
+              dataType: "json",
+              url: url,
+              async: false,
+              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType},
+              success: function (data) {
+                var fileName = data.result.fileName;
+                var bookMarkMap1 = data.result;
+                var basePath = getBasePath();
+                var filePath = "/templateFiles/";
+                ntko.OpenFromURL(basePath + filePath + fileName);
+                var zwFileName = data.result.zwFileName;
+                var dgFilePath = "/files/";
+                insertFromUrl(basePath + dgFilePath + zwFileName);
+                //插入书签
+                for (var bookMark1 in bookMarkMap1) {
+                  var BookmarkName1 = bookMark1;
+                  var value1 = bookMarkMap1[bookMark1];
+                  setBookmarkValue(BookmarkName1, value1);
+                }
+              },
+              error: function (data) {
+                alert(data.result.message);
+              }
+            });
+          } else {
+            var url = urlContextPath + "/ntko/filentko/file";
+            $.ajax({
+              type: "get",
+              dataType: "json",
+              url: url,
+              data: {"stable": stable, "tableid": tableid, "fileType": fileType},
+              success: function (data) {
+                var basePath = getBasePath();
+                var filePath = "/files/";
+                var fileName = data.result;
+                ntko.OpenFromURL(basePath + filePath + fileName);
+              }
+            });
+          }
+        }
+        if (cmd == 8) {
+          //未保存办文单，进行保存办文单
+          if (i_is_approve == 0) {
+            var url1 = urlContextPath + "/ntko/formalfile/queryById";
+            $.ajax({
+              type: "get",
+              dataType: "json",
+              url: url1,
+              // async:false,
+              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType},
+              success: function (data) {
+                var fileName = data.result.fileName;
+                var bookMarkMap = data.result;
+                var basePath = getBasePath();
+                var filePath = "/templateFiles/";
+                ntko.OpenFromURL(basePath + filePath + fileName);
+                //插入书签
+                for (var bookMark in bookMarkMap) {
+                  var BookmarkName = bookMark;
+                  var value = bookMarkMap[bookMark]
+                  setBookmarkValue(BookmarkName, value);
+                }
+                /*$.each(bookMarkMap,function (key,value) {
+
+                  setBookmarkValue(key, value);
+                })*/
+              },
+              error: function (data) {
+                alert(data.result.message);
+              }
+            });
+          } else {
+            var url = urlContextPath + "/ntko/filentko/file";
+            $.ajax({
+              type: "get",
+              dataType: "json",
+              url: url,
+              data: {"stable": stable, "tableid": tableid, "fileType": fileType},
+              success: function (data) {
+                var basePath = getBasePath();
+                var filePath = "/files/";
+                var fileName = data.result;
+                ntko.OpenFromURL(basePath + filePath + fileName);
+              }
+            });
+          }
+        }
+      }
+      if (cmd == 9) {
+        var basePath = getBasePath();
+        var filePath = "/templateFile/";
+        var fileName = getQueryString('fileName');
+        ntko.OpenFromURL(basePath + filePath + fileName);
+      }
+      if (cmd == 10) {
+        var basePath = getBasePath();
+        var filePath = "/templateFile/";
+        var fileName = getQueryString('fileName');
+        ntko.OpenFromURL(basePath + filePath + fileName);
+      }
+    }
+  </script>
+  <script type="text/javascript">
+    var cmd;	//命令类型
+    function closewin() {
+      self.opener = null;
+      self.open('', '_self');
+    }
+    function setBtn() {
+      var url = urlContextPath + "/oabutton/oaButton/queryById";
+      var id = getQueryString('sbtnid');
+      $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: url,
+        data: {"id": id},
+        success: function (data) {
+          //获取按钮配置允许相关操作
+          var filePrint = data.result.iisPrint;// 是否允许打印
+          var filePrintPreview = data.result.iisPrintpreview;// 是否允许打印预览
+          var fileSaveAs = data.result.iisSaveas; //是否允许另存
+          var fileSave = data.result.iisSave;//是否允许保存
+          var fileNew = data.result.iisNew;//是否允许新建
+          var fileClose = data.result.iisClose; //是否允许文件菜单的关闭项
+          var fileOpen = data.result.iisOpen; //是否允许文件菜单的打开项
+          var fileEdit = data.result.iisEdit;//是否允许编辑设置是否显示痕迹
+          var reviewMode = data.result.iisSaverevision; // 设置是否保留痕迹
+          var isNoCopy = data.result.iisCopy; //是否禁止拷贝
+          // 是否允许打印
+          if (filePrint == 1) {
+            setFilePrint(true);
+          } else {
+            setFilePrint(false);
+          }
+          // 是否允许打印预览
+          if (filePrintPreview == 1) {
+            setFilePrintPreview(true)
+          } else {
+            setFilePrintPreview(false)
+          }
+          //是否允许另存
+          if (fileSaveAs == 1) {
+            setFileSaveAs(true);
+          } else {
+            setFileSaveAs(false);
+          }
+          //是否允许保存
+          if (fileSave == 1) {
+            setFileSave(true);
+          } else {
+            setFileSave(false);
+          }
+          //是否允许新建
+          if (fileNew == 1) {
+            setFileNew(true);
+          } else {
+            setFileNew(false);
+          }
+          //是否允许文件菜单的关闭项
+          if (fileClose == 1) {
+            setFileClose(true);
+          } else {
+            setFileClose(false);
+          }
+          //是否允许文件菜单的打开项
+          if (fileOpen == 1) {
+            setFileOpen(true);
+          } else {
+            // ntko.SetReadOnly(true,3);
+            setFileOpen(false);
+          }
+          //是否允许编辑,可编辑显示留痕
+          if (fileEdit == 1) {
+            setReadOnly(false);
+            setShowRevisions(true);
+          } else {
+            setReadOnly(true);
+            setShowRevisions(false);
+          }
+          //是否禁止拷贝
+          if (isNoCopy == 1) {
+            setIsNoCopy(false);
+          } else {
+            setIsNoCopy(true);
+          }
+          // 设置是否保留痕迹
+          if (reviewMode == 1) {
+            setReviewMode(true);
+          } else {
+            setReviewMode(false);
+          }
+        },
+        error: function (data) {
+          alert("按钮功能正在升级，请联系管理员")
+          // alert(data) ;
+        }
+      })
+    }
+
+  </script>
+
+  <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
+    ntko.FullScreenMode = true;
+    /*if (cmd == 3 || cmd == 5 || cmd ==6 ){
+      setReadOnly(true);
+    }*/
+    ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
+    //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
+    ntko.activeDocument.Saved = true;
+    //设置痕迹保留状态
+    // setReviewMode(true);
+    var userName = getQueryString('userName');
+    // alert(userName)
+    //痕迹保留的用户名
+    ntko.WebUserName = userName;
+    //设置按钮权限方法
+    setBtn();
+    if (cmd == 3 || cmd == 5 || cmd == 9) {
+      /*setReadOnly(true);*/
+      //是否显示工具栏
+      ntko.ToolBars = false;
+      //允许或者禁止文件菜单的新建项
+      ntko.FileNew = false;
+      //允许或者禁止文件菜单的打开项
+      ntko.FileOpen = false;
+      //是否显示office功能区
+      ntko.RibbonBars = false;
+      ntko.SetReadOnly(true, "", 3);
+      ntko.Caption = "欢迎使用AI综合办公服务平台";
+      // ntko.WebUserName ="";
+    }
+  </script>
+
+  <script language="JScript" for="TANGER_OCX" event="OnScreenModeChanged()">
+    if (ntko.FullScreenMode == false) {
+      ntko.Close();
+      closewin();
+      window.close();
+    }
+  </script>
+
+
+  <script language="JScript" for="TANGER_OCX" event="OnCustomButtonOnMenuCmd(btnPos, btnCaption, btnID)">
+    //用户点击菜单上自定义按钮事件
+    if (btnCaption == "显示修订") {
+      // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
+      var protectionType = ntko.ActiveDocument.ProtectionType;
+      // 必须取消只读，才能显示痕迹，否则会报错
+      setReadOnly(false);
+      setShowRevisions(true);
+      ntko.RemoveCustomButtonOnMenu(6);
+      ntko.AddCustomButtonOnMenu(7, "隐藏修订", true, 7);
+      // 原来是只读的，需要重新设置为只读
+      if (protectionType == 2) {
+        setReadOnly(true);
+      }
+    }
+
+    if (btnCaption == "隐藏修订") {
+      // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
+      var protectionType = ntko.ActiveDocument.ProtectionType;
+      // 必须取消只读，才能隐藏痕迹，否则会报错
+      setReadOnly(false);
+      setShowRevisions(false);
+      // setReviewMode(false);
+      ntko.RemoveCustomButtonOnMenu(7);
+      ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
+      // 原来是只读的，需要重新设置为只读
+      if (protectionType == 2) {
+        setReadOnly(true);
+      }
+    }
+  </script>
+
+  <script language="JavaScript" for="TANGER_OCX" event="OnDocumentClosed()">
+    //文档关闭后执行
+    if (cmd==1||cmd==2||cmd==4||cmd==6||cmd==7||cmd==8 ||cmd==10) {
+      onPageClose(cmd, stable, tableid,fileId);
+    }
+  </script>
+
+  <script language="JScript" for="TANGER_OCX" event="OnFileCommand(Item, IsCancel)">
+    if (Item == 3) {
+      if (cmd == 1 || cmd == 2 || cmd == 7) {
+        setFileSaveAs(false)
+        saveFileToUrl(cmd, stable, tableid);
+        ntko.CancelLastCommand = true;
+      }
+      if (cmd == 4 || cmd == 6 || cmd == 8 || cmd==10) {
+        setFileSaveAs(false)
+        saveOldFileToUrl(cmd, stable, tableid);
+        if (cmd == 4 || cmd == 6 || cmd == 10) {
+          saveOldFileToUrl(cmd, stable, tableid,fileId);
+          ntko.CancelLastCommand = true;
+        }
+      }
+    }
+  </script>
+
+</head>
+
+<script>
+
+</script>
+
+<body
+  onload="cmd=getQueryString('cmd');docNumId=getQueryString('docNumId'); stable=getQueryString('stable');tableid=getQueryString('tableid');fileId=getQueryString('fileId');fileName=getQueryString('fileName');init(cmd,stable,tableid);">
+
+</body>
+</html>

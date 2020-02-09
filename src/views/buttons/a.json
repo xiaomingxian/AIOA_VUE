@@ -1,0 +1,154 @@
+[
+  {
+    "actMsg": {
+      "procDefKey": "ChuanYue",
+      "id": "countersign_leaderVerify",
+      "name": "送行领导阅",
+      "type": "userTask",
+      "assignee": null,
+      "loopSize": "assigneesSize",
+      "userOrRole": "user",
+      "depts": null,
+      "conditionContext": {
+        "nextTask": "countersign_leaderVerify"
+      },
+      "userIds": null,
+      "userNames": null,
+      "inclusiveGateway": true,
+      "parallelGateway": false,
+      "allowMulti": true,
+      "multiAssignee": "assignees",
+      "deptsList": [],
+      "multi": true
+    },
+    "oaProcActinst": {
+      "procDefKey": "ChuanYue",
+      "actId": "countersign_leaderVerify",
+      "actName": "送行领导阅",
+      "actType": "userTask",
+      "candidates": "系统管理员",
+      "roleScope": "current_org",
+      "userOrRole": "user",
+      "depts": null,
+      "isCanAdd": false,
+      "isDeptFinish": false,
+      "recordCurrentuser": true,
+      "signer": false,
+      "createTime": "2019-12-20 11:18:11",
+      "updateTime": "2019-12-20 15:10:17",
+      "recordKey": null,
+      "userRecordVal": true,
+      "recordKeys": null,
+      "multAssignee": true,
+      "iid": 91,
+      "deptsList": [],
+      "completeTask": true
+    },
+    "nextUsers": [
+      {
+        "uid": "222222222222",
+        "uname": "admin2",
+        "dname": "科技科"
+      },
+      {
+        "uid": "333333333333",
+        "uname": "admin3",
+        "dname": "科技科"
+      },
+      {
+        "uid": "10044",
+        "uname": "张杰",
+        "dname": "科技科"
+      },
+      {
+        "uid": "10012",
+        "uname": "张喆",
+        "dname": "科技科"
+      },
+      {
+        "uid": "e9ca23d68d884d4ebb19d07889727dae",
+        "uname": "admin",
+        "dname": "科技科"
+      }
+    ],
+    "haveChoice": [
+      "10012"
+    ]
+  },
+  {
+    "actMsg": {
+      "procDefKey": "ChuanYue",
+      "id": "usertask4",
+      "name": "新增节点测试",
+      "type": "userTask",
+      "assignee": "assignee2",
+      "loopSize": null,
+      "userOrRole": "user",
+      "depts": null,
+      "conditionContext": {
+        "nextTask2": "countersign_leaderVerify"
+      },
+      "userIds": null,
+      "userNames": null,
+      "inclusiveGateway": true,
+      "parallelGateway": false,
+      "allowMulti": false,
+      "multiAssignee": null,
+      "deptsList": [],
+      "multi": true
+    },
+    "oaProcActinst": {
+      "procDefKey": "ChuanYue",
+      "actId": "usertask4",
+      "actName": "新增节点测试",
+      "actType": "userTask",
+      "candidates": "系统管理员",
+      "roleScope": "current_org",
+      "userOrRole": "user",
+      "depts": null,
+      "isCanAdd": true,
+      "isDeptFinish": true,
+      "recordCurrentuser": true,
+      "signer": true,
+      "createTime": "2020-01-21 14:02:21",
+      "updateTime": null,
+      "recordKey": "usertask1-drafter,usertask4-assignee2",
+      "userRecordVal": false,
+      "recordKeys": null,
+      "multAssignee": true,
+      "iid": 259,
+      "deptsList": [],
+      "completeTask": false
+    },
+    "nextUsers": [
+      {
+        "uid": "222222222222",
+        "uname": "admin2",
+        "dname": "科技科"
+      },
+      {
+        "uid": "333333333333",
+        "uname": "admin3",
+        "dname": "科技科"
+      },
+      {
+        "uid": "10044",
+        "uname": "张杰",
+        "dname": "科技科"
+      },
+      {
+        "uid": "10012",
+        "uname": "张喆",
+        "dname": "科技科"
+      },
+      {
+        "uid": "e9ca23d68d884d4ebb19d07889727dae",
+        "uname": "admin",
+        "dname": "科技科"
+      }
+    ],
+    "haveChoice": [
+      "e9ca23d68d884d4ebb19d07889727dae"
+    ]
+  }
+]

@@ -1,0 +1,657 @@
+<template>
+  <div>
+    <a-spin :spinning="confirmLoading">
+      <a-form :form="form">
+        <div class="watchHeader">
+          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 115%;left: -1%;z-index: 999;"/>
+          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 115%;left: -1%;z-index: 999;"/>
+        </div>
+
+        <div style="height: auto; background: #fff;  padding: 27px">
+          <div style="width: 100%; height: 80px; background: #fff; margin: 0 auto;  display: flex;align-items: center;justify-content: flex-start">
+            <span style="margin-left: 30px">默认使用背景图 :&nbsp&nbsp</span>
+            <a-switch @change="onChange1" checked-children="自定义" v-model="iisCalendar"   un-checked-children="默认"></a-switch>
+            <span style="color: #d60303;margin-left: 50px;">只允许上传png、jpg、bmp格式的图片</span>
+          </div>
+          <!--<div style="display: flex;margin-bottom: 25px;">-->
+            <!--<span style="font-weight: bolder;">自定义图片</span>-->
+            <!--<span style="color: #d60303;margin-left: 10px;">只允许上传png、jpg、bmp格式的图片</span>-->
+          <!--</div>-->
+          <div style="display: flex;">
+            <div style="display: flex;align-items: center;justify-content: flex-start;margin-left: 30px;">
+              <span>请上传图片：</span>
+              <a-upload
+                name="file"
+                :multiple="false"
+                :showUploadList="false"
+                :beforeUpload="beforeUpload"
+                :headers="headers"
+              >
+                <a-button style="border-color: #8cc8ff">
+                  <a-icon type="upload" />
+                  点击上传主背景图
+                </a-button>
+              </a-upload>
+            </div>
+
+            <div style="display: flex;align-items: center;justify-content: flex-start;margin-left: 55px;">
+              <span>请上传图片：</span>
+              <a-upload
+                name="file"
+                :multiple="false"
+                :showUploadList="false"
+                :beforeUpload="beforeUpload1"
+                :headers="headers"
+              >
+                <a-button style="border-color: #8cc8ff">
+                  <a-icon type="upload" />
+                  点击上传Header图
+                </a-button>
+              </a-upload>
+            </div>
+
+            <div style="display: flex;align-items: center;justify-content: flex-start;margin-left: 55px;">
+              <span>请上传图片：</span>
+              <a-upload
+                name="file"
+                :multiple="false"
+                :showUploadList="false"
+                :beforeUpload="beforeUpload2"
+                :headers="headers"
+              >
+                <a-button style="border-color: #8cc8ff">
+                  <a-icon type="upload" />
+                  点击上传logo
+                </a-button>
+              </a-upload>
+            </div>
+          </div>
+
+          <div style="display: flex">
+            <div style="height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+              <span style="color: #d60303;margin-left: 30px;">建议上传图片尺寸876*455px，大小1MB以内</span>
+            </div>
+            <div style="height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+              <span style="color: #d60303;margin-left: 30px;">建议上传图片尺寸1618*70px，大小1MB以内</span>
+            </div>
+            <div style="height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+              <span style="color: #d60303;margin-left: 35px;">建议上传图片为png格式，大小1MB以内</span>
+            </div>
+          </div>
+
+          <div style="display: flex">
+            <div style="width: 21.4%; height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+              <span style="width: 45%;margin-left: 30px;">图片名称：</span>
+              <a-input v-if="picDetail.upFileName" style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName" disabled/>
+            </div>
+
+            <div style="width: 24.7%; height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start">
+              <span style="width: 41%;margin-left: 56px;">图片名称：</span>
+              <a-input v-if="picDetail.upFileName1" style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName1" disabled/>
+            </div>
+
+            <div style="width: 24.7%; height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start">
+              <span style="width: 39%;margin-left: 46px;">图片名称：</span>
+              <a-input v-if="picDetail.upFileName2" style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName2" disabled/>
+              <!--<a-input v-else style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName2" disabled/>-->
+            </div>
+          </div>
+          <!--<div style="display: flex;position: absolute;bottom: 26%;">-->
+            <!--<span style="font-weight: bolder;">自定义标题</span>-->
+          <!--</div>-->
+        <div style="display: flex;margin-top: 2%;">
+          <div style="width: 30%; height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;border-top: 1px solid;margin-left: 2%;padding-top:2%;">
+            <span style="width:27%;">登录页&首页文字标题：</span>
+            <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="picDetail.editTitleText" />
+          </div>
+
+          <div style="width: 30%; height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;border-top: 1px solid;padding:2% 0% 0% 37%;">
+            <a-button size="middle" icon="check-circle" style="margin-left: -247px;" @click="confirmPic"  type="primary">确认替换</a-button>
+          </div>
+        </div>
+
+          <div style="display: flex">
+            <div style="height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+              <span style="color: #d60303;margin-left: 25px;">首页logo标题可用"&"从登录页标题后方截取，并同时更换；未加"&"则视为同时更换为相同标题</span>
+            </div>
+          </div>
+      </div>
+
+        <div class="watchBox">
+          <div style="margin: 0% 0% 0% 14%;display: inline-table;">
+            <img v-if="picDetail.pic2" style="width:49.59px;height:44px;position: absolute;bottom: 74%;" :src="picDetail.pic2">
+            <img v-else style="width:49.59px;height:44px;position: absolute;bottom: 74%;" src="~@/assets/logo2x.png">
+            <!--<a-input style="width: 260px;margin: 3% 0% 0% 14%;" v-model="picDetail.pictrueText" />-->
+            <span style="font-size:27px;font-weight: bolder;position: absolute;bottom: 74%;left: 18%;">{{picDetail.editTitleText}}</span>
+          </div>
+          <div class="watchPic">
+            <!--<div style="width: 100px; height: 100px; background-color: red " v-model="picDetail.pictrueText"></div>-->
+            <!--{{picDetail.pic}}-->
+            <!--<img  :src="picDetail.pic" style="width:51%;height:260px;position: absolute;top: 27%;left: 50px"/>-->
+            <img v-if="picDetail.pic" :src="picDetail.pic" style="width:51%;height: 39.5%;position: absolute;top: 27%;left: 50px"/>
+            <img v-else src="~@/assets/work.png" style="width:51%;height: 39.5%;position: absolute;top: 27%;left: 50px"/>
+            <!--<img src="~@/assets/background.svg"/>-->
+            <img src="~@/assets/translucentCut.png" style="width:12.7%;height: 39.5%;position: absolute;top: 27%;left: 0%"/>
+            <img src="~@/assets/inputbgFilled.png" style="width:55%;height: 44%;position: absolute;top: 25%;right: 0"/>
+            <img src="~@/assets/technologypic.png" style="width:7%;height:14%;position: absolute;right: 12%;bottom: 72%;"/>
+          </div>
+
+          <div class="footer">
+            <div class="copyright">
+              中国金融电子化公司版权所有
+              <a-icon type="copyright"/>
+              <span> 2016 All rights reserved</span>
+            </div>
+          </div>
+        </div>
+
+      </a-form>
+    </a-spin>
+  </div>
+
+</template>
+
+<script>
+  import {httpAction, getAction,postAction} from '@/api/manage'
+  import Vue from 'vue'
+  import axios from 'axios'
+  import {ACCESS_TOKEN} from '@/store/mutation-types'
+  import ATextarea from "ant-design-vue/es/input/TextArea";
+
+  export default {
+    name: "LoginPictrue",
+    components: {ATextarea},
+    // inject:['reload'],
+    data() {
+      return {
+        picDetail:{
+          fileId: '',
+          fileId1: '',
+          fileId2: '',
+          editTitleText:[],
+          pictrueText: '',
+          logoText: '',
+          upFileName: '',
+          upFileName1: '',
+          upFileName2:'',
+          pic: '',
+          pic1: '',
+          pic2: '',
+          fileType: 'bmp、jpg、png',
+          picurl:'',
+          picurl1:'',
+          picurl2:'',
+          picurl3:'',
+          picurl4:'',
+      },
+      iisCalendar:false,
+      iis:'',
+      point:'只允许上传png、jpg、bmp格式的图片',
+      upFailId: 0,
+      flag: true,
+      upFilePath: '',
+      downFilePath: '',
+      previewVisible: false,
+      visible: false,
+      headers: {
+        'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+      },
+      fileList: [],
+      model: {},
+      Dbtable: [],
+      labelCol: {
+        xs: {span: 24},
+        sm: {span: 5},
+      },
+      wrapperCol: {
+        xs: {span: 24},
+        sm: {span: 16},
+      },
+      confirmLoading: false,
+      form: this.$form.createForm(this),
+      url: {
+        checkDefault:'/oafile/LoginPicture/checkDefault',
+        checkDefault1:'/oafile/groPicture/checkDefault',
+        checkDefault2:'/oafile/signPicture/checkDefault',
+        updatePic:'/oafile/LoginPicture/updatePicture',
+        updatePic1:'/oafile/groPicture/updatePicture',
+        updatePic2:'/oafile/signPicture/updatePicture',
+        fileUpload: window._CONFIG['domianURL'] +"/oafile/LoginPicture/upload",
+        fileUpload1: window._CONFIG['domianURL'] +"/oafile/groPicture/upload",
+        fileUpload2: window._CONFIG['domianURL'] +"/oafile/signPicture/upload",
+        getLoginText: '/oafile/LoginPicture/loginPictrue',
+        getLoginText1: '/oafile/groPicture/loginPictrue',
+        getLoginTextSign: '/oafile/signPicture/loginPictrue',
+        updatePicText: '/oafile/LoginPicture/updatePicText',
+      },
+    }
+  },
+  created() {
+    this.show();
+    this.show3();
+    this.showSign();
+  },
+  methods: {
+    beforeUpload(file){
+      const formData=new FormData();
+      formData.append("file",file);
+      var t = file.name.substring(file.name.indexOf(".")+1);
+        var type = this.picDetail.fileType.split("、");
+        var flag = false;
+        for (var i = 0;i<type.length;i++){
+          if (type[i].toLowerCase() == t.toLowerCase()){
+            flag = true;
+          }
+        }
+        if (!flag){
+          this.$message.warn("请上传"+ this.picDetail.fileType+"格式的图片");
+          return
+        }
+        httpAction(this.url.fileUpload, formData, "post").then((res) => {
+          if (res.success) {
+            this.picDetail.upFileName = res.result.sfileName
+            this.picDetail.fileId = res.result.iid;
+            // this.picDetail.pictrueText = res.result.stable;
+            this.show1(res.result.iid);
+            this.$message.success("上传主背景图成功");
+            this.$emit('ok');
+          } else {
+            this.$message.error("上传主背景图失败");
+          }
+        })
+        return true;
+      },
+
+    beforeUpload1(file){
+      const formData=new FormData();
+      formData.append("file",file);
+      var t = file.name.substring(file.name.indexOf(".")+1);
+      var type = this.picDetail.fileType.split("、");
+      var flag = false;
+      for (var i = 0;i<type.length;i++){
+        if (type[i].toLowerCase() == t.toLowerCase()){
+          flag = true;
+        }
+      }
+      if (!flag){
+        this.$message.warn("请上传正确格式的图片");
+        return
+      }
+      httpAction(this.url.fileUpload1, formData, "post").then((res) => {
+        if (res.success) {
+          this.picDetail.upFileName1 = res.result.sfileName
+          this.picDetail.fileId1 = res.result.iid;
+          this.show4(res.result.iid);
+          this.$message.success("上传成功");
+          this.$emit('ok');
+        } else {
+          this.$message.error("上传失败");
+        }
+      })
+      return true;
+    },
+
+    beforeUpload2(file){
+      const formData=new FormData();
+      formData.append("file",file);
+      var t = file.name.substring(file.name.indexOf(".")+1);
+      var type = this.picDetail.fileType.split("、");
+      var flag = false;
+      for (var i = 0;i<type.length;i++){
+        if (type[i].toLowerCase() == t.toLowerCase()){
+          flag = true;
+        }
+      }
+      if (!flag){
+        this.$message.warn("请上传正确格式的图片");
+        return
+      }
+      httpAction(this.url.fileUpload2, formData, "post").then((res) => {
+        if (res.success) {
+          this.picDetail.upFileName2 = res.result.sfileName;
+          this.picDetail.fileId2 = res.result.iid;
+          this.show2(res.result.iid);
+          this.$message.success("上传logo成功");
+          this.$emit('ok');
+        } else {
+          this.$message.error("上传logo失败");
+        }
+      })
+      return true;
+    },
+
+      //确认替换
+      confirmPic(){
+        console.log(this.picDetail.fileId )
+        console.log(this.picDetail.fileId1 )
+        console.log(this.picDetail.fileId2 )
+        console.log(this.picDetail.editTitleText )
+        if (this.picDetail.fileId != null){
+          getAction(this.url.updatePic,{id:this.picDetail.fileId}).then(res => {
+            // if (res.success){
+            //   this.$message.success(res.message)
+            // } else {
+            //   this.$message.error(res.message);
+            // }
+          })
+        }
+        if (this.picDetail.fileId1 != null){
+          getAction(this.url.updatePic1,{id:this.picDetail.fileId1}).then(res => {
+            // if (res.success){
+            //   this.$message.success(res.message);
+            // } else {
+            //   this.$message.error(res.message);
+            // }
+          })
+        }
+        if (this.picDetail.fileId2 != null){
+          getAction(this.url.updatePic2,{id:this.picDetail.fileId2}).then(res => {
+            // if (res.success){
+            //   this.$message.success(res.message)
+            // } else {
+            //   this.$message.error(res.message);
+            // }
+          })
+        }
+        if (this.picDetail.editTitleText != ""){
+          getAction(this.url.updatePicText,{picText:this.picDetail.editTitleText}).then(res => {
+            if (res.success){
+              this.$message.success(res.message)
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+        }
+      },
+
+      getText(){
+        postAction(this.url.getLoginText).then(res => {
+          if (res.success){
+            if (this.getCaption(res.result.stable)[0] == ''){
+              this.picDetail.pictrueText = "中国人民银行";
+              this.picDetail.upFileName = "";
+              this.iisCalendar = false;
+            } else {
+              this.iisCalendar = true;
+              this.picDetail.upFileName = res.result.sfileName;
+              if(typeof this.getCaption(res.result.stable) == 'object'){
+                this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
+              }else {
+                this.picDetail.pictrueText = res.result.stable;
+              }
+              this.picDetail.fileId = res.result.iid;
+            }
+          }
+        })
+      },
+
+      getText1(){
+        postAction(this.url.getLoginText1).then(res => {
+          if (res.success){
+            console.log(res)
+            if (res.result == null){
+              // this.picDetail.pictrueText = "";
+              this.picDetail.upFileName1 = "";
+              // this.iisCalendar = false;
+            } else {
+              // this.iisCalendar = true;
+              this.picDetail.upFileName1 = res.result.sfileName;
+              // this.picDetail.pictrueText = res.result.stable;
+              this.picDetail.fileId1 = res.result.iid;
+            }
+          }
+        })
+      },
+
+    getCaption(obj,state){
+      let index = obj.lastIndexOf("\&");
+      if(index == -1){
+        return obj;
+      }else {
+        if(state == 0){
+          obj = obj.substring(0,index);
+        }else if(state == 1){
+          obj = obj.substring(index+1,obj.length);
+        }else {
+          obj = [obj.substring(0,index),obj.substring(index+1,obj.length)];
+        }
+      }
+      return obj;
+    },
+
+      //显示当前已确认使用的图片
+      show() {
+        this.getText();
+        this.picDetail.picurl = window._CONFIG['domianURL'] + '/oafile/LoginPicture/readPicture?resourceType=image',
+        axios.get(this.picDetail.picurl, {
+          responseType: 'arraybuffer',
+          headers: {
+            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+          }
+        }).then(res => {
+          if(res.data.byteLength >= 10){
+            this.picDetail.pic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            this.visible = true;
+
+          }else{
+            this.picDetail.pic = ""
+          }
+        })
+      },
+
+      getTextSign(){
+        postAction(this.url.getLoginTextSign).then(res => {
+          if (res.success){
+            if (res.result == null){
+              this.picDetail.logoText = "中国人民银行";
+              this.picDetail.upFileName2 = "";
+            } else {
+              this.picDetail.upFileName2 = res.result.sfileName;
+              if(typeof this.getCaption(res.result.stable) == 'object'){
+                this.picDetail.logoText = this.getCaption(res.result.stable)[1];
+              }else {
+                this.picDetail.logoText = res.result.stable;
+              }
+              this.picDetail.fileId2 = res.result.iid;
+            }
+          }
+        })
+      },
+
+    //显示当前已确认使用的图片
+      showSign() {
+        this.getTextSign();
+        this.picDetail.picurl2 = window._CONFIG['domianURL'] + '/oafile/signPicture/readPicture?resourceType=image',
+          axios.get(this.picDetail.picurl2, {
+            responseType: 'arraybuffer',
+            headers: {
+              'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+            }
+          }).then(res => {
+            if(res.data.byteLength >= 10){
+              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.visible = true;
+
+            }else{
+              this.picDetail.pic2 = ""
+            }
+          })
+      },
+
+      //显示当前未确认使用的图片
+      show2(fileId) {
+        console.log("111111111111111111111111111111" + fileId)
+        this.picDetail.picurl2 = window._CONFIG['domianURL'] + '/oafile/signPicture/readNotPicture?id='+ fileId +'&resourceType=image',
+          axios.get(this.picDetail.picurl2, {
+            responseType: 'arraybuffer',
+            headers: {
+              'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+            }
+          }).then(res => {
+            console.log(res)
+            if(res.data.byteLength >= 10){
+              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.visible = true;
+            }else{
+              this.picDetail.pic2 = ""
+            }
+          })
+      },
+
+      //显示当前已确认使用的图片
+      show3() {
+        this.getText1();
+        // console.log("*************")
+        this.picDetail.picurl3 = window._CONFIG['domianURL'] + '/oafile/groPicture/readPicture?resourceType=image',
+          axios.get(this.picDetail.picurl3, {
+            responseType: 'arraybuffer',
+            headers: {
+              'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+            }
+          }).then(res => {
+            // console.log("888888888888888888888888888888888")
+            // console.log(res)
+            // console.log(res.data.byteLength)
+            if(res.data.byteLength >= 10){
+              this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.visible = true;
+            }else{
+              this.picDetail.pic1 = ""
+            }
+          })
+      },
+
+      //显示当前未确认使用的图片
+      show1(fileId) {
+        this.picDetail.picurl1 = window._CONFIG['domianURL'] + '/oafile/LoginPicture/readNotPicture?id='+ fileId +'&resourceType=image',
+        axios.get(this.picDetail.picurl1, {
+          responseType: 'arraybuffer',
+          headers: {
+            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+          }
+        }).then(res => {
+          console.log(res.data.byteLength);
+          if(res.data.byteLength >= 10){
+            this.picDetail.pic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            this.visible = true;
+          }else{
+            this.picDetail.pic = ""
+            this.$message.error("图片下载失败")
+          }
+        })
+      },
+
+    //显示当前未确认使用的图片
+    show4(fileId) {
+      // console.log("================")
+      this.picDetail.picurl4 = window._CONFIG['domianURL'] + '/oafile/groPicture/readNotPicture?id='+ fileId +'&resourceType=image',
+        axios.get(this.picDetail.picurl4, {
+          responseType: 'arraybuffer',
+          headers: {
+            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+          }
+        }).then(res => {
+          console.log(res.data.byteLength);
+          if(res.data.byteLength >= 10){
+            this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            this.visible = true;
+          }else{
+            this.picDetail.pic1 = ""
+            this.$message.error("图片下载失败")
+          }
+        })
+    },
+
+      changeSwitch(checked) {
+        //当checked为0时，使用默认值
+        if (checked == 0){
+          this.picDetail.upFileName = null;
+          this.picDetail.pictrueText = "中国人民银行";
+        }
+        getAction(this.url.checkDefault,{id:this.picDetail.fileId,checked:checked}).then(res => {
+          /*if (res.success){
+            this.$message.success("设置成功")
+          } else {
+            this.$message.error("设置失败")
+          }*/
+        })
+        getAction(this.url.checkDefault1,{id:this.picDetail.fileId1,checked:checked}).then(res => {
+          // if (res.success){
+          //   this.$message.success("设置成功")
+          // } else {
+          //   this.$message.error("设置失败")
+          //
+          // }
+        })
+        getAction(this.url.checkDefault2,{id:this.picDetail.fileId2,checked:checked}).then(res => {
+          if (res.success){
+            this.$message.success("设置成功")
+          } else {
+            this.$message.error("设置失败")
+
+          }
+        })
+      },
+
+      onChange1 (checked) {
+        console.log("----------------")
+        console.log(checked)
+        if(checked){
+          //自定义
+          this.iisCalendar = true;
+          this.changeSwitch(1);
+          // this.show()
+          // this.reload();
+        }else{
+          //默认
+          this.iisCalendar = false;
+          this.changeSwitch(0);
+          // this.show()
+          // this.reload();
+        }}
+    }
+  }
+</script>
+<style scoped>
+  @import '~@assets/less/common.less';
+  .watchBox{
+    margin-top: 1%;
+    width: 100%;
+    height: 177%;
+    background: #f0f2f5 url(~@/assets/background.svg) no-repeat;
+    background-size: 100%;
+    position: absolute;
+  }
+
+  .watchPic {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 0 16px;
+    margin: 48px 0 24px;
+    text-align: center;
+  }
+
+  .copyright {
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+  }
+  
+  .ant-input-disabled{
+    color: #3a80ff !important;
+  }
+
+  .ant-btn-primary{
+    background:linear-gradient(180deg,rgba(115,128,255,1),rgba(47,86,255,1)) repeat scroll 0% 0%;
+  }
+
+  /deep/.ant-btn-primary svg{
+    fill: cyan;
+  }
+</style>
