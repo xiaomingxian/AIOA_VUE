@@ -306,7 +306,14 @@
             this.reload()
 
           } else {
-            this.$message.error(res.message)
+
+            if(res.message=='Transaction rolled back because it has been marked as rollback-only'){
+
+              this.$message.error('流程已关联业务,无法删除')
+
+            }else {
+              this.$message.error(res.message)
+            }
           }
         })
 
