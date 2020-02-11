@@ -212,6 +212,11 @@
       },
       backRecordClick() {
         var procInstId = this.record.processInstanceId
+
+        if ( this.record.table=='' ||  this.record.table==undefined) {
+          this.$message.error('业务数据信息不完整,请检查是否是过期数据')
+          return
+        }
         let table = this.record.table + '_opinion'
 
         let url = 'wf/task/backRecordQuery?procInstId=' + procInstId + '&table=' + table

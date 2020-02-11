@@ -7,7 +7,7 @@
     @ok="jump"
     @cancel="handleCancel"
     destroyOnClose
-    :okText="title"
+    okText="确定"
     cancelText="取消">
 
     <div style="overflow: auto; position: relative" :style="{height: scrHeight}">
@@ -548,17 +548,19 @@
 
         if (this.title == '回退') {
           data['backReason'] = this.reason
-          postAction(this.url.back, data).then(res => {
-            if (res.success) {
-              this.$message.success(res.message)
-              setTimeout(function () {
-                window.close()
-              }, 500)
 
-            } else {
-              this.$message.error(res.message)
-            }
-          })
+          console.log('""""""""""',JSON.stringify(data))
+          // postAction(this.url.back, data).then(res => {
+          //   if (res.success) {
+          //     this.$message.success(res.message)
+          //     setTimeout(function () {
+          //       window.close()
+          //     }, 500)
+          //
+          //   } else {
+          //     this.$message.error(res.message)
+          //   }
+          // })
 
 
         } else {
