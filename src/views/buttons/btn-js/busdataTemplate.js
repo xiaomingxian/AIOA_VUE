@@ -283,21 +283,23 @@ export const busdataTemplate = {
       this.backData.i_urgency = this.backData.i_urgency == null ? 4 : this.backData.i_urgency
 
       let i_safetylevel = localStorage.getItem('密级:' + this.backData.table + this.backData.i_id)
-      this.backData.i_safetylevel = i_safetylevel==null?1:i_safetylevel
+      this.backData.i_safetylevel = i_safetylevel == null ? 1 : i_safetylevel
 
       console.log(this.backData);
       postAction(this.url.updateBusdata, {
         'updateBusdata': this.backData
       }).then(res => {
         if (res.success) {
-          this.$message.success("保存成功")
-
+          if (data == true || data == undefined) {
+            this.$message.success("保存成功")
+          }
           this.reload();
-
           this.$emit("getBackData", this.backData)
           //this.close();
         } else {
-          this.$message.error("保存失败")
+          if (data == true || data == undefined) {
+            this.$message.error("保存失败")
+          }
         }
       })
     },
@@ -522,9 +524,9 @@ export const busdataTemplate = {
         }
         if (flag == true) {
           this.$message.error("请填写正确的数据！！！");
-          this.$store.commit('changeCheckDataFlag',false)
-        }else{
-          this.$store.commit('changeCheckDataFlag',true)
+          this.$store.commit('changeCheckDataFlag', false)
+        } else {
+          this.$store.commit('changeCheckDataFlag', true)
         }
       }
       return flag;
