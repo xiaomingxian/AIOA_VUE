@@ -56,6 +56,7 @@
         },
         url:{
           getLoginText: '/oafile/LoginPicture/loginPictrue',
+          getPictrueText: '/oafile/LoginPicture/getPictrueText',
         }
       }
     },
@@ -66,28 +67,46 @@
       document.body.classList.remove('userLayout')
     },
     created (){
-      this.showSign()
+      this.showSign();
+      this.getPicText();
     },
     methods:{
-      getText(){
-        postAction(this.url.getLoginText).then(res => {
-          if (res.success){
-            if (this.getCaption(res.result.stable)[0] == ''){
-              this.picDetail.pictrueText = "中国人民银行";
-            } else {
-              if(typeof this.getCaption(res.result.stable) == 'object'){
-                this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
-              }else {
-                this.picDetail.pictrueText = res.result.stable;
-              }
-              console.log(this.picDetail.pictrueText)
-            }
+      // getText(){
+      //   postAction(this.url.getLoginText).then(res => {
+      //     if (res.success){
+      //       if (this.getCaption(res.result.stable)[0] == ''){
+      //         this.picDetail.pictrueText = "中国人民银行";
+      //       } else {
+      //         if(typeof this.getCaption(res.result.stable) == 'object'){
+      //           this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
+      //         }else {
+      //           this.picDetail.pictrueText = res.result.stable;
+      //         }
+      //         console.log(this.picDetail.pictrueText)
+      //       }
+      //     }
+      //   })
+      // },
+
+    getPicText(){
+      postAction(this.url.getPictrueText).then(res => {
+        if (res.success){
+        if (res.result == null){
+          this.picDetail.pictrueText = "中国人民银行";
+        } else {
+          if(typeof this.getCaption(res.result) == 'string'){
+            this.picDetail.pictrueText = this.getCaption(res.result);
+          }else {
+            this.picDetail.pictrueText = res.result;
           }
-        })
-      },
+        }
+      }
+    })
+    },
+
       //显示当前已确认使用的图片
       showSign() {
-        this.getText();
+        // this.getText();
         this.picDetail.picurl2 = window._CONFIG['domianURL'] + '/oafile/signPicture/readPicture?resourceType=image',
           axios.get(this.picDetail.picurl2, {
             responseType: 'arraybuffer',
@@ -114,9 +133,10 @@
           }else if(state == 1){
             obj = obj.substring(index+1,obj.length);
           }else {
-            obj = [obj.substring(0,index),obj.substring(index+1,obj.length)];
+            obj = obj.substring(0,index)+obj.substring(index+1,obj.length);
           }
         }
+        console.log(obj)
         return obj;
       }
     }

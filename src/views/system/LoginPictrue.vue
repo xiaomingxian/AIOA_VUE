@@ -223,6 +223,7 @@
         getLoginText1: '/oafile/groPicture/loginPictrue',
         getLoginTextSign: '/oafile/signPicture/loginPictrue',
         updatePicText: '/oafile/LoginPicture/updatePicText',
+        getPictrueText: '/oafile/LoginPicture/getPictrueText',
       },
     }
   },
@@ -230,6 +231,7 @@
     this.show();
     this.show3();
     this.showSign();
+    this.getPicText();
   },
   methods: {
     beforeUpload(file){
@@ -320,13 +322,24 @@
       return true;
     },
 
+    getPicText(){
+      postAction(this.url.getPictrueText).then(res => {
+        if (res.success){
+        console.log(res)
+        if (res.result == null){
+          this.picDetail.editTitleText = "中国人民银行";
+        } else {
+          // this.iisCalendar = true;
+          this.picDetail.editTitleText = res.result;
+        }
+      }
+    })
+    },
+
       //确认替换
       confirmPic(){
-        console.log(this.picDetail.fileId )
-        console.log(this.picDetail.fileId1 )
-        console.log(this.picDetail.fileId2 )
-        console.log(this.picDetail.editTitleText )
-        if (this.picDetail.fileId != null){
+        //fileId：背景主图id
+        if (this.picDetail.fileId != null && this.picDetail.fileId != ''){
           getAction(this.url.updatePic,{id:this.picDetail.fileId}).then(res => {
             // if (res.success){
             //   this.$message.success(res.message)
@@ -335,7 +348,8 @@
             // }
           })
         }
-        if (this.picDetail.fileId1 != null){
+        //fileId1：Header图id
+        if (this.picDetail.fileId1 != null && this.picDetail.fileId1 != ''){
           getAction(this.url.updatePic1,{id:this.picDetail.fileId1}).then(res => {
             // if (res.success){
             //   this.$message.success(res.message);
@@ -344,7 +358,8 @@
             // }
           })
         }
-        if (this.picDetail.fileId2 != null){
+        //fileId2：logo
+        if (this.picDetail.fileId2 != null && this.picDetail.fileId2 != ''){
           getAction(this.url.updatePic2,{id:this.picDetail.fileId2}).then(res => {
             // if (res.success){
             //   this.$message.success(res.message)
@@ -353,7 +368,7 @@
             // }
           })
         }
-        if (this.picDetail.editTitleText != ""){
+        if (this.picDetail.editTitleText != null && this.picDetail.editTitleText != ""){
           getAction(this.url.updatePicText,{picText:this.picDetail.editTitleText}).then(res => {
             if (res.success){
               this.$message.success(res.message)
@@ -366,37 +381,47 @@
 
       getText(){
         postAction(this.url.getLoginText).then(res => {
+          console.log("1212121212121212121")
+          console.log(res)
           if (res.success){
-            if (this.getCaption(res.result.stable)[0] == ''){
-              this.picDetail.pictrueText = "中国人民银行";
+            if(res.result == null){
               this.picDetail.upFileName = "";
               this.iisCalendar = false;
-            } else {
-              this.iisCalendar = true;
+            }else{
+               this.iisCalendar = true;
               this.picDetail.upFileName = res.result.sfileName;
-              if(typeof this.getCaption(res.result.stable) == 'object'){
-                this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
-              }else {
-                this.picDetail.pictrueText = res.result.stable;
-              }
               this.picDetail.fileId = res.result.iid;
             }
+
+
+            // if (this.getCaption(res.result.stable)[0] == ''){
+            //   this.picDetail.upFileName = "";
+            //   this.iisCalendar = false;
+            // } else {
+            //   this.iisCalendar = true;
+            //   this.picDetail.upFileName = res.result.sfileName;
+            //   console.log("22222222222222")
+            //   console.log(upFileName);
+            //   // if(typeof this.getCaption(res.result.stable) == 'object'){
+            //   //   this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
+            //   // }else {
+            //   //   this.picDetail.pictrueText = res.result.stable;
+            //   // }
+            //   this.picDetail.fileId = res.result.iid;
+            // }
+
           }
         })
       },
 
-      getText1(){
+      getText3(){
         postAction(this.url.getLoginText1).then(res => {
           if (res.success){
-            console.log(res)
-            if (res.result == null){
-              // this.picDetail.pictrueText = "";
+            if (res.result.sfileName == null || res.result.iid == null){
               this.picDetail.upFileName1 = "";
-              // this.iisCalendar = false;
+              this.picDetail.fileId1 = "";
             } else {
-              // this.iisCalendar = true;
               this.picDetail.upFileName1 = res.result.sfileName;
-              // this.picDetail.pictrueText = res.result.stable;
               this.picDetail.fileId1 = res.result.iid;
             }
           }
@@ -442,23 +467,23 @@
       getTextSign(){
         postAction(this.url.getLoginTextSign).then(res => {
           if (res.success){
-            if (res.result == null){
+            if (res.result.sfileName == null){
               this.picDetail.logoText = "中国人民银行";
               this.picDetail.upFileName2 = "";
             } else {
               this.picDetail.upFileName2 = res.result.sfileName;
-              if(typeof this.getCaption(res.result.stable) == 'object'){
-                this.picDetail.logoText = this.getCaption(res.result.stable)[1];
-              }else {
-                this.picDetail.logoText = res.result.stable;
-              }
+              // if(typeof this.getCaption(res.result.stable) == 'object'){
+              //   this.picDetail.logoText = this.getCaption(res.result.stable)[1];
+              // }else {
+              //   this.picDetail.logoText = res.result.stable;
+              // }
               this.picDetail.fileId2 = res.result.iid;
             }
           }
         })
       },
 
-    //显示当前已确认使用的图片
+    //显示当前已确认使用的图片(标志)
       showSign() {
         this.getTextSign();
         this.picDetail.picurl2 = window._CONFIG['domianURL'] + '/oafile/signPicture/readPicture?resourceType=image',
@@ -480,7 +505,6 @@
 
       //显示当前未确认使用的图片
       show2(fileId) {
-        console.log("111111111111111111111111111111" + fileId)
         this.picDetail.picurl2 = window._CONFIG['domianURL'] + '/oafile/signPicture/readNotPicture?id='+ fileId +'&resourceType=image',
           axios.get(this.picDetail.picurl2, {
             responseType: 'arraybuffer',
@@ -500,8 +524,7 @@
 
       //显示当前已确认使用的图片
       show3() {
-        this.getText1();
-        // console.log("*************")
+        this.getText3();
         this.picDetail.picurl3 = window._CONFIG['domianURL'] + '/oafile/groPicture/readPicture?resourceType=image',
           axios.get(this.picDetail.picurl3, {
             responseType: 'arraybuffer',
@@ -509,9 +532,6 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            // console.log("888888888888888888888888888888888")
-            // console.log(res)
-            // console.log(res.data.byteLength)
             if(res.data.byteLength >= 10){
               this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
@@ -563,7 +583,6 @@
     },
 
       changeSwitch(checked) {
-        //当checked为0时，使用默认值
         if (checked == 0){
           this.picDetail.upFileName = null;
           this.picDetail.pictrueText = "中国人民银行";

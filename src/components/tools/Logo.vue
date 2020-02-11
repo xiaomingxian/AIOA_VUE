@@ -42,7 +42,7 @@
           pic2:'',
         },
         url:{
-          getLoginText: '/oafile/LoginPicture/loginPictrue',
+          getPictrueText: '/oafile/LoginPicture/getPictrueText',
         }
       }
     },
@@ -50,22 +50,38 @@
       this.showSign()
     },
     methods:{
+
+      // getPicText(){
+      //   postAction(this.url.getPictrueText).then(res => {
+      //     if (res.success){
+      //       console.log(res)
+      //       if (res.result == null){
+      //         this.picDetail.pictrueText = "中国人民银行";
+      //       } else {
+      //         this.iisCalendar = true;
+      //         this.picDetail.pictrueText = res.result;
+      //       }
+      //     }
+      //   })
+      // },
+
       getText(){
-        postAction(this.url.getLoginText).then(res => {
+
+        postAction(this.url.getPictrueText).then(res => {
           if (res.success){
             if (res.result == null){
               this.picDetail.logoText = "中国人民银行";
             } else {
-              if(typeof this.getCaption(res.result.stable) == 'object'){
-                this.picDetail.logoText = this.getCaption(res.result.stable)[1];
+              if(typeof this.getCaption(res.result) == 'object'){
+                this.picDetail.logoText = this.getCaption(res.result)[1];
               }else {
-                this.picDetail.logoText = res.result.stable;
+                this.picDetail.logoText = res.result;
               }
-              console.log(this.picDetail.logoText)
             }
           }
         })
       },
+
       //显示当前已确认使用的图片
       showSign() {
         this.getText();
@@ -79,7 +95,6 @@
             if(res.data.byteLength >= 10){
               this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
-
             }else{
               this.picDetail.pic2 = ""
             }
