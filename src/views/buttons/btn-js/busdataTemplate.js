@@ -284,7 +284,14 @@ export const busdataTemplate = {
 
       let i_safetylevel = localStorage.getItem('密级:' + this.backData.table + this.backData.i_id)
       this.backData.i_safetylevel = i_safetylevel == null ? 1 : i_safetylevel
-
+      if (this.backData.i_bigint3 == ""){
+        this.backData.i_bigint3 = 0;
+      }
+      //火狐浏览器时间字段（d_datetime1）处理
+      var internet = navigator.userAgent;
+      if (/firefox/i.test(internet) && this.backData.d_datetime1 !=undefined && this.backData.d_datetime1 !=""){
+        this.backData.d_datetime1 = this.backData.d_datetime1[0]+" "+ this.backData.d_datetime1[1].slice(0,8)
+      }
       console.log(this.backData);
       postAction(this.url.updateBusdata, {
         'updateBusdata': this.backData
