@@ -7,7 +7,7 @@
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
             <a-form-item label="协同业务">
-              <a-input placeholder="请输入协同业务" v-model="queryParam.steamworkName"></a-input>
+              <a-input placeholder="请输入协同业务" v-model="queryParam.sTeamworkName"></a-input>
             </a-form-item>
           </a-col>
        <!-- <a-col :md="6" :sm="8">
@@ -105,37 +105,11 @@
         // 表头
         columns: [
 
-		   {
+		      {
             title: '协同业务名称',
             align:"center",
             dataIndex: 'steamworkName'
            },
-
-		/*   {
-            title: '创建者id',
-            align:"center",
-            dataIndex: 'screateBy'
-           },
-		   {
-            title: '创建者部门id',
-            align:"center",
-            dataIndex: 'screateDeptid'
-           },
-		   {
-            title: '创建者机构id',
-            align:"center",
-            dataIndex: 'screateUnitid'
-           },
-		   {
-            title: '创建时间',
-            align:"center",
-            dataIndex: 'dCreateTime'
-           },
-		   {
-            title: '修改时间',
-            align:"center",
-            dataIndex: 'dUpdateTime'
-           },*/
           {
             title: '描述',
             align:"center",
