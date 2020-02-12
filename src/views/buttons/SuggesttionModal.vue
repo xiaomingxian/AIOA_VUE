@@ -104,7 +104,6 @@
     methods: {
       suggest(record) {
         this.backData = record;
-        alert(this.backData.i_user_id)
         this.sUserId = this.backData.i_user_id;
         this.visible = true;
         this.opinionList();
