@@ -64,13 +64,7 @@
         confirmLoading: false,
         routeSwitch: true,
         opinionlist: [],
-        suggesttionLists: [
-          {id: '0', scontent: '请批示'},
-          {id: '1', scontent: '请审签'},
-          {id: '2', scontent: '不同意'},
-          {id: '3', scontent: '阅'},
-          {id: '4', scontent: '同意'},
-        ],
+        suggesttionLists: [],
         sUserId: 0,
         form: this.$form.createForm(this),
         validatorRules: {
@@ -110,6 +104,7 @@
     methods: {
       suggest(record) {
         this.backData = record;
+        alert(this.backData.i_user_id)
         this.sUserId = this.backData.i_user_id;
         this.visible = true;
         this.opinionList();
@@ -132,16 +127,21 @@
       },
       opinionList() {
         let url = this.url.list;
+        //用户个人意见
         getAction(url, {sUserId: this.sUserId}).then((res) => {
+          if (res.success && res.result != null) {
+            res.result.map((item, index) => {
+              this.suggesttionLists.push({id: this.suggesttionLists.length, scontent: item.scontent})
+            });
+          }
+        })
+        //系统意见
+        getAction( '/sys/dict/getDictByKeyObj', {dictKey: 'opinion_content'}).then(res => {
+          console.log(res.result.value)
+          console.log(res.result.text)
           res.result.map((item, index) => {
-            // console.log(item.scontent);
-            // console.log(item.scontent);
-            // console.log(index);
-            this.suggesttionLists.push({id: this.suggesttionLists.length, scontent: item.scontent})
+            this.suggesttionLists.push({id: this.suggesttionLists.length, scontent: item.text})
           });
-          // this.suggesttionLists = suggesttionLists;
-          // console.log(this.suggesttionLists)
-          // this.opinionlist = res.result;
         })
       },
       close() {
