@@ -87,7 +87,8 @@
             <span class="more" @click="DaiBanMore(0)">MORE  <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
-            <div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openDetialModel(item.table,item.tableId)" :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
+            <!--<div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openDetialModel(item.table,item.tableId)" :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">-->
+            <div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openTodoTaskModel(item)" :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
               <p class="p">
                 <span :title="item.title+'   '+item.createTime+item.name">
                   <i></i>
@@ -185,6 +186,37 @@
 
     <detail-file ref="detailFile"></detail-file>
 
+    <a-modal
+      title="您当前有多个环节的待办，请选择一个环节"
+      :width="600"
+      :visible="haveMore"
+      confirmLoading="false"
+      @ok="confirm2"
+      @cancel="cancel2"
+      destroyOnClose
+      okText="确认"
+      cancelText="取消">
+
+
+      <!--      :customRow="customRowMy"-->
+
+      <a-table
+        ref="table"
+        size="small"
+        bordered
+        rowKey="key"
+        :loading="loading"
+        :columns="columns3"
+        :dataSource="dataSource3"
+        :pagination="false"
+        :rowSelection="{selectedRowKeys: selectedRowKeys2,selectedRows:selectedRows2, onChange: onSelectChangeMy2,type:'radio'}"
+        @change="handleTableChange"
+      >
+      </a-table>
+
+
+    </a-modal>
+
   </div>
 </template>
 
@@ -221,6 +253,19 @@
           Posturl:'/oaBus/oaBusdata/queryByModelId',
           MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
         },
+        //---------------------------------环节选择相关
+        haveMore: false,
+        taskRecord: null,
+        selectedRowKeys2: [],
+        selectedRows2: [],
+        dataSource3: [],
+        columns3: [
+          {
+            title: '环节名称',
+            align: "center",
+            dataIndex: 'name'
+          }
+        ],
 
       }
     },
@@ -419,6 +464,69 @@
           this.total = res.result.total;
 
         });
+      },
+      openTodoTaskModel(record){
+
+        this.taskRecord = record
+
+
+        if (record.id.indexOf(",") >= 0) {
+          let keys = record.taskDefinitionKey.split(",")
+          let names = record.name.split(",")
+          let ids = record.id.split(",")
+          this.dataSource3 = []
+          let map = {}
+          for (let i in keys) {
+            //构造集合 去重 同一环节去id最大的
+            let data = {key: keys[i], name: names[i], id: ids[i]}
+            let act = map[keys[i]]
+            if (act == undefined) {
+              map[keys[i]] = data
+            } else {
+              if (parseInt(ids[i]) > parseInt(act.id)) {
+                map[keys[i]] = data
+              }
+            }
+          }
+          //如果去重之后只有一个
+          if (Object.values(map).length > 1) {
+            this.dataSource3 = Object.values(map)
+            this.haveMore = true
+          }
+          if (Object.values(map).length == 1) {
+
+            let  record2 = Object.values(map)[0]
+            this.taskRecord.taskDefinitionKey = record2.key
+            this.taskRecord.name = record2.name
+            this.taskRecord.id = record2.id
+
+            window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+          }
+
+
+        } else {
+          window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+        }
+
+
+      },
+      confirm2() {
+        if (this.selectedRowKeys2.length <= 0) {
+          this.$message.error("请选择环节")
+          return
+        }
+        this.taskRecord.taskDefinitionKey = this.selectedRowKeys2[0]
+        this.taskRecord.name = this.selectedRows2[0].name
+        this.taskRecord.id = this.selectedRows2[0].id
+
+
+        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+        this.haveMore = false
+
+
+      },
+      cancel2() {
+        this.haveMore = false
       },
       doTask(record) {
 

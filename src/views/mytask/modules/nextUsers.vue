@@ -2,7 +2,7 @@
 
   <a-modal
     :title="title"
-    :width="1000"
+    :width="1200"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="confirm"
@@ -113,56 +113,52 @@
 
                 <!--右侧选择-->
                 <div class="right">
-                  <div v-for="item in deptsList">
-                    <!--左右布局-->
-                    <div class="box1">
-                      <div class="rightLeft" style="margin-top: 20px;">
-                        <a-button @click="toRight(item)">
-                          <a-icon type="right"/>
-                          添加到{{item}}
-                        </a-button>
-                        <a-button @click="toLeft(item)">
-                          <a-icon type="left"/>
-                          从{{item}}删除
-                        </a-button>
-                      </div>
 
-                      <div style="width: 100%;display: flex">
-                        <div class="rightRight">
+                  <div ref="itemPartBox"  class="itemPartBox" v-for="item in deptsList">
 
-                          <template>
-                            <h4 color="red">{{item}}部门</h4>
-                            <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
+                    <div class="partBox">
+                      <h4 color="red">{{item}}部门</h4>
+                      <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
 
-                            <a-row v-for="i in departSelect[item]">
-                              <a-col :span="100">
-                                <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
-                                  {{i.departName}}
-                                </a-checkbox>
-                              </a-col>
-                            </a-row>
-                          </template>
-                        </div>
+                      <a-row v-for="i in departSelect[item]">
+                        <a-col :span="100">
+                          <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
+                            {{i.departName}}
+                          </a-checkbox>
+                        </a-col>
+                      </a-row>
+                    </div>
 
-                        <div class="rightRight1">
-                          <template>
-                            <h4 color="red">{{item}}部门用户</h4>
-                            <!--<a-button type="primary" size="small" @click="queryUser(item)">【{{item}}】人员</a-button>-->
-                            <a-row v-for="i in departUsersMsg[item]">
-                              <a-col :span="100">
-                                {{i.username}}
-                              </a-col>
-                            </a-row>
-                          </template>
-                        </div>
-                      </div>
+                    <div class="optionBox">
+                      <a-button @click="toRight(item)">
+                        <a-icon type="right"/>
+                        <!--添加到{{item}}-->
+                        添加
 
+                      </a-button>
+                      <a-button @click="toLeft(item)">
+                        <a-icon type="left"/>
+                        <!--从{{item}}删除-->
+                        删除
+                      </a-button>
+                    </div>
+
+                    <div class="userBox">
+                      <template>
+                        <h4 color="red">{{item}}部门用户</h4>
+                        <!--<a-button type="primary" size="small" @click="queryUser(item)">【{{item}}】人员</a-button>-->
+                        <a-row v-for="i in departUsersMsg[item]">
+                          <a-col :span="100">
+                            {{i.username}}
+                          </a-col>
+                        </a-row>
+                      </template>
                     </div>
                   </div>
 
+
                 </div>
               </div>
-
 
             </a-layout-content>
           </a-layout>
@@ -291,6 +287,8 @@
       }
     },
     computed: {},
+    created() {
+    },
     methods: {
       //进页面 初始数据
       showNextUsers(nextsActs) {
@@ -428,6 +426,26 @@
         //是否选部门
         this.isDept = (item.oaProcActinst.userOrRole) == 'dept'
 
+        if (this.isDept){
+
+          var length = item.oaProcActinst.deptsList.length == 0 ? 1 : item.oaProcActinst.deptsList.length
+
+          setTimeout(()=>{
+            let domItemPartBox = document.querySelectorAll('.itemPartBox');
+
+            console.log(domItemPartBox);
+
+            for (let itemPartBox of domItemPartBox){
+              console.log(itemPartBox)
+              if(length==1){
+                itemPartBox.style.width='100%'
+              }else if(length==2){
+                itemPartBox.style.width='49.8%'
+              }
+            }
+          },1000)
+        }
+
 
         //TODO 仅标识 @1.2 ############################################  数据源 ###########################################
         if (!this.isDept) {
@@ -463,6 +481,7 @@
         //记录节点属性
         select['activity'] = item
         if (this.isDept) {
+
           this.selectedRowKeys = []
           this.selectionRows = []
           //部门
@@ -611,8 +630,7 @@
         let ialllen = this.typeCount.inclusive.length
         if (palllen == 0 && ialllen == 0) {//非包容/并行
           this.singleType()
-        }
-        else {//包容/并行
+        } else {//包容/并行
           this.gateWayCheck()
           // this.moreThanOneType()
         }
@@ -1014,27 +1032,52 @@
     }
 
     .right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       width: 69%;
       height: 400px;
-      /*background: #dddddd;*/
+      background: #ffffff;
       overflow-y: scroll;
 
+      .itemPartBox {
 
-      .box1 {
-        width: 100%;
+        width: 33%;
+        height: 100%;
+        /*background: red;*/
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        /*background: darkcyan;*/
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        border: 1px solid #dddddd;
+        padding: 10px;
+        margin-left: 8px;
 
-        .rightRight {
+        .partBox {
+          width: 100%;
+          height: 200px;
+          /*background: #2eabff;*/
+          overflow-y: scroll;
+
+        }
+
+        .optionBox {
+          width: 100%;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 15px;
+        }
+
+        .userBox {
           /*width: 90%;*/
-          width: 50%;
-          height: 120px;
-          /*background: #fff;*/
-          margin-left: 150px;
-          margin-right: 1px;
-          margin-top: 12px;
+          width: 100%;
+          height: 130px;
+          background: #fff;
+          /*margin-left: 150px;*/
+          /*margin-right: 1px;*/
+          margin-top: 15px;
           overflow-y: scroll;
         }
       }
@@ -1042,21 +1085,21 @@
 
     }
 
-    .rightRight1 {
-      /*width: 90%;*/
-      width: 50%;
-      height: 120px;
-      /*background: #fff;*/
-      margin-left: 1px;
-      margin-right: 10px;
-      margin-top: 10px;
-      overflow-y: scroll;
-    }
+    /*.rightRight1 {*/
+    /*!*width: 90%;*!*/
+    /*width: 50%;*/
+    /*height: 120px;*/
+    /*!*background: #fff;*!*/
+    /*margin-left: 1px;*/
+    /*margin-right: 10px;*/
+    /*margin-top: 10px;*/
+    /*overflow-y: scroll;*/
+    /*}*/
 
 
-    .rightLeft {
-      width: 5%;
-    }
+    /*.rightLeft {*/
+    /*width: 5%;*/
+    /*}*/
 
 
   }
