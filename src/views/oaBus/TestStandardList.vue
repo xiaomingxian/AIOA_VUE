@@ -87,7 +87,7 @@
       >
         <a-tab-pane :tab="titleItem.sname" v-for="(titleItem,titleIndex) in getPageList" :key="titleIndex">
           <a-list size="large" :pagination="pagination" >
-            <a-list-item :key="index" v-for="(item, index) in dataSource">
+            <a-list-item :key="index" v-for="(item, index) in dataSource" @dblclick="openDetial(item.i_id,item.table_name)">
 
              <span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>
              <span v-else v-html="item.sFileName"></span>
@@ -305,6 +305,13 @@
         // this.getAttachmentSearch(iBMId);
         //
         // this.dataSource.push(this.textData,this.attachmentData);
+
+      },
+
+      //全文检索  点击打开大详情   需要  tableName
+      openDetial(i_id,tableName){
+
+        window.open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+tableName+'&busdataId='+i_id+'&navisshow=false')
 
       },
       dataDestroy(){
