@@ -112,7 +112,7 @@
            },
           {
             title: '描述',
-            align:"center",
+            align:"left",
             dataIndex: 'description'
           },
           {
