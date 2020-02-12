@@ -124,7 +124,7 @@
           :wrapperCol="wrapperCol"
           label="用户IP地址：">
           <!--<a-input style="width: 480px;" placeholder="用户IP地址" v-model="ip" />-->
-          <a-input style="width: 210px;border-color: transparent;" placeholder="null" v-model="ip" />
+          <a-input style="width: 210px;" placeholder="用戶IP地址" v-model="ip" />
         </a-form-item>
       </div>
 
@@ -307,7 +307,8 @@
           this.ibus4Id = this.getdata.ibus4Id;
 
           this.icalendarDay = this.getdata.icalendarDay;
-          this.ip = this.getdata.ip
+          this.ip = this.getdata.ip;
+
 
 
         });
