@@ -213,6 +213,8 @@
       backRecordClick() {
         var procInstId = this.record.processInstanceId
 
+        console.log('>>>>>>>>>>>>>>',JSON.stringify(this.record))
+
         if ( this.record.table=='' ||  this.record.table==undefined) {
           this.$message.error('业务数据信息不完整,请检查是否是过期数据')
           return

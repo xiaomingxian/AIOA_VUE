@@ -525,6 +525,7 @@
         let taskId = this.taskMsg.id
         if (taskId == undefined) taskId = this.taskMsg.hiTaskId
 
+        console.log(':::::::::::::::',JSON.stringify(this.taskMsg))
         var data = {
           processDefinitionId: this.taskMsg.processDefinitionId,
           taskId: taskId,
@@ -550,17 +551,17 @@
           data['backReason'] = this.reason
 
           console.log('""""""""""',JSON.stringify(data))
-          // postAction(this.url.back, data).then(res => {
-          //   if (res.success) {
-          //     this.$message.success(res.message)
-          //     setTimeout(function () {
-          //       window.close()
-          //     }, 500)
-          //
-          //   } else {
-          //     this.$message.error(res.message)
-          //   }
-          // })
+          postAction(this.url.back, data).then(res => {
+            if (res.success) {
+              this.$message.success(res.message)
+              setTimeout(function () {
+                window.close()
+              }, 500)
+
+            } else {
+              this.$message.error(res.message)
+            }
+          })
 
 
         } else {
