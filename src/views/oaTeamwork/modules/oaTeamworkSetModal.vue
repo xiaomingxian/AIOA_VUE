@@ -118,7 +118,7 @@
           if(res.result != null) {
             this.findMax = "不要小于" + (res.result) + "这个数.建议您填写:" + (res.result + 1);
           }else{
-            alert( res.result)
+            //alert( res.result)
             this.findMax = "请输入序号";
           }
 
