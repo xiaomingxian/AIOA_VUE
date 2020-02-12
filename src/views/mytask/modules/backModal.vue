@@ -7,7 +7,7 @@
     @ok="jump"
     @cancel="handleCancel"
     destroyOnClose
-    :okText="title"
+    okText="确定"
     cancelText="取消">
 
     <div style="overflow: auto; position: relative" :style="{height: scrHeight}">
@@ -525,6 +525,7 @@
         let taskId = this.taskMsg.id
         if (taskId == undefined) taskId = this.taskMsg.hiTaskId
 
+        console.log(':::::::::::::::',JSON.stringify(this.taskMsg))
         var data = {
           processDefinitionId: this.taskMsg.processDefinitionId,
           taskId: taskId,
@@ -548,6 +549,8 @@
 
         if (this.title == '回退') {
           data['backReason'] = this.reason
+
+          console.log('""""""""""',JSON.stringify(data))
           postAction(this.url.back, data).then(res => {
             if (res.success) {
               this.$message.success(res.message)

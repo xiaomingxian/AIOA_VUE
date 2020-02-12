@@ -114,11 +114,11 @@
           </a-col>
 
           <template v-if="toggleSearchStatus">
-            <a-col :md="6" :sm="8">
-              <a-form-item label="拟稿人">
-                <a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>
-              </a-form-item>
-            </a-col>
+            <!--<a-col :md="6" :sm="8">-->
+              <!--<a-form-item label="拟稿人">-->
+                <!--<a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>-->
+              <!--</a-form-item>-->
+            <!--</a-col>-->
 
             <a-col :md="6" :sm="8">
 
