@@ -832,6 +832,17 @@
       show(taskDetail) {
 
         document.title = ' '
+
+        console.log('::::::::::::::::;',JSON.stringify(taskDetail))
+        if (taskDetail.tableName == undefined || taskDetail.tableName == ''
+          || taskDetail.busdataId == undefined || taskDetail.busdataId == ''
+        ) {
+          this.$message.error('业务数据不存在,可能已过期或被删除')
+          setTimeout(function () {
+            window.close()
+          }, 1000)
+          return
+        }
         let param = {
           tableName: taskDetail.tableName,
           busdataId: taskDetail.busdataId
@@ -971,6 +982,8 @@
             this.task.taskDefinitionKey = res.result.taskDefKey
             this.task.processDefinitionId = res.result.processDefinitionId
             this.task.processInstanceId = res.result.processInstanceId
+
+            console.log('------------->>>',JSON.stringify(res))
 
           } else {
             this.$message.error(res.message)
