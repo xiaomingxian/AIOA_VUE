@@ -20,19 +20,19 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务菜单名称">
-          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {}]" />
+          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true}]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务路径名称">
-          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {}]" />
+          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true}]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务分类">
-          <a-select placeholder="请选择业务分类" v-decorator="['sbusdataTable', {}]">
+          <a-select placeholder="请选择业务分类" v-decorator="['sbusdataTable', {rules:[{required:true}]}]">
             <a-select-option  v-for="(item,index) in dbtable" :key="index" :value="item.value" >{{item.text}}</a-select-option>
           </a-select>
           <!--<a-input placeholder="" @change="updateOher" v-model="busDataTable" v-decorator="['sbusdataTable', {}]" />-->
