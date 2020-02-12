@@ -56,7 +56,7 @@
             <center><h3>{{detailList.s_varchar5}}</h3></center>
           </td>
           <td>
-            <a-select ref="s_varchar5"  v-model="backData.s_varchar5" placeholder="请选择不公开理由">
+            <a-select  :disabled="disabled" ref="s_varchar5"  v-model="backData.s_varchar5" placeholder="请选择不公开理由">
               <a-select-option v-for="(item,index) in bgklyList" :key="index" :text="item.text"
                                :value="item.value">{{item.text}}
               </a-select-option>
@@ -254,6 +254,7 @@
     },
     data() {
       return {
+        disabled:true,
         visible: false,
         title: '发文',
         confirmLoading: false,
@@ -408,9 +409,11 @@
         console.log("^^^^^^^^^^^^^^^^^^^^^^^^^");
         console.log(this.$refs.s_varchar5);
         if (e=="gk"){
-          this.$refs.s_varchar5.disabled=true;
+         this.disabled=true;
+          //this.$refs.s_varchar5.disabled=true;
         }else {
-          this.$refs.s_varchar5.disabled=false;
+          this.disabled=false;
+          //this.$refs.s_varchar5.disabled=false;
         }
       },
       witeDepart(param) {
