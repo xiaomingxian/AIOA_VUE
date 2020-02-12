@@ -1,87 +1,87 @@
 <style lang="scss" scoped>
 
-.input{
-  background-color: #f0f5fc;
-}
+  .input {
+    background-color: #f0f5fc;
+  }
 
-.ant-select-selection--single{
-  background-color: #f0f5fc !important;
-}
+  .ant-select-selection--single {
+    background-color: #f0f5fc !important;
+  }
 
-.ant-table-thead > tr > th{
-  color: #fff;
-  background-color: #006db9;
-  /*border: none !important;*/
-  /*border-color: #779ecb !important;*/
-}
+  .ant-table-thead > tr > th {
+    color: #fff;
+    background-color: #006db9;
+    /*border: none !important;*/
+    /*border-color: #779ecb !important;*/
+  }
 
-/deep/.ant-table-middle .ant-table-tbody > tr:hover{
-  cursor: pointer;
-}
+  /deep/ .ant-table-middle .ant-table-tbody > tr:hover {
+    cursor: pointer;
+  }
 
-.light-row{
-  background-color: #fff;
-}
+  .light-row {
+    background-color: #fff;
+  }
 
-.dark-row{
-  /*background:linear-gradient(to bottom,rgb(221,221,255),rgb(167,196,255)) repeat scroll 0% 0%;*/
-  background-color: #c2d9f8;
-}
+  .dark-row {
+    /*background:linear-gradient(to bottom,rgb(221,221,255),rgb(167,196,255)) repeat scroll 0% 0%;*/
+    background-color: #c2d9f8;
+  }
 
-.dark-row:hover{
-  background-color: #ffadd2;
-}
+  .dark-row:hover {
+    background-color: #ffadd2;
+  }
 
-/*.ant-tabs-nav-scroll{*/
+  /*.ant-tabs-nav-scroll{*/
   /*height:39px;*/
-/*}*/
+  /*}*/
 
-/*.ant-card-body .ant-tabs-bar{*/
+  /*.ant-card-body .ant-tabs-bar{*/
   /*border:none;*/
-/*}*/
+  /*}*/
 
-/*.ant-card-body .ant-tabs-nav{*/
+  /*.ant-card-body .ant-tabs-nav{*/
   /*!*background-color: #ffadd2;*!*/
   /*border:1px solid #909090;*/
   /*border-radius: 25%;*/
   /*height: 27px;*/
   /*top: 5px;*/
-/*}*/
+  /*}*/
 
-/*.ant-card-body .ant-tabs-bar .ant-tabs-tab{*/
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab{*/
   /*font-size: 14px;*/
   /*padding-top: 2px;*/
   /*margin-right: 0px;*/
   /*bottom: 1px;*/
-/*}*/
+  /*}*/
 
-/*.ant-card-body .ant-tabs-bar .ant-tabs-tab:hover{*/
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab:hover{*/
   /*color: #0061cb;*/
-/*}*/
+  /*}*/
 
-/*.ant-card-body .ant-tabs-bar .ant-tabs-tab-active{*/
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab-active{*/
   /*color: #fff;*/
   /*background-color: #7d70ff;*/
   /*border-radius: 27%;*/
   /*height:27px;*/
-/*}*/
-/*.ant-card-body .ant-tabs-bar .ant-tabs-ink-bar-animated{*/
+  /*}*/
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-ink-bar-animated{*/
   /*display: none !important;*/
-/*}*/
+  /*}*/
 
-.table-page-search-submitButtons .ant-btn{
-  background:linear-gradient(180deg,rgba(115,128,255,1),rgba(47,86,255,1)) repeat scroll 0% 0%;
-}
+  .table-page-search-submitButtons .ant-btn {
+    background: linear-gradient(180deg, rgba(115, 128, 255, 1), rgba(47, 86, 255, 1)) repeat scroll 0% 0%;
+  }
 
-.table-page-search-submitButtons .ant-btn svg{
-  fill:cyan;
-}
+  .table-page-search-submitButtons .ant-btn svg {
+    fill: cyan;
+  }
 
 </style>
 
 <template>
-    <div class="table-page-search-wrapper">
-      <a-card :bordered="ture">
+  <div class="table-page-search-wrapper">
+    <a-card :bordered="ture">
       <a-tabs @change="changFunId" defaultActiveKey="1">
         <a-tab-pane v-for="(item,index) in selectList" :tab="item.sname" :key="index+1">
           <a-form layout="inline">
@@ -97,12 +97,12 @@
               </a-col>
               <template v-if="advanced">
                 <!--<a-col :md="7" :sm="24" style="margin-top:7px;">-->
-                  <!--<a-form-item label="业务功能">-->
-                    <!--<a-select @change="changFunId" v-model="queryParam.function_id">-->
-                      <!--<a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}-->
-                      <!--</a-select-option>-->
-                    <!--</a-select>-->
-                  <!--</a-form-item>-->
+                <!--<a-form-item label="业务功能">-->
+                <!--<a-select @change="changFunId" v-model="queryParam.function_id">-->
+                <!--<a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}-->
+                <!--</a-select-option>-->
+                <!--</a-select>-->
+                <!--</a-form-item>-->
                 <!--</a-col>-->
                 <a-col :md="7" :sm="24" style="margin-top:7px;">
                   <a-form-item label="状态">
@@ -134,12 +134,14 @@
                 </a-col>
 
 
-                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24" style="margin-top:7px;">
+                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24"
+                       style="margin-top:7px;">
                   <a-form-item :label="atom.s_column_name">
                     <!--<a-select v-if="atom.s_table_column=='s_file_num'" @change="changeSelect($event,atom.s_table_column)" placeholder="请选择">-->
                     <!--<a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>-->
                     <!--</a-select>-->
-                    <a-input class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" placeholder="请输入"/>
+                    <a-input class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)"
+                             placeholder="请输入"/>
                   </a-form-item>
                 </a-col>
 
@@ -147,7 +149,8 @@
                 <a-col :md="!advanced && 7 || 24" :sm="24" style="text-align: center;padding-right:172px;">
             <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
               <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
-              <a-button type="primary" icon="reload" @click="resetPgConditionList" style="margin-left:27px;">重置</a-button>
+              <a-button type="primary" icon="reload" @click="resetPgConditionList"
+                        style="margin-left:27px;">重置</a-button>
             </span>
                 </a-col>
 
@@ -219,9 +222,9 @@
 
         </a-tab-pane>
       </a-tabs>
-      </a-card>
-      <detail-file ref="detailFile"></detail-file>
-    </div>
+    </a-card>
+    <detail-file ref="detailFile"></detail-file>
+  </div>
 </template>
 
 <script>
@@ -237,7 +240,7 @@
 
   export default {
     name: "CollapseListOrNot",
-    inject:['reload'],
+    inject: ['reload'],
     components: {
       DetailFile,
       ARadioGroup,
@@ -250,13 +253,13 @@
         description: '这是公共查询列表页面',
         visibleCreateModal: false,
         visible: false,
-        index:0,
+        index: 0,
         collapse: 0,
         iisFold: 0,
         getPageList: [],
         conditionList: [],
         resetConditionList: {},
-        setConditionList:{},
+        setConditionList: {},
         selectList: [],
         timeList: [],
         modelId: '',
@@ -292,8 +295,8 @@
         columns: [],
         columnes: [],
         dataSource: [],
-        taskKey:[],
-        taskNames:[],
+        taskKey: [],
+        taskNames: [],
         // rowSelection:{
         //   onSelect:(record,selected,selectedRows)=>{
         //     console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
@@ -306,7 +309,7 @@
           pageSize: 10,
           pageSizeOptions: ['5', '10', '15', '20', '25', '30'],
           showTotal: (total, range) => {
-            return range[0] + "-" + range[1] + "共" +  total + "条"
+            return range[0] + "-" + range[1] + "共" + total + "条"
           },
           showQuickJumper: true,
           showSizeChanger: true,
@@ -344,17 +347,17 @@
       // },
       changFunId(index) {
 
-        index = index - 1 ;
+        index = index - 1;
 
         this.resetPgConditionList();
         getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
           this.conditionList = res;
           this.queryParam = Object.assign({}, this.setConditionList);
           for (let i = 0; i < this.conditionList.length; i++) {
-            this.queryParam = Object.assign({},this.queryParam,{[this.conditionList[i].s_table_column]: ""});
+            this.queryParam = Object.assign({}, this.queryParam, {[this.conditionList[i].s_table_column]: ""});
           }
           this.queryParam.function_id = this.selectList[index].iid;
-          this.resetConditionList = Object.assign({},this.queryParam);
+          this.resetConditionList = Object.assign({}, this.queryParam);
           this.paginations.current = 1;
           this.columns = [];
           this.columnes = [];
@@ -449,11 +452,11 @@
           this.tableName = res.tableName;
           this.timeList = res.d_create_time;
           this.queryParam.function_id = this.selectList[this.index].iid;
-          this.setConditionList = Object.assign({},this.queryParam);
+          this.setConditionList = Object.assign({}, this.queryParam);
           for (let i = 0; i < this.conditionList.length; i++) {
             this.queryParam = Object.assign({}, this.queryParam, {[this.conditionList[i].s_table_column]: ""});
           }
-          this.resetConditionList = Object.assign({},this.queryParam);
+          this.resetConditionList = Object.assign({}, this.queryParam);
 
           // console.log('----------------------------------------------------------');
           // console.log(this.queryParam);
@@ -472,11 +475,11 @@
             dataIndex: res.result[0].taskKey,
           });
 
-          for(let i = 0;i < res.result.length;i++){
+          for (let i = 0; i < res.result.length; i++) {
             this.taskKey.push(res.result[i].taskKey);
             this.dataSource.push({
-              key:i,
-              [this.taskKey[0]]:res.result[i].taskName,
+              key: i,
+              [this.taskKey[0]]: res.result[i].taskName,
             });
           }
           // console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
@@ -487,22 +490,26 @@
 
         });
       },
-      getCaption(obj,state){
+      getCaption(obj, state) {
         let index = obj.lastIndexOf("\-");
-        if(state == 0){
-          obj = obj.substring(0,index);
-        }else{
-          obj = obj.substring(index+1,obj.length)
+        if (state == 0) {
+          obj = obj.substring(0, index);
+        } else {
+          obj = obj.substring(index + 1, obj.length)
         }
         return obj;
       },
       getPgSecondList(taskNames) {
-        this.taskNames = taskNames[taskNames.length-1];
+        this.taskNames = taskNames[taskNames.length - 1];
         taskNames.length = 0;
         this.columnes = [];
         this.dataSources = [];
         let url = "/modify/fields/queryByModelIdNoPage";
-        postAction(url, {modelId: this.modelId,condition: this.queryParam,taskName:this.taskKey[this.taskNames]}).then((res) => {
+        postAction(url, {
+          modelId: this.modelId,
+          condition: this.queryParam,
+          taskName: this.taskKey[this.taskNames]
+        }).then((res) => {
 
           this.searchColumns = JSON.parse(res.message);
 
@@ -541,7 +548,12 @@
         // this.queryParam.s_create_name = this.queryParam.s_create_name.toString();
         // this.queryParam.d_create_time = this.queryParam.d_create_time.toString();
 
-        postAction(url, {modelId: this.modelId, pageNo: this.paginations.current, pageSize: this.paginations.pageSize, condition: this.queryParam}).then((res) => {
+        postAction(url, {
+          modelId: this.modelId,
+          pageNo: this.paginations.current,
+          pageSize: this.paginations.pageSize,
+          condition: this.queryParam
+        }).then((res) => {
           this.columns = [];
           this.dataSource = [];
           this.searchColumns = JSON.parse(res.message);
@@ -569,60 +581,83 @@
 
           for (let i = 0; i < this.searchColumns.length; i++) {
             if (this.searchColumns[i].s_table_column != 'i_id') {
-              if(this.searchColumns[i].s_table_column =='i_is_state'){
+              if (this.searchColumns[i].s_table_column == 'i_is_state') {
                 this.columns.push({
                   title: this.searchColumns[i].s_column_name,
                   dataIndex: this.searchColumns[i].s_table_column,
                   align: "center",
                   customRender: (text) => {
-                    if(text == true){
+                    if (text == true) {
                       return '已办结'
-                    }else if(text == false){
+                    } else if (text == false) {
                       return '未办结'
-                    }else{
+                    } else {
                       return text
                     }
                   },
-                  sorter:(a,b,type)=>{
-                    if(type == 'descend'){
+                  sorter: (a, b, type) => {
+                    if (type == 'descend') {
                       this.queryParam.orderFlag = this.searchColumns[i].s_table_column + ' desc'
-                    }else{
+                    } else {
                       this.queryParam.orderFlag = this.searchColumns[i].s_table_column + ' asc'
                     }
                     //a.s_title.length - b.s_title.length ;
                   },
                 });
-              }else if(this.searchColumns[i].s_table_column =='s_title'){
+              } else if (this.searchColumns[i].s_table_column == 's_title') {
                 this.columns.push({
                   title: this.searchColumns[i].s_column_name,
                   dataIndex: this.searchColumns[i].s_table_column,
                   align: "left",
-                  sorter:(a,b,type)=>{
-                    if(type == 'descend'){
+                  sorter: (a, b, type) => {
+                    if (type == 'descend') {
                       this.queryParam.orderFlag = 's_title desc'
-                    }else{
+                    } else {
                       this.queryParam.orderFlag = 's_title asc'
                     }
                     //a.s_title.length - b.s_title.length ;
                   },
                 });
-              }
-              else{
+              }else if (this.searchColumns[i].s_table_column.search(/d/i) == 0) {
                 this.columns.push({
                   title: this.searchColumns[i].s_column_name,
                   dataIndex: this.searchColumns[i].s_table_column,
                   align: "center",
-                  sorter:(a,b,type)=>{
-                    if(type == 'descend'){
+                  customRender: (text) => {
+                    return this.formatterTime(text,"yyyy-MM-dd hh:mm:ss")
+                    /*if (text == true) {
+                      return '已办结'
+                    } else if (text == false) {
+                      return '未办结'
+                    } else {
+                      return text
+                    }*/
+                  },
+                  sorter: (a, b, type) => {
+                    if (type == 'descend') {
                       this.queryParam.orderFlag = this.searchColumns[i].s_table_column + ' desc'
-                    }else{
+                    } else {
                       this.queryParam.orderFlag = this.searchColumns[i].s_table_column + ' asc'
                     }
                     //a.s_title.length - b.s_title.length ;
                   },
                 });
               }
-
+              else {
+                this.columns.push({
+                  title: this.searchColumns[i].s_column_name,
+                  dataIndex: this.searchColumns[i].s_table_column,
+                  align: "center",
+                  sorter: (a, b, type) => {
+                    if (type == 'descend') {
+                      this.queryParam.orderFlag = this.searchColumns[i].s_table_column + ' desc'
+                    } else {
+                      this.queryParam.orderFlag = this.searchColumns[i].s_table_column + ' asc'
+                    }
+                    //a.s_title.length - b.s_title.length ;
+                  },
+                });
+              }
             }
           }
         });
@@ -642,14 +677,51 @@
         // console.log('----------------------------------------------------------');
         // console.log(this.queryParam);
       },
+      //对日期的处理，后端经过json序列化将日期转换为数字（时间戳），这里将时间戳在转换为日期，前提是这个字段的
+      //的类型一定要以d或者D开头，例如d_create_time
+      formatterTime(time, fmt) {
+        if (!time) {
+          return '';
+        }
+        if (typeof (time) == "object" || typeof (time) == "OBJECT") {
+          var z = {
+            M: time.getMonth() + 1,
+            d: time.getDate(),
+            h: time.getHours(),
+            m: time.getMinutes(),
+            s: time.getSeconds()
+          };
+          fmt = fmt.replace(/(M+|d+|h+|m+|s+)/g, function (v) {
+            return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2);
+          });
+          return fmt.replace(/(y+)/g, function (v) {
+            return time.getFullYear().toString().slice(-v.length);
+          });
+        } else if (typeof (time) == "number") {
+          var TIME = new Date(time);
+          var z = {
+            M: TIME.getMonth() + 1,
+            d: TIME.getDate(),
+            h: TIME.getHours(),
+            m: TIME.getMinutes(),
+            s: TIME.getSeconds()
+          };
+          fmt = fmt.replace(/(M+|d+|h+|m+|s+)/g, function (v) {
+            return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2);
+          });
+          return fmt.replace(/(y+)/g, function (v) {
+            return TIME.getFullYear().toString().slice(-v.length);
+          });
+        } else return time;
+      },
+
       onClick(record, index) {
         return {
           on: {
             click: (event) => {
 
 
-
-              window.open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+this.tableName+'&busdataId='+record.i_id+'&navisshow=false')
+              window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.tableName + '&busdataId=' + record.i_id + '&navisshow=false')
 
               //查询---业务数据--流程信息
               // let params = {tableName: this.tableName, busdataId: record.i_id};
@@ -682,7 +754,7 @@
         }
       },
       chooseSearch() {
-        if(this.queryParam.selType == 0){
+        if (this.queryParam.selType == 0) {
           this.queryParam.s_create_name = '';
         }
         // console.log('222----------------------------------------------------------222');
@@ -697,27 +769,27 @@
         this.dataSources = [];
       },
       resetPgConditionList() {
-        this.queryParam = Object.assign({},this.resetConditionList);
-        console.log(this.$refs.inputs) ;
-        if(this.$refs.inputs != undefined){
+        this.queryParam = Object.assign({}, this.resetConditionList);
+        console.log(this.$refs.inputs);
+        if (this.$refs.inputs != undefined) {
           for (let i = 0; i < this.$refs.inputs.length; i++) {
             this.$refs.inputs[i].stateValue = '';
           }
         }
         this.queryParam.orderFlag = '';
       },
-      collapseListOrNot(){
+      collapseListOrNot() {
 
-        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
           this.iisFold = res.result.iisFold;
         })
 
         getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
           this.collapse = res.result;
-          if(this.iisFold == 1 && this.collapse == 1){
+          if (this.iisFold == 1 && this.collapse == 1) {
             this.getPgFirstList();
-          }else {
+          } else {
             this.getPgSearchList();
           }
         })
