@@ -102,7 +102,7 @@
       }
     },
     created() {
-      // this.getBusModelSelectList();
+       this.getBusModelSelectList();
     },
     methods: {
       add1(iteamworkId,steamworkName,iversion) {

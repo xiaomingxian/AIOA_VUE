@@ -6,23 +6,19 @@
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
-            <a-form-item label="协同业务名称">
-              <a-input placeholder="请输入协同业务名称" v-model="queryParam.steamworkName"></a-input>
+            <a-form-item label="协同业务">
+              <a-input placeholder="请输入协同业务" v-model="queryParam.steamworkName"></a-input>
             </a-form-item>
           </a-col>
-        <a-col :md="6" :sm="8">
+       <!-- <a-col :md="6" :sm="8">
             <a-form-item label="描述">
               <a-input placeholder="请输入描述" v-model="queryParam.description"></a-input>
             </a-form-item>
-          </a-col>
+          </a-col>-->
           <a-col :md="6" :sm="8" >
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-              <a @click="handleToggleSearch" style="margin-left: 8px">
-                {{ toggleSearchStatus ? '收起' : '展开' }}
-                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-              </a>
             </span>
           </a-col>
 
@@ -73,7 +69,7 @@
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
             <a-divider type="vertical" />
-          <a @click="handleConfig(record)">配置明细</a>
+          <a @click="handleConfig(record)">配置业务</a>
           <a-divider type="vertical" />
           <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
             <a>删除</a>

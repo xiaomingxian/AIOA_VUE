@@ -17,12 +17,12 @@
            label="主键id">
            <a-input placeholder="请输入主键id" v-decorator="['iid', validatorRules.iid ]" />
          </a-form-item>-->
-        <a-form-item
+        <!--<a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="用户id">
           <a-input placeholder="请输入用户id" v-decorator="['suserId', {}]" />
-        </a-form-item>
+        </a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
