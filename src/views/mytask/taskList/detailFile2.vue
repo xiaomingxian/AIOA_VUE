@@ -1115,7 +1115,7 @@
     width: 28px;
     height: 27px;
     cursor: pointer;
-    margin-right: 7%;
+    margin-right: 6%;
   }
 
   /*附件列表元素---结束*/
