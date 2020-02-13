@@ -166,7 +166,7 @@
 
       // 多选事件
       onSelectChange(selectedRowKeys,keysObjs){
-        this.keysObjs = keysObjs;
+          this.keysObjs = keysObjs;
         this.selectedRowKeys = selectedRowKeys
       },
       handleOk() {
