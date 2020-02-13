@@ -1,12 +1,12 @@
 <template>
   <div>
-    <!--<a-input-search-->
-      <!--v-model="selectedDepUsers"-->
-      <!--placeholder="请先选择用户"-->
-      <!--disabled-->
-      <!--@search="onSearchDepUser">-->
-      <!--<a-button slot="enterButton" :disabled="disabled">选择用户</a-button>-->
-    <!--</a-input-search>-->
+    <a-input-search
+      v-model="selectedDepUsers"
+      placeholder="请先选择用户"
+      disabled
+      @search="onSearchDepUser">
+      <a-button slot="enterButton" :disabled="disabled">选择用户</a-button>
+    </a-input-search>
     <j-select-user-by-dep-modal-single
       ref="selectModal"
       @getUserId="getUserId"
@@ -61,6 +61,7 @@
       },
       getUserId(data) {
         this.$emit('senUserId', data);
+        this.$emit('getUD2')
       },
       getSelectUsers() {
         return this.$refs.selectModal.chooseUserId
@@ -73,7 +74,12 @@
       onSearchDepUserCallBack(selectedDepUsers) {
         this.selectedDepUsers = selectedDepUsers
         this.$emit("change", selectedDepUsers)
-      }
+      },
+  getUserName(data) {
+    this.$emit('senUserName', data);
+    this.$emit('getUD2')
+  },
+
     }
   }
 </script>

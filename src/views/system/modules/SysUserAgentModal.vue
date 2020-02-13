@@ -27,7 +27,9 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="请选择代理人">
-          <j-select-user-by-dep-single  v-decorator="[ 'agentUserName', {}]"></j-select-user-by-dep-single>
+         <!-- <j-select-user-by-dep-single  v-decorator="[ 'agentUserName', {}]"></j-select-user-by-dep-single>-->
+          <j-select-user-by-dep-single v-decorator="[ 'agentUserName', {rules:[{required:true,message:'参与人员不能为空'}]}]"  @senUserId="senUserId" @senUserName="senUserName" :userIdLists="userIdLists" v-model="userRealName" @getUD2="getUD2" ></j-select-user-by-dep-single>
+
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -62,6 +64,11 @@
       return {
         title: "操作",
         visible: false,
+        userlistid:'',//所选人员id  为字符串拼接
+        usernamelistsarr:'',//所选人员 名称拼接    之前提交ids 字符拼接  现改为names 字符拼接
+        selectusernames:[],
+        userRealName:'',
+        userIdLists:[],
         model: {},
         labelCol: {
           xs: {span: 24},
@@ -91,6 +98,17 @@
       },
       add() {
         this.edit({});
+      },
+      senUserName(data){
+        this.userRealName=data
+        console.log(this.userRealName.toString())
+        this.form.resetFields();
+        this.$nextTick(() => {
+          this.form.setFieldsValue({agentUserName:this.userRealName.toString()})
+        });
+      },
+      senUserId(data){
+        this.userIdLists = data
       },
       edit(record) {
         this.form.resetFields();

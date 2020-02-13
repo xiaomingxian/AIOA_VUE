@@ -94,7 +94,11 @@
                   <i></i>
                   {{item.title}}
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
-                  <img src="../../assets/zhong.png" alt="">
+                   <div v-if="item.important==1">
+                      <img src="../../assets/zhong.png" alt="" >
+                   </div>
+
+
                 </span>
                 <span >{{item.createTime}}</span>
               </p>
@@ -406,6 +410,7 @@
       openmore(url){ //四个模块的跳转
 
         this.$router.push('/'+url);
+        // console.log(url)
       },
       DaiBanMore(){ //待办任务的跳转
         this.$router.push('/'+'mytask/taskToDo');
