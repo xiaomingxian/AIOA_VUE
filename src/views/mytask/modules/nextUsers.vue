@@ -2,7 +2,7 @@
 
   <a-modal
     :title="title"
-    :width="1200"
+    :width="1000"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="confirm"
@@ -21,7 +21,7 @@
           <a-layout-sider v-if="!endType" width="200" style="background: #fff">
             <a-menu
               mode="inline"
-              :defaultSelectedKeys="['1']"
+              :defaultSelectedKeys="defaultSelectedKeys"
               :defaultOpenKeys="['sub1']"
               :style="{ height: '100%', borderRight: 80 }">
               <!--...................................................................................................-->
@@ -215,6 +215,7 @@
     components: {DictItemList},
     data() {
       return {
+        defaultSelectedKeys:[],
         scrHeight: window.innerHeight - 300 + 'px',
         title: '下一任务',
         okText: '确定',
@@ -314,6 +315,8 @@
             this.showPreClick(i, false, false, true)
           }
           //---------默认选择 下一任下第一个环节----------
+          console.log('----->>>>',this.nextsActs[0].oaProcActinst.actId)
+          this.defaultSelectedKeys.push(this.nextsActs[0].oaProcActinst.actId)
           this.clickAct(this.nextsActs[0]);
         }
         this.visible = true
