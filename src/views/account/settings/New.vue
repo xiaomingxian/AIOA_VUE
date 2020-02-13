@@ -191,7 +191,7 @@
         iisMessages:false,
         iisFold:false,
         iisCalendar:false,
-        iisFontSize:'2',
+        iisFontSize: 2,
         ibus1Id:'',
         ibus2Id:'',
         ibus3Id:'',
