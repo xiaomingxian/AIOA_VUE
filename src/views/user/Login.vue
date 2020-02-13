@@ -421,11 +421,20 @@
         this.$router.push({ name: "dashboard" })
         let url = "/sys/message";
         postAction(url,{username: currentUsername}).then((res) => {
-          this.IP = res.result;
-          this.$notification.success({
-            message: `${timeFix()}，欢迎`+ currentUsername +`回来`,
-            description: '最近登录IP : '+this.IP,
-          });
+          console.log("11111111111111111")
+          console.log(res)
+          if (res.result == null || res.result == ''){
+            this.$notification.success({
+              message: `${timeFix()}，欢迎`+ currentUsername +`回来`
+            });
+          } else {
+            this.IP = res.result;
+            this.$notification.success({
+              message: `${timeFix()}，欢迎`+ currentUsername +`回来`,
+              description: '最近登录IP : '+this.IP,
+            });
+          }
+
         });
       },
       cmsFailed(err){

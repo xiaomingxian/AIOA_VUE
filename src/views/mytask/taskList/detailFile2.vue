@@ -674,6 +674,27 @@
       //发布按钮
       publishInform() {
         // this.$refs[this.pageRef].isSelectDate();
+        //校验富文本编辑器数据
+        if (this.busFunction.iisEditor == 1) {
+          let params = {}
+          params.table = "oa_busdata_text";
+          params.i_busdata_id = this.backData.i_id;
+          params.s_text = this.jeditor.value;
+          params.s_busdata_table = this.backData.table
+          if (this.editValue == 0 && this.busTextData == null) {
+            postAction(this.url.insert, params).then(res => {
+              this.editValue = res.result.i_id// console.log(res.result.i_id); //富文本id
+            })
+          } else {
+            params.i_id = this.busTextData.i_id;
+            postAction(this.url.updateBusdata, {
+              'updateBusdata': params
+            }).then(res => {
+            })
+          }
+        }
+        let message = false
+        this.$refs[this.pageRef].save(message)
         this.$refs.resleaseScope.handerOk();
       },
       //取消发布
@@ -1094,7 +1115,7 @@
     width: 28px;
     height: 27px;
     cursor: pointer;
-    margin-right: 7%;
+    margin-right: 6%;
   }
 
   /*附件列表元素---结束*/

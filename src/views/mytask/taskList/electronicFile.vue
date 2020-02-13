@@ -342,7 +342,12 @@
         }
         if (this.backData.d_datetime1 == undefined) {
           this.backData.d_datetime1 = this.getNextMonth(this.backData.d_create_time); //默认180天之后
-          this.backData.d_datetime1 = this.dateFormat(this.backData.d_datetime1);
+          var internet = navigator.userAgent;
+          if (/firefox/i.test(internet) && this.backData.d_datetime1 !=""){
+            this.backData.d_datetime1.replace(/-/g,"/");
+          }else {
+            this.backData.d_datetime1 = this.dateFormat(this.backData.d_datetime1);
+          }
         }
         if (this.backData.i_bigint1 != "" && this.backData.i_bigint1 != undefined) {
           this.backData.i_bigint1 = this.backData.i_bigint1 + '';
