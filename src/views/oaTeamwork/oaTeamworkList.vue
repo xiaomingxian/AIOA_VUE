@@ -71,15 +71,21 @@
             <a-divider type="vertical" />
           <a @click="handleConfig(record)">配置业务</a>
           <a-divider type="vertical" />
-          <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
-            <a>删除</a>
-          </a-popconfirm>
+         <a @click="handleDelete11(record.iid)">删除</a>
         </span>
 
       </a-table>
     </div>
     <!-- table区域-end -->
-
+    <!--模态框-->
+    <a-modal
+      title="温馨提示"
+      :visible="visibleDel"
+      @ok="comfirmDelOrBatchDel"
+      @cancel="handleCancel"
+    >
+      <p>请确认是否要删除该条数据</p>
+    </a-modal>
     <!-- 表单区域 -->
     <oaTeamwork-modal ref="modalForm" @ok="modalFormOk"></oaTeamwork-modal>
     <oa-teamwork-set-list ref="teamworkSetList" @ok="modalFormOk" ></oa-teamwork-set-list>
@@ -90,7 +96,7 @@
   import oaTeamworkModal from './modules/oaTeamworkModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import  oaTeamworkSetList from './oaTeamworkSetList'
-  import {httpAction, getAction, postAction, getRoleList, getUserList, getServiceList} from '@/api/manage'
+  import {httpAction, getAction, postAction, getRoleList, getUserList, getServiceList,deleteAction} from '@/api/manage'
   export default {
     name: "oaTeamworkList",
     mixins:[JeecgListMixin],
@@ -130,6 +136,12 @@
           exportXlsUrl: "oateamwork/oaTeamwork/exportXls",
           importExcelUrl: "oateamwork/oaTeamwork/importExcel",
        },
+        keysObjs:[],
+        ids:'',
+
+        visibleDel:false,
+        selectedRowKeys:[],
+        selectionRows: [],
     }
   },
 
@@ -150,17 +162,88 @@
         document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
 
       },
+      // 多选事件
+      onSelectChange(selectedRowKeys,keysObjs){
+        console.log(selectedRowKeys)
+        console.log(keysObjs)
+        let ids = []
+        for(let i=0;i<keysObjs.length;i++){
+           ids.push(keysObjs[i].iid)
+        }
+        console.log(ids.toString())
+        this.keysObjs = keysObjs;
+        this.ids=ids.toString()
+        this.selectedRowKeys = selectedRowKeys
+      },
       handleConfig: function (record) {
         this.$refs.teamworkSetList.open(record);
         this.$refs.teamworkSetList.title = "查看";
 
       },
       showOpen(){
+        // alert(111)
         getAction(this.url.list).then((res) => {
           this.dataSource = res.result.records;
           this.ipagination.total =  res.result.total;
         })
-      }
+      } ,
+      //---------删除功能---------------------------
+      handleDelete11(iid) {
+        this.visibleDel = true;
+        this.iid = iid; //   单元删除id
+
+      },
+      comfirmDelOrBatchDel(){
+        deleteAction(this.url.delete,{id:this.iid }).then((res) => {
+          if(res.success){
+            this.showOpen()
+          }else{
+            this.$message.warning(res.message);
+          }
+        });
+
+        this.visibleDel = false;
+
+      },
+      handleCancel(){
+        this.visibleDel = false;
+      },
+      //单项删除
+      handleDelete(e,n){
+        console.log(e);
+        console.log(n);
+        deleteAction(this.url.delete, {id: e}).then((res) => {
+          if (res.success) {
+            this.$message.success(res.message);
+
+          } else {
+            this.$message.warning(res.message);
+          }
+        });
+      },
+      // 批量删除操作
+      batchDel(){
+
+        this.$confirm({
+          title: "确认删除",
+          content: "是否删除选中数据?",
+          onOk:(()=>{
+
+            deleteAction(this.url.deleteBatch, {ids:this.ids }).then((res) => {
+              if (res.success) {
+                this.$message.success(res.message);
+                this.showOpen();
+
+                this.selectedRowKeys = []
+              } else {
+                this.$message.warning(res.message);
+                this.selectedRowKeys = []
+
+              }
+            });
+          })
+        });
+      },
     }
   }
 </script>

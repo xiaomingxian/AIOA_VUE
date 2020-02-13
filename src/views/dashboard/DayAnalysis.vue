@@ -51,10 +51,10 @@
                                 <!--&lt;!&ndash;<span style="font-size: 12px;color: #666666">{{item.dCreateTime}}</span>&ndash;&gt;-->
                               <!--</p>-->
                               <div class="contentbox" >
-                                <span class="content" style="font-size: 12px;color: #333333">{{item.stitle|filterText}}</span>
-                                <span style="visibility: hidden">
+                                <p class="content" style="font-size: 12px;color: #333333">{{item.stitle|filterText}}</p>
+                                <div style="visibility: hidden">
                                     <img style="width: 22px;" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
-                                </span>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -78,12 +78,12 @@
                                 <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
                               <!--</p>-->
                               <div class="contentbox" >
-                                <span class="content" style="font-size: 12px;color: #333333">{{myitem.stitle|filterText}}</span>
-                                <span >
+                                <p class="content" style="font-size: 12px;color: #333333">{{myitem.stitle|filterText}}</p>
+                                <div >
                                    <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
                                     <img style="width: 22px;" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
                                     <img style="width: 22px;" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
-                                </span>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -103,10 +103,10 @@
                           <div class="itembox"   v-if="publictitleLists!=''" style="border: none" >
                             <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click="chakan(publicitem.iid)">
                               <div class="contentbox">
-                                <span class="content" style="font-size: 12px;color: #333333">{{publicitem.stitle|filterText}}</span>
-                               <span style="visibility: hidden">
+                                <p class="content" style="font-size: 12px;color: #333333">{{publicitem.stitle|filterText}}</p>
+                               <div style="visibility: hidden">
                                     <img style="width: 22px;" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
-                                </span>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -234,7 +234,7 @@
                   <hr/>
                   <hr>
                   <div class="top" style="width: 90%;height: 38%;display: flex;align-items: center; border-top: 1px solid #999999;  margin: 0 auto">
-                    <a-input placeholder="请输入公文链接">
+                    <a-input placeholder="请输入关键字">
                       <a-icon slot="prefix" type="search"></a-icon>
                     </a-input>
                   </div>
@@ -355,7 +355,6 @@
         this.userinfo = userinfo;
         this.userid = userinfo.id;
 
-        this.homeLists(this.userid);
 
         let currtentTime = new Date();
         let Y = currtentTime.getFullYear();
@@ -385,20 +384,26 @@
 
         //----------------------------------------------------------
 
-        this.newTime = newTime;
+      this.homeLists(this.userid);
+
+
+      this.newTime = newTime;
 
         //  领导日程
         this.leaderList(newTime);
 
-        //  我的日程
-        this.myDayLists(newTime);
+      //  共享日程
+      this.publicLists(newTime);
 
-        //  共享日程
-        this.publicLists(newTime);
+      //  我的日程
+      this.myDayLists(newTime);
 
       // 代办日程
-    setTimeout(()=>{
-      this.findwaitLists();
+      setTimeout(()=>{
+
+
+
+
     },500)
 
       //公告列表lineitem
@@ -407,10 +412,10 @@
 
       // / 初始化时只获取条目已办条目
 
-      getAction(this.url.findwaiturl,{operstatus:'task_done'}).then((res) => {
-       // this.total1 = res.result.total;
-
-      });
+      // getAction(this.url.findwaiturl,{operstatus:'task_done'}).then((res) => {
+      //  // this.total1 = res.result.total;
+      //
+      // });
 
       },
     mounted(){
@@ -449,7 +454,7 @@
           }
 
         });
-      },1200)
+      },1500)
 
 
 
@@ -501,7 +506,7 @@
 
           // alert(e)
           // this.findwaitLists('task_done');
-        this.homeLists(this.userid)
+        this.homeLists(this.userid,)
 
 
 
@@ -686,7 +691,7 @@
           getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
             console.log(Array.isArray(res.result.records));
 
-            this.findwaitdataLists =res.result.records.splice(0,3)
+            this.findwaitdataLists =res.result.records.splice(0,5)
 
             if(operstatus=='task_todo'){
               this.total = res.result.total;
@@ -705,8 +710,13 @@
             this.path = res.model1.url
             this.model2 = res.model2.sName;
             this.total1 = res.model1.list.length
-            this.findwaitdataLists = res.model1.list.splice(0,3);
+            this.findwaitdataLists = res.model1.list.splice(0,5);
             this.model2Lists = res.model2.list;
+
+            if(this.willdoindex == 0){//如果是待办任务才会调用此方法
+              this.findwaitLists();
+            }
+
 
           });
         },
@@ -908,12 +918,14 @@
               /*height: auto;*/
               /*padding: 20px;*/
               background: #FBF2DC;
+              /*background: red;*/
               border-top-right-radius: 5px;
               border-bottom-right-radius: 5px;
               padding: 5px;
               /*margin: 10px auto;*/
               margin: 6px auto;
               border-left: 3px solid #FFBC90;
+
               /*padding-bottom: 20px;*/
               .time{
                 width: 100%;
@@ -940,14 +952,22 @@
 
               .contentbox{
                 width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+                /*background: #00ff80;*/
+
                 margin-left: 8px;
                 font-size: 12px;
                 margin-top: 3px;
                 line-height: 8px;
-                span:last-child{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .content{
+                  margin: 0px !important;
+                  padding: 0px !important;
+                  /*background: #000c17;*/
+                }
+                div:last-child{
                   margin-right: 20px;
                   font-size: 14px;
 
