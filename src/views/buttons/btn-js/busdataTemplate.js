@@ -404,7 +404,7 @@ export const busdataTemplate = {
       let url = window._CONFIG['domianURL'] + "/papertitle/oaTemplate/download";
       window.open(url + "/" + path);
     },
-    blurText(value, event) {
+    blurText(value, event, label) {
 
       let checkList = this.optionMap.checkList;
 
@@ -419,6 +419,11 @@ export const busdataTemplate = {
           } else {
 
             event.$el.style.borderColor = '#d9d9d9';
+
+          if(label == '标题'){
+            let s_title =  value.replace(/，/g, '_');
+            this.backData.s_title =  s_title.replace(/,/g, '_');
+          }
 
           }
 
