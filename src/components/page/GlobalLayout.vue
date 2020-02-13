@@ -106,7 +106,8 @@
         navisshow:true,
         collapsed: false,
         activeMenu:{},
-        menus: []
+        menus: [],
+        iisFontSize: '16px'
       }
     },
     computed: {
@@ -142,13 +143,23 @@
       console.log(this.permissionMenuList)
       console.log('----navTheme------'+this.navTheme)
       //--update-end----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
+
     },
 
     mounted(){
 
+      this.setFontSize();
+
     },
     methods: {
       ...mapActions(['setSidebar']),
+      setFontSize(){
+
+        document.getElementsByTagName('body')[0].style.fontSize = this.iisFontSize;
+
+        document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+
+      },
       toggle() {
         this.collapsed = !this.collapsed
         this.setSidebar(!this.collapsed)
@@ -184,7 +195,7 @@
   body {
     // 打开滚动条固定显示
     overflow-y: scroll;
-    font-size: 16px !important;
+    /*font-size: 16px !important;*/
 
     &.colorWeak {
       filter: invert(80%);
@@ -744,9 +755,9 @@
      color: rgba(0, 0, 0, 0.65) !important;
   }
 
-  .ant-table{
-    font-size: 16px !important;
-  }
+  /*.ant-table{*/
+    /*font-size: 16px !important;*/
+  /*}*/
 
   .ant-table-thead > tr > th{
     color: #fff !important;
