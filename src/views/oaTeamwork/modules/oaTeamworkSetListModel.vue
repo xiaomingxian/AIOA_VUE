@@ -3,7 +3,7 @@
   <a-card :bordered="false">
 
     <!-- 查询区域 -->
-   <!-- <div class="table-page-search-wrapper">
+    <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
 
@@ -27,7 +27,7 @@
         </a-row>
       </a-form>
     </div>
--->
+
     <!-- 操作按钮区域 -->
 
     <!-- table区域-begin -->
@@ -58,7 +58,7 @@
           <span slot="action" slot-scope="text, record">
           <!--<a @click="handleEdit(record)">编辑</a>
             <a-divider type="vertical" />-->
-          <a @click="handleConfig(record)">配置明细</a>
+          <a @click="handleConfig(record)">配置业务</a>
          <!-- <a-divider type="vertical" />
            <a @click="handleDelete(record.iid)" title="确定删除吗?">删除</a>-->
         </span>

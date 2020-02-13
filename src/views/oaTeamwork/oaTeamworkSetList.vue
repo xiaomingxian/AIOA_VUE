@@ -3,7 +3,7 @@
   <a-card :bordered="false">
 
     <!-- 查询区域 -->
-    <div class="table-page-search-wrapper">
+   <!-- <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
 
@@ -27,7 +27,7 @@
         </a-row>
       </a-form>
     </div>
-
+-->
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="add" type="primary" icon="plus">新增</a-button>

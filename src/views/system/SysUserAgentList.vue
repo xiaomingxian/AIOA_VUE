@@ -12,25 +12,32 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <a-form-item label="代理人用户名">
-              <a-input placeholder="请输入代理人用户名" v-model="queryParam.agentUserName"></a-input>
+            <a-form-item label="代理人">
+              <a-select  v-model="queryParam.agentUserName" placeholder="请选择代理人">
+                <a-select-option v-for="(item,index) in postLists" :key="index" :value="item.agentUserName">{{item.agentUserName}}
+                </a-select-option>
+              </a-select>
             </a-form-item>
           </a-col>
           <template v-if="toggleSearchStatus">
             <a-col :md="6" :sm="8">
-              <a-form-item label="代理开始时间">
-                <a-input placeholder="请输入代理开始时间" v-model="queryParam.startTime"></a-input>
+              <a-form-item label="开始时间">
+                <a-input placeholder="请输入开始时间" v-model="queryParam.startTime"></a-input>
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="8">
-              <a-form-item label="代理结束时间">
-                <a-input placeholder="请输入代理结束时间" v-model="queryParam.endTime"></a-input>
+              <a-form-item label="结束时间">
+                <a-input placeholder="请输入结束时间" v-model="queryParam.endTime"></a-input>
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="8">
               <a-form-item label="状态">
-                <a-input placeholder="请输入状态0无效1有效" v-model="queryParam.status"></a-input>
-              </a-form-item>
+                <!--<a-input placeholder="请输入状态0无效1有效" v-model="queryParam.status"></a-input>-->
+                  <a-select style="width: 80px" v-model="queryParam.status">
+                    <a-select-option value="1">有效</a-select-option>
+                    <a-select-option value="0">无效</a-select-option>
+                  </a-select>
+                </a-form-item>
             </a-col>
           </template>
           <a-col :md="6" :sm="8">
@@ -118,6 +125,7 @@
 <script>
   import SysUserAgentModal from './modules/SysUserAgentModal'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import { httpAction,getAction,postAction } from '@/api/manage'
 
 
   export default {
@@ -129,6 +137,7 @@
     data() {
       return {
         description: 'a管理页面',
+        postLists:[],
         // 表头
         columns: [
           // {
@@ -147,17 +156,22 @@
             dataIndex: 'userName'
           },
           {
-            title: '代理人用户名',
+            title: '代理人',
             align: "center",
             dataIndex: 'agentUserName'
           },
           {
-            title: '代理开始时间',
+            title: '所属部门',
+            align: "center",
+            dataIndex: 'sysOrgCode'
+          },
+          {
+            title: '开始时间',
             align: "center",
             dataIndex: 'startTime'
           },
           {
-            title: '代理结束时间',
+            title: '结束时间',
             align: "center",
             dataIndex: 'endTime'
           },
@@ -183,11 +197,7 @@
           //   align: "center",
           //   dataIndex: 'updateName'
           // },
-          {
-            title: '所属部门',
-            align: "center",
-            dataIndex: 'sysOrgCode'
-          },
+
           {
             title: '操作',
             dataIndex: 'action',
@@ -209,7 +219,20 @@
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
-    methods: {}
+    created () {
+       getAction(this.url.list).then((res) => {
+        console.log(res.result.records);
+        this.postLists = res.result.records;
+      });
+
+
+
+
+    },
+    methods: {
+
+
+    }
   }
 </script>
 <style scoped>
