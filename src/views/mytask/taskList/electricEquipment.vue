@@ -56,7 +56,7 @@
             <center><h3>{{detailList.s_title}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title)"
+            <a-input ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)"
                      v-model="backData.s_title"></a-input>
           </td>
         </tr>
