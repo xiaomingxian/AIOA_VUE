@@ -1091,6 +1091,26 @@
     color: red;
     cursor: pointer;
   }
+
+  /deep/.ant-input{
+    font-size: 16px;
+  }
+
+  /deep/.ant-select{
+    font-size: 16px;
+  }
+
+  /deep/.ant-btn-default{
+    font-size: 16px;
+  }
+
+  /deep/.ant-btn-lg{
+    font-size: 18px;
+  }
+
+  /deep/.ant-radio-wrapper{
+    font-size: 16px;
+  }
 </style>
 <style>
   /*附件列表元素----开始*/
