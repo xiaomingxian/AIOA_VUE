@@ -17,7 +17,6 @@
       </div>
 
     <a-form-item
-      style="padding-bottom: 20px;border-bottom: 1px solid;"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol">
       <span >AI语音 :&nbsp&nbsp</span><a-switch @change="onChange1" v-model="iisAi" checked-children="是" un-checked-children="否"></a-switch>
@@ -25,6 +24,22 @@
       <span style="margin-left: 20px">折叠展示数据 :&nbsp&nbsp</span><a-switch @change="onChange3" v-model="iisFold"  checked-children="是" un-checked-children="否"></a-switch>
       <span style="margin-left: 10px">默认首页风格 :&nbsp&nbsp</span><a-switch @change="onChange4" checked-children="日程办公" v-model="iisCalendar"   un-checked-children="传统首页"></a-switch>
     </a-form-item>
+
+    <a-form-item
+      style="padding-bottom: 20px;border-bottom: 1px solid;font-weight: bolder;"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol">
+      <span >字号 :&nbsp&nbsp</span>
+      <a-radio-group
+        name="radioGroup"
+        v-model="iisFontSize"
+       :defaultValue="2">
+        <a-radio :value="1">大（18px）</a-radio>
+        <a-radio :value="2">中（16px）</a-radio>
+        <a-radio :value="3">小（14px）</a-radio>
+      </a-radio-group>
+    </a-form-item>
+
    <!-- <a-form-item
       :labelCol="labelCol"
       :wrapperCol="wrapperCol">
@@ -176,6 +191,7 @@
         iisMessages:false,
         iisFold:false,
         iisCalendar:false,
+        iisFontSize:'2',
         ibus1Id:'',
         ibus2Id:'',
         ibus3Id:'',
@@ -226,6 +242,7 @@
           iisMessages:this.iisMessages?1:0,
           iisFold:this.iisFold?1:0,
           iisCalendar:this.iisCalendar?1:0,
+          iisFontSize:this.iisFontSize,
           icalendarDay:Number(this.icalendarDay)
         }
         let   param = {
