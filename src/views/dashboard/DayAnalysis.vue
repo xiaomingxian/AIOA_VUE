@@ -218,7 +218,10 @@
                           <span :title="item.title+'   '+item.createTime+item.name">
                             <i></i>
                             {{item.title}}
-                            <img src="../../assets/zhong.png" alt="">
+                             <div v-if="item.important==1">
+                                <img src="../../assets/zhong.png" alt="" >
+                             </div>
+
                           </span>
                           <span >{{item.dCreateTime}}</span>
                         </p>

@@ -94,7 +94,11 @@
                   <i></i>
                   {{item.title}}
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
-                  <img src="../../assets/zhong.png" alt="">
+                   <div v-if="item.important==1">
+                      <img src="../../assets/zhong.png" alt="" >
+                   </div>
+
+
                 </span>
                 <span >{{item.createTime}}</span>
               </p>
@@ -190,7 +194,7 @@
       title="您当前有多个环节的待办，请选择一个环节"
       :width="600"
       :visible="haveMore"
-      confirmLoading="false"
+      :confirmLoading="loading"
       @ok="confirm2"
       @cancel="cancel2"
       destroyOnClose
@@ -208,10 +212,11 @@
         :loading="loading"
         :columns="columns3"
         :dataSource="dataSource3"
-        :pagination="false"
+        :pagination="loading"
         :rowSelection="{selectedRowKeys: selectedRowKeys2,selectedRows:selectedRows2, onChange: onSelectChangeMy2,type:'radio'}"
-        @change="handleTableChange"
       >
+        <!--@change="handleTableChange"-->
+
       </a-table>
 
 
@@ -254,6 +259,7 @@
           MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
         },
         //---------------------------------环节选择相关
+        loading: false,
         haveMore: false,
         taskRecord: null,
         selectedRowKeys2: [],
@@ -404,6 +410,7 @@
       openmore(url){ //四个模块的跳转
 
         this.$router.push('/'+url);
+        // console.log(url)
       },
       DaiBanMore(){ //待办任务的跳转
         this.$router.push('/'+'mytask/taskToDo');
@@ -527,6 +534,10 @@
       },
       cancel2() {
         this.haveMore = false
+      },
+      onSelectChangeMy2(rowKeys, rows) {
+        this.selectedRowKeys2 = rowKeys
+        this.selectedRows2 = rows
       },
       doTask(record) {
 
