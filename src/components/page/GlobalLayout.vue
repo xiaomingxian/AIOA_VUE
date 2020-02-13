@@ -184,6 +184,7 @@
   body {
     // 打开滚动条固定显示
     overflow-y: scroll;
+    font-size: 16px !important;
 
     &.colorWeak {
       filter: invert(80%);
@@ -741,6 +742,10 @@
 
   .ant-select-selection__placeholder{
      color: rgba(0, 0, 0, 0.65) !important;
+  }
+
+  .ant-table{
+    font-size: 16px !important;
   }
 
   .ant-table-thead > tr > th{
