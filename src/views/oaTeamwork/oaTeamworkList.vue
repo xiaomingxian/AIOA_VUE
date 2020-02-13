@@ -102,6 +102,7 @@
     data () {
       return {
         description: '个人协同办公业务配置分类管理页面',
+        iisFontSize: '16px',
         // 表头
         columns: [
 
@@ -131,12 +132,24 @@
        },
     }
   },
+
+  mounted(){
+
+    this.setFontSize();
+
+  },
+
   computed: {
     importExcelUrl: function(){
       return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
     }
   },
     methods: {
+      setFontSize(){
+
+        document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+
+      },
       handleConfig: function (record) {
         this.$refs.teamworkSetList.open(record);
         this.$refs.teamworkSetList.title = "查看";
