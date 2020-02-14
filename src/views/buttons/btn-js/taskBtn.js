@@ -296,33 +296,33 @@ export const taskBth = {
       }
 
       // //校验意见
-      // if (this.flag) {    //如果要填写意见的话，就进行校验
-      //   if (!this.isSaveFlag) {  //如果没有填写
-      //     this.$message.error("下一任务前必须填写意见！！！");
-      //     return;
-      //   }
-      // }
-      // // 按钮校验
-      // if (this.btn != undefined && this.btn.length > 0) {
-      //   console.log(JSON.stringify(this.btn))
-      //   for (let i = 0; i < this.btn.length; i++) {
-      //     //查看是否要校验按钮
-      //     if (this.btn[i].iisCheckbus == 1) {
-      //       let checkFlagBtn = this.checkBtnBeforeNext(this.btn[i].smethod);
-      //       if (!checkFlagBtn) {
-      //         return;
-      //         break;
-      //       }
-      //     }
-      //   }
-      // }
-      // //this.$emit('checkData')
-      // this.$emit("nextCheckDataFun")
-      // //获取store changeCheckDataFlag
-      // if (this.$store.state.checkDataFlag) {
-      //   this.nextRealQuery()
-      // }
-      this.nextRealQuery()
+      if (this.flag) {    //如果要填写意见的话，就进行校验
+        if (!this.isSaveFlag) {  //如果没有填写
+          this.$message.error("下一任务前必须填写意见！！！");
+          return;
+        }
+      }
+      // 按钮校验
+      if (this.btn != undefined && this.btn.length > 0) {
+        console.log(JSON.stringify(this.btn))
+        for (let i = 0; i < this.btn.length; i++) {
+          //查看是否要校验按钮
+          if (this.btn[i].iisCheckbus == 1) {
+            let checkFlagBtn = this.checkBtnBeforeNext(this.btn[i].smethod);
+            if (!checkFlagBtn) {
+              return;
+              break;
+            }
+          }
+        }
+      }
+      //this.$emit('checkData')
+      this.$emit("nextCheckDataFun")
+      //获取store changeCheckDataFlag
+      if (this.$store.state.checkDataFlag) {
+        this.nextRealQuery()
+      }
+      // this.nextRealQuery()
 
 
     },
