@@ -316,7 +316,7 @@ export const taskBth = {
           }
         }
       }
-      //this.$emit('checkData')
+      this.$emit('checkData')
       this.$emit("nextCheckDataFun")
       //获取store changeCheckDataFlag
       if (this.$store.state.checkDataFlag) {
@@ -338,6 +338,7 @@ export const taskBth = {
         procDefkey: this.backData.s_cur_proc_name,
         drafterId: this.backData.s_create_by,
         taskId: this.taskMsg.id,
+        processDefinitionId: this.taskMsg.processDefinitionId,
         taskDefinitionKey: this.taskMsg.taskDefinitionKey,
       }).then(res => {
         //展示数据
@@ -647,6 +648,7 @@ export const taskBth = {
     },
     //选择下一办理人的同时办理任务
     confirmNextUsers(ids, activity, endTime, depts) {
+      console.log(activity)
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id

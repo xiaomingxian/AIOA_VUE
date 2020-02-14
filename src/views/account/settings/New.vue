@@ -202,7 +202,7 @@
         // isnewbody:''
       }
     },
-    inject:['reload'],
+   /* inject:['reload'],*/
     created () {
       this.InitializeQuery();
       this.getBusModelList();
@@ -251,31 +251,35 @@
         //编辑接口
         if(this.isnewbody){
           // console.log(subdata.iisCalendar);
+          if(param.ip == this.isnewbody.ip){//ip没有改动
             postAction(this.url.edit,subdata).then((res) => {
               this.$message.success(res.message);
-              this.reload();
-              // window.location.reload()
-              // if(subdata.iisCalendar==1){
-              //   this.$store.commit('setIndexOne')
-              //
-              // }else{
-              //   this.$store.commit('setIndexTwo')
-              // }
-              // console.log('//////////////////-----------------'+this.$store.state.indexState);
+              this.InitializeQuery();
+            })
+             console.log(this.isnewbody.ip)
+           //ip有修改
 
+
+          }
+         else{
+            postAction(this.url.changIp, param).then((res) => {
+              postAction(this.url.edit,subdata).then((res) => {
+                this.$message.success(res.message);
+                this.InitializeQuery();
+              })
             })
 
-             postAction(this.url.changIp,param).then((res) => {
-            /*  this.$message.success(res.message);*/
-              this.reload();
-            })
 
-        }else{
+          }
+
+
+
+        }/*else{
            //  新增接口
           postAction(this.url.add,subdata).then((res) => {
               console.log(res.result);
               this.$message.success(res.message);
-                this.reload();
+               /!* this.reload();*!/
             // window.location.reload()
             // if(subdata.iisCalendar==1){
             //   this.$store.commit('setIndexOne')
@@ -287,9 +291,9 @@
           })
           postAction(this.url.changIp,param).then((res) => {
             this.$message.success(res.message);
-            this.reload();
+           /!* this.reload();*!/
           })
-        }
+        }*/
       },
       InitializeQuery(){
         const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
@@ -324,7 +328,12 @@
           this.ibus4Id = this.getdata.ibus4Id;
 
           this.icalendarDay = this.getdata.icalendarDay;
-          this.ip = this.getdata.ip;
+
+          if(this.getdata.ip != '' || this.getdata.ip != null){
+            this.ip = this.getdata.ip;
+          }else{
+            this.ip = '';
+          }
 
 
 

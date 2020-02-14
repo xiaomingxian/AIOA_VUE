@@ -41,7 +41,7 @@
           <!--.........................//////////////////////////////////////////..........................................................................-->
           <a-layout v-if="!endType" style="padding: 2px 2px 2px">
 
-            <a-breadcrumb style="margin: 16px 0">
+            <a-breadcrumb style="height: 50px;display: flex;align-items: center">
               <div>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a-radio-group name="radioGroup" @change="changeChoice" :defaultValue="1">
@@ -104,7 +104,7 @@
                     :columns="columns2"
                     :customRow="departClickCheck"
                     :dataSource="mockData"
-                    :pagination="ipagination"
+                    :pagination="false"
                     :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
                     @change="handleTableChange"
                   >
@@ -112,51 +112,63 @@
                 </div>
 
                 <!--右侧选择-->
-                <div class="right">
-
-                  <div ref="itemPartBox"  class="itemPartBox" v-for="item in deptsList">
+                <div class="rightt">
+                  <div ref="itemPartBox" class="itemPartBox" v-for="item in deptsList">
 
                     <div class="partBox">
-                      <h4 color="red">{{item}}部门</h4>
-                      <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
+                      <div style="padding: 6px;background: #d6ebff !important;">
+                        <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
 
-                      <a-row v-for="i in departSelect[item]">
-                        <a-col :span="100">
-                          <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
-                            {{i.departName}}
-                          </a-checkbox>
-                        </a-col>
-                      </a-row>
+                        {{item}}部门
+                      </div>
+                      <!--<hr>-->
+                      <div class="partBoxChild" style="overflow: hidden">
+                        <a-row v-for="i in departSelect[item]">
+                          <a-col :span="100">
+                            <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
+
+                              <span  :title="i.departName" > {{i.departName}}</span>
+                            </a-checkbox>
+                          </a-col>
+                        </a-row>
+                      </div>
                     </div>
 
                     <div class="optionBox">
-                      <a-button @click="toRight(item)">
-                        <a-icon type="right"/>
+                      <!--<center>-->
+                      <a-button @click="toRight(item)" size="small">
+                        <!--<a-icon type="right"/>-->
+                        <a-icon type="add"/>
                         <!--添加到{{item}}-->
                         添加
 
                       </a-button>
-                      <a-button @click="toLeft(item)">
-                        <a-icon type="left"/>
+                      &nbsp;
+                      <a-button @click="toLeft(item)" size="small">
+                        <!--<a-icon type="left"/>-->
+                        <a-icon/>
                         <!--从{{item}}删除-->
                         删除
                       </a-button>
+                      <!--</center>-->
+
+
                     </div>
+
 
                     <div class="userBox">
-                      <template>
-                        <h4 color="red">{{item}}部门用户</h4>
-                        <!--<a-button type="primary" size="small" @click="queryUser(item)">【{{item}}】人员</a-button>-->
-                        <a-row v-for="i in departUsersMsg[item]">
-                          <a-col :span="100">
-                            {{i.username}}
-                          </a-col>
-                        </a-row>
-                      </template>
+                      <h1 class="usertitle">待发送用户</h1>
+                      <div class="userList">
+                        <template>
+                          <a-row v-for="i in departUsersMsg[item]">
+                            <a-col :span="100">
+                              {{i.username}} ( {{i.departName}})
+                            </a-col>
+                          </a-row>
+                        </template>
+                      </div>
                     </div>
                   </div>
-
-
                 </div>
               </div>
 
@@ -215,8 +227,9 @@
     components: {DictItemList},
     data() {
       return {
-        defaultSelectedKeys:[],
-        scrHeight: window.innerHeight - 300 + 'px',
+        defaultSelectedKeys: [],
+        // scrHeight: window.innerHeight-300+ 'px',
+        scrHeight: '',
         title: '下一任务',
         okText: '确定',
         //控制组件数据可见
@@ -262,7 +275,7 @@
         ],
         columns2: [
           {
-            title: '部门名称',
+            title: '待选部门',
             align: "center",
             dataIndex: 'departName'
           }
@@ -428,24 +441,24 @@
         //是否选部门
         this.isDept = (item.oaProcActinst.userOrRole) == 'dept'
 
-        if (this.isDept){
+        if (this.isDept) {
 
           var length = item.oaProcActinst.deptsList.length == 0 ? 1 : item.oaProcActinst.deptsList.length
 
-          setTimeout(()=>{
+          setTimeout(() => {
             let domItemPartBox = document.querySelectorAll('.itemPartBox');
 
             console.log(domItemPartBox);
 
-            for (let itemPartBox of domItemPartBox){
+            for (let itemPartBox of domItemPartBox) {
               console.log(itemPartBox)
-              if(length==1){
-                itemPartBox.style.width='100%'
-              }else if(length==2){
-                itemPartBox.style.width='49.8%'
+              if (length == 1) {
+                itemPartBox.style.width = '100%'
+              } else if (length == 2) {
+                itemPartBox.style.width = '49.8%'
               }
             }
-          },1000)
+          }, 1000)
         }
 
 
@@ -1031,21 +1044,27 @@
 
     .left {
       width: 30%;
+      height: 380px;
+      overflow-y: scroll;
+
+      /deep/ .ant-table-small > .ant-table-content > .ant-table-body {
+        margin: 0 !important;
+      }
     }
 
-    .right {
+    .rightt {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       width: 69%;
-      height: 400px;
+      /*height: px;*/
       background: #ffffff;
-      overflow-y: scroll;
+      /*overflow-y: scroll;*/
 
       .itemPartBox {
 
         width: 33%;
-        height: 100%;
+        /*height: 100%;*/
         /*background: red;*/
         display: flex;
         flex-direction: column;
@@ -1053,34 +1072,61 @@
         justify-content: flex-start;
         border: 1px solid #dddddd;
         padding: 10px;
+        /*margin-top: 30px;*/
         margin-left: 8px;
 
         .partBox {
           width: 100%;
-          height: 200px;
+          height: 190px;
+
           /*background: #2eabff;*/
-          overflow-y: scroll;
+
+          /*padding-bottom: 20px;*/
+
+          .partBoxChild {
+            height: 150px;
+            overflow-y: scroll;
+          }
 
         }
 
         .optionBox {
           width: 100%;
-          height: 30px;
+          /*width: 30%;*/
+          /*height: 30px;*/
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          margin-top: 15px;
+          justify-content: center;
+
+          /*border-bottom: 1px solid #dddddd;*/
+          padding-bottom: 5px;
+          margin-top: 1px;
+
         }
 
         .userBox {
           /*width: 90%;*/
           width: 100%;
-          height: 130px;
-          background: #fff;
-          /*margin-left: 150px;*/
-          /*margin-right: 1px;*/
-          margin-top: 15px;
-          overflow-y: scroll;
+
+
+          .usertitle {
+            padding: 5px;
+            font-size: 16px;
+            text-align: left;
+            background: #d6ebff !important;
+            /*border-bottom: 1px solid #dddddd;*/
+
+
+          }
+
+          .userList {
+            height: 105px;
+            background: #fff;
+            /*margin-left: 150px;*/
+            /*margin-right: 1px;*/
+            /*margin-top: 20px;*/
+            overflow-y: scroll;
+          }
         }
       }
 
