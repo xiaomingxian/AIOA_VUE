@@ -168,35 +168,39 @@
       </a-form>
     </div>
 
+
+
     <!-- table区域-begin -->
+
+    <!-- 操作按钮区域 -->
+    <div class="table-operator">
+      <a-dropdown v-if="selectedRowKeys.length > 0">
+        <a-menu slot="overlay">
+          <!--<a-menu-item key="1" @click="batchEnd">-->
+          <!--<a-icon type="delete"/>-->
+          <!--批量办结-->
+          <!--</a-menu-item>-->
+          <a-menu-item v-if="(this.queryParam.deptType=='传阅')"
+                       key="1" @click="batchPiYue">
+            <a-icon type="delete"/>
+            批量批阅
+          </a-menu-item>
+        </a-menu>
+
+        <a-button style="margin-left: 8px"> 批量操作
+          <a-icon type="down"/>
+        </a-button>
+      </a-dropdown>
+
+    </div>
+
+    <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+      <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
+      selectedRowKeys.length }}</a>项
+      <a style="margin-left: 24px" @click="onClearSelected">清空</a>
+    </div>
+
     <div v-if="iisFold == 0">
-      <!-- 操作按钮区域 -->
-      <div class="table-operator">
-        <a-dropdown v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
-            <!--<a-menu-item key="1" @click="batchEnd">-->
-            <!--<a-icon type="delete"/>-->
-            <!--批量办结-->
-            <!--</a-menu-item>-->
-            <a-menu-item v-if="(this.queryParam.deptType=='传阅')"
-                         key="1" @click="batchPiYue">
-              <a-icon type="delete"/>
-              批量批阅
-            </a-menu-item>
-          </a-menu>
-
-          <a-button style="margin-left: 8px"> 批量操作
-            <a-icon type="down"/>
-          </a-button>
-        </a-dropdown>
-
-      </div>
-
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
 
       <a-table
         ref="table"
@@ -232,26 +236,26 @@
 
     <div v-if="iisFold == 1">
       <!-- 操作按钮区域 -->
-      <div class="table-operator">
-        <a-dropdown>
-          <a-menu slot="overlay">
-            <!--<a-menu-item key="1" @click="batchEnd">-->
-            <!--<a-icon type="delete"/>-->
-            <!--批量办结-->
+      <!--<div class="table-operator">-->
+        <!--<a-dropdown>-->
+          <!--<a-menu slot="overlay">-->
+            <!--&lt;!&ndash;<a-menu-item key="1" @click="batchEnd">&ndash;&gt;-->
+            <!--&lt;!&ndash;<a-icon type="delete"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;批量办结&ndash;&gt;-->
+            <!--&lt;!&ndash;</a-menu-item>&ndash;&gt;-->
+            <!--<a-menu-item v-if="(this.queryParam.deptType=='传阅')"-->
+                         <!--key="1" @click="batchPiYue">-->
+              <!--<a-icon type="delete"/>-->
+              <!--批量批阅-->
             <!--</a-menu-item>-->
-            <a-menu-item v-if="(this.queryParam.deptType=='传阅')"
-                         key="1" @click="batchPiYue">
-              <a-icon type="delete"/>
-              批量批阅
-            </a-menu-item>
-          </a-menu>
+          <!--</a-menu>-->
 
-          <a-button style="margin-left: 8px"> 批量操作
-            <a-icon type="down"/>
-          </a-button>
-        </a-dropdown>
+          <!--<a-button style="margin-left: 8px"> 批量操作-->
+            <!--<a-icon type="down"/>-->
+          <!--</a-button>-->
+        <!--</a-dropdown>-->
 
-      </div>
+      <!--</div>-->
 
       <a-table
         v-once
