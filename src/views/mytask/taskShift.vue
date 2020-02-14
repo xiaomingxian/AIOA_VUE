@@ -187,6 +187,7 @@
       return {
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         description: '任务移交',
+        iisFontSize: '16px',
         datasource: [],
         loginInfo: '',
         task: '',
@@ -303,7 +304,30 @@
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
+    created() {
+      //默认不带部门类型
+      this.queryParam.isDept = false
+      getAction("/sys/user/getLoginInfo").then(res => {
+        this.loginInfo = res
+      });
+
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       batchShift() {
         this.isBatchShift = true
         console.log(this.selectedRowKeys)
@@ -485,14 +509,6 @@
           this.queryParam.shiftUsers = ids.join(",")
         }
       }
-    },
-    created() {
-      //默认不带部门类型
-      this.queryParam.isDept = false
-      getAction("/sys/user/getLoginInfo").then(res => {
-        this.loginInfo = res
-      })
-
     }
 
   }

@@ -153,6 +153,7 @@
     data() {
       return {
         description: '这是运维工具查询列表页面',
+        iisFontSize: '16px',
         visibleCreateModal: false,
         visible: false,
         getPageList: [],
@@ -221,7 +222,7 @@
       this.getPgSearchList(1);
       this.getBusModelSelectList();//模块列表
       // this.getPgList();
-
+      this.setFontSize();
     },
     methods: {
       // loadData (arg){
@@ -236,6 +237,20 @@
       //     }
       //   })
       // },
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       modalFormOk() {
         // 新增/修改 成功时，重载列表
         this.getPgSearchList();

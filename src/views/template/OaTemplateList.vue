@@ -115,6 +115,7 @@
   import OaTemplateModal from './modules/OaTemplateModal'
   import OaTemplateCatModal from './modules/OaTemplateCatModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { getAction } from '@/api/manage'
 
   export default {
     name: "OaTemplateList",
@@ -126,6 +127,7 @@
     data () {
       return {
         description: '模板管理管理页面',
+        iisFontSize: '16px',
         // 表头
         columns: [
           {
@@ -180,7 +182,24 @@
       return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
     }
   },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       handleCat: function (record) {
         this.$refs.catModalForm.add(record);
         this.$refs.catModalForm.title = "查看";

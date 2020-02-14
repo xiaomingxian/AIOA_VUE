@@ -251,6 +251,7 @@
     data() {
       return {
         description: '这是公共查询列表页面',
+        iisFontSize: '16px',
         visibleCreateModal: false,
         visible: false,
         index: 0,
@@ -345,6 +346,22 @@
       //     }
       //   })
       // },
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+            document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
+          }
+        })
+      },
       changFunId(index) {
 
         index = index - 1;
@@ -486,9 +503,8 @@
           // console.log(this.taskKey);
           // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
           // console.log(this.dataSource);
-
-
         });
+        this.setFontSize();
       },
       getCaption(obj, state) {
         let index = obj.lastIndexOf("\-");
@@ -538,6 +554,7 @@
           // console.log(this.dataSources);
 
         });
+        this.setFontSize();
       },
       getPgSearchList() {
 
@@ -661,7 +678,7 @@
             }
           }
         });
-
+        this.setFontSize();
       },
       changeInput(event, obj) {
         this.queryParam[obj] = event.currentTarget.value;

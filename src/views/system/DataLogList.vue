@@ -68,6 +68,7 @@
   import DataLogModal from './modules/DataLogModal'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import JEllipsis from "@/components/jeecg/JEllipsis";
+  import { getAction } from '@/api/manage'
 
   export default {
     name: 'DataLogList',
@@ -79,6 +80,7 @@
     data() {
       return {
         description: '数据日志管理页面',
+        iisFontSize: '16px',
         //表头
         columns: [
           {
@@ -110,7 +112,24 @@
         },
       }
     },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       handleCompare: function () {
         if (!this.selectionRows || this.selectionRows.length != 2) {
           this.openNotifIcon('请选择两条数据');

@@ -26,17 +26,16 @@
     </a-form-item>
 
     <a-form-item
-      style="padding-bottom: 20px;border-bottom: 1px solid;font-weight: bolder;"
+      style="padding-bottom: 20px;border-bottom: 1px solid;"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol">
       <span >字号 :&nbsp&nbsp</span>
       <a-radio-group
+        style="font-weight: bolder;"
         name="radioGroup"
         v-model="iisFontSize"
        :defaultValue="2">
-        <a-radio :value="1">大（18px）</a-radio>
-        <a-radio :value="2">中（16px）</a-radio>
-        <a-radio :value="3">小（14px）</a-radio>
+        <a-radio v-for="(atom,index) in fontSizeList" :value="parseInt(atom.value)">{{atom.text}}</a-radio>
       </a-radio-group>
     </a-form-item>
 
@@ -182,7 +181,8 @@
         url: {
           add: "/testt/sysUserSet/add",
           edit: "/testt/sysUserSet/edit",
-          changIp: "/sys/user/changeIP"
+          changIp: "/sys/user/changeIP",
+          sysDict: "/sys/dict/getDictByKeyObj",
         },
         form: this.$form.createForm(this),
         model: {},
@@ -192,6 +192,7 @@
         iisFold:false,
         iisCalendar:false,
         iisFontSize: 2,
+        fontSizeList: [],
         ibus1Id:'',
         ibus2Id:'',
         ibus3Id:'',
@@ -206,7 +207,8 @@
     created () {
       this.InitializeQuery();
       this.getBusModelList();
-
+      //查询字体大小
+      this.getFontSizeFun();
     },
     watch: {
       selectedModel: 'getBusModelList'
@@ -220,6 +222,12 @@
     },
     mixins: [mixin],
     methods: {
+      //获取字体大小的字典值
+      getFontSizeFun(){
+        getAction(this.url.sysDict,{dictKey:'fontSize'}).then((res) =>{
+          this.fontSizeList = res.result;
+        })
+      },
       //下拉选列表-所属功能
       getBusModelList() {
         let url = "/oaBus/Calendar/oaCalendar/getFunctionName";
@@ -301,6 +309,7 @@
         this.userid = userid;
         let url = "/testt/sysUserSet/queryByUserId";
         getAction(url,{userId:userid}).then((res) => {
+          this.iisFontSize = res.result.iisFontSize;
           console.log(res.result);
           this.isnewbody = res.result;
           this.getdata = res.result;

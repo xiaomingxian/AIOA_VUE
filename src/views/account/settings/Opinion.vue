@@ -89,6 +89,7 @@
 <script>
   import OpinionModal from './OpinionModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { getAction } from '@/api/manage'
 
   export default {
     name: "Opinion",
@@ -99,6 +100,7 @@
     data () {
       return {
         description: '快捷意见管理页面',
+        iisFontSize: '16px',
         // 表头
         columns: [
           {
@@ -127,13 +129,33 @@
         },
       }
     },
+
+    created(){
+
+      this.setFontSize();
+
+    },
+
     computed: {
       importExcelUrl: function(){
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
     methods: {
-
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      }
     }
   }
 </script>

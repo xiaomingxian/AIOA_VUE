@@ -97,6 +97,7 @@
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import  oaTeamworkSetList from './oaTeamworkSetList'
   import {httpAction, getAction, postAction, getRoleList, getUserList, getServiceList,deleteAction} from '@/api/manage'
+
   export default {
     name: "oaTeamworkList",
     mixins:[JeecgListMixin],
@@ -145,7 +146,7 @@
     }
   },
 
-  mounted(){
+  created(){
 
     this.setFontSize();
 
@@ -158,9 +159,18 @@
   },
     methods: {
       setFontSize(){
-
-        document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
-
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
       },
       // 多选事件
       onSelectChange(selectedRowKeys,keysObjs){

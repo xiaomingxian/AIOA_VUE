@@ -67,6 +67,7 @@
   export default {
     data() {
       return {
+        iisFontSize: '16px',
         customActiveKey: "tab1",
         loginBtn: false,
         form: this.$form.createForm(this),
@@ -83,8 +84,23 @@
       }
     },
     created() {
+      this.setFontSize();
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       bpmn_create() {
         var url = '/modeler/create'
         var url_model = '/modeler.html?modelId='

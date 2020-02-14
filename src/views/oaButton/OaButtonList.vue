@@ -135,6 +135,7 @@
   import OaButtonModal from './modules/OaButtonModal'
   import OaButtonCatModal from './modules/OaButtonCatModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { getAction } from '@/api/manage'
 
   export default {
     name: "OaButtonList",
@@ -146,6 +147,7 @@
     data () {
       return {
         description: '按钮管理管理页面',
+        iisFontSize: '16px',
         // 表头
         columns: [
          /* {
@@ -308,7 +310,24 @@
       return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
     }
   },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       // handleCat: function (record) {
       //   //console.log(record.iid)
       //   this.$refs.catModalForm.add(record);

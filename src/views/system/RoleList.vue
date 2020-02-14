@@ -108,6 +108,7 @@
   import UserRoleModal from './modules/UserRoleModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import JDate from '@/components/jeecg/JDate'
+  import { getAction } from '@/api/manage'
 
   export default {
     name: "RoleList",
@@ -119,8 +120,8 @@
     },
     data () {
       return {
-
         description: '角色管理页面',
+        iisFontSize: '16px',
         // 查询条件
         queryParam: {roleName:'',},
         // 表头
@@ -191,7 +192,24 @@
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       handlePerssion: function(roleId){
        // alert(roleId);
         this.$refs.modalUserRole.show(roleId);

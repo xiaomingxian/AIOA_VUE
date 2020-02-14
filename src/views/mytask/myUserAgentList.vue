@@ -308,6 +308,7 @@
       return {
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         description: '我的委托',
+        iisFontSize: '16px',
         // visibleCreateModal: false,
         // visible: false,
         iisFold: 0,
@@ -390,6 +391,22 @@
       }
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+            document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
+          }
+        })
+      },
       //清空其他排序条件
       nullOther(type) {
         let orderColums = ['orederByWenHao', 'orederByTile', 'orederByHuanJie', 'orederByDrafter', 'orederByTime']
@@ -674,8 +691,10 @@
 
         });
 
-        console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
-        console.log(this.dataSource007.length);
+        this.setFontSize();
+
+        // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
+        // console.log(this.dataSource007.length);
 
         if(this.dataSource007.length > 0){
           this.getSearchList();
@@ -819,6 +838,7 @@
           // console.log(this.dataSource);
 
         });
+        this.setFontSize();
       },
       getSearchList (){
         this.dataSource007 = [];
@@ -968,7 +988,7 @@
 
 
         // });
-
+        this.setFontSize();
       },
       // changeInput(event, obj) {
       //   this.queryParam[obj] = event.currentTarget.value;

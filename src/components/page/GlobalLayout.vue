@@ -89,6 +89,7 @@
   import { triggerWindowResizeEvent } from '@/utils/util'
   import { mapState, mapActions } from 'vuex'
   import { mixin, mixinDevice } from '@/utils/mixin.js'
+  import { getAction } from '@/api/manage'
 
   // import $ from  'jquery'
 
@@ -144,21 +145,30 @@
       console.log('----navTheme------'+this.navTheme)
       //--update-end----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
 
+      this.setFontSize();
     },
 
     mounted(){
-
-      this.setFontSize();
 
     },
     methods: {
       ...mapActions(['setSidebar']),
       setFontSize(){
-
-        document.getElementsByTagName('body')[0].style.fontSize = this.iisFontSize;
-
-        document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
-
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByTagName('body')[0].style.fontSize = this.iisFontSize;
+          // for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+          //   document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
+          // }
+        })
       },
       toggle() {
         this.collapsed = !this.collapsed
@@ -743,6 +753,10 @@
 </style>
 
 <style>
+  .ant-form label{
+    font-size: 16px !important;
+  }
+
   .ant-input{
     background-color: #f0f5fc;
   }
@@ -759,12 +773,20 @@
     /*font-size: 16px !important;*/
   /*}*/
 
+  /*.ant-table-thead {*/
+    /*font-size: 17px;*/
+  /*}*/
+
   .ant-table-thead > tr > th{
     color: #fff !important;
     background-color: #006db9 !important;
     /*border: none !important;*/
     border-right:1px solid #779ecb !important;
   }
+
+  /*.ant-table-tbody{*/
+    /*font-size: 16px;*/
+  /*}*/
 
   .light-row{
     background-color: #fff;

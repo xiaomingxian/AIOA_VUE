@@ -61,7 +61,7 @@
         </div>
         <div class="account-settings-info-right">
           <div class="account-settings-info-title">
-            <span>{{ $route.meta.title }}</span>
+            <span class="settingsInfoTitle">{{ $route.meta.title }}</span>
           </div>
           <route-view></route-view>
         </div>
@@ -169,7 +169,17 @@
         font-size: 20px;
         font-weight: 500;
         line-height: 28px;
-        margin-bottom: 12px;
+        margin-bottom: 50px;
+
+        .settingsInfoTitle{
+          padding: 10px 27px;
+          background-color: #b2e1ff;
+          border-radius: 0 0 27px 0;
+          position: absolute;
+          top: 0%;
+          left: 224px;
+        }
+
       }
       .account-settings-info-view {
         padding-top: 12px;

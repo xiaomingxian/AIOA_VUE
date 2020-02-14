@@ -139,6 +139,7 @@
     data() {
       return {
         description: '文号配置管理页面',
+        iisFontSize: '16px',
         // 表头
         columns: [
           {
@@ -210,8 +211,23 @@
     },
     created() {
       this.getModelList();
+      this.setFontSize();
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       //所属模块
       getModelList() {
         let url = "/papertitle/docNumSet/busModelList";

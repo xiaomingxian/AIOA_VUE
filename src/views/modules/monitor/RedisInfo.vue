@@ -39,6 +39,7 @@
     },
     data() {
       return {
+        iisFontSize: '16px',
         loading: true,
         tableLoading: true,
         // 定时器ID
@@ -89,6 +90,9 @@
         path: '/monitor/redis/info'
       }
     },
+    created(){
+      this.setFontSize();
+    },
     mounted() {
       this.openTimer()
       this.loadRedisInfo()
@@ -100,6 +104,20 @@
       this.closeTimer()
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
 
       /** 开启定时器 */
       openTimer() {

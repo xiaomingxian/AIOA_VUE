@@ -124,6 +124,7 @@
     data() {
       return {
         description: '业务配置表管理页面',
+        iisFontSize: '16px',
         // 表头
         iBusModelId: '',
         selectModelData: [],
@@ -298,8 +299,23 @@
     },
     created() {
       this.getSelection();
+      this.setFontSize();
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       permitConfig(record) {
         this.$refs.modelModalForm.mo(record);
 

@@ -125,6 +125,7 @@
     data () {
       return {
         description: '个人协同办公业务实例管理页面',
+        iisFontSize: '16px',
         modelList: [],
         selectList: [],
         teamworkList: [],
@@ -187,6 +188,7 @@
     created() {
       this.getBusModelSelectList();
       this.getTeamWorkList();
+      this.setFontSize();
     },
   computed: {
     importExcelUrl: function(){
@@ -194,6 +196,20 @@
     }
   },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
   /*    handleTableChange(q,w,e,){
         console.log(q.current);
         this.ipagination.current = q.current;

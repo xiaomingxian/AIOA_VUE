@@ -50,6 +50,7 @@
   export default {
     data() {
       return {
+        iisFontSize: '16px',
         time: '',
         loading: true,
         tableLoading: true,
@@ -85,11 +86,27 @@
         moreInfo: {}
       }
     },
+    created(){
+      this.setFontSize();
+    },
     mounted() {
       this.loadTomcatInfo()
     },
     methods: {
-
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       handleClickUpdate() {
         this.loadTomcatInfo()
       },
