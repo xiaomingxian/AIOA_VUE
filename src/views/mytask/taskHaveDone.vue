@@ -1084,6 +1084,10 @@
                         this.taskRecord.id = res.result[0].id
                         this.taskRecord.name = res.result[0].name
                         this.taskRecord.taskDefinitionKey = res.result[0].taskDefinitionKey
+                        this.taskRecord.processDefinitionId = res.result[0].processDefinitionId
+                        this.taskRecord.hiTaskId = undefined
+
+                        console.log(res.result,this.taskRecord)
                         window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName='
                           + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId
                           + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))

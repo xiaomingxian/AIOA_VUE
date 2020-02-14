@@ -41,7 +41,7 @@
           <!--.........................//////////////////////////////////////////..........................................................................-->
           <a-layout v-if="!endType" style="padding: 2px 2px 2px">
 
-            <a-breadcrumb style="margin: 16px 0;height: 4%">
+            <a-breadcrumb style="height: 50px;display: flex;align-items: center">
               <div>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a-radio-group name="radioGroup" @change="changeChoice" :defaultValue="1">
@@ -122,11 +122,12 @@
                         {{item}}部门
                       </div>
                       <!--<hr>-->
-                      <div class="partBoxChild">
+                      <div class="partBoxChild" style="overflow: hidden">
                         <a-row v-for="i in departSelect[item]">
                           <a-col :span="100">
                             <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
-                              {{i.departName}}
+
+                              <span  :title="i.departName" > {{i.departName}}</span>
                             </a-checkbox>
                           </a-col>
                         </a-row>
