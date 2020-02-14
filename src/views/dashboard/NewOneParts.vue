@@ -92,7 +92,7 @@
               <p class="p">
                 <span :title="item.title+'   '+item.createTime+item.name">
                   <i></i>
-                  {{item.title|filterText}}
+                  {{item.title|filterText1}}
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
                    <div v-if="item.important==1">
                       <img src="../../assets/zhong.png" alt="" >
@@ -277,13 +277,18 @@
     },
     filters:{
       filterText(text){
-
        if(text.length>18){
            return text.substring(0,13)+'...'
          }else{
            return text
          }
-
+      },
+      filterText1(text){
+       if(text.length>25){
+           return text.substring(0,22)+'...'
+         }else{
+           return text
+         }
       },
       timeStrings(time){
         let oneTime = new Date(time);

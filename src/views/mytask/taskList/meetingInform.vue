@@ -1,5 +1,4 @@
 <template>
-
     <form>
       <center>
         <table  width="100%" border="0">
@@ -28,11 +27,11 @@
                 </td>
                 <td colspan="7">
                   <center>
-                    <a-select style="width:88%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
+                    <a-select style="width:86%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
                               v-model="backData.s_varchar4" @change="changeHuanJi">
                       <a-select-option  v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text" :value="item.value" >{{item.text}}</a-select-option>
                     </a-select>
-                    <a-button style="padding: 0 19px;" @click="showMeeting" >会议室使用情况</a-button>
+                    <a-button style="height:50px"  @click="showMeeting" >会议室使用情况</a-button>
                   </center>
                 </td>
 
