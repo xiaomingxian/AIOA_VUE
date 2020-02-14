@@ -65,7 +65,7 @@ export const taskBth = {
         departFinish: 'wf/task/departFinish',
         lastVersionProc: 'wf/process/lastVersionProc',
         addUserOrDepart: 'oaBus/taskInAct/addUsersQuery',
-        doAddUsers:'/oaBus/taskInAct/doAddUsers',
+        doAddUsers: '/oaBus/taskInAct/doAddUsers',
 
         //TODO(仅标识) *********************************************    WorkFlow   END   ********************************
         // downloadFiles: '/oaBus/oaFile/downloadZipFile',
@@ -295,34 +295,34 @@ export const taskBth = {
         return
       }
 
-      //校验意见
-      if (this.flag) {    //如果要填写意见的话，就进行校验
-        if (!this.isSaveFlag) {  //如果没有填写
-          this.$message.error("下一任务前必须填写意见！！！");
-          return;
-        }
-      }
-      // 按钮校验
-      if (this.btn != undefined && this.btn.length > 0) {
-        console.log(JSON.stringify(this.btn))
-        for (let i = 0; i < this.btn.length; i++) {
-          //查看是否要校验按钮
-          if (this.btn[i].iisCheckbus == 1) {
-            let checkFlagBtn = this.checkBtnBeforeNext(this.btn[i].smethod);
-            if (!checkFlagBtn) {
-              return;
-              break;
-            }
-          }
-        }
-      }
-      this.$emit('checkData')
-      this.$emit("nextCheckDataFun")
-      //获取store changeCheckDataFlag
-      if (this.$store.state.checkDataFlag) {
-        this.nextRealQuery()
-      }
-      // this.nextRealQuery()
+      // //校验意见
+      // if (this.flag) {    //如果要填写意见的话，就进行校验
+      //   if (!this.isSaveFlag) {  //如果没有填写
+      //     this.$message.error("下一任务前必须填写意见！！！");
+      //     return;
+      //   }
+      // }
+      // // 按钮校验
+      // if (this.btn != undefined && this.btn.length > 0) {
+      //   console.log(JSON.stringify(this.btn))
+      //   for (let i = 0; i < this.btn.length; i++) {
+      //     //查看是否要校验按钮
+      //     if (this.btn[i].iisCheckbus == 1) {
+      //       let checkFlagBtn = this.checkBtnBeforeNext(this.btn[i].smethod);
+      //       if (!checkFlagBtn) {
+      //         return;
+      //         break;
+      //       }
+      //     }
+      //   }
+      // }
+      // //this.$emit('checkData')
+      // this.$emit("nextCheckDataFun")
+      // //获取store changeCheckDataFlag
+      // if (this.$store.state.checkDataFlag) {
+      //   this.nextRealQuery()
+      // }
+      this.nextRealQuery()
 
 
     },
@@ -762,7 +762,7 @@ export const taskBth = {
       var data = {};
       var taskId = this.taskMsg.id
       if (this.havaOtherProc) {
-        var taskId = undefined
+        taskId = undefined
       }
       data['taskId'] = taskId
       //业务数据权限表（流转过程中逐步维护该表数据、收回删除人员权限）
@@ -825,26 +825,22 @@ export const taskBth = {
       }
       data['taskDefKey'] = activity.actMsg.id
 
-      console.log('---->>>>>',JSON.stringify(data))
-
-
-
 
       //参数构造完毕***********************
-      // postAction(this.url.doTask, data).then(res => {
-      //   if (res.success) {
-      //     this.$message.success(res.message)
-      //     this.havaOtherProc = false
-      //     this.nextConfirm = true
-      //     // this.saveBusData()
-      //     setTimeout(function () {
-      //       this.close()
-      //     }, 500)
-      //     // this.reload()
-      //   } else {
-      //     this.$message.error(res.message)
-      //   }
-      // })
+      postAction(this.url.doTask, data).then(res => {
+        if (res.success) {
+          this.$message.success(res.message)
+          this.havaOtherProc = false
+          this.nextConfirm = true
+          // this.saveBusData()
+          setTimeout(function () {
+            this.close()
+          }, 500)
+          // this.reload()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
     },
     //并行/包容追加
     confirmAddUsers(actMsg, endTime) {
@@ -857,7 +853,6 @@ export const taskBth = {
       }
       let taskInfoVoList = {list: datas}
 
-      console.log('=========>>>>>',JSON.stringify(taskInfoVoList))
 
       //请求后台
       postAction(this.url.doAddUsers, taskInfoVoList).then(res => {
@@ -927,7 +922,7 @@ export const taskBth = {
           vars = {}
         }
         //进行任务办理
-        if (endTime!=undefined && endTime != '' ) {
+        if (endTime != undefined && endTime != '') {
           //有时间限制
           vars.endTime = endTime;
         }
@@ -955,6 +950,14 @@ export const taskBth = {
           data['busData'] = this.backData
         }
         data['taskDefKey'] = activity.actMsg.id
+
+        //追加使用
+        if (v.selectionRows!=undefined && v.selectionRows.length>0) {
+          if (v.selectionRows[0].executionId != undefined) {
+            data['taskId'] = v.selectionRows[0].taskId
+            data['executionId'] = v.selectionRows[0].executionId
+          }
+        }
 
         datas.push(data)
 
@@ -1082,6 +1085,10 @@ export const taskBth = {
         this.$message.error('此条业务没有流程,请检查按钮配置')
         return
       }
+      if (typeof (this.taskMsg) == 'string') {
+        this.taskMsg = JSON.parse(this.taskMsg)
+      }
+
       if (this.taskMsg.processInstanceId == null) {
         getAction(this.url.lastVersionProc + '?key=' + key).then(res => {
           if (res.success) {

@@ -21,7 +21,7 @@
           <a-layout-sider v-if="!endType" width="200" style="background: #fff">
             <a-menu
               mode="inline"
-              :defaultSelectedKeys="['1']"
+              :defaultSelectedKeys="defaultSelectedKeys"
               :defaultOpenKeys="['sub1']"
               :style="{ height: '100%', borderRight: 80 }">
               <!--...................................................................................................-->
@@ -220,6 +220,7 @@
     components: {DictItemList},
     data() {
       return {
+        defaultSelectedKeys:[],
         scrHeight: window.innerHeight - 300 + 'px',
         title: '追加用户',
         okText: '确定',
@@ -323,6 +324,7 @@
           this.showPreClick(i, false, false, true)
         }
         //---------默认选择 第一个环节----------
+        this.defaultSelectedKeys.push(this.nextsActs[0].oaProcActinst.actId)
         this.clickAct(this.nextsActs[0]);
 
         this.visible = true
@@ -625,6 +627,7 @@
       },
       //并行或包容
       moreThanOneType() {
+        console.log('-------->>>>>',JSON.stringify(this.gateWayTypeSelect))
 
         this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
       },
@@ -642,7 +645,6 @@
         }
       },
       confirm2() {
-        // console.log('=====================LLLLLLLLLLLLLLLL:::', this.selectedRowKeys2)
 
         let isPass = this.moreThanOneUserCheck();
         if (isPass) {
@@ -837,7 +839,7 @@
           }
           ids = this.selectedRowKeys
 
-          // ////console.log('------普通：' + ids, JSON.stringify(this.currentClick))
+          console.log('------普通：' + ids, JSON.stringify(this.currentClick))
           //办理流程
           this.$emit('func', ids, this.currentClick, this.endTime)
           this.cancel()

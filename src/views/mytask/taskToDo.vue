@@ -106,7 +106,7 @@
           </a-col>
           <a-col :md="6" :sm="8">
             <a-form-item label="是否领导关注">
-              <a-select style="width: 150px"  v-model="queryParam.iImport">
+              <a-select style="width: 150px" v-model="queryParam.iImport">
                 <a-select-option value="1">是</a-select-option>
                 <a-select-option value="0">否</a-select-option>
               </a-select>
@@ -115,9 +115,9 @@
 
           <template v-if="toggleSearchStatus">
             <!--<a-col :md="6" :sm="8">-->
-              <!--<a-form-item label="拟稿人">-->
-                <!--<a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>-->
-              <!--</a-form-item>-->
+            <!--<a-form-item label="拟稿人">-->
+            <!--<a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>-->
+            <!--</a-form-item>-->
             <!--</a-col>-->
             <a-col :md="6" :sm="8">
 
@@ -463,7 +463,12 @@
             title: '环节名称',
             align: "center",
             dataIndex: 'name'
-          }
+          },
+          // {
+          //   title: 'key',
+          //   align: "center",
+          //   dataIndex: 'key'
+          // }
         ],
 
       }
@@ -541,11 +546,11 @@
       },
       searchResetMy() {
         this.queryParam.tableOrder = false
-        if(this.iisFold == 1){
+        if (this.iisFold == 1) {
 
           this.getPgFirstList();
 
-        }else {
+        } else {
 
           this.searchReset();
 
@@ -788,8 +793,8 @@
             this.taskKey.push(res.result[i].value);
             let url = "urgency/degree/queryTask";
             let Urgency = res;
-            getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i],jY:1}).then((res) => {
-              if(res.result.total > 0){
+            getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+              if (res.result.total > 0) {
                 this.dataSources.push({
                   key: i,
                   wenHao: Urgency.result[i].text,
@@ -808,15 +813,15 @@
         console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
         console.log(this.dataSource007.length);
 
-        if(this.dataSource007.length > 0){
+        if (this.dataSource007.length > 0) {
           this.getSearchList();
-        }else {
+        } else {
           return;
         }
 
       },
-      getExpandRecords(expanded,record){
-        if(expanded == false){
+      getExpandRecords(expanded, record) {
+        if (expanded == false) {
           this.dataSource007 = [];
         }
       },
@@ -837,7 +842,17 @@
         this.columns = [];
         this.dataSource007 = [];
         let url = "urgency/degree/queryTask";
-        getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[this.taskNames],dataTitle: this.queryParam.dataTitle,fileNum: this.queryParam.fileNum,createName: this.queryParam.createName,mainDept: this.queryParam.mainDept,taskType: this.queryParam.taskType,startTimeFake: this.queryParam.startTimeFake,endTimeFake: this.queryParam.endTimeFake}).then((res) => {
+        getAction(url, {
+          operstatus: 'task_todo',
+          urgencyDegree: this.taskKey[this.taskNames],
+          dataTitle: this.queryParam.dataTitle,
+          fileNum: this.queryParam.fileNum,
+          createName: this.queryParam.createName,
+          mainDept: this.queryParam.mainDept,
+          taskType: this.queryParam.taskType,
+          startTimeFake: this.queryParam.startTimeFake,
+          endTimeFake: this.queryParam.endTimeFake
+        }).then((res) => {
 
           // this.searchColumns = JSON.parse(res.records);
 
@@ -941,10 +956,20 @@
 
         });
       },
-      getSearchList (){
+      getSearchList() {
         this.dataSource007 = [];
         let url = "urgency/degree/queryTask";
-        getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskSearch,dataTitle: this.queryParam.dataTitle,fileNum: this.queryParam.fileNum,createName: this.queryParam.createName,mainDept: this.queryParam.mainDept,taskType: this.queryParam.taskType,startTimeFake: this.queryParam.startTimeFake,endTimeFake: this.queryParam.endTimeFake}).then((res) => {
+        getAction(url, {
+          operstatus: 'task_todo',
+          urgencyDegree: this.taskSearch,
+          dataTitle: this.queryParam.dataTitle,
+          fileNum: this.queryParam.fileNum,
+          createName: this.queryParam.createName,
+          mainDept: this.queryParam.mainDept,
+          taskType: this.queryParam.taskType,
+          startTimeFake: this.queryParam.startTimeFake,
+          endTimeFake: this.queryParam.endTimeFake
+        }).then((res) => {
           this.dataSource007 = res.result.records;
           for (let i = 0; i < this.dataSource007.length; i++) {
             this.dataSource007[i].key = this.dataSource007[i].id;
@@ -1188,7 +1213,7 @@
                 }
                 if (Object.values(map).length == 1) {
 
-                  let  record2 = Object.values(map)[0]
+                  let record2 = Object.values(map)[0]
                   this.taskRecord.taskDefinitionKey = record2.key
                   this.taskRecord.name = record2.name
                   this.taskRecord.id = record2.id

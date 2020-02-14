@@ -315,7 +315,6 @@
             this.showPreClick(i, false, false, true)
           }
           //---------默认选择 下一任下第一个环节----------
-          console.log('----->>>>',this.nextsActs[0].oaProcActinst.actId)
           this.defaultSelectedKeys.push(this.nextsActs[0].oaProcActinst.actId)
           this.clickAct(this.nextsActs[0]);
         }
