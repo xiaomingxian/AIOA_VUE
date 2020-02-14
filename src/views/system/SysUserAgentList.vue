@@ -6,30 +6,31 @@
       <a-form layout="inline">
         <a-row :gutter="24">
 
+          <!--<a-col :md="6" :sm="8">-->
+            <!--<a-form-item label="用户名">-->
+              <!--<a-input placeholder="请输入用户名" v-model="queryParam.userName"></a-input>-->
+            <!--</a-form-item>-->
+          <!--</a-col>-->
           <a-col :md="6" :sm="8">
-            <a-form-item label="用户名">
-              <a-input placeholder="请输入用户名" v-model="queryParam.userName"></a-input>
+            <a-form-item label="开始时间">
+              <a-input placeholder="请输入开始时间" v-model="queryParam.startTime"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <a-form-item label="代理人">
-              <a-select  v-model="queryParam.agentUserName" placeholder="请选择代理人">
-                <a-select-option v-for="(item,index) in postLists" :key="index" :value="item.agentUserName">{{item.agentUserName}}
-                </a-select-option>
-              </a-select>
+            <a-form-item label="结束时间">
+              <a-input placeholder="请输入结束时间" v-model="queryParam.endTime"></a-input>
             </a-form-item>
           </a-col>
+          <!--<a-col :md="6" :sm="8">-->
+            <!--<a-form-item label="代理人">-->
+              <!--<a-select  v-model="queryParam.agentUserName" placeholder="请选择代理人">-->
+                <!--<a-select-option v-for="(item,index) in postLists" :key="index" :value="item.agentUserName">{{item.agentUserName}}-->
+                <!--</a-select-option>-->
+              <!--</a-select>-->
+            <!--</a-form-item>-->
+          <!--</a-col>-->
           <template v-if="toggleSearchStatus">
-            <a-col :md="6" :sm="8">
-              <a-form-item label="开始时间">
-                <a-input placeholder="请输入开始时间" v-model="queryParam.startTime"></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :md="6" :sm="8">
-              <a-form-item label="结束时间">
-                <a-input placeholder="请输入结束时间" v-model="queryParam.endTime"></a-input>
-              </a-form-item>
-            </a-col>
+
             <a-col :md="6" :sm="8">
               <a-form-item label="状态">
                 <!--<a-input placeholder="请输入状态0无效1有效" v-model="queryParam.status"></a-input>-->
@@ -57,12 +58,12 @@
 
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('a')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl"
-                @change="handleImportExcel">
-        <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
+      <a-button @click="handleAddMy" type="primary" icon="plus">新增</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('任务委托')">导出</a-button>
+      <!--<a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl"-->
+                <!--@change="handleImportExcel">-->
+        <!--<a-button type="primary" icon="import">导入</a-button>-->
+      <!--</a-upload>-->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel">
@@ -97,7 +98,7 @@
         @change="handleTableChange">
 
         <span slot="action" slot-scope="text, record">
-          <a @click="handleEdit(record)">编辑</a>
+          <a @click="handleEditMy(record)">编辑</a>
 
           <a-divider type="vertical"/>
           <a-dropdown>
@@ -216,6 +217,10 @@
     },
     computed: {
       importExcelUrl: function () {
+        // if (this.dataSource.length>0){
+        //   this.$message.error('一个用户只能设置一个代理人')
+        //   return
+        // }
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
@@ -225,11 +230,28 @@
         this.postLists = res.result.records;
       });
 
-
-
-
     },
     methods: {
+      beforeUpload: function (file, fileList) {
+        alert(11)
+        this.fileList = [...this.fileList, file];
+        return false;
+      },
+      handleAddMy(){
+        if (this.dataSource.length>0){
+          this.$message.error('一个用户只能设置一个代理人')
+          return
+        }
+        this.handleAdd()
+      },
+      handleEditMy(record){
+
+        this.handleEdit(record)
+        getAction(this.url.list).then((res) => {
+          console.log(res.result.records);
+          this.postLists = res.result.records;
+        });
+      }
 
 
     }
