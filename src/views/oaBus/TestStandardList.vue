@@ -87,14 +87,24 @@
       >
         <a-tab-pane :tab="titleItem.sname" v-for="(titleItem,titleIndex) in getPageList" :key="titleIndex">
           <a-list size="large" :pagination="pagination" >
-            <a-list-item :key="index" v-for="(item, index) in dataSource" @dblclick="openDetial(item.i_id,item.table_name)">
-
+            <a-list-item v-if="defaultActivityKey.toString()==0"  :key="index" v-for="(item, index) in dataSource" @dblclick="openDetial(item.i_id,item.table_name)">
              <span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>
              <span v-else v-html="item.sFileName"></span>
               <!--<a-list-item-meta>-->
                 <!--<a slot="title" v-html="item.title"></a>-->
                 <!--<p slot="description" v-html="item.description"></p>-->
               <!--</a-list-item-meta>-->
+
+              </a-list-item>
+
+            <a-list-item v-else  :key="index" v-for="(item, index) in dataSource" @dblclick="openDetial(item.iTableId,item.sTable)">
+              <span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>
+              <span v-else v-html="item.sFileName"></span>
+              <!--<a-list-item-meta>-->
+              <!--<a slot="title" v-html="item.title"></a>-->
+              <!--<p slot="description" v-html="item.description"></p>-->
+              <!--</a-list-item-meta>-->
+
             </a-list-item>
           </a-list>
         </a-tab-pane>
@@ -188,7 +198,7 @@
           }
 
         }else{
-          this.$message.error('请输入搜索内容')
+          // this.$message.error('请输入搜索内容')
         }
 
       },
