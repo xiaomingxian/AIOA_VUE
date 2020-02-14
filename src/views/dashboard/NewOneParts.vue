@@ -14,7 +14,7 @@
                 <div class="left">
                   <i></i>
                   <p class="tongzhi">[系统通知]</p>
-                  <span :alt="item.s_title">{{item.s_title}}</span>
+                  <span :alt="item.s_title">{{item.s_title|filterText}}</span>
                   <i></i>
                 </div>
                 <span class="time">{{item.d_create_time|timeStrings}}</span>
@@ -92,7 +92,7 @@
               <p class="p">
                 <span :title="item.title+'   '+item.createTime+item.name">
                   <i></i>
-                  {{item.title}}
+                  {{item.title|filterText}}
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
                    <div v-if="item.important==1">
                       <img src="../../assets/zhong.png" alt="" >
@@ -118,7 +118,7 @@
             <p  class="each"  v-for="(item,index) in model1Lists"  :key="index" @click="openDetialModel(model1.tableName,item.i_id)">
                 <span :title="item.s_title+'      '+item.d_create_time">
                   <i></i>
-                  [{{item.s_title|filterText}}]
+                  {{item.s_title|filterText}}
                 </span>
               <span>{{item.d_create_time}}</span>
             </p>
@@ -139,7 +139,7 @@
               <p  class="each"  v-for="(item,index) in model2Lists"  :key="index" @click="openDetialModel(model2.tableName,item.i_id)">
                 <span :title="item.s_title+'                     '+item.d_create_time">
                   <i></i>
-                    [{{item.s_title|filterText}}]
+                    {{item.s_title|filterText}}
                 </span>
                 <span>{{item.d_create_time}}</span>
               </p>
@@ -158,7 +158,7 @@
               <p  class="each"  v-for="(item,index) in model3Lists"  :key="index" @click="openDetialModel(model3.tableName,item.i_id)">
                  <span :title="item.s_title+'                     '+item.d_create_time">
                   <i></i>
-                  [{{item.s_title|filterText}}]
+                  {{item.s_title|filterText}}
                 </span>
                 <span>{{item.d_create_time}}</span>
               </p>
@@ -178,7 +178,7 @@
             <p  class="each"  v-for="(item,index) in model4Lists"  :key="index" @click="openDetialModel(model4.tableName,item.i_id)">
                  <span :title="item.s_title+'                     '+item.d_create_time">
                   <i></i>
-                  [{{item.s_title|filterText}}]
+                  {{item.s_title|filterText}}
                 </span>
               <span>{{item.d_create_time}}</span>
             </p>
@@ -276,15 +276,15 @@
       }
     },
     filters:{
-      // filterText(text){
-      //
-      //   if(text.length>25){
-      //     return text.substring(0,13)+'...'
-      //   }else{
-      //     return text
-      //   }
-      //
-      // },
+      filterText(text){
+
+       if(text.length>18){
+           return text.substring(0,13)+'...'
+         }else{
+           return text
+         }
+
+      },
       timeStrings(time){
         let oneTime = new Date(time);
         let Y = oneTime.getFullYear();
