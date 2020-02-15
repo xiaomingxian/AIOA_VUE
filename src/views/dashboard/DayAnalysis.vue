@@ -139,7 +139,7 @@
                         <div class="left">
                           <i></i>
                           <p class="tongzhi">[系统通知]</p>
-                          <span :title="postitem.s_title">{{postitem.s_title}}</span>
+                          <span :title="postitem.s_title">{{postitem.s_title|filterText2}}</span>
                           <i></i>
                         </div>
                         <span class="time">{{postitem.d_create_time|timeStrings}}</span>
@@ -220,7 +220,7 @@
                              <span>
                               <span :title="item.title+'   '+item.createTime+item.name">
                             <i></i>
-                            {{item.title}}
+                            {{item.title|filterText1}}
                              <div v-if="item.important==1">
                                 <img src="../../assets/zhong.png" alt="" >
                              </div>
@@ -348,6 +348,19 @@
             return text
           }
 
+        },
+        filterText2(text){
+          if(text.length>38){
+            return text.substring(0,35)+'...'
+          }else{
+            return text
+          }
+        },filterText1(text){
+          if(text.length>30){
+            return text.substring(0,25)+'...'
+          }else{
+            return text
+          }
         },
         timeStrings(time){
           let oneTime = new Date(time);
@@ -525,14 +538,11 @@
 
           // alert(e)
           // this.findwaitLists('task_done');
-        this.homeLists(this.userid,)
-
-
+           this.homeLists(this.userid,)
 
         }
       },
       openmore(url){
-        alert('111')
         if(url){
           // alert(url)
           this.$router.push('/'+url);
