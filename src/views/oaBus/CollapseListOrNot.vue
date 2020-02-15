@@ -209,6 +209,7 @@
               :showAlertInfo="false"
               :rowKey="record => record.key"
               :customRow="onClick"
+              style="word-break: break-all"
               :rowClassName="(record,index) => {
               let className  = 'light-row';
               if (index % 2 === 1) className = 'dark-row';
@@ -625,6 +626,7 @@
                 this.columns.push({
                   title: this.searchColumns[i].s_column_name,
                   dataIndex: this.searchColumns[i].s_table_column,
+                  width: 600 ,
                   align: "left",
                   sorter: (a, b, type) => {
                     if (type == 'descend') {

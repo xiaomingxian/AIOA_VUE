@@ -143,7 +143,7 @@
       </div>
 
       <a-button icon="save" @click="handleOk" style="background: #b4d7ff">保存</a-button>
-      <a-button icon="close-circle" @click="handleCeal" style="background: #b4d7ff;margin-left: 20px">取消</a-button>
+      <!--<a-button icon="close-circle" @click="handleCeal" style="background: #b4d7ff;margin-left: 20px">取消</a-button>-->
     </a-form>
     </a-spin>
   </div>
@@ -203,7 +203,7 @@
         // isnewbody:''
       }
     },
-   /* inject:['reload'],*/
+   inject:['reload'],
     created () {
       this.InitializeQuery();
       this.getBusModelList();
@@ -282,12 +282,13 @@
 
 
 
-        }/*else{
+        }else{
+
            //  新增接口
           postAction(this.url.add,subdata).then((res) => {
               console.log(res.result);
               this.$message.success(res.message);
-               /!* this.reload();*!/
+              this.InitializeQuery();
             // window.location.reload()
             // if(subdata.iisCalendar==1){
             //   this.$store.commit('setIndexOne')
@@ -298,10 +299,8 @@
 
           })
           postAction(this.url.changIp,param).then((res) => {
-            this.$message.success(res.message);
-           /!* this.reload();*!/
           })
-        }*/
+        }
       },
       InitializeQuery(){
         const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
@@ -348,9 +347,10 @@
 
         });
       },
-      handleCeal(){
+    /*  handleCeal(){
            this.InitializeQuery();
-      },
+       /!* this.reload();*!/
+      },*/
       onChange1 (checked) {
 
           if(checked){
