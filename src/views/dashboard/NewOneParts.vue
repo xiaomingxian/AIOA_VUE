@@ -69,7 +69,7 @@
 
 
           <div class="top">
-            <a-input placeholder="请输入公文链接">
+            <a-input placeholder="请输入关键字">
               <a-icon slot="prefix" type="search"></a-icon>
             </a-input>
           </div>
@@ -284,8 +284,8 @@
          }
       },
       filterText1(text){
-       if(text.length>55){
-           return text.substring(0,38)+'...'
+       if(text.length>28){
+           return text.substring(0,25)+'...'
          }else{
            return text
          }
