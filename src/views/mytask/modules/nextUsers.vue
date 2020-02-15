@@ -119,7 +119,7 @@
                       <div style="padding: 6px;background: #d6ebff !important;">
                         <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
 
-                        {{item}}部门
+                        {{item==null||item==undefined||item==''?singleDept:item}}部门
                       </div>
                       <!--<hr>-->
                       <div class="partBoxChild" style="overflow: hidden">
@@ -127,7 +127,7 @@
                           <a-col :span="100">
                             <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
 
-                              <span  :title="i.departName" > {{i.departName}}</span>
+                              <span :title="i.departName"> {{i.departName}}</span>
                             </a-checkbox>
                           </a-col>
                         </a-row>
@@ -227,6 +227,7 @@
     components: {DictItemList},
     data() {
       return {
+        singleDept: null,
         defaultSelectedKeys: [],
         // scrHeight: window.innerHeight-300+ 'px',
         scrHeight: '',
@@ -629,6 +630,7 @@
       },
       //点击某一节点---选择节点相关信息
       clickAct(item) {
+        this.singleDept = item.actMsg.name
 
         /**
          *  (包容/并行网关)展示上一节点的选择信息
@@ -1111,7 +1113,7 @@
 
           .usertitle {
             padding: 5px;
-            font-size: 16px;
+            font-size: 15px;
             text-align: left;
             background: #d6ebff !important;
             /*border-bottom: 1px solid #dddddd;*/
