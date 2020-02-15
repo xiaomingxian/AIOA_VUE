@@ -3,8 +3,8 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
         <div class="watchHeader">
-          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112%;left: -1%;z-index: 999;"/>
-          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112.7%;left: -1%;z-index: 999;"/>
+          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1.4%;z-index: 999;"/>
+          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1.4%;z-index: 999;"/>
         </div>
 
         <div style="height: auto; background: #fff;  padding: 27px;">
