@@ -814,7 +814,7 @@
         this.show(taskDetail)
       },
       dealHeight(btn) {
-        let btnHegiht = 30;
+        let btnHegiht = 50;
         console.log(btn)
         if (btn.isNotDefend != undefined && btn.isNotDefend.length != 0) {
           btnHegiht += 70;
