@@ -68,6 +68,16 @@
         default: false
       }
     },
+    watch:{
+      backData:function (value) {
+        this.backData =value
+        this.initData(value)
+      },
+      value(val) {
+        this.selectedDepUsers = val
+      }
+    },
+    inject: ['reload'],
     data() {
       return {
         userIdLists:'',
@@ -84,15 +94,9 @@
       }
     },
     created() {
-      this.initData()
     },
     mounted() {
       this.selectedDepUsers = this.value
-    },
-    watch: {
-      value(val) {
-        this.selectedDepUsers = val
-      }
     },
     model: {
       prop: 'value',
@@ -100,21 +104,23 @@
     },
     methods: {
       initData(){
-        setTimeout(()=>{
-          let backData1 = this.backData;
-          if (backData1.i_bigint3 != undefined){
-            this.iIsLimits = backData1.i_bigint3
-          }else{
-            this.iIsLimits = 1;
-          }
-          if (backData1.i_bigint3 == 2) {
-            this.departId = backData1.s_varchar3
-          }
-          if (backData1.i_bigint3 == 3) {
-            this.userRealName = backData1.s_varchar3
-            this.userIdLists = backData1.s_varchar4.split(",")
-          }
-        },800)
+         this.$nextTick(()=>{
+           // alert(JSON.stringify(this.backData))
+           let value = this.backData
+           let backData1 = value;
+           if (backData1.i_bigint3 != undefined){
+             this.iIsLimits = backData1.i_bigint3
+           }else{
+             this.iIsLimits = 1;
+           }
+           if (backData1.i_bigint3 == 2) {
+             this.departId = backData1.s_varchar3
+           }
+           if (backData1.i_bigint3 == 3) {
+             this.userRealName = backData1.s_varchar3
+             this.userIdLists = backData1.s_varchar4.split(",")
+           }
+         })
       },
       userIds(data){
         // alert(data);
@@ -227,6 +233,7 @@
             //更改发布状态
             postAction(this.url.updateBusdata,params).then(res => {
             })
+            this.reload();
             this.$message.success("发布成功")
           } else {
             this.$message.error("发布失败")
@@ -250,6 +257,7 @@
             // params.table = this.backData.table+"_permit";
             postAction(this.url.deletePremit,{'deletePremit':params}).then(res =>{
               if (res.success){
+                this.reload();
                 this.$message.success("取消发布成功");
               }else {
                 this.$message.error("取消发布失败");
