@@ -233,7 +233,7 @@
                              <span>
                               <span :title="item.s_title+'   '+item.d_create_time">
                             <i></i>
-                            {{item.s_title}}
+                            {{item.s_title|filterText1}}
                              <div v-if="item.important==1">
                                 <img src="../../assets/zhong.png" alt="" >
                              </div>
@@ -349,15 +349,15 @@
           }
 
         },
-        filterText2(text){
-          if(text.length>38){
-            return text.substring(0,35)+'...'
+        filterText2(text){//电子公告
+          if(text.length>20){
+            return text.substring(0,15)+'...'
           }else{
             return text
           }
         },filterText1(text){
-          if(text.length>30){
-            return text.substring(0,25)+'...'
+          if(text.length>20){
+            return text.substring(0,17)+'...'
           }else{
             return text
           }
