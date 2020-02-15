@@ -197,6 +197,9 @@
           pic: '',
           pic1: '',
           pic2: '',
+          nowPic: '',
+          nowPic1: '',
+          nowPic2: '',
           fileType: 'bmp、jpg、png',
           picurl:'',
           picurl1:'',
@@ -474,12 +477,15 @@
             'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
           }
         }).then(res => {
-          if(res.data.byteLength >= 10){
-            this.picDetail.pic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+          if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+            this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.visible = true;
 
           }else{
-            this.picDetail.pic = ""
+            // this.picDetail.pic = "";
+
+            this.picDetail.pic = this.picDetail.nowPic;
           }
         })
       },
@@ -513,12 +519,15 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            if(this.picDetail.nowPic2 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
 
             }else{
-              this.picDetail.pic2 = ""
+              // this.picDetail.pic2 = "";
+
+              this.picDetail.pic2 = this.picDetail.nowPic2;
             }
           })
       },
@@ -533,11 +542,14 @@
             }
           }).then(res => {
             console.log(res)
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            if(this.picDetail.nowPic2 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
             }else{
-              this.picDetail.pic2 = ""
+              // this.picDetail.pic2 = "";
+
+              this.picDetail.pic2 = this.picDetail.nowPic2;
             }
           })
       },
@@ -552,11 +564,14 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            if(this.picDetail.nowPic1 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
             }else{
-              this.picDetail.pic1 = ""
+              // this.picDetail.pic1 = "";
+
+              this.picDetail.pic1 = this.picDetail.nowPic1;
             }
           })
       },
@@ -571,12 +586,15 @@
           }
         }).then(res => {
           console.log(res.data.byteLength);
-          if(res.data.byteLength >= 10){
-            this.picDetail.pic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+          if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+            this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.visible = true;
           }else{
-            this.picDetail.pic = ""
-            this.$message.error("图片下载失败")
+            // this.picDetail.pic = "";
+            // this.$message.error("图片下载失败");
+
+            this.picDetail.pic = this.picDetail.nowPic;
           }
         })
       },
@@ -592,12 +610,15 @@
           }
         }).then(res => {
           console.log(res.data.byteLength);
-          if(res.data.byteLength >= 10){
+          if(this.picDetail.nowPic1 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+            this.picDetail.nowPic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.visible = true;
           }else{
-            this.picDetail.pic1 = ""
-            this.$message.error("图片下载失败")
+            // this.picDetail.pic1 = "";
+            // this.$message.error("图片下载失败");
+
+            this.picDetail.pic1 = this.picDetail.nowPic1;
           }
         })
     },
