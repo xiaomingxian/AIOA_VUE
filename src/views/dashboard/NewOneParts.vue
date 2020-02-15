@@ -277,8 +277,8 @@
     },
     filters:{
       filterText(text){
-       if(text.length>30){
-           return text.substring(0,23)+'...'
+       if(text.length>20){
+           return text.substring(0,15)+'...'
          }else{
            return text
          }
