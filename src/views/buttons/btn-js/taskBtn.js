@@ -295,13 +295,34 @@ export const taskBth = {
         return
       }
 
+      for (var index in this.opts) {
+        //判断意见环节是否匹配
+        let td = this.taskMsg.taskDefinitionKey
+        if ((this.opts[index].taskDefKeys).indexOf(td) >= 0) {
+          //属性赋值
+          this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+          this.backDataOpt.i_order = this.opts[index]['orderId']
+          this.backDataOpt.i_opinion_set_id = this.opts[index]['optionSetId']
+          this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+          this.flag = true;
+          break
+        }
+      }
       // //校验意见
       if (this.flag) {    //如果要填写意见的话，就进行校验
-        if (!this.isSaveFlag) {  //如果没有填写
+        if (this.backDataOpt.i_id =="") {  //如果没有填写
           this.$message.error("下一任务前必须填写意见！！！");
           return;
         }
       }
+
+      // //校验意见
+      /*if (this.flag) {    //如果要填写意见的话，就进行校验
+        if (!this.isSaveFlag) {  //如果没有填写
+          this.$message.error("下一任务前必须填写意见！！！");
+          return;
+        }
+      }*/
       // 按钮校验
       if (this.btn != undefined && this.btn.length > 0) {
         console.log(JSON.stringify(this.btn))
