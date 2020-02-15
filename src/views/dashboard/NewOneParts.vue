@@ -13,7 +13,7 @@
               <div class="lineitem" v-for="(item,index) in postLists" :key="index" @click="openDetialModel('oa_busdata30',item.i_id)">
                 <div class="left">
                   <i></i>
-                  <p class="tongzhi">[系统通知]</p>
+                  <p class="tongzhi">[{{item.s_vachar5}}]</p>
                   <span :title="item.s_title">{{item.s_title|filterText}}</span>
                   <i></i>
                 </div>
