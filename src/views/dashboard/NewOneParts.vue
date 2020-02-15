@@ -13,7 +13,7 @@
               <div class="lineitem" v-for="(item,index) in postLists" :key="index" @click="openDetialModel('oa_busdata30',item.i_id)">
                 <div class="left">
                   <i></i>
-                  <p class="tongzhi">[{{item.s_vachar5}}]</p>
+                  <p class="tongzhi">[{{item.s_varchar5}}]</p>
                   <span :title="item.s_title">{{item.s_title|filterText}}</span>
                   <i></i>
                 </div>
@@ -277,18 +277,22 @@
     },
     filters:{
       filterText(text){
-       if(text.length>20){
-           return text.substring(0,15)+'...'
-         }else{
-           return text
-         }
+        if(text!=undefined) {
+          if (text.length > 20) {
+            return text.substring(0, 15) + '...'
+          } else {
+            return text
+          }
+        }
       },
       filterText1(text){
-       if(text.length>28){
-           return text.substring(0,25)+'...'
-         }else{
-           return text
-         }
+        if(text!=undefined) {
+          if (text.length > 28) {
+            return text.substring(0, 25) + '...'
+          } else {
+            return text
+          }
+        }
       },
       timeStrings(time){
         let oneTime = new Date(time);
@@ -369,7 +373,6 @@
       },1500)
 
       postAction(this.url.MostUserLink).then((res) => {
-        console.log(res.length);
 
         if(res.length==1){
 
@@ -396,13 +399,8 @@
           )
         }else{
           this.LinkList = JSON.parse(JSON.stringify(res)).splice(0,2);
-
         }
-
-
-        console.log( this.LinkList.length);
       });
-
     },
     components: {
       //业务
@@ -461,7 +459,6 @@
           this.model4 = res.model4;
 
           this.model1Lists = res.model1.list.splice(0,5);
-
           this.model2Lists = res.model2.list.splice(0,5);
           this.model3Lists = res.model3.list.splice(0,5);
           this.model4Lists = res.model4.list.splice(0,5);

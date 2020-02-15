@@ -45,10 +45,8 @@
                   <center>
                     <template v-if="backData.d_datetime1 == null && backData.d_datetime2 ==null">
                       <a-range-picker
-
                         ref="s_varchar4"
                         v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
-
                         style="width: 100%"
                         showTime
                         format="YYYY-MM-DD HH:mm"
@@ -59,10 +57,8 @@
 
                     <template v-else>
                       <a-range-picker
-
                         ref="s_varchar4"
                         v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
-
                         style="width: 100%"
                         :showTime="{format}"
                         format="YYYY-MM-DD HH:mm:ss"
@@ -73,13 +69,11 @@
                     </template>
                   </center>
                 </td>
-
               </tr>
               <!--会议内容-->
               <tr>
                 <td colspan="1" class="title">
                   <center><h3>{{detailList.s_varchar2}}</h3></center>
-
                 </td>
                 <td colspan="7" height="100px">
                   <center>
@@ -89,7 +83,6 @@
                     </template>
                   </center>
                 </td>
-
               </tr>
               <!--附件-->
               <tr style="height: 50px;">
@@ -132,10 +125,8 @@
                 </tr>
               </template>
             </table>
-
           </center>
         </table>
-
         <br/>
         <del-time ref="updateFileNameModal" @reloadAfterUpdate="reloadAfterUpdate"></del-time>
         <show-meeting ref="showMeeting"></show-meeting>
@@ -301,7 +292,6 @@
           //是否重要
           i_is_important: ''
         },
-
         url: {
           optionAndBtn: '/oaBus/newTask/optionAndBtn',
           currentUserMsg: '/sys/user/getUserSectionInfoByToken',
@@ -407,26 +397,21 @@
       },*/
 
       show() {
-
         for(let i = 0;i<this.optionMap.checkList.length;i++){
           this.s_varchar.push(this.optionMap.checkList[i].stableColumn);
         }
 
-        console.log('====================================================');
-        console.log(this.s_varchar);
-
+        // console.log('====================================================');
+        // console.log(this.s_varchar);
         //业务数据赋值
-
         for (var i in this.backData) {
            this.backData[i] = this.backDataRef[i]
         }
-
-        console.log(JSON.stringify(this.backdata))
-
+        // console.log(JSON.stringify(this.backdata))
         // console.log('----->>>',JSON.stringify(this.backData))
         //this.s_varchar1_option = this.optionMap.s_varchar1_option;
         //************************************* 查询字段名称start ************************************
-        this.getOaFiles(this.backData.table, this.backData.i_id)
+        this.getOaFiles(this.backData.table, this.backData.i_id);
         //************************************* 查询字段名称end ************************************
         this.visible = true
       },
@@ -441,7 +426,7 @@
         this.visible = false;
         this.disableSubmit = false;
         //清除意见与按钮页面数据
-        this.$refs.taskOptRef.clear()
+        this.$refs.taskOptRef.clear();
 
         //刷新父页面
         this.$emit('reload_todo')

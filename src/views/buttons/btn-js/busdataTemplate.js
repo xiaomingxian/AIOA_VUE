@@ -314,7 +314,7 @@ export const busdataTemplate = {
     //按钮-登记文号
     saveDocNum(data) {
       this.backData.s_file_num = data.docnum;
-      this.backData.s_varchar20 = data.id
+      this.backData.s_varchar8 = data.id //文号id
     },
     //按钮-引入公文链接
     saveGongwenData(data) {
