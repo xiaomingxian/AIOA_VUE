@@ -391,25 +391,31 @@
       },
       filters:{
         filterText(text){
-          if(text.length>18){
-            return text.substring(0,15)+'...'
-          }else{
-            return text
+          if(text!=undefined) {
+            if (text.length > 18) {
+              return text.substring(0, 15) + '...'
+            } else {
+              return text
+            }
           }
-
         },
         filterText2(text){//电子公告
+          if(text!=undefined){
           if(text.length>20){
             return text.substring(0,15)+'...'
           }else{
             return text
           }
-        },filterText1(text){
-          if(text.length>20){
-            return text.substring(0,17)+'...'
-          }else{
-            return text
           }
+        },filterText1(text){
+          if(text!=undefined){
+            if(text.length>20){
+              return text.substring(0,17)+'...'
+            }else{
+              return text
+            }
+          }
+
         },
         timeStrings(time){
           let oneTime = new Date(time);

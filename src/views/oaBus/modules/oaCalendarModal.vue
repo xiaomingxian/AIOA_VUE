@@ -143,7 +143,6 @@
 
    console.log(this.userRealName);
       this.username = userinfo.username;
-      this.initialUserList();
 
     },
     methods: {

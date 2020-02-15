@@ -277,18 +277,22 @@
     },
     filters:{
       filterText(text){
-       if(text.length>20){
-           return text.substring(0,15)+'...'
-         }else{
-           return text
-         }
+        if(text!=undefined) {
+          if (text.length > 20) {
+            return text.substring(0, 15) + '...'
+          } else {
+            return text
+          }
+        }
       },
       filterText1(text){
-       if(text.length>28){
-           return text.substring(0,25)+'...'
-         }else{
-           return text
-         }
+        if(text!=undefined) {
+          if (text.length > 28) {
+            return text.substring(0, 25) + '...'
+          } else {
+            return text
+          }
+        }
       },
       timeStrings(time){
         let oneTime = new Date(time);
