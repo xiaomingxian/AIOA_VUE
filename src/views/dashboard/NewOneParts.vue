@@ -243,7 +243,7 @@
         model2:[],
         model3:[],
         model4:[],
-        total:'8',
+        total:'',
         waitDoData:[],
         model1Lists:[],
         model2Lists:[],
