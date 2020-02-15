@@ -138,7 +138,7 @@
                         <!--<a-popover>-->
                         <div class="left">
                           <i></i>
-                          <p class="tongzhi">[{{postitem.s_vachar5}}]</p>
+                          <p class="tongzhi">[{{postitem.s_varchar5}}]</p>
                           <span :title="postitem.s_title">{{postitem.s_title|filterText2}}</span>
                           <i></i>
                         </div>
