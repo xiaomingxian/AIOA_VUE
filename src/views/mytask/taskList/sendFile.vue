@@ -367,7 +367,7 @@
           s_cur_task_name: '',
           d_sealdate: '',
           //模板id
-          s_varchar20: '',
+          s_varchar8: '',
           //信息公开
           s_varchar4: '',
           //不公开理由

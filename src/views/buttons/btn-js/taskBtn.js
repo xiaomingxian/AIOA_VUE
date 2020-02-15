@@ -1264,7 +1264,7 @@ export const taskBth = {
     ,
 //正文排版
     zwPaiBan() {
-      if (parseInt(this.backData.s_varchar20) == 0) {
+      if (parseInt(this.backData.s_varchar8) == 0) {
         this.$message.error("请您先登记文号");
       } else {
         this.openFile(2, this.fileName)
@@ -1339,7 +1339,7 @@ export const taskBth = {
         ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
           "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
           this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
-          + parseInt(this.backData.s_varchar20) + "&fileName=" + fileName);
+          + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName);
       } else {
         window.open(window.location.origin + "/ntko/exeindex.html")
       }
@@ -1375,15 +1375,13 @@ export const taskBth = {
         table: this.backData.table,
         i_id: this.backData.i_id,
         s_file_num: data.docnum, //文件字号
-        s_varchar20: data.id //文号id
+        s_varchar8: data.id //文号id
       }
-      postAction(this.url.updateBusdata, {
-        'updateBusdata': param
-      }).then(res => {
+      postAction("oaBus/dynamic/updateData",param).then(res => {
         if (res.success) {
           this.reload(); //页面刷新
-          this.$emit("saveDocNum", data)
-          this.$message.success(res.message)
+          // this.$emit("saveDocNum", data)
+          this.$message.success("登记文号成功！")
         } else {
           this.$message.error(res.message)
         }
