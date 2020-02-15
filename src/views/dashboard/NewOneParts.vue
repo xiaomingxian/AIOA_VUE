@@ -13,7 +13,7 @@
               <div class="lineitem" v-for="(item,index) in postLists" :key="index" @click="openDetialModel('oa_busdata30',item.i_id)">
                 <div class="left">
                   <i></i>
-                  <p class="tongzhi">[系统通知]</p>
+                  <p class="tongzhi">[{{item.s_vachar5}}]</p>
                   <span :title="item.s_title">{{item.s_title|filterText}}</span>
                   <i></i>
                 </div>
@@ -69,7 +69,7 @@
 
 
           <div class="top">
-            <a-input placeholder="请输入公文链接">
+            <a-input placeholder="请输入关键字">
               <a-icon slot="prefix" type="search"></a-icon>
             </a-input>
           </div>
@@ -277,15 +277,15 @@
     },
     filters:{
       filterText(text){
-       if(text.length>30){
-           return text.substring(0,23)+'...'
+       if(text.length>20){
+           return text.substring(0,15)+'...'
          }else{
            return text
          }
       },
       filterText1(text){
-       if(text.length>55){
-           return text.substring(0,38)+'...'
+       if(text.length>28){
+           return text.substring(0,25)+'...'
          }else{
            return text
          }
