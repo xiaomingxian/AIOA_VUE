@@ -174,23 +174,25 @@
 
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-dropdown v-if="selectedRowKeys.length > 0">
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
         <a-menu slot="overlay">
           <!--<a-menu-item key="1" @click="batchEnd">-->
           <!--<a-icon type="delete"/>-->
           <!--批量办结-->
           <!--</a-menu-item>-->
-          <a-menu-item v-if="(this.queryParam.deptType=='传阅')"
+          <!--v-if="selectedRowKeys.length > 0"-->
+          <!--v-if="(this.queryParam.deptType=='传阅')"-->
+          <a-menu-item  v-if="selectedRowKeys.length > 0 && (this.queryParam.deptType=='传阅')"
                        key="1" @click="batchPiYue">
-            <a-icon type="delete"/>
+            <a-icon />
             批量批阅
           </a-menu-item>
         </a-menu>
 
-        <a-button style="margin-left: 8px"> 批量操作
-          <a-icon type="down"/>
-        </a-button>
-      </a-dropdown>
+        <!--<a-button style="margin-left: 8px"> 批量操作-->
+          <!--<a-icon type="down"/>-->
+        <!--</a-button>-->
+      <!--</a-dropdown>-->
 
     </div>
 
@@ -557,6 +559,9 @@
           this.queryParam.isDept = false
         }
         this.queryParam.deptType = type
+        if (type=='传阅'){
+          this.collapseListOrNot()
+        }
       },
       searchQueryMy() {
         this.queryParam.tableOrder = false

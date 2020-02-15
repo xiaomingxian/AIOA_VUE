@@ -143,7 +143,7 @@
       </div>
 
       <a-button icon="save" @click="handleOk" style="background: #b4d7ff">保存</a-button>
-      <a-button icon="close-circle" @click="handleCeal" style="background: #b4d7ff;margin-left: 20px">取消</a-button>
+      <!--<a-button icon="close-circle" @click="handleCeal" style="background: #b4d7ff;margin-left: 20px">取消</a-button>-->
     </a-form>
     </a-spin>
   </div>
@@ -203,7 +203,7 @@
         // isnewbody:''
       }
     },
-   /* inject:['reload'],*/
+   inject:['reload'],
     created () {
       this.InitializeQuery();
       this.getBusModelList();
@@ -348,9 +348,10 @@
 
         });
       },
-      handleCeal(){
+    /*  handleCeal(){
            this.InitializeQuery();
-      },
+       /!* this.reload();*!/
+      },*/
       onChange1 (checked) {
 
           if(checked){
