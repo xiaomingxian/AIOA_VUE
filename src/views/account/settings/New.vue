@@ -282,12 +282,13 @@
 
 
 
-        }/*else{
+        }else{
+
            //  新增接口
           postAction(this.url.add,subdata).then((res) => {
               console.log(res.result);
               this.$message.success(res.message);
-               /!* this.reload();*!/
+              this.InitializeQuery();
             // window.location.reload()
             // if(subdata.iisCalendar==1){
             //   this.$store.commit('setIndexOne')
@@ -298,10 +299,8 @@
 
           })
           postAction(this.url.changIp,param).then((res) => {
-            this.$message.success(res.message);
-           /!* this.reload();*!/
           })
-        }*/
+        }
       },
       InitializeQuery(){
         const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
