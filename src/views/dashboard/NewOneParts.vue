@@ -14,7 +14,7 @@
                 <div class="left">
                   <i></i>
                   <p class="tongzhi">[系统通知]</p>
-                  <span :alt="item.s_title">{{item.s_title|filterText}}</span>
+                  <span :title="item.s_title">{{item.s_title|filterText}}</span>
                   <i></i>
                 </div>
                 <span class="time">{{item.d_create_time|timeStrings}}</span>
@@ -277,15 +277,15 @@
     },
     filters:{
       filterText(text){
-       if(text.length>18){
-           return text.substring(0,13)+'...'
+       if(text.length>30){
+           return text.substring(0,23)+'...'
          }else{
            return text
          }
       },
       filterText1(text){
-       if(text.length>25){
-           return text.substring(0,22)+'...'
+       if(text.length>55){
+           return text.substring(0,38)+'...'
          }else{
            return text
          }
@@ -366,7 +366,7 @@
           }
 
         });
-      },1200)
+      },1500)
 
       postAction(this.url.MostUserLink).then((res) => {
         console.log(res.length);

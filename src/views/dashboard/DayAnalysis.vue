@@ -139,7 +139,7 @@
                         <div class="left">
                           <i></i>
                           <p class="tongzhi">[系统通知]</p>
-                          <span>{{postitem.s_title}}</span>
+                          <span :title="postitem.s_title">{{postitem.s_title}}</span>
                           <i></i>
                         </div>
                         <span class="time">{{postitem.d_create_time|timeStrings}}</span>
@@ -215,15 +215,34 @@
                   <div class="itemline" style="height: 62%;">
                       <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index" @click="openDetialModel(item.table,item.iid)"  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
                         <p class="p">
-                          <span :title="item.title+'   '+item.createTime+item.name">
+
+                          <template v-if="willdoindex==0">
+                             <span>
+                              <span :title="item.title+'   '+item.createTime+item.name">
                             <i></i>
                             {{item.title}}
                              <div v-if="item.important==1">
                                 <img src="../../assets/zhong.png" alt="" >
                              </div>
+                             </span>
+                            </span>
+                            <span >{{item.createTime}}</span>
+                          </template>
 
-                          </span>
-                          <span >{{item.dCreateTime}}</span>
+                          <template v-else>
+                             <span>
+                              <span :title="item.s_title+'   '+item.d_create_time">
+                            <i></i>
+                            {{item.s_title}}
+                             <div v-if="item.important==1">
+                                <img src="../../assets/zhong.png" alt="" >
+                             </div>
+                             </span>
+                            </span>
+                            <span >{{item.d_create_time}}</span>
+                          </template>
+
+
                         </p>
                       </div>
                       <div v-else>
