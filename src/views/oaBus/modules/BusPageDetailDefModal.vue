@@ -49,7 +49,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="列输入类型">
-            <a-select v-decorator="[ 'icolumnType', {}]" >
+            <a-select disabled="disabled" v-decorator="[ 'icolumnType', {}]" >
               <a-select-option v-for="(item,index) in columnTypeList" :key="index" :value="parseInt(item.value)">
                 {{item.text}}
               </a-select-option>
