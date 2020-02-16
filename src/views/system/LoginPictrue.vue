@@ -122,7 +122,7 @@
         <div style="display: flex;margin: 41px 0 0 96px;">
           <div style=" background: #fff;display: flex;align-items: center;justify-content: flex-start;">
             <span style="width: 272px;">登录页&导航栏文字标题：</span>
-            <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="picDetail.editTitleText" />
+            <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
           </div>
 
           <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
@@ -142,7 +142,7 @@
             <img v-if="picDetail.pic2" style="width:49.59px;height:44px;position: absolute;bottom: 74%;" :src="picDetail.pic2">
             <img v-else style="width:49.59px;height:44px;position: absolute;bottom: 74%;" src="~@/assets/logo2x.png">
             <!--<a-input style="width: 260px;margin: 3% 0% 0% 14%;" v-model="picDetail.pictrueText" />-->
-            <span style="font-size:27px;font-weight: bolder;position: absolute;bottom: 74%;left: 18%;">{{picDetail.editTitleText}}</span>
+            <span style="font-size:27px;font-weight: bolder;position: absolute;bottom: 74%;left: 18%;">{{picDetail.pictrueText}}</span>
           </div>
           <div class="watchPic">
             <!--<div style="width: 100px; height: 100px; background-color: red " v-model="picDetail.pictrueText"></div>-->
@@ -276,7 +276,7 @@
           if (res.success) {
             this.picDetail.upFileName = res.result.sfileName
             this.picDetail.fileId = res.result.iid;
-            // this.picDetail.pictrueText = res.result.stable;
+            this.picDetail.pictrueText = res.result.stable;
             this.show1(res.result.iid);
             this.$message.success("上传主背景图成功");
             this.$emit('ok');
@@ -345,6 +345,29 @@
       return true;
     },
 
+
+    getLoginPic(){
+
+      if (typeof this.getCaption(this.picDetail.editTitleText) == 'object') {
+
+        if (this.getCaption(this.picDetail.editTitleText)[0] == '') {
+
+          this.picDetail.pictrueText = "中国人民银行";
+
+        } else {
+
+          this.picDetail.pictrueText = this.getCaption(this.picDetail.editTitleText)[0];
+
+        }
+
+      }else{
+
+        this.picDetail.pictrueText = this.picDetail.editTitleText;
+
+      }
+
+  },
+
     getPicText(){
       postAction(this.url.getPictrueText).then(res => {
         if (res.success){
@@ -403,35 +426,56 @@
       },
 
       getText(){
+
         postAction(this.url.getLoginText).then(res => {
-          console.log("1212121212121212121")
-          console.log(res)
+
           if (res.success){
+
             if(res.result == null){
+
               this.picDetail.upFileName = "";
+
               this.iisCalendar = false;
-            }else{
-               this.iisCalendar = true;
+
+              this.picDetail.pictrueText = "中国人民银行";
+
+            }else {
+
+              this.iisCalendar = true;
+
               this.picDetail.upFileName = res.result.sfileName;
+
               this.picDetail.fileId = res.result.iid;
+
+              if (res.result.stable == null) {
+
+                this.picDetail.pictrueText = "中国人民银行";
+
+              }else{
+
+                  if (typeof this.getCaption(res.result.stable) == 'object') {
+
+
+                    if (this.getCaption(res.result.stable)[0] == '') {
+
+                      this.picDetail.pictrueText = "中国人民银行";
+
+                    } else {
+
+                      this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
+
+                    }
+
+                  } else {
+
+                    this.picDetail.pictrueText = res.result.stable;
+
+                  }
+
+              }
+
             }
 
-
-            // if (this.getCaption(res.result.stable)[0] == ''){
-            //   this.picDetail.upFileName = "";
-            //   this.iisCalendar = false;
-            // } else {
-            //   this.iisCalendar = true;
-            //   this.picDetail.upFileName = res.result.sfileName;
-            //   console.log("22222222222222")
-            //   console.log(upFileName);
-            //   // if(typeof this.getCaption(res.result.stable) == 'object'){
-            //   //   this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
-            //   // }else {
-            //   //   this.picDetail.pictrueText = res.result.stable;
-            //   // }
-            //   this.picDetail.fileId = res.result.iid;
-            // }
 
           }
         })
@@ -491,19 +535,49 @@
       },
 
       getTextSign(){
+
         postAction(this.url.getLoginTextSign).then(res => {
+
           if (res.success){
-            if (res.result.sfileName == null){
+
+            if (res.result == null){
+
               this.picDetail.logoText = "中国人民银行";
+
               this.picDetail.upFileName2 = "";
+
             } else {
+
               this.picDetail.upFileName2 = res.result.sfileName;
-              // if(typeof this.getCaption(res.result.stable) == 'object'){
-              //   this.picDetail.logoText = this.getCaption(res.result.stable)[1];
-              // }else {
-              //   this.picDetail.logoText = res.result.stable;
-              // }
+
+              if (res.result.stable == null) {
+
+                this.picDetail.logoText = "中国人民银行";
+
+              }else{
+
+                if(typeof this.getCaption(res.result.stable) == 'object'){
+
+                  if (this.getCaption(res.result.stable)[1] == '') {
+
+                    this.picDetail.logoText = "中国人民银行";
+
+                  } else {
+
+                    this.picDetail.logoText = this.getCaption(res.result.stable)[1];
+
+                  }
+
+                }else {
+
+                  this.picDetail.logoText = res.result.stable;
+
+                }
+
+              }
+
               this.picDetail.fileId2 = res.result.iid;
+
             }
           }
         })
