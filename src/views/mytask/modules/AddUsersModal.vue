@@ -401,13 +401,16 @@
                 return
               }
               let rowkeys = this.selectedRowKeys;
+              let rows = this.selectionRows;
               if (rowkeys.length > 0 && rowkeys.includes(res.uid)) {
                 rowkeys.splice(rowkeys.indexOf(res.uid), 1);
+                rows.splice(rowkeys.indexOf(res.uid), 1);
               } else {
                 rowkeys.push(res.uid);
+                rows.push(res)
               }
               this.selectedRowKeys = rowkeys;
-
+              this.selectionRows = rows;
               //记录用户选择
               this.showPreClick(this.currentClick, false, true, false)
             }
@@ -656,7 +659,6 @@
       },
       //并行或包容
       moreThanOneType() {
-        console.log('-------->>>>>', JSON.stringify(this.gateWayTypeSelect))
 
         this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
       },
