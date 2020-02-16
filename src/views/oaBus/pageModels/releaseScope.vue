@@ -232,9 +232,12 @@
             }
             //更改发布状态
             postAction(this.url.updateBusdata,params).then(res => {
+              if (res.success){
+                this.reload();
+                this.$message.success("发布成功")
+              }
             })
-            this.reload();
-            this.$message.success("发布成功")
+
           } else {
             this.$message.error("发布失败")
           }
