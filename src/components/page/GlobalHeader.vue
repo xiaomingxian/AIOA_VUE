@@ -22,8 +22,8 @@
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click.native="toggle"/>
 
-      <span v-if="device === 'desktop'"></span>
-      <span v-else>Jeecg-Boot</span>
+      <!--<span v-if="device === 'desktop'"></span>-->
+      <!--<span v-else>Jeecg-Boot</span>-->
 
       <user-menu :theme="theme"/>
     </div>
