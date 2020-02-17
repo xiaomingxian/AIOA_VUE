@@ -212,7 +212,8 @@
           edit: "/oaBus/busPage/edit",
           importExcelUrl: "/oaBus/busPage/upAttachmentFile",
           getDbtable: "/sys/dict/getDictItems/fun_temp_type",
-          upload: '/papertitle/oaTemplate/upload',
+          //upload: '/papertitle/oaTemplate/upload',
+          upload: '/oaBus/busPage/upPic',
           getPicName: "/oaBus/busPage/getPicName",
         },
         importUrl: "/AIOA/oaBus/busPage/upAttachmentFile"

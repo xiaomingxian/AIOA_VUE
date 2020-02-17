@@ -22,8 +22,8 @@
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click.native="toggle"/>
 
-      <span v-if="device === 'desktop'"></span>
-      <span v-else>Jeecg-Boot</span>
+      <!--<span v-if="device === 'desktop'"></span>-->
+      <!--<span v-else>Jeecg-Boot</span>-->
 
       <user-menu :theme="theme"/>
     </div>
@@ -106,6 +106,7 @@
           topSmenuStyle: {}
         },
         headerPic:'',
+        nowHeaderPic:'',
         picurl:'',
         src:''
       }
@@ -147,16 +148,17 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            console.log(res)
-            if(res.data.byteLength >= 10){
-              this.headerPic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+
+            if(this.nowHeaderPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.nowHeaderPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.headerPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
             }else{
-              this.headerPic = ""
+              // this.headerPic = "";
+
+              this.picDetail.headerPic = this.picDetail.nowHeaderPic;
             }
-            console.log("bbbbbbbbbbbbbbbbbbbb")
-            console.log(this.headerPic)
+
           })
       },
       handleScroll() {
