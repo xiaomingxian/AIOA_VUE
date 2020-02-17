@@ -121,8 +121,8 @@
 
         <div style="display: flex;margin: 41px 0 0 96px;">
           <div style=" background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-            <span style="width: 272px;">登录页&导航栏文字标题：</span>
-            <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
+            <span style="width: 71px;">系统名称：</span>
+            <a-input style="width: 371px;" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
           </div>
 
           <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
@@ -132,7 +132,9 @@
 
           <div style="height: 41px;display: flex;margin-left: 96px;">
             <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;">首页logo标题可用"&"从登录页标题后方截取，并同时更换；未加"&"则视为同时更换为相同标题</span>
+              <span style="color: #d60303;">实例1：XX省综合办公服务平台&XX市中心支行。登陆页系统名：XX省综合办公服务平台；系统内系统名：XX市中心支行<br/>
+                                            实例2：XX省综合办公服务平台。登陆页系统名：XX省综合办公服务平台；系统内系统名：XX省综合办公服务平台
+              </span>
             </div>
           </div>
       </div>
