@@ -401,16 +401,16 @@
         },
         filterText2(text){//电子公告
           if(text!=undefined){
-          if(text.length>20){
-            return text.substring(0,15)+'...'
+          if(text.length>22){
+            return text.substring(0,19)+'...'
           }else{
             return text
           }
           }
         },filterText1(text){
           if(text!=undefined){
-            if(text.length>20){
-              return text.substring(0,17)+'...'
+            if(text.length>40){
+              return text.substring(0,37)+'...'
             }else{
               return text
             }
