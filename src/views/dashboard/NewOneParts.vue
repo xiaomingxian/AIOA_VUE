@@ -278,8 +278,8 @@
     filters:{
       filterText(text){
         if(text!=undefined) {
-          if (text.length > 20) {
-            return text.substring(0, 15) + '...'
+          if (text.length > 25) {
+            return text.substring(0, 22) + '...'
           } else {
             return text
           }
@@ -287,8 +287,8 @@
       },
       filterText1(text){ //电子公告
         if(text!=undefined) {
-          if (text.length > 35) {
-            return text.substring(0, 30) + '...'
+          if (text.length >55) {
+            return text.substring(0, 50) + '...'
           } else {
             return text
           }

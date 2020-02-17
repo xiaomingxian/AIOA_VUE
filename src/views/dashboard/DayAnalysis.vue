@@ -409,8 +409,8 @@
           }
         },filterText1(text){
           if(text!=undefined){
-            if(text.length>20){
-              return text.substring(0,17)+'...'
+            if(text.length>55){
+              return text.substring(0,52)+'...'
             }else{
               return text
             }

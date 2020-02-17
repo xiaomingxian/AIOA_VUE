@@ -1,6 +1,6 @@
 <template>
-
-  <form style="background-color: #fff;padding-top: 20px;position: fixed;">
+<!--  position: fixed;-->
+  <form style="background-color: #fff;padding-top: 20px;">
     <!--<div v-show="true" @change="changRouter" v-model="routeParam">{{this.$route.params.tableName}}</div>-->
     <center>
       <div :style="{height: scrHeight}" style="overflow: auto;scrollbar-width: none;">
