@@ -100,7 +100,7 @@
 
 
                 </span>
-                <span >{{item.createTime}}</span>
+                <span >{{item.createTime|timeText}}</span>
               </p>
               <!--<a @click="doTask(item)">办理</a>-->
             </div>
@@ -120,7 +120,7 @@
                   <i></i>
                   {{item.s_title|filterText}}
                 </span>
-              <span>{{item.d_create_time}}</span>
+              <span>{{item.d_create_time|timeText}}</span>
             </p>
           </div>
         </div>
@@ -141,7 +141,7 @@
                   <i></i>
                     {{item.s_title|filterText}}
                 </span>
-                <span>{{item.d_create_time}}</span>
+                <span>{{item.d_create_time|timeText}}</span>
               </p>
             </div>
           </div>
@@ -160,7 +160,7 @@
                   <i></i>
                   {{item.s_title|filterText}}
                 </span>
-                <span>{{item.d_create_time}}</span>
+                <span>{{item.d_create_time|timeText}}</span>
               </p>
             </div>
           </div>
@@ -180,7 +180,7 @@
                   <i></i>
                   {{item.s_title|filterText}}
                 </span>
-              <span>{{item.d_create_time}}</span>
+              <span>{{item.d_create_time|timeText}}</span>
             </p>
           </div>
         </div>
@@ -278,17 +278,26 @@
     filters:{
       filterText(text){
         if(text!=undefined) {
-          if (text.length > 20) {
-            return text.substring(0, 15) + '...'
+          if (text.length > 25) {
+            return text.substring(0, 22) + '...'
           } else {
             return text
           }
         }
       },
-      filterText1(text){
+      filterText1(text){ //电子公告
         if(text!=undefined) {
-          if (text.length > 28) {
-            return text.substring(0, 25) + '...'
+          if (text.length >55) {
+            return text.substring(0, 50) + '...'
+          } else {
+            return text
+          }
+        }
+      },
+      timeText(text){
+        if(text!=undefined) {
+          if (text.length > 15){
+            return text.substring(0, 10)
           } else {
             return text
           }
@@ -299,7 +308,7 @@
         let Y = oneTime.getFullYear();
         let M = oneTime.getMonth()+1;
         let D = oneTime.getDate();
-        return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D)+" "+oneTime.toTimeString().substr(0,8);
+        return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
 
       },
     },

@@ -226,7 +226,7 @@
                              </div>
                              </span>
                             </span>
-                            <span >{{item.createTime}}</span>
+                            <span >{{item.createTime|timeText}}</span>
                           </template>
 
                           <template v-else>
@@ -239,7 +239,7 @@
                              </div>
                              </span>
                             </span>
-                            <span >{{item.d_create_time}}</span>
+                            <span >{{item.d_create_time|timeText}}</span>
                           </template>
 
 
@@ -409,20 +409,28 @@
           }
         },filterText1(text){
           if(text!=undefined){
-            if(text.length>20){
-              return text.substring(0,17)+'...'
+            if(text.length>40){
+              return text.substring(0,37)+'...'
             }else{
               return text
             }
           }
-
+        },
+        timeText(text){
+          if(text!=undefined) {
+            if (text.length > 15){
+              return text.substring(0, 10)
+            } else {
+              return text
+            }
+          }
         },
         timeStrings(time){
           let oneTime = new Date(time);
           let Y = oneTime.getFullYear();
           let M = oneTime.getMonth()+1;
           let D = oneTime.getDate();
-          return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D)+" "+oneTime.toTimeString().substr(0,8);
+          return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
 
         },
       },
