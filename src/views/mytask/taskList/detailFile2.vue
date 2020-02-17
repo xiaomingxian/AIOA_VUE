@@ -438,7 +438,7 @@
           //TODO 用户消息
           console.log(e.data)
           let res = JSON.parse(e.data)
-          if (res.msgTxt == "qiCao") {
+          if (res.msgTxt == "kongjian") {
             console.log(this.dealBtn);
             //this.$refs.taskRef.saveBusData();
             this.$refs[this.pageRef].saveNoCheck()
