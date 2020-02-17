@@ -1,6 +1,6 @@
 <template>
-
-  <form style="background-color: #fff;padding-top: 20px;position: fixed;">
+<!--  position: fixed;-->
+  <form style="background-color: #fff;padding-top: 20px;">
     <!--<div v-show="true" @change="changRouter" v-model="routeParam">{{this.$route.params.tableName}}</div>-->
     <center>
       <div :style="{height: scrHeight}" style="overflow: auto;scrollbar-width: none;">
@@ -438,7 +438,7 @@
           //TODO 用户消息
           console.log(e.data)
           let res = JSON.parse(e.data)
-          if (res.msgTxt == "qiCao") {
+          if (res.msgTxt == "kongjian") {
             console.log(this.dealBtn);
             //this.$refs.taskRef.saveBusData();
             this.$refs[this.pageRef].saveNoCheck()
