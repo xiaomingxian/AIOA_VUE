@@ -5,6 +5,7 @@
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
+    destroyOnClose
     @cancel="handleCancel"
     cancelText="关闭">
 
@@ -290,6 +291,7 @@
         record.recordCurrentuser = record.recordCurrentuser ? 'true' : 'false'
         record.completeTask = record.completeTask ? 'true' : 'false'
         record.isCanAdd = record.isCanAdd ? 'true' : 'false'
+        console.log('::::::',record.signer)
         record.signer = record.signer ? 'true' : 'false'
         record.isDeptFinish = record.isDeptFinish ? 'true' : 'false'
         record.userRecordVal = record.userRecordVal ? 'true' : 'false'
