@@ -53,6 +53,7 @@
         picDetail:{
           pictrueText:'',
           pic2:'',
+          nowPic2:''
         },
         url:{
           getLoginText: '/oafile/LoginPicture/loginPictrue',
@@ -68,45 +69,71 @@
     },
     created (){
       this.showSign();
-      this.getPicText();
     },
     methods:{
-      // getText(){
-      //   postAction(this.url.getLoginText).then(res => {
-      //     if (res.success){
-      //       if (this.getCaption(res.result.stable)[0] == ''){
-      //         this.picDetail.pictrueText = "中国人民银行";
-      //       } else {
-      //         if(typeof this.getCaption(res.result.stable) == 'object'){
-      //           this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
-      //         }else {
-      //           this.picDetail.pictrueText = res.result.stable;
-      //         }
-      //         console.log(this.picDetail.pictrueText)
-      //       }
-      //     }
-      //   })
-      // },
+      getText(){
 
-    getPicText(){
-      postAction(this.url.getPictrueText).then(res => {
-        if (res.success){
-        if (res.result == null){
-          this.picDetail.pictrueText = "中国人民银行";
-        } else {
-          if(typeof this.getCaption(res.result) == 'string'){
-            this.picDetail.pictrueText = this.getCaption(res.result);
-          }else {
-            this.picDetail.pictrueText = res.result;
+        postAction(this.url.getLoginText).then(res => {
+
+          if (res.success){
+
+            if(res.result == null){
+
+              this.picDetail.pictrueText = "中国人民银行";
+
+            }else {
+
+              if (res.result.stable == null) {
+
+                this.picDetail.pictrueText = "中国人民银行";
+
+              }else{
+
+                if (typeof this.getCaption(res.result.stable) == 'object') {
+
+
+                  if (this.getCaption(res.result.stable)[0] == '') {
+
+                    this.picDetail.pictrueText = "中国人民银行";
+
+                  } else {
+
+                    this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
+
+                  }
+
+                } else {
+
+                  this.picDetail.pictrueText = res.result.stable;
+
+                }
+
+              }
+
+            }
           }
-        }
-      }
-    })
-    },
+        })
+      },
+
+    // getPicText(){
+    //   postAction(this.url.getPictrueText).then(res => {
+    //     if (res.success){
+    //     if (res.result == null){
+    //       this.picDetail.pictrueText = "中国人民银行";
+    //     } else {
+    //       if(typeof this.getCaption(res.result) == 'string'){
+    //         this.picDetail.pictrueText = this.getCaption(res.result);
+    //       }else {
+    //         this.picDetail.pictrueText = res.result;
+    //       }
+    //     }
+    //   }
+    // })
+    // },
 
       //显示当前已确认使用的图片
       showSign() {
-        // this.getText();
+        this.getText();
         this.picDetail.picurl2 = window._CONFIG['domianURL'] + '/oafile/signPicture/readPicture?resourceType=image',
           axios.get(this.picDetail.picurl2, {
             responseType: 'arraybuffer',
@@ -114,13 +141,17 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-              this.visible = true;
 
+            if(this.picDetail.nowPic2 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.visible = true;
             }else{
-              this.picDetail.pic2 = ""
+              // this.picDetail.pic2 = "";
+
+              this.picDetail.pic2 = this.picDetail.nowPic2;
             }
+
           })
       },
       getCaption(obj,state){
