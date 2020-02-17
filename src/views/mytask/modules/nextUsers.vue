@@ -216,7 +216,7 @@
 </template>
 
 <script>
-  import {getAction, postAction} from "../../../api/manage";
+  import {postAction} from "../../../api/manage";
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import DictItemList from "../../system/DictItemList";
 
@@ -294,7 +294,7 @@
         confirmLoading: false,
         actChoice: [],
         selectedRowKeys2: [],
-        selectedRows2: [],
+        selectedRows2selectedRows2: [],
 
         urls: {
           departUsetQuery: '/oaBus/taskInAct/deptUsersQuery'
@@ -671,8 +671,11 @@
         }
       },
       confirm2() {
-        // console.log('=====================LLLLLLLLLLLLLLLL:::', this.selectedRowKeys2)
 
+        if(this.selectedRowKeys2.length==0){
+          this.$message.error('请选择环节')
+          return
+        }
         let isPass = this.moreThanOneUserCheck();
         if (isPass) {
           this.moreThanOneType()
@@ -1008,8 +1011,48 @@
       }
       ,
       dataInit() {
-        this.selectionRows = []
+        this.singleDept = null
+        this.defaultSelectedKeys = []
+        this.scrHeight = ''
+        this.isMul = false //下一任务是单选/多选
+        this.isDept = false
+        this.endType = false//是否是结束节点
+        this.nextsActs = []
+        this.endTime = ''
+        //穿梭框数据
+        this.mockData = []
+        //部门信息
+        this.deptsList = []
+        //部门选择集合
+        this.departSelect = {}
+        //部门对应用户id
+        this.departUsersId = {}
+        this.departUsersMsg = {}
+        //环节分类，从属于 排他，并行，包容网关
+        this.gateWayTypeSelect = {
+          parallel: {},
+          inclusive: {},
+          normal: {}//有的话只会存在一个
+        }
+        this.typeCount = {
+          normal: [],
+          inclusive: [],
+          parallel: [],
+        }
+        this.preCilck = null
+        //当前点击的节点
+        this.currentClick = null
+        this.timeCheck = false//是否限制时间
+
+        this.dataSource = []
+        this.visible = false
+        this.visible2 = false
+        this.confirmLoading = false
+        this.actChoice = []
         this.selectedRowKeys = []
+        this.selectedRows2selectedRows2 = []
+
+
         this.endTime = ''
       },
       /**
