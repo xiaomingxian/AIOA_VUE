@@ -73,7 +73,7 @@
     methods:{
       getText(){
 
-        postAction(this.url.getLoginText).then(res => {
+        postAction(this.url.getPictrueText).then(res => {
 
           if (res.success){
 
@@ -83,32 +83,24 @@
 
             }else {
 
-              if (res.result.stable == null) {
+                if (typeof this.getCaption(res.result) == 'object') {
 
-                this.picDetail.pictrueText = "中国人民银行";
-
-              }else{
-
-                if (typeof this.getCaption(res.result.stable) == 'object') {
-
-
-                  if (this.getCaption(res.result.stable)[0] == '') {
+                  if (this.getCaption(res.result)[0] == '') {
 
                     this.picDetail.pictrueText = "中国人民银行";
 
                   } else {
 
-                    this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
+                    this.picDetail.pictrueText = this.getCaption(res.result)[0];
 
                   }
 
                 } else {
 
-                  this.picDetail.pictrueText = res.result.stable;
+                  this.picDetail.pictrueText = res.result;
 
                 }
 
-              }
 
             }
           }
@@ -164,10 +156,10 @@
           }else if(state == 1){
             obj = obj.substring(index+1,obj.length);
           }else {
-            obj = obj.substring(0,index)+obj.substring(index+1,obj.length);
+            obj = [obj.substring(0,index),obj.substring(index+1,obj.length)];
           }
         }
-        console.log(obj)
+        // console.log(obj)
         return obj;
       }
     }
