@@ -449,8 +449,6 @@
         console.log("connection closed (" + e.code + ")");
       },
       //----------------webSocket的处理end
-
-
       getbackDataNew(ref) {
         console.log('++++==============', ref)
         this.backData = this.$refs[ref].getBackDataNew()
@@ -816,7 +814,7 @@
         this.show(taskDetail)
       },
       dealHeight(btn) {
-        let btnHegiht = 30;
+        let btnHegiht = 50;
         console.log(btn)
         if (btn.isNotDefend != undefined && btn.isNotDefend.length != 0) {
           btnHegiht += 70;
@@ -923,7 +921,8 @@
             //字典值获取
             this.optionMap = res.result.optionMap;
             this.secretDegree = res.result.optionMap.secretDegree;
-            this.urgencyList = res.result.optionMap.i_urgency_option;
+            //this.urgencyList = res.result.optionMap.i_urgency_option;
+            this.urgencyList = res.result.optionMap.urgencyList;
             //业务数据赋值
 
             this.backData = res.result.oaBusdata;
@@ -1090,6 +1089,26 @@
   .hoverred:hover {
     color: red;
     cursor: pointer;
+  }
+
+  /deep/.ant-input{
+    font-size: 16px;
+  }
+
+  /deep/.ant-select{
+    font-size: 16px;
+  }
+
+  /deep/.ant-btn-default{
+    font-size: 16px;
+  }
+
+  /deep/.ant-btn-lg{
+    font-size: 18px;
+  }
+
+  /deep/.ant-radio-wrapper{
+    font-size: 16px;
   }
 </style>
 <style>

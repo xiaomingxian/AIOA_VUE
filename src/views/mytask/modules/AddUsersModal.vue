@@ -220,7 +220,7 @@
     components: {DictItemList},
     data() {
       return {
-        defaultSelectedKeys:[],
+        defaultSelectedKeys: [],
         scrHeight: window.innerHeight - 300 + 'px',
         title: '追加用户',
         okText: '确定',
@@ -268,7 +268,15 @@
           {
             title: '状态',
             align: "center",
-            dataIndex: 'status'
+            dataIndex: 'status',
+            // customRender: function (text,v1,v2) {
+            //   console.log(v1,v2)
+            //   if(text=='处理人'){
+            //     return  text +'(点不了)';
+            //   }else{
+            //     return text;
+            //   }
+            // }
           },
         ],
         columns2: [
@@ -330,6 +338,15 @@
         this.visible = true
       },
       handleTableChangeMy(rowKeys, rows) {
+        console.log(rows)
+        //排除掉不可追加
+        for (let i in rows){
+          if (rows[i].status=='处理人') {
+            this.$message.error('处理人不可选')
+            return
+          }
+        } 
+
         this.onSelectChange(rowKeys, rows)
         //并记录用户
         this.showPreClick(this.currentClick, false, true, false)
@@ -378,7 +395,11 @@
       setRowCheck(res) {
         return {
           on: {
-            click: () => {
+            click: (e) => {
+              if (res.status == '处理人') {
+                this.$message.error('处理人不可选')
+                return
+              }
               let rowkeys = this.selectedRowKeys;
               if (rowkeys.length > 0 && rowkeys.includes(res.uid)) {
                 rowkeys.splice(rowkeys.indexOf(res.uid), 1);
@@ -573,8 +594,16 @@
           if (this.dataSource.length > 0 && !isShowNext && !isChange) {
             if (this.selectedRowKeys.length == 0 || isNormal) {
               let defaultSelected = []
-              defaultSelected.push(this.dataSource[0].uid)
-              this.selectedRowKeys = defaultSelected
+
+              for (let i of this.dataSource) {
+                if (i.status != '处理人') {
+                  defaultSelected.push(i.uid)
+                  this.selectedRowKeys = defaultSelected
+                  break;
+                }
+              }
+
+
               select.selectedRowKeys = this.selectedRowKeys
               select.selectionRows = this.selectionRows
             }
@@ -627,7 +656,7 @@
       },
       //并行或包容
       moreThanOneType() {
-        console.log('-------->>>>>',JSON.stringify(this.gateWayTypeSelect))
+        console.log('-------->>>>>', JSON.stringify(this.gateWayTypeSelect))
 
         this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
       },

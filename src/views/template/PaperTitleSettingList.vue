@@ -119,6 +119,7 @@
   import PaperTitleSettingModal from './modules/PaperTitleSettingModal'
   import PaperTitleSettingCatModal from './modules/PaperTitleSettingCatModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { getAction } from '@/api/manage'
 
   export default {
     name: "PaperTitleSettingList",
@@ -130,6 +131,7 @@
     data () {
       return {
         description: '稿纸头配置管理页面',
+        iisFontSize: '16px',
         // 表头
         columns: [
           {
@@ -231,7 +233,24 @@
       return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
     }
   },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       handleCat: function (record) {
         this.$refs.catForm.add(record);
         this.$refs.catForm.title = "查看";

@@ -314,7 +314,7 @@ export const busdataTemplate = {
     //按钮-登记文号
     saveDocNum(data) {
       this.backData.s_file_num = data.docnum;
-      this.backData.s_varchar20 = data.id
+      this.backData.s_varchar8 = data.id //文号id
     },
     //按钮-引入公文链接
     saveGongwenData(data) {
@@ -404,7 +404,7 @@ export const busdataTemplate = {
       let url = window._CONFIG['domianURL'] + "/papertitle/oaTemplate/download";
       window.open(url + "/" + path);
     },
-    blurText(value, event) {
+    blurText(value, event, label) {
 
       let checkList = this.optionMap.checkList;
 
@@ -419,6 +419,11 @@ export const busdataTemplate = {
           } else {
 
             event.$el.style.borderColor = '#d9d9d9';
+
+          if(label == '标题'){
+            let s_title =  value.replace(/，/g, '_');
+            this.backData.s_title =  s_title.replace(/,/g, '_');
+          }
 
           }
 

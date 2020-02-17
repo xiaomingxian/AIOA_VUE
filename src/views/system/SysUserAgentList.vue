@@ -138,6 +138,7 @@
     data() {
       return {
         description: 'a管理页面',
+        iisFontSize: '16px',
         postLists:[],
         // 表头
         columns: [
@@ -229,9 +230,24 @@
         console.log(res.result.records);
         this.postLists = res.result.records;
       });
-
+      this.setFontSize();
     },
+
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       beforeUpload: function (file, fileList) {
         alert(11)
         this.fileList = [...this.fileList, file];
@@ -252,8 +268,6 @@
           this.postLists = res.result.records;
         });
       }
-
-
     }
   }
 </script>

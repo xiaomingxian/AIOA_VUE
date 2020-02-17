@@ -8,7 +8,7 @@
           <center><h3>{{detailList.s_title}}</h3></center>
         </td>
         <td colspan="3">
-          <a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title)"
+          <a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)"
                       onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"
                       v-model="backData.s_title"></a-textarea>
         </td>

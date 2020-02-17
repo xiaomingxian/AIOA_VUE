@@ -295,13 +295,34 @@ export const taskBth = {
         return
       }
 
+      for (var index in this.opts) {
+        //判断意见环节是否匹配
+        let td = this.taskMsg.taskDefinitionKey
+        if ((this.opts[index].taskDefKeys).indexOf(td) >= 0) {
+          //属性赋值
+          this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+          this.backDataOpt.i_order = this.opts[index]['orderId']
+          this.backDataOpt.i_opinion_set_id = this.opts[index]['optionSetId']
+          this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+          this.flag = true;
+          break
+        }
+      }
       // //校验意见
       if (this.flag) {    //如果要填写意见的话，就进行校验
-        if (!this.isSaveFlag) {  //如果没有填写
+        if (this.backDataOpt.i_id =="") {  //如果没有填写
           this.$message.error("下一任务前必须填写意见！！！");
           return;
         }
       }
+
+      // //校验意见
+      /*if (this.flag) {    //如果要填写意见的话，就进行校验
+        if (!this.isSaveFlag) {  //如果没有填写
+          this.$message.error("下一任务前必须填写意见！！！");
+          return;
+        }
+      }*/
       // 按钮校验
       if (this.btn != undefined && this.btn.length > 0) {
         console.log(JSON.stringify(this.btn))
@@ -316,7 +337,7 @@ export const taskBth = {
           }
         }
       }
-      //this.$emit('checkData')
+      this.$emit('checkData')
       this.$emit("nextCheckDataFun")
       //获取store changeCheckDataFlag
       if (this.$store.state.checkDataFlag) {
@@ -338,6 +359,7 @@ export const taskBth = {
         procDefkey: this.backData.s_cur_proc_name,
         drafterId: this.backData.s_create_by,
         taskId: this.taskMsg.id,
+        processDefinitionId: this.taskMsg.processDefinitionId,
         taskDefinitionKey: this.taskMsg.taskDefinitionKey,
       }).then(res => {
         //展示数据
@@ -647,6 +669,7 @@ export const taskBth = {
     },
     //选择下一办理人的同时办理任务
     confirmNextUsers(ids, activity, endTime, depts) {
+      console.log(activity)
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id
@@ -1241,7 +1264,7 @@ export const taskBth = {
     ,
 //正文排版
     zwPaiBan() {
-      if (parseInt(this.backData.s_varchar20) == 0) {
+      if (parseInt(this.backData.s_varchar8) == 0) {
         this.$message.error("请您先登记文号");
       } else {
         this.openFile(2, this.fileName)
@@ -1316,7 +1339,7 @@ export const taskBth = {
         ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
           "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
           this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
-          + parseInt(this.backData.s_varchar20) + "&fileName=" + fileName);
+          + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName);
       } else {
         window.open(window.location.origin + "/ntko/exeindex.html")
       }
@@ -1352,15 +1375,13 @@ export const taskBth = {
         table: this.backData.table,
         i_id: this.backData.i_id,
         s_file_num: data.docnum, //文件字号
-        s_varchar20: data.id //文号id
+        s_varchar8: data.id //文号id
       }
-      postAction(this.url.updateBusdata, {
-        'updateBusdata': param
-      }).then(res => {
+      postAction("oaBus/dynamic/updateData",param).then(res => {
         if (res.success) {
           this.reload(); //页面刷新
-          this.$emit("saveDocNum", data)
-          this.$message.success(res.message)
+          // this.$emit("saveDocNum", data)
+          this.$message.success("登记文号成功！")
         } else {
           this.$message.error(res.message)
         }

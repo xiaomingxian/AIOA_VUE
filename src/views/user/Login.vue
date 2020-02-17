@@ -205,6 +205,7 @@
       return {
         picDetail:{
           pic: '',
+          nowPic:''
         },
         headers: {
           'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
@@ -287,13 +288,17 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            console.log("@@@@@@@@@@@@@@@@@@@")
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+
+            if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
             }else{
-              this.picDetail.pic = ""
+              // this.picDetail.pic = "";
+
+              this.picDetail.pic = this.picDetail.nowPic;
             }
+
           })
       },
 

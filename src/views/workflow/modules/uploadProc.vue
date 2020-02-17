@@ -124,6 +124,7 @@
               this.$emit('reload')
               this.handleCancel()
             } else {
+              this.haveClick=false
               this.fileList = []
               this.$message.error(res.message)
             }

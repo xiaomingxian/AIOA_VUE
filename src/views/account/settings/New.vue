@@ -17,7 +17,6 @@
       </div>
 
     <a-form-item
-      style="padding-bottom: 20px;border-bottom: 1px solid;"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol">
       <span >AI语音 :&nbsp&nbsp</span><a-switch @change="onChange1" v-model="iisAi" checked-children="是" un-checked-children="否"></a-switch>
@@ -25,6 +24,21 @@
       <span style="margin-left: 20px">折叠展示数据 :&nbsp&nbsp</span><a-switch @change="onChange3" v-model="iisFold"  checked-children="是" un-checked-children="否"></a-switch>
       <span style="margin-left: 10px">默认首页风格 :&nbsp&nbsp</span><a-switch @change="onChange4" checked-children="日程办公" v-model="iisCalendar"   un-checked-children="传统首页"></a-switch>
     </a-form-item>
+
+    <a-form-item
+      style="padding-bottom: 20px;border-bottom: 1px solid;"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol">
+      <span >字号 :&nbsp&nbsp</span>
+      <a-radio-group
+        style="font-weight: bolder;"
+        name="radioGroup"
+        v-model="iisFontSize"
+       :defaultValue="2">
+        <a-radio v-for="(atom,index) in fontSizeList" :value="parseInt(atom.value)">{{atom.text}}</a-radio>
+      </a-radio-group>
+    </a-form-item>
+
    <!-- <a-form-item
       :labelCol="labelCol"
       :wrapperCol="wrapperCol">
@@ -129,7 +143,7 @@
       </div>
 
       <a-button icon="save" @click="handleOk" style="background: #b4d7ff">保存</a-button>
-      <a-button icon="close-circle" @click="handleCeal" style="background: #b4d7ff;margin-left: 20px">取消</a-button>
+      <!--<a-button icon="close-circle" @click="handleCeal" style="background: #b4d7ff;margin-left: 20px">取消</a-button>-->
     </a-form>
     </a-spin>
   </div>
@@ -167,7 +181,8 @@
         url: {
           add: "/testt/sysUserSet/add",
           edit: "/testt/sysUserSet/edit",
-          changIp: "/sys/user/changeIP"
+          changIp: "/sys/user/changeIP",
+          sysDict: "/sys/dict/getDictByKeyObj",
         },
         form: this.$form.createForm(this),
         model: {},
@@ -176,6 +191,8 @@
         iisMessages:false,
         iisFold:false,
         iisCalendar:false,
+        iisFontSize: 2,
+        fontSizeList: [],
         ibus1Id:'',
         ibus2Id:'',
         ibus3Id:'',
@@ -186,11 +203,12 @@
         // isnewbody:''
       }
     },
-    inject:['reload'],
+   inject:['reload'],
     created () {
       this.InitializeQuery();
       this.getBusModelList();
-
+      //查询字体大小
+      this.getFontSizeFun();
     },
     watch: {
       selectedModel: 'getBusModelList'
@@ -204,6 +222,12 @@
     },
     mixins: [mixin],
     methods: {
+      //获取字体大小的字典值
+      getFontSizeFun(){
+        getAction(this.url.sysDict,{dictKey:'fontSize'}).then((res) =>{
+          this.fontSizeList = res.result;
+        })
+      },
       //下拉选列表-所属功能
       getBusModelList() {
         let url = "/oaBus/Calendar/oaCalendar/getFunctionName";
@@ -226,6 +250,7 @@
           iisMessages:this.iisMessages?1:0,
           iisFold:this.iisFold?1:0,
           iisCalendar:this.iisCalendar?1:0,
+          iisFontSize:this.iisFontSize,
           icalendarDay:Number(this.icalendarDay)
         }
         let   param = {
@@ -234,31 +259,36 @@
         //编辑接口
         if(this.isnewbody){
           // console.log(subdata.iisCalendar);
+          if(param.ip == this.isnewbody.ip){//ip没有改动
             postAction(this.url.edit,subdata).then((res) => {
               this.$message.success(res.message);
-              this.reload();
-              // window.location.reload()
-              // if(subdata.iisCalendar==1){
-              //   this.$store.commit('setIndexOne')
-              //
-              // }else{
-              //   this.$store.commit('setIndexTwo')
-              // }
-              // console.log('//////////////////-----------------'+this.$store.state.indexState);
+              this.InitializeQuery();
+            })
+             console.log(this.isnewbody.ip)
+           //ip有修改
 
+
+          }
+         else{
+            postAction(this.url.changIp, param).then((res) => {
+              postAction(this.url.edit,subdata).then((res) => {
+                this.$message.success(res.message);
+                this.InitializeQuery();
+              })
             })
 
-             postAction(this.url.changIp,param).then((res) => {
-            /*  this.$message.success(res.message);*/
-              this.reload();
-            })
+
+          }
+
+
 
         }else{
+
            //  新增接口
           postAction(this.url.add,subdata).then((res) => {
               console.log(res.result);
               this.$message.success(res.message);
-                this.reload();
+              this.InitializeQuery();
             // window.location.reload()
             // if(subdata.iisCalendar==1){
             //   this.$store.commit('setIndexOne')
@@ -269,8 +299,6 @@
 
           })
           postAction(this.url.changIp,param).then((res) => {
-            this.$message.success(res.message);
-            this.reload();
           })
         }
       },
@@ -280,6 +308,7 @@
         this.userid = userid;
         let url = "/testt/sysUserSet/queryByUserId";
         getAction(url,{userId:userid}).then((res) => {
+          this.iisFontSize = res.result.iisFontSize;
           console.log(res.result);
           this.isnewbody = res.result;
           this.getdata = res.result;
@@ -307,15 +336,21 @@
           this.ibus4Id = this.getdata.ibus4Id;
 
           this.icalendarDay = this.getdata.icalendarDay;
-          this.ip = this.getdata.ip;
+
+          if(this.getdata.ip != '' || this.getdata.ip != null){
+            this.ip = this.getdata.ip;
+          }else{
+            this.ip = '';
+          }
 
 
 
         });
       },
-      handleCeal(){
+    /*  handleCeal(){
            this.InitializeQuery();
-      },
+       /!* this.reload();*!/
+      },*/
       onChange1 (checked) {
 
           if(checked){

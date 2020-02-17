@@ -125,6 +125,7 @@
     data () {
       return {
         description: '日程管理表管理页面',
+        iisFontSize: '16px',
         serchSubData:{
           richengName:'1',
           sTitle:'',
@@ -229,8 +230,23 @@
 
       this.searchQuery();
     /*  this.myListsFuc();*/
+      this.setFontSize();
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       myrichenClose(e){
         this.reload();
       },

@@ -186,6 +186,7 @@
     },
     data() {
       return {
+        iisFontSize: '16px',
         model1: {},
         model2: {},
         currentRoleId: '',
@@ -306,7 +307,26 @@
         return this.selectedRowKeys1.length === 0 ? 0 : 12
       }
     },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+              document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
+          }
+        })
+      },
       onSelectChange2(selectedRowKeys, selectionRows) {
         this.selectedRowKeys2 = selectedRowKeys
         this.selectionRows2 = selectionRows

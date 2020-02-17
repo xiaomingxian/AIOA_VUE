@@ -167,6 +167,7 @@
         fileList: '',
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         description: 'proManager管理页面',
+        iisFontSize: '16px',
         datasource: [],
         // 表头
         columns: [
@@ -243,7 +244,24 @@
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
+    created() {
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       reload() {
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         // this.fileList = []
@@ -385,9 +403,7 @@
         this.$refs.copyProc.show()
       }
 
-    },
-    create() {
-    },
+    }
 
   }
 </script>

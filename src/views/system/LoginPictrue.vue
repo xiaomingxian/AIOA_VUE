@@ -3,23 +3,34 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
         <div class="watchHeader">
-          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 115%;left: -1%;z-index: 999;"/>
-          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 115%;left: -1%;z-index: 999;"/>
+          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1.4%;z-index: 999;"/>
+          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1.4%;z-index: 999;"/>
         </div>
 
-        <div style="height: auto; background: #fff;  padding: 27px">
-          <div style="width: 100%; height: 80px; background: #fff; margin: 0 auto;  display: flex;align-items: center;justify-content: flex-start">
-            <span style="margin-left: 30px">默认使用背景图 :&nbsp&nbsp</span>
-            <a-switch @change="onChange1" checked-children="自定义" v-model="iisCalendar"   un-checked-children="默认"></a-switch>
-            <span style="color: #d60303;margin-left: 50px;">只允许上传png、jpg、bmp格式的图片</span>
+        <div style="height: auto; background: #fff;  padding: 27px;">
+
+          <div style="display: flex;position: relative;bottom: 32px;right: 27px;">
+            <img src="~@/assets/settingTitle@2x.png" style="width: 1672.7px;height: 43px;"/>
           </div>
-          <!--<div style="display: flex;margin-bottom: 25px;">-->
-            <!--<span style="font-weight: bolder;">自定义图片</span>-->
-            <!--<span style="color: #d60303;margin-left: 10px;">只允许上传png、jpg、bmp格式的图片</span>-->
-          <!--</div>-->
-          <div style="display: flex;">
-            <div style="display: flex;align-items: center;justify-content: flex-start;margin-left: 30px;">
-              <span>请上传图片：</span>
+
+          <div style="width: 100%;display: flex;background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 96px;">
+            <span>默认使用背景图 :&nbsp&nbsp</span>
+            <a-switch @change="onChange1" checked-children="自定义" v-model="iisCalendar"   un-checked-children="默认"></a-switch>
+            <!--<span style="color: #d60303;margin-left: 50px;">只允许上传png、jpg、bmp格式的图片</span>-->
+          </div>
+
+
+
+          <div style="display: flex;position: relative;top: 22px;">
+            <span style="font-size: 16px;font-weight: bolder;">自定义图片</span>
+            <span style="color: #d60303;margin-left: 10px;">只允许上传png、jpg、bmp格式的图片</span>
+          </div>
+
+
+
+          <div style="height: 80px;display: flex;margin:17px 0 0 96px;">
+            <div style="display: flex;align-items: center;justify-content: flex-start;">
+              <span>登录页面背景图：</span>
               <a-upload
                 name="file"
                 :multiple="false"
@@ -27,15 +38,26 @@
                 :beforeUpload="beforeUpload"
                 :headers="headers"
               >
-                <a-button style="border-color: #8cc8ff">
+                <a-button style="width:172px;border-color: #8cc8ff">
                   <a-icon type="upload" />
                   点击上传主背景图
                 </a-button>
               </a-upload>
             </div>
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 30px;">
+              <span style="color: #d60303;">建议上传图片尺寸876*455px，大小1MB以内</span>
+            </div>
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 30px;">
+              <span style="width: 188px;">图片名称：</span>
+              <a-input v-if="picDetail.upFileName" style="margin-left: -71px;border: transparent;" v-model="picDetail.upFileName" disabled/>
+            </div>
+          </div>
 
-            <div style="display: flex;align-items: center;justify-content: flex-start;margin-left: 55px;">
-              <span>请上传图片：</span>
+
+
+          <div style="display: flex;margin-left: 96px;">
+            <div style="display: flex;align-items: center;justify-content: flex-start;">
+              <span>首页头部背景图：</span>
               <a-upload
                 name="file"
                 :multiple="false"
@@ -43,15 +65,27 @@
                 :beforeUpload="beforeUpload1"
                 :headers="headers"
               >
-                <a-button style="border-color: #8cc8ff">
+                <a-button style="width: 172px;border-color: #8cc8ff">
                   <a-icon type="upload" />
                   点击上传Header图
                 </a-button>
               </a-upload>
             </div>
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 30px;">
+              <span style="color: #d60303;">建议上传图片尺寸1618*70px，大小1MB以内</span>
+            </div>
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 30px;">
+              <span style="width: 188px;">图片名称：</span>
+              <a-input v-if="picDetail.upFileName1" style="margin-left: -71px;border: transparent;" v-model="picDetail.upFileName1" disabled/>
+            </div>
+          </div>
 
-            <div style="display: flex;align-items: center;justify-content: flex-start;margin-left: 55px;">
-              <span>请上传图片：</span>
+
+
+
+          <div style="height: 80px;display: flex;margin: 0 0 9px 96px;">
+            <div style="display: flex;align-items: center;justify-content: flex-start;">
+              <span>登录&导航Logo：</span>
               <a-upload
                 name="file"
                 :multiple="false"
@@ -59,60 +93,46 @@
                 :beforeUpload="beforeUpload2"
                 :headers="headers"
               >
-                <a-button style="border-color: #8cc8ff">
+                <a-button style="width:172px;border-color: #8cc8ff;">
                   <a-icon type="upload" />
                   点击上传logo
                 </a-button>
               </a-upload>
             </div>
-          </div>
-
-          <div style="display: flex">
-            <div style="height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;margin-left: 30px;">建议上传图片尺寸876*455px，大小1MB以内</span>
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 30px;">
+              <span style="color: #d60303;">建议上传图片为png格式，大小1MB以内</span>
             </div>
-            <div style="height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;margin-left: 30px;">建议上传图片尺寸1618*70px，大小1MB以内</span>
-            </div>
-            <div style="height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;margin-left: 35px;">建议上传图片为png格式，大小1MB以内</span>
-            </div>
-          </div>
-
-          <div style="display: flex">
-            <div style="width: 21.4%; height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="width: 45%;margin-left: 30px;">图片名称：</span>
-              <a-input v-if="picDetail.upFileName" style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName" disabled/>
-            </div>
-
-            <div style="width: 24.7%; height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start">
-              <span style="width: 41%;margin-left: 56px;">图片名称：</span>
-              <a-input v-if="picDetail.upFileName1" style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName1" disabled/>
-            </div>
-
-            <div style="width: 24.7%; height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start">
-              <span style="width: 39%;margin-left: 46px;">图片名称：</span>
-              <a-input v-if="picDetail.upFileName2" style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName2" disabled/>
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 57px;">
+              <span style="width: 188px;">图片名称：</span>
+              <a-input v-if="picDetail.upFileName2" style="margin-left: -71px;border: transparent;" v-model="picDetail.upFileName2" disabled/>
               <!--<a-input v-else style="margin-left: -20px;border: transparent;" v-model="picDetail.upFileName2" disabled/>-->
             </div>
           </div>
-          <!--<div style="display: flex;position: absolute;bottom: 26%;">-->
-            <!--<span style="font-weight: bolder;">自定义标题</span>-->
-          <!--</div>-->
-        <div style="display: flex;margin-top: 2%;">
-          <div style="width: 30%; height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;border-top: 1px solid;margin-left: 2%;padding-top:2%;">
-            <span style="width:27%;">登录页&首页文字标题：</span>
-            <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="picDetail.editTitleText" />
+
+
+          <div style="width: 907px;height: 1px;background-color: rgba(0, 0, 0, 0.65);margin-left: 96px;"></div>
+
+
+        <div style="display: flex;position: relative;top: 27px;">
+          <span style="font-size: 16px;font-weight: bolder;">自定义标题</span>
+        </div>
+
+
+
+        <div style="display: flex;margin: 41px 0 0 96px;">
+          <div style=" background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+            <span style="width: 272px;">登录页&导航栏文字标题：</span>
+            <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
           </div>
 
-          <div style="width: 30%; height: 80px; background: #fff;display: flex;align-items: center;justify-content: flex-start;border-top: 1px solid;padding:2% 0% 0% 37%;">
-            <a-button size="middle" icon="check-circle" style="margin-left: -247px;" @click="confirmPic"  type="primary">确认替换</a-button>
+          <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
+            <a-button size="middle" icon="check-circle" @click="confirmPic"  type="primary">确认替换</a-button>
           </div>
         </div>
 
-          <div style="display: flex">
-            <div style="height: 27px; background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;margin-left: 25px;">首页logo标题可用"&"从登录页标题后方截取，并同时更换；未加"&"则视为同时更换为相同标题</span>
+          <div style="height: 41px;display: flex;margin-left: 96px;">
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+              <span style="color: #d60303;">首页logo标题可用"&"从登录页标题后方截取，并同时更换；未加"&"则视为同时更换为相同标题</span>
             </div>
           </div>
       </div>
@@ -122,7 +142,7 @@
             <img v-if="picDetail.pic2" style="width:49.59px;height:44px;position: absolute;bottom: 74%;" :src="picDetail.pic2">
             <img v-else style="width:49.59px;height:44px;position: absolute;bottom: 74%;" src="~@/assets/logo2x.png">
             <!--<a-input style="width: 260px;margin: 3% 0% 0% 14%;" v-model="picDetail.pictrueText" />-->
-            <span style="font-size:27px;font-weight: bolder;position: absolute;bottom: 74%;left: 18%;">{{picDetail.editTitleText}}</span>
+            <span style="font-size:27px;font-weight: bolder;position: absolute;bottom: 74%;left: 18%;">{{picDetail.pictrueText}}</span>
           </div>
           <div class="watchPic">
             <!--<div style="width: 100px; height: 100px; background-color: red " v-model="picDetail.pictrueText"></div>-->
@@ -177,6 +197,9 @@
           pic: '',
           pic1: '',
           pic2: '',
+          nowPic: '',
+          nowPic1: '',
+          nowPic2: '',
           fileType: 'bmp、jpg、png',
           picurl:'',
           picurl1:'',
@@ -253,7 +276,7 @@
           if (res.success) {
             this.picDetail.upFileName = res.result.sfileName
             this.picDetail.fileId = res.result.iid;
-            // this.picDetail.pictrueText = res.result.stable;
+            this.picDetail.pictrueText = res.result.stable;
             this.show1(res.result.iid);
             this.$message.success("上传主背景图成功");
             this.$emit('ok');
@@ -322,6 +345,29 @@
       return true;
     },
 
+
+    getLoginPic(){
+
+      if (typeof this.getCaption(this.picDetail.editTitleText) == 'object') {
+
+        if (this.getCaption(this.picDetail.editTitleText)[0] == '') {
+
+          this.picDetail.pictrueText = "中国人民银行";
+
+        } else {
+
+          this.picDetail.pictrueText = this.getCaption(this.picDetail.editTitleText)[0];
+
+        }
+
+      }else{
+
+        this.picDetail.pictrueText = this.picDetail.editTitleText;
+
+      }
+
+  },
+
     getPicText(){
       postAction(this.url.getPictrueText).then(res => {
         if (res.success){
@@ -380,35 +426,56 @@
       },
 
       getText(){
+
         postAction(this.url.getLoginText).then(res => {
-          console.log("1212121212121212121")
-          console.log(res)
+
           if (res.success){
+
             if(res.result == null){
+
               this.picDetail.upFileName = "";
+
               this.iisCalendar = false;
-            }else{
-               this.iisCalendar = true;
+
+              this.picDetail.pictrueText = "中国人民银行";
+
+            }else {
+
+              this.iisCalendar = true;
+
               this.picDetail.upFileName = res.result.sfileName;
+
               this.picDetail.fileId = res.result.iid;
+
+              if (res.result.stable == null) {
+
+                this.picDetail.pictrueText = "中国人民银行";
+
+              }else{
+
+                  if (typeof this.getCaption(res.result.stable) == 'object') {
+
+
+                    if (this.getCaption(res.result.stable)[0] == '') {
+
+                      this.picDetail.pictrueText = "中国人民银行";
+
+                    } else {
+
+                      this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
+
+                    }
+
+                  } else {
+
+                    this.picDetail.pictrueText = res.result.stable;
+
+                  }
+
+              }
+
             }
 
-
-            // if (this.getCaption(res.result.stable)[0] == ''){
-            //   this.picDetail.upFileName = "";
-            //   this.iisCalendar = false;
-            // } else {
-            //   this.iisCalendar = true;
-            //   this.picDetail.upFileName = res.result.sfileName;
-            //   console.log("22222222222222")
-            //   console.log(upFileName);
-            //   // if(typeof this.getCaption(res.result.stable) == 'object'){
-            //   //   this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
-            //   // }else {
-            //   //   this.picDetail.pictrueText = res.result.stable;
-            //   // }
-            //   this.picDetail.fileId = res.result.iid;
-            // }
 
           }
         })
@@ -454,30 +521,63 @@
             'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
           }
         }).then(res => {
-          if(res.data.byteLength >= 10){
-            this.picDetail.pic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+          if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+            this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.visible = true;
 
           }else{
-            this.picDetail.pic = ""
+            // this.picDetail.pic = "";
+
+            this.picDetail.pic = this.picDetail.nowPic;
           }
         })
       },
 
       getTextSign(){
+
         postAction(this.url.getLoginTextSign).then(res => {
+
           if (res.success){
-            if (res.result.sfileName == null){
+
+            if (res.result == null){
+
               this.picDetail.logoText = "中国人民银行";
+
               this.picDetail.upFileName2 = "";
+
             } else {
+
               this.picDetail.upFileName2 = res.result.sfileName;
-              // if(typeof this.getCaption(res.result.stable) == 'object'){
-              //   this.picDetail.logoText = this.getCaption(res.result.stable)[1];
-              // }else {
-              //   this.picDetail.logoText = res.result.stable;
-              // }
+
+              if (res.result.stable == null) {
+
+                this.picDetail.logoText = "中国人民银行";
+
+              }else{
+
+                if(typeof this.getCaption(res.result.stable) == 'object'){
+
+                  if (this.getCaption(res.result.stable)[1] == '') {
+
+                    this.picDetail.logoText = "中国人民银行";
+
+                  } else {
+
+                    this.picDetail.logoText = this.getCaption(res.result.stable)[1];
+
+                  }
+
+                }else {
+
+                  this.picDetail.logoText = res.result.stable;
+
+                }
+
+              }
+
               this.picDetail.fileId2 = res.result.iid;
+
             }
           }
         })
@@ -493,12 +593,15 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            if(this.picDetail.nowPic2 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
 
             }else{
-              this.picDetail.pic2 = ""
+              // this.picDetail.pic2 = "";
+
+              this.picDetail.pic2 = this.picDetail.nowPic2;
             }
           })
       },
@@ -513,11 +616,14 @@
             }
           }).then(res => {
             console.log(res)
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            if(this.picDetail.nowPic2 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
             }else{
-              this.picDetail.pic2 = ""
+              // this.picDetail.pic2 = "";
+
+              this.picDetail.pic2 = this.picDetail.nowPic2;
             }
           })
       },
@@ -532,11 +638,14 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            if(this.picDetail.nowPic1 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
             }else{
-              this.picDetail.pic1 = ""
+              // this.picDetail.pic1 = "";
+
+              this.picDetail.pic1 = this.picDetail.nowPic1;
             }
           })
       },
@@ -551,12 +660,15 @@
           }
         }).then(res => {
           console.log(res.data.byteLength);
-          if(res.data.byteLength >= 10){
-            this.picDetail.pic='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+          if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+            this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.visible = true;
           }else{
-            this.picDetail.pic = ""
-            this.$message.error("图片下载失败")
+            // this.picDetail.pic = "";
+            // this.$message.error("图片下载失败");
+
+            this.picDetail.pic = this.picDetail.nowPic;
           }
         })
       },
@@ -572,12 +684,15 @@
           }
         }).then(res => {
           console.log(res.data.byteLength);
-          if(res.data.byteLength >= 10){
+          if(this.picDetail.nowPic1 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+            this.picDetail.nowPic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
             this.visible = true;
           }else{
-            this.picDetail.pic1 = ""
-            this.$message.error("图片下载失败")
+            // this.picDetail.pic1 = "";
+            // this.$message.error("图片下载失败");
+
+            this.picDetail.pic1 = this.picDetail.nowPic1;
           }
         })
     },

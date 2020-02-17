@@ -99,6 +99,7 @@
     data() {
       return {
         description: '业务模块表（业务分类表）管理页面',
+        iisFontSize: '16px',
         // 表头
         columns: [
           /*{
@@ -186,8 +187,23 @@
     },
     created(){
       this.initDbdata();
+      this.setFontSize();
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       permitConfig(record) {
         this.$refs.modelModalForm.show(record);
       },

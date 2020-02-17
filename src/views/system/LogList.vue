@@ -79,9 +79,10 @@
 </template>
 
 <script>
-  import { filterObj } from '@/utils/util';
+  import { filterObj } from '@/utils/util'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import JEllipsis from '@/components/jeecg/JEllipsis'
+  import { getAction } from '@/api/manage'
 
   export default {
     name: "LogList",
@@ -92,6 +93,7 @@
     data () {
       return {
         description: '这是日志管理页面',
+        iisFontSize: '16px',
         // 查询条件
         queryParam: {
           ipInfo:'',
@@ -182,7 +184,24 @@
         },
       }
     },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       getQueryParams(){
         console.log(this.queryParam.createTimeRange)
         var param = Object.assign({}, this.queryParam,this.isorter);

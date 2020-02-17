@@ -72,6 +72,7 @@
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import DictModal from './modules/DictModal'
   import DictItemList from './DictItemList'
+  import { getAction } from '@/api/manage'
 
   export default {
     name: "DictList",
@@ -80,6 +81,7 @@
     data() {
       return {
         description: '这是数据字典页面',
+        iisFontSize: '16px',
         visible: false,
         // 查询条件
         queryParam: {
@@ -142,7 +144,24 @@
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       getQueryParams() {
         var param = Object.assign({}, this.queryParam, this.isorter);
         param.field = this.getQueryField();

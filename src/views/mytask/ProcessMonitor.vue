@@ -169,14 +169,16 @@
       </a-form>
     </div>
 
-          <!-- table区域-begin -->
-          <div v-if="iisFold == 0">
 
-            <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-              <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-              selectedRowKeys.length }}</a>项
-              <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-            </div>
+
+    <!-- table区域-begin -->
+    <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+      <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
+      selectedRowKeys.length }}</a>项
+      <a style="margin-left: 24px" @click="onClearSelected">清空</a>
+    </div>
+
+    <div v-if="iisFold == 0">
 
             <a-table
               ref="table"
@@ -341,6 +343,7 @@
       return {
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         description: '流程监控',
+        iisFontSize: '16px',
         showUnDo: false,
         // visibleCreateModal: false,
         // visible: false,
@@ -439,6 +442,22 @@
       }
     },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+            document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
+          }
+        })
+      },
       //清空其他排序条件
       nullOther(type) {
         let orderColums = ['orederByWenHao', 'orederByTile', 'orederByHuanJie', 'orederByDrafter', 'orederByTime']
@@ -691,12 +710,13 @@
 
         });
 
+        this.setFontSize();
+
         if(this.dataSource007.length > 0){
           this.getSearchList();
         }else {
           return;
         }
-
       },
       getExpandRecords(expanded,record){
         if(expanded == false){
@@ -826,13 +846,13 @@
 
           // this.dataSources = res.result.dataList;
 
-
           this.dataSource007 = res.result.records;
           for(let i = 0;i < this.dataSource007.length;i++){
             this.dataSource007[i].key = this.dataSource007[i].id;
           }
 
         });
+        this.setFontSize();
       },
       getSearchList (){
         this.dataSource007 = [];
@@ -983,9 +1003,8 @@
 
         this.searchQueryMy();
 
-
         // });
-
+        this.setFontSize();
       },
       // changeInput(event, obj) {
       //   this.queryParam[obj] = event.currentTarget.value;

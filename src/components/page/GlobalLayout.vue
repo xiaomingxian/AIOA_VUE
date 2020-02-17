@@ -89,6 +89,7 @@
   import { triggerWindowResizeEvent } from '@/utils/util'
   import { mapState, mapActions } from 'vuex'
   import { mixin, mixinDevice } from '@/utils/mixin.js'
+  import { getAction } from '@/api/manage'
 
   // import $ from  'jquery'
 
@@ -106,7 +107,8 @@
         navisshow:true,
         collapsed: false,
         activeMenu:{},
-        menus: []
+        menus: [],
+        iisFontSize: '16px'
       }
     },
     computed: {
@@ -142,6 +144,8 @@
       console.log(this.permissionMenuList)
       console.log('----navTheme------'+this.navTheme)
       //--update-end----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
+
+      this.setFontSize();
     },
 
     mounted(){
@@ -149,6 +153,23 @@
     },
     methods: {
       ...mapActions(['setSidebar']),
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByTagName('body')[0].style.fontSize = this.iisFontSize;
+          // for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+          //   document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
+          // }
+        })
+      },
       toggle() {
         this.collapsed = !this.collapsed
         this.setSidebar(!this.collapsed)
@@ -184,6 +205,7 @@
   body {
     // 打开滚动条固定显示
     overflow-y: scroll;
+    /*font-size: 16px !important;*/
 
     &.colorWeak {
       filter: invert(80%);
@@ -731,6 +753,10 @@
 </style>
 
 <style>
+  .ant-form label{
+    font-size: 16px !important;
+  }
+
   .ant-input{
     background-color: #f0f5fc;
   }
@@ -743,12 +769,24 @@
      color: rgba(0, 0, 0, 0.65) !important;
   }
 
+  /*.ant-table{*/
+    /*font-size: 16px !important;*/
+  /*}*/
+
+  /*.ant-table-thead {*/
+    /*font-size: 17px;*/
+  /*}*/
+
   .ant-table-thead > tr > th{
     color: #fff !important;
     background-color: #006db9 !important;
     /*border: none !important;*/
     border-right:1px solid #779ecb !important;
   }
+
+  /*.ant-table-tbody{*/
+    /*font-size: 16px;*/
+  /*}*/
 
   .light-row{
     background-color: #fff;

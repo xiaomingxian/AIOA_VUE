@@ -197,10 +197,10 @@
 <script>
   import UserModal from './modules/UserModal'
   import PasswordModal from './modules/PasswordModal'
-  import {putAction} from '@/api/manage';
+  import { putAction,getAction } from '@/api/manage'
   import {frozenBatch} from '@/api/api'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
-  import SysUserAgentModal from "./modules/SysUserAgentModal";
+  import SysUserAgentModal from "./modules/SysUserAgentModal"
   import SysUserManagedeptsList from "./SysUserManagedeptsList"
   export default {
     name: "UserList",
@@ -214,6 +214,7 @@
     data() {
       return {
         description: '这是用户管理页面',
+        iisFontSize: '16px',
         queryParam: {},
         columns: [
           /*{
@@ -328,7 +329,24 @@
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
     },
+    created(){
+      this.setFontSize();
+    },
     methods: {
+      setFontSize(){
+        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        let url = "/testt/sysUserSet/queryByUserId";
+        getAction(url,{userId:userid}).then((res) => {
+          if(res.result.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(res.result.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+        })
+      },
       getAvatarView: function (avatar) {
         return this.url.imgerver + "/" + avatar;
       },

@@ -40,6 +40,7 @@
         picDetail:{
           logoText:'',
           pic2:'',
+          nowPic2:''
         },
         url:{
           getPictrueText: '/oafile/LoginPicture/getPictrueText',
@@ -92,12 +93,17 @@
               'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
             }
           }).then(res => {
-            if(res.data.byteLength >= 10){
-              this.picDetail.pic2='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+
+            if(this.picDetail.nowPic2 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic2 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
               this.visible = true;
             }else{
-              this.picDetail.pic2 = ""
+              // this.picDetail.pic2 = "";
+
+              return;this.picDetail2 = this.picDetail.nowPic2;
             }
+
           })
       },
       getCaption(obj,state){
