@@ -312,10 +312,6 @@
       },
       //进页面 初始数据
       showNextUsers(nextsActs) {
-
-        console.log('--->>>>', JSON.stringify(nextsActs))
-
-
         this.nextsActs = nextsActs
         //统计数量
         for (let i of nextsActs) {
@@ -401,13 +397,16 @@
                 return
               }
               let rowkeys = this.selectedRowKeys;
+              let rows = this.selectionRows;
               if (rowkeys.length > 0 && rowkeys.includes(res.uid)) {
                 rowkeys.splice(rowkeys.indexOf(res.uid), 1);
+                rows.splice(rowkeys.indexOf(res.uid), 1);
               } else {
                 rowkeys.push(res.uid);
+                rows.push(res)
               }
               this.selectedRowKeys = rowkeys;
-
+              this.selectionRows = rows;
               //记录用户选择
               this.showPreClick(this.currentClick, false, true, false)
             }
@@ -599,6 +598,7 @@
                 if (i.status != '处理人') {
                   defaultSelected.push(i.uid)
                   this.selectedRowKeys = defaultSelected
+                  this.selectionRows.push(i)
                   break;
                 }
               }
@@ -656,7 +656,6 @@
       },
       //并行或包容
       moreThanOneType() {
-        console.log('-------->>>>>', JSON.stringify(this.gateWayTypeSelect))
 
         this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
       },
