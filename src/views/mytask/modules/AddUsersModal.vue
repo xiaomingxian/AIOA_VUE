@@ -312,10 +312,6 @@
       },
       //进页面 初始数据
       showNextUsers(nextsActs) {
-
-        console.log('--->>>>', JSON.stringify(nextsActs))
-
-
         this.nextsActs = nextsActs
         //统计数量
         for (let i of nextsActs) {
@@ -602,6 +598,7 @@
                 if (i.status != '处理人') {
                   defaultSelected.push(i.uid)
                   this.selectedRowKeys = defaultSelected
+                  this.selectionRows.push(i)
                   break;
                 }
               }
