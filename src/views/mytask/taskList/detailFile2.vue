@@ -1,9 +1,9 @@
 <template>
 
-  <form style="background-color: #fff;padding-top: 20px;">
+  <form style="background-color: #fff;padding-top: 20px;position: fixed;">
     <!--<div v-show="true" @change="changRouter" v-model="routeParam">{{this.$route.params.tableName}}</div>-->
     <center>
-      <div :style="{height: scrHeight}" style="overflow: auto;">
+      <div :style="{height: scrHeight}" style="overflow: auto;scrollbar-width: none;">
         <table width="87%" border="0">
 
           <tr v-show="previewFlag">
@@ -256,6 +256,7 @@
         Ints: [],
         iteamworkId: '',
         iorder: '',
+        formHeight: '',
         scrHeight: '',
         urgencyList: [],
         secretModle: '',
@@ -326,8 +327,8 @@
           userIdS: '',//用户ids
         },
         url: {
-          list: "/oateamwork/oaTeamworkSet/findListByteamworkId",//
-          selectInts: "/oateamwork/oaTeamworkSet/findListByteamworkId",//
+          list: "/oateamwork/oaTeamworkSet/findListByteamworkId",
+          selectInts: "/oateamwork/oaTeamworkSet/findListByteamworkId",
           selectNext: "/oateamwork/oaTeamworkSet/selectNext",//协同办公配置的查询
           Intslist: "/oaTea/oaTeamworkInst/querylist",
           optionAndBtn: '/oaBus/newTask/optionAndBtn',
@@ -351,6 +352,7 @@
       }
     },
     created() {
+      this.formHeight = window.innerHeight;
       this.scrHeight = window.innerHeight - 60 + 'px';
       //监听页签切换  修改标题
       var _this = this;
@@ -1080,6 +1082,10 @@
   }
 </script>
 <style lang="less" scoped>
+  ::-webkit-scrollbar{
+    display:none;
+  }
+
   .fuwenben {
     /deep/ .ant-card-body {
       padding: 0 !important;

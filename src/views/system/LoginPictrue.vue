@@ -3,8 +3,8 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
         <div class="watchHeader">
-          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1.4%;z-index: 999;"/>
-          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 15%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1.4%;z-index: 999;"/>
+          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 12%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1%;z-index: 999;"/>
+          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 12%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1%;z-index: 999;"/>
         </div>
 
         <div style="height: auto; background: #fff;  padding: 27px;">
@@ -121,8 +121,8 @@
 
         <div style="display: flex;margin: 41px 0 0 96px;">
           <div style=" background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-            <span style="width: 272px;">登录页&导航栏文字标题：</span>
-            <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
+            <span style="width: 71px;">系统名称：</span>
+            <a-input style="width: 371px;" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
           </div>
 
           <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
@@ -132,7 +132,9 @@
 
           <div style="height: 41px;display: flex;margin-left: 96px;">
             <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;">首页logo标题可用"&"从登录页标题后方截取，并同时更换；未加"&"则视为同时更换为相同标题</span>
+              <span style="color: #d60303;">实例1：XX省综合办公服务平台&XX市中心支行。登陆页系统名：XX省综合办公服务平台；系统内系统名：XX市中心支行<br/>
+                                            实例2：XX省综合办公服务平台。登陆页系统名：XX省综合办公服务平台；系统内系统名：XX省综合办公服务平台
+              </span>
             </div>
           </div>
       </div>
@@ -374,10 +376,13 @@
         console.log(res)
         if (res.result == null){
           this.picDetail.editTitleText = "中国人民银行";
+          this.picDetail.pictrueText = "中国人民银行";
         } else {
           // this.iisCalendar = true;
           this.picDetail.editTitleText = res.result;
-        }
+          this.getLoginPic();
+
+          }
       }
     })
     },
@@ -437,8 +442,6 @@
 
               this.iisCalendar = false;
 
-              this.picDetail.pictrueText = "中国人民银行";
-
             }else {
 
               this.iisCalendar = true;
@@ -446,33 +449,6 @@
               this.picDetail.upFileName = res.result.sfileName;
 
               this.picDetail.fileId = res.result.iid;
-
-              if (res.result.stable == null) {
-
-                this.picDetail.pictrueText = "中国人民银行";
-
-              }else{
-
-                  if (typeof this.getCaption(res.result.stable) == 'object') {
-
-
-                    if (this.getCaption(res.result.stable)[0] == '') {
-
-                      this.picDetail.pictrueText = "中国人民银行";
-
-                    } else {
-
-                      this.picDetail.pictrueText = this.getCaption(res.result.stable)[0];
-
-                    }
-
-                  } else {
-
-                    this.picDetail.pictrueText = res.result.stable;
-
-                  }
-
-              }
 
             }
 
