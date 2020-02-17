@@ -401,8 +401,8 @@
         },
         filterText2(text){//电子公告
           if(text!=undefined){
-          if(text.length>22){
-            return text.substring(0,19)+'...'
+          if(text.length>20){
+            return text.substring(0,15)+'...'
           }else{
             return text
           }
