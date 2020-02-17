@@ -38,9 +38,10 @@
                       bordered
                       rowKey="id"
                       :customRow="setRowRadio"
-                      :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange,type:'radio'}"
+                      :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: handleTableChangeMy,type:'radio'}"
                       :columns="columns4"
                       :dataSource="dataSource">
+
 
                       <!--<span slot="action" slot-scope="text, record">-->
 
@@ -143,12 +144,14 @@
       </a-layout>
 
     </div>
-    <j-select-user-by-dep-check-box ref="checkBox" @senUserId="senUserId"></j-select-user-by-dep-check-box>
-    <j-select-user-by-dep-single ref="single" @senUserId="senUserId"></j-select-user-by-dep-single>
+    <div v-show="false">
+      <j-select-user-by-dep-check-box ref="checkBox" @senUserId="senUserId"></j-select-user-by-dep-check-box>
+      <j-select-user-by-dep-single ref="single" @senUserId="senUserId"></j-select-user-by-dep-single>
+      <next-users ref="nextUsers"></next-users>
+      <user-select ref="userSelect" @func="userSelectCallBcak"></user-select>
 
+    </div>
 
-    <next-users ref="nextUsers"></next-users>
-    <user-select ref="userSelect" @func="userSelectCallBcak"></user-select>
 
 
   </a-modal>
@@ -261,6 +264,10 @@
     },
     methods: {
 
+      handleTableChangeMy(rowKeys, rows){
+        this.onSelectChange(rowKeys,rows)
+        this.doShowForm(rows[0])
+      },
       setRowRadio(res) {
         return {
           on: {
@@ -465,6 +472,7 @@
         })
       },
       jump() {
+        console.log(this.dataSource)
         if (this.title == '回退') {
           if (this.reason == null || this.reason.length == 0) {
             this.$message.error('请先填写意见')
@@ -525,7 +533,6 @@
         let taskId = this.taskMsg.id
         if (taskId == undefined) taskId = this.taskMsg.hiTaskId
 
-        console.log(':::::::::::::::',JSON.stringify(this.taskMsg))
         var data = {
           processDefinitionId: this.taskMsg.processDefinitionId,
           taskId: taskId,
@@ -550,7 +557,6 @@
         if (this.title == '回退') {
           data['backReason'] = this.reason
 
-          console.log('""""""""""',JSON.stringify(data))
           postAction(this.url.back, data).then(res => {
             if (res.success) {
               this.$message.success(res.message)
