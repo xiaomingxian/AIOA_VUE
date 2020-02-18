@@ -2,12 +2,12 @@
 
 
   <div style="padding-bottom: 0.7%;">
-    <!--<a-button  @click="showPic">图</a-button>-->
-    <!--<a-button  @click="reCall">撤回</a-button>-->
-    <!--<a-button  @click="showBack">回退</a-button>-->
-    <!--<a-button  @click="showJump">跳转</a-button>-->
-    <!--<a-button  @click="nextTaskQuery">下一任务</a-button>-->
-    <!--<a-button  @click="addUserOrDepart">追加</a-button>-->
+    <a-button  @click="showPic">图</a-button>
+    <a-button  @click="reCall">撤回</a-button>
+    <a-button  @click="showBack">回退</a-button>
+    <a-button  @click="showJump">跳转</a-button>
+    <a-button  @click="nextTaskQuery">下一任务</a-button>
+    <a-button  @click="addUserOrDepart">追加</a-button>
 
 
     <div class="btndefindbox">
