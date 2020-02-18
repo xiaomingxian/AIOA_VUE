@@ -2,9 +2,9 @@
   <div>
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
-        <div class="watchHeader">
-          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 102%;height: 12%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1%;z-index: 999;"/>
-          <img v-else src="~@/assets/titlebg@2x.png" style="width: 102%;height: 12%;background-color: #055bc4;position: absolute;bottom: 112.4%;left: -1%;z-index: 999;"/>
+        <div class="watchHeader" style="position: absolute;bottom: 112.7%;left: -1%;">
+          <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 101%;height: 59px;background-color: #055bc4;"/>
+          <img v-else src="~@/assets/titlebg@2x.png" style="width: 101%;height: 59px;background-color: #055bc4;"/>
         </div>
 
         <div style="height: auto; background: #fff;  padding: 27px;">
@@ -258,7 +258,34 @@
     this.showSign();
     this.getPicText();
   },
+    mounted(){
+      this.hiddenBg();
+    },
+    destroyed() {
+      this.showBg();
+    },
   methods: {
+    hiddenBg(){
+
+      document.getElementsByClassName('header')[0].style.position = 'relative';
+      document.getElementsByClassName('header')[0].style.top = '-61px';
+
+      document.getElementsByClassName('trigger')[0].style.position = 'relative';
+      document.getElementsByClassName('trigger')[0].style.top = '66px';
+
+      document.getElementsByClassName('user-wrapper')[0].style.position = 'relative';
+      document.getElementsByClassName('user-wrapper')[0].style.top = '61px';
+      document.getElementsByClassName('user-wrapper')[0].style.right = '27px';
+
+    },
+    showBg(){
+
+      document.getElementsByClassName('header')[0].style.top = '0px';
+      document.getElementsByClassName('trigger')[0].style.top = '5px';
+      document.getElementsByClassName('user-wrapper')[0].style.top = '0px';
+
+    },
+
     beforeUpload(file){
       const formData=new FormData();
       formData.append("file",file);
@@ -724,6 +751,7 @@
 </script>
 <style scoped>
   @import '~@assets/less/common.less';
+
   .watchBox{
     margin-top: 1%;
     width: 100%;

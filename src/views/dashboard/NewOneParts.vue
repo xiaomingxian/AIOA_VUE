@@ -343,13 +343,11 @@
 
       this.waiteDoWith();
 
-
     },
     mounted(){
       let height = document.body.clientHeight-145;
       document.querySelector('.nav').style.height = height*.25 +'px'
       document.querySelector('.box').style.height = height*.75+'px'
-
 
       // this.$nextTick(()=>{
       //
@@ -418,12 +416,20 @@
           this.LinkList = JSON.parse(JSON.stringify(res)).splice(0,2);
         }
       });
+      this.showTitleBg();
     },
     components: {
       //业务
       detailFile,
     },
     methods: {
+      showTitleBg(){
+
+        document.getElementsByClassName('header')[0].style.top = '0px';
+        document.getElementsByClassName('trigger')[0].style.top = '5px';
+        document.getElementsByClassName('user-wrapper')[0].style.top = '0px';
+
+      },
       postMore(){
         this.$router.push('/'+'publicMessage/electronicFile');
       },
