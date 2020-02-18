@@ -1,79 +1,79 @@
 <template>
   <div class="wrap">
     <div class="nav">
-        <div class="postList">
-            <div class="title">
-              <!--<img src="" alt="">-->
-              <div class="imgzhanwei">
-                <img src="../../assets/post.png" alt="">
-              </div>
-              <span>公告</span>
-            </div>
-            <div class="listsBox" style="position: relative">
-              <div class="lineitem" v-for="(item,index) in postLists" :key="index" @click="openDetialModel('oa_busdata30',item.i_id)">
-                <div class="left">
-                  <i></i>
-                  <p class="tongzhi">[{{item.s_varchar5}}]</p>
-                  <span :title="item.s_title">{{item.s_title|filterText2}}</span>
-                  <i></i>
-                </div>
-                <span class="time">{{item.d_create_time|timeStrings}}</span>
-              </div>
-              <img style="position: absolute;left: 0;bottom: 5px;width: 50px;" src="../../assets/bottomleft.png" alt="">
-              <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
-               <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
-            </div>
-        </div>
-        <div class="searchBox">
-          <div style="display: flex;align-items: center;min-height: 90px;">
-            <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
-            <div class="swiper-container swiper-no-swiping bottom">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index" @click="LinkMore(atom.s_title)">
-                  <div>
-                    <img src="../../assets/1.png" :title="atom.s_title" alt="">
-                  </div>
-                </div>
-                <!--<div class="swiper-slide">-->
-                  <!--<div>-->
-                    <!--<img src="../../assets/2.png" alt="">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="swiper-slide">-->
-                  <!--<div>-->
-                    <!--<img src="../../assets/3.png" alt="">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="swiper-slide">-->
-                  <!--<div>-->
-                    <!--<img src="../../assets/4.png" alt="">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="swiper-slide">-->
-                  <!--<div>-->
-                    <!--<img src="../../assets/3.png" alt="">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="swiper-slide">-->
-                  <!--<div>-->
-                    <!--<img src="../../assets/4.png" alt="">-->
-                  <!--</div>-->
-                <!--</div>-->
-              </div>
-              <!--Add Arrows-->
-              <div ref="left" style="display: none" class="swiper-button-next"></div>
-              <div ref="right" style="display: none" class="swiper-button-prev"></div>
-            </div>
-            <img @click="rightclick" style="width: 20px;height: 30px;margin-right: 20px;"  src="../../assets/right.png" alt="">
+      <div class="postList">
+        <div class="title">
+          <!--<img src="" alt="">-->
+          <div class="imgzhanwei">
+            <img src="../../assets/post.png" alt="">
           </div>
+          <span>公告</span>
+        </div>
+        <div class="listsBox" style="position: relative">
+          <div class="lineitem" v-for="(item,index) in postLists" :key="index" @click="openDetialModel('oa_busdata30',item.i_id)">
+            <div class="left">
+              <i></i>
+              <p class="tongzhi">[{{item.s_varchar5}}]</p>
+              <span :title="item.s_title">{{item.s_title|filterText2}}</span>
+              <i></i>
+            </div>
+            <span class="time">{{item.d_create_time|timeStrings}}</span>
+          </div>
+          <img style="position: absolute;left: 0;bottom: 5px;width: 50px;" src="../../assets/bottomleft.png" alt="">
+          <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
+          <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+        </div>
+      </div>
+      <div class="searchBox">
+        <div style="display: flex;align-items: center;min-height: 90px;">
+          <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
+          <div class="swiper-container swiper-no-swiping bottom">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index" @click="LinkMore(atom.s_title)">
+                <div>
+                  <img src="../../assets/1.png" :title="atom.s_title" alt="">
+                </div>
+              </div>
+              <!--<div class="swiper-slide">-->
+              <!--<div>-->
+              <!--<img src="../../assets/2.png" alt="">-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="swiper-slide">-->
+              <!--<div>-->
+              <!--<img src="../../assets/3.png" alt="">-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="swiper-slide">-->
+              <!--<div>-->
+              <!--<img src="../../assets/4.png" alt="">-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="swiper-slide">-->
+              <!--<div>-->
+              <!--<img src="../../assets/3.png" alt="">-->
+              <!--</div>-->
+              <!--</div>-->
+              <!--<div class="swiper-slide">-->
+              <!--<div>-->
+              <!--<img src="../../assets/4.png" alt="">-->
+              <!--</div>-->
+              <!--</div>-->
+            </div>
+            <!--Add Arrows-->
+            <div ref="left" style="display: none" class="swiper-button-next"></div>
+            <div ref="right" style="display: none" class="swiper-button-prev"></div>
+          </div>
+          <img @click="rightclick" style="width: 20px;height: 30px;margin-right: 20px;"  src="../../assets/right.png" alt="">
+        </div>
 
 
-          <div class="top">
-            <a-input placeholder="请输入关键字">
-              <a-icon slot="prefix" type="search"></a-icon>
-            </a-input>
-          </div>
+        <div class="top">
+          <a-input placeholder="请输入关键字">
+            <a-icon slot="prefix" type="search"></a-icon>
+          </a-input>
         </div>
+      </div>
     </div>
     <div class="box">
       <div class="top ttop">
@@ -133,7 +133,7 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-                <span class="more"  @click="openmore(model2.url)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span class="more"  @click="openmore(model2.url)">MORE  <a-icon type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p  class="each"  v-for="(item,index) in model2Lists"  :key="index" @click="openDetialModel(model2.tableName,item.i_id)">
@@ -251,7 +251,6 @@
         model4Lists:[],
         LinkList:[], //常用链接
         url: {
-
           busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
           list: "/wf/task/queryTask?operstatus=task_todo",
           HomeList:'/oaBus/homeAnalysis/HomeList',
@@ -343,13 +342,11 @@
 
       this.waiteDoWith();
 
-
     },
     mounted(){
       let height = document.body.clientHeight-145;
       document.querySelector('.nav').style.height = height*.25 +'px'
       document.querySelector('.box').style.height = height*.75+'px'
-
 
       // this.$nextTick(()=>{
       //
@@ -418,12 +415,20 @@
           this.LinkList = JSON.parse(JSON.stringify(res)).splice(0,2);
         }
       });
+      this.showTitleBg();
     },
     components: {
       //业务
       detailFile,
     },
     methods: {
+      showTitleBg(){
+
+        document.getElementsByClassName('header')[0].style.top = '0px';
+        document.getElementsByClassName('trigger')[0].style.top = '5px';
+        document.getElementsByClassName('user-wrapper')[0].style.top = '0px';
+
+      },
       postMore(){
         this.$router.push('/'+'publicMessage/electronicFile');
       },
@@ -438,7 +443,7 @@
       LinkMore(e){ //常用链接的跳转
         console.log(e)
 
-          this.$router.push('/'+e);
+        this.$router.push('/'+e);
 
 
       },
@@ -460,7 +465,7 @@
       },
       //事件委托 想左切换
       leftclick(){
-         this.$refs.left.click();
+        this.$refs.left.click();
       },
       //事件委托 想右切换
       rightclick(){
@@ -730,32 +735,32 @@
 
 
           /deep/.swiper-wrapper{
-                width: 60%;
-                /*margin-left: 20px;*/
-           .swiper-slide{
-                /*width: 100px;*/
-                /*height: 100%;*/
-                /*background: red;*/
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-around;
-             /*margin-right: 0px !important;*/
-             /*margin-left: 5px !important;*/
-               div{
-                 width: 90px;
-                 height: 90px;
-                 border-radius: 50%;
-                 /*background: #2eabff;*/
-                 img{
-                   width: 100%;
-                 }
-               }
-               span{
-                 font-size: 14px;
-                 color: #333333;
-               }
+            width: 60%;
+            /*margin-left: 20px;*/
+            .swiper-slide{
+              /*width: 100px;*/
+              /*height: 100%;*/
+              /*background: red;*/
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: space-around;
+              /*margin-right: 0px !important;*/
+              /*margin-left: 5px !important;*/
+              div{
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                /*background: #2eabff;*/
+                img{
+                  width: 100%;
+                }
               }
+              span{
+                font-size: 14px;
+                color: #333333;
+              }
+            }
           }
 
         }
@@ -854,7 +859,7 @@
             flex-direction: column;
             /*margin: 0;*/
 
-           .each{
+            .each{
               width: 100%;
               /*background: red;*/
               display: flex;
@@ -955,7 +960,7 @@
                   width: 5px;
                   height: 5px;
                   background: #2eabff;
-                 margin-right: 5px;
+                  margin-right: 5px;
                 }
               }
             }

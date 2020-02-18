@@ -57,18 +57,6 @@
           </a-form-item>
           <a-input type="hidden" placeholder="" v-decorator="['selecteddeparts']"/>
         </div>
-
-    <!--    <a-form-item
-          v-else-if="spermitType==3"
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="人员">
-          <a-select style="width: 200px;" v-model="selectedUser" @change="getPeople" v-decorator="[ 'itypeId', {}]">
-            <a-select-option v-for="(user,userindex) in userList" :key="userindex" :value="user.id">
-              {{ user.username }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>-->
       <a-form-item
         v-else-if="spermitType==3"
         :labelCol="labelCol"
@@ -208,6 +196,11 @@
           this.userRealName = '';
         }
       },
+      getPeople(e){
+        console.log(e);
+        this.model.itypeId = e;
+
+      },
       //接收 父级传来的参数
       add1(ibusId,sname,data) {
         this.isadd = true;
@@ -257,8 +250,9 @@
           let itypeNanesLists = '';
           partsLists.map((part)=>{
             itypeNanesLists+=part.title+'  ';
-            itypeIdLists+=part.value+',';
+            itypeIdLists+=part.value;
           });
+
           this.model.itypeId =itypeIdLists;
           this.checkedDepartNameString = itypeNanesLists;
         }else{
