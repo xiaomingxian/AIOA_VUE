@@ -129,21 +129,21 @@ export const taskBth = {
       // // console.log( this.$refs.btn[index]);
       this.currentBtn = item;
 
-      if (this.$refs.isDefendBtn[index]) {
+      /*if (this.$refs.isDefendBtn[index]) {
         if (!item.iisDefend && item.sbtnName == this.$refs.isDefendBtn[index].$el.innerText) {
-          this.$refs.isDefendBtn[index].$el.setAttribute('disabled', true)
+          this.$refs.isDefendBtn[index].$el.setAttribute('disabled', ture)
         }
       }
 
       if (this.$refs.isNotDefendBtn) {
         if (this.$refs.isNotDefendBtn[index]) {
           if (!item.iisDefend && item.sbtnName == this.$refs.isNotDefendBtn[index].$el.innerText) {
-            this.$refs.isNotDefendBtn[index].$el.setAttribute('disabled', true)
+            this.$refs.isNotDefendBtn[index].$el.setAttribute('disabled', ture)
             this.$refs.isNotDefendBtn[index].$el.style.opacity = '.6'
 
           }
         }
-      }
+      }*/
       this[item.smethod]()
     },
     doPost(url, data) {
@@ -427,8 +427,8 @@ export const taskBth = {
                       this.otherProc.busData.s_file_num = this.backData.s_file_num //文件字号
                       this.otherProc.busData.d_sealdate = this.backData.d_sealdate   //封发日期
                       this.otherProc.busData.s_main_dept_names = this.backData.s_main_dept_names  //主送部门
-                      this.otherProc.busData.s_varchar5 = this.backData.s_create_name  //拟稿时间
-                      this.otherProc.busData.s_varchar6 = this.backData.s_create_dept //
+                      this.otherProc.busData.s_create_name = this.backData.s_create_name  //拟稿时间
+                      this.otherProc.busData.s_create_dept = this.backData.s_create_dept //
                       this.otherProc.busData.s_main_unit_names = this.backData.s_main_unit_names //主送单位
                       this.otherProc.busData.s_signer = this.backData.s_signer  //签发人
                       this.otherProc.busData.s_varchar1 = this.backData.table //业务数据表
@@ -446,8 +446,8 @@ export const taskBth = {
                       // this.otherProc.busData.i_create_year = this.backData.i_create_year
                       getAction('/oaBus/oaBusdata/getModelSname', {id: this.otherProc.busData.i_bigint3}).then(res => {
                         if (res.success && res.result != null) {
-                          this.otherProc.busData.s_varchar11 = res.result.mName;
-                          this.otherProc.busData.s_varchar12 = res.result.fName;
+                          this.otherProc.busData.s_varchar5 = res.result.mName;
+                          this.otherProc.busData.s_varchar6 = res.result.fName;
                           // alert(JSON.stringify(this.otherProc.busData))
                           //传阅业务业务id
                           let param = {tableName: res.result.tableName, busdataId: res.result.busdataId};

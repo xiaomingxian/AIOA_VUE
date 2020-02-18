@@ -145,11 +145,11 @@
             align: "center",
             dataIndex: 'taskDefKey',
             customRender:(text,row,index)=>{
+              console.log(this.TaskLink);
+              console.log("**********************************");
               for (let i = 0; i < this.TaskLink.length ; i++) {
-                // console.log("**********************************");
-                // console.log(text);
-                // console.log(this.buttonList[i].iid);
                 if (text==this.TaskLink[i].id) {
+                  console.log("111111111");
                   return this.TaskLink[i].name;
                 }
               }
@@ -221,23 +221,25 @@
         })
       },
       add (record,TaskLinkId) {
-        console.log("55555555555555555555");
-        console.log(record);
+
+//        console.log("55555555555555555555");
+//        console.log(record);
         this.TaskLinkId=TaskLinkId;
-        console.log(TaskLinkId);
+//        console.log(TaskLinkId);
         //---------------任务环节列表---------------
         getAction(this.url.TaskLink,{processDefinitionId:TaskLinkId}).then(res=>{
-          console.log(res);
+//          console.log(res);
           this.TaskLink = res.result;
         });
         this.form.resetFields();
         this.model = Object.assign({}, record);
         this.visible = true;
+        let that=this;
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model,'iid','procdefKey','sbuttonSetName'))
 		  //时间格式化
         });
-
+        that.loadData();
       },
       handleEdit1:function () {
         this.$refs.OaProcOpinionNewModal.editlvjian(this.model,this.TaskLinkId);
@@ -262,9 +264,11 @@
         this.visible = false;
       },
       handleOk () {
+        this.clearData();
         this.close()
       },
       handleCancel () {
+        this.clearData();
         this.close()
       },
       handleTableChange(page) {
@@ -274,20 +278,20 @@
       },
       loadData(){
         // this.model=Object.assign({}, record);
-        console.log("2143564700000000000000000000000000");
-        console.log(this.model);
+//        console.log("2143564700000000000000000000000000");
+//        console.log(this.model);
         // alert("666")
         this.iProcOpinionId=this.model.iid;
         this.procDefKey=this.model.procDefKey;
         getAction(this.url.list,{iProcOpinionId:this.iProcOpinionId,procDefKey:this.procDefKey,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
-          console.log(res.result.records);
+//          console.log(res.result.records);
           this.opinionCatData = res.result.records;
           this.ipagination.total = res.result.total;
-
         })
+      },
+      clearData(){
+        this.opinionCatData= []
       }
-
-
     }
   }
 </script>
