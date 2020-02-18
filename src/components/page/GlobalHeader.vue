@@ -2,12 +2,11 @@
   <!--<script type="text" src="../../../public/ntko/js/jquery-1.7.1.js"></script>-->
   <!-- , width: fixedHeader ? `calc(100% - ${sidebarOpened ? 256 : 80}px)` : '100%'  -->
   <a-layout-header
-    style=""
     v-if="!headerBarFixed"
     :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed', ]"
     :style="{ padding: '0' }">
-    <div v-if="mode === 'sidemenu'" class="header" :class="theme">
-      <div style="width: 100%;height: 100%;position:absolute;z-index: -9999;">
+    <div v-if="mode === 'sidemenu'" class="header" :class="theme" style="width: 100%;">
+      <div class="hiddenBg" style="width: 100%;height: 100%;position: absolute;z-index: -1;">
         <img v-if="headerPic" style="width: 100%;height: 100%;" :src="headerPic"/>
         <img v-else style="width: 100%;height: 100%;" src="../../../src/assets/titlebg@2x.png"/>
       </div>
