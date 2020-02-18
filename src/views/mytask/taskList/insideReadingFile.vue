@@ -61,17 +61,19 @@
 
         <td class="title" width="15%">
           <!--拟稿人-->
-          <center><h3>{{detailList.s_varchar5}}</h3></center>
+          <center><h3>{{detailList.s_create_name}}</h3></center>
         </td>
         <td colspan="3">
-          <a-input style="width:100%;" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)" v-model="backData.s_varchar5"></a-input>
+          <div style="padding-left: 10px">{{backData.s_create_name}}</div>
+          <!--          <a-input style="width:100%;" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)" v-model="backData.s_varchar5"></a-input>-->
         </td>
         <td class="title" width="15%">
           <!--部门-->
-          <center><h3>{{detailList.s_varchar6}}</h3></center>
+          <center><h3>{{detailList.s_create_dept}}</h3></center>
         </td>
         <td colspan="3">
-          <a-input style="width:100%;" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)" v-model="backData.s_varchar6"></a-input>
+          <div style="padding-left: 10px">{{backData.s_create_dept}}</div>
+          <!--          <a-input style="width:100%;" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)" v-model="backData.s_varchar6"></a-input>-->
         </td>
       </tr>
 
