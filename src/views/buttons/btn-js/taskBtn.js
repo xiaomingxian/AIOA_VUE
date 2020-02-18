@@ -129,21 +129,21 @@ export const taskBth = {
       // // console.log( this.$refs.btn[index]);
       this.currentBtn = item;
 
-      if (this.$refs.isDefendBtn[index]) {
+      /*if (this.$refs.isDefendBtn[index]) {
         if (!item.iisDefend && item.sbtnName == this.$refs.isDefendBtn[index].$el.innerText) {
-          this.$refs.isDefendBtn[index].$el.setAttribute('disabled', true)
+          this.$refs.isDefendBtn[index].$el.setAttribute('disabled', ture)
         }
       }
 
       if (this.$refs.isNotDefendBtn) {
         if (this.$refs.isNotDefendBtn[index]) {
           if (!item.iisDefend && item.sbtnName == this.$refs.isNotDefendBtn[index].$el.innerText) {
-            this.$refs.isNotDefendBtn[index].$el.setAttribute('disabled', true)
+            this.$refs.isNotDefendBtn[index].$el.setAttribute('disabled', ture)
             this.$refs.isNotDefendBtn[index].$el.style.opacity = '.6'
 
           }
         }
-      }
+      }*/
       this[item.smethod]()
     },
     doPost(url, data) {
