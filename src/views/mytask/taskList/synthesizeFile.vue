@@ -204,46 +204,87 @@
           page_ref: '',
           //业务配置表id-用于查询按钮/意见权限
           iprocSetId: '',
+          act_show: '',
+          ilevel: '',
           //对应的业务数据表
           table: 'oa_busdata70',
-          i_is_important: '',
+
           //---------------------------------- 以下为表存储字段
 
           //*******
-          i_id: '',
-          //申请人
-          s_create_name: '',
-          //所属部门
-          s_create_dept: '',
-          //联系电话
-          i_phone: 0,
-          //请假地点
-          s_varchar1: '',
-          //参加工作时间
-          d_datetime2: '',
-          //岗位
-          s_varchar2: '',
-          //请假类别
-          s_varchar3: '',
-          //申请时间
-          d_create_time: '',
-          //请假天数
-          i_bigint1: '',
-          //销假日期
-          d_datetime3: '',
-          //请假起始日期
-          d_datetime4: '',
-          //请假结束日期
-          d_datetime5: '',
-          //请假事由
-          s_title: '',
-          //备注
-          s_remarks: '',
-          s_cur_proc_name: '',
-          //当前任务名称
-          s_cur_task_name: '',
-          //是否重要
-          i_is_important: ''
+          i_id:'',
+          i_bus_model_id:'',
+          i_bus_function_id:'',
+          PROC_INST_ID:'',
+          i_safetylevel:'',
+          i_urgency:'',
+          s_signer:'',
+          s_create_dept:'',
+          s_cc_dept_names:'',
+          s_main_unit_names:'',
+          s_cc_unit_names:'',
+          s_inside_deptnames:'',
+          s_report_nuit_names:'',
+          s_crc_deptnames:'',
+          s_title:'',
+          s_left_parameter:'',
+          s_unit_name:'',
+          s_dept_name:'',
+          s_middle_parameter:'',
+          s_right_parameter:'',
+          s_receive_num:'',
+          s_file_num:'',
+          i_is_state:'',
+          d_sealdate:'',
+          i_is_typeset:'',
+          i_is_approve:'',
+          i_is_archives:'',
+          i_is_important:'',
+          i_is_es:'',
+          i_is_publish:'',
+          i_is_file:'',
+          i_is_draft:'',
+          i_is_send:'',
+          i_is_display:'',
+          s_remarks:'',
+          i_create_year:new Date().getFullYear(),
+          i_create_month: new Date().getMonth(),
+          i_create_day:new Date().getDate(),
+          i_phone:'',
+          s_create_name:'',
+          s_create_by:'',
+          s_create_deptid:'',
+          s_create_unitid:'',
+          d_create_time:'',
+          d_update_time:'',
+          s_cur_proc_name:'',
+          s_cur_task_name:'',
+          i_fun_version:'',
+          i_bigint1:'',
+          i_bigint2:'',
+          d_datetime1:'',
+          d_datetime2:'',
+          d_date1:'',
+          d_date2:'',
+          s_varchar1:'',
+          s_varchar2:'',
+          s_varchar3:'',
+          s_varchar4:'',
+          s_varchar5:'',
+          s_varchar6:'',
+          s_varchar7:'',
+          s_varchar8:'',
+          s_varchar9:'',
+          s_varchar10:'',
+          i_is_1:'',
+          i_is_2:'',
+          d_datetime3:'',
+          d_datetime4:'',
+          d_datetime5:'',
+          d_datetime6:'',
+          i_bigint3:''
+
+
 
         },
 
