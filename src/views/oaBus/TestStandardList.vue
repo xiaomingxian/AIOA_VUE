@@ -89,12 +89,13 @@
           <a-list size="large" :pagination="pagination" >
             <a-list-item :key="index" v-for="(item, index) in dataSource" @dblclick="openDetial(item.i_id,item.table_name)">
 
-             <span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>
-             <span v-else v-html="item.sFileName"></span>
-              <!--<a-list-item-meta>-->
-                <!--<a slot="title" v-html="item.title"></a>-->
-                <!--<p slot="description" v-html="item.description"></p>-->
-              <!--</a-list-item-meta>-->
+             <!--<span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>-->
+             <!--<span v-else v-html="item.sFileName"></span>-->
+              <a-st-itliem-meta>
+                <a slot="title" v-html="item.title"></a>
+                <p slot="description" v-html="item.description"></p>
+              </a-st-itliem-meta>
+
             </a-list-item>
           </a-list>
         </a-tab-pane>
@@ -147,9 +148,9 @@
           // showSizeChanger: true,
           total: 0,
           onChange:pageindex=>{
-            console.log(pageindex);
+            // console.log(pageindex);
             this.current = pageindex;
-            console.log(this.defaultActivityKey);
+            // console.log(this.defaultActivityKey);
             //检测测试为全文检索  还是附件检索
             if(this.defaultActivityKey=='0'){
               //全文检索
@@ -172,7 +173,7 @@
     methods: {
       //---切换页签-----
       changeTabs(e){
-        console.log(e);
+        // console.log(e);
         //切换Tabs时  清空dataSourse
         this.dataSource = [];
         this.defaultActivityKey = e.toString()
@@ -194,7 +195,7 @@
       },
       //---切换分页-----
       changePage(e){
-        console.log(e);
+        // console.log(e);
       },
       fetchUser(value) {
         // console.log('fetching user', value);
@@ -222,7 +223,7 @@
 
         //判断  全文检索搜索框是否输入    检测输入变化则赋值  否则清空变量
         if(obj){
-          console.log(obj);
+          // console.log(obj);
           this.search = obj.key;
         }else{
           this.search = '';
@@ -235,8 +236,8 @@
       },
       getTextSearch(defaultActivityKey) {
 
-        console.log(this.search);
-        console.log(defaultActivityKey);
+        // console.log(this.search);
+        // console.log(defaultActivityKey);
 
         //点击查询按钮检测  检测是否填写
         if(this.search){
@@ -258,6 +259,7 @@
       FilterAllFiles(serchval,pageindex='1'){
         let url = "/oaEs/oaelasticsearch/list";
         postAction(url, {keyWord:serchval,pageNo:pageindex}).then((res) => {
+          console.log('==========================================');
           console.log(res);
           if(res.success){
             this.pagination.total =  res.result.total;
@@ -294,7 +296,7 @@
       },
       getPgSearchList(iBMId) {
 
-        console.log(iBMId);
+        // console.log(iBMId);
 
         // for(let i=0;i<this.dataSource.length;i++){
         //   this.dataSource[i].length=0;
