@@ -92,7 +92,6 @@
       }
     },
     created(){
-      this.getSelection();
     },
     mounted(){
 

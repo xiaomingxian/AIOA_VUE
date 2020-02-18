@@ -151,7 +151,8 @@
           {
             title: '类型名称',
             align: "center",
-            dataIndex: 'itypeId'
+            dataIndex: 'itypeId',
+
           },
           {
             title: '是否可见',
