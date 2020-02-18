@@ -129,21 +129,21 @@ export const taskBth = {
       // // console.log( this.$refs.btn[index]);
       this.currentBtn = item;
 
-      if (this.$refs.isDefendBtn[index]) {
+      /*if (this.$refs.isDefendBtn[index]) {
         if (!item.iisDefend && item.sbtnName == this.$refs.isDefendBtn[index].$el.innerText) {
-          this.$refs.isDefendBtn[index].$el.setAttribute('disabled', true)
+          this.$refs.isDefendBtn[index].$el.setAttribute('disabled', ture)
         }
       }
 
       if (this.$refs.isNotDefendBtn) {
         if (this.$refs.isNotDefendBtn[index]) {
           if (!item.iisDefend && item.sbtnName == this.$refs.isNotDefendBtn[index].$el.innerText) {
-            this.$refs.isNotDefendBtn[index].$el.setAttribute('disabled', true)
+            this.$refs.isNotDefendBtn[index].$el.setAttribute('disabled', ture)
             this.$refs.isNotDefendBtn[index].$el.style.opacity = '.6'
 
           }
         }
-      }
+      }*/
       this[item.smethod]()
     },
     doPost(url, data) {
@@ -298,19 +298,20 @@ export const taskBth = {
       for (var index in this.opts) {
         //判断意见环节是否匹配
         let td = this.taskMsg.taskDefinitionKey
-        if ((this.opts[index].taskDefKeys).indexOf(td) >= 0) {
-          //属性赋值
-          this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
-          this.backDataOpt.i_order = this.opts[index]['orderId']
-          this.backDataOpt.i_opinion_set_id = this.opts[index]['optionSetId']
-          this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
-          this.flag = true;
-          break
-        }
+        for (let i of this.opts[index].taskDefKeys) {
+          if (i.key == td) {
+              this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+              this.backDataOpt.i_order = this.opts[index]['orderId']
+              this.backDataOpt.i_opinion_set_id = i.optionSetId
+              this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+              this.flag = true;
+              break
+            }
+          }
       }
       // //校验意见
       if (this.flag) {    //如果要填写意见的话，就进行校验
-        if (this.backDataOpt.i_id =="") {  //如果没有填写
+        if (this.backDataOpt.i_id == "") {  //如果没有填写
           this.$message.error("下一任务前必须填写意见！！！");
           return;
         }
@@ -856,9 +857,9 @@ export const taskBth = {
           this.havaOtherProc = false
           this.nextConfirm = true
           // this.saveBusData()
-          setTimeout(function () {
-            this.close()
-          }, 500)
+          // setTimeout(function () {
+          //   this.close()
+          // }, 500)
           // this.reload()
         } else {
           this.$message.error(res.message)
@@ -883,9 +884,9 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          setTimeout(function () {
-            this.close()
-          }, 500)
+          // setTimeout(function () {
+          //   this.close()
+          // }, 500)
         } else {
           this.$message.error(res.message)
         }
@@ -901,10 +902,10 @@ export const taskBth = {
         var data = {};
         data['taskId'] = taskId
         let v = type[k]
-        // console.log('---------------->>>>>', k, JSON.stringify(v))
         let activity = v.activity
         let isDept = activity.oaProcActinst.userOrRole == 'dept'
         data['isDept'] = isDept
+
         var ids = []
         if (isDept) {
           //构造用户id集合
@@ -931,6 +932,26 @@ export const taskBth = {
           deptMsg['deptMsg'] = v.departUsersId
           data['taskWithDepts'] = deptMsg
           data['isDept'] = true
+
+          for (let k of Object.keys(v.departSelect)) {
+            if (k != undefined && k != null && k != '') {
+              let val = v.departSelect[k]
+              if (val != undefined && val != null && val != '' && val.length > 0) {
+                if (
+                  val[0].executionId != undefined &&
+                  val[0].executionId != null &&
+                  val[0].taskId != undefined &&
+                  val[0].taskId != null
+                ) {
+                  data['taskId'] = val[0].taskId
+                  data['executionId'] = val[0].executionId
+                  break
+                }
+              }
+            }
+          }
+          console.log('-------部门信息：：：', v, data)
+          // return
         } else {
           ids = v.selectedRowKeys
         }
@@ -975,7 +996,7 @@ export const taskBth = {
         data['taskDefKey'] = activity.actMsg.id
 
         //追加使用
-        if (v.selectionRows!=undefined && v.selectionRows.length>0) {
+        if (v.selectionRows != undefined && v.selectionRows.length > 0) {
           if (v.selectionRows[0].executionId != undefined) {
             data['taskId'] = v.selectionRows[0].taskId
             data['executionId'] = v.selectionRows[0].executionId
@@ -1167,13 +1188,15 @@ export const taskBth = {
         //判断意见环节是否匹配
         // let td = this.backData.s_cur_task_name.split("-")[0]
         let td = this.taskMsg.taskDefinitionKey;
-        if ((this.opts[index].taskDefKeys).indexOf(td) >= 0) {
-          //属性赋值
-          this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
-          this.backDataOpt.i_order = this.opts[index]['orderId']
-          this.backDataOpt.i_opinion_set_id = this.opts[index]['optionSetId']
-          this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
-          break
+        for (let i of this.opts[index].taskDefKeys) {
+          if (i.key == td) {
+            this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+            this.backDataOpt.i_order = this.opts[index]['orderId']
+            this.backDataOpt.i_opinion_set_id = i.optionSetId
+            this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+            this.flag = true;
+            break
+          }
         }
       }
       this.backDataOpt.i_bus_function_id = this.backData.i_bus_function_id
@@ -1213,14 +1236,15 @@ export const taskBth = {
       for (var index in this.opts) {
         //判断意见环节是否匹配
         let td = this.taskMsg.taskDefinitionKey
-        if ((this.opts[index].taskDefKeys).indexOf(td) >= 0) {
-          //属性赋值
-          this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
-          this.backDataOpt.i_order = this.opts[index]['orderId']
-          this.backDataOpt.i_opinion_set_id = this.opts[index]['optionSetId']
-          this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
-          this.flag = true;
-          break
+        for (let i of this.opts[index].taskDefKeys) {
+          if (i.key == td) {
+            this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+            this.backDataOpt.i_order = this.opts[index]['orderId']
+            this.backDataOpt.i_opinion_set_id = i.optionSetId
+            this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+            this.flag = true;
+            break
+          }
         }
       }
       if (!this.flag) {
@@ -1377,7 +1401,7 @@ export const taskBth = {
         s_file_num: data.docnum, //文件字号
         s_varchar8: data.id //文号id
       }
-      postAction("oaBus/dynamic/updateData",param).then(res => {
+      postAction("oaBus/dynamic/updateData", param).then(res => {
         if (res.success) {
           this.reload(); //页面刷新
           // this.$emit("saveDocNum", data)

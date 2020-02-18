@@ -833,7 +833,6 @@
 
         document.title = ' '
 
-        console.log('::::::::::::::::;',JSON.stringify(taskDetail))
         if (taskDetail.tableName == undefined || taskDetail.tableName == ''
           || taskDetail.busdataId == undefined || taskDetail.busdataId == ''
         ) {
@@ -1024,13 +1023,14 @@
             map[key].optionContext2 = ''
             map[key].optionContext2 += opts[i].optionContext + '\t' + opts[i].signName + '\t' + opts[i].signTime + '\n'
             map[key].taskDefKeys = []
-            map[key].taskDefKeys.push(map[key].taskDefKey)
+            map[key].taskDefKeys.push({key:map[key].taskDefKey,optionSetId:map[key].optionSetId})
           } else {
             let optx = opts[i].optionContext + '\t' + opts[i].signName + '\t' + opts[i].signTime + '\n'
             map[key].optionContext2 += optx
-            if ((map[key].taskDefKeys).indexOf(opts[i].taskDefKey) < 0) {
-              map[key].taskDefKeys.push(opts[i].taskDefKey)
-            }
+            // if ((map[key].taskDefKeys).indexOf(opts[i].taskDefKey) < 0) {
+
+              map[key].taskDefKeys.push({key:opts[i].taskDefKey,optionSetId:opts[i].optionSetId})
+            // }
           }
 
 
