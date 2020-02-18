@@ -14,7 +14,7 @@
                 <div class="left">
                   <i></i>
                   <p class="tongzhi">[{{item.s_varchar5}}]</p>
-                  <span :title="item.s_title">{{item.s_title|filterText}}</span>
+                  <span :title="item.s_title">{{item.s_title|filterText2}}</span>
                   <i></i>
                 </div>
                 <span class="time">{{item.d_create_time|timeStrings}}</span>
@@ -277,6 +277,14 @@
     },
     filters:{
       filterText(text){
+        if(text!=undefined) {
+          if (text.length > 20) {
+            return text.substring(0, 17) + '...'
+          } else {
+            return text
+          }
+        }
+      }, filterText2(text){
         if(text!=undefined) {
           if (text.length > 25) {
             return text.substring(0, 22) + '...'
