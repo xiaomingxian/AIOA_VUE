@@ -856,9 +856,9 @@ export const taskBth = {
           this.havaOtherProc = false
           this.nextConfirm = true
           // this.saveBusData()
-          setTimeout(function () {
-            this.close()
-          }, 500)
+          // setTimeout(function () {
+          //   this.close()
+          // }, 500)
           // this.reload()
         } else {
           this.$message.error(res.message)
@@ -883,9 +883,9 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          setTimeout(function () {
-            this.close()
-          }, 500)
+          // setTimeout(function () {
+          //   this.close()
+          // }, 500)
         } else {
           this.$message.error(res.message)
         }
@@ -901,10 +901,10 @@ export const taskBth = {
         var data = {};
         data['taskId'] = taskId
         let v = type[k]
-        // console.log('---------------->>>>>', k, JSON.stringify(v))
         let activity = v.activity
         let isDept = activity.oaProcActinst.userOrRole == 'dept'
         data['isDept'] = isDept
+
         var ids = []
         if (isDept) {
           //构造用户id集合
@@ -931,6 +931,26 @@ export const taskBth = {
           deptMsg['deptMsg'] = v.departUsersId
           data['taskWithDepts'] = deptMsg
           data['isDept'] = true
+
+          for (let k of Object.keys(v.departSelect)) {
+            if (k != undefined && k != null && k != '') {
+              let val = v.departSelect[k]
+              if (val != undefined && val != null && val != '' && val.length > 0) {
+                if (
+                  val[0].executionId != undefined &&
+                  val[0].executionId != null &&
+                  val[0].taskId != undefined &&
+                  val[0].taskId != null
+                ) {
+                  data['taskId'] = val[0].taskId
+                  data['executionId'] = val[0].executionId
+                  break
+                }
+              }
+            }
+          }
+          console.log('-------部门信息：：：',v,data)
+          // return
         } else {
           ids = v.selectedRowKeys
         }
@@ -975,7 +995,7 @@ export const taskBth = {
         data['taskDefKey'] = activity.actMsg.id
 
         //追加使用
-        if (v.selectionRows!=undefined && v.selectionRows.length>0) {
+        if (v.selectionRows != undefined && v.selectionRows.length > 0) {
           if (v.selectionRows[0].executionId != undefined) {
             data['taskId'] = v.selectionRows[0].taskId
             data['executionId'] = v.selectionRows[0].executionId
@@ -1213,14 +1233,15 @@ export const taskBth = {
       for (var index in this.opts) {
         //判断意见环节是否匹配
         let td = this.taskMsg.taskDefinitionKey
-        if ((this.opts[index].taskDefKeys).indexOf(td) >= 0) {
-          //属性赋值
-          this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
-          this.backDataOpt.i_order = this.opts[index]['orderId']
-          this.backDataOpt.i_opinion_set_id = this.opts[index]['optionSetId']
-          this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
-          this.flag = true;
-          break
+        for (let i of this.opts[index].taskDefKeys){
+          if (i.key==td) {
+            this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+            this.backDataOpt.i_order = this.opts[index]['orderId']
+            this.backDataOpt.i_opinion_set_id = i.optionSetId
+            this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+            this.flag = true;
+            break
+          }
         }
       }
       if (!this.flag) {
@@ -1377,7 +1398,7 @@ export const taskBth = {
         s_file_num: data.docnum, //文件字号
         s_varchar8: data.id //文号id
       }
-      postAction("oaBus/dynamic/updateData",param).then(res => {
+      postAction("oaBus/dynamic/updateData", param).then(res => {
         if (res.success) {
           this.reload(); //页面刷新
           // this.$emit("saveDocNum", data)
