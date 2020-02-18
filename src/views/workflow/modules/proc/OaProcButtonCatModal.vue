@@ -147,6 +147,7 @@
           total: 0
         },
         buttonList:'',
+        TaskLink:[],
         TaskLinkId:'',
         sbtnName:'',
         buttonId:"",
@@ -191,13 +192,15 @@
               }
               obj.attrs.rowSpan =this.HBcolumn;
               for (let i = 0; i < this.TaskLink.length ; i++) {
-                // console.log("**********************************");
-                // console.log(text);
-                // console.log(this.buttonList[i].iid);
+//                 console.log("**********************************111");
+//                 console.log(text);
+//                 console.log(i);
+//                 console.log(this.buttonList[i]);
                 if (text==this.TaskLink[i].id) {
+//                  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                   return this.TaskLink[i].name;
-                  obj.children=this.TaskLink[i].name
-                  return obj;
+//                  obj.children=this.TaskLink[i].name
+//                  return obj;
                 }
               }
               //保存上一条数据
@@ -385,9 +388,11 @@
         this.visible = false;
       },
       handleOk () {
+        this.clearData();
         this.close()
       },
       handleCancel () {
+        this.clearData();
         this.close()
       },
       handleTableChange(page) {
@@ -414,8 +419,10 @@
           this.data = res.result.records;
           this.ipagination.total = res.result.total;
         })
+      },
+      clearData(){
+        this.data= []
       }
-
 
     }
   }

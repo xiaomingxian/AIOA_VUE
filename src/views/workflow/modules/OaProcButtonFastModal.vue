@@ -240,9 +240,11 @@
         })
       },
       handleOk(){
+        this.clearData();
         this.showFunPer = false ;
       },
       handleCancle (){
+        this.clearData();
         // this.close();
         this.showFunPer = false ;
       },
@@ -312,6 +314,9 @@
           }
           this.loading = false;
         })
+      },
+      clearData(){
+        this.dataSource= []
       },
       modalFormOkProc(procDefKey){
         this.loading = true;
