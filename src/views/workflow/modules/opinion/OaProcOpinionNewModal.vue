@@ -8,7 +8,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin :spinning="confirmLoading" style="height: 360px;margin-left: 50px">
+    <a-spin  tip="Loading..."  :spinning="confirmLoading" style="height: 360px;margin-left: 50px">
       <a-form :form="form">
 
         <!--<a-form-item-->
@@ -306,7 +306,7 @@
             this.opinionSetModal.itaskOpinionOrder=0;//意见框位置
             this.opinionSetModal.type=''//意见框类型
           }
-
+          this.confirmLoading = false;//让loading消失
         })
       },
       onitaskOpinionOrder(){
@@ -401,6 +401,7 @@
         this.editlvjian(record,TaskLinkId);
       },
       editlvjian(record,TaskLinkId) {
+        this.confirmLoading = true;
         this.toggleSearchStatus=false;
         this.itaskOpinionName='';//意见框名称
         this.itaskOpinionOrder=0;//意见框位置

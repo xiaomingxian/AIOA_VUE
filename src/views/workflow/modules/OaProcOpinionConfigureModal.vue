@@ -245,16 +245,17 @@
         })
       },
       handleOk(){
-
+        this.clearData();
         this.showFunPer = false ;
       },
       handleCancle (){
+        this.clearData();
         // this.close();
         this.showFunPer = false ;
       },
       handleCat: function (record) {
         this.$refs.OaProcOpinionCatModal.add(record,this.TaskLinkId);
-        this.$refs.OaProcOpinionCatModal.loadData();
+//        this.$refs.OaProcOpinionCatModal.loadData();
         this.$refs.OaProcOpinionCatModal.title = "查看";
         this.$refs.OaProcOpinionCatModal.disableSubmit = false;
 
@@ -282,6 +283,9 @@
         // this.$refs.OaProcOpinionCopyModal.loadData(record.iid)
         this.$refs.OaProcOpinionCopyModal.title = "复制配置";
         this.$refs.OaProcOpinionCopyModal.disableSubmit = false;
+      },
+      clearData(){
+        this.dataSource= []
       },
       //根据流程定义KEY 和 id查询数据
       show1(iid,procDefKey){

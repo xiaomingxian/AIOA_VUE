@@ -8,7 +8,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin :spinning="confirmLoading" >
+    <a-spin tip="Loading..." :spinning="confirmLoading" >
       <a-form :form="form">
         <!--<a-form-item-->
           <!--:labelCol="labelCol"-->
@@ -232,7 +232,6 @@
         iisLastsender:0, //已办用户
         iisTransactors:0, //处理人
         iisDefault:0, //默认按钮配置
-        btnSetModel:{},
         labelCol: {
           xs: {span: 24},
           sm: {span: 5},
@@ -241,6 +240,7 @@
           xs: {span: 24},
           sm: {span: 16},
         },
+        btnSetModel:{},
         taskDefKey:'',
         sbuttonSetName:'',//组合按钮名称
         procDefKey:'',
@@ -379,6 +379,7 @@
             this.btnSetModel.iisTransactors=0;//处理人
             this.btnSetModel.iisDefault=0;//默认按钮配置
           }
+          this.confirmLoading = false;
         });
       },
       //点击删除按钮 前校验
@@ -480,7 +481,7 @@
         this.edit(record,TaskLinkId);
       },
       edit(record,TaskLinkId) {
-
+        this.confirmLoading = true;
         getAction('sys/role/queryall?_t=1577627530',{}).then(res=>{
          this.iisDefendLink=res.result;
         });
@@ -553,18 +554,22 @@
                 // that.$message.warning(res.message);
               }
             }).finally(() => {
+              this.clearData();
               that.confirmLoading = false;
-              this.close();
+                this.close();
             })
           }
         })
       },
+      clearData(){
+          this.data=[]
+      },
       handleCancel() {
+        this.clearData();
         this.close()
       }
 
     }
-
   }
 </script>
 
