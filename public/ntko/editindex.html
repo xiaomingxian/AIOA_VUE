@@ -147,7 +147,7 @@
       }
 
       if (cmd == 8 || cmd == 6) {
-        alert("thread");
+        // alert("thread");
         //正文
         if (cmd == 6) {
           var fileType = "2";
@@ -177,8 +177,8 @@
                 i_is_typeset = value;
               }
               if ("i_is_approve" == busDataName) {
-                alert("end!!!")
-                alert(busDataName)
+                // alert("end!!!")
+                // alert(busDataName)
                 i_is_approve = value;
               }
             }
@@ -188,7 +188,7 @@
         if (cmd == 6) {
           //未保存正文，进行正文排版
           // alert(2222)
-          alert(i_is_typeset)
+          // alert(i_is_typeset)
           if (i_is_typeset == 0) {
             var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
             $.ajax({
@@ -206,7 +206,7 @@
                 var zwFileNamePath = data.result.zwFileNamePath;
                 if (zwFileNamePath != null) {
                   var Path1 = zwFileNamePath;
-                  alert(path1);
+                  // alert(path1);
                   $.ajax({
                     type: "post",
                     dataType: "json",
@@ -215,7 +215,7 @@
                     success: function (data) {
                       var basePath = getBasePath();
                       var mFileName = fileName;
-                      alert(mFileName);
+                      // alert(mFileName);
                       var filePath = "/templateFile/";
                       var fileName1 = data.result;
                       ntko.OpenFromURL(basePath + filePath + mFileName);
