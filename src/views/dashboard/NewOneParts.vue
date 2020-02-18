@@ -251,7 +251,6 @@
         model4Lists:[],
         LinkList:[], //常用链接
         url: {
-
           busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
           list: "/wf/task/queryTask?operstatus=task_todo",
           HomeList:'/oaBus/homeAnalysis/HomeList',
