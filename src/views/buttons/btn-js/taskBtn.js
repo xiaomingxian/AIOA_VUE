@@ -300,7 +300,6 @@ export const taskBth = {
         let td = this.taskMsg.taskDefinitionKey
         for (let i of this.opts[index].taskDefKeys) {
           if (i.key == td) {
-            if (i.key == td) {
               this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
               this.backDataOpt.i_order = this.opts[index]['orderId']
               this.backDataOpt.i_opinion_set_id = i.optionSetId
@@ -309,7 +308,6 @@ export const taskBth = {
               break
             }
           }
-        }
       }
       // //校验意见
       if (this.flag) {    //如果要填写意见的话，就进行校验
