@@ -59,7 +59,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="人员">
-          <j-select-user-by-dep v-decorator="[ 'itypeId', {}]"  @senUserId="senUserId" v-model="userRealName" @getUD2="getUD2" ></j-select-user-by-dep>
+          <j-select-user-by-dep v-decorator="[ 'itypeId', {}]"  @senUserId="senUserId" v-model="userRealName" @getUD2="getUD2"  ></j-select-user-by-dep>
         </a-form-item>
         <a-form-item
           v-else="spermitType==0">
@@ -190,6 +190,7 @@
       },
       //修改角色或者人员 获取角色id
       getRole(e){
+        console.log(e)
         this.model.itypeId = e;
       },
       add1(ibusModelId,sname,data) {
@@ -239,8 +240,9 @@
           let itypeNanesLists = '';
           partsLists.map((part)=>{
             itypeNanesLists+=part.title+'  ';
-            itypeIdLists+=part.value+',';
+            itypeIdLists+=part.value;
           });
+          console.log(itypeIdLists)
           this.model.itypeId =itypeIdLists;
           this.checkedDepartNameString = itypeNanesLists;
         }else{
@@ -351,11 +353,11 @@
         this.selectedDepartKeys = [];
       },
       //获取人员下拉框 所选用户id
-      getPeople(e){
+     /* getPeople(e){
         console.log(e);
         this.model.itypeId = e;
 
-      },
+      },*/
       //获取用户点击的是否单选
       getisnot(e){
         console.log(e);
@@ -408,10 +410,6 @@
             }else{
               httpurl+=this.url.edit;
                method = 'put';
-              if(this.spermitType==2){
-                formData.itypeId = formData.itypeId.substring(0,formData.itypeId.length-1);
-              }
-
             }
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){
