@@ -336,13 +336,13 @@
             align: "center",
             dataIndex: 'itype',
             customRender: (text) => {
-              if (text == 0) {
+              if (text == 1) {
                 return '角色';
-              } else if (text == 1) {
-                return '角色+机构'
               } else if (text == 2) {
-                return '角色+部门'
+                return '角色+机构'
               } else if (text == 3) {
+                return '角色+部门'
+              } else if (text == 4) {
                 return '角色+分管部门'
               } else {
                 return text;
