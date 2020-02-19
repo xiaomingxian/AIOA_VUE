@@ -115,8 +115,8 @@
                 <a-col :md="7" :sm="24" style="margin-top: 7px;">
                   <a-form-item label="拟稿人">
                     <a-radio-group v-model="queryParam.selType">
-                      <a-radio :value="0">由我创建</a-radio>
-                      <a-radio :value="1" style="width: 33%;">
+                      <a-radio @click="clearCurPageIndex()" :value="0">由我创建</a-radio>
+                      <a-radio @click="clearCurPageIndex()" :value="1" style="width: 33%;">
                         全部数据
                         <a-input v-if="queryParam.selType === 1" v-model="queryParam.s_create_name"
                                  style="margin-left: 7px"/>
@@ -347,6 +347,10 @@
       //     }
       //   })
       // },
+      //清除当前页和
+      clearCurPageIndex(){
+        this.paginations.current = 1 ;
+      },
       setFontSize(){
         const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
         let url = "/testt/sysUserSet/queryByUserId";
