@@ -177,7 +177,14 @@
 		   {
             title: '权限数据名称',
             align:"center",
-            dataIndex: 'itypeName'
+            dataIndex: 'itypeName',
+           customRender:function (text,record,index) {
+           if(record.parentName){
+             return record.parentName + '-'+text;
+           }else{
+             return text;
+           }
+         }
            },
 		   {
             title: '是否可见',

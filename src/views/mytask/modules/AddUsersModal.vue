@@ -105,7 +105,7 @@
                     :columns="columns2"
                     :customRow="departClickCheck"
                     :dataSource="mockData"
-                    :pagination="ipagination"
+                    :pagination="false"
                     :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
                     @change="handleTableChange"
                   >
@@ -113,54 +113,63 @@
                 </div>
 
                 <!--右侧选择-->
-                <div class="right">
-                  <div v-for="item in deptsList">
-                    <!--左右布局-->
-                    <div class="box1">
-                      <div class="rightLeft" style="margin-top: 20px;">
-                        <a-button @click="toRight(item)">
-                          <a-icon type="right"/>
-                          添加到{{item}}
-                        </a-button>
-                        <a-button @click="toLeft(item)">
-                          <a-icon type="left"/>
-                          从{{item}}删除
-                        </a-button>
+                <div class="rightt">
+                  <div ref="itemPartBox" class="itemPartBox" v-for="item in deptsList">
+
+                    <div class="partBox">
+                      <div style="padding: 6px;background: #d6ebff !important;">
+                        <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
+
+                        {{item==null||item==undefined||item==''?singleDept:item}}部门
                       </div>
+                      <!--<hr>-->
+                      <div class="partBoxChild" style="overflow: hidden">
+                        <a-row v-for="i in departSelect[item]">
+                          <a-col :span="100">
+                            <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
 
-                      <div style="width: 100%;display: flex">
-                        <div class="rightRight">
-
-                          <template>
-                            <h4 color="red">{{item}}部门</h4>
-                            <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
-
-                            <a-row v-for="i in departSelect[item]">
-                              <a-col :span="100">
-                                <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
-                                  {{i.departName}}
-                                </a-checkbox>
-                              </a-col>
-                            </a-row>
-                          </template>
-                        </div>
-
-                        <div class="rightRight1">
-                          <template>
-                            <h4 color="red">{{item}}部门用户</h4>
-                            <!--<a-button type="primary" size="small" @click="queryUser(item)">【{{item}}】人员</a-button>-->
-                            <a-row v-for="i in departUsersMsg[item]">
-                              <a-col :span="100">
-                                {{i.username}}
-                              </a-col>
-                            </a-row>
-                          </template>
-                        </div>
+                              <span :title="i.departName"> {{i.departName}}</span>
+                            </a-checkbox>
+                          </a-col>
+                        </a-row>
                       </div>
+                    </div>
+
+                    <div class="optionBox">
+                      <!--<center>-->
+                      <a-button @click="toRight(item)" size="small">
+                        <!--<a-icon type="right"/>-->
+                        <a-icon type="add"/>
+                        <!--添加到{{item}}-->
+                        添加
+
+                      </a-button>
+                      &nbsp;
+                      <a-button @click="toLeft(item)" size="small">
+                        <!--<a-icon type="left"/>-->
+                        <a-icon/>
+                        <!--从{{item}}删除-->
+                        删除
+                      </a-button>
+                      <!--</center>-->
+
 
                     </div>
-                  </div>
 
+
+                    <div class="userBox">
+                      <h1 class="usertitle">待发送用户</h1>
+                      <div class="userList">
+                        <template>
+                          <a-row v-for="i in departUsersMsg[item]">
+                            <a-col :span="100">
+                              {{i.username}} ( {{i.departName}})
+                            </a-col>
+                          </a-row>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -220,6 +229,7 @@
     components: {DictItemList},
     data() {
       return {
+        singleDept: null,
         defaultSelectedKeys: [],
         scrHeight: window.innerHeight - 300 + 'px',
         title: '追加用户',
@@ -457,6 +467,25 @@
         //是否选部门
         this.isDept = (item.oaProcActinst.userOrRole) == 'dept'
 
+        if (this.isDept) {
+
+          var length = item.oaProcActinst.deptsList.length == 0 ? 1 : item.oaProcActinst.deptsList.length
+
+          setTimeout(() => {
+            let domItemPartBox = document.querySelectorAll('.itemPartBox');
+
+            console.log(domItemPartBox);
+
+            for (let itemPartBox of domItemPartBox) {
+              console.log(itemPartBox)
+              if (length == 1) {
+                itemPartBox.style.width = '100%'
+              } else if (length == 2) {
+                itemPartBox.style.width = '49.8%'
+              }
+            }
+          }, 1000)
+        }
 
         //TODO 仅标识 @1.2 ############################################  数据源 ###########################################
         if (!this.isDept) {
@@ -633,6 +662,7 @@
       },
       //点击某一节点---选择节点相关信息
       clickAct(item) {
+        this.singleDept = item.actMsg.name
 
         /**
          *  (包容/并行网关)展示上一节点的选择信息
@@ -683,7 +713,9 @@
         }
       },
       cancel2() {
+        // this.dataInit()
         this.visible2 = false
+        this.visible = false
       },
       recordChoice(acts, choices) {
 
@@ -1009,8 +1041,47 @@
       }
       ,
       dataInit() {
-        this.selectionRows = []
+        this.singleDept = null
+        this.defaultSelectedKeys = []
+        // this.scrHeight = ''
+        scrHeight: window.innerHeight-300+ 'px',
+
+        this.isMul = false //下一任务是单选/多选
+        this.isDept = false
+        this.endType = false//是否是结束节点
+        this.nextsActs = []
+        this.endTime = ''
+        //穿梭框数据
+        this.mockData = []
+        //部门信息
+        this.deptsList = []
+        //部门选择集合
+        this.departSelect = {}
+        //部门对应用户id
+        this.departUsersId = {}
+        this.departUsersMsg = {}
+        //环节分类，从属于 排他，并行，包容网关
+        this.gateWayTypeSelect = {
+          parallel: {},
+          inclusive: {},
+          normal: {}//有的话只会存在一个
+        }
+        this.typeCount = {
+          normal: [],
+          inclusive: [],
+          parallel: [],
+        }
+        this.preCilck = null
+        //当前点击的节点
+        this.currentClick = null
+        this.timeCheck = false//是否限制时间
+
+        this.dataSource = []
+        this.actChoice = []
         this.selectedRowKeys = []
+        this.selectedRows2 = []
+
+
         this.endTime = ''
       },
       /**
@@ -1047,52 +1118,110 @@
 
     .left {
       width: 30%;
-    }
-
-    .right {
-      width: 69%;
-      height: 400px;
-      /*background: #dddddd;*/
+      height: 380px;
       overflow-y: scroll;
 
+      /deep/ .ant-table-small > .ant-table-content > .ant-table-body {
+        margin: 0 !important;
+      }
+    }
 
-      .box1 {
-        width: 100%;
+    .rightt {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 69%;
+      /*height: px;*/
+      background: #ffffff;
+      /*overflow-y: scroll;*/
+
+      .itemPartBox {
+
+        width: 33%;
+        /*height: 100%;*/
+        /*background: red;*/
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        /*background: darkcyan;*/
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        border: 1px solid #dddddd;
+        padding: 10px;
+        /*margin-top: 30px;*/
+        margin-left: 8px;
 
-        .rightRight {
+        .partBox {
+          width: 100%;
+          height: 190px;
+
+          /*background: #2eabff;*/
+
+          /*padding-bottom: 20px;*/
+
+          .partBoxChild {
+            height: 150px;
+            overflow-y: scroll;
+          }
+
+        }
+
+        .optionBox {
+          width: 100%;
+          /*width: 30%;*/
+          /*height: 30px;*/
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          /*border-bottom: 1px solid #dddddd;*/
+          padding-bottom: 5px;
+          margin-top: 1px;
+
+        }
+
+        .userBox {
           /*width: 90%;*/
-          width: 50%;
-          height: 120px;
-          /*background: #fff;*/
-          margin-left: 150px;
-          margin-right: 1px;
-          margin-top: 12px;
-          overflow-y: scroll;
+          width: 100%;
+
+
+          .usertitle {
+            padding: 5px;
+            font-size: 15px;
+            text-align: left;
+            background: #d6ebff !important;
+            /*border-bottom: 1px solid #dddddd;*/
+
+
+          }
+
+          .userList {
+            height: 105px;
+            background: #fff;
+            /*margin-left: 150px;*/
+            /*margin-right: 1px;*/
+            /*margin-top: 20px;*/
+            overflow-y: scroll;
+          }
         }
       }
 
 
     }
 
-    .rightRight1 {
-      /*width: 90%;*/
-      width: 50%;
-      height: 120px;
-      /*background: #fff;*/
-      margin-left: 1px;
-      margin-right: 10px;
-      margin-top: 10px;
-      overflow-y: scroll;
-    }
+    /*.rightRight1 {*/
+    /*!*width: 90%;*!*/
+    /*width: 50%;*/
+    /*height: 120px;*/
+    /*!*background: #fff;*!*/
+    /*margin-left: 1px;*/
+    /*margin-right: 10px;*/
+    /*margin-top: 10px;*/
+    /*overflow-y: scroll;*/
+    /*}*/
 
 
-    .rightLeft {
-      width: 5%;
-    }
+    /*.rightLeft {*/
+    /*width: 5%;*/
+    /*}*/
 
 
   }

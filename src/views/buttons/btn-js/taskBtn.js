@@ -300,14 +300,12 @@ export const taskBth = {
         let td = this.taskMsg.taskDefinitionKey
         for (let i of this.opts[index].taskDefKeys) {
           if (i.key == td) {
-            if (i.key == td) {
-              this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
-              this.backDataOpt.i_order = this.opts[index]['orderId']
-              this.backDataOpt.i_opinion_set_id = i.optionSetId
-              this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
-              this.flag = true;
-              break
-            }
+            this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+            this.backDataOpt.i_order = this.opts[index]['orderId']
+            this.backDataOpt.i_opinion_set_id = i.optionSetId
+            this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+            this.flag = true;
+            break
           }
         }
       }
@@ -784,6 +782,7 @@ export const taskBth = {
     },
     //追加用户
     confirmAddUserSingle(ids, activity, endTime, depts) {
+      console.log(' 节点属性：：', activity)
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id
@@ -837,6 +836,9 @@ export const taskBth = {
         deptMsg['mainDept'] = mainDept
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
+        //遍历节点属性找出所选择的用户
+
+
       }
       this.backData.page_ref = this.taskMsg.pageRef
       //业务数据
@@ -851,18 +853,24 @@ export const taskBth = {
       }
       data['taskDefKey'] = activity.actMsg.id
 
+      if (activity.nextUsers.length>0){
+        let user = activity.nextUsers[0]
+        data['taskId'] = user.taskId
+        data['executionId'] =user.executionId
+      }
 
+
+      let taskInfoVoList = {list: [data]}
       //参数构造完毕***********************
-      postAction(this.url.doTask, data).then(res => {
+      postAction(this.url.doAddUsers, taskInfoVoList).then(res => {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          // this.saveBusData()
-          // setTimeout(function () {
-          //   this.close()
-          // }, 500)
-          // this.reload()
+          setTimeout(function () {
+            this.close()
+          }, 500)
+          this.reload()
         } else {
           this.$message.error(res.message)
         }
@@ -886,9 +894,9 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          // setTimeout(function () {
-          //   this.close()
-          // }, 500)
+          setTimeout(function () {
+            this.close()
+          }, 500)
         } else {
           this.$message.error(res.message)
         }
@@ -952,8 +960,6 @@ export const taskBth = {
               }
             }
           }
-          console.log('-------部门信息：：：', v, data)
-          // return
         } else {
           ids = v.selectedRowKeys
         }

@@ -294,7 +294,7 @@
         confirmLoading: false,
         actChoice: [],
         selectedRowKeys2: [],
-        selectedRows2selectedRows2: [],
+        selectedRows2: [],
 
         urls: {
           departUsetQuery: '/oaBus/taskInAct/deptUsersQuery'
@@ -655,7 +655,8 @@
       //并行或包容
       moreThanOneType() {
 
-        this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
+        console.log('属性查看',this.gateWayTypeSelect)
+        // this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
       },
       //时间校验
       timeCheckMethod() {
@@ -685,7 +686,9 @@
         }
       },
       cancel2() {
+        // this.dataInit()
         this.visible2 = false
+        this.visible = false
       },
       recordChoice(acts, choices) {
 
