@@ -30,10 +30,10 @@
           <a-select v-model="typeModel"
                     v-decorator="[ 'itype', {}]"
                     placeholder="查看权限类型">
-            <a-select-option value="0">角色</a-select-option>
-            <a-select-option value="1">角色+机构</a-select-option>
-            <a-select-option value="2">角色+部门</a-select-option>
-            <a-select-option value="3">角色+分管部门</a-select-option>
+            <a-select-option value="1">角色</a-select-option>
+            <a-select-option value="2">角色+机构</a-select-option>
+            <a-select-option value="3">角色+部门</a-select-option>
+            <a-select-option value="4">角色+分管部门</a-select-option>
           </a-select>
           <!--<a-input placeholder="请输入查看权限类型（1、角色、2、角色+机构3、角色+部门4、角色+分管部门）" v-decorator="['iType', {}]" />-->
         </a-form-item>

@@ -113,22 +113,22 @@
           <div style="width: 907px;height: 1px;background-color: rgba(0, 0, 0, 0.65);margin-left: 96px;"></div>
 
 
-        <div style="display: flex;position: relative;top: 27px;">
-          <span style="font-size: 16px;font-weight: bolder;">自定义标题</span>
-        </div>
-
-
-
-        <div style="display: flex;margin: 41px 0 0 96px;">
-          <div style=" background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-            <span style="width: 71px;">系统名称：</span>
-            <a-input style="width: 371px;" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
+          <div style="display: flex;position: relative;top: 27px;">
+            <span style="font-size: 16px;font-weight: bolder;">自定义标题</span>
           </div>
 
-          <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
-            <a-button size="middle" icon="check-circle" @click="confirmPic"  type="primary">确认替换</a-button>
+
+
+          <div style="display: flex;margin: 41px 0 0 96px;">
+            <div style=" background: #fff;display: flex;align-items: center;justify-content: flex-start;">
+              <span style="width: 71px;">系统名称：</span>
+              <a-input style="width: 371px;" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
+            </div>
+
+            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
+              <a-button size="middle" icon="check-circle" @click="confirmPic"  type="primary">确认替换</a-button>
+            </div>
           </div>
-        </div>
 
           <div style="height: 41px;display: flex;margin-left: 96px;">
             <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;">
@@ -137,7 +137,7 @@
               </span>
             </div>
           </div>
-      </div>
+        </div>
 
         <div class="watchBox">
           <div style="margin: 0% 0% 0% 14%;display: inline-table;">
@@ -316,103 +316,103 @@
         return true;
       },
 
-    beforeUpload1(file){
-      const formData=new FormData();
-      formData.append("file",file);
-      var t = file.name.substring(file.name.indexOf(".")+1);
-      var type = this.picDetail.fileType.split("、");
-      var flag = false;
-      for (var i = 0;i<type.length;i++){
-        if (type[i].toLowerCase() == t.toLowerCase()){
-          flag = true;
+      beforeUpload1(file){
+        const formData=new FormData();
+        formData.append("file",file);
+        var t = file.name.substring(file.name.indexOf(".")+1);
+        var type = this.picDetail.fileType.split("、");
+        var flag = false;
+        for (var i = 0;i<type.length;i++){
+          if (type[i].toLowerCase() == t.toLowerCase()){
+            flag = true;
+          }
         }
-      }
-      if (!flag){
-        this.$message.warn("请上传正确格式的图片");
-        return
-      }
-      httpAction(this.url.fileUpload1, formData, "post").then((res) => {
-        if (res.success) {
-          this.picDetail.upFileName1 = res.result.sfileName
-          this.picDetail.fileId1 = res.result.iid;
-          this.show4(res.result.iid);
-          this.$message.success("上传成功");
-          this.$emit('ok');
-        } else {
-          this.$message.error("上传失败");
+        if (!flag){
+          this.$message.warn("请上传正确格式的图片");
+          return
         }
-      })
-      return true;
-    },
+        httpAction(this.url.fileUpload1, formData, "post").then((res) => {
+          if (res.success) {
+            this.picDetail.upFileName1 = res.result.sfileName
+            this.picDetail.fileId1 = res.result.iid;
+            this.show4(res.result.iid);
+            this.$message.success("上传成功");
+            this.$emit('ok');
+          } else {
+            this.$message.error("上传失败");
+          }
+        })
+        return true;
+      },
 
-    beforeUpload2(file){
-      const formData=new FormData();
-      formData.append("file",file);
-      var t = file.name.substring(file.name.indexOf(".")+1);
-      var type = this.picDetail.fileType.split("、");
-      var flag = false;
-      for (var i = 0;i<type.length;i++){
-        if (type[i].toLowerCase() == t.toLowerCase()){
-          flag = true;
+      beforeUpload2(file){
+        const formData=new FormData();
+        formData.append("file",file);
+        var t = file.name.substring(file.name.indexOf(".")+1);
+        var type = this.picDetail.fileType.split("、");
+        var flag = false;
+        for (var i = 0;i<type.length;i++){
+          if (type[i].toLowerCase() == t.toLowerCase()){
+            flag = true;
+          }
         }
-      }
-      if (!flag){
-        this.$message.warn("请上传正确格式的图片");
-        return
-      }
-      httpAction(this.url.fileUpload2, formData, "post").then((res) => {
-        if (res.success) {
-          this.picDetail.upFileName2 = res.result.sfileName;
-          this.picDetail.fileId2 = res.result.iid;
-          this.show2(res.result.iid);
-          this.$message.success("上传logo成功");
-          this.$emit('ok');
-        } else {
-          this.$message.error("上传logo失败");
+        if (!flag){
+          this.$message.warn("请上传正确格式的图片");
+          return
         }
-      })
-      return true;
-    },
+        httpAction(this.url.fileUpload2, formData, "post").then((res) => {
+          if (res.success) {
+            this.picDetail.upFileName2 = res.result.sfileName;
+            this.picDetail.fileId2 = res.result.iid;
+            this.show2(res.result.iid);
+            this.$message.success("上传logo成功");
+            this.$emit('ok');
+          } else {
+            this.$message.error("上传logo失败");
+          }
+        })
+        return true;
+      },
 
 
-    getLoginPic(){
+      getLoginPic(){
 
-      if (typeof this.getCaption(this.picDetail.editTitleText) == 'object') {
+        if (typeof this.getCaption(this.picDetail.editTitleText) == 'object') {
 
-        if (this.getCaption(this.picDetail.editTitleText)[0] == '') {
+          if (this.getCaption(this.picDetail.editTitleText)[0] == '') {
 
-          this.picDetail.pictrueText = "中国人民银行";
+            this.picDetail.pictrueText = "中国人民银行";
 
-        } else {
+          } else {
 
-          this.picDetail.pictrueText = this.getCaption(this.picDetail.editTitleText)[0];
-
-        }
-
-      }else{
-
-        this.picDetail.pictrueText = this.picDetail.editTitleText;
-
-      }
-
-  },
-
-    getPicText(){
-      postAction(this.url.getPictrueText).then(res => {
-        if (res.success){
-        console.log(res)
-        if (res.result == null){
-          this.picDetail.editTitleText = "中国人民银行";
-          this.picDetail.pictrueText = "中国人民银行";
-        } else {
-          // this.iisCalendar = true;
-          this.picDetail.editTitleText = res.result;
-          this.getLoginPic();
+            this.picDetail.pictrueText = this.getCaption(this.picDetail.editTitleText)[0];
 
           }
-      }
-    })
-    },
+
+        }else{
+
+          this.picDetail.pictrueText = this.picDetail.editTitleText;
+
+        }
+
+      },
+
+      getPicText(){
+        postAction(this.url.getPictrueText).then(res => {
+          if (res.success){
+            console.log(res)
+            if (res.result == null){
+              this.picDetail.editTitleText = "中国人民银行";
+              this.picDetail.pictrueText = "中国人民银行";
+            } else {
+              // this.iisCalendar = true;
+              this.picDetail.editTitleText = res.result;
+              this.getLoginPic();
+
+            }
+          }
+        })
+      },
 
       //确认替换
       confirmPic(){
@@ -498,43 +498,43 @@
         })
       },
 
-    getCaption(obj,state){
-      let index = obj.lastIndexOf("\&");
-      if(index == -1){
-        return obj;
-      }else {
-        if(state == 0){
-          obj = obj.substring(0,index);
-        }else if(state == 1){
-          obj = obj.substring(index+1,obj.length);
+      getCaption(obj,state){
+        let index = obj.lastIndexOf("\&");
+        if(index == -1){
+          return obj;
         }else {
-          obj = [obj.substring(0,index),obj.substring(index+1,obj.length)];
+          if(state == 0){
+            obj = obj.substring(0,index);
+          }else if(state == 1){
+            obj = obj.substring(index+1,obj.length);
+          }else {
+            obj = [obj.substring(0,index),obj.substring(index+1,obj.length)];
+          }
         }
-      }
-      return obj;
-    },
+        return obj;
+      },
 
       //显示当前已确认使用的图片
       show() {
         this.getText();
         this.picDetail.picurl = window._CONFIG['domianURL'] + '/oafile/LoginPicture/readPicture?resourceType=image',
-        axios.get(this.picDetail.picurl, {
-          responseType: 'arraybuffer',
-          headers: {
-            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
-          }
-        }).then(res => {
-          if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
-            this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-            this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-            this.visible = true;
+          axios.get(this.picDetail.picurl, {
+            responseType: 'arraybuffer',
+            headers: {
+              'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+            }
+          }).then(res => {
+            if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.visible = true;
 
-          }else{
-            // this.picDetail.pic = "";
+            }else{
+              // this.picDetail.pic = "";
 
-            this.picDetail.pic = this.picDetail.nowPic;
-          }
-        })
+              this.picDetail.pic = this.picDetail.nowPic;
+            }
+          })
       },
 
       getTextSign(){
@@ -586,7 +586,7 @@
         })
       },
 
-    //显示当前已确认使用的图片(标志)
+      //显示当前已确认使用的图片(标志)
       showSign() {
         this.getTextSign();
         this.picDetail.picurl2 = window._CONFIG['domianURL'] + '/oafile/signPicture/readPicture?resourceType=image',
@@ -656,49 +656,49 @@
       //显示当前未确认使用的图片
       show1(fileId) {
         this.picDetail.picurl1 = window._CONFIG['domianURL'] + '/oafile/LoginPicture/readNotPicture?id='+ fileId +'&resourceType=image',
-        axios.get(this.picDetail.picurl1, {
-          responseType: 'arraybuffer',
-          headers: {
-            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
-          }
-        }).then(res => {
-          console.log(res.data.byteLength);
-          if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
-            this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-            this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-            this.visible = true;
-          }else{
-            // this.picDetail.pic = "";
-            // this.$message.error("图片下载失败");
+          axios.get(this.picDetail.picurl1, {
+            responseType: 'arraybuffer',
+            headers: {
+              'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+            }
+          }).then(res => {
+            console.log(res.data.byteLength);
+            if(this.picDetail.nowPic != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.visible = true;
+            }else{
+              // this.picDetail.pic = "";
+              // this.$message.error("图片下载失败");
 
-            this.picDetail.pic = this.picDetail.nowPic;
-          }
-        })
+              this.picDetail.pic = this.picDetail.nowPic;
+            }
+          })
       },
 
-    //显示当前未确认使用的图片
-    show4(fileId) {
-      // console.log("================")
-      this.picDetail.picurl4 = window._CONFIG['domianURL'] + '/oafile/groPicture/readNotPicture?id='+ fileId +'&resourceType=image',
-        axios.get(this.picDetail.picurl4, {
-          responseType: 'arraybuffer',
-          headers: {
-            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
-          }
-        }).then(res => {
-          console.log(res.data.byteLength);
-          if(this.picDetail.nowPic1 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
-            this.picDetail.nowPic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-            this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-            this.visible = true;
-          }else{
-            // this.picDetail.pic1 = "";
-            // this.$message.error("图片下载失败");
+      //显示当前未确认使用的图片
+      show4(fileId) {
+        // console.log("================")
+        this.picDetail.picurl4 = window._CONFIG['domianURL'] + '/oafile/groPicture/readNotPicture?id='+ fileId +'&resourceType=image',
+          axios.get(this.picDetail.picurl4, {
+            responseType: 'arraybuffer',
+            headers: {
+              'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+            }
+          }).then(res => {
+            console.log(res.data.byteLength);
+            if(this.picDetail.nowPic1 != 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')) && res.data.byteLength >= 10){
+              this.picDetail.nowPic1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.picDetail.pic1='data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+              this.visible = true;
+            }else{
+              // this.picDetail.pic1 = "";
+              // this.$message.error("图片下载失败");
 
-            this.picDetail.pic1 = this.picDetail.nowPic1;
-          }
-        })
-    },
+              this.picDetail.pic1 = this.picDetail.nowPic1;
+            }
+          })
+      },
 
       changeSwitch(checked) {
         if (checked == 0){
@@ -780,7 +780,7 @@
     color: rgba(0, 0, 0, 0.45);
     font-size: 14px;
   }
-  
+
   .ant-input-disabled{
     color: #3a80ff !important;
   }

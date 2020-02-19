@@ -76,8 +76,8 @@ function onPageClose(cmd, stable, tableid, fileId) {
 }
 
 function saveOldFileToUrl(cmd, stable, tableid, fileId) {
-  var fileType = '';
-  var action = '';
+  var fileType = "";
+  var action = "";
   if (cmd == 4) {
     fileType = "1"
   }
@@ -94,8 +94,8 @@ function saveOldFileToUrl(cmd, stable, tableid, fileId) {
 
 //保存文件到服务器路径
 function saveFileToUrl(cmd, stable, tableid) {
-  var fileType = '';
-  var action = '';
+  var fileType = "";
+  var action = "";
   if (cmd == 1) {
     fileType = "1"
   }

@@ -3,7 +3,6 @@
     :title="title"
     :width="700"
     :visible="visible"
-    :confirmLoading="confirmLoading"
     @ok="confirm"
     @cancel="handleCancel"
     okText="确定"
