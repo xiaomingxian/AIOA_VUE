@@ -172,7 +172,6 @@
       senUserName(data){
         this.userRealName=data
         console.log(this.userRealName.toString())
-        this.form.resetFields();
         this.$nextTick(() => {
           this.form.setFieldsValue({suserNames:this.userRealName.toString()})
         });

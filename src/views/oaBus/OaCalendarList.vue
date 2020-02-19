@@ -20,7 +20,7 @@
               <a-input placeholder="请输入日程内容" v-model="serchSubData.sTitle"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="8" :sm="8">
+          <a-col :md="6" :sm="6">
             <a-form-item label="时段选择">
               <a-range-picker
                 :showTime="{format:'HH:mm'}"
@@ -83,7 +83,7 @@
           }"
       >
 
-        <span slot="action" slot-scope="text, record">
+        <span slot="action" slot-scope="text">
           <a @click.stop="handleEdit1(record,1)">编辑</a>
           <a-divider type="vertical" />
            <a @click.stop="handleDelete1(record.iid,record.screateBy)">删除</a>
