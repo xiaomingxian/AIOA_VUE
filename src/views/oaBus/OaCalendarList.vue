@@ -83,7 +83,7 @@
           }"
       >
 
-        <span slot="action" slot-scope="text">
+        <span slot="action" slot-scope="text,record">
           <a @click.stop="handleEdit1(record,1)">编辑</a>
           <a-divider type="vertical" />
            <a @click.stop="handleDelete1(record.iid,record.screateBy)">删除</a>
