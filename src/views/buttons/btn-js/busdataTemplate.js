@@ -476,7 +476,7 @@ export const busdataTemplate = {
       if (checkList != undefined && checkList.length > 0) {
         for (let i = 0; i < checkList.length; i++) {
           if (checkList[i].icolumnType == 1 || checkList[i].icolumnType == 3) {    //输入框
-            if (this.$refs[this.s_varchar[i]].value == '' || this.$refs[this.s_varchar[i]].value == undefined || this.$refs[this.s_varchar[i]].value == null) {
+            if (this.$refs[this.s_varchar[i]].value == undefined || this.$refs[this.s_varchar[i]].value == '' || this.$refs[this.s_varchar[i]].value == null) {
               this.$refs[this.s_varchar[i]].$el.style.borderColor = 'red';
               //有js校验
               flag = true;

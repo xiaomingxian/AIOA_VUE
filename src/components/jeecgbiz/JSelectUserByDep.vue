@@ -77,6 +77,10 @@
       console.log(this.userIdLists);
     },
     methods: {
+
+      myselfColse(){
+        this.$refs.selectModal.letMeClear();
+      },
       getUserId(data) {
         this.$emit('senUserId', data);
         this.$emit('getUD2')
