@@ -188,7 +188,7 @@
         @cancel="cancel2"
         destroyOnClose
         okText="确认"
-        cancelText="继续选择">
+        cancelText="重新选择">
 
         <!--:customRow="departClickCheck"-->
         <!--:pagination="ipagination"-->

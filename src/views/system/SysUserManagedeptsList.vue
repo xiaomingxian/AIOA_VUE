@@ -193,21 +193,18 @@
         this.showFunPer = false;
       },
       partData(formData){
-        console.log("^^^^^^^^^^^^^^^^^^^^^")
-        console.log(formData);
         this.selectedDepartKeys = [];
           for (let i = 0; i < formData.length; i++) {
           this.selectedDepartKeys.push(formData[i].key);
         }
-        console.log(this.selectedDepartKeys)
         this.departIdList = this.selectedDepartKeys;
         this.checkedDepartKeys = this.selectedDepartKeys;  //更新当前的选择keys
-
         postAction(this.url.add,{userId:this.userId,departId:this.departIdList}).then(res=>{
           if(res.success){
             this.$message.info(res.message)
             // this.$emit('ok');
             // this.$emit('close',this.username);
+            this.loadData1();
           }else{
             this.$message.warning(res.message)
           }
@@ -290,7 +287,13 @@
         this.ipagination.pageSize = page.pageSize;
         this.loadData1();
       },
+      clearDate(){
+        console.log("1111111111111")
+        this.dataSource = [];
+      },
       loadData1() {
+        console.log("0000000000000000")
+        this.clearDate();
         getAction(this.url.list, {username: this.username,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then((res) => {
           console.log(res.result);
           this.dataSource = [];
