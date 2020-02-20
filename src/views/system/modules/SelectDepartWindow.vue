@@ -80,7 +80,6 @@
       edit (record) {
         this.departList = [];
         this.checkedKeys = [];
-
         this.queryDepartTree();
         this.form.resetFields();
         this.visible = true;
