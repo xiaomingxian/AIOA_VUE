@@ -20,7 +20,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="参与人员">
-          <j-select-user-by-dep v-decorator="[ 'suserNames', {rules:[{required:true,message:'参与人员不能为空'}]}]"  @senUserId="senUserId" @senUserName="senUserName" :userIdLists="userIdLists" v-model="userRealName" @getUD2="getUD2" ></j-select-user-by-dep>
+          <j-select-user-by-dep ref="joinpeopleComponent" v-decorator="[ 'suserNames', {rules:[{required:true,message:'参与人员不能为空'}]}]"   @senUserId="senUserId" @senUserName="senUserName" :userIdLists="userIdLists" v-model="userRealName" @getUD2="getUD2" ></j-select-user-by-dep>
           </a-form-item>
 
         <a-form-item
@@ -172,7 +172,6 @@
       senUserName(data){
         this.userRealName=data
         console.log(this.userRealName.toString())
-        this.form.resetFields();
         this.$nextTick(() => {
           this.form.setFieldsValue({suserNames:this.userRealName.toString()})
         });
@@ -219,7 +218,10 @@
 
       close () {
         this.$emit('close');
+        this.$refs.joinpeopleComponent.myselfColse()
+        // console.log(this.$refs.joinpeopleComponent.myselfColse());
         this.visible = false;
+      //  myselfColse
       },
       handleOk () {
         // console.log(this.form.getFieldsValue('stitle'));
@@ -279,6 +281,7 @@
       },
       handleCancel () {
         this.close()
+        this.$refs.joinpeopleComponent.myselfColse()
       },
       timer(timeval){
         let date1 = new Date(timeval);

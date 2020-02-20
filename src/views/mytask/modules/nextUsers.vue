@@ -186,7 +186,7 @@
         @cancel="cancel2"
         destroyOnClose
         okText="确认"
-        cancelText="继续选择">
+        cancelText="重新选择">
 
         <!--:customRow="departClickCheck"-->
         <!--:pagination="ipagination"-->
@@ -655,8 +655,7 @@
       //并行或包容
       moreThanOneType() {
 
-        console.log('属性查看',this.gateWayTypeSelect)
-        // this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
+        this.$emit('confirmNextUsersMore', this.gateWayTypeSelect, this.endTime)
       },
       //时间校验
       timeCheckMethod() {

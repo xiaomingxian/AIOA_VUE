@@ -109,15 +109,15 @@
             <a-input type="number" ref="i_bigint3" v-on:blur="blurText(backData.i_bigint3,$refs.i_bigint3)" v-model="backData.i_bigint3"></a-input>
           </td>
         </tr>
-        <tr>
-          <!--发文总号-->
-          <td width="10%" class="title">
-            <center><h3>{{detailList.s_varchar9}}</h3></center>
-          </td>
-          <td colspan="3">
-            <a-input ref="s_varchar9" v-on:blur="blurText(backData.s_varchar9,$refs.s_varchar9)" v-model="backData.s_varchar9"></a-input>
-          </td>
-        </tr>
+        <!--<tr>-->
+          <!--&lt;!&ndash;发文总号&ndash;&gt;-->
+          <!--<td width="10%" class="title">-->
+            <!--<center><h3>{{detailList.s_varchar9}}</h3></center>-->
+          <!--</td>-->
+          <!--<td colspan="3">-->
+            <!--<a-input ref="s_varchar9" v-on:blur="blurText(backData.s_varchar9,$refs.s_varchar9)" v-model="backData.s_varchar9"></a-input>-->
+          <!--</td>-->
+        <!--</tr>-->
 
         <!--新增----------------结束---------------------------------------------------------------->
 
