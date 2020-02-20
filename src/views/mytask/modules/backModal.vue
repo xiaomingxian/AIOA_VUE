@@ -179,7 +179,7 @@
     },
     data() {
       return {
-        scrHeight: window.innerHeight - 400 + 'px',
+        scrHeight: window.innerHeight - 350 + 'px',
         title: '回退',
         visible: false,
         confirmLoading: false,

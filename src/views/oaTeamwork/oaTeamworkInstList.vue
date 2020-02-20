@@ -10,7 +10,7 @@
             <a-form-item
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
-              label="协同办公业务分类">
+              label="协同业务">
               <a-select  v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork">
                 <a-select-option v-for="(item,index) in teamworkList" :key="index" :value="item.iid">{{item.steamworkName}}
                 </a-select-option>
@@ -51,10 +51,6 @@
 
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-button type="primary" icon="download" @click="handleExportXls('个人协同办公业务实例')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
-        <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
@@ -136,21 +132,67 @@
         // 表头
         columns: [
 		   {
-            title: '配置分类',
+            title: '协同业务',
             align:"center",
-            dataIndex: 'iteamworkName'
+            dataIndex: 'iteamworkName',
+             sorter: (i, ii, type) => {
+           //descend倒叙
+           //ascend正序
+
+           this.queryParam.tableOrder = true
+           //置空其他环节
+           this.nullOther('orederByTile')
+           this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+           return true
+         },
            },
 		   {
-            title: '配置明细ID',
+            title: '标题（步骤1的业务标题）',
             align:"center",
-            dataIndex: 'iteamworkSetId'
-           },
+            dataIndex: 'iteamworkSetId',
+         sorter: (i, ii, type) => {
+           //descend倒叙
+           //ascend正序
+
+           this.queryParam.tableOrder = true
+           //置空其他环节
+           this.nullOther('orederByTile')
+           this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+           return true
+
+        },},
+
 		   {
-            title: '步骤序号',
+            title: '协同序号（最新启动的协同顺序号)',
             align:"center",
-            dataIndex: 'iorder'
+            dataIndex: 'iorder',
+         sorter: (i, ii, type) => {
+           //descend倒叙
+           //ascend正序
+
+           this.queryParam.tableOrder = true
+           //置空其他环节
+           this.nullOther('orederByTile')
+           this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+           return true
+         },
            },
-		   {
+          {
+            title: '创建时间（步骤1的业务创建时间）',
+            align:"center",
+            dataIndex: 'busModelName', sorter: (i, ii, type) => {
+              //descend倒叙
+              //ascend正序
+
+              this.queryParam.tableOrder = true
+              //置空其他环节
+              this.nullOther('orederByTile')
+              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+              return true
+            },
+
+          },
+		 /*  {
             title: '业务分类',
             align:"center",
             dataIndex: 'busModelName'
@@ -159,7 +201,7 @@
             title: '业务功能',
             align:"center",
             dataIndex: 'busFunctionName'
-           },
+           },*/
 		  /* {
             title: '版本号(暂不考虑）',
             align:"center",
