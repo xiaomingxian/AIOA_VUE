@@ -436,9 +436,9 @@
           console.log(e)
         } else if (data.cmd == "user") {
           //TODO 用户消息
-          console.log(e.data)
           let res = JSON.parse(e.data)
-          if (res.msgTxt == "qiCao") {
+          console.log("websocket接受消息:",res.msgTxt)
+          if (res.msgTxt == "kongjian") {
             console.log(this.dealBtn);
             //this.$refs.taskRef.saveBusData();
             this.$refs[this.pageRef].saveNoCheck()
