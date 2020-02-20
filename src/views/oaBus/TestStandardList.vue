@@ -148,7 +148,6 @@
         textData:[],
         attachmentData:[],
         dataSource: [],
-        searchOut: [],
         pagination: {
           current: 1,
           pageSize: 10,
@@ -160,9 +159,9 @@
           // showSizeChanger: true,
           total: 0,
           onChange:pageindex=>{
-            // console.log(pageindex);
+            console.log(pageindex);
             this.current = pageindex;
-            // console.log(this.defaultActivityKey);
+            console.log(this.defaultActivityKey);
             //检测测试为全文检索  还是附件检索
             if(this.defaultActivityKey=='0'){
               //全文检索
@@ -171,17 +170,13 @@
               //附件检索
               this.FuJianFiles(this.search,pageindex);
             }
+
           }
         },
       }
     },
     created() {
-      if(this.$route.query.searchWords){
-        this.search = this.$route.query.searchWords;
-        this.FilterAllFiles(this.search);
-      }else{
-        return;
-      }
+
     },
     destroyed(){
       this.dataDestroy();
@@ -299,6 +294,7 @@
       FilterAllFiles(serchval,pageindex='1'){
         let url = "/oaEs/oaelasticsearch/list";
         postAction(url, {keyWord:serchval,pageNo:pageindex}).then((res) => {
+          console.log(res);
           if(res.success){
             this.pagination.total =  res.result.total;
             this.dataSource = res.result.records;

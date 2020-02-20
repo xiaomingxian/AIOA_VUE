@@ -208,88 +208,88 @@
           picurl2:'',
           picurl3:'',
           picurl4:'',
-        },
-        iisCalendar:false,
-        iis:'',
-        point:'只允许上传png、jpg、bmp格式的图片',
-        upFailId: 0,
-        flag: true,
-        upFilePath: '',
-        downFilePath: '',
-        previewVisible: false,
-        visible: false,
-        headers: {
-          'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
-        },
-        fileList: [],
-        model: {},
-        Dbtable: [],
-        labelCol: {
-          xs: {span: 24},
-          sm: {span: 5},
-        },
-        wrapperCol: {
-          xs: {span: 24},
-          sm: {span: 16},
-        },
-        confirmLoading: false,
-        form: this.$form.createForm(this),
-        url: {
-          checkDefault:'/oafile/LoginPicture/checkDefault',
-          checkDefault1:'/oafile/groPicture/checkDefault',
-          checkDefault2:'/oafile/signPicture/checkDefault',
-          updatePic:'/oafile/LoginPicture/updatePicture',
-          updatePic1:'/oafile/groPicture/updatePicture',
-          updatePic2:'/oafile/signPicture/updatePicture',
-          fileUpload: window._CONFIG['domianURL'] +"/oafile/LoginPicture/upload",
-          fileUpload1: window._CONFIG['domianURL'] +"/oafile/groPicture/upload",
-          fileUpload2: window._CONFIG['domianURL'] +"/oafile/signPicture/upload",
-          getLoginText: '/oafile/LoginPicture/loginPictrue',
-          getLoginText1: '/oafile/groPicture/loginPictrue',
-          getLoginTextSign: '/oafile/signPicture/loginPictrue',
-          updatePicText: '/oafile/LoginPicture/updatePicText',
-          getPictrueText: '/oafile/LoginPicture/getPictrueText',
-        },
-      }
-    },
-    created() {
-      this.show();
-      this.show3();
-      this.showSign();
-      this.getPicText();
-    },
+      },
+      iisCalendar:false,
+      iis:'',
+      point:'只允许上传png、jpg、bmp格式的图片',
+      upFailId: 0,
+      flag: true,
+      upFilePath: '',
+      downFilePath: '',
+      previewVisible: false,
+      visible: false,
+      headers: {
+        'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+      },
+      fileList: [],
+      model: {},
+      Dbtable: [],
+      labelCol: {
+        xs: {span: 24},
+        sm: {span: 5},
+      },
+      wrapperCol: {
+        xs: {span: 24},
+        sm: {span: 16},
+      },
+      confirmLoading: false,
+      form: this.$form.createForm(this),
+      url: {
+        checkDefault:'/oafile/LoginPicture/checkDefault',
+        checkDefault1:'/oafile/groPicture/checkDefault',
+        checkDefault2:'/oafile/signPicture/checkDefault',
+        updatePic:'/oafile/LoginPicture/updatePicture',
+        updatePic1:'/oafile/groPicture/updatePicture',
+        updatePic2:'/oafile/signPicture/updatePicture',
+        fileUpload: window._CONFIG['domianURL'] +"/oafile/LoginPicture/upload",
+        fileUpload1: window._CONFIG['domianURL'] +"/oafile/groPicture/upload",
+        fileUpload2: window._CONFIG['domianURL'] +"/oafile/signPicture/upload",
+        getLoginText: '/oafile/LoginPicture/loginPictrue',
+        getLoginText1: '/oafile/groPicture/loginPictrue',
+        getLoginTextSign: '/oafile/signPicture/loginPictrue',
+        updatePicText: '/oafile/LoginPicture/updatePicText',
+        getPictrueText: '/oafile/LoginPicture/getPictrueText',
+      },
+    }
+  },
+  created() {
+    this.show();
+    this.show3();
+    this.showSign();
+    this.getPicText();
+  },
     mounted(){
       this.hiddenBg();
     },
     destroyed() {
       this.showBg();
     },
-    methods: {
-      hiddenBg(){
+  methods: {
+    hiddenBg(){
 
-        document.getElementsByClassName('header')[0].style.position = 'relative';
-        document.getElementsByClassName('header')[0].style.top = '-61px';
+      document.getElementsByClassName('header')[0].style.position = 'relative';
+      document.getElementsByClassName('header')[0].style.top = '-61px';
 
-        document.getElementsByClassName('trigger')[0].style.position = 'relative';
-        document.getElementsByClassName('trigger')[0].style.top = '66px';
+      document.getElementsByClassName('trigger')[0].style.position = 'relative';
+      document.getElementsByClassName('trigger')[0].style.top = '66px';
 
-        document.getElementsByClassName('user-wrapper')[0].style.position = 'relative';
-        document.getElementsByClassName('user-wrapper')[0].style.top = '61px';
-        document.getElementsByClassName('user-wrapper')[0].style.right = '27px';
+      document.getElementsByClassName('user-wrapper')[0].style.position = 'relative';
+      document.getElementsByClassName('user-wrapper')[0].style.top = '61px';
+      document.getElementsByClassName('user-wrapper')[0].style.right = '27px';
 
-      },
-      showBg(){
+    },
+    showBg(){
 
-        document.getElementsByClassName('header')[0].style.top = '0px';
-        document.getElementsByClassName('trigger')[0].style.top = '5px';
-        document.getElementsByClassName('user-wrapper')[0].style.top = '0px';
+      document.getElementsByClassName('header')[0].style.top = '0px';
+      document.getElementsByClassName('trigger')[0].style.top = '5px';
+      document.getElementsByClassName('user-wrapper')[0].style.top = '0px';
 
-      },
+    },
 
-      beforeUpload(file){
-        const formData=new FormData();
-        formData.append("file",file);
-        var t = file.name.substring(file.name.indexOf(".")+1);
+    beforeUpload(file){
+      const formData=new FormData();
+      formData.append("file",file);
+      var t = file.name.substring(file.name.indexOf(".")+1);
         var type = this.picDetail.fileType.split("、");
         var flag = false;
         for (var i = 0;i<type.length;i++){
