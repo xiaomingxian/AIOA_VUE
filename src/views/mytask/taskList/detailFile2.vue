@@ -982,8 +982,11 @@
             this.task.taskDefinitionKey = res.result.taskDefKey
             this.task.processDefinitionId = res.result.processDefinitionId
             this.task.processInstanceId = res.result.processInstanceId
+            this.task.tableId = res.result.busdataId
+            this.task.executionId = res.result.executionId
+            this.task.table = res.result.table
+            this.task.functionId = res.result.functionId
 
-            console.log('------------->>>',JSON.stringify(res))
 
           } else {
             this.$message.error(res.message)

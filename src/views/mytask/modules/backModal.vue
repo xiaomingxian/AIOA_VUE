@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="1000"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="jump"
@@ -15,9 +15,10 @@
 
       <a-layout id="components-layout-demo-top-side-2">
         <a-layout>
-          <a-layout style="padding: 2px 2px 2px">
+          <!--<a-layout style="padding: 2px 2px 2px">-->
+          <a-layout style="padding: 0px 0px 0px">
             <a-layout-content
-              :style="{ background: '#fff', padding: '10px', margin: 0, minHeight: '280px' }">
+              :style="{ background: '#fff', padding: '2px', margin: 0, minHeight: '280px' }">
 
 
               <!--展示可跳转节点-->
@@ -31,7 +32,7 @@
 
                   <!--  :customRow="showForm"-->
                   <div style="width: 100%;margin-top: 2%;">
-                    <h4 style="width: 7%;margin: 1.5% 0% 0% 1%;float: left;">退回步骤</h4>
+                    <h4 style="width: 7%;margin: 1.5% 0% 0% 1%;float: left;">退回环节</h4>
                     <a-table
                       style="width: 91.9%;float: left;" ref="table"
                       size="middle"
@@ -178,7 +179,7 @@
     },
     data() {
       return {
-        scrHeight: window.innerHeight - 250 + 'px',
+        scrHeight: window.innerHeight - 350 + 'px',
         title: '回退',
         visible: false,
         confirmLoading: false,

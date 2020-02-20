@@ -91,8 +91,8 @@
              <!--<span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>-->
              <!--<span v-else v-html="item.sFileName"></span>-->
               <a-list-item-meta>
-                <a slot="title" v-html="dataSource[index].s_title"></a>
-                <p slot="description" style="float: left;padding: 17px 27px 0 0;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
+                <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].s_title"></a>
+                <p slot="description" style="float: left;padding: 17px 27px 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
               </a-list-item-meta>
 
               </a-list-item>
@@ -103,8 +103,8 @@
               <!--<span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>-->
               <!--<span v-else v-html="item.sFileName"></span>-->
               <a-list-item-meta>
-              <a slot="title" v-html="dataSource[index].sTitle"></a>
-              <p slot="description" style="float: left;padding: 17px 27px 0 0;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
+              <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].sTitle"></a>
+              <p slot="description" style="float: left;padding: 17px 27px 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
               </a-list-item-meta>
 
             </a-list-item>

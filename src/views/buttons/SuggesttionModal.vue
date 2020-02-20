@@ -145,14 +145,14 @@
       },
       close() {
         this.$emit('close');
+        this.selectedModel="";
+        this.areatext="";
         this.visible = false;
         this.routeSwitch = true;
       },
       handleOk() {
-
         this.$emit('saveOption', this.areatext)
         this.close()
-
       },
       handleCancel() {
         this.close()

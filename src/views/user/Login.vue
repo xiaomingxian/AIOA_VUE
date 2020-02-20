@@ -1,11 +1,12 @@
 <template>
   <div class="main">
-    <img v-if="picDetail.pic" :src="picDetail.pic" style="width:51%;height:38%;position: fixed;left: 6.5%;bottom: 29.5%;"/>
-    <img v-else src="~@/assets/work.png" style="width:51%;height:38%;position: fixed;left: 6.5%;bottom: 29.5%;"/>
-    <img src="~@/assets/translucent.png" style="width:16.7%;height:38%;position: fixed;left:-3%;bottom: 29.5%;"/>
-    <img src="~@/assets/inputbg.png" style="width:55%;height:47%;position: fixed;right: 0%;bottom: 26%;"/>
-    <img src="~@/assets/technologypic.png" style="width:7%;height:14%;position: fixed;right: 12%;bottom: 69%;"/>
-    <a-form :form="form" class="user-layout-login" ref="formLogin" id="formLogin" style="width:18%;height:32%;position: fixed;right:25.7%;bottom:38.7%;">
+    <h1 @click="downLoadFile" style="width: 120%;position: absolute;top: 9%;left: 36%;color: red;cursor: pointer;">体验前先看我—>《系统体验指导手册》</h1>
+    <img v-if="picDetail.pic" :src="picDetail.pic" style="width: 51%;height: 38%;position: fixed;left: 6.5%;bottom: 29.5%;"/>
+    <img v-else src="~@/assets/work.png" style="width: 51%;height: 38%;position: fixed;left: 6.5%;bottom: 29.5%;"/>
+    <img src="~@/assets/translucent.png" style="width: 16.7%;height: 38%;position: fixed;left: -3%;bottom: 29.5%;"/>
+    <img src="~@/assets/inputbg.png" style="width: 55%;height: 47%;position: fixed;right: 0%;bottom: 26%;"/>
+    <img src="~@/assets/technologypic.png" style="width: 7%;height: 14%;position: fixed;right: 12%;bottom: 69%;"/>
+    <a-form :form="form" class="user-layout-login" ref="formLogin" id="formLogin" style="width: 18%;height: 32%;position: fixed;right: 25.7%;bottom: 38.7%;">
       <a-tabs
         class="login"
         :activeKey="customActiveKey"
@@ -267,6 +268,12 @@
       // update-end- --- author:scott ------ date:20190805 ---- for:密码加密逻辑暂时注释掉，有点问题
     },
     methods: {
+      downLoadFile() {
+        let URL = 'http://localhost:4000/ntko/files/指导文档.pdf';
+        window.open(URL);
+      },
+
+
       ...mapActions([ "Login", "Logout","PhoneLogin" ]),
       getOrgSchemaList(){
         getAction(this.url.getOrgSchemaList).then(res=>{
