@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1 @click="downLoadFile" style="width: 120%;position: absolute;top: 7%;left: 36%;color: red;cursor: pointer;">体验前先看我—>《系统体验指导手册》</h1>
+    <h1 @click="downLoadFile" style="width: 120%;position: absolute;top: 9%;left: 36%;color: red;cursor: pointer;">体验前先看我—>《系统体验指导手册》</h1>
     <img v-if="picDetail.pic" :src="picDetail.pic" style="width: 51%;height: 38%;position: fixed;left: 6.5%;bottom: 29.5%;"/>
     <img v-else src="~@/assets/work.png" style="width: 51%;height: 38%;position: fixed;left: 6.5%;bottom: 29.5%;"/>
     <img src="~@/assets/translucent.png" style="width: 16.7%;height: 38%;position: fixed;left: -3%;bottom: 29.5%;"/>
