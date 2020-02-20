@@ -111,7 +111,6 @@
       },
 
       add (record) {
-        console.log("aaaaaaaaaaa")
         this.userId=record[0].userId;
         console.log(record)
         this.username = record[0].username;
@@ -182,6 +181,7 @@
       },
       handleCancel () {
         this.close()
+
       },
 
 

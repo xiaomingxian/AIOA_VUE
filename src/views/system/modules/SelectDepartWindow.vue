@@ -71,12 +71,15 @@
     },
     methods: {
       add (checkedDepartKeys,userId) {
+        this.departList = [];
+        this.checkedKeys = [];
         this.checkedKeys = checkedDepartKeys;
         this.userId = userId;
         this.edit({});
       },
       edit (record) {
         this.departList = [];
+        this.checkedKeys = [];
         this.queryDepartTree();
         this.form.resetFields();
         this.visible = true;
@@ -91,6 +94,10 @@
         this.visible = false;
         this.departList = [];
         this.checkedKeys = [];
+        // this.departList = [];
+        // console.log(this.checkedKeys);
+        // console.log();
+
       },
       handleSubmit () {
         //  将子组件 所选部门id 和名称回传到父组件
@@ -105,6 +112,8 @@
                   let formData = {userId:res.result,
                     departIdList:this.departList}
                   // console.log(formData)
+                  this.checkedKeys = [];
+                  alert(this.checkedKeys)
                   that.$emit('ok', formData);
                 }
               }).finally(() => {

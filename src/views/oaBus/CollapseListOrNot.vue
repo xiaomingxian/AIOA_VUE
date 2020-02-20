@@ -4,6 +4,10 @@
     background-color: #f0f5fc;
   }
 
+  input::-webkit-input-placeholder{
+    color: rgba(0, 0, 0, 0.65);
+  }
+
   .ant-select-selection--single {
     background-color: #f0f5fc !important;
   }
@@ -85,18 +89,19 @@
       <a-tabs @change="changFunId" defaultActiveKey="1">
         <a-tab-pane v-for="(item,index) in selectList" :tab="item.sname" :key="index+1">
           <a-form layout="inline">
-            <a-row :gutter="48" style="margin:0 -150px 0 24px;">
+            <a-row :gutter="48" style="margin-left: 0px;">
               <a-col :md="!advanced && 24 || 24" :sm="24">
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
-              <a @click="toggleAdvanced" style="position: absolute;bottom: 34%;right: 14%;">
+              <a @click="toggleAdvanced" style="position: absolute;bottom: 58%;right: 7%;">
                 {{ advanced ? '隐藏' : '显示' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
-              </a-col>
-              <template v-if="advanced">
-                <!--<a-col :md="7" :sm="24" style="margin-top:7px;">-->
+          </a-col>
+            <template v-if="advanced">
+              <a-row :gutter="48">
+                <!--="<a-col :md="6" :sm="24">-->
                 <!--<a-form-item label="业务功能">-->
                 <!--<a-select @change="changFunId" v-model="queryParam.function_id">-->
                 <!--<a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}-->
@@ -104,56 +109,84 @@
                 <!--</a-select>-->
                 <!--</a-form-item>-->
                 <!--</a-col>-->
-                <a-col :md="7" :sm="24" style="margin-top:7px;">
-                  <a-form-item label="状态">
+
+                <a-col :md="6" :sm="24">
+                  <a-form-item>
                     <a-select v-model="queryParam.i_is_state">
-                      <a-select-option value="1">已办结</a-select-option>
+                      <a-select-option value="" disabled selected hidden>状态</a-select-option>
                       <a-select-option value="0">未办结</a-select-option>
+                      <a-select-option value="1">已办结</a-select-option>
                     </a-select>
                   </a-form-item>
                 </a-col>
-                <a-col :md="7" :sm="24" style="margin-top: 7px;">
-                  <a-form-item label="拟稿人">
-                    <a-radio-group v-model="queryParam.selType">
-                      <a-radio @click="clearCurPageIndex()" :value="0">由我创建</a-radio>
-                      <a-radio @click="clearCurPageIndex()" :value="1" style="width: 33%;">
-                        全部数据
-                        <a-input v-if="queryParam.selType === 1" v-model="queryParam.s_create_name"
-                                 style="margin-left: 7px"/>
-                      </a-radio>
-                    </a-radio-group>
+
+                <!--<a-col :md="6" :sm="24">-->
+                  <!--<a-form-item label="拟稿人">-->
+                    <!--<a-radio-group v-model="queryParam.selType">-->
+                      <!--<a-radio @click="clearCurPageIndex()" :value="0">由我创建</a-radio>-->
+                      <!--<a-radio @click="clearCurPageIndex()" :value="1" style="width: 33%;">-->
+                        <!--全部数据-->
+                        <!--<a-input v-if="queryParam.selType === 1" v-model="queryParam.s_create_name" style="margin-left: 7px"/>-->
+                      <!--</a-radio>-->
+                    <!--</a-radio-group>-->
+                  <!--</a-form-item>-->
+                <!--</a-col>-->
+
+                <a-col :md="6" :sm="24">
+                  <a-form-item>
+                    <a-select v-model="queryParam.s_create_name">
+                      <a-select-option value="" disabled selected hidden>拟稿人</a-select-option>
+                      <a-select-option value="0">全部数据</a-select-option>
+                      <a-select-option value="1">由我创建</a-select-option>
+                    </a-select>
                   </a-form-item>
                 </a-col>
-                <a-col :md="7" :sm="24" style="margin-top:7px;">
-                  <a-form-item label="年份">
+
+
+                <a-col :md="6" :sm="24">
+                  <a-form-item>
                     <a-select v-model="queryParam.d_create_time">
+                      <a-select-option value="" disabled selected hidden>年份</a-select-option>
                       <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
                       </a-select-option>
                     </a-select>
                   </a-form-item>
                 </a-col>
+              </a-row>
 
-
-                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24"
-                       style="margin-top:7px;">
-                  <a-form-item :label="atom.s_column_name">
+            <a-row :gutter="48">
+                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="6" :sm="24">
+                  <a-form-item>
                     <!--<a-select v-if="atom.s_table_column=='s_file_num'" @change="changeSelect($event,atom.s_table_column)" placeholder="请选择">-->
                     <!--<a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>-->
                     <!--</a-select>-->
-                    <a-input class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)"
-                             placeholder="请输入"/>
+                    <a-input class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
                   </a-form-item>
                 </a-col>
+            </a-row>
+
+              <!--<a-row :gutter="48">-->
+                <!--<a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">-->
+                <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">-->
+                  <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
+                  <!--<a-button type="primary" icon="reload" @click="resetPgConditionList" style="margin-left: 27px;">重置</a-button>-->
+                <!--</span>-->
+                <!--</a-col>-->
+              <!--</a-row>-->
 
 
-                <a-col :md="!advanced && 7 || 24" :sm="24" style="text-align: center;padding-right:172px;">
-            <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
-              <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
-              <a-button type="primary" icon="reload" @click="resetPgConditionList"
-                        style="margin-left:27px;">重置</a-button>
-            </span>
+              <a-row :gutter="48" style="position: absolute;top: 24px;right: -34px;">
+                <a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">
+                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
+                    <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
+                  </span>
                 </a-col>
-
+                <a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">
+                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
+                    <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                  </span>
+                </a-col>
+              </a-row>
               </template>
             </a-row>
 
@@ -283,7 +316,7 @@
         },
 
         // 高级搜索 展开/关闭
-        advanced: true,
+        advanced: false,
         // 查询参数
         queryParam: {
           function_id: '',

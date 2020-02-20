@@ -323,6 +323,20 @@ export const constantRouterMap = [
     ]
   },
 
+  // {
+  //   path: '/oaBus',
+  //   component: TestStandardList,
+  //   redirect: '/oaBus/TestStandardList',
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: 'standardList',
+  //       name: 'standardList',
+  //       component: () => import(/* webpackChunkName: "oaBus" */ '@/views/oaBus/TestStandardList')
+  //     }
+  //   ]
+  // },
+
   {
     path: '/test',
     component: BlankLayout,
