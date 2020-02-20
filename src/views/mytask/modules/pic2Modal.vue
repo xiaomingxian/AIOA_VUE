@@ -13,9 +13,8 @@
       <a-button @click="traceP" block>流程跟踪表</a-button>
       <a-button @click="backRecordClick" block>撤回/回退记录</a-button>
     </div>
-    <div style="overflow: auto; position: relative;background-color: #f6f6f6;border: 1px solid #e0e0e0;" :style="{height: scrHeight}">
-
-
+    <div style="overflow: auto; position: relative;background-color: #f6f6f6;border: 1px solid #e0e0e0;"
+         :style="{height: scrHeight}">
 
 
       <div style="width:100%" v-if="showPic">
@@ -213,15 +212,16 @@
       backRecordClick() {
         var procInstId = this.record.processInstanceId
 
-        console.log('>>>>>>>>>>>>>>',JSON.stringify(this.record))
 
-        if ( this.record.table=='' ||  this.record.table==undefined) {
-          this.$message.error('业务数据信息不完整,请检查是否是过期数据')
-          return
+        let url = ''
+        if (this.record.table == '' || this.record.table == undefined) {
+          // this.$message.error('业务数据信息不完整,请检查是否是过期数据')
+          url = 'wf/task/backRecordQuery?procInstId=' + procInstId
+          // return
+        } else {
+          url = 'wf/task/backRecordQuery?procInstId=' + procInstId + '&table=' + table
         }
         let table = this.record.table + '_opinion'
-
-        let url = 'wf/task/backRecordQuery?procInstId=' + procInstId + '&table=' + table
 
 
         getAction(url).then(res => {
@@ -318,12 +318,12 @@
 </script>
 
 <style lang="less" scoped>
-.ant-btn{
-  border-color: transparent;
-}
+  .ant-btn {
+    border-color: transparent;
+  }
 
-.ant-btn:focus{
-  border:2px solid #bcbcbc;
-  border-bottom: transparent;
-}
+  .ant-btn:focus {
+    border: 2px solid #bcbcbc;
+    border-bottom: transparent;
+  }
 </style>
