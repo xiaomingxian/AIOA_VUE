@@ -343,6 +343,9 @@
       handleSubmit () {
 
         const that = this;
+        console.log("-----------------------------")
+        console.log(that)
+        console.log("-----------------------------")
         // 触发表单验证
         this.form.validateFields((err, values) => {
           if (!err) {

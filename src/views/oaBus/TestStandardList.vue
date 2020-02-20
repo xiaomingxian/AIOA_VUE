@@ -86,24 +86,26 @@
         @change="changeTabs"
       >
         <a-tab-pane :tab="titleItem.sname" v-for="(titleItem,titleIndex) in getPageList" :key="titleIndex">
-          <a-list size="large" :pagination="pagination" >
-            <a-list-item v-if="defaultActivityKey.toString()==0"  :key="index" v-for="(item, index) in dataSource" @dblclick="openDetial(item.i_id,item.table_name)">
-             <span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>
-             <span v-else v-html="item.sFileName"></span>
-              <!--<a-list-item-meta>-->
-                <!--<a slot="title" v-html="item.title"></a>-->
-                <!--<p slot="description" v-html="item.description"></p>-->
-              <!--</a-list-item-meta>-->
+          <a-list v-if="defaultActivityKey.toString()==0" size="large" :pagination="pagination" >
+            <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].i_id,dataSource[index].table_name)">
+             <!--<span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>-->
+             <!--<span v-else v-html="item.sFileName"></span>-->
+              <a-list-item-meta>
+                <a slot="title" v-html="dataSource[index].s_title"></a>
+                <p slot="description" style="float: left;padding: 17px 27px 0 0;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
+              </a-list-item-meta>
 
               </a-list-item>
+          </a-list>
+          <a-list v-else size="large" :pagination="pagination" >
 
-            <a-list-item v-else  :key="index" v-for="(item, index) in dataSource" @dblclick="openDetial(item.iTableId,item.sTable)">
-              <span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>
-              <span v-else v-html="item.sFileName"></span>
-              <!--<a-list-item-meta>-->
-              <!--<a slot="title" v-html="item.title"></a>-->
-              <!--<p slot="description" v-html="item.description"></p>-->
-              <!--</a-list-item-meta>-->
+            <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].iTableId,dataSource[index].sTable)">
+              <!--<span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>-->
+              <!--<span v-else v-html="item.sFileName"></span>-->
+              <a-list-item-meta>
+              <a slot="title" v-html="dataSource[index].sTitle"></a>
+              <p slot="description" style="float: left;padding: 17px 27px 0 0;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
+              </a-list-item-meta>
 
             </a-list-item>
           </a-list>
@@ -146,6 +148,7 @@
         textData:[],
         attachmentData:[],
         dataSource: [],
+        searchOut: [],
         pagination: {
           current: 1,
           pageSize: 10,
@@ -157,9 +160,9 @@
           // showSizeChanger: true,
           total: 0,
           onChange:pageindex=>{
-            console.log(pageindex);
+            // console.log(pageindex);
             this.current = pageindex;
-            console.log(this.defaultActivityKey);
+            // console.log(this.defaultActivityKey);
             //检测测试为全文检索  还是附件检索
             if(this.defaultActivityKey=='0'){
               //全文检索
@@ -168,13 +171,17 @@
               //附件检索
               this.FuJianFiles(this.search,pageindex);
             }
-
           }
         },
       }
     },
     created() {
-
+      if(this.$route.query.searchWords){
+        this.search = this.$route.query.searchWords;
+        this.FilterAllFiles(this.search);
+      }else{
+        return;
+      }
     },
     destroyed(){
       this.dataDestroy();
@@ -182,29 +189,37 @@
     methods: {
       //---切换页签-----
       changeTabs(e){
-        console.log(e);
+        // console.log(e);
         //切换Tabs时  清空dataSourse
         this.dataSource = [];
-        this.defaultActivityKey = e.toString()
+        this.searchOut = [];
+        this.defaultActivityKey = e.toString();
+        let reg = new RegExp("^[0-9]*$");
         //点击查询按钮检测  检测是否填写
-        if(this.search){
-          //若用户已填写 判断此时Tab 是全文检索0   附件检索1
-          if(e=='0'){
-            //全文检索
-            this.FilterAllFiles(this.search);
-          }else{
-            //附件检索
-            this.FuJianFiles(this.search);
+        if(this.search) {
+          if(!reg.test(this.search)) {
+            //若用户已填写 判断此时Tab 是全文检索0   附件检索1
+            if (e == '0') {
+              //全文检索
+              this.FilterAllFiles(this.search);
+            } else {
+              //附件检索
+              this.FuJianFiles(this.search);
+            }
+
+          } else {
+
+            // this.$message.error('请输入搜索内容')
+            return;
+
           }
 
-        }else{
-          // this.$message.error('请输入搜索内容')
         }
 
       },
       //---切换分页-----
       changePage(e){
-        console.log(e);
+        // console.log(e);
       },
       fetchUser(value) {
         // console.log('fetching user', value);
@@ -213,26 +228,35 @@
         this.data = [];
         this.fetching = true;
         let url = "/oaEs/oaelasticsearch/getsearch";
-        postAction(url, {keyWord: value}).then((res) => {
-            if (fetchId !== this.lastFetchId) {
-              // for fetch callback order
-              return;
-            }
-
-          for(let i = 0;i<res.result.length;i++){
-            this.data.push({
-              text: res.result[i].keyWord,
-              value: res.result[i].id
+        let reg = new RegExp("^[0-9]*$");
+        if(!reg.test(value)) {
+            postAction(url, {keyWord: value}).then((res) => {
+              if (fetchId !== this.lastFetchId) {
+                // for fetch callback order
+                return;
+              }
+              for(let i = 0;i<res.result.length;i++){
+                this.data.push({
+                  text: res.result[i].keyWord,
+                  value: res.result[i].id
+                });
+              }
+              this.fetching = false;
             });
+
+          } else {
+
+            // this.$message.error('请输入搜索内容')
+            return;
+
           }
-            this.fetching = false;
-          });
+
       },
       handleChange(obj) {
 
         //判断  全文检索搜索框是否输入    检测输入变化则赋值  否则清空变量
         if(obj){
-          console.log(obj);
+          // console.log(obj);
           this.search = obj.key;
         }else{
           this.search = '';
@@ -245,33 +269,48 @@
       },
       getTextSearch(defaultActivityKey) {
 
-        console.log(this.search);
-        console.log(defaultActivityKey);
+        // console.log(this.search);
+        // console.log(defaultActivityKey);
 
         //点击查询按钮检测  检测是否填写
         if(this.search){
-          //若用户已填写 判断此时Tab 是全文检索0   附件检索1
-          if(defaultActivityKey=='0'){
-            //全文检索
-            this.FilterAllFiles(this.search);
-          }else{
-            //附件检索
-            this.FuJianFiles(this.search);
-          }
+          let reg = new RegExp("^[0-9]*$");
+          if(!reg.test(this.search)) {
+            //若用户已填写 判断此时Tab 是全文检索0   附件检索1
+            if(defaultActivityKey=='0'){
+              //全文检索
+              this.FilterAllFiles(this.search);
+            }else{
+              //附件检索
+              this.FuJianFiles(this.search);
+            }
 
-        }else{
-          this.$message.error('请输入搜索内容')
-        }
+            }else{
+              return;
+            }
+          }else{
+
+          htis.$message.error('请输入搜索内容')
+
+          }
 
       },
       //--------全文检索------------
       FilterAllFiles(serchval,pageindex='1'){
         let url = "/oaEs/oaelasticsearch/list";
         postAction(url, {keyWord:serchval,pageNo:pageindex}).then((res) => {
-          console.log(res);
           if(res.success){
             this.pagination.total =  res.result.total;
             this.dataSource = res.result.records;
+
+            this.searchOut = JSON.parse(JSON.stringify(this.dataSource,function(key,value){
+              if(key == 'i_id' ||key  == 'i_bus_function_id' || key == 'table_name' || key == 's_title'){
+                return undefined;
+              }else{
+                return value;
+              }
+            }))
+
           }else{
             this.$message.error('查询失败')
           }
@@ -291,6 +330,15 @@
           if(res.success){
             this.pagination.total =  res.result.total;
             this.dataSource = res.result.records;
+
+            this.searchOut = JSON.parse(JSON.stringify(this.dataSource,function(key,value){
+              if(key == 'iId' ||key  == 'sTable' || key == 'iTableId' || key == 'sFileType' || key == 'iOrder' || key == 'sFilePath'){
+                return undefined;
+              }else{
+                return value;
+              }
+            }))
+
           }else{
             this.$message.error('查询失败')
           }
@@ -304,7 +352,7 @@
       },
       getPgSearchList(iBMId) {
 
-        console.log(iBMId);
+        // console.log(iBMId);
 
         // for(let i=0;i<this.dataSource.length;i++){
         //   this.dataSource[i].length=0;
@@ -329,6 +377,7 @@
         this.textData = [],
         this.attachmentData = [],
         this.dataSource = [];
+        this.searchOut = [];
       }
     }
   }
