@@ -60,6 +60,7 @@
   import {queryDepartTreeList, getUserList, queryUserByDepId, queryUserRoleMap} from '@/api/api'
 
   export default {
+    inject:['reload'],
     name: 'JSelectUserByDepModal',
     components: {},
     props: ['modalWidth','userIdLists'],
@@ -151,7 +152,16 @@
       this.queryUserRoleMap();
     },
     methods: {
+      letMeClear(){
+        // this.selectedRowKeys = [];
+        // this.selectedRows= [],
+        //   this.departTree= [],
+        // console.log(this.selectedRowKeys );console.log(this.selectedRows );
+        // this.ipagination.current = 1;
+        // alert(2222)
 
+        this.reload()
+      },
       loadData(arg) {
         if (arg === 1) {
           this.ipagination.current = 1;
@@ -183,8 +193,8 @@
         }
       },
       showModal(useridlists) {
-        // console.log(useridlists);
-        if(useridlists!==''){
+         console.log(useridlists);
+        if( useridlists !==undefined){
           useridlists.map((item)=>{
             // console.log(item.toString());
             this.selectedRowKeys.push(item.toString())
