@@ -213,15 +213,18 @@
         var procInstId = this.record.processInstanceId
 
 
+        console.log('assdsdsd',this.record)
         let url = ''
         if (this.record.table == '' || this.record.table == undefined) {
           // this.$message.error('业务数据信息不完整,请检查是否是过期数据')
           url = 'wf/task/backRecordQuery?procInstId=' + procInstId
           // return
         } else {
+          let table = this.record.table + '_opinion'
+
           url = 'wf/task/backRecordQuery?procInstId=' + procInstId + '&table=' + table
         }
-        let table = this.record.table + '_opinion'
+
 
 
         getAction(url).then(res => {
