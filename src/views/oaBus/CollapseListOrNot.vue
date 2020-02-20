@@ -529,12 +529,37 @@
           this.collapseListOrNot();
         });
       },
-      getPgFirstList() {
+      // getPgFirstList() {
+      //   this.columns = [];
+      //   this.dataSource = [];
+      //   this.chooseSearch();
+      //   let url = "/modify/fields/queryTaskList";
+      //   postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
+      //
+      //     this.columns.push({
+      //       dataIndex: res.result[0].taskKey,
+      //     });
+      //
+      //     for (let i = 0; i < res.result.length; i++) {
+      //       this.taskKey.push(res.result[i].taskKey);
+      //       this.dataSource.push({
+      //         key: i,
+      //         [this.taskKey[0]]: res.result[i].taskName,
+      //       });
+      //     }
+      //     // console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
+      //     // console.log(this.taskKey);
+      //     // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
+      //     // console.log(this.dataSource);
+      //   });
+      //   this.setFontSize();
+      // },
+      getPgFirstList: async function () {
         this.columns = [];
         this.dataSource = [];
         this.chooseSearch();
         let url = "/modify/fields/queryTaskList";
-        postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
+        await postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
 
           this.columns.push({
             dataIndex: res.result[0].taskKey,
@@ -844,14 +869,30 @@
         }
         this.queryParam.orderFlag = '';
       },
-      collapseListOrNot() {
+      // collapseListOrNot() {
+      //
+      //   const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      //   getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+      //     this.iisFold = res.result.iisFold;
+      //   })
+      //
+      //   getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
+      //     this.collapse = res.result;
+      //     if (this.iisFold == 1 && this.collapse == 1) {
+      //       this.getPgFirstList();
+      //     } else {
+      //       this.getPgSearchList();
+      //     }
+      //   })
+      // }
+      collapseListOrNot: async function () {
 
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-        getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+        await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
           this.iisFold = res.result.iisFold;
         })
 
-        getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
+        await getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
           this.collapse = res.result;
           if (this.iisFold == 1 && this.collapse == 1) {
             this.getPgFirstList();

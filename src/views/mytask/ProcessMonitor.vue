@@ -510,11 +510,29 @@
         this.selectedRowKeys = []
 
       },
-      searchResetMy() {
+      // searchResetMy() {
+      //   this.queryParam.tableOrder = false
+      //   if(this.iisFold == 1){
+      //
+      //     this.getPgFirstList();
+      //
+      //   }else {
+      //
+      //     this.searchReset();
+      //
+      //   }
+      //   this.queryParam.taskType = null
+      //   this.queryParam.startTimeFake = null
+      //   this.queryParam.endTimeFake = null
+      //   this.queryParam.isDept = false
+      //   this.selectionRows = []
+      //   this.selectedRowKeys = []
+      // },
+      searchResetMy: async function () {
         this.queryParam.tableOrder = false
         if(this.iisFold == 1){
 
-          this.getPgFirstList();
+          await this.getPgFirstList();
 
         }else {
 
@@ -669,14 +687,63 @@
       // this.collapseListOrNot();
       //   });
       // },
-      getPgFirstList() {
+      // getPgFirstList() {
+      //   this.columnes = [];
+      //   this.dataSources = [];
+      //   this.taskKey = [];
+      //   // this.chooseSearch();
+      //
+      //   let url = "urgency/degree/monitorFoldUrgency";
+      //   getAction(url, {urgencyDegree: 'urgencyDegree'}).then((res) => {
+      //     this.columnes.push({
+      //       dataIndex: 'wenHao',
+      //     });
+      //
+      //     for (let i = 0; i < res.result.length; i++) {
+      //       this.taskKey.push(res.result[i].itemValue);
+      //
+      //       if(res.result.length > 0){
+      //               this.dataSources.push({
+      //                 key: i,
+      //                 wenHao: res.result[i].itemText,
+      //               });
+      //             }
+      //
+      //     //   let url = "urgency/degree/queryTask";
+      //     //   let Urgency = res;
+      //     //   getAction(url, {operstatus: 'task_monitor', urgencyDegree: this.taskKey[i]}).then((res) => {
+      //     //     if(res.result.records.length > 0){
+      //     //       this.dataSources.push({
+      //     //         key: i,
+      //     //         wenHao: Urgency.result[i].text,
+      //     //       });
+      //     //     }
+      //     //   })
+      //     }
+      //
+      //     // //console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
+      //     // //console.log(this.taskKey);
+      //     // //console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
+      //     // //console.log(this.dataSources);
+      //
+      //   });
+      //
+      //   this.setFontSize();
+      //
+      //   if(this.dataSource007.length > 0){
+      //     this.getSearchList();
+      //   }else {
+      //     return;
+      //   }
+      // },
+      getPgFirstList: async function () {
         this.columnes = [];
         this.dataSources = [];
         this.taskKey = [];
         // this.chooseSearch();
 
         let url = "urgency/degree/monitorFoldUrgency";
-        getAction(url, {urgencyDegree: 'urgencyDegree'}).then((res) => {
+        await getAction(url, {urgencyDegree: 'urgencyDegree'}).then((res) => {
           this.columnes.push({
             dataIndex: 'wenHao',
           });
@@ -685,22 +752,22 @@
             this.taskKey.push(res.result[i].itemValue);
 
             if(res.result.length > 0){
-                    this.dataSources.push({
-                      key: i,
-                      wenHao: res.result[i].itemText,
-                    });
-                  }
+              this.dataSources.push({
+                key: i,
+                wenHao: res.result[i].itemText,
+              });
+            }
 
-          //   let url = "urgency/degree/queryTask";
-          //   let Urgency = res;
-          //   getAction(url, {operstatus: 'task_monitor', urgencyDegree: this.taskKey[i]}).then((res) => {
-          //     if(res.result.records.length > 0){
-          //       this.dataSources.push({
-          //         key: i,
-          //         wenHao: Urgency.result[i].text,
-          //       });
-          //     }
-          //   })
+            //   let url = "urgency/degree/queryTask";
+            //   let Urgency = res;
+            //   getAction(url, {operstatus: 'task_monitor', urgencyDegree: this.taskKey[i]}).then((res) => {
+            //     if(res.result.records.length > 0){
+            //       this.dataSources.push({
+            //         key: i,
+            //         wenHao: Urgency.result[i].text,
+            //       });
+            //     }
+            //   })
           }
 
           // //console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
@@ -1134,9 +1201,22 @@
       //     this.$refs.inputs[i].stateValue = '';
       //   }
       // },
-      collapseListOrNot() {
+    //   collapseListOrNot() {
+    //     const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+    //     getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+    //       console.log('------------',JSON.stringify(res.result))
+    //       this.iisFold = res.result.iisFold;
+    //       if (this.iisFold == 1) {
+    //         this.getPgFirstList();
+    //       } else {
+    //         this.getPgSearchList();
+    //       }
+    //     })
+    //   }
+    // },
+    collapseListOrNot: async function () {
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-        getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+        await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
           console.log('------------',JSON.stringify(res.result))
           this.iisFold = res.result.iisFold;
           if (this.iisFold == 1) {
