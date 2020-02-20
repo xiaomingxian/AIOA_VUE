@@ -152,15 +152,25 @@
                     </a-select>
                   </a-form-item>
                 </a-col>
+
+                  <!--<a-col :md="6" :sm="24" style="text-align: center;padding-left: 79px;padding-right:172px;">-->
+                  <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="float: left;">-->
+                    <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
+                  <!--</span>-->
+
+                  <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">-->
+                    <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                  <!--</span>-->
+                  <!--</a-col>-->
               </a-row>
 
             <a-row :gutter="48">
                 <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="6" :sm="24">
                   <a-form-item>
-                    <!--<a-select v-if="atom.s_table_column=='s_file_num'" @change="changeSelect($event,atom.s_table_column)" placeholder="请选择">-->
-                    <!--<a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>-->
-                    <!--</a-select>-->
-                    <a-input class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
+                    <a-select v-if="atom.i_column_type == 1" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
+                    <a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>
+                    </a-select>
+                    <a-input v-else class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
                   </a-form-item>
                 </a-col>
             </a-row>
