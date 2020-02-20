@@ -135,8 +135,9 @@
       },
 
       handleCancel() {
-        this.$emit('close');
         this.visible = false;
+        this.haveClick=false
+        this.$emit('close');
       }
 
 
