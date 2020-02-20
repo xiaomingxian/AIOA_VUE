@@ -377,7 +377,7 @@
         // toggleSearchStatus: false,
       }
     },
-    created() {
+    created: async function () {
       // this.init();
 
       //默认不带部门类型
@@ -385,7 +385,7 @@
       getAction("/sys/user/getLoginInfo").then(res => {
         this.loginInfo = res
       })
-      this.collapseListOrNot();
+      await this.collapseListOrNot();
     },
     destroyed() {
       this.dataDestroy();

@@ -480,7 +480,7 @@
 
       }
     },
-    created() {
+    created: async function () {
       // this.init();
 
       //默认不带部门类型
@@ -488,7 +488,7 @@
       getAction("/sys/user/getLoginInfo").then(res => {
         this.loginInfo = res
       })
-      this.collapseListOrNot();
+      await this.collapseListOrNot();
     },
     destroyed() {
       this.dataDestroy();
@@ -552,7 +552,18 @@
 
       },
       //类型选择
-      taskTypeChange(type) {
+      // taskTypeChange(type) {
+      //   if (type != '全部') {
+      //     this.queryParam.isDept = true
+      //   } else {
+      //     this.queryParam.isDept = false
+      //   }
+      //   this.queryParam.deptType = type
+      //   if (type=='传阅'){
+      //     this.collapseListOrNot()
+      //   }
+      // },
+      taskTypeChange: async function (type) {
         if (type != '全部') {
           this.queryParam.isDept = true
         } else {
@@ -560,7 +571,7 @@
         }
         this.queryParam.deptType = type
         if (type=='传阅'){
-          this.collapseListOrNot()
+          await this.collapseListOrNot()
         }
       },
       searchQueryMy() {
