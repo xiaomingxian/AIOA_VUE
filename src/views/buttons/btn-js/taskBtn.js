@@ -173,6 +173,23 @@ export const taskBth = {
       // //console.log("-----------------------")
       this.$emit('destoryObj')
     },
+    //确定登记排版
+    confimName(){
+      const userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
+      let currentUsername = userinfo.realname;
+      let dateTimeNow = new Date().valueOf();
+      let param = {currentUsername:currentUsername,dataTimeNow:dateTimeNow}
+      console.log(param)
+      this.$store.commit('confimeUser',param)
+    },
+    //排版登记
+    paibandengji(){
+      let createUser = this.backData.s_create_name ;
+
+      const userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
+      let currentUsername = userinfo.realname;
+      this.$refs.paiBanDengJi.show(createUser,currentUsername)
+    },
     //保存按钮
     saveBusData() {
       //console.log("业务数据====》", this.backData);

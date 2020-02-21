@@ -25,6 +25,19 @@ export const busdataTemplate = {
     }
   },
   created() {
+
+  },
+  computed:{
+    confirmUser(){
+      return this.$store.state.confimePaiBan ;
+    }
+  },
+  watch:{
+    confirmUser(newVal,oldVal){
+      console.log(newVal)
+      this.backData.s_varchar1 = this.backData.s_create_name ;
+      this.backData.s_varchar2 = this.$store.state.confimePaiBan.currentUsername ;
+    }
   },
   methods: {
 
