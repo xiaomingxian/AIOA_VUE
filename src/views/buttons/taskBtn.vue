@@ -43,6 +43,7 @@
     <pic-modal ref="picModalNoTask"></pic-modal>
     <select-unit-name ref="selectUnitModel"></select-unit-name>
     <select-city-name ref="selectCityModel"></select-city-name>
+    <pai-ban-deng-ji ref="paiBanDengJi" @confimName="confimName"></pai-ban-deng-ji>
     <!--模态框-->
     <a-modal
       title="温馨提示"
@@ -72,6 +73,7 @@
   import CatOpinionListModal from '../buttons/CatOpinionListModal'
   import taskShiftModal from '../mytask/modules/taskShiftModal'
   import ShowReadModal from '../buttons/ShowReadModal'
+  import paiBanDengJi from '../buttons/paiBanDengJi'
   //撤回组件
   import reCallModal from '../mytask/modules/reCallTask'
   import pic2Modal from '../mytask/modules/pic2Modal'
@@ -106,7 +108,8 @@
       reCallModal,
       pic2Modal,
       picModal,
-      AddUsersModal
+      AddUsersModal,
+      paiBanDengJi
     },
     data() {
       return {}
