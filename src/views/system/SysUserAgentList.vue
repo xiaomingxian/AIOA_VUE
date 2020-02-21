@@ -4,21 +4,27 @@
     <!-- 查询区域 -->
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
-        <a-row :gutter="24">
+        <a-row :gutter="22">
 
-          <!--<a-col :md="6" :sm="8">-->
-            <!--<a-form-item label="用户名">-->
-              <!--<a-input placeholder="请输入用户名" v-model="queryParam.userName"></a-input>-->
-            <!--</a-form-item>-->
-          <!--</a-col>-->
           <a-col :md="6" :sm="8">
-            <a-form-item label="开始时间">
-              <a-input placeholder="请输入开始时间" v-model="queryParam.startTime"></a-input>
+            <a-form-item label="用户名">
+              <a-input placeholder="请输入用户名" v-model="queryParam.userName"></a-input>
             </a-form-item>
           </a-col>
+
+
           <a-col :md="6" :sm="8">
-            <a-form-item label="结束时间">
-              <a-input placeholder="请输入结束时间" v-model="queryParam.endTime"></a-input>
+            <a-form-item label="代理人">
+              <a-input placeholder="请输入代理人" v-model="queryParam.agentUserName"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :md="4" :sm="6">
+            <a-form-item label="状态">
+              <!--<a-input placeholder="请输入状态0无效1有效" v-model="queryParam.status"></a-input>-->
+              <a-select style="width: 80px" v-model="queryParam.status">
+                <a-select-option value="1">有效</a-select-option>
+                <a-select-option value="0">无效</a-select-option>
+              </a-select>
             </a-form-item>
           </a-col>
           <!--<a-col :md="6" :sm="8">-->
@@ -30,16 +36,17 @@
             <!--</a-form-item>-->
           <!--</a-col>-->
           <template v-if="toggleSearchStatus">
-
             <a-col :md="6" :sm="8">
-              <a-form-item label="状态">
-                <!--<a-input placeholder="请输入状态0无效1有效" v-model="queryParam.status"></a-input>-->
-                  <a-select style="width: 80px" v-model="queryParam.status">
-                    <a-select-option value="1">有效</a-select-option>
-                    <a-select-option value="0">无效</a-select-option>
-                  </a-select>
-                </a-form-item>
+              <a-form-item label="开始时间">
+                <a-input placeholder="请输入开始时间" v-model="queryParam.startTime"></a-input>
+              </a-form-item>
             </a-col>
+            <a-col :md="6" :sm="8">
+              <a-form-item label="结束时间">
+                <a-input placeholder="请输入结束时间" v-model="queryParam.endTime"></a-input>
+              </a-form-item>
+            </a-col>
+
           </template>
           <a-col :md="6" :sm="8">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
@@ -254,10 +261,10 @@
         return false;
       },
       handleAddMy(){
-        if (this.dataSource.length>0){
-          this.$message.error('一个用户只能设置一个代理人')
-          return
-        }
+        // if (this.dataSource.length>0){
+        //   this.$message.error('一个用户只能设置一个代理人')
+        //   return
+        // }
         this.handleAdd()
       },
       handleEditMy(record){
