@@ -6,9 +6,15 @@
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
-            <a-form-item label="协同业务">
-              <a-input placeholder="请输入协同业务" v-model="queryParam.sTeamworkName"></a-input>
+            <a-form-item   :labelCol="labelCol"
+                           :wrapperCol="wrapperCol" label="协同业务" >
+             <a-select  v-model="queryParam.agentUserName" placeholder="请选择代理人" >
+               <a-select-option v-for="(item,index) in dataSource" :key="index" :value="item.steamworkName">{{item.steamworkName}}
+                </a-select-option>
+               </a-select>
             </a-form-item>
+
+
           </a-col>
        <!-- <a-col :md="6" :sm="8">
             <a-form-item label="描述">
@@ -29,10 +35,6 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('个人协同办公业务配置分类')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
-        <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>

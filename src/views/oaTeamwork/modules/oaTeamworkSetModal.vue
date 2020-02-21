@@ -185,7 +185,10 @@
       },
       close () {
         this.$emit('close');
+        this.form.resetFields();
+        this.selectList=[];
         this.visible = false;
+
       },
       handleOk () {
         const that = this;
@@ -231,9 +234,13 @@
 
       }
       })
+        this.form.resetFields();
+        this.selectList=[];
       },
       handleCancel () {
         this.close()
+        this.form.resetFields();
+        this.selectList=[];
       },
 
 

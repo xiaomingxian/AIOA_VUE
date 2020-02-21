@@ -269,7 +269,7 @@
     },
     methods: {
       downLoadFile() {
-        let URL = 'http://localhost:4000/ntko/files/指导文档.wpdf'
+        let URL = 'http://localhost:4000/ntko/files/指导文档.pdf';
         window.open(URL);
       },
 

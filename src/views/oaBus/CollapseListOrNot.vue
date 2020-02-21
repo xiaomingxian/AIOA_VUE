@@ -371,8 +371,8 @@
         toggleSearchStatus: false,
       }
     },
-    created() {
-      this.init();
+    created: async function () {
+      await this.init();
     },
     destroyed() {
       this.dataDestroy();
@@ -410,12 +410,33 @@
           }
         })
       },
-      changFunId(index) {
+      // changFunId(index) {
+      //
+      //   index = index - 1;
+      //
+      //   this.resetPgConditionList();
+      //   getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
+      //     this.conditionList = res;
+      //     this.queryParam = Object.assign({}, this.setConditionList);
+      //     for (let i = 0; i < this.conditionList.length; i++) {
+      //       this.queryParam = Object.assign({}, this.queryParam, {[this.conditionList[i].s_table_column]: ""});
+      //     }
+      //     this.queryParam.function_id = this.selectList[index].iid;
+      //     this.resetConditionList = Object.assign({}, this.queryParam);
+      //     this.paginations.current = 1;
+      //     this.columns = [];
+      //     this.columnes = [];
+      //     this.dataSource = [];
+      //     this.dataSources = [];
+      //     this.collapseListOrNot();
+      //   });
+      // },
+      changFunId: async function (index) {
 
         index = index - 1;
 
         this.resetPgConditionList();
-        getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
+        await getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
           this.conditionList = res;
           this.queryParam = Object.assign({}, this.setConditionList);
           for (let i = 0; i < this.conditionList.length; i++) {
@@ -431,11 +452,17 @@
           this.collapseListOrNot();
         });
       },
-      init() {
+      // init() {
+      //   let path = this.$route.path;
+      //   let paths = path.split('/')
+      //   let str = paths[paths.length - 1]
+      //   this.getModelIdByUrl(str);
+      // },
+      init: async function () {
         let path = this.$route.path;
         let paths = path.split('/')
         let str = paths[paths.length - 1]
-        this.getModelIdByUrl(str);
+        await this.getModelIdByUrl(str);
       },
       clearData() {
         this.conditionList = [];
@@ -492,26 +519,63 @@
           date: moment(new Date())
         }
       },
-      handleTableChange(page) {
+      // handleTableChange(page) {
+      //
+      //   this.paginations.current = page.current;
+      //   this.paginations.pageSize = page.pageSize;
+      //   this.collapseListOrNot();
+      //
+      // },
+      handleTableChange: async function (page) {
 
         this.paginations.current = page.current;
         this.paginations.pageSize = page.pageSize;
-        this.collapseListOrNot();
+        await this.collapseListOrNot();
 
       },
-      getModelIdByUrl(str) {
+      // getModelIdByUrl(str) {
+      //   //let url = "/papertitle/docNumSet/busModelList";
+      //   getAction(this.url.getModelIdByUrl, {str: str}).then((res) => {
+      //     this.modelId = res;
+      //     this.getPgConditionList();
+      //
+      //     //this.getPgSearchList();
+      //   });
+      // },
+      getModelIdByUrl: async function (str) {
         //let url = "/papertitle/docNumSet/busModelList";
-        getAction(this.url.getModelIdByUrl, {str: str}).then((res) => {
+        await getAction(this.url.getModelIdByUrl, {str: str}).then((res) => {
           this.modelId = res;
           this.getPgConditionList();
 
           //this.getPgSearchList();
         });
       },
-      getPgConditionList() {
+      // getPgConditionList() {
+      //   let url = "/oaBus/oaBusdata/queryFunSelByModelId";
+      //   this.clearData();
+      //   postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
+      //     this.conditionList = res.colList;
+      //     this.selectList = res.funList;
+      //     this.tableName = res.tableName;
+      //     this.timeList = res.d_create_time;
+      //     this.queryParam.function_id = this.selectList[this.index].iid;
+      //     this.setConditionList = Object.assign({}, this.queryParam);
+      //     for (let i = 0; i < this.conditionList.length; i++) {
+      //       this.queryParam = Object.assign({}, this.queryParam, {[this.conditionList[i].s_table_column]: ""});
+      //     }
+      //     this.resetConditionList = Object.assign({}, this.queryParam);
+      //
+      //     // console.log('----------------------------------------------------------');
+      //     // console.log(this.queryParam);
+      //
+      //     this.collapseListOrNot();
+      //   });
+      // },
+      getPgConditionList: async function () {
         let url = "/oaBus/oaBusdata/queryFunSelByModelId";
         this.clearData();
-        postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
+        await postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
           this.conditionList = res.colList;
           this.selectList = res.funList;
           this.tableName = res.tableName;
@@ -529,12 +593,37 @@
           this.collapseListOrNot();
         });
       },
-      getPgFirstList() {
+      // getPgFirstList() {
+      //   this.columns = [];
+      //   this.dataSource = [];
+      //   this.chooseSearch();
+      //   let url = "/modify/fields/queryTaskList";
+      //   postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
+      //
+      //     this.columns.push({
+      //       dataIndex: res.result[0].taskKey,
+      //     });
+      //
+      //     for (let i = 0; i < res.result.length; i++) {
+      //       this.taskKey.push(res.result[i].taskKey);
+      //       this.dataSource.push({
+      //         key: i,
+      //         [this.taskKey[0]]: res.result[i].taskName,
+      //       });
+      //     }
+      //     // console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
+      //     // console.log(this.taskKey);
+      //     // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
+      //     // console.log(this.dataSource);
+      //   });
+      //   this.setFontSize();
+      // },
+      getPgFirstList: async function () {
         this.columns = [];
         this.dataSource = [];
         this.chooseSearch();
         let url = "/modify/fields/queryTaskList";
-        postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
+        await postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
 
           this.columns.push({
             dataIndex: res.result[0].taskKey,
@@ -844,14 +933,30 @@
         }
         this.queryParam.orderFlag = '';
       },
-      collapseListOrNot() {
+      // collapseListOrNot() {
+      //
+      //   const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      //   getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+      //     this.iisFold = res.result.iisFold;
+      //   })
+      //
+      //   getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
+      //     this.collapse = res.result;
+      //     if (this.iisFold == 1 && this.collapse == 1) {
+      //       this.getPgFirstList();
+      //     } else {
+      //       this.getPgSearchList();
+      //     }
+      //   })
+      // }
+      collapseListOrNot: async function () {
 
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-        getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+        await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
           this.iisFold = res.result.iisFold;
         })
 
-        getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
+        await getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
           this.collapse = res.result;
           if (this.iisFold == 1 && this.collapse == 1) {
             this.getPgFirstList();
@@ -864,12 +969,12 @@
     watch: {
 
       '$route.path': {
-        handler(newPath, oldPath) {
+        handler: async function (newPath, oldPath) {
           //this.init();
           let path = newPath;
           let paths = path.split('/')
           let str = paths[paths.length - 1]
-          this.getModelIdByUrl(str);
+          await this.getModelIdByUrl(str);
           // console.log('---------------------------------', newPath);
           // console.log('---------------------------------', oldPath);
         },

@@ -140,6 +140,7 @@
     }
   },
     methods: {
+
       handleTableChange(q,w,e,){
         console.log(q.current);
         this.ipagination.current = q.current;
@@ -241,6 +242,7 @@
 
       },
       handleCancle() {
+        this.$refs.modalForm.letCler();
         this.showFunPer = false;
       },
     }
