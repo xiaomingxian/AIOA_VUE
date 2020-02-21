@@ -38,7 +38,7 @@
           :wrapperCol="wrapperCol"
           label="模版类型">
           <!--<a-input placeholder="" v-decorator="['itype', {}]" />-->
-          <a-radio-group v-model="value" v-decorator="['itype', {}]" >
+          <a-radio-group v-model="fileType" v-decorator="['itype', {}]" >
             <a-radio :value="1">上报</a-radio>
             <a-radio :value="2">下发</a-radio>
             <a-radio :value="3">办文单</a-radio>
@@ -86,6 +86,7 @@
     components: {AFormItem},
     data () {
       return {
+        fileType:"",
         upFileName:'',
         upFailId: 0,
         fileId:'',
@@ -144,6 +145,7 @@
           this.uploading = false;
         }
         this.getFileNameById(record.ifileId);
+        this.fileType = record.itype;
         this.fileUpload = window._CONFIG['domianURL'] +'/papertitle/oaTemplate/upload';
         this.form.resetFields();
         this.model = Object.assign({}, record);
@@ -178,6 +180,7 @@
       close () {
         this.upFailId = 0;
         this.uploading = false;
+        this.fileType = "";
         this.$emit('close');
         this.visible = false;
       },
@@ -191,7 +194,10 @@
         this.uploading = true;
         let url = this.url.upload;
         let method = 'post';
-
+        if (this.fileType == 1){
+          this.fileType = 2;
+        }
+        data.append("fileType",this.fileType);
         httpAction(url,data,method).then((res)=>{
           this.fileList = [];
           this.uploading = false;

@@ -141,7 +141,7 @@
 
            this.queryParam.tableOrder = true
            //置空其他环节
-           this.nullOther('orederByTile')
+           this.nullOther('orederByiteamworkName')
            this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
            return true
          },
@@ -156,7 +156,7 @@
 
            this.queryParam.tableOrder = true
            //置空其他环节
-           this.nullOther('orederByTile')
+           this.nullOther('iTeamworkSetId')
            this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
            return true
 
@@ -172,7 +172,7 @@
 
            this.queryParam.tableOrder = true
            //置空其他环节
-           this.nullOther('orederByTile')
+           this.nullOther('iorder')
            this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
            return true
          },
@@ -180,13 +180,14 @@
           {
             title: '创建时间（步骤1的业务创建时间）',
             align:"center",
-            dataIndex: 'busModelName', sorter: (i, ii, type) => {
+            dataIndex: 'dCreateTime',
+            sorter: (i, ii, type) => {
               //descend倒叙
               //ascend正序
 
               this.queryParam.tableOrder = true
               //置空其他环节
-              this.nullOther('orederByTile')
+              this.nullOther('orederByTime')
               this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
               return true
             },

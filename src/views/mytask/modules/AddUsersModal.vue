@@ -249,6 +249,7 @@
         //部门对应用户id
         departUsersId: {},
         departUsersMsg: {},
+        userGroupByDepts:{},
         //环节分类，从属于 排他，并行，包容网关
         gateWayTypeSelect: {
           parallel: {},
@@ -880,9 +881,16 @@
             }
 
             if (this.departUsersId[i].length > 0) {
-              ids.push(this.departUsersId[i])
+              // ids.push(this.departUsersId[i])
               depMSg[i] = this.departUsersId[i]
             }
+          }
+          for (let k of Object.keys(this.userGroupByDepts)) {
+            ids.push(this.userGroupByDepts[k])
+          }
+          if (ids.length==0){
+            this.$message.error('请选择用户')
+            return
           }
           // ////console.log('==========部门：：：', ids, JSON.stringify(this.currentClick))
           //校验
@@ -946,6 +954,7 @@
       toLeft(item) {
         //添加到部门列表中--从list中移除
 
+
         var right = []
         for (var i in this.departSelect[item]) {
           var itt = this.departSelect[item][i]
@@ -998,8 +1007,16 @@
               return
             } else {
               let ids = []
+              this.userGroupByDepts={}
+
               for (let i in res.result[item]) {
                 ids.push(res.result[item][i].id)
+                if (this.userGroupByDepts[res.result[item][i].departId]==undefined){
+                  this.userGroupByDepts[res.result[item][i].departId]=[]
+                  this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
+                } else {
+                  this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
+                }
               }
               this.departUsersId[item] = ids
               this.departUsersMsg[item] = res.result[item]

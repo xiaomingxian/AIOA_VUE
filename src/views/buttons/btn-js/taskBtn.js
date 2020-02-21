@@ -294,7 +294,7 @@ export const taskBth = {
         this.$message.error('该环节任务已经办理请勿重复点击')
         return
       }
-
+      //
       for (var index in this.opts) {
         //判断意见环节是否匹配
         let td = this.taskMsg.taskDefinitionKey
@@ -670,12 +670,12 @@ export const taskBth = {
     },
     //选择下一办理人的同时办理任务
     confirmNextUsers(ids, activity, endTime, depts) {
-      console.log(activity)
+      console.log('------------------', activity)
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id
       if (this.havaOtherProc) {
-        var taskId = undefined
+        taskId = undefined
       }
       data['taskId'] = taskId
       //业务数据权限表（流转过程中逐步维护该表数据、收回删除人员权限）
@@ -724,6 +724,7 @@ export const taskBth = {
         deptMsg['mainDept'] = mainDept
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
+
       }
       this.backData.page_ref = this.taskMsg.pageRef
       //业务数据
@@ -765,7 +766,6 @@ export const taskBth = {
         }
       }
       let taskInfoVoList = {list: datas}
-
       //请求后台
       postAction(this.url.doTaskMore, taskInfoVoList).then(res => {
         if (res.success) {
@@ -853,10 +853,10 @@ export const taskBth = {
       }
       data['taskDefKey'] = activity.actMsg.id
 
-      if (activity.nextUsers.length>0){
+      if (activity.nextUsers.length > 0) {
         let user = activity.nextUsers[0]
         data['taskId'] = user.taskId
-        data['executionId'] =user.executionId
+        data['executionId'] = user.executionId
       }
 
 
@@ -919,11 +919,29 @@ export const taskBth = {
         var ids = []
         if (isDept) {
           //构造用户id集合
-          for (let kk in v.departUsersId) {
-            let inids = v.departUsersId[kk]
-            if (inids.length > 0) {
-              ids.push(inids)
+          // for (let kk in v.departUsersId) {
+          //   let inids = v.departUsersId[kk]
+          //   if (inids.length > 0) {
+          //     ids.push(inids)
+          //   }
+          // }
+          let userGroupByDept = {}
+          for (let k of Object.keys(v.departUsersMsg)) {
+            for (let user of v.departUsersMsg[k]){
+              let uid =  user.id
+              let did = user.departId
+              if (userGroupByDept[did] == undefined) {
+                userGroupByDept[did] = []
+                userGroupByDept[did].push(uid)
+              } else {
+                userGroupByDept[did].push(uid)
+              }
             }
+
+          }
+          // console.log('userGroupByDept',userGroupByDept)
+          for (let k of Object.keys(userGroupByDept)) {
+            ids.push(userGroupByDept[k])
           }
           //记录部门相关信息
           var deptMsg = {}

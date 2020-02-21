@@ -46,6 +46,10 @@
             title: '用户姓名',
             align: "center",
             dataIndex: 'username'
+          },{
+            title: '部门',
+            align: "center",
+            dataIndex: 'departName'
           },
         ]
       }

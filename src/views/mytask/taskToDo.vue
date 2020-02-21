@@ -480,7 +480,7 @@
 
       }
     },
-    created() {
+    created: async function () {
       // this.init();
 
       //默认不带部门类型
@@ -488,7 +488,7 @@
       getAction("/sys/user/getLoginInfo").then(res => {
         this.loginInfo = res
       })
-      this.collapseListOrNot();
+      await this.collapseListOrNot();
     },
     destroyed() {
       this.dataDestroy();
@@ -552,7 +552,18 @@
 
       },
       //类型选择
-      taskTypeChange(type) {
+      // taskTypeChange(type) {
+      //   if (type != '全部') {
+      //     this.queryParam.isDept = true
+      //   } else {
+      //     this.queryParam.isDept = false
+      //   }
+      //   this.queryParam.deptType = type
+      //   if (type=='传阅'){
+      //     this.collapseListOrNot()
+      //   }
+      // },
+      taskTypeChange: async function (type) {
         if (type != '全部') {
           this.queryParam.isDept = true
         } else {
@@ -560,7 +571,7 @@
         }
         this.queryParam.deptType = type
         if (type=='传阅'){
-          this.collapseListOrNot()
+          await this.collapseListOrNot()
         }
       },
       searchQueryMy() {
@@ -570,13 +581,31 @@
         this.selectedRowKeys = []
 
       },
-      searchResetMy() {
+      // searchResetMy() {
+      //   this.queryParam.tableOrder = false
+      //   if (this.iisFold == 1) {
+      //
+      //     this.getPgFirstList();
+      //
+      //   } else {
+      //
+      //     this.searchReset();
+      //
+      //   }
+      //   this.queryParam.taskType = null
+      //   this.queryParam.startTimeFake = null
+      //   this.queryParam.endTimeFake = null
+      //   this.queryParam.isDept = false
+      //   this.selectionRows = []
+      //   this.selectedRowKeys = []
+      // },
+      searchResetMy: async function () {
         this.queryParam.tableOrder = false
-        if (this.iisFold == 1) {
+        if(this.iisFold == 1){
 
-          this.getPgFirstList();
+          await this.getPgFirstList();
 
-        } else {
+        }else {
 
           this.searchReset();
 
@@ -803,14 +832,59 @@
       // this.collapseListOrNot();
       //   });
       // },
-      getPgFirstList() {
+      // getPgFirstList() {
+      //   this.columnes = [];
+      //   this.dataSources = [];
+      //   this.taskKey = [];
+      //   // this.chooseSearch();
+      //
+      //   let url = "/sys/dict/getDictByKeyObj";
+      //   getAction(url, {dictKey: 'urgencyDegree'}).then((res) => {
+      //     this.columnes.push({
+      //       dataIndex: 'wenHao',
+      //     });
+      //
+      //     for (let i = 0; i < res.result.length; i++) {
+      //       this.taskKey.push(res.result[i].value);
+      //       let url = "urgency/degree/queryTask";
+      //       let Urgency = res;
+      //       getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+      //         if (res.result.total > 0) {
+      //           this.dataSources.push({
+      //             key: i,
+      //             wenHao: Urgency.result[i].text,
+      //           });
+      //         }
+      //       })
+      //     }
+      //
+      //     // console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
+      //     // console.log(this.taskKey);
+      //     // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
+      //     // console.log(this.dataSources);
+      //
+      //   });
+      //
+      //   this.setFontSize();
+      //
+      //   // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
+      //   // console.log(this.dataSource007.length);
+      //
+      //   if (this.dataSource007.length > 0) {
+      //     this.getSearchList();
+      //   } else {
+      //     return;
+      //   }
+      //
+      // },
+      getPgFirstList: async function () {
         this.columnes = [];
         this.dataSources = [];
         this.taskKey = [];
         // this.chooseSearch();
 
         let url = "/sys/dict/getDictByKeyObj";
-        getAction(url, {dictKey: 'urgencyDegree'}).then((res) => {
+        await getAction(url, {dictKey: 'urgencyDegree'}).then((res) => {
           this.columnes.push({
             dataIndex: 'wenHao',
           });
@@ -1285,9 +1359,21 @@
       //     this.$refs.inputs[i].stateValue = '';
       //   }
       // },
-      collapseListOrNot() {
+    //   collapseListOrNot() {
+    //     const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+    //     getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+    //       this.iisFold = res.result.iisFold;
+    //       if (this.iisFold == 1) {
+    //         this.getPgFirstList();
+    //       } else {
+    //         this.getPgSearchList();
+    //       }
+    //     })
+    //   }
+    // },
+    collapseListOrNot: async function () {
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-        getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+        await  getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
           this.iisFold = res.result.iisFold;
           if (this.iisFold == 1) {
             this.getPgFirstList();
