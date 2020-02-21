@@ -229,8 +229,8 @@
       return {
         singleDept: null,
         defaultSelectedKeys: [],
-        // scrHeight: window.innerHeight-300+ 'px',
-        scrHeight: '',
+        scrHeight: window.innerHeight-300+ 'px',
+        // scrHeight: '',
         title: '下一任务',
         okText: '确定',
         //控制组件数据可见

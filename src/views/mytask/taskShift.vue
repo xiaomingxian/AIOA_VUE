@@ -153,7 +153,9 @@
     <detail-file ref="detailFile"></detail-file>
     <task-shift-modal ref="taskShiftModal"></task-shift-modal>
 
-    <j-select-user-by-dep-single ref="single" @senUserId="senUserId"></j-select-user-by-dep-single>
+    <div v-show="false">
+      <j-select-user-by-dep-single ref="single" @senUserId="senUserId"></j-select-user-by-dep-single>
+    </div>
 
   </a-card>
 </template>
@@ -444,13 +446,14 @@
         return {
           on: {
             click: (event) => {
-              let taskDetail = {
-                tableName: record.table,
-                busdataId: record.tableId,
-                haveTask: true,
-                task: record
-              }
-              this.$router.push({path: '/mytask/taskList/Test-detailFile', query: taskDetail})
+              // let taskDetail = {
+              //   tableName: record.table,
+              //   busdataId: record.tableId,
+              //   haveTask: true,
+              //   task: record
+              // }
+              window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+
             }
           }
         }
