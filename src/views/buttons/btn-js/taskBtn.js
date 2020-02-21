@@ -927,8 +927,8 @@ export const taskBth = {
           // }
           let userGroupByDept = {}
           for (let k of Object.keys(v.departUsersMsg)) {
-            for (let user of v.departUsersMsg[k]){
-              let uid =  user.id
+            for (let user of v.departUsersMsg[k]) {
+              let uid = user.id
               let did = user.departId
               if (userGroupByDept[did] == undefined) {
                 userGroupByDept[did] = []
@@ -1141,11 +1141,16 @@ export const taskBth = {
       var res = window.confirm("是否部门完成");
       if (res) {
         // let param={taskId: this.taskMsg.id}
-        this.doPost(this.url.departFinish + "?taskId=" + this.taskMsg.id)
-        //关闭页面刷新父组件
-        // this.$emit('close');
-        // this.visible = false;
-        this.reload()
+        postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id).then(res=>{
+          if (res.success) {
+            this.$message.success(res.message)
+            setTimeout(function () {
+              this.close()
+            }, 500)
+          } else {
+            this.$message.error(res.message)
+          }
+        })
       }
     }
     ,
