@@ -71,9 +71,9 @@
               </div>
 
 
-
               <!--选部门-->
-              <div style="display: flex;align-items: center;justify-content: space-between;" class="box" v-if="isDept && isCurrentUsers">
+              <div style="display: flex;align-items: center;justify-content: space-between;" class="box"
+                   v-if="isDept && isCurrentUsers">
                 <!--左侧部门-->
                 <!--:loading="loading"-->
 
@@ -100,19 +100,20 @@
                       <!--选部门-->
                       <div class="rightLeft" style="margin-top: 20px;">
                         <a-button @click="toRight(item)">
-                          <a-icon type="right"/>
+                          <a-icon type="right" size="small"/>
                           添加到{{item}}
                         </a-button>
                         <a-button @click="toLeft(item)">
-                          <a-icon type="left"/>
+                          <a-icon type="left" size="small"/>
                           从{{item}}删除
                         </a-button>
                       </div>
                       <!--选中的部门-->
                       <div class="rightRight">
                         <template>
-                          <h4 color="red">{{item}}部门</h4>
                           <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
+                          {{item}}部门
+
                           <a-row v-for="i in departSelect[item]">
                             <a-col :span="100">
                               <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
@@ -127,7 +128,7 @@
                           <a-button type="primary" size="small" @click="queryUser(item)">【{{item}}】人员</a-button>
                           <a-row v-for="i in departUsers[item]">
                             <a-col :span="100">
-                              {{i.username}}
+                              {{i.username}}({{i.departName}})
                             </a-col>
                           </a-row>
                         </template>
@@ -152,7 +153,6 @@
       <user-select ref="userSelect" @func="userSelectCallBcak"></user-select>
 
     </div>
-
 
 
   </a-modal>
@@ -209,6 +209,7 @@
         userIds: [],
         //传后台的部门用户的id
         deptMsg: {},
+        allUserMsg: {},
         columns: [
           {
             title: '环节',
@@ -265,8 +266,8 @@
     },
     methods: {
 
-      handleTableChangeMy(rowKeys, rows){
-        this.onSelectChange(rowKeys,rows)
+      handleTableChangeMy(rowKeys, rows) {
+        this.onSelectChange(rowKeys, rows)
         this.doShowForm(rows[0])
       },
       setRowRadio(res) {
@@ -498,11 +499,38 @@
 
             let uids = []
             for (let i in this.deptMsg) {
-              uids.push(this.deptMsg[i])
+              // uids.push(this.deptMsg[i])
               for (let index in this.deptMsg[i]) {
                 assignee.push(this.deptMsg[i][index])
               }
             }
+            let userGroupByDept = {}
+
+            for (let k of Object.keys(this.allUserMsg)) {
+              let users = this.allUserMsg[k]
+              for (let u of users) {
+                let did = u.departId
+                let uid = u.id
+                if (userGroupByDept[did] == undefined) {
+                  userGroupByDept[did] = []
+                  userGroupByDept[did].push(uid)
+                } else {
+                  userGroupByDept[did].push(uid)
+                }
+              }
+            }
+
+            for (let i of Object.keys(userGroupByDept)) {
+              let idd = userGroupByDept[i]
+              uids.push(idd)
+            }
+
+            if (Object.keys(this.allUserMsg).length==0){
+              this.$message.error('请选择用户')
+              return
+            }
+
+
             if (this.title == '回退') {
               if (this.selectionRows.length <= 0) {
                 this.$message.error('请选择要退回的环节')
@@ -622,13 +650,16 @@
       userSelectCallBcak(ids) {
         this.departUsers[this.currentDepType] = []
         this.deptMsg[this.currentDepType] = []
+        this.allUserMsg[this.currentDepType] = []
 
         for (var i of  ids) {
           let data = {
             id: i.id,
-            username: i.username
+            username: i.username,
+            departName: i.departName
           }
           //
+          this.allUserMsg[this.currentDepType].push(i)
           this.departUsers[this.currentDepType].push(data)
           this.deptMsg[this.currentDepType].push(i.id)
         }

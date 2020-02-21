@@ -146,7 +146,36 @@
     <!--业务页面-->
     <detail-file ref="detailFile"></detail-file>
     <back-modal ref="backModal"></back-modal>
+    <a-modal
+      title="您当前有多个环节的待办，请选择一个环节"
+      :width="600"
+      :visible="haveMore"
+      :confirmLoading="loading"
+      @ok="confirm2"
+      @cancel="cancel2"
+      destroyOnClose
+      okText="确认"
+      cancelText="取消">
 
+
+      <!--      :customRow="customRowMy"-->
+
+      <a-table
+        ref="table"
+        size="small"
+        bordered
+        rowKey="key"
+        :loading="loading"
+        :columns="columns3"
+        :dataSource="dataSource3"
+        :pagination="false"
+        :rowSelection="{selectedRowKeys: selectedRowKeys2,selectedRows:selectedRows2, onChange: onSelectChangeMy2,type:'radio'}"
+        @change="handleTableChange"
+      >
+      </a-table>
+
+
+    </a-modal>
 
   </a-card>
 </template>
@@ -276,33 +305,55 @@
         startTimeFake: null,
         endTimeFake: null,
         taskType: null,
+        //---------------------------------环节选择相关
+        haveMore: false,
+        taskRecord: null,
+        selectedRowKeys2: [],
+        selectedRows2: [],
+        dataSource3: [],
+        columns3: [
+          {
+            title: '环节名称',
+            align: "center",
+            dataIndex: 'name'
+          },
+          // {
+          //   title: 'key',
+          //   align: "center",
+          //   dataIndex: 'key'
+          // }
+        ],
+
       }
     },
     computed: {
       importExcelUrl: function () {
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
       }
-    },
+    }
+    ,
     created() {
       //默认不带部门类型
       this.queryParam.isDept = false;
       this.setFontSize();
-    },
+    }
+    ,
     methods: {
-      setFontSize(){
-        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+      setFontSize() {
+        const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         let url = "/testt/sysUserSet/queryByUserId";
-        getAction(url,{userId:userid}).then((res) => {
-          if(res.result.iisFontSize == 1){
+        getAction(url, {userId: userid}).then((res) => {
+          if (res.result.iisFontSize == 1) {
             this.iisFontSize = '18px';
-          }else if(res.result.iisFontSize == 3){
+          } else if (res.result.iisFontSize == 3) {
             this.iisFontSize = '14px';
-          }else{
+          } else {
             this.iisFontSize = '16px';
           }
           document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
         })
-      },
+      }
+      ,
       //清空其他排序条件
       nullOther(type) {
         let orderColums = ['orederByWenHao', 'orederByTile', 'orederByHuanJie', 'orederByDrafter', 'orederByTime']
@@ -311,9 +362,36 @@
             this.queryParam[orderColums[i]] = undefined
           }
         }
+      }
+      ,
+      confirm2() {
+        if (this.selectedRowKeys2.length <= 0) {
+          this.$message.error("请选择环节")
+          return
+        }
+        this.taskRecord.taskDefinitionKey = this.selectedRowKeys2[0]
+        this.taskRecord.name = this.selectedRows2[0].name
+        this.taskRecord.id = this.selectedRows2[0].id
+
+
+        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+        this.haveMore = false
+
+
+      },
+      cancel2() {
+        this.haveMore = false
+      },
+      onSelectChangeMy2(rowKeys, rows) {
+        this.selectedRowKeys2 = rowKeys
+        this.selectedRows2 = rows
       },
       jump(record) {
         // var text = type == 'all' ? '跳转' : '回退'
+        if (record.id!=undefined && record.id!=null && record.id.indexOf(',')>=0){
+          record.id= record.id.split(',')[0]
+          record.taskDefinitionKey= record.taskDefinitionKey.split(',')[0]
+        }
 
         getAction(this.url.showBackAct,
           {
@@ -339,7 +417,8 @@
 
         })
 
-      },
+      }
+      ,
 
       unDo(record) {
         let procInstId = record.processInstanceId
@@ -367,7 +446,8 @@
         })
 
 
-      },
+      }
+      ,
       //类型选择
       taskTypeChange(type) {
         if (type != '全部') {
@@ -376,15 +456,19 @@
         } else {
           this.queryParam.isDept = false
         }
-      },
+      }
+      ,
       searchQueryMy() {
         this.queryParam.tableOrder = false
 
         this.searchQuery()
         this.selectionRows = []
         this.selectedRowKeys = []
-      },
+      }
+      ,
       searchResetMy() {
+
+
         this.queryParam.tableOrder = false
 
         this.searchReset()
@@ -392,14 +476,17 @@
         this.endTimeFake = null
         this.taskType = null
         this.queryParam.isDept = false
-      },
+      }
+      ,
       endTimeChange(a, time) {
         this.queryParam.endQueryTime = time
-      },
+      }
+      ,
       startTimeChange(a, time) {
         console.log('-------------------------', time)
         this.queryParam.startQueryTime = time
-      },
+      }
+      ,
       reload() {
         this.loading = true;
         getAction(this.url.list).then((res) => {
@@ -412,14 +499,17 @@
           }
           this.loading = false;
         })
-      },
+      }
+      ,
       cancel() {
         console.log('------->取消选择')
-      },
+      }
+      ,
       showPic(record) {
         this.$refs.pic2Modal.show(record)
         this.$refs.pic2Modal.title = '当前环节'
-      },
+      }
+      ,
       //批量办结
       batchEnd() {
 
@@ -440,7 +530,8 @@
           }
         })
 
-      },
+      }
+      ,
       batchPiYue() {
         var data = []
         for (let i in this.selectionRows) {
@@ -469,28 +560,68 @@
           }
         })
 
-      },
+      }
+      ,
       doTask(record, index) {
 
         return {
           on: {
             click: (event) => {
-              let taskDetail = {
-                tableName: record.table,
-                busdataId: record.tableId,
-                haveTask: true,
-                task: record
+              this.taskRecord = record
+
+
+              if (record.id.indexOf(",") >= 0) {
+                let keys = record.taskDefinitionKey.split(",")
+                let names = record.allNames.split(",")
+                let ids = record.id.split(",")
+                if (names.length>70){
+                  keys=keys.slice(0,69)
+                  names=names.slice(0,69)
+                  ids=ids.slice(0,69)
+                }
+                this.dataSource3 = []
+                let map = {}
+
+                for (let i in keys) {
+                  //构造集合 去重 同一环节去id最大的
+                  let data = {key: keys[i], name: names[i], id: ids[i]}
+                  let act = map[keys[i]]
+                  if (act == undefined) {
+                    map[keys[i]] = data
+                  } else {
+                    if (parseInt(ids[i]) > parseInt(act.id)) {
+                      map[keys[i]] = data
+                    }
+                  }
+                }
+                //如果去重之后只有一个
+                if (Object.values(map).length > 1) {
+                  this.dataSource3 = Object.values(map)
+                  this.haveMore = true
+                }
+                if (Object.values(map).length == 1) {
+
+                  let record2 = Object.values(map)[0]
+                  this.taskRecord.taskDefinitionKey = record2.key
+                  this.taskRecord.name = record2.name
+                  this.taskRecord.id = record2.id
+
+                  window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+                }
+
+
+              } else {
+                window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
               }
-              this.$router.push({path: '/mytask/taskList/Test-detailFile', query: taskDetail})
-              // this.$refs.detailFile.showTaskInAct(taskDetail, record)
+
             }
           }
+
+
         }
-
-
       },
-    }
 
+    }
   }
 </script>
 <style scoped>
