@@ -24,9 +24,14 @@
           <!--</a-form-item>-->
           <!--</a-col>-->
           <!--<template v-if="toggleSearchStatus">-->
-          <a-col :md="12" :sm="8">
+          <a-col :md="8" :sm="6">
             <a-form-item label="按钮名称">
-              <a-input placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
+              <a-input  placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :md="8" :sm="6">
+            <a-form-item label="任务环节">
+              <a-input placeholder="请输入任务环节名称" v-model="name"></a-input>
             </a-form-item>
           </a-col>
           <!--</template>-->
@@ -150,6 +155,7 @@
         TaskLink:[],
         TaskLinkId:'',
         sbtnName:'',
+        name:'',//任务环节名称
         buttonId:"",
         heBingcolumn:'',
         HBcolumn:1,
@@ -357,6 +363,7 @@
           this.TaskLink = res.result;
         });
         this.sbtnName="";
+        this.name="";
         // this.$nextTick()
         //按钮列表
         getAction(this.url.buttonList).then(res => {
@@ -401,20 +408,54 @@
         this.loadData();
       },
       searchQuery(){
-        for (let i = 0; i < this.buttonList.length ; i++) {
-          if (this.sbtnName==this.buttonList[i].sbtnName) {
-            this.buttonId=this.buttonList[i].iid;
+        let btn=false;
+        let task=false;
+        if(this.sbtnName!=null && this.sbtnName!=""){
+          for (let i = 0; i < this.buttonList.length ; i++) {
+            if (this.sbtnName==this.buttonList[i].sbtnName) {
+//              console.log("---------00000000000000000000-------------------");
+//              console.log(this.buttonId)
+              this.buttonId=this.buttonList[i].iid;
+              btn=true;
+            }
+          }
+          if (btn==false ){
+            this.buttonId="999999";
           }
         }
+
+        if (this.name!=null && this.name!=""){
+//          console.log("66666666666666666666666666666666666666666666666");
+          for (let j = 0; j < this.TaskLink.length; j++) {
+//            console.log("---------878787878778787777777777-------------------");
+//            console.log(this.TaskLink[j].name);
+//            console.log(this.name);
+//            console.log(this.name==this.TaskLink[j].name);
+            if (this.name==this.TaskLink[j].name) {
+//              console.log("---------99999999999999999999999999-------------------");
+              this.taskDefKey=this.TaskLink[j].id;
+//              console.log(this.taskDefKey)
+              task=true;
+            }
+          }
+          if (task==false ){
+            this.taskDefKey="999999";
+          }
+        }
+
         this.loadData();
         this.buttonId="";
+        this.taskDefKey="";
       },
       loadData(){
         //alert(iid);
         // this.columns = [];
         // this.data = [];
-        getAction(this.url.findById,{id:this.model.iid,buttonId:this.buttonId,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
-          // console.log("#############################");
+        console.log("#############################");
+        console.log(this.buttonId)
+        console.log(this.taskDefKey)
+        getAction(this.url.findById,{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
+          pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
          // console.log(res);
           this.data = res.result.records;
           this.ipagination.total = res.result.total;
