@@ -248,6 +248,7 @@
         //部门对应用户id
         departUsersId: {},
         departUsersMsg: {},
+        userGroupByDepts:{},
         //环节分类，从属于 排他，并行，包容网关
         gateWayTypeSelect: {
           parallel: {},
@@ -844,6 +845,7 @@
 
           let ids = []
           let depMSg = {}
+
           for (let i in this.departUsersId) {
 
             if (i.indexOf("主办") >= 0 && this.departUsersId[i].length == 0) {
@@ -852,12 +854,18 @@
             }
 
             if (this.departUsersId[i].length > 0) {
-              ids.push(this.departUsersId[i])
+              // ids.push(this.departUsersId[i])
               depMSg[i] = this.departUsersId[i]
             }
           }
-          // ////console.log('==========部门：：：', ids, JSON.stringify(this.currentClick))
+          for (let k of Object.keys(this.userGroupByDepts)) {
+            ids.push(this.userGroupByDepts[k])
+          }
           //校验
+          if (ids.length==0){
+            this.$message.error('请选择用户')
+            return
+          }
           this.$emit('func', ids, this.currentClick, this.endTime, depMSg)
           this.cancel()
         } else if (this.endType) {
@@ -917,7 +925,6 @@
       },
       toLeft(item) {
         //添加到部门列表中--从list中移除
-
         var right = []
         for (var i in this.departSelect[item]) {
           var itt = this.departSelect[item][i]
@@ -970,9 +977,17 @@
               return
             } else {
               let ids = []
+              this.userGroupByDepts={}
               for (let i in res.result[item]) {
                 ids.push(res.result[item][i].id)
+                if (this.userGroupByDepts[res.result[item][i].departId]==undefined){
+                  this.userGroupByDepts[res.result[item][i].departId]=[]
+                  this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
+                } else {
+                  this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
+                }
               }
+
               this.departUsersId[item] = ids
               this.departUsersMsg[item] = res.result[item]
 
@@ -1051,10 +1066,8 @@
         this.visible2 = false
         this.confirmLoading = false
         this.actChoice = []
-        this.selectedRowKeys = []
-        this.selectedRows2selectedRows2 = []
-
-
+        this.selectedRowKeys2 = []
+        this.selectedRows2= []
         this.endTime = ''
       },
       /**
