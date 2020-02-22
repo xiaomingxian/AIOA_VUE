@@ -29,9 +29,11 @@
           <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
           <div class="swiper-container swiper-no-swiping bottom">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index" @click="LinkMore(atom.s_title)">
+              <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
                 <div>
                   <img src="../../assets/1.png" :title="atom.s_title" alt="">
+                  <img :src="atom.path" :title="atom.s_title" alt="">
+                  <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
               </div>
               <!--<div class="swiper-slide">-->
@@ -383,6 +385,7 @@
 
     },
     mounted(){
+
       let height = document.body.clientHeight-145;
       document.querySelector('.nav').style.height = height*.25 +'px'
       document.querySelector('.box').style.height = height*.75+'px'
@@ -426,33 +429,31 @@
       },1500)
 
       postAction(this.url.MostUserLink).then((res) => {
-
-        if(res.length==1){
-
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-        }else if(res.length==2){
-
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-        }else if(res.length==3){
-
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-        }else if(res.length==0){
-
-          this.LinkList.push(
-            {s_title:'mytask/taskToDo',value:0},
-            {s_title:'mytask/taskToDo',value:1},
-            {s_title:'mytask/taskToDo',value:2},
-            {s_title:'mytask/taskToDo',value:3},
-          )
-        }else{
-          this.LinkList = JSON.parse(JSON.stringify(res)).splice(0,2);
-        }
+        console.log(res.length);
+        /*  if(res.length==1){
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+          }else if(res.length==2){
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+          }else if(res.length==3){
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+          }else if(res.length==0){
+            this.LinkList.push(
+              {s_title:'mytask/taskToDo',value:0},
+              {s_title:'mytask/taskToDo',value:1},
+              {s_title:'mytask/taskToDo',value:2},
+              {s_title:'mytask/taskToDo',value:3},
+              )
+          }else{
+            this.LinkList = JSON.parse(JSON.stringify(res));
+          }*/
+        this.LinkList =  res;
+        console.log( this.LinkList.length);
       });
       this.showTitleBg();
     },
@@ -461,6 +462,26 @@
       detailFile,
     },
     methods: {
+      openUrl(e){
+        console.log(e);
+        console.log(this.$refs[e][0].lastChild);
+        let lastChildNode = this.$refs[e][0].lastChild;
+
+        console.log(lastChildNode.childNodes[0].nodeType);
+        //判断文本节点3     还是元素节点1
+        let nodeType = lastChildNode.childNodes[0].nodeType;
+        if(nodeType=='3'){
+          console.log(lastChildNode.childNodes[0].nodeValue);
+          let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
+          window.open('http://'+nodeValueUrl)
+        }else{
+          console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
+
+          let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
+          window.open(nodeValueUrl1)
+        }
+
+      },
       fetchUser(value) {
         // console.log('fetching user', value);
         this.lastFetchId += 1;
