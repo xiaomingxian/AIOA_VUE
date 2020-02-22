@@ -100,8 +100,8 @@
             </span>
           </a-col>
             <template v-if="advanced">
-              <a-row :gutter="48">
-                <!--="<a-col :md="6" :sm="24">-->
+              <a-row :gutter="48" style="width: 88.3%;">
+                <!--="<a-col :md="7" :sm="24">-->
                 <!--<a-form-item label="业务功能">-->
                 <!--<a-select @change="changFunId" v-model="queryParam.function_id">-->
                 <!--<a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}-->
@@ -110,7 +110,7 @@
                 <!--</a-form-item>-->
                 <!--</a-col>-->
 
-                <a-col :md="6" :sm="24">
+                <a-col :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-model="queryParam.i_is_state">
                       <a-select-option value="" disabled selected hidden>状态</a-select-option>
@@ -120,7 +120,7 @@
                   </a-form-item>
                 </a-col>
 
-                <!--<a-col :md="6" :sm="24">-->
+                <!--<a-col :md="7" :sm="24">-->
                   <!--<a-form-item label="拟稿人">-->
                     <!--<a-radio-group v-model="queryParam.selType">-->
                       <!--<a-radio @click="clearCurPageIndex()" :value="0">由我创建</a-radio>-->
@@ -132,7 +132,7 @@
                   <!--</a-form-item>-->
                 <!--</a-col>-->
 
-                <a-col :md="6" :sm="24">
+                <a-col :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-model="queryParam.s_create_name">
                       <a-select-option value="" disabled selected hidden>拟稿人</a-select-option>
@@ -143,60 +143,44 @@
                 </a-col>
 
 
-                <a-col :md="6" :sm="24">
+                <a-col :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-model="queryParam.d_create_time">
                       <a-select-option value="" disabled selected hidden>年份</a-select-option>
                       <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
                       </a-select-option>
                     </a-select>
+                    <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">
+                      <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
+                    </span>
                   </a-form-item>
                 </a-col>
-
-                  <!--<a-col :md="6" :sm="24" style="text-align: center;padding-left: 79px;padding-right:172px;">-->
-                  <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="float: left;">-->
-                    <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
-                  <!--</span>-->
-
-                  <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">-->
-                    <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
-                  <!--</span>-->
-                  <!--</a-col>-->
               </a-row>
 
-            <a-row :gutter="48">
-                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="6" :sm="24">
+            <a-row :gutter="48" style="width: 88.3%;">
+                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-if="atom.i_column_type == 1" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
                     <a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>
                     </a-select>
                     <a-input v-else class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
+                    <span v-if="index == 2" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                    </span >
                   </a-form-item>
+
                 </a-col>
+
             </a-row>
 
               <!--<a-row :gutter="48">-->
-                <!--<a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">-->
+                <!--<a-col :md="!advanced && 7 || 24" :sm="24" style="text-align: center;padding-right:172px;">-->
                 <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">-->
                   <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
                   <!--<a-button type="primary" icon="reload" @click="resetPgConditionList" style="margin-left: 27px;">重置</a-button>-->
                 <!--</span>-->
                 <!--</a-col>-->
               <!--</a-row>-->
-
-
-              <a-row :gutter="48" style="position: absolute;top: 24px;right: -34px;">
-                <a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">
-                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
-                    <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
-                  </span>
-                </a-col>
-                <a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">
-                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
-                    <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
-                  </span>
-                </a-col>
-              </a-row>
               </template>
             </a-row>
 

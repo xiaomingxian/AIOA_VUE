@@ -38,7 +38,7 @@
         console.log(res);
         let iisCalendar = res.result.iisCalendar;
         this.iisCalendar = iisCalendar;
-        
+
         console.log(iisCalendar);
       });
 
