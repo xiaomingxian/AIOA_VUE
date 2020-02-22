@@ -156,9 +156,17 @@
                       <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
                       <div class="swiper-container swiper-no-swiping bottomm">
                         <div class="swiper-wrapper">
-                          <div class="swiper-slide" v-for="(item,index) in LinkList" :key="index" @click="openmore1(item.s_title)">
+                          <div class="swiper-slide" v-for="(item,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
                             <div>
+<!--                              <h1>{{index}}</h1>-->
+<!--                              <img :src="'../../assets/'+(index)+'.png'" :title="item.s_title" alt="">-->
                               <img src="../../assets/1.png" :title="item.s_title" alt="">
+                              <img :src="item.path" :title="item.s_title" alt="">
+
+<!--
+                             <img src="E:\upFiles\2020\2\15\u=3040270443,1380685712&fm=26&gp=0_1581780507162.jpg" :title="item.s_title" alt="">
+-->
+                              <span v-show="false" :ref="(index+1)+'item'" v-html="item.url"></span>
                             </div>
                           </div>
                           <!--<div class="swiper-slide">-->
@@ -556,7 +564,7 @@
 
       postAction(this.url.MostUserLink).then((res) => {
         console.log(res.length);
-        if(res.length==1){
+      /*  if(res.length==1){
           this.LinkList.push(JSON.parse(JSON.stringify(res)))
           this.LinkList.push(JSON.parse(JSON.stringify(res)))
           this.LinkList.push(JSON.parse(JSON.stringify(res)))
@@ -577,8 +585,8 @@
             )
         }else{
           this.LinkList = JSON.parse(JSON.stringify(res));
-        }
-
+        }*/
+        this.LinkList =  res;
         console.log( this.LinkList.length);
       });
 
@@ -587,7 +595,28 @@
     },
 
     methods:{
+      openUrl(e){
+        console.log(e);
+        console.log(this.$refs[e][0].lastChild);
+        let lastChildNode = this.$refs[e][0].lastChild;
+
+        console.log(lastChildNode.childNodes[0].nodeType);
+        //判断文本节点3     还是元素节点1
+        let nodeType = lastChildNode.childNodes[0].nodeType;
+        if(nodeType=='3'){
+          console.log(lastChildNode.childNodes[0].nodeValue);
+          let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
+          window.open('http://'+nodeValueUrl)
+        }else{
+          console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
+
+          let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
+          window.open(nodeValueUrl1)
+        }
+
+      },
       postMore(){
+
         this.$router.push('/'+'publicMessage/electronicFile');
       },
       doWill(e){
