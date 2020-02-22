@@ -194,7 +194,7 @@
       },
       showModal(useridlists) {
          console.log(useridlists);
-        if( useridlists !==undefined){
+        if(useridlists !==undefined && useridlists !==''){
           useridlists.map((item)=>{
             // console.log(item.toString());
             this.selectedRowKeys.push(item.toString())
