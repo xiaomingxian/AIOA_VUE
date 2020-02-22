@@ -454,7 +454,6 @@
           this.LinkList = JSON.parse(JSON.stringify(res)).splice(0,2);
         }
       });
-      this.showTitleBg();
     },
     components: {
       //业务
@@ -510,13 +509,6 @@
       openSearch(){
 
         this.$router.push({path:'/ioaBus/busModel/search',query:{searchWords : this.search}})
-
-      },
-      showTitleBg(){
-
-        document.getElementsByClassName('header')[0].style.top = '0px';
-        document.getElementsByClassName('trigger')[0].style.top = '5px';
-        document.getElementsByClassName('user-wrapper')[0].style.top = '0px';
 
       },
       postMore(){

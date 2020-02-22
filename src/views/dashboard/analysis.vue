@@ -38,7 +38,7 @@
         console.log(res);
         let iisCalendar = res.result.iisCalendar;
         this.iisCalendar = iisCalendar;
-
+        
         console.log(iisCalendar);
       });
 
@@ -48,6 +48,18 @@
       // document.querySelector('.wrap').style.height = height +'px'
       // alert(height)
 
+    },
+    activated () {
+      this.showTitleBg();
+    },
+    methods: {
+      showTitleBg(){
+
+        document.getElementsByClassName('header')[0].style.top = '0px';
+        document.getElementsByClassName('trigger')[0].style.top = '5px';
+        document.getElementsByClassName('user-wrapper')[0].style.top = '0px';
+
+      }
     }
 
 
