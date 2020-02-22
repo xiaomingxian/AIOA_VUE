@@ -315,7 +315,7 @@
         queryParam: {
           function_id: '',
           i_is_state: '',
-          selType: 1,
+          // selType: 1,
           s_create_name: '',
           d_create_time: '',
           orderFlag: '',    //排序字段
@@ -374,7 +374,7 @@
       //     }
       //   })
       // },
-      //清除当前页和
+      //清除当前页
       clearCurPageIndex(){
         this.paginations.current = 1 ;
       },
@@ -399,6 +399,9 @@
       //   index = index - 1;
       //
       //   this.resetPgConditionList();
+
+      //   this.conditionList = [];
+
       //   getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
       //     this.conditionList = res;
       //     this.queryParam = Object.assign({}, this.setConditionList);
@@ -419,7 +422,11 @@
 
         index = index - 1;
 
+        this.conditionList = [];
+        this.queryParam = {};
+
         this.resetPgConditionList();
+
         await getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
           this.conditionList = res;
           this.queryParam = Object.assign({}, this.setConditionList);
@@ -429,10 +436,10 @@
           this.queryParam.function_id = this.selectList[index].iid;
           this.resetConditionList = Object.assign({}, this.queryParam);
           this.paginations.current = 1;
-          this.columns = [];
-          this.columnes = [];
-          this.dataSource = [];
-          this.dataSources = [];
+
+          console.log('----------------------------------------------------------');
+          console.log(this.queryParam);
+
           this.collapseListOrNot();
         });
       },
@@ -450,6 +457,14 @@
       },
       clearData() {
         this.conditionList = [];
+        this.queryParam = {
+          function_id: '',
+          i_is_state: '',
+          // selType: 1,
+          s_create_name: '',
+          d_create_time: '',
+          orderFlag: '',    //排序字段
+        };
         this.selectList = [];
         this.columns = [];
         this.columnes = [];
@@ -571,8 +586,8 @@
           }
           this.resetConditionList = Object.assign({}, this.queryParam);
 
-          // console.log('----------------------------------------------------------');
-          // console.log(this.queryParam);
+          console.log('----------------------------------------------------------');
+          console.log(this.queryParam);
 
           this.collapseListOrNot();
         });
@@ -692,6 +707,7 @@
           pageSize: this.paginations.pageSize,
           condition: this.queryParam
         }).then((res) => {
+          this.searchList = [];
           this.columns = [];
           this.dataSource = [];
           this.searchColumns = JSON.parse(res.message);
@@ -900,8 +916,10 @@
         // console.log('radio checked', e.target.value)
       },
       dataDestroy() {
-        this.searchColumns = [];
-        this.searchList = [];
+        this.searchColumns = []
+        this.conditionList = [];
+        this.queryParam = {};
+        this.selectList = [];
         this.columns = [];
         this.columnes = [];
         this.dataSource = [];
