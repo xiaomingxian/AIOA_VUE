@@ -25,6 +25,19 @@ export const busdataTemplate = {
     }
   },
   created() {
+
+  },
+  computed:{
+    confirmUser(){
+      return this.$store.state.confimePaiBan ;
+    }
+  },
+  watch:{
+    confirmUser(newVal,oldVal){
+      console.log(newVal)
+      this.backData.s_varchar1 = this.backData.s_create_name ;
+      this.backData.s_varchar2 = this.$store.state.confimePaiBan.currentUsername ;
+    }
   },
   methods: {
 
@@ -244,6 +257,12 @@ export const busdataTemplate = {
       return result;
     },
     saveNoCheck() {
+      this.backData.i_urgency = localStorage.getItem('缓急:' + this.backData.table + this.backData.i_id)
+      this.backData.i_urgency = this.backData.i_urgency == null ? 4 : this.backData.i_urgency
+
+      let i_safetylevel = localStorage.getItem('密级:' + this.backData.table + this.backData.i_id)
+      this.backData.i_safetylevel = i_safetylevel == null ? 1 : i_safetylevel
+
       postAction(this.url.updateBusdataNoCheck, this.backData).then(res => {
         if (res.success) {
           this.$message.success("保存成功")

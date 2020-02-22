@@ -10,7 +10,7 @@
             <a-input
               size="large"
               type="text"
-              placeholder="请输入流程名称"
+              placeholder="请输入流程名称(只能以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于5小于等于20)"
               v-model="bpmn.name"
             >
             </a-input>
@@ -21,7 +21,7 @@
               size="large"
               type="key"
               autocomplete="false"
-              placeholder="请输入流程定义key"
+              placeholder="请输入流程key(只能以字母开头,只能包含字母,数字,下划线;长度大于等于5小于等于20)"
               v-model="bpmn.key"
 
             >
@@ -108,6 +108,35 @@
 
 
 
+        let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{4,19})$/
+        if (!keyReg.test(this.bpmn.key)) {
+          if ((this.bpmn.key).length > 20) {
+            this.$message.error('您输入的key长度过长')
+            return
+          }
+          if ((this.bpmn.key).length < 5) {
+            this.$message.error('您输入的key长度过短')
+            return
+          }
+          this.$message.error('您输入的key不合法请检查')
+          return
+        }
+        let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{4,19})$/
+        if (!nameReg.test(this.bpmn.name)) {
+
+          if ((this.bpmn.name).length > 20) {
+            this.$message.error('您输入的名称长度过长')
+            return
+          }
+          if ((this.bpmn.name).length < 5) {
+            this.$message.error('您输入的名称长度过短')
+            return
+          }
+          this.$message.error('您输入的名称不合法请检查')
+
+          return
+        }
+
 
         postAction(url, parm).then((res) => {
 
@@ -117,7 +146,7 @@
             window.open(url_model)
 
           } else {
-            alert(res.message)
+            this.$message.error(res.message)
             window.location.reload()
 
           }

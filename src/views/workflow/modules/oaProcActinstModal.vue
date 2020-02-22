@@ -149,16 +149,16 @@
             </a-radio-group>
           </a-form-item>
 
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="是否使用记录的用户">
-            <a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['userRecordVal', {} ]"
-                           size="small">
-              <a-radio-button value="false">不使用</a-radio-button>
-              <a-radio-button value="true">使用</a-radio-button>
-            </a-radio-group>
-          </a-form-item>
+          <!--<a-form-item-->
+            <!--:labelCol="labelCol"-->
+            <!--:wrapperCol="wrapperCol"-->
+            <!--label="是否使用记录的用户">-->
+            <!--<a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['userRecordVal', {} ]"-->
+                           <!--size="small">-->
+              <!--<a-radio-button value="false">不使用</a-radio-button>-->
+              <!--<a-radio-button value="true">使用</a-radio-button>-->
+            <!--</a-radio-group>-->
+          <!--</a-form-item>-->
 
 
           <div v-show="isRecord">

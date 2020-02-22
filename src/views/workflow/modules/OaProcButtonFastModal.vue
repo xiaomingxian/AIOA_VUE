@@ -250,7 +250,7 @@
       },
       handleCat: function (record) {
         //console.log(record.iid)
-        this.$refs.catModalForm.add(record,this.TaskLinkId);
+        this.$refs.catModalForm.add(record,this.TaskLinkId,this.procDefKey);
         this.$refs.catModalForm.loadData();
         this.$refs.catModalForm.title = "查看";
         this.$refs.catModalForm.disableSubmit = false;

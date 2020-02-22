@@ -24,15 +24,20 @@
           <!--</a-form-item>-->
           <!--</a-col>-->
           <!--<template v-if="toggleSearchStatus">-->
-          <a-col :md="12" :sm="8">
+          <a-col :md="8" :sm="6">
+            <a-form-item label="任务环节">
+              <a-input placeholder="请输入任务环节名称" v-model="name"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :md="8" :sm="6">
             <a-form-item label="按钮名称">
-              <a-input placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
+              <a-input  placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
             </a-form-item>
           </a-col>
           <!--</template>-->
           <a-col :md="6" :sm="8">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
-              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchQueryCha" icon="search">查询</a-button>
               <!--<a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>-->
               <!--<a @click="handleToggleSearch" style="margin-left: 8px">-->
               <!--{{ toggleSearchStatus ? '收起' : '展开' }}-->
@@ -146,10 +151,13 @@
           showSizeChanger: true,
           total: 0
         },
+        newDataId:'',
         buttonList:'',
         TaskLink:[],
         TaskLinkId:'',
         sbtnName:'',
+        procDefKey:'',//流程key
+        name:'',//任务环节名称
         buttonId:"",
         heBingcolumn:'',
         HBcolumn:1,
@@ -348,15 +356,21 @@
           }
         })
       },
-      add (record,TaskLinkId) {
-        console.log("gagagagagagaga0-----------");
-        console.log(record);
+      add (record,TaskLinkId,procDefKey) {
+//        清除查询条件
+        this.buttonId="";
+        this.taskDefKey="";
+//        ------
+        this.procDefKey=procDefKey;
+
+//        console.log(record);
         this.TaskLinkId=TaskLinkId;
         //---------------任务环节列表---------------
         getAction(this.url.TaskLink,{processDefinitionId:TaskLinkId}).then(res=>{
           this.TaskLink = res.result;
         });
         this.sbtnName="";
+        this.name="";
         // this.$nextTick()
         //按钮列表
         getAction(this.url.buttonList).then(res => {
@@ -400,21 +414,85 @@
         this.ipagination.pageSize = page.pageSize;
         this.loadData();
       },
-      searchQuery(){
-        for (let i = 0; i < this.buttonList.length ; i++) {
-          if (this.sbtnName==this.buttonList[i].sbtnName) {
-            this.buttonId=this.buttonList[i].iid;
-          }
+      searchQueryCha(){
+//        let btn=false;
+//        let task=false;
+//        if(this.sbtnName!=null && this.sbtnName!=""){
+//          for (let i = 0; i < this.buttonList.length ; i++) {
+//            if (this.sbtnName==this.buttonList[i].sbtnName) {
+//              this.buttonId=this.buttonList[i].iid;
+//              btn=true;
+//            }
+//          }
+//          if (btn==false ){
+//            this.buttonId="999999";
+//          }
+//        }
+//        if (this.name!=null && this.name!=""){
+//          for (let j = 0; j < this.TaskLink.length; j++) {
+//            if (this.name==this.TaskLink[j].name) {
+//              this.taskDefKey=this.TaskLink[j].id;
+//              task=true;
+//            }
+//          }
+//          if (task==false ){
+//            this.taskDefKey="999999";
+//          }
+//        }
+
+//        const promise1 = new Promise((resolve => {
+        if(this.sbtnName!=null && this.sbtnName!=""){
+          getAction("/oabutton/oaButton/queryById",{sbtnName:this.sbtnName}).then(res=>{
+            console.log("000000000000000-----------");
+            if(res.success){
+              console.log(res.result);
+              this.buttonId = res.result.iid;
+            }else {
+              this.buttonId ="";
+            }
+                          this.data =""
+              this.ipagination.total =""
+            this.loadData();
+          })
         }
-        this.loadData();
-        this.buttonId="";
+         if (this.name!=null && this.name!=""){
+           getAction("/workflow/oaProcActinst/queryByKeyAndName",{procDefKey:this.procDefKey,actName:this.name}).then(res=>{
+             console.log("1111111111111-----------");
+             if(res.success){
+               console.log(res.result);
+               this.taskDefKey = res.result.actId;
+             }else {
+               this.taskDefKey ="";
+
+             }
+                           this.data =""
+              this.ipagination.total =""
+             this.loadData();
+           })
+         }
+
+//          resolve(this.newDataId)
+//        }))
+
+
+//        promise1.then((newDataId)=>{
+//          this.loadData();
+//        })
+
+
+
+
+
+
+//        this.buttonId="";
+//        this.taskDefKey="";
       },
       loadData(){
-        //alert(iid);
         // this.columns = [];
         // this.data = [];
-        getAction(this.url.findById,{id:this.model.iid,buttonId:this.buttonId,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
-          // console.log("#############################");
+        getAction(this.url.findById,{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
+          pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
+          console.log("22222222222222222222222-----------");
          // console.log(res);
           this.data = res.result.records;
           this.ipagination.total = res.result.total;

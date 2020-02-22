@@ -173,6 +173,23 @@ export const taskBth = {
       // //console.log("-----------------------")
       this.$emit('destoryObj')
     },
+    //确定登记排版
+    confimName(){
+      const userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
+      let currentUsername = userinfo.realname;
+      let dateTimeNow = new Date().valueOf();
+      let param = {currentUsername:currentUsername,dataTimeNow:dateTimeNow}
+      console.log(param)
+      this.$store.commit('confimeUser',param)
+    },
+    //排版登记
+    paibandengji(){
+      let createUser = this.backData.s_create_name ;
+
+      const userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
+      let currentUsername = userinfo.realname;
+      this.$refs.paiBanDengJi.show(createUser,currentUsername)
+    },
     //保存按钮
     saveBusData() {
       //console.log("业务数据====》", this.backData);
@@ -927,8 +944,8 @@ export const taskBth = {
           // }
           let userGroupByDept = {}
           for (let k of Object.keys(v.departUsersMsg)) {
-            for (let user of v.departUsersMsg[k]){
-              let uid =  user.id
+            for (let user of v.departUsersMsg[k]) {
+              let uid = user.id
               let did = user.departId
               if (userGroupByDept[did] == undefined) {
                 userGroupByDept[did] = []
@@ -1141,11 +1158,16 @@ export const taskBth = {
       var res = window.confirm("是否部门完成");
       if (res) {
         // let param={taskId: this.taskMsg.id}
-        this.doPost(this.url.departFinish + "?taskId=" + this.taskMsg.id)
-        //关闭页面刷新父组件
-        // this.$emit('close');
-        // this.visible = false;
-        this.reload()
+        postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id).then(res=>{
+          if (res.success) {
+            this.$message.success(res.message)
+            setTimeout(function () {
+              this.close()
+            }, 500)
+          } else {
+            this.$message.error(res.message)
+          }
+        })
       }
     }
     ,

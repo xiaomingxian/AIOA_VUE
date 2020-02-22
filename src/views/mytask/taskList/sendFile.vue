@@ -400,6 +400,7 @@
       })*/
       this.show();
     },
+
     destroyed() {
       this.backData = {};
       this.backData = {};
