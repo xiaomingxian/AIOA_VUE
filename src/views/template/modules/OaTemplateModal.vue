@@ -210,6 +210,7 @@
         return false;
       },
       deleteFileName() {
+        this.fileList = [];
         let that = this;
         that.upFailId = 0;
         that.upFileName = '';
