@@ -100,8 +100,8 @@
             </span>
           </a-col>
             <template v-if="advanced">
-              <a-row :gutter="48">
-                <!--="<a-col :md="6" :sm="24">-->
+              <a-row :gutter="48" style="width: 88.3%;">
+                <!--="<a-col :md="7" :sm="24">-->
                 <!--<a-form-item label="业务功能">-->
                 <!--<a-select @change="changFunId" v-model="queryParam.function_id">-->
                 <!--<a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}-->
@@ -110,7 +110,7 @@
                 <!--</a-form-item>-->
                 <!--</a-col>-->
 
-                <a-col :md="6" :sm="24">
+                <a-col :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-model="queryParam.i_is_state">
                       <a-select-option value="" disabled selected hidden>状态</a-select-option>
@@ -120,7 +120,7 @@
                   </a-form-item>
                 </a-col>
 
-                <!--<a-col :md="6" :sm="24">-->
+                <!--<a-col :md="7" :sm="24">-->
                   <!--<a-form-item label="拟稿人">-->
                     <!--<a-radio-group v-model="queryParam.selType">-->
                       <!--<a-radio @click="clearCurPageIndex()" :value="0">由我创建</a-radio>-->
@@ -132,7 +132,7 @@
                   <!--</a-form-item>-->
                 <!--</a-col>-->
 
-                <a-col :md="6" :sm="24">
+                <a-col :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-model="queryParam.s_create_name">
                       <a-select-option value="" disabled selected hidden>拟稿人</a-select-option>
@@ -143,67 +143,101 @@
                 </a-col>
 
 
-                <a-col :md="6" :sm="24">
+                <a-col :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-model="queryParam.d_create_time">
                       <a-select-option value="" disabled selected hidden>年份</a-select-option>
                       <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
                       </a-select-option>
                     </a-select>
+
+                    <span v-if="conditionList.length == 0" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
+                      <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                    </span >
+                    <span v-else class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">
+                      <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
+                    </span>
                   </a-form-item>
                 </a-col>
-
-                  <!--<a-col :md="6" :sm="24" style="text-align: center;padding-left: 79px;padding-right:172px;">-->
-                  <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="float: left;">-->
-                    <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
-                  <!--</span>-->
-
-                  <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">-->
-                    <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
-                  <!--</span>-->
-                  <!--</a-col>-->
               </a-row>
 
-            <a-row :gutter="48">
-                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="6" :sm="24">
+            <a-row :gutter="48" style="width: 88.3%;">
+                <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">
                   <a-form-item>
-                    <a-select v-if="atom.i_column_type == 1" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
+                    <a-select v-if="atom.i_column_type == 2" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
                     <a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>
                     </a-select>
                     <a-input v-else class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
+                    <span v-if="conditionList.length == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 352.4%;">
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                    </span >
+                    <span v-else-if="conditionList.length == 2 && index == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 239.7%;">
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                    </span >
+                    <span v-else-if="index == 2" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                    </span >
                   </a-form-item>
+
                 </a-col>
+
             </a-row>
 
               <!--<a-row :gutter="48">-->
-                <!--<a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">-->
+                <!--<a-col :md="!advanced && 7 || 24" :sm="24" style="text-align: center;padding-right:172px;">-->
                 <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">-->
                   <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
                   <!--<a-button type="primary" icon="reload" @click="resetPgConditionList" style="margin-left: 27px;">重置</a-button>-->
                 <!--</span>-->
                 <!--</a-col>-->
               <!--</a-row>-->
-
-
-              <a-row :gutter="48" style="position: absolute;top: 24px;right: -34px;">
-                <a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">
-                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
-                    <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
-                  </span>
-                </a-col>
-                <a-col :md="!advanced && 6 || 24" :sm="24" style="text-align: center;padding-right:172px;">
-                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
-                    <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
-                  </span>
-                </a-col>
-              </a-row>
               </template>
             </a-row>
 
           </a-form>
 
+            <a-table
+              v-if="iisFold == 1 && collapse == 1"
+              :columns="columns"
+              :dataSource="dataSource"
+              :pagination="false"
+              :loading="loading"
+              :showAlertInfo="false"
+              :showHeader="false"
+              :expandIconAsCell="false"
+              bordered
+              :rowKey="record => record.key"
+              @expandedRowsChange="(expandedRows) => {
+                 getPgSecondList(expandedRows);
+            }"
+            >
+
+              <a-table
+                slot="expandedRowRender"
+                slot-scope="record,index,indent,expanded"
+                size="middle"
+                :columns="columnes"
+                :dataSource="dataSources"
+                :pagination="false"
+                :loading="loading"
+                :showAlertInfo="false"
+                :rowKey="record => record.key"
+                :customRow="onClick"
+                style="word-break: break-all"
+                :rowClassName="(record,index) => {
+                let className  = 'light-row';
+                if (index % 2 === 1) className = 'dark-row';
+                return className;
+            }"
+              >
+
+              </a-table>
+
+          </a-table>
+
           <a-table
-            v-if="iisFold == 0 || collapse == 0"
+            v-else
             size="middle"
             :columns="columns"
             :dataSource="dataSource"
@@ -222,45 +256,6 @@
               return className;
           }"
           >
-
-          </a-table>
-
-          <a-table
-            v-if="iisFold == 1 && collapse == 1"
-            :columns="columns"
-            :dataSource="dataSource"
-            :pagination="false"
-            :loading="loading"
-            :showAlertInfo="false"
-            :showHeader="false"
-            :expandIconAsCell="false"
-            bordered
-            :rowKey="record => record.key"
-            @expandedRowsChange="(expandedRows) => {
-               getPgSecondList(expandedRows);
-          }"
-          >
-
-            <a-table
-              slot="expandedRowRender"
-              slot-scope="record,index,indent,expanded"
-              size="middle"
-              :columns="columnes"
-              :dataSource="dataSources"
-              :pagination="false"
-              :loading="loading"
-              :showAlertInfo="false"
-              :rowKey="record => record.key"
-              :customRow="onClick"
-              style="word-break: break-all"
-              :rowClassName="(record,index) => {
-              let className  = 'light-row';
-              if (index % 2 === 1) className = 'dark-row';
-              return className;
-          }"
-            >
-
-            </a-table>
 
           </a-table>
 
@@ -331,7 +326,7 @@
         queryParam: {
           function_id: '',
           i_is_state: '',
-          selType: 1,
+          // selType: 1,
           s_create_name: '',
           d_create_time: '',
           orderFlag: '',    //排序字段
@@ -390,7 +385,7 @@
       //     }
       //   })
       // },
-      //清除当前页和
+      //清除当前页
       clearCurPageIndex(){
         this.paginations.current = 1 ;
       },
@@ -415,6 +410,9 @@
       //   index = index - 1;
       //
       //   this.resetPgConditionList();
+
+      //   this.conditionList = [];
+
       //   getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
       //     this.conditionList = res;
       //     this.queryParam = Object.assign({}, this.setConditionList);
@@ -435,7 +433,11 @@
 
         index = index - 1;
 
+        this.conditionList = [];
+        this.queryParam = {};
+
         this.resetPgConditionList();
+
         await getAction(this.url.getConditionByFunId, {functionId: this.selectList[index].iid}).then((res) => {
           this.conditionList = res;
           this.queryParam = Object.assign({}, this.setConditionList);
@@ -445,6 +447,10 @@
           this.queryParam.function_id = this.selectList[index].iid;
           this.resetConditionList = Object.assign({}, this.queryParam);
           this.paginations.current = 1;
+
+          // console.log('----------------------------------------------------------');
+          // console.log(this.queryParam);
+
           this.columns = [];
           this.columnes = [];
           this.dataSource = [];
@@ -466,6 +472,14 @@
       },
       clearData() {
         this.conditionList = [];
+        this.queryParam = {
+          function_id: '',
+          i_is_state: '',
+          // selType: 1,
+          s_create_name: '',
+          d_create_time: '',
+          orderFlag: '',    //排序字段
+        };
         this.selectList = [];
         this.columns = [];
         this.columnes = [];
@@ -708,6 +722,7 @@
           pageSize: this.paginations.pageSize,
           condition: this.queryParam
         }).then((res) => {
+          this.searchList = [];
           this.columns = [];
           this.dataSource = [];
           this.searchColumns = JSON.parse(res.message);
@@ -916,8 +931,10 @@
         // console.log('radio checked', e.target.value)
       },
       dataDestroy() {
-        this.searchColumns = [];
-        this.searchList = [];
+        this.searchColumns = []
+        this.conditionList = [];
+        this.queryParam = {};
+        this.selectList = [];
         this.columns = [];
         this.columnes = [];
         this.dataSource = [];

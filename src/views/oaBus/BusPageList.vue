@@ -7,7 +7,7 @@
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
             <a-form-item label="业务模板名称">
-              <a-input placeholder="请输入业务模板名称" v-model="queryParam.spageName"></a-input>
+              <a-input placeholder="请输入业务模板名称" v-model="queryParam.sPageName"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
@@ -41,12 +41,12 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('业务页面表')">导出</a-button>
+      <!--<a-button type="primary" icon="download" @click="handleExportXls('业务页面表')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl"
                 @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
-      `<a-dropdown v-if="selectedRowKeys.length > 0">
+      </a-upload>-->
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel">
             <a-icon type="delete"/>
@@ -56,7 +56,7 @@
         <a-button style="margin-left: 8px"> 批量操作
           <a-icon type="down"/>
         </a-button>
-      </a-dropdown>
+      </a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
@@ -159,7 +159,7 @@
           {
             title: '概要',
             align: "left",
-            width: "50%" ,
+            width: "40%" ,
             dataIndex: 'spageRemarks'
           },
 

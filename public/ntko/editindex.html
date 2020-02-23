@@ -322,19 +322,13 @@
         }
       }
 
-      if (cmd == 9) {
+      if (cmd == 9 || cmd == 10) {
         var basePath = getBasePath();
         var filePath = "/templateFile/";
         var fileName = getQueryString('fileName');
         ntko.OpenFromURL(basePath + filePath + fileName);
       }
-      if (cmd == 10) {
-        alert(fileName)
-        var basePath = getBasePath();
-        var filePath = "/templateFile/";
-        var fileName = getQueryString('fileName');
-        ntko.OpenFromURL(basePath + filePath + fileName,false,Excel.Sheet);
-      }
+
     }
   </script>
   <script type="text/javascript">
