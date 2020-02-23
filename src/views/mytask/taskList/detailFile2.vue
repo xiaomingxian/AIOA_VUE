@@ -180,7 +180,7 @@
                 :opts="opts" @downFiles="downFiles"
                 @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj"
                 @watchSub="watchSub" :oaFileList="oaFileList" @close="handleCancel" @callaboration="callaboration"
-                @getbackDataNew="getbackDataNew"
+                @getbackDataNew="getbackDataNew" @reloadOpinion="reloadOpinion"
       ></task-btn>
     </center>
   </form>
@@ -1010,6 +1010,9 @@
       //     }
       //   }
       // },
+      reloadOpinion(data){
+        this.optSet(data,this.backData.key);
+      },
       optSet(opts, key) {
         var map2 = []
         var keys = []

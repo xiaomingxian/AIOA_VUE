@@ -1304,9 +1304,10 @@ export const taskBth = {
         if (res.success) {
           this.isSaveFlag = true;
           this.$message.success("填写意见成功！")
-          setTimeout(() => {
-            this.reload();
-          }, 800)
+          // setTimeout(() => {
+          //   this.reload();
+          // }, 800)
+          this.$emit("reloadOpinion",this.opts);
           this.backDataOpt.i_id = res.result.i_id;
         } else {
           this.$message.error("填写意见失败！")
