@@ -82,7 +82,7 @@
           <div class="qiCao"><span class="hoverred" @click="qiCao1(9,fileData)" style="font-size: 16px;">{{fileData.sfileName}}</span>
             <span class="delCss">
                 <img :title="fileBtnName(1)" v-if="isShow !==isSuffex(fileData.sfileName)" class="pices"
-                     @click.stop="qiCao2(10,fileData)" src="../../../../src/assets/set.png"/>
+                     @click.stop="qiCao2(11,fileData)" src="../../../../src/assets/set.png"/>
               <!--                <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(fileData)" src="../../../../src/assets/setName.png"/>-->
                 <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFileName()"
                      src="../../../../src/assets/delete.png"/>

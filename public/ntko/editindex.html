@@ -329,6 +329,13 @@
         ntko.OpenFromURL(basePath + filePath + fileName);
       }
 
+      if(cmd == 11){
+        var basePath = getBasePath();
+        var filePath = "/templateFiles/";
+        var fileName = getQueryString('fileName');
+        ntko.OpenFromURL(basePath + filePath + fileName);
+      }
+
     }
   </script>
   <script type="text/javascript">
@@ -506,7 +513,7 @@
 
   <script language="JavaScript" for="TANGER_OCX" event="OnDocumentClosed()">
     //文档关闭后执行
-    if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10) {
+    if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
       onPageClose(cmd, stable, tableid, fileId);
     }
   </script>

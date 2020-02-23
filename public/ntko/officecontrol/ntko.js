@@ -86,8 +86,8 @@ function saveOldFileToUrl(cmd, stable, tableid, fileId) {
   }
   if (cmd == 4 || cmd == 6) {
     action = urlContextPath + "/ntko/filentko/edit?" + "stable=" + stable + "&tableid=" + tableid + "&fileType=" + fileType;
-  } else if (cmd == 10) {
-    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId;
+  } else if (cmd == 10 || cmd == 11) {
+    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId  + "sfileTypt=" + fileType;
   }
   ntko.SaveToURL(action, "file");
 }

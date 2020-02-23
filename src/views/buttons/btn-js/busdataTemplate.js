@@ -265,7 +265,7 @@ export const busdataTemplate = {
 
       postAction(this.url.updateBusdataNoCheck, this.backData).then(res => {
         if (res.success) {
-          this.$message.success("保存成功")
+          this.$message.success("保存成功");
           this.reload();
           this.$emit("getBackData", this.backData)
           //this.close();
