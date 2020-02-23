@@ -147,7 +147,7 @@
          },
            },
 		   {
-            title: '标题（步骤1的业务标题）',
+            title: '标题',
             align:"center",
             dataIndex: 'iteamworkSetId',
          sorter: (i, ii, type) => {
@@ -163,7 +163,7 @@
         },},
 
 		   {
-            title: '协同序号（最新启动的协同顺序号)',
+            title: '协同序号',
             align:"center",
             dataIndex: 'iorder',
          sorter: (i, ii, type) => {
@@ -178,7 +178,7 @@
          },
            },
           {
-            title: '创建时间（步骤1的业务创建时间）',
+            title: '创建时间',
             align:"center",
             dataIndex: 'dCreateTime',
             sorter: (i, ii, type) => {
@@ -187,7 +187,39 @@
 
               this.queryParam.tableOrder = true
               //置空其他环节
-              this.nullOther('orederByTime')
+              this.nullOther('dCreateTime')
+              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+              return true
+            },
+
+          },
+          {
+            title: '当前步骤',
+            align:"center",
+            dataIndex: 'LastOrder',
+            sorter: (i, ii, type) => {
+              //descend倒叙
+              //ascend正序
+
+              this.queryParam.tableOrder = true
+              //置空其他环节
+              this.nullOther('LastOrder')
+              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+              return true
+            },
+
+          },
+          {
+            title: '总步骤',
+            align:"center",
+            dataIndex: 'Orders',
+            sorter: (i, ii, type) => {
+              //descend倒叙
+              //ascend正序
+
+              this.queryParam.tableOrder = true
+              //置空其他环节
+              this.nullOther('Orders')
               this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
               return true
             },
