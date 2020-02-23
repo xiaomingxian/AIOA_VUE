@@ -275,6 +275,9 @@
           s_varchar5: '',
           s_varchar6: '',
           s_varchar7: '',
+          s_varchar8:'',
+          s_varchar9:'',
+          s_varchar10:'',
           //当前流程名称
           s_cur_proc_name: '',
           //当前任务名称
