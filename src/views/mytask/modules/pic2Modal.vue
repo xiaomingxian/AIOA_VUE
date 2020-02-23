@@ -33,6 +33,7 @@
           rowKey="taskKey"
           :columns="columns"
           :dataSource="dataSource"
+          :pagination="false"
           :rowClassName="(record,index) => {
               let className  = 'light-row';
               if (index % 2 === 1) className = 'dark-row';

@@ -7,7 +7,7 @@
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭">
-    
+
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
         <a-form-item
@@ -60,12 +60,27 @@
         </a-form-item>
 
         <a-form-item
-          v-if="upFailId === 1"
+          v-show="upFailId === 1 && fileData.sfilePath===''"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="附件名称">
           <a-input v-model="upFileName"/>
           <a-button type="primary" icon="plus" @click="deleteFileName">删除</a-button>
+          <a-input v-show="false"  v-model="fileId" v-decorator="['ifileId', {}]"/>
+        </a-form-item>
+
+        <a-form-item
+          v-show="upFailId === 1 && fileData.sfilePath!==''"
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="附件名称">
+          <div class="qiCao"><span class="hoverred" @click="qiCao1(9,fileData)" style="font-size: 16px;">{{fileData.sfileName}}</span>
+            <span class="delCss">
+                <img :title="fileBtnName(1)" v-if="isShow !==isSuffex(fileData.sfileName)" class="pices" @click.stop="qiCao2(10,fileData)" src="../../../../src/assets/set.png"/>
+<!--                <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(fileData)" src="../../../../src/assets/setName.png"/>-->
+                <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFileName()" src="../../../../src/assets/delete.png"/>
+              </span>
+          </div>
           <a-input v-show="false"  v-model="fileId" v-decorator="['ifileId', {}]"/>
         </a-form-item>
 
@@ -81,17 +96,27 @@
   import Vue from 'vue'
   import {ACCESS_TOKEN} from '@/store/mutation-types'
   import AFormItem from "ant-design-vue/es/form/FormItem";
+  import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
+  import DelTime from "../../buttons/DelTimeModal";
   export default {
     name: "OaTemplateModal",
     components: {AFormItem},
+    mixins: [busdataTemplate],
     data () {
       return {
+        fileData:{
+          iid:'',
+          sfileType:'',
+          sfileName:'',
+          sfilePath:''
+        },
         fileType:"",
         upFileName:'',
         upFailId: 0,
         fileId:'',
         fileList: [],
         uploading: false,
+        isShow:false,
         headers: {
           'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
         },
@@ -122,6 +147,7 @@
     created(){
     },
     methods: {
+
       add () {
         this.getSelection();
         this.upFailId = 0;
@@ -139,12 +165,12 @@
         this.getSelection();
         if (record.ifileId){
           this.upFailId = 1;
+          this.getFileNameById(record.ifileId);
           this.uploading = true;
         } else {
           this.upFailId = 0;
           this.uploading = false;
         }
-        this.getFileNameById(record.ifileId);
         this.fileType = record.itype;
         this.fileUpload = window._CONFIG['domianURL'] +'/papertitle/oaTemplate/upload';
         this.form.resetFields();
@@ -158,6 +184,10 @@
         let url = "/papertitle/oaTemplate/getFileNameById";
         getAction(url,{ifileId:id}).then((res)=>{
           this.upFileName = res.result.sfileName;
+          this.fileData.iid = res.result.iid;
+          this.fileData.sfileName = res.result.sfileName;
+          this.fileData.sfilePath = res.result.sfilePath;
+          this.fileData.sfileType = res.result.sfileType;
         })
       },
       beforeUpload:function(file,fileList){
@@ -172,6 +202,7 @@
         that.upFailId = 0;
         that.upFileName = '';
         this.model.ifileId = "";
+        this.fileData.sfilePath = '';
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model, 'ifileId'))
         });
@@ -181,6 +212,10 @@
         this.upFailId = 0;
         this.uploading = false;
         this.fileType = "";
+        this.fileData.iid = '';
+        this.fileData.sfileType ='';
+        this.fileData.sfilePath = '';
+        this.fileData.sfileName = '';
         this.$emit('close');
         this.visible = false;
       },
@@ -281,4 +316,38 @@
 
 <style lang="less" scoped>
 
+</style>
+<style>
+  /*附件列表元素----开始*/
+  .qiCao {
+    padding-bottom: 1%;
+    line-height: 29.9999px;
+  }
+
+  .hoverred {
+    max-width: 72.2%;
+    display: inline-block;
+    padding-top: 1%;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    float: left;
+  }
+
+  .delCss {
+    width: 22.3%;
+    display: inline-block;
+    font-weight: bolder;
+    margin-left: 5%;
+    float: left;
+  }
+
+  .pices {
+    width: 28px;
+    height: 27px;
+    cursor: pointer;
+    margin-right: 6%;
+  }
+
+  /*附件列表元素---结束*/
 </style>
