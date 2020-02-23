@@ -82,7 +82,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="结束时间">
-          <a-date-picker  @ok="getEndTime" showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'dEndTime', {}]" />
+          <a-date-picker  @ok="getEndTime"  showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'dEndTime', {}]" />
         </a-form-item>
       </a-form>
     </a-spin>
@@ -135,7 +135,9 @@
           add: "/oaBus/Calendar/oaCalendar/add",
           edit: "/oaBus/Calendar/oaCalendar/edit",
         },
-        username:''
+        username:'',
+        startTimeStemp:'',
+        endTimeStemp:''
       }
     },
     created () {
@@ -207,12 +209,25 @@
       //获取开始时间
       getStartTime(a){
         console.log(a._d);
+
+        let startTimeStemp = new Date(a._d).getTime();
+        console.log(startTimeStemp)
+        this.startTimeStemp = startTimeStemp;
         this.model.dStartTime = a._d;;
       },
       //获取结束时间
       getEndTime(a){
         console.log(a._d);
-        this.model.dEndTime = a._d;
+
+        let endTimeStemp = new Date(a._d).getTime();
+        this.endTimeStemp = endTimeStemp;
+
+        if( this.endTimeStemp>this.startTimeStemp ){
+          this.model.dEndTime = a._d;
+        }else{
+          this.$message.error('结束时间不能早于开始时间')
+        }
+
 
       },
 

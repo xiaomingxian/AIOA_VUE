@@ -6,7 +6,9 @@
     :confirmLoading="confirmLoading"
     @ok="handleOk"
     @cancel="handleCancel"
-    cancelText="关闭">
+    cancelText="关闭"
+    style=" position: relative;"
+  >
     
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
@@ -47,6 +49,12 @@
 		
       </a-form>
     </a-spin>
+
+
+    <!--loading-->
+    <div class="exaple" v-show="loading">
+      <a-spin></a-spin>
+    </div>
   </a-modal>
 </template>
 
@@ -59,6 +67,7 @@
     name: "oaTeamworkSetModal",
     data () {
       return {
+        loading:false,// 加载状态
         title:"操作",
         visible: false,
         modelList: [],
@@ -73,15 +82,6 @@
           // steamworkName:'',
           // iversion:'',
         },
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 5 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
-
         confirmLoading: false,
         form: this.$form.createForm(this),
         validatorRules:{
@@ -162,11 +162,12 @@
       //获取选值    所属模块value   此value值时所属业务的方法的基本参数
       getModelVal(e){
         //获取对应业务列表  所需的模块儿id*/
-        // this.selectList = '';
+        this.selectList = '';
         this.busModelId = e;
         this.getFunctionList(e);
         this.form.setFieldsValue({ibusFunctionId:''})
 
+        this.loading = true;
       },
       getBusModelSelectList(){
         getAction(this.url.selectTaskType, {}).then((res) => {
@@ -180,6 +181,8 @@
         value = value.toString();
         getAction(this.url.selectTaskDetail,{modelId:value}).then((res)=>{
           this.selectList = res.result;
+
+          this.loading = false;
         })
 
       },
@@ -249,5 +252,17 @@
 </script>
 
 <style lang="less" scoped>
-
+  .exaple{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.7);
+    opacity: .8;
+    /*text-align: center;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
