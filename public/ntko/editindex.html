@@ -349,6 +349,7 @@
 
   <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
     var ntko = document.getElementById("TANGER_OCX");
+    // ntko.WebUserName ="";
     ntko.FullScreenMode = true;
     /*if (cmd == 3 || cmd == 5 || cmd ==6 ){
       setReadOnly(true);
@@ -360,8 +361,7 @@
     // setReviewMode(true);
     var userName = getQueryString('userName');
     // alert(userName)
-    //痕迹保留的用户名
-    ntko.WebUserName = userName;
+
     //设置按钮权限方法
     setBtn();
 
@@ -496,6 +496,8 @@
       ntko.Caption = "欢迎使用AI综合办公服务平台";
       // ntko.WebUserName ="";
     }
+    //痕迹保留的用户名
+    ntko.WebUserName = userName;
   </script>
 
   <script language="JScript" for="TANGER_OCX" event="OnScreenModeChanged()">
@@ -571,7 +573,7 @@
 </script>
 
 <body
-  onload="cmd=getQueryString('cmd');docNumId=getQueryString('docNumId'); stable=getQueryString('stable');tableid=getQueryString('tableid');fileId=getQueryString('fileId');fileName=getQueryString('fileName');init(cmd,stable,tableid);">
+  onload="cmd=getQueryString('cmd');docNumId=getQueryString('docNumId'); stable=getQueryString('stable');tableid=getQueryString('tableid');fileId=getQueryString('fileId');fileName=getQueryString('fileName');userName=getQueryString('userName');init(cmd,stable,tableid);">
 
 </body>
 </html>
