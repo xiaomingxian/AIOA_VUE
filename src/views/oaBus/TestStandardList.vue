@@ -88,27 +88,21 @@
         <a-tab-pane :tab="titleItem.sname" v-for="(titleItem,titleIndex) in getPageList" :key="titleIndex">
           <a-list v-if="defaultActivityKey.toString()==0" size="large" :pagination="pagination" >
             <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].i_id,dataSource[index].table_name)">
-             <!--<span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>-->
-             <!--<span v-else v-html="item.sFileName"></span>-->
+
               <a-list-item-meta>
-                <!--<a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].s_title"></a>-->
-                <!--<p slot="description" style="float: left;padding: 17px 27px 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>-->
-                <a slot="title" v-html="dataSource[index].s_title"></a>
-                <p slot="description" style="float: left;padding: 17px 27px 0 0;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
+                <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].s_title"></a>
+                <p slot="description" style="float: left;padding: 17px 27px 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
               </a-list-item-meta>
 
               </a-list-item>
           </a-list>
+
           <a-list v-else size="large" :pagination="pagination" >
 
             <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].iTableId,dataSource[index].sTable)">
-              <!--<span v-if="defaultActivityKey=='0'" v-html="item.s_title"></span>-->
-              <!--<span v-else v-html="item.sFileName"></span>-->
               <a-list-item-meta>
-              <!--<a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].sTitle"></a>-->
-              <!--<p slot="description" style="float: left;padding: 17px 27px 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>-->
-              <a slot="title" v-html="dataSource[index].sTitle"></a>
-              <p slot="description" style="float: left;padding: 17px 27px 0 0;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
+              <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].sTitle"></a>
+              <p slot="description" style="float: left;padding: 17px 27px 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>
               </a-list-item-meta>
 
             </a-list-item>
@@ -152,6 +146,7 @@
         textData:[],
         attachmentData:[],
         dataSource: [],
+        searchOut: [],
         pagination: {
           current: 1,
           pageSize: 10,
@@ -174,7 +169,6 @@
               //附件检索
               this.FuJianFiles(this.search,pageindex);
             }
-
           }
         },
       }
@@ -368,9 +362,17 @@
 
       //全文检索  点击打开大详情   需要  tableName
       openDetial(i_id,tableName){
+        let checkjururl = "/oaBus/oaBusdata/checkBusData";
+        postAction(url, {tableName:tableName,id:i_id}).then((res) => {
+          console.log("---------------------")
 
-        window.open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+tableName+'&busdataId='+i_id+'&navisshow=false')
-
+          console.log(res)
+          if(res.success){
+            // window.open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+tableName+'&busdataId='+i_id+'&navisshow=false')
+          }else{
+            this.$message.error('查询失败')
+          }
+        })
       },
       dataDestroy(){
         this.pagination = [];
