@@ -29,6 +29,7 @@ export const taskBth = {
         unitName: "", //上报中支名称
         unitId: ''
       },
+      insideReadingData:{}, //内部传阅业务数据
       flag: false, //填写环节控制
       isSaveFlag: false, //是否填写
       usersData: [], //传阅收文管理员角色用户
@@ -66,6 +67,7 @@ export const taskBth = {
         lastVersionProc: 'wf/process/lastVersionProc',
         addUserOrDepart: 'oaBus/taskInAct/addUsersQuery',
         doAddUsers: '/oaBus/taskInAct/doAddUsers',
+        addUserOrDepartCy: '/oaBus/taskInAct/departChuanYueUser',
 
         //TODO(仅标识) *********************************************    WorkFlow   END   ********************************
         // downloadFiles: '/oaBus/oaFile/downloadZipFile',
@@ -174,21 +176,21 @@ export const taskBth = {
       this.$emit('destoryObj')
     },
     //确定登记排版
-    confimName(){
-      const userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
+    confimName() {
+      const userinfo = JSON.parse(localStorage.getItem('userdata')).userInfo;
       let currentUsername = userinfo.realname;
       let dateTimeNow = new Date().valueOf();
-      let param = {currentUsername:currentUsername,dataTimeNow:dateTimeNow}
+      let param = {currentUsername: currentUsername, dataTimeNow: dateTimeNow}
       console.log(param)
-      this.$store.commit('confimeUser',param)
+      this.$store.commit('confimeUser', param)
     },
     //排版登记
-    paibandengji(){
-      let createUser = this.backData.s_create_name ;
+    paibandengji() {
+      let createUser = this.backData.s_create_name;
 
-      const userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
+      const userinfo = JSON.parse(localStorage.getItem('userdata')).userInfo;
       let currentUsername = userinfo.realname;
-      this.$refs.paiBanDengJi.show(createUser,currentUsername)
+      this.$refs.paiBanDengJi.show(createUser, currentUsername)
     },
     //保存按钮
     saveBusData() {
@@ -419,13 +421,30 @@ export const taskBth = {
               isRead.i_bigint3 = this.backData.i_bus_function_id   //传阅业务id
               isRead.i_is_display = 0       //isRead.i_is_display = 0   // 状态 1临时 0已传阅
 
-              //校验该文件是否已经传阅
+              //查询是否已经传阅，获取业务数据；
               postAction(this.url.queryById, isRead).then(res => {
-                if (res.success) {
-                  if (res.result != null) {
-                    this.$message.error("该文件已传阅！")
-                    return
-                  }
+                if (res.success && res.result !=null) {
+                  //情况1:获取已经传阅业务数据
+                    this.insideReadingData = res.result;
+                  /**
+                   * 查询页面数据详情
+                   * 参数1：table
+                   * 参数2：i_id
+                   */
+                  postAction(this.url.busDataAndColums, {
+                    tableName: this.dictData.table,
+                    busdataId:  this.insideReadingData.i_id
+                  }).then((res) => {
+                      if (res.success && res.result != null){
+                        //获取详情后---》调用下一任务接口
+
+                      } else{
+                        this.$message.error("内部传阅业务数据错误！")
+                      }
+                  })
+
+                }else{
+                  //情况2:新建内部传阅业务数据
                   this.havaOtherProc = true
                   //新建
                   let param = {}
@@ -493,18 +512,37 @@ export const taskBth = {
                                   this.otherProc.busData['iprocSetId'] = res.result.proSetId;
                                   this.otherProc.busData['key'] = res.result.taskDefKey
                                   this.otherProc.busData.act_show = res.result.actShow
-                                  //下一任务
-                                  getAction(this.url.nextUsers, {
-                                    procDefkey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
-                                    drafterId: res.result.oaBusdata.s_create_by
-                                  }).then(res => {
-                                    //展示数据
-                                    if (res.success) {
-                                      this.$refs.nextUsers.showNextUsers(res.result)
-                                    } else {
-                                      this.$message.error(res.message)
-                                    }
-                                  })
+                                  console.log('------------->>>>', res.result.oaBusdata.s_varchar10)
+                                  return
+                                  if (res.result.oaBusdata.s_varchar10 == undefined || res.result.oaBusdata.s_varchar10 == '') {
+                                    //下一任务
+                                    getAction(this.url.nextUsers, {
+                                      procDefkey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
+                                      drafterId: res.result.oaBusdata.s_create_by
+                                    }).then(res => {
+                                      //展示数据
+                                      if (res.success) {
+                                        this.$refs.nextUsers.showNextUsers(res.result)
+                                      } else {
+                                        this.$message.error(res.message)
+                                      }
+                                    })
+                                  } else {
+
+                                    getAction(this.url.addUserOrDepartCy, {
+                                      procKey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
+                                      drafterId: res.result.oaBusdata.s_create_by,
+                                      procInstId: res.result.oaBusdata.s_varchar10
+                                    }).then(res => {
+                                      //展示数据
+                                      if (res.success) {
+                                        this.$refs.addUserCy.showNextUsers(res.result)
+                                      } else {
+                                        this.$message.error(res.message)
+                                      }
+                                    })
+                                  }
+
                                 } else {
                                   this.$message.error("详情数据格式错误")
                                   return
@@ -526,9 +564,6 @@ export const taskBth = {
                       return
                     }
                   })
-                } else {
-                  this.$message.error("数据错误")
-                  return
                 }
               })
             } else {
@@ -755,7 +790,6 @@ export const taskBth = {
         data['busData'] = this.backData
       }
       data['taskDefKey'] = activity.actMsg.id
-
 
       //参数构造完毕***********************
       postAction(this.url.doTask, data).then(res => {
@@ -1035,6 +1069,7 @@ export const taskBth = {
           data['busData'] = this.otherProc.busData
         } else {
           data['busData'] = this.backData
+
         }
         data['taskDefKey'] = activity.actMsg.id
 
@@ -1158,7 +1193,7 @@ export const taskBth = {
       var res = window.confirm("是否部门完成");
       if (res) {
         // let param={taskId: this.taskMsg.id}
-        postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id).then(res=>{
+        postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id).then(res => {
           if (res.success) {
             this.$message.success(res.message)
             setTimeout(function () {
@@ -1307,7 +1342,7 @@ export const taskBth = {
           // setTimeout(() => {
           //   this.reload();
           // }, 800)
-          this.$emit("reloadOpinion",this.taskMsg.taskDefinitionKey);
+          this.$emit("reloadOpinion", this.taskMsg.taskDefinitionKey);
           this.backDataOpt.i_id = res.result.i_id;
         } else {
           this.$message.error("填写意见失败！")
@@ -1379,9 +1414,14 @@ export const taskBth = {
       this.openFile(8, this.fileName)
     }
     ,
+    //盖章(查看正文)
+    sealFile() {
+      this.openFile(12, this.fileName)
+    }
+    ,
 //打印公文
-    printPublicFile() {
-      this.openFile(6, this.fileName)
+    printZFile() {
+      this.openFile(13, this.fileName)
     }
     ,
 //打开附件

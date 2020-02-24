@@ -645,7 +645,7 @@
       confirm() {
 
         //时间校验
-       let flag= this.timeCheckMethod()
+        let flag= this.timeCheckMethod()
         if (flag)return
         //校验并行与包容
         let palllen = this.typeCount.parallel.length
