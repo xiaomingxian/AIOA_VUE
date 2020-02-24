@@ -20,9 +20,10 @@
               <a-input placeholder="请输入日程内容" v-model="serchSubData.sTitle"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="6">
+          <a-col :md="8" :sm="4">
             <a-form-item label="时段选择">
               <a-range-picker
+                style="width: 250px"
                 :showTime="{format:'HH:mm'}"
                 format="YYYY-MM-DD HH:mm"
                 :placeholder="['开始时间','结束时间']"
@@ -195,7 +196,6 @@
             align:"center",
             width:100,
             dataIndex: 'dEndTime',
-            width:100,
             customRender: function (text) {
               return text.substring(0,10);
             }
@@ -204,6 +204,7 @@
             title: '操作',
             dataIndex: 'action',
             align:"center",
+            width:100,
             scopedSlots: { customRender: 'action' },
           }
         ],

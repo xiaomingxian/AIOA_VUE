@@ -21,7 +21,7 @@
           </div>
           <img style="position: absolute;left: 0;bottom: 5px;width: 50px;" src="../../assets/bottomleft.png" alt="">
           <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
-          <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+          <span @click="postMore"  class="postMore" style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
         </div>
       </div>
       <div class="searchBox">
@@ -400,7 +400,7 @@
       window.onresize = function () {
 
         let height = document.body.clientHeight-145;
-        document.querySelector('.nav').style.height = height*.25 +'px'
+        document.querySelector('.nav').style.minHeight = height*.25 +'px'
         document.querySelector('.box').style.height = height*.75+'px'
 
         document.querySelector('.ttop').style.height = (height*.75)/2+'px'
@@ -719,7 +719,7 @@
     .nav{
       width: 100%;
       /*height: 138px;*/
-      min-height: 163.5px;
+      min-height: 183.5px;
       overflow: hidden;
       background: #ffffff;
       display:flex;
@@ -729,7 +729,7 @@
         width: 60%;
         /*height: 198px;*/
         height: 100%;
-        min-height: 163.5px;
+        min-height: 183.5px;
         background: #ffffff;
         background-image: url("../../assets/postBg.png");
         background-repeat: no-repeat;

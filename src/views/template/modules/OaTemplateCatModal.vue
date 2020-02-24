@@ -57,7 +57,7 @@
           <a-button type="primary"
                     icon="download"
                     size="small"
-                    @click="downFileName" v-if="upFailId === 1">下载</a-button>
+                    @click="downFileName" v-if="upFailId === 1 && upFileName !== ''">下载</a-button>
         </a-form-item>
         <a-input v-show="false" v-model="downFilePath" />
       </a-form>

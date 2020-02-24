@@ -11,37 +11,16 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
               label="协同业务">
-              <a-select  v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork">
+              <a-select   v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork" placeholder="请选择代理人">
                 <a-select-option v-for="(item,index) in teamworkList" :key="index" :value="item.iid">{{item.steamworkName}}
                 </a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
-      <!--  <template v-if="toggleSearchStatus">
-        <a-col :md="6" :sm="8">
-            <a-form-item label="个人协同办公业务配置明细ID">
-              <a-input placeholder="请输入个人协同办公业务配置明细ID" v-model="queryParam.iTeamworkSetId"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="步骤序号(与teamworkset配置一致）">
-              <a-input placeholder="请输入步骤序号(与teamworkset配置一致）" v-model="queryParam.iOrder"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="业务模块id">
-              <a-input placeholder="请输入业务模块id" v-model="queryParam.iBusModelId"></a-input>
-            </a-form-item>
-          </a-col>
-          </template>-->
           <a-col :md="6" :sm="8" >
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery1" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset1" icon="reload" style="margin-left: 8px">重置</a-button>
-             <!-- <a @click="handleToggleSearch" style="margin-left: 8px">
-                {{ toggleSearchStatus ? '收起' : '展开' }}
-                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-              </a>-->
             </span>
           </a-col>
 
@@ -129,6 +108,14 @@
         iteamworkId:'',
         modelId:'',
         functionId:'',
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 5 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 16 },
+        },
         // 表头
         columns: [
 		   {
@@ -147,7 +134,7 @@
          },
            },
 		   {
-            title: '标题（步骤1的业务标题）',
+            title: '标题',
             align:"center",
             dataIndex: 'iteamworkSetId',
          sorter: (i, ii, type) => {
@@ -160,25 +147,10 @@
            this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
            return true
 
-        },},
-
-		   {
-            title: '协同序号（最新启动的协同顺序号)',
-            align:"center",
-            dataIndex: 'iorder',
-         sorter: (i, ii, type) => {
-           //descend倒叙
-           //ascend正序
-
-           this.queryParam.tableOrder = true
-           //置空其他环节
-           this.nullOther('iorder')
-           this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
-           return true
-         },
+        },
            },
           {
-            title: '创建时间（步骤1的业务创建时间）',
+            title: '创建时间',
             align:"center",
             dataIndex: 'dCreateTime',
             sorter: (i, ii, type) => {
@@ -187,7 +159,39 @@
 
               this.queryParam.tableOrder = true
               //置空其他环节
-              this.nullOther('orederByTime')
+              this.nullOther('dCreateTime')
+              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+              return true
+            },
+
+          },
+          {
+            title: '当前步骤',
+            align:"center",
+            dataIndex: 'lastOrder',
+            sorter: (i, ii, type) => {
+              //descend倒叙
+              //ascend正序
+
+              this.queryParam.tableOrder = true
+              //置空其他环节
+              this.nullOther('lastOrder')
+              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+              return true
+            },
+
+          },
+          {
+            title: '总步骤',
+            align:"center",
+            dataIndex: 'orders',
+            sorter: (i, ii, type) => {
+              //descend倒叙
+              //ascend正序
+
+              this.queryParam.tableOrder = true
+              //置空其他环节
+              this.nullOther('Orders')
               this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
               return true
             },
