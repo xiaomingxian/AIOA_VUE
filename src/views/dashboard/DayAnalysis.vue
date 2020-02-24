@@ -258,8 +258,7 @@
                       </div>
                   </div>
                   <hr>
-                  <hr/>
-                  <hr>
+                
                   <div class="top" style="width: 90%;height: 38%;display: flex;align-items: center; border-top: 1px solid #999999;  margin: 0 auto">
                     <a-input placeholder="请输入关键字">
                       <a-icon slot="prefix" type="search"></a-icon>
@@ -557,7 +556,7 @@
           }
 
         });
-      },1500)
+      },4000)
 
 
 
@@ -1470,7 +1469,7 @@
                 /*line-height: 40px;*/
                 margin: 0;
                 font-size: 14px;
-                margin-left: 20px;
+                // margin-left: 20px;
                 /*margin-top: 19px;*/
                 span:first-child{
                   display: block;

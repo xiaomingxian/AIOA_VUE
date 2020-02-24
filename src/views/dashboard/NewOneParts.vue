@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <div class="nav">
-      <div class="postList">
+      <div class="postList" style="position: relative">
         <div class="title">
           <!--<img src="" alt="">-->
           <div class="imgzhanwei">
@@ -19,10 +19,10 @@
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
-          <img style="position: absolute;left: 0;bottom: 5px;width: 50px;" src="../../assets/bottomleft.png" alt="">
+          <img style="position: absolute;left: 0;bottom: -8px;width: 50px;" src="../../assets/bottomleft.png" alt="">
           <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
-          <span @click="postMore"  class="postMore" style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
         </div>
+        <span @click="postMore"  class="postMore" style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
       </div>
       <div class="searchBox">
         <div style="display: flex;align-items: center;min-height: 90px;">
@@ -336,7 +336,7 @@
       filterText1(text){ //电子公告
         if(text!=undefined) {
           if (text.length >55) {
-            return text.substring(0, 50) + '...'
+            return text.substring(0, 35) + '...'
           } else {
             return text
           }
@@ -400,7 +400,7 @@
       window.onresize = function () {
 
         let height = document.body.clientHeight-145;
-        document.querySelector('.nav').style.minHeight = height*.25 +'px'
+        document.querySelector('.nav').style.height = height*.25 +'px'
         document.querySelector('.box').style.height = height*.75+'px'
 
         document.querySelector('.ttop').style.height = (height*.75)/2+'px'
@@ -426,7 +426,7 @@
           }
 
         });
-      },1500)
+      },3500)
 
       postAction(this.url.MostUserLink).then((res) => {
         console.log(res.length);
@@ -566,11 +566,11 @@
         // this.$router.push({path:'/mytask/taskList/Test-detailFile',query:params})
 
       },
-      //事件委托 想左切换
+      //事件委托 向左切换
       leftclick(){
         this.$refs.left.click();
       },
-      //事件委托 想右切换
+      //事件委托 向右切换
       rightclick(){
         this.$refs.right.click();
       },
@@ -764,12 +764,12 @@
         .listsBox{
           /*margin-left: 20px;*/
           width: 100%;
-          height: 100%;
+          height: 80%;
           min-height: 163.5px;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          /*justify-content: space-between;*/
+          justify-content: space-between;
           padding: 15px;
           padding-bottom: 20px;
 
@@ -881,7 +881,9 @@
       justify-content: space-between;
       .top,.bottom{
         width: 100%;
-        min-height: 245px;
+        // min-height: 245px;
+        min-height: 235px;
+
         /*min-height: 260px;*/
 
         /*background: #dddddd;*/
@@ -927,6 +929,9 @@
                 background: #1174b9;
                 padding: 0;
                 margin-right: 10px;
+              }
+              span:nth-child(2){
+                  min-width: 50px;
               }
               b{
                 min-width: 15px;
@@ -985,11 +990,13 @@
                 span:first-child{
                   display: block;
                   /*line-height: 40px;*/
-                  width: 60%;
+                  // width: 60%;
                   /*height: 20px;*/
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
+              //  overflow:hidden;
+              //   white-space:no-wrap;
+              //   text-overfow:ellipsis;
+              //   -webkit-line-clamp: 1;
+              //   white-space: nowrap;
                   display: flex;
                   align-items: center;
                   i{
@@ -1108,6 +1115,7 @@
                 display: flex;
                 align-items: center;
                 span:nth-child(2){
+                  min-width: 75px;
                   color: #ffffff !important;
                   font-size: 16px !important;
                   font-weight: bold;
@@ -1139,7 +1147,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding-bottom: 5px;
+                // padding-bottom: 3px;
                 /*border-bottom: 1px solid #f0f2f5;*/
 
                 span{
