@@ -1364,11 +1364,6 @@ export const taskBth = {
       this.openFile(6, this.fileName)
     }
     ,
-//盖章(查看正文)
-    sealFile() {
-      this.openFile(5, this.fileName)
-    }
-    ,
 //保存办文单
     saveBanWen() {
       this.openFile(7, this.fileName)
@@ -1379,11 +1374,17 @@ export const taskBth = {
       this.openFile(8, this.fileName)
     }
     ,
-//打印公文
-    printPublicFile() {
-      this.openFile(6, this.fileName)
+    //盖章(查看正文)
+    sealFile() {
+      this.openFile(12, this.fileName)
     }
     ,
+//打印正文
+    printZFile() {
+      this.openFile(13, this.fileName)
+    }
+    ,
+
 //打开附件
     showFujianFile() {
       this.openFile(9, fileName)
