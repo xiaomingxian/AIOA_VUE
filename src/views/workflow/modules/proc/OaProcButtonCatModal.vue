@@ -440,44 +440,44 @@
 //          }
 //        }
 
-//        const promise1 = new Promise((resolve => {
-        if(this.sbtnName!=null && this.sbtnName!=""){
+        const promise1 = new Promise(resolve => {
+//        if(this.sbtnName!=null && this.sbtnName!=""){
           getAction("/oabutton/oaButton/queryById",{sbtnName:this.sbtnName}).then(res=>{
-            console.log("000000000000000-----------");
+//            console.log("000000000000000-----------");
             if(res.success){
-              console.log(res.result);
+//            console.log(res.result);
               this.buttonId = res.result.iid;
             }else {
               this.buttonId ="";
             }
-                          this.data =""
+              this.data =""
               this.ipagination.total =""
-            this.loadData();
+//            this.loadData();
           })
-        }
-         if (this.name!=null && this.name!=""){
-           getAction("/workflow/oaProcActinst/queryByKeyAndName",{procDefKey:this.procDefKey,actName:this.name}).then(res=>{
-             console.log("1111111111111-----------");
-             if(res.success){
-               console.log(res.result);
-               this.taskDefKey = res.result.actId;
-             }else {
-               this.taskDefKey ="";
+//        }
+          resolve(this.buttonId)
+        })
 
-             }
-                           this.data =""
-              this.ipagination.total =""
-             this.loadData();
-           })
-         }
+        promise1.then((newDataId)=>{
+//         if (this.name!=null && this.name!=""){
+          getAction("/workflow/oaProcActinst/queryByKeyAndName",{procDefKey:this.procDefKey,actName:this.name}).then(res=>{
+//            console.log("1111111111111-----------");
+            if(res.success){
+//            console.log(res.result);
+              this.taskDefKey = res.result.actId;
+            }else {
+              this.taskDefKey ="";
+            }
+            this.data =""
+            this.ipagination.total =""
+          })
+//         }
 
-//          resolve(this.newDataId)
-//        }))
-
-
-//        promise1.then((newDataId)=>{
-//          this.loadData();
-//        })
+        }).then(()=>{
+         setTimeout(()=>{
+           this.loadData()
+         },3200)
+        })
 
 
 
@@ -492,7 +492,8 @@
         // this.data = [];
         getAction(this.url.findById,{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
           pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
-          console.log("22222222222222222222222-----------");
+
+//          console.log("22222222222222222222222-----------");
          // console.log(res);
           this.data = res.result.records;
           this.ipagination.total = res.result.total;
