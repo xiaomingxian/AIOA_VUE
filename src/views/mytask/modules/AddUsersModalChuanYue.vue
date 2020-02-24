@@ -41,18 +41,6 @@
           <!--.........................//////////////////////////////////////////..........................................................................-->
           <a-layout v-if="!endType" style="padding: 2px 2px 2px">
 
-            <!--<a-breadcrumb style="margin: 16px 0">-->
-            <!--<div>-->
-            <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-            <!--<a-radio-group name="radioGroup" @change="changeChoice" :defaultValue="1">-->
-            <!--<a-radio :value="1">不限时间</a-radio>-->
-            <!--<a-radio :value="2">限制时间</a-radio>-->
-            <!--</a-radio-group>-->
-            <!--&nbsp;&nbsp;&nbsp;&nbsp; 期望任务办理结束时间:-->
-            <!--<a-date-picker @change="onChange" showTime format="YYYY-MM-DD HH:mm:ss"-->
-            <!--placeholder="请选择结束时间"/>-->
-            <!--</div>-->
-            <!--</a-breadcrumb>-->
             <a-layout-content
               :style="{ background: '#fff', padding: '10px', margin: 0, minHeight: '280px' }">
               <!--********************************* 下一办理人选用户(区分：普通/并行/包容网关) [仅记录选择记录] ********************************-->
