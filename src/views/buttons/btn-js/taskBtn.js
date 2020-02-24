@@ -1414,9 +1414,14 @@ export const taskBth = {
       this.openFile(8, this.fileName)
     }
     ,
+    //盖章(查看正文)
+    sealFile() {
+      this.openFile(12, this.fileName)
+    }
+    ,
 //打印公文
-    printPublicFile() {
-      this.openFile(6, this.fileName)
+    printZFile() {
+      this.openFile(13, this.fileName)
     }
     ,
 //打开附件
