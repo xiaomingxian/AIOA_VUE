@@ -420,12 +420,12 @@ export const taskBth = {
               isRead.i_is_display = 0       //isRead.i_is_display = 0   // 状态 1临时 0已传阅
 
               //校验该文件是否已经传阅
-              postAction(this.url.queryById, isRead).then(res => {
-                if (res.success) {
-                  if (res.result != null) {
-                    this.$message.error("该文件已传阅！")
-                    return
-                  }
+              // postAction(this.url.queryById, isRead).then(res => {
+                // if (res.success) {
+                //   if (res.result != null) {
+                //     this.$message.error("该文件已传阅！")
+                //     return
+                //   }
                   this.havaOtherProc = true
                   //新建
                   let param = {}
@@ -526,11 +526,12 @@ export const taskBth = {
                       return
                     }
                   })
-                } else {
-                  this.$message.error("数据错误")
-                  return
-                }
-              })
+                // }
+                // else {
+                //   this.$message.error("数据错误")
+                //   return
+                // }
+              // })
             } else {
               this.$message.error('请检查对应模块配置是否正确')
               return
@@ -1364,6 +1365,11 @@ export const taskBth = {
       this.openFile(6, this.fileName)
     }
     ,
+//盖章(查看正文)
+    sealFile() {
+      this.openFile(5, this.fileName)
+    }
+    ,
 //保存办文单
     saveBanWen() {
       this.openFile(7, this.fileName)
@@ -1374,17 +1380,11 @@ export const taskBth = {
       this.openFile(8, this.fileName)
     }
     ,
-    //盖章(查看正文)
-    sealFile() {
-      this.openFile(12, this.fileName)
+//打印公文
+    printPublicFile() {
+      this.openFile(6, this.fileName)
     }
     ,
-//打印正文
-    printZFile() {
-      this.openFile(13, this.fileName)
-    }
-    ,
-
 //打开附件
     showFujianFile() {
       this.openFile(9, fileName)
