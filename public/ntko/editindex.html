@@ -348,6 +348,7 @@
   </script>
 
   <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
+    var ntko = document.getElementById("TANGER_OCX");
     ntko.FullScreenMode = true;
     /*if (cmd == 3 || cmd == 5 || cmd ==6 ){
       setReadOnly(true);
@@ -381,71 +382,98 @@
           var fileNew = data.result.iisNew;//是否允许新建
           var fileClose = data.result.iisClose; //是否允许文件菜单的关闭项
           var fileOpen = data.result.iisOpen; //是否允许文件菜单的打开项
-          var fileEdit = data.result.iisEdit;//是否允许编辑设置是否显示痕迹
+          var fileEdit = data.result.iisEdit;//是否允许编辑
           var reviewMode = data.result.iisSaverevision; // 设置是否保留痕迹
+          var showReview = data.result.iisShowrevision;// 设置是否显示痕迹
           var isNoCopy = data.result.iisCopy; //是否禁止拷贝
           // 是否允许打印
           if (filePrint == 1) {
-            setFilePrint(true);
-          } else {
-            setFilePrint(false);
+            // setFilePrint(true);
+            ntko.fileprint=true;
+          } else if(filePrint == 0){
+            ntko.fileprint=false;
           }
           // 是否允许打印预览
           if (filePrintPreview == 1) {
-            setFilePrintPreview(true)
-          } else {
-            setFilePrintPreview(false)
+            // setFilePrintPreview(true)
+            ntko.FilePrintPreview = true;
+          } else if (filePrintPreview == 0) {
+            // setFilePrintPreview(false)
+            ntko.FilePrintPreview = false;
           }
           //是否允许另存
           if (fileSaveAs == 1) {
-            setFileSaveAs(true);
-          } else {
-            setFileSaveAs(false);
+            // setFileSaveAs(true);
+            ntko.FileSaveAs = true
+          } else if (fileSaveAs == 0) {
+            // setFileSaveAs(false);
+            ntko.FileSaveAs = false
           }
           //是否允许保存
           if (fileSave == 1) {
-            setFileSave(true);
-          } else {
-            setFileSave(false);
+            // setFileSave(true);
+            ntko.FileSave = true;
+          } else if (fileSave == 0) {
+            // setFileSave(false);
+            ntko.FileSave = false;
           }
           //是否允许新建
           if (fileNew == 1) {
-            setFileNew(true);
-          } else {
-            setFileNew(false);
+            // setFileNew(true);
+            ntko.FileNew = true;
+          } else if (fileNew == 0) {
+            // setFileNew(false);
+            ntko.FileNew = false;
           }
           //是否允许文件菜单的关闭项
           if (fileClose == 1) {
-            setFileClose(true);
-          } else {
-            setFileClose(false);
+            // setFileClose(true);
+            ntko.FileClose = true;
+          } else if (fileClose == 0) {
+            // setFileClose(false);
+            ntko.FileClose = false;
           }
           //是否允许文件菜单的打开项
           if (fileOpen == 1) {
-            setFileOpen(true);
-          } else {
+            // setFileOpen(true);
+            ntko.FileOpen = true;
+          } else if (fileOpen == 0) {
             // ntko.SetReadOnly(true,3);
-            setFileOpen(false);
+            // setFileOpen(false);
+            ntko.FileOpen = false;
           }
           //是否允许编辑,可编辑显示留痕
           if (fileEdit == 1) {
-            setReadOnly(false);
-            setShowRevisions(true);
-          } else {
-            setReadOnly(true);
-            setShowRevisions(false);
+            // setReadOnly(false);
+            // setShowRevisions(true);
+            ntko.SetReadOnly(false)
+          } else if (fileEdit == 0) {
+            // setReadOnly(true);
+            // setShowRevisions(false);
+            ntko.SetReadOnly(true)
           }
           //是否禁止拷贝
           if (isNoCopy == 1) {
-            setIsNoCopy(false);
-          } else {
-            setIsNoCopy(true);
+            // setIsNoCopy(false);
+            ntko.IsStrictNoCopy = true
+            
+          } else if (isNoCopy == 0) {
+            // setIsNoCopy(true);
+            ntko.IsStrictNoCopy = false;
           }
-          // 设置是否保留痕迹
+          // 设置是否保留痕迹状态
           if (reviewMode == 1) {
-            setReviewMode(true);
-          } else {
-            setReviewMode(false);
+            // setReviewMode(true);
+            ntko.TrackRevisions(true)
+          } else if (reviewMode == 0) {
+            // setReviewMode(false);
+            ntko.TrackRevisions(false)
+          }
+          //显示保留痕迹状态
+          if (showReview == 1){
+            ntko.ActiveDocument.ShowRevisions = true;
+          } else if(showReview == 0){
+            ntko.ActiveDocument.ShowRevisions = false;
           }
         },
         error: function (data) {
