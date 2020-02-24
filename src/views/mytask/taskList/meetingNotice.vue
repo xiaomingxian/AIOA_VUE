@@ -225,6 +225,7 @@
           s_receive_type: '',     //来文文种
           s_varchar3: '',//"办文依据"
           d_datetime1: '',//"成文日期"
+          banWenFileList:[],  //办文依据
           //*******
           //模块---业务模块id
           i_bus_model_id: '',
@@ -349,6 +350,7 @@
         // let time = this.startTime;
         this.$refs.s_varchar4.sendUser();
       },
+
       getDUS(data,iIsLimits,id) {
         // console.log('----------------->>><<<<<<', data);
         // console.log('----------------->>><<<<<<!!!!!', iIsLimits);
@@ -391,6 +393,8 @@
         for (var i in this.backData) {
           this.backData[i] = this.backDataRef[i];
         }
+        this.getOaFiles(this.backData.table, this.backData.i_id);
+        this.getBanWenFiles(this.backData.table, this.backData.i_id);
       },
       ok() {
         this.handleCancel()
