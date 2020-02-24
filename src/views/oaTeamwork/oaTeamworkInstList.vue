@@ -136,7 +136,7 @@
 		   {
             title: '标题',
             align:"center",
-            dataIndex: 'iteamworkSetId',
+            dataIndex: 'busModelName',
          sorter: (i, ii, type) => {
            //descend倒叙
            //ascend正序
