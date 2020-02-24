@@ -345,6 +345,25 @@
       self.open('', '_self');
     }
 
+  </script>
+
+  <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
+    ntko.FullScreenMode = true;
+    /*if (cmd == 3 || cmd == 5 || cmd ==6 ){
+      setReadOnly(true);
+    }*/
+    ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
+    //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
+    ntko.activeDocument.Saved = true;
+    //设置痕迹保留状态
+    // setReviewMode(true);
+    var userName = getQueryString('userName');
+    // alert(userName)
+    //痕迹保留的用户名
+    ntko.WebUserName = userName;
+    //设置按钮权限方法
+    setBtn();
+
     function setBtn() {
       var url = urlContextPath + "/oabutton/oaButton/queryById";
       var id = getQueryString('sbtnid');
@@ -435,25 +454,6 @@
         }
       })
     }
-
-  </script>
-
-  <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
-    ntko.FullScreenMode = true;
-    /*if (cmd == 3 || cmd == 5 || cmd ==6 ){
-      setReadOnly(true);
-    }*/
-    ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
-    //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
-    ntko.activeDocument.Saved = true;
-    //设置痕迹保留状态
-    // setReviewMode(true);
-    var userName = getQueryString('userName');
-    // alert(userName)
-    //痕迹保留的用户名
-    ntko.WebUserName = userName;
-    //设置按钮权限方法
-    setBtn();
     if (cmd == 3 || cmd == 5 || cmd == 9) {
       /*setReadOnly(true);*/
       //是否显示工具栏

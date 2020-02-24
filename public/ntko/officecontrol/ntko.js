@@ -66,7 +66,7 @@ function onPageClose(cmd, stable, tableid, fileId) {
         saveFileToUrl(cmd, stable, tableid);
       }
       //编辑底稿..4//校核正文..6
-      if (cmd == 4 || cmd == 6 || cmd == 10) {
+      if (cmd == 4 || cmd == 6 || cmd == 10 || cmd ==11) {
         saveOldFileToUrl(cmd, stable, tableid, fileId)
       }
     }
@@ -86,8 +86,11 @@ function saveOldFileToUrl(cmd, stable, tableid, fileId) {
   }
   if (cmd == 4 || cmd == 6) {
     action = urlContextPath + "/ntko/filentko/edit?" + "stable=" + stable + "&tableid=" + tableid + "&fileType=" + fileType;
-  } else if (cmd == 10 || cmd == 11) {
-    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId  + "sfileTypt=" + fileType;
+  } else if (cmd == 10 ) {
+    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId ;
+  }else if (cmd ==11) {
+    fileType="2";
+    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId  + "&fileType=" + fileType;
   }
   ntko.SaveToURL(action, "file");
 }
