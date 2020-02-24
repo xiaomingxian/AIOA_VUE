@@ -48,9 +48,12 @@
                   <a-radio :value="1">不限时间</a-radio>
                   <a-radio :value="2">限制时间</a-radio>
                 </a-radio-group>
-                &nbsp;&nbsp;&nbsp;&nbsp; 期望任务办理结束时间:
-                <a-date-picker @change="onChange" showTime format="YYYY-MM-DD HH:mm:ss"
-                               placeholder="请选择结束时间"/>
+                <span v-show="timeCheck">
+
+                  &nbsp;&nbsp;&nbsp;&nbsp; 期望任务办理结束时间:
+                  <a-date-picker @change="onChange" showTime format="YYYY-MM-DD HH:mm:ss"
+                                 placeholder="请选择结束时间"/>
+                </span>
               </div>
             </a-breadcrumb>
             <a-layout-content
@@ -1015,7 +1018,13 @@
       }
       ,
       onChange(date, dateString) {
+        console.log(date,dateString)
         this.endTime = dateString
+        if (new Date()>date)
+        {
+          this.$message.error('结束时间不得小于当前时间')
+          return
+        }
       }
       ,
       changeChoice(e) {
