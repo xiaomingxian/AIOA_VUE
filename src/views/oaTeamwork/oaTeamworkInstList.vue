@@ -11,7 +11,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
               label="协同业务">
-              <a-select   v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork" placeholder="请选择代理人">
+              <a-select   v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork" placeholder="请选择协同业务">
                 <a-select-option v-for="(item,index) in teamworkList" :key="index" :value="item.iid">{{item.steamworkName}}
                 </a-select-option>
               </a-select>
@@ -188,7 +188,6 @@
             sorter: (i, ii, type) => {
               //descend倒叙
               //ascend正序
-
               this.queryParam.tableOrder = true
               //置空其他环节
               this.nullOther('Orders')
@@ -197,21 +196,6 @@
             },
 
           },
-		 /*  {
-            title: '业务分类',
-            align:"center",
-            dataIndex: 'busModelName'
-           },
-		   {
-            title: '业务功能',
-            align:"center",
-            dataIndex: 'busFunctionName'
-           },*/
-		  /* {
-            title: '版本号(暂不考虑）',
-            align:"center",
-            dataIndex: 'iversion'
-           },*/
           {
             title: '操作',
             dataIndex: 'action',
