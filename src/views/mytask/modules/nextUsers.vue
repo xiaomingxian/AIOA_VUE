@@ -645,15 +645,15 @@
       confirm() {
 
         //时间校验
-        this.timeCheckMethod()
+       let flag= this.timeCheckMethod()
+        if (flag)return
         //校验并行与包容
         let palllen = this.typeCount.parallel.length
         let ialllen = this.typeCount.inclusive.length
         if (palllen == 0 && ialllen == 0) {//非包容/并行
-          this.singleType()
+          // this.singleType()
         } else {//包容/并行
-          this.gateWayCheck()
-          // this.moreThanOneType()
+          // this.gateWayCheck()
         }
       },
       //并行或包容
@@ -666,12 +666,13 @@
         if (this.timeCheck) {
           if (this.endTime == '') {
             this.$message.error('请选择办理结束时间')
-            return
+            return true
           }
           if (new Date() > new Date(this.endTime)) {
             this.$message.error('办理结束时间不得小于当前时间')
-            return
+            return true
           }
+          return false
         }
       },
       confirm2() {
@@ -1018,13 +1019,14 @@
       }
       ,
       onChange(date, dateString) {
-        console.log(date,dateString)
         this.endTime = dateString
+
         if (new Date()>date)
         {
           this.$message.error('结束时间不得小于当前时间')
           return
         }
+
       }
       ,
       changeChoice(e) {
