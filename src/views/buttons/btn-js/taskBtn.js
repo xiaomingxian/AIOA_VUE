@@ -1307,7 +1307,7 @@ export const taskBth = {
           // setTimeout(() => {
           //   this.reload();
           // }, 800)
-          this.$emit("reloadOpinion",this.opts);
+          this.$emit("reloadOpinion",this.taskMsg.taskDefinitionKey);
           this.backDataOpt.i_id = res.result.i_id;
         } else {
           this.$message.error("填写意见失败！")

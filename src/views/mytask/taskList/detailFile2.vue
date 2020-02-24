@@ -1010,8 +1010,19 @@
       //     }
       //   }
       // },
-      reloadOpinion(data){
-        this.optSet(data,this.backData.key);
+      reloadOpinion(key){
+        let  param = {};
+        param.proSetId = this.busFunction.iprocSetId;
+        param.taskDefKey= key;
+        param.opinionTable = this.backData.table + "_opinion";
+        param.busdataId = this.backData.busdataId;
+        postAction('/oaBus/oaBusdataOpinion/reloadOpinionList',param).then(res=>{
+          if (res.success){
+            this.optSet(res.result,this.backData.key);
+          } else {
+            this.$message.error("查询意见失败")
+          }
+        })
       },
       optSet(opts, key) {
         var map2 = []

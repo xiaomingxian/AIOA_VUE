@@ -136,7 +136,7 @@
 		   {
             title: '标题',
             align:"center",
-            dataIndex: 'iteamworkSetId',
+            dataIndex: 'busModelName',
          sorter: (i, ii, type) => {
            //descend倒叙
            //ascend正序
@@ -168,14 +168,14 @@
           {
             title: '当前步骤',
             align:"center",
-            dataIndex: 'LastOrder',
+            dataIndex: 'lastOrder',
             sorter: (i, ii, type) => {
               //descend倒叙
               //ascend正序
 
               this.queryParam.tableOrder = true
               //置空其他环节
-              this.nullOther('LastOrder')
+              this.nullOther('lastOrder')
               this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
               return true
             },
@@ -184,7 +184,7 @@
           {
             title: '总步骤',
             align:"center",
-            dataIndex: 'Orders',
+            dataIndex: 'orders',
             sorter: (i, ii, type) => {
               //descend倒叙
               //ascend正序
