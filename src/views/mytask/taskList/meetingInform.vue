@@ -49,6 +49,9 @@
                         v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
                         style="width: 100%"
                         showTime
+                       :disabledDate="disabledDate"
+                       :disabledTime="disabledRangeTime"
+                       :showTime="{ defaultValue: moment('00:00:00', 'HH:mm:ss') }"
                         format="YYYY-MM-DD HH:mm"
                         :placeholder="['开始时间','结束时间']"
                         @change="selectTime" @ok="confirmTime"
@@ -61,6 +64,9 @@
                         v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
                         style="width: 100%"
                         :showTime="{format}"
+                        :disabledDate="disabledDate"
+                       :disabledTime="disabledRangeTime"
+                      
                         format="YYYY-MM-DD HH:mm:ss"
                         :placeholder="['开始时间','结束时间']"
                         @change="selectTime" @ok="confirmTime"
@@ -316,7 +322,27 @@
     },
     methods: {
       moment,
+       range(start, end) {
+        const result = [];
+        for (let i = start; i < end; i++) {
+          result.push(i);
+        }
+        return result;
+      },
 
+      disabledDate(current) {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+       
+
+      },
+      disabledDateTime() {
+        return {
+          disabledHours: () => this.range(0, 24).splice(4, 20),
+          disabledMinutes: () => this.range(30, 60),
+          disabledSeconds: () => [55, 56],
+        };
+      },
       changeHuanJi(e,d) {
         this.backData.s_varchar1 = d.data.attrs.text;
         // this.backData.s_varchar1 = e;
