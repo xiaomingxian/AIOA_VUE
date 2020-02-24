@@ -651,9 +651,9 @@
         let palllen = this.typeCount.parallel.length
         let ialllen = this.typeCount.inclusive.length
         if (palllen == 0 && ialllen == 0) {//非包容/并行
-          // this.singleType()
+          this.singleType()
         } else {//包容/并行
-          // this.gateWayCheck()
+          this.gateWayCheck()
         }
       },
       //并行或包容
@@ -672,8 +672,9 @@
             this.$message.error('办理结束时间不得小于当前时间')
             return true
           }
-          return false
         }
+        return false
+
       },
       confirm2() {
 
