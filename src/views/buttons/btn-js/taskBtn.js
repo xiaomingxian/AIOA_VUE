@@ -29,6 +29,7 @@ export const taskBth = {
         unitName: "", //上报中支名称
         unitId: ''
       },
+      insideReadingData:{}, //内部传阅业务数据
       flag: false, //填写环节控制
       isSaveFlag: false, //是否填写
       usersData: [], //传阅收文管理员角色用户
@@ -420,141 +421,151 @@ export const taskBth = {
               isRead.i_bigint3 = this.backData.i_bus_function_id   //传阅业务id
               isRead.i_is_display = 0       //isRead.i_is_display = 0   // 状态 1临时 0已传阅
 
-              //校验该文件是否已经传阅
+              //查询是否已经传阅，获取业务数据；
               postAction(this.url.queryById, isRead).then(res => {
-                if (res.success) {
-                  console.log('--------------<>>>>',res.result)
-                  if (res.result != null) {
-                    this.$message.error("该文件已传阅！")
-                    return
-                  }
-                }
-              })
-              this.havaOtherProc = true
-              //新建
-              let param = {}
-              param.modelId = this.dictData.modelId
-              param.functionId = this.dictData.dictFunctionId   //数据字典取值
-              //初始化数据
-              this.otherProc.busData = {}
-              postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
-                if (res.success) {
-                  let insideParam = {};
-                  this.otherProc.busData.i_id = res.result.busdataId
-                  this.otherProc.busData.table = res.result.tableName
-                  this.otherProc.busData.s_title = this.backData.s_title   //标题
-                  this.otherProc.busData.s_file_num = this.backData.s_file_num //文件字号
-                  this.otherProc.busData.d_sealdate = this.backData.d_sealdate   //封发日期
-                  this.otherProc.busData.s_main_dept_names = this.backData.s_main_dept_names  //主送部门
-                  this.otherProc.busData.s_create_name = this.backData.s_create_name  //拟稿时间
-                  this.otherProc.busData.s_create_dept = this.backData.s_create_dept //
-                  this.otherProc.busData.s_main_unit_names = this.backData.s_main_unit_names //主送单位
-                  this.otherProc.busData.s_signer = this.backData.s_signer  //签发人
-                  this.otherProc.busData.s_varchar1 = this.backData.table //业务数据表
-                  this.otherProc.busData.s_varchar7 = '内部传阅' //传阅类别
-                  this.otherProc.busData.i_safetylevel = this.backData.i_safetylevel //密级
-                  this.otherProc.busData.i_urgency = this.backData.i_urgency //缓急
-                  this.otherProc.busData.i_bigint1 = this.backData.i_id   //传阅业务数据id
-                  this.otherProc.busData.i_bigint2 = this.backData.i_bus_model_id   //传阅业务模块id
-                  this.otherProc.busData.i_bigint3 = this.backData.i_bus_function_id //传阅业务id
-                  // this.otherProc.busData.s_create_by = this.backData.s_create_by
-                  // this.otherProc.busData.s_create_dept = this.backData.s_create_dept
-                  // this.otherProc.busData.s_create_deptid = this.backData.s_create_deptid
-                  // this.otherProc.busData.i_create_day = this.backData.i_create_day
-                  // this.otherProc.busData.i_create_month = this.backData.i_create_month
-                  // this.otherProc.busData.i_create_year = this.backData.i_create_year
-                  getAction('/oaBus/oaBusdata/getModelSname', {id: this.otherProc.busData.i_bigint3}).then(res => {
-                    if (res.success && res.result != null) {
-                      this.otherProc.busData.s_varchar5 = res.result.mName;
-                      this.otherProc.busData.s_varchar6 = res.result.fName;
-                      // alert(JSON.stringify(this.otherProc.busData))
-                      //传阅业务业务id
-                      let param = {tableName: res.result.tableName, busdataId: res.result.busdataId};
-                      postAction(this.url.updateData, this.otherProc.busData).then(res => {
-                        if (res.success) {
-                          //查询页面数据详情
-                          postAction(this.url.busDataAndColums, {
-                            tableName: this.otherProc.busData.table,
-                            busdataId: this.otherProc.busData.i_id
-                          }).then((res) => {
+                if (res.success && res.result !=null) {
+                  //情况1:获取已经传阅业务数据
+                    this.insideReadingData = res.result;
+                  /**
+                   * 查询页面数据详情
+                   * 参数1：table
+                   * 参数2：i_id
+                   */
+                  postAction(this.url.busDataAndColums, {
+                    tableName: this.dictData.table,
+                    busdataId:  this.insideReadingData.i_id
+                  }).then((res) => {
+                      if (res.success && res.result != null){
+                        //获取详情后---》调用下一任务接口
+
+                      } else{
+                        this.$message.error("内部传阅业务数据错误！")
+                      }
+                  })
+
+                }else{
+                  //情况2:新建内部传阅业务数据
+                  this.havaOtherProc = true
+                  //新建
+                  let param = {}
+                  param.modelId = this.dictData.modelId
+                  param.functionId = this.dictData.dictFunctionId   //数据字典取值
+                  //初始化数据
+                  this.otherProc.busData = {}
+                  postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
+                    if (res.success) {
+                      let insideParam = {};
+                      this.otherProc.busData.i_id = res.result.busdataId
+                      this.otherProc.busData.table = res.result.tableName
+                      this.otherProc.busData.s_title = this.backData.s_title   //标题
+                      this.otherProc.busData.s_file_num = this.backData.s_file_num //文件字号
+                      this.otherProc.busData.d_sealdate = this.backData.d_sealdate   //封发日期
+                      this.otherProc.busData.s_main_dept_names = this.backData.s_main_dept_names  //主送部门
+                      this.otherProc.busData.s_create_name = this.backData.s_create_name  //拟稿时间
+                      this.otherProc.busData.s_create_dept = this.backData.s_create_dept //
+                      this.otherProc.busData.s_main_unit_names = this.backData.s_main_unit_names //主送单位
+                      this.otherProc.busData.s_signer = this.backData.s_signer  //签发人
+                      this.otherProc.busData.s_varchar1 = this.backData.table //业务数据表
+                      this.otherProc.busData.s_varchar7 = '内部传阅' //传阅类别
+                      this.otherProc.busData.i_safetylevel = this.backData.i_safetylevel //密级
+                      this.otherProc.busData.i_urgency = this.backData.i_urgency //缓急
+                      this.otherProc.busData.i_bigint1 = this.backData.i_id   //传阅业务数据id
+                      this.otherProc.busData.i_bigint2 = this.backData.i_bus_model_id   //传阅业务模块id
+                      this.otherProc.busData.i_bigint3 = this.backData.i_bus_function_id //传阅业务id
+                      // this.otherProc.busData.s_create_by = this.backData.s_create_by
+                      // this.otherProc.busData.s_create_dept = this.backData.s_create_dept
+                      // this.otherProc.busData.s_create_deptid = this.backData.s_create_deptid
+                      // this.otherProc.busData.i_create_day = this.backData.i_create_day
+                      // this.otherProc.busData.i_create_month = this.backData.i_create_month
+                      // this.otherProc.busData.i_create_year = this.backData.i_create_year
+                      getAction('/oaBus/oaBusdata/getModelSname', {id: this.otherProc.busData.i_bigint3}).then(res => {
+                        if (res.success && res.result != null) {
+                          this.otherProc.busData.s_varchar5 = res.result.mName;
+                          this.otherProc.busData.s_varchar6 = res.result.fName;
+                          // alert(JSON.stringify(this.otherProc.busData))
+                          //传阅业务业务id
+                          let param = {tableName: res.result.tableName, busdataId: res.result.busdataId};
+                          postAction(this.url.updateData, this.otherProc.busData).then(res => {
                             if (res.success) {
-                              //复制发文附件
-                              let fileParam = {};
-                              fileParam.sTable = this.backData.table; //发文业务表
-                              fileParam.iTableId = this.backData.i_id; //发文业务数据id
-                              fileParam.sFileType = '4,6'; //附件类型
-                              fileParam.receiveTable = res.result.oaBusdata.table;
-                              fileParam.receiveId = res.result.oaBusdata.i_id
-                              postAction('/oaBus/oaFile/copyFile', fileParam).then(res => {
+                              //查询页面数据详情
+                              postAction(this.url.busDataAndColums, {
+                                tableName: this.otherProc.busData.table,
+                                busdataId: this.otherProc.busData.i_id
+                              }).then((res) => {
                                 if (res.success) {
-                                  // this.$message.success(res.message);
+                                  //复制发文附件
+                                  let fileParam = {};
+                                  fileParam.sTable = this.backData.table; //发文业务表
+                                  fileParam.iTableId = this.backData.i_id; //发文业务数据id
+                                  fileParam.sFileType = '4,6'; //附件类型
+                                  fileParam.receiveTable = res.result.oaBusdata.table;
+                                  fileParam.receiveId = res.result.oaBusdata.i_id
+                                  postAction('/oaBus/oaFile/copyFile', fileParam).then(res => {
+                                    if (res.success) {
+                                      // this.$message.success(res.message);
+                                    } else {
+                                      this.$message.error("文件备份失败");
+                                    }
+                                  })
+
+                                  this.otherProc.busData = res.result.oaBusdata
+                                  this.otherProc.busData['iprocSetId'] = res.result.proSetId;
+                                  this.otherProc.busData['key'] = res.result.taskDefKey
+                                  this.otherProc.busData.act_show = res.result.actShow
+                                  console.log('------------->>>>', res.result.oaBusdata.s_varchar10)
+                                  return
+                                  if (res.result.oaBusdata.s_varchar10 == undefined || res.result.oaBusdata.s_varchar10 == '') {
+                                    //下一任务
+                                    getAction(this.url.nextUsers, {
+                                      procDefkey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
+                                      drafterId: res.result.oaBusdata.s_create_by
+                                    }).then(res => {
+                                      //展示数据
+                                      if (res.success) {
+                                        this.$refs.nextUsers.showNextUsers(res.result)
+                                      } else {
+                                        this.$message.error(res.message)
+                                      }
+                                    })
+                                  } else {
+
+                                    getAction(this.url.addUserOrDepartCy, {
+                                      procKey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
+                                      drafterId: res.result.oaBusdata.s_create_by,
+                                      procInstId: res.result.oaBusdata.s_varchar10
+                                    }).then(res => {
+                                      //展示数据
+                                      if (res.success) {
+                                        this.$refs.addUserCy.showNextUsers(res.result)
+                                      } else {
+                                        this.$message.error(res.message)
+                                      }
+                                    })
+                                  }
+
                                 } else {
-                                  this.$message.error("文件备份失败");
+                                  this.$message.error("详情数据格式错误")
+                                  return
                                 }
+
                               })
-
-                              this.otherProc.busData = res.result.oaBusdata
-                              this.otherProc.busData['iprocSetId'] = res.result.proSetId;
-                              this.otherProc.busData['key'] = res.result.taskDefKey
-                              this.otherProc.busData.act_show = res.result.actShow
-                              console.log('------------->>>>', res.result.oaBusdata.s_varchar10)
-                              return
-                              if (res.result.oaBusdata.s_varchar10 == undefined || res.result.oaBusdata.s_varchar10 == '') {
-                                //下一任务
-                                getAction(this.url.nextUsers, {
-                                  procDefkey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
-                                  drafterId: res.result.oaBusdata.s_create_by
-                                }).then(res => {
-                                  //展示数据
-                                  if (res.success) {
-                                    this.$refs.nextUsers.showNextUsers(res.result)
-                                  } else {
-                                    this.$message.error(res.message)
-                                  }
-                                })
-                              } else {
-
-                                getAction(this.url.addUserOrDepartCy, {
-                                  procKey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
-                                  drafterId: res.result.oaBusdata.s_create_by,
-                                  procInstId: res.result.oaBusdata.s_varchar10
-                                }).then(res => {
-                                  //展示数据
-                                  if (res.success) {
-                                    this.$refs.addUserCy.showNextUsers(res.result)
-                                  } else {
-                                    this.$message.error(res.message)
-                                  }
-                                })
-                              }
-
                             } else {
-                              this.$message.error("详情数据格式错误")
+                              this.$message.error("更新数据错误")
                               return
                             }
-
                           })
                         } else {
-                          this.$message.error("更新数据错误")
+                          this.$message.error("业务配置错误")
                           return
                         }
                       })
                     } else {
-                      this.$message.error("业务配置错误")
+                      this.$message.error("初始化数据错误")
                       return
                     }
                   })
-                } else {
-                  this.$message.error("初始化数据错误")
-                  return
                 }
               })
-              // }
-              // else {
-              //   this.$message.error("数据错误")
-              //   return
-              // }
-              // })
             } else {
               this.$message.error('请检查对应模块配置是否正确')
               return
