@@ -29,7 +29,7 @@ export const taskBth = {
         unitName: "", //上报中支名称
         unitId: ''
       },
-      insideReadingData:{}, //内部传阅业务数据
+      insideReadingData: {}, //内部传阅业务数据
       flag: false, //填写环节控制
       isSaveFlag: false, //是否填写
       usersData: [], //传阅收文管理员角色用户
@@ -423,27 +423,42 @@ export const taskBth = {
 
               //查询是否已经传阅，获取业务数据；
               postAction(this.url.queryById, isRead).then(res => {
-                if (res.success && res.result !=null) {
+                if (res.success && res.result != null) {
                   //情况1:获取已经传阅业务数据
-                    this.insideReadingData = res.result;
+                  this.insideReadingData = res.result;
+                  getAction(this.url.addUserOrDepartCy, {
+                    procKey: this.insideReadingData.s_cur_proc_name, // this.backData.s_cur_proc_name,
+                    drafterId: this.insideReadingData.s_create_by,
+                    procInstId: this.insideReadingData.s_varchar10
+                  }).then(res => {
+                    //展示数据
+                    if (res.success) {
+                      this.$refs.addUserCy.title='追加传阅'
+
+                      this.$refs.addUserCy.showNextUsers(res.result)
+                    } else {
+                      this.$message.error(res.message)
+                    }
+                  })
+
                   /**
                    * 查询页面数据详情
                    * 参数1：table
                    * 参数2：i_id
                    */
-                  postAction(this.url.busDataAndColums, {
-                    tableName: this.dictData.table,
-                    busdataId:  this.insideReadingData.i_id
-                  }).then((res) => {
-                      if (res.success && res.result != null){
-                        //获取详情后---》调用下一任务接口
+                  // postAction(this.url.busDataAndColums, {
+                  //   tableName: this.dictData.table,
+                  //   busdataId: this.insideReadingData.i_id
+                  // }).then((res) => {
+                  //   if (res.success && res.result != null) {
+                  //     //获取详情后---》调用下一任务接口
+                  //
+                  //   } else {
+                  //     this.$message.error("内部传阅业务数据错误！")
+                  //   }
+                  // })
 
-                      } else{
-                        this.$message.error("内部传阅业务数据错误！")
-                      }
-                  })
-
-                }else{
+                } else {
                   //情况2:新建内部传阅业务数据
                   this.havaOtherProc = true
                   //新建
@@ -512,36 +527,20 @@ export const taskBth = {
                                   this.otherProc.busData['iprocSetId'] = res.result.proSetId;
                                   this.otherProc.busData['key'] = res.result.taskDefKey
                                   this.otherProc.busData.act_show = res.result.actShow
-                                  console.log('------------->>>>', res.result.oaBusdata.s_varchar10)
-                                  return
-                                  if (res.result.oaBusdata.s_varchar10 == undefined || res.result.oaBusdata.s_varchar10 == '') {
-                                    //下一任务
-                                    getAction(this.url.nextUsers, {
-                                      procDefkey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
-                                      drafterId: res.result.oaBusdata.s_create_by
-                                    }).then(res => {
-                                      //展示数据
-                                      if (res.success) {
-                                        this.$refs.nextUsers.showNextUsers(res.result)
-                                      } else {
-                                        this.$message.error(res.message)
-                                      }
-                                    })
-                                  } else {
+                                  //下一任务
+                                  getAction(this.url.nextUsers, {
+                                    procDefkey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
+                                    drafterId: res.result.oaBusdata.s_create_by
+                                  }).then(res => {
+                                    //展示数据
+                                    if (res.success) {
+                                      this.$refs.nextUsers.title='传阅'
+                                      this.$refs.nextUsers.showNextUsers(res.result)
+                                    } else {
+                                      this.$message.error(res.message)
+                                    }
+                                  })
 
-                                    getAction(this.url.addUserOrDepartCy, {
-                                      procKey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
-                                      drafterId: res.result.oaBusdata.s_create_by,
-                                      procInstId: res.result.oaBusdata.s_varchar10
-                                    }).then(res => {
-                                      //展示数据
-                                      if (res.success) {
-                                        this.$refs.addUserCy.showNextUsers(res.result)
-                                      } else {
-                                        this.$message.error(res.message)
-                                      }
-                                    })
-                                  }
 
                                 } else {
                                   this.$message.error("详情数据格式错误")
@@ -929,6 +928,7 @@ export const taskBth = {
     },
     //并行/包容追加
     confirmAddUsers(actMsg, endTime) {
+
       var datas = []
       for (let key  in actMsg) {
         let type = actMsg[key]
@@ -937,7 +937,10 @@ export const taskBth = {
         }
       }
       let taskInfoVoList = {list: datas}
-
+      if (datas.length==0){
+        this.$message.error('没有可追加的环节')
+        return
+      }
 
       //请求后台
       postAction(this.url.doAddUsers, taskInfoVoList).then(res => {
@@ -965,6 +968,9 @@ export const taskBth = {
         let v = type[k]
         let activity = v.activity
         let isDept = activity.oaProcActinst.userOrRole == 'dept'
+        if (activity.canAdd!=undefined && !activity.canAdd){
+          continue;
+        }
         data['isDept'] = isDept
 
         var ids = []
@@ -1013,7 +1019,7 @@ export const taskBth = {
           data['isDept'] = true
 
           for (let k of Object.keys(v.departSelect)) {
-            if (k != undefined && k != null && k != '') {
+            if (k != undefined && k != null ) {
               let val = v.departSelect[k]
               if (val != undefined && val != null && val != '' && val.length > 0) {
                 if (

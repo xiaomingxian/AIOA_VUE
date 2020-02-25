@@ -27,7 +27,7 @@
     <!--.............引入具体展示组件.....................-->
     <next-users ref="nextUsers" @func="confirmNextUsers" @confirmNextUsersMore="confirmNextUsersMore"></next-users>
     <add-users-modal ref="addUsersModal" @func="confirmAddUserSingle" @confirmNextUsersMore="confirmAddUsers"></add-users-modal>
-    <add-users-modal-chuan-yue ref="addUserCy"></add-users-modal-chuan-yue>
+    <add-users-modal-chuan-yue ref="addUserCy" @func="confirmAddUserSingle" @confirmNextUsersMore="confirmAddUsers"></add-users-modal-chuan-yue>
 
     <back-modal ref="backModal"></back-modal>
     <suggesttion-modal ref="opinionForm" @saveOption="saveOption"></suggesttion-modal>
