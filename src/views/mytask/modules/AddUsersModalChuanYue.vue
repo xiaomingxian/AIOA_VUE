@@ -1035,7 +1035,7 @@
       ,
       cancel() {
         //初始数据
-        this.dataInit()
+        // this.dataInit()
 
         this.$emit('close');
         this.visible = false;
