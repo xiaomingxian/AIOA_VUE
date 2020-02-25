@@ -64,10 +64,11 @@
                   >
                   </a-table>
                 </div>
-                <div v-if="isMul">
-                  已发送用户
-                  <div v-for="i in currentClick.userHaveChoice">{{i.uname}}</div>
-
+                <div v-if="isMul" >
+                  <div  style="width: 100%;height: 30px;background-color: #d6ebff !important;display: flex;align-items: center !important; "><span style="margin-left: 10px;">已发送用户</span></div>
+                  <div style="width: 100%;height: 120px;border:1px solid #dddddd; padding-top: 10px; margin-bottom: 10px;">
+                      <span  style="margin: 8px;" v-for="i in currentClick.userHaveChoice"> {{i.uname}}</span>
+                  </div>
 
                   <a-table
                     ref="table"
@@ -118,7 +119,9 @@
                         <!--{{item==null||item==undefined||item==''?singleDept:item}}部门-->
                         已发送部门
                       </div>
-                      <div v-for="i in currentClick.deptHaveChoice">{{i.departName}}</div>
+                      <div class="sendedListsBox" >
+                        <span v-for="i in currentClick.deptHaveChoice">{{i.departName}}</span>
+                      </div>
 
                       <!--<hr>-->
                       <!--<p>{{item}}</p>-->
@@ -1145,6 +1148,7 @@
       align-items: center;
       justify-content: flex-start;
       width: 69%;
+      min-width: 480px;
       /*height: px;*/
       background: #ffffff;
       /*overflow-y: scroll;*/
@@ -1167,10 +1171,25 @@
           width: 100%;
           height: 150px;
 
-          background: #2eabff;
+          /*background: #2eabff;*/
 
           /*padding-bottom: 20px;*/
 
+          div:first-child{
+            background: #d6ebff !important;
+
+          }
+
+          .sendedListsBox{
+            width: 99%;
+            height: 100px;
+            /*background: #00ff80;*/
+            margin: 10px auto;
+            span{
+              margin: 10px;
+            }
+
+          }
 
         }
 
