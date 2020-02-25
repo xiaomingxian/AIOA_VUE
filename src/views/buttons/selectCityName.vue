@@ -23,11 +23,13 @@
 <script>
 
   import {getAction, postAction} from "@/api/manage";
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import axios from 'axios'
+  import {taskBth} from "./btn-js/taskBtn";
+
 
   export default {
     name: "selectCityName",
+    mixins: [taskBth],
     data() {
       return {
         columns: [
@@ -87,7 +89,8 @@
         if (this.clientType == 1){
           postAction('oaBus/dynamic/provinceToCity',param).then(res=>{
             if(res.success && res.result == 200){
-              this.$message.success("地市传输成功！")
+              this.$message.success("地市传输成功！");
+              this.insertLog(obj);//记录传输日志；
               setTimeout(function () {
                 this.close()
               }, 500)
@@ -99,7 +102,8 @@
         if (this.clientType == 2){
           postAction('oaBus/dynamic/provinceToCityInside',param).then(res=>{
             if(res.success && res.result == 200){
-              this.$message.success("地市传输成功！")
+              this.$message.success("地市传输成功！");
+              this.insertLog(obj);//记录传输日志；
               setTimeout(function () {
                 this.close()
               }, 500)
@@ -109,11 +113,25 @@
           })
         }
       },
+      insertLog(obj){
+        for (var  i in  obj) {
+          //组装参数--传输日志记录
+          let oaOutLog = {};
+          oaOutLog.i_bus_model_id = this.busData.i_bus_model_id;
+          oaOutLog.i_bus_function_id = this.busData.i_bus_function_id;
+          oaOutLog.s_busdata_table = this.busData.table;
+          oaOutLog.i_busdata_id = this.busData.i_id;
+          oaOutLog.i_type = 2;
+          oaOutLog.s_rec_unitid = obj[i].id;
+          this.insertOaOutLog(oaOutLog);
+        }
+      },
       close() {
         this.$emit('close');
         this.visible = false;
         this.selectionRows = [];
         this.selectedRowKeys = [];
+        this.busData = [];
       },
 
       handleCancel() {

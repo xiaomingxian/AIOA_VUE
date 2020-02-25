@@ -657,6 +657,15 @@ export const taskBth = {
                         if (res.success) {
                           flag = true;
                           this.$message.success("上报成功！")
+                          //组装参数--传输日志记录
+                          let oaOutLog = {};
+                          oaOutLog.i_bus_model_id = this.backData.i_bus_model_id;
+                          oaOutLog.i_bus_function_id = this.backData.i_bus_function_id;
+                          oaOutLog.s_busdata_table = this.backData.table;
+                          oaOutLog.i_busdata_id = this.backData.i_id;
+                          oaOutLog.i_type = 1;
+                          oaOutLog.s_rec_unitid = unitId;
+                          this.insertOaOutLog(oaOutLog);  //记录传输日志；
                         } else {
                           this.$message.error("附件复制失败！")
                         }
@@ -686,6 +695,28 @@ export const taskBth = {
       //数据字典配置 类型 上报  1 中支 id value (functionid)
       // 下发---》 县行 key (id) value (functionid)
       // 内部传阅  1 中支id value (functionid)
+    },
+
+    //记录对外传输数据日志
+    insertOaOutLog(data) {
+      /**
+       * data参数项：
+       * 1.s_send_by  发送者id
+       * 2.i_bus_model_id   业务模块id
+       * 3.i_bus_function_id  业务功能id
+       * 4.i_busdata_id   业务数据表
+       * 5.i_type     类型：1为机构id；2为数据字典itemid'
+       * 6.s_rec_unitid   接收者机构对应的数据字典id（机构id）
+       * 7.d_create_time
+       */
+      data.table = "oa_out_log"
+      postAction("oaBus/dynamic/insertOaOutLog", data).then(res => {
+        if (res.success()) {
+          return;
+        } else {
+          this.$message.error("传输日志记录失败！")
+        }
+      })
     },
     //按钮校验
     checkData() {
@@ -1602,12 +1633,12 @@ export const taskBth = {
       // 子组件获取 父组件的tableid 和 什么id  （标题上）
       this.$emit('callaboration')
 
-    }
-    ,
+    },
 
+    //查看意见
     opinionModal: function () {
       this.backData['sTaskdefKey'] = this.taskMsg.taskDefinitionKey
-      this.backData["opinionTable"] = this.backDataOpt.table
+      this.backData["opinionTable"] = this.backData.table+"_opinion"
       this.$refs.opinionlistForm.show(this.backData);
       this.$refs.opinionlistForm.title = "查看意见";
       this.$refs.opinionlistForm.disableSubmit = false;
