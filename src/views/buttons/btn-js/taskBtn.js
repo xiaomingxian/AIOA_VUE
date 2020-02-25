@@ -1452,7 +1452,7 @@ export const taskBth = {
     }
     ,
     //盖章(查看正文)
-    sealFile() {
+    CheachSealFile() {
       this.openFile(12, this.fileName)
     }
     ,
