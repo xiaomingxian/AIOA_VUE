@@ -1015,7 +1015,7 @@
         param.proSetId = this.busFunction.iprocSetId;
         param.taskDefKey= key;
         param.opinionTable = this.backData.table + "_opinion";
-        param.busdataId = this.backData.busdataId;
+        param.busdataId = this.backData.i_id;
         postAction('/oaBus/oaBusdataOpinion/reloadOpinionList',param).then(res=>{
           if (res.success){
             this.optSet(res.result,this.backData.key);

@@ -8,7 +8,7 @@
           <a-col :md="8" :sm="4">
             <a-form-item   :labelCol="labelCol"
                            :wrapperCol="wrapperCol" label="协同业务" >
-             <a-select  v-model="queryParam.agentUserName" placeholder="请选择代理人" >
+             <a-select  v-model="queryParam.agentUserName" placeholder="请选择协同业务" >
                <a-select-option v-for="(item,index) in dataSource" :key="index" :value="item.steamworkName">{{item.steamworkName}}
                 </a-select-option>
                </a-select>
