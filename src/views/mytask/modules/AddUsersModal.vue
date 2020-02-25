@@ -122,8 +122,8 @@
 
                         {{item==null||item==undefined||item==''?singleDept:item}}部门
                       </div>
-                      <!--<hr>-->
-                      <div class="partBoxChild" style="overflow: hidden">
+                      <!--<hr> style="overflow: hidden"-->
+                      <div class="partBoxChild">
                         <a-row v-for="i in departSelect[item]">
                           <a-col :span="100">
                             <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
@@ -1161,6 +1161,7 @@
         .partBox {
           width: 100%;
           height: 190px;
+          overflow-y: scroll;
 
           /*background: #2eabff;*/
 

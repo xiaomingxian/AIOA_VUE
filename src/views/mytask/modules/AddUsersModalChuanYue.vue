@@ -48,6 +48,9 @@
               <!--1 普通-->
               <div v-if="!isDept">
                 <div v-if="!isMul">
+                  已发送用户
+                  <div v-for="i in currentClick.userHaveChoice">{{i.uname}}</div>
+
                   <a-table
                     ref="table"
                     size="middle"
@@ -62,6 +65,10 @@
                   </a-table>
                 </div>
                 <div v-if="isMul">
+                  已发送用户
+                  <div v-for="i in currentClick.userHaveChoice">{{i.uname}}</div>
+
+
                   <a-table
                     ref="table"
                     size="middle"
@@ -110,8 +117,8 @@
                         <!--<a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>-->
                         <!--{{item==null||item==undefined||item==''?singleDept:item}}部门-->
                         已发送部门
-                        <div v-for="i in currentClick.deptHaveChoice">{{i.departName}}</div>
                       </div>
+                      <div v-for="i in currentClick.deptHaveChoice">{{i.departName}}</div>
 
                       <!--<hr>-->
                       <!--<p>{{item}}</p>-->
