@@ -433,7 +433,7 @@ export const taskBth = {
                   }).then(res => {
                     //展示数据
                     if (res.success) {
-                      this.$refs.addUserCy.title='追加传阅'
+                      this.$refs.addUserCy.title = '追加传阅'
 
                       this.$refs.addUserCy.showNextUsers(res.result)
                     } else {
@@ -534,7 +534,7 @@ export const taskBth = {
                                   }).then(res => {
                                     //展示数据
                                     if (res.success) {
-                                      this.$refs.nextUsers.title='传阅'
+                                      this.$refs.nextUsers.title = '传阅'
                                       this.$refs.nextUsers.showNextUsers(res.result)
                                     } else {
                                       this.$message.error(res.message)
@@ -968,7 +968,7 @@ export const taskBth = {
         }
       }
       let taskInfoVoList = {list: datas}
-      if (datas.length==0){
+      if (datas.length == 0) {
         this.$message.error('没有可追加的环节')
         return
       }
@@ -999,7 +999,7 @@ export const taskBth = {
         let v = type[k]
         let activity = v.activity
         let isDept = activity.oaProcActinst.userOrRole == 'dept'
-        if (activity.canAdd!=undefined && !activity.canAdd){
+        if (activity.canAdd != undefined && !activity.canAdd) {
           continue;
         }
         data['isDept'] = isDept
@@ -1050,7 +1050,7 @@ export const taskBth = {
           data['isDept'] = true
 
           for (let k of Object.keys(v.departSelect)) {
-            if (k != undefined && k != null ) {
+            if (k != undefined && k != null) {
               let val = v.departSelect[k]
               if (val != undefined && val != null && val != '' && val.length > 0) {
                 if (
@@ -1271,32 +1271,56 @@ export const taskBth = {
      * 流程办结
      */
     endProc() {
-      getAction(this.url.nextUsers, {
-        procDefkey: this.backData.s_cur_proc_name,
-        drafterId: this.backData.s_create_by,
-        taskId: this.taskMsg.id
-      }).then(res => {
-        //展示数据
-        if (res.success) {
-          if (res.result.length == 1) {
-            this.confirmNextUsers([], res.result[0], null, null)
-            this.reload()
+
+      //没有流程的办结
+      if (this.backData.s_cur_proc_name == undefined || this.backData.s_cur_proc_name == '') {
+        this.backData.i_is_state = 1
+        postAction(this.url.updateBusdata, this.backData).then(res => {
+          if (res.success) {
+            getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
+              if (res.success) {
+                this.$message.success(res.message)
+              } else {
+                this.$message.error(res.message)
+              }
+            })
           } else {
-            this.$message.error('当前节点不可办结')
+            this.$message.error('数据更新失败')
           }
-          // this.$refs.nextUsers.showNextUsers(res.result)
-          //TODO********************************* 档案系统接口  ************************************
-          getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
-            if (res.success) {
-              this.$message.success(res.message)
+
+        })
+      } else {
+        getAction(this.url.nextUsers, {
+          procDefkey: this.backData.s_cur_proc_name,
+          drafterId: this.backData.s_create_by,
+          taskId: this.taskMsg.id
+        }).then(res => {
+          //展示数据
+          if (res.success) {
+            if (res.result.length == 1) {
+              this.confirmNextUsers([], res.result[0], null, null)
+              // setTimeout(function () {
+              //   this.close()
+              // }, 500)
             } else {
-              this.$message.error(res.message)
+              this.$message.error('当前节点不可办结')
             }
-          })
-        } else {
-          this.$message.error(res.message)
-        }
-      })
+            // this.$refs.nextUsers.showNextUsers(res.result)
+            //TODO********************************* 档案系统接口  ************************************
+            getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
+              if (res.success) {
+                this.$message.success(res.message)
+              } else {
+                this.$message.error(res.message)
+              }
+            })
+          } else {
+            this.$message.error(res.message)
+          }
+        })
+      }
+
+
     }
     ,
 
@@ -1638,7 +1662,7 @@ export const taskBth = {
     //查看意见
     opinionModal: function () {
       this.backData['sTaskdefKey'] = this.taskMsg.taskDefinitionKey
-      this.backData["opinionTable"] = this.backData.table+"_opinion"
+      this.backData["opinionTable"] = this.backData.table + "_opinion"
       this.$refs.opinionlistForm.show(this.backData);
       this.$refs.opinionlistForm.title = "查看意见";
       this.$refs.opinionlistForm.disableSubmit = false;
