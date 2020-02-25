@@ -107,20 +107,22 @@
                     <div class="partBox">
                       <div style="padding: 6px;background: #d6ebff !important;">
                         <!--<a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>-->
-
                         <!--{{item==null||item==undefined||item==''?singleDept:item}}部门-->
                         已发送部门
                       </div>
+
                       <!--<hr>-->
-                      <p>{{item}}</p>
+                      <!--<p>{{item}}</p>-->
+                      <div v-for="i in currentClick.userHaveChoice">{{i.dname}}</div>
                     </div>
 
 
 
-
                     <div class="userBox">
-                      <h1 class="usertitle">待发送部门</h1>
-                      <a-checkbox :id="item" @change="onCheckAllChange">全选</a-checkbox>
+                      <h1 class="usertitle">
+                        <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
+                        待发送部门
+                      </h1>
 
                       <div class="partBoxChild">
                         <a-row v-for="i in departSelect[item]">
@@ -134,13 +136,13 @@
                         </a-row>
                       </div>
                       <!--<div class="userList">-->
-                        <!--<template>-->
-                          <!--<a-row v-for="i in departUsersMsg[item]">-->
-                            <!--<a-col :span="100">-->
-                              <!--{{i.username}} ( {{i.departName}})-->
-                            <!--</a-col>-->
-                          <!--</a-row>-->
-                        <!--</template>-->
+                      <!--<template>-->
+                      <!--<a-row v-for="i in departUsersMsg[item]">-->
+                      <!--<a-col :span="100">-->
+                      <!--{{i.username}} ( {{i.departName}})-->
+                      <!--</a-col>-->
+                      <!--</a-row>-->
+                      <!--</template>-->
                       <!--</div>-->
 
                       <div class="optionBox">
@@ -244,7 +246,7 @@
         //部门对应用户id
         departUsersId: {},
         departUsersMsg: {},
-        userGroupByDepts:{},
+        userGroupByDepts: {},
         //环节分类，从属于 排他，并行，包容网关
         gateWayTypeSelect: {
           parallel: {},
@@ -334,12 +336,12 @@
       handleTableChangeMy(rowKeys, rows) {
         console.log(rows)
         //排除掉不可追加
-        for (let i in rows){
-          if (rows[i].status=='处理人') {
+        for (let i in rows) {
+          if (rows[i].status == '处理人') {
             this.$message.error('处理人不可选')
             return
           }
-        } 
+        }
 
         this.onSelectChange(rowKeys, rows)
         //并记录用户
@@ -445,7 +447,6 @@
        * come 标识部门选择的来源(或者change事件过来的) false true
        */
       showPreClick(item, isMock, isChange, isShowNext) {
-
 
         //TODO 仅标识 @1.1 ###################################### 各种属性判断 #############################################
         //记录当前点击的节点 用于属性填充
@@ -875,7 +876,7 @@
           for (let k of Object.keys(this.userGroupByDepts)) {
             ids.push(this.userGroupByDepts[k])
           }
-          if (ids.length==0){
+          if (ids.length == 0) {
             this.$message.error('请选择用户')
             return
           }
@@ -994,12 +995,12 @@
               return
             } else {
               let ids = []
-              this.userGroupByDepts={}
+              this.userGroupByDepts = {}
 
               for (let i in res.result[item]) {
                 ids.push(res.result[item][i].id)
-                if (this.userGroupByDepts[res.result[item][i].departId]==undefined){
-                  this.userGroupByDepts[res.result[item][i].departId]=[]
+                if (this.userGroupByDepts[res.result[item][i].departId] == undefined) {
+                  this.userGroupByDepts[res.result[item][i].departId] = []
                   this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
                 } else {
                   this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
@@ -1048,9 +1049,9 @@
         this.singleDept = null
         this.defaultSelectedKeys = []
         // this.scrHeight = ''
-        scrHeight: window.innerHeight-300+ 'px',
+        scrHeight: window.innerHeight - 300 + 'px',
 
-        this.isMul = false //下一任务是单选/多选
+          this.isMul = false //下一任务是单选/多选
         this.isDept = false
         this.endType = false//是否是结束节点
         this.nextsActs = []
@@ -1163,7 +1164,6 @@
 
 
         }
-
 
 
         .userBox {
