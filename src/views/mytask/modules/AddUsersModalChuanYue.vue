@@ -105,15 +105,16 @@
                   <div ref="itemPartBox" class="itemPartBox" v-for="item in deptsList">
 
                     <div class="partBox">
-                      <div style="padding: 6px;background: #d6ebff !important;">
+                      <!--background: #d6ebff !important;-->
+                      <div style="padding: 6px;">
                         <!--<a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>-->
                         <!--{{item==null||item==undefined||item==''?singleDept:item}}部门-->
                         已发送部门
+                        <div v-for="i in currentClick.deptHaveChoice">{{i.departName}}</div>
                       </div>
 
                       <!--<hr>-->
                       <!--<p>{{item}}</p>-->
-                      <div v-for="i in currentClick.userHaveChoice">{{i.dname}}</div>
                     </div>
 
 
@@ -652,6 +653,7 @@
       //点击某一节点---选择节点相关信息
       clickAct(item) {
         this.singleDept = item.actMsg.name
+        console.log('======>>>>>>>>>>>>>>',item)
 
         /**
          *  (包容/并行网关)展示上一节点的选择信息
