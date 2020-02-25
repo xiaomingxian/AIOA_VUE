@@ -106,13 +106,25 @@
 
                     <div class="partBox">
                       <div style="padding: 6px;background: #d6ebff !important;">
-                        <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
+                        <!--<a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>-->
 
-                        {{item==null||item==undefined||item==''?singleDept:item}}部门
+                        <!--{{item==null||item==undefined||item==''?singleDept:item}}部门-->
+                        已发送部门
                       </div>
                       <!--<hr>-->
-                      <div class="partBoxChild" style="overflow: hidden">
+                      <p>{{item}}</p>
+                    </div>
+
+
+
+
+                    <div class="userBox">
+                      <h1 class="usertitle">待发送部门</h1>
+                      <a-checkbox :id="item" @change="onCheckAllChange">全选</a-checkbox>
+
+                      <div class="partBoxChild">
                         <a-row v-for="i in departSelect[item]">
+
                           <a-col :span="100">
                             <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
 
@@ -121,40 +133,35 @@
                           </a-col>
                         </a-row>
                       </div>
-                    </div>
+                      <!--<div class="userList">-->
+                        <!--<template>-->
+                          <!--<a-row v-for="i in departUsersMsg[item]">-->
+                            <!--<a-col :span="100">-->
+                              <!--{{i.username}} ( {{i.departName}})-->
+                            <!--</a-col>-->
+                          <!--</a-row>-->
+                        <!--</template>-->
+                      <!--</div>-->
 
-                    <div class="optionBox">
-                      <!--<center>-->
-                      <a-button @click="toRight(item)" size="small">
-                        <!--<a-icon type="right"/>-->
-                        <a-icon type="add"/>
-                        <!--添加到{{item}}-->
-                        添加
+                      <div class="optionBox">
+                        <!--<center>-->
+                        <a-button @click="toRight(item)" size="small">
+                          <!--<a-icon type="right"/>-->
+                          <a-icon type="add"/>
+                          <!--添加到{{item}}-->
+                          添加
 
-                      </a-button>
-                      &nbsp;
-                      <a-button @click="toLeft(item)" size="small">
-                        <!--<a-icon type="left"/>-->
-                        <a-icon/>
-                        <!--从{{item}}删除-->
-                        删除
-                      </a-button>
-                      <!--</center>-->
-
-
-                    </div>
+                        </a-button>
+                        &nbsp;
+                        <a-button @click="toLeft(item)" size="small">
+                          <!--<a-icon type="left"/>-->
+                          <a-icon/>
+                          <!--从{{item}}删除-->
+                          删除
+                        </a-button>
+                        <!--</center>-->
 
 
-                    <div class="userBox">
-                      <h1 class="usertitle">待发送用户</h1>
-                      <div class="userList">
-                        <template>
-                          <a-row v-for="i in departUsersMsg[item]">
-                            <a-col :span="100">
-                              {{i.username}} ( {{i.departName}})
-                            </a-col>
-                          </a-row>
-                        </template>
                       </div>
                     </div>
                   </div>
@@ -1148,32 +1155,16 @@
 
         .partBox {
           width: 100%;
-          height: 190px;
+          height: 150px;
 
-          /*background: #2eabff;*/
+          background: #2eabff;
 
           /*padding-bottom: 20px;*/
 
-          .partBoxChild {
-            height: 150px;
-            overflow-y: scroll;
-          }
 
         }
 
-        .optionBox {
-          width: 100%;
-          /*width: 30%;*/
-          /*height: 30px;*/
-          display: flex;
-          align-items: center;
-          justify-content: center;
 
-          /*border-bottom: 1px solid #dddddd;*/
-          padding-bottom: 5px;
-          margin-top: 1px;
-
-        }
 
         .userBox {
           /*width: 90%;*/
@@ -1198,6 +1189,28 @@
             /*margin-top: 20px;*/
             overflow-y: scroll;
           }
+
+
+          .partBoxChild {
+            height: 120px;
+            /*background: #00ff00;*/
+            overflow-y: scroll;
+          }
+
+          .optionBox {
+            width: 100%;
+            /*width: 30%;*/
+            /*height: 30px;*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /*border-bottom: 1px solid #dddddd;*/
+            padding-bottom: 5px;
+            margin-top: 1px;
+
+          }
+
         }
       }
 
