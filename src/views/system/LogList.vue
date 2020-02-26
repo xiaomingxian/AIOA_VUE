@@ -82,7 +82,7 @@
   import { filterObj } from '@/utils/util'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import JEllipsis from '@/components/jeecg/JEllipsis'
-  import { getAction } from '@/api/manage'
+  import { getAction,putAction } from '@/api/manage'
 
   export default {
     name: "LogList",
