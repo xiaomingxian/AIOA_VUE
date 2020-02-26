@@ -208,12 +208,12 @@
                 <div class="daiban" style="height: 100%;">
                   <p class="titlebox" style="display: flex;align-items: center;justify-content: space-between">
                     <civ style="display: flex;align-items: center;justify-content: flex-start">
-                       <span @click="doWill(0)" class="firstspan"  :style="willdoindex==0?'background:#009dee;color:#ffffff':'background:#7fbbff; color:#333333 !important'">
+                       <span @click="doWill(0)" class="firstspan"  :style="willdoindex==0?'color:#333333':' color:#999999 !important'">
                        <span class="shuline"></span>
                        <span>待办工作</span>
                        <b style="color: #ffffff;font-weight: 400"  v-if="total"> {{total}}</b>
                     </span>
-                      <span @click="doWill(1)"  class="secondspan" :style="willdoindex==1?'background:#009dee;color:#ffffff':'background:#7fbbff;color: #333333;!important'" >
+                      <span @click="doWill(1)"  class="secondspan" :style="willdoindex==1?'color:#333333':'color: #999999;!important'" >
                        <span>{{this.model1}}</span>
                        <b style="color: #ffffff;font-weight: 400"  v-if="total1"> {{total1}}</b>
                     </span>
@@ -1193,7 +1193,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            /*justify-content: space-between;*/
+            justify-content:flex-start;
             /*padding: 15px;*/
             background-image: url("../../assets/postBg.png");
             background-repeat: no-repeat;
@@ -1362,6 +1362,7 @@
             width: 100%;
             height: 40px;
             height: 55px;
+            background: #f4f4f4;
             border-bottom: 2px solid #009dee;
             display: flex;
             align-items: center;
@@ -1372,11 +1373,11 @@
               cursor: pointer;
             }
             .firstspan{
-              min-width: 120px;
+              min-width: 100px;
               height: 40px;
               padding: 0 8px;
               padding-left: 0;
-              background: #009dee;
+              /*background: #009dee;*/
               font-size: 16px;
               font-weight: bold;
               /*color: #ffffff;*/
@@ -1407,11 +1408,11 @@
               }
             }
             .secondspan{
-              min-width: 120px;
+              min-width: 100px;
               height: 40px;
               padding: 0 10px;
               padding-left: 10px;
-              background: #7fbbff;
+              /*background: #7fbbff;*/
               font-size: 16px;
               font-weight: bold;
               color: #333333;
