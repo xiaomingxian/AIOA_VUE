@@ -6,7 +6,7 @@
           <!--申请人-->
           <center><h3>{{detailList.s_create_name}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <a-input style="padding-left: 10px" ref="s_create_name" v-on:blur="blurText(backData.s_create_name,$refs.s_create_name)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_name" disabled></a-input>
           <!--<a-input style="padding-left: 10px" v-model="backData.s_create_name" disabled></a-input>-->
         </td>
@@ -14,7 +14,7 @@
           <!--所属部门-->
           <center><h3>{{detailList.s_create_dept}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <!--<a-textarea cols="92" rows="2" v-model="backData.s_dept_name"></a-textarea>-->
           <a-input style="padding-left: 10px" ref="s_create_dept" v-on:blur="blurText(backData.s_create_dept,$refs.s_create_dept)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_dept" disabled></a-input>
         </td>
@@ -24,7 +24,7 @@
           <!--联系电话-->
           <center><h3>{{detailList.i_phone}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <!--<a-textarea cols="92" rows="2" v-model="backData.i_phone"></a-textarea>-->
           <a-input type="number" style="padding-left: 10px" ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_phone"></a-input>
         </td>
@@ -32,7 +32,7 @@
           <!--请假地点-->
           <center><h3>{{detailList.s_varchar1}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <a-input style="padding-left: 10px" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar1"></a-input>
         </td>
       </tr>
@@ -41,7 +41,7 @@
           <!--参加工作时间-->
           <center><h3>{{detailList.d_datetime2}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <a-date-picker v-if="backData.d_datetime2" ref="d_datetime2" v-on:blur="blurText([backData.d_datetime2],$refs.d_datetime2)"  :defaultValue="moment(backData.d_datetime2,'YYYY-MM-DD HH:mm:ss')" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
           <a-date-picker v-else @change="getDateTime2" ref="d_datetime2" v-on:blur="blurText([backData.d_datetime2],$refs.d_datetime2)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
         </td>
@@ -50,7 +50,7 @@
           <!--岗位-->
           <center><h3>{{detailList.s_varchar2}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <a-input style="padding-left: 10px" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar2"></a-input>
         </td>
       </tr>
@@ -59,7 +59,7 @@
           <!--请假类别-->
           <center><h3>{{detailList.s_varchar3}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <a-select placeholder="请选择请假类别" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3" @change="selectType">
             <a-select-option v-for="(item,index) in optionMap.s_varchar3_option" :key="index" :value="item.value">{{item.text}}
             </a-select-option>
@@ -71,7 +71,7 @@
           <!--申请时间-->
           <center><h3>{{detailList.d_create_time}}</h3></center>
         </td>
-        <td colspan="3">
+        <td width="35%">
           <!--<a-input style="padding-left: 10px" v-model="backData.d_create_time"></a-input>-->
           <!--<a-date-picker @change="getDateTime4" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"  ></a-date-picker>-->
           <a-date-picker :defaultValue="moment(backData.d_create_time,'YYYY-MM-DD HH:mm:ss')"  showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%" disabled></a-date-picker>
@@ -82,7 +82,7 @@
         <!--请假天数-->
         <center><h3>{{detailList.i_bigint1}}</h3></center>
       </td>
-      <td colspan="3">
+        <td width="35%">
         <a-input type="number" style="padding-left: 10px" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_bigint1"></a-input>
         <!--<a-input style="padding-left: 10px" v-model="backData.i_bigint1"></a-input>-->
       </td>
@@ -90,7 +90,7 @@
         <!--销假日期-->
         <center><h3>{{detailList.d_datetime3}}</h3></center>
       </td>
-      <td colspan="3">
+        <td width="35%">
         <a-input style="padding-left: 10px" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.d_datetime3" disabled></a-input>
       </td>
     </tr>
