@@ -206,47 +206,53 @@
               </a-col>
               <a-col :span="12" >
                 <div class="daiban" style="height: 100%;">
-                  <p class="titlebox" style="display: flex;align-items: center;justify-content: space-between">
-                    <civ style="display: flex;align-items: center;justify-content: flex-start">
-                       <span @click="doWill(0)" class="firstspan"  :style="willdoindex==0?'color:#333333':' color:#999999 !important'">
+                  <div class="titlebox" style="display: flex;align-items: center;justify-content: space-between">
+                    <div style="width: 100%; height: 45.8px;   margin: 0;padding: 0;  display: flex;align-items: center;justify-content: flex-start">
+                      <span @click="doWill(0)" class="firstspan"  :style="willdoindex==0?'color:#333333':' color:#999999 !important'">
                        <span class="shuline"></span>
                        <span>待办工作</span>
                        <b style="color: #ffffff;font-weight: 400"  v-if="total"> {{total}}</b>
-                    </span>
+                      </span>
+                      <span v-if="this.model1">|</span>
                       <span @click="doWill(1)"  class="secondspan" :style="willdoindex==1?'color:#333333':'color: #999999;!important'" >
                        <span>{{this.model1}}</span>
                        <b style="color: #ffffff;font-weight: 400"  v-if="total1"> {{total1}}</b>
-                    </span>
-                    </civ>
-                    <span class="more" style=" margin-right: 20px;" @click="openmore1(willdoindex)">MORE  <a-icon type="plus"></a-icon> </span>
-                  </p>
+                       </span>
+                    </div>
+                    <span class="more" style="width: 100px;" @click="openmore1(willdoindex)">MORE  <a-icon type="plus"></a-icon> </span>
+                  </div>
+
+
+
                   <div class="itemline" style="height: 62%;">
                       <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index" @click="openDetialModelTaskToDo(item)"  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
                         <p class="p">
 
                           <template v-if="willdoindex==0">
-                             <span>
-                              <span :title="item.title+'   '+item.createTime+item.name">
-                            <i></i>
-                            {{item.title|filterText1}}
-                             <div v-if="item.important==1">
-                                <img src="../../assets/zhong.png" alt="" >
-                             </div>
-                             </span>
-                            </span>
+                             <p>
+                                 <i></i>
+                                <span :title="item.title+'   '+item.createTime+item.name">
+
+                                 <span>{{item.title|filterText1}}</span>
+                               <div v-if="item.important==1">
+                                  <img src="../../assets/zhong.png" alt="" >
+                               </div>
+                               </span>
+                            </p>
                             <span >{{item.createTime|timeText}}</span>
                           </template>
 
                           <template v-else>
-                             <span>
+                             <p>
                               <span :title="item.s_title+'   '+item.d_create_time">
-                            <i></i>
-                            {{item.s_title|filterText1}}
+                               <i></i>
+                              <span>  {{item.s_title|filterText1}}</span>
+
                              <div v-if="item.important==1">
                                 <img src="../../assets/zhong.png" alt="" >
                              </div>
                              </span>
-                            </span>
+                            </p>
                             <span >{{item.d_create_time|timeText}}</span>
                           </template>
 
@@ -416,8 +422,8 @@
           }
         },filterText1(text){
           if(text!=undefined){
-            if(text.length>55){
-              return text.substring(0,52)+'...'
+            if(text.length>25){
+              return text.substring(0,22)+'...'
             }else{
               return text
             }
@@ -1360,8 +1366,8 @@
 
           .titlebox{
             width: 100%;
-            height: 40px;
-            height: 55px;
+            /*height: 40px;*/
+            height: 45.8px;
             background: #f4f4f4;
             border-bottom: 2px solid #009dee;
             display: flex;
@@ -1386,8 +1392,9 @@
 
               .shuline{
                 width: 5px;
-                height: 40px;
+                height: 45.8px;
                 background: #1174b9;
+
                 padding: 0;
                 margin-right: 10px;
               }
@@ -1461,33 +1468,70 @@
               /*border-bottom: 1px solid #f0f2f5;*/
               border-left: 5px solid #c7ecff;
               /*margin-left: 10px;*/
-              p{
-                width:100%;
+
+
+
+              .p{
+                width:95%;
+
                 height: 46px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 /*line-height: 40px;*/
-                margin: 0;
+                margin: 0 auto;
                 font-size: 14px;
                 // margin-left: 20px;
                 /*margin-top: 19px;*/
-                span:first-child{
-                  display: block;
+
+
+
+                p{
+                  /*display: block;*/
                   /*line-height: 40px;*/
-                  width: 60%;
+                  width: 65%;
+
+                  height: 80% !important;
                   /*height: 20px;*/
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
+                  /*background: #dddddd;*/
+                  margin: 0 !important;
+                  padding: 0 !important;
+
                   display: flex;
                   align-items: center;
+                  justify-content: flex-start;
+
                   i{
+                    /*display: block;*/
                     width: 5px;
                     height: 5px;
                     background: #2eabff;
                     margin-right: 10px;
+                    /*margin-left: 10px;*/
                   }
+
+
+                  span{
+                    width: 95%;
+                    /*width: 200px;*/
+
+                    height: 100%;
+
+
+                    display: flex;
+                    align-items: center;
+
+                    /*padding-right:10px*/
+                    span{
+                      width: 95%;
+                      height: 100%;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                    }
+
+                  }
+
                   img{
                     width: 40px;
                     margin-bottom: 18px;
@@ -1496,11 +1540,11 @@
 
 
                 }
-                span:last-child{
-                  display: block;
-                  line-height: 40px;
-                  margin-right: 20px;
-                }
+                /*span:last-child{*/
+                  /*display: block;*/
+                  /*line-height: 40px;*/
+                  /*margin-right: 20px;*/
+                /*}*/
               }
               a{
 
