@@ -433,7 +433,7 @@ export const taskBth = {
                   }).then(res => {
                     //展示数据
                     if (res.success) {
-                      this.$refs.addUserCy.title = '追加传阅'
+                      this.$refs.addUserCy.title = '内部发送'
 
                       this.$refs.addUserCy.showNextUsers(res.result)
                     } else {
