@@ -409,7 +409,7 @@
         filterText2(text){//电子公告
           if(text!=undefined){
           if(text.length>20){
-            return text.substring(0,15)+'...'
+            return text.substring(0,13)+'...'
           }else{
             return text
           }
@@ -1242,7 +1242,7 @@
               /*background: darkcyan;*/
 
               .left{
-                width: 58%;
+                width: 65%;
                 display: flex;
                 align-items: center;
                 /*justify-content: space-between;*/

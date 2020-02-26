@@ -319,15 +319,15 @@
       filterText(text){
         if(text!=undefined) {
           if (text.length > 20) {
-            return text.substring(0, 17) + '...'
+            return text.substring(0, 12) + '...'
           } else {
             return text
           }
         }
       }, filterText2(text){
         if(text!=undefined) {
-          if (text.length > 25) {
-            return text.substring(0, 22) + '...'
+          if (text.length > 22) {
+            return text.substring(0, 17) + '...'
           } else {
             return text
           }
