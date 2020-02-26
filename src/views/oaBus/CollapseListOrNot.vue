@@ -86,8 +86,8 @@
 <template>
   <div class="table-page-search-wrapper">
     <a-card :bordered="ture">
-      <a-tabs @change="changFunId" defaultActiveKey="1">
-        <a-tab-pane v-for="(item,index) in selectList" :tab="item.sname" :key="index+1">
+      <a-tabs @change="changFunId"  :activeKey="defaultActiveKey">
+        <a-tab-pane v-for="(item,index) in selectList" :tab="item.sname" :key="(index+1)">
           <a-form layout="inline">
             <a-row :gutter="48" style="margin-left: 0px;">
               <a-col :md="!advanced && 24 || 24" :sm="24">
@@ -289,6 +289,8 @@
     },
     data() {
       return {
+        moduleName:'',
+        defaultActiveKey:'1',
         description: '这是公共查询列表页面',
         iisFontSize: '16px',
         visibleCreateModal: false,
@@ -367,7 +369,9 @@
       }
     },
     created: async function () {
+
       await this.init();
+
     },
     destroyed() {
       this.dataDestroy();
@@ -430,7 +434,8 @@
       //   });
       // },
       changFunId: async function (index) {
-
+      // console.log(index);
+      this.defaultActiveKey = index;
         index = index - 1;
 
         this.conditionList = [];
@@ -592,6 +597,29 @@
         await postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
           this.conditionList = res.colList;
           this.selectList = res.funList;
+
+          // console.log( this.selectList);
+
+
+          //selectList   defaultActiveKey
+          // console.log(this.$route.query.moduleName);
+          //   获取首页带来的模块名称   对tabs 进行判断   再获取对应索引   赋值
+          this.moduleName = this.$route.query.moduleName;
+
+          console.log(this.moduleName);
+          //  判断  对应光标  显示对应
+          this.selectList.map((itemModuleName,index)=>{
+
+            if( this.moduleName==itemModuleName.sname){
+              this.defaultActiveKey = (index+1)
+              console.log(index.toString());
+              console.log(this.defaultActiveKey);
+            }
+          })
+
+
+
+
           this.tableName = res.tableName;
           this.timeList = res.d_create_time;
           this.queryParam.function_id = this.selectList[this.index].iid;

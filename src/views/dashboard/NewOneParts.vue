@@ -141,7 +141,7 @@
                <span class="shuline"></span>
               <span>{{model1.sName}}</span>
             </span>
-            <span class="more" @click="openmore(model1.url)">MORE <a-icon type="plus"></a-icon> </span>
+            <span class="more" @click="openmore(model1.url,model1.sName)">MORE <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p  class="each"  v-for="(item,index) in model1Lists"  :key="index" @click="openDetialModel(model1.tableName,item.i_id)">
@@ -162,7 +162,7 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span class="more"  @click="openmore(model2.url)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span class="more"  @click="openmore(model2.url,model2.sName)">MORE  <a-icon type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p  class="each"  v-for="(item,index) in model2Lists"  :key="index" @click="openDetialModel(model2.tableName,item.i_id)">
@@ -181,7 +181,7 @@
                  <span>{{model3.sName}}</span>
                 <!--<span>{{model3}}</span>-->
               </span>
-              <span class="more" @click="openmore(model3.url)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span class="more" @click="openmore(model3.url,model3.sName)">MORE  <a-icon type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p  class="each"  v-for="(item,index) in model3Lists"  :key="index" @click="openDetialModel(model3.tableName,item.i_id)">
@@ -201,7 +201,7 @@
                  <span>{{model4.sName}}</span>
                 <!--<span>{{model4}}</span>-->
               </span>
-            <span class="more" @click="openmore(model4.url)">MORE <a-icon type="plus"></a-icon> </span>
+            <span class="more" @click="openmore(model4.url,model4.sName)">MORE <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p  class="each"  v-for="(item,index) in model4Lists"  :key="index" @click="openDetialModel(model4.tableName,item.i_id)">
@@ -535,9 +535,9 @@
       postMore(){
         this.$router.push('/'+'publicMessage/electronicFile');
       },
-      openmore(url){ //四个模块的跳转
+      openmore(url,moduleName){ //四个模块的跳转
 
-        this.$router.push('/'+url);
+        this.$router.push('/'+url+'?moduleName='+moduleName);
         // console.log(url)
       },
       DaiBanMore(){ //待办任务的跳转
