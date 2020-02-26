@@ -191,7 +191,7 @@
   import Vue from 'vue'
   import { ACCESS_TOKEN ,ENCRYPTED_STRING} from "@/store/mutation-types"
   import JGraphicCode from '@/components/jeecg/JGraphicCode'
-  import { getAction,postAction } from '@/api/manage'
+  import { getAction,postAction,putAction } from '@/api/manage'
   import { encryption , getEncryptedString } from '@/utils/encryption/aesEncrypt'
   import store from '@/store/'
   import { USER_INFO } from "@/store/mutation-types"

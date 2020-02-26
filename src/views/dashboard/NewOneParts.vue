@@ -319,15 +319,15 @@
       filterText(text){
         if(text!=undefined) {
           if (text.length > 20) {
-            return text.substring(0, 17) + '...'
+            return text.substring(0, 12) + '...'
           } else {
             return text
           }
         }
       }, filterText2(text){
         if(text!=undefined) {
-          if (text.length > 25) {
-            return text.substring(0, 22) + '...'
+          if (text.length > 22) {
+            return text.substring(0, 17) + '...'
           } else {
             return text
           }
@@ -769,7 +769,7 @@
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          justify-content: space-between;
+          justify-content: flex-start;
           padding: 15px;
           padding-bottom: 20px;
 
@@ -904,24 +904,26 @@
           .titlebox{
             width: 100%;
             height: 40px;
+            background: #f4f4f4;
             border-bottom: 2px solid #009dee;
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             margin: 0;
             span:first-child{
               width: auto;
               height: 40px;
               padding: 0 8px;
               padding-left: 0;
-              background: #009dee;
+              /*background: #009dee;*/
               font-size: 16px;
               font-weight: bold;
-              color: #ffffff;
+              color: #333333;
               display: flex;
               align-items: center;
               span{
-                color: #ffffff;
+                /*color: #ffffff;*/
               }
               .shuline{
                 width: 5px;
@@ -1097,6 +1099,7 @@
             .titlebox{
               width: 100%;
               height: 40px;
+              background: #f4f4f4;
               border-bottom: 2px solid #0074b9;
               margin: 0px;
               /*background: #f2dede;*/
@@ -1108,15 +1111,15 @@
                 height: 40px;
                 padding: 0 8px;
                 padding-left: 0;
-                background: #009dee;
+                /*background: #009dee;*/
                 font-size: 14px;
                 font-weight: bold;
-                color: #ffffff;
+                color: #333333 !important;
                 display: flex;
                 align-items: center;
                 span:nth-child(2){
                   min-width: 75px;
-                  color: #ffffff !important;
+                  /*color: #ffffff !important;*/
                   font-size: 16px !important;
                   font-weight: bold;
                 }

@@ -1194,6 +1194,7 @@
                   this.taskRecord.id = record2.id
 
                   window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+
                   // window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=agent&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
                 }
 

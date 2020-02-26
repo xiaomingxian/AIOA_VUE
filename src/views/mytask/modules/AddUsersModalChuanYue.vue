@@ -27,7 +27,7 @@
               <!--...................................................................................................-->
               <a-sub-menu key="sub1">
 
-                <span slot="title"><a-icon type="user"/>可追加环节</span>
+                <span slot="title" ><a-icon type="user"/>内部发送</span>
 
                 <a-menu-item :key="item.oaProcActinst.actId" v-for="item in nextsActs" @click="clickAct(item)">
                   {{item.oaProcActinst.actName}}
@@ -48,8 +48,14 @@
               <!--1 普通-->
               <div v-if="!isDept">
                 <div v-if="!isMul">
-                  已发送用户
-                  <div v-for="i in currentClick.userHaveChoice">{{i.uname}}</div>
+
+
+                  <div  style="width: 100%;height: 30px;background-color: #d6ebff !important;display: flex;align-items: center !important; "><span style="margin-left: 10px;">已发送用户</span></div>
+                  <div style="width: 100%;height: 120px;border:1px solid #dddddd; padding-top: 10px; margin-bottom: 10px;">
+                    <span  style="margin: 8px;" v-for="i in currentClick.userHaveChoice"> {{i.uname}}</span>
+                  </div>
+
+                  <div  style="width: 100%;height: 30px;background-color: #d6ebff !important;display: flex;align-items: center !important; "><span style="margin-left: 10px;">待发送用户</span></div>
 
                   <a-table
                     ref="table"
@@ -69,6 +75,8 @@
                   <div style="width: 100%;height: 120px;border:1px solid #dddddd; padding-top: 10px; margin-bottom: 10px;">
                       <span  style="margin: 8px;" v-for="i in currentClick.userHaveChoice"> {{i.uname}}</span>
                   </div>
+
+                  <div  style="width: 100%;height: 30px;background-color: #d6ebff !important;display: flex;align-items: center !important; "><span style="margin-left: 10px;">待发送用户</span></div>
 
                   <a-table
                     ref="table"
