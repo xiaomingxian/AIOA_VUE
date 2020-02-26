@@ -27,7 +27,7 @@
               <!--...................................................................................................-->
               <a-sub-menu key="sub1">
 
-                <span slot="title"><a-icon type="user"/>可追加环节</span>
+                <span slot="title" ><a-icon type="user"/>内部发送</span>
 
                 <a-menu-item :key="item.oaProcActinst.actId" v-for="item in nextsActs" @click="clickAct(item)">
                   {{item.oaProcActinst.actName}}
