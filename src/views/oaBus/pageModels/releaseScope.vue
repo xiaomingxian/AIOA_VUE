@@ -251,7 +251,7 @@
         // params.i_busdata_id = this.backData.i_id;
         params.i_bus_function_id = this.backData.i_bus_function_id;
         params.i_is_publish = '0';
-        params.i_bigint3 = '0';
+        params.i_bigint3 = '1';
         params.d_datetime2 = this.dateFormat(new Date())
         postAction(this.url.updateBusdata,params).then(res => {
 

@@ -65,6 +65,7 @@
           iTableId: 0,
           sFileType: 0
         },
+        clickTotal:0,
         confirmLoading: false,
         form: this.$form.createForm(this),
         validatorRules: {
@@ -98,6 +99,10 @@
         this.fileList = newFileList;
       },
       handleUpload() {
+        this.clickTotal++;
+        if (this.clickTotal>1){
+          return;
+        }
         const {fileList} = this;
         const data = new FormData();
         let url = this.url.upload;
@@ -126,6 +131,7 @@
         this.$emit('close');
         this.visible = false;
         this.fileList = [];
+        this.clickTotal = 0;
       },
       handleCancel() {
         this.close()

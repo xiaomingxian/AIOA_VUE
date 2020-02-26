@@ -122,8 +122,8 @@
 
                         {{item==null||item==undefined||item==''?singleDept:item}}部门
                       </div>
-                      <!--<hr>-->
-                      <div class="partBoxChild" style="overflow: hidden">
+                      <!--<hr> style="overflow: hidden"-->
+                      <div class="partBoxChild">
                         <a-row v-for="i in departSelect[item]">
                           <a-col :span="100">
                             <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
@@ -276,19 +276,11 @@
             align: "center",
             dataIndex: 'dname'
           },
-          {
-            title: '状态',
-            align: "center",
-            dataIndex: 'status',
-            // customRender: function (text,v1,v2) {
-            //   console.log(v1,v2)
-            //   if(text=='处理人'){
-            //     return  text +'(点不了)';
-            //   }else{
-            //     return text;
-            //   }
-            // }
-          },
+          // {
+          //   title: '状态',
+          //   align: "center",
+          //   dataIndex: 'status',
+          // },
         ],
         columns2: [
           {
@@ -1038,7 +1030,7 @@
       ,
       cancel() {
         //初始数据
-        this.dataInit()
+        // this.dataInit()
 
         this.$emit('close');
         this.visible = false;
@@ -1169,6 +1161,7 @@
         .partBox {
           width: 100%;
           height: 190px;
+          overflow-y: scroll;
 
           /*background: #2eabff;*/
 

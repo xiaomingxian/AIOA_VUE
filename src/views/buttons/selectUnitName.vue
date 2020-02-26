@@ -23,10 +23,12 @@
 <script>
 
   import {getAction, postAction} from "@/api/manage";
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {taskBth} from "./btn-js/taskBtn";
+
 
   export default {
     name: "selectUnitName",
+    mixins: [taskBth],
     data() {
       return {
         columns: [
@@ -153,6 +155,16 @@
                                   fileParam.receiveId = receiveData.i_id
                                   postAction(this.url.copyFile,fileParam).then(res => {
                                     if (res.success) {
+                                      //组装参数--传输日志记录
+                                      let oaOutLog = {};
+                                      oaOutLog.i_bus_model_id = this.busData.i_bus_model_id;
+                                      oaOutLog.i_bus_function_id = this.busData.i_bus_function_id;
+                                      oaOutLog.s_busdata_table = this.busData.table;
+                                      oaOutLog.i_busdata_id = this.busData.i_id;
+                                      oaOutLog.i_type = 1;
+                                      oaOutLog.s_rec_unitid = unitId;
+                                      this.insertOaOutLog(oaOutLog);  //记录传输日志；
+
                                       if (i == unitData.length-1){
                                         flag = true;
                                         this.$message.success("下发成功！")
@@ -193,6 +205,7 @@
         this.visible = false;
         this.selectionRows = [];
         this.selectedRowKeys = [];
+        this.busData = [];
       },
 
       handleCancel() {

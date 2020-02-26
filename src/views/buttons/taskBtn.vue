@@ -8,6 +8,7 @@
     <!--<a-button  @click="showJump">跳转</a-button>-->
     <!--<a-button  @click="nextTaskQuery">下一任务</a-button>-->
     <!--<a-button  @click="addUserOrDepart">追加</a-button>-->
+    <!--<a-button  @click="insideReading">内部传阅</a-button>-->
 
 
     <div class="btndefindbox">
@@ -26,6 +27,8 @@
     <!--.............引入具体展示组件.....................-->
     <next-users ref="nextUsers" @func="confirmNextUsers" @confirmNextUsersMore="confirmNextUsersMore"></next-users>
     <add-users-modal ref="addUsersModal" @func="confirmAddUserSingle" @confirmNextUsersMore="confirmAddUsers"></add-users-modal>
+    <add-users-modal-chuan-yue ref="addUserCy" @func="confirmAddUserSingle" @confirmNextUsersMore="confirmAddUsers"></add-users-modal-chuan-yue>
+
     <back-modal ref="backModal"></back-modal>
     <suggesttion-modal ref="opinionForm" @saveOption="saveOption"></suggesttion-modal>
     <dengjiwenhao-modal ref="docNumForm" @saveDocNum="saveDocNum"></dengjiwenhao-modal>
@@ -44,6 +47,7 @@
     <select-unit-name ref="selectUnitModel"></select-unit-name>
     <select-city-name ref="selectCityModel"></select-city-name>
     <pai-ban-deng-ji ref="paiBanDengJi" @confimName="confimName"></pai-ban-deng-ji>
+
     <!--模态框-->
     <a-modal
       title="温馨提示"
@@ -83,6 +87,8 @@
   import YinRuYiJuModal from "./YinRuYiJuModal";
   //追加组件
   import  AddUsersModal from  '../mytask/modules/AddUsersModal'
+  //传阅特殊化
+  import  AddUsersModalChuanYue from  '../mytask/modules/AddUsersModalChuanYue'
 
   export default {
     name: "taskBtn",
@@ -109,7 +115,8 @@
       pic2Modal,
       picModal,
       AddUsersModal,
-      paiBanDengJi
+      paiBanDengJi,
+      AddUsersModalChuanYue
     },
     data() {
       return {}

@@ -27,7 +27,7 @@
               <!--...................................................................................................-->
               <a-sub-menu key="sub1">
 
-                <span slot="title"><a-icon type="user"/>下一任务</span>
+                <span slot="title"><a-icon type="user"/>可追加环节</span>
 
                 <a-menu-item :key="item.oaProcActinst.actId" v-for="item in nextsActs" @click="clickAct(item)">
                   {{item.oaProcActinst.actName}}
@@ -41,21 +41,6 @@
           <!--.........................//////////////////////////////////////////..........................................................................-->
           <a-layout v-if="!endType" style="padding: 2px 2px 2px">
 
-            <a-breadcrumb style="height: 50px;display: flex;align-items: center">
-              <div>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a-radio-group name="radioGroup" @change="changeChoice" :defaultValue="1">
-                  <a-radio :value="1">不限时间</a-radio>
-                  <a-radio :value="2">限制时间</a-radio>
-                </a-radio-group>
-                <span v-show="timeCheck">
-
-                  &nbsp;&nbsp;&nbsp;&nbsp; 期望任务办理结束时间:
-                  <a-date-picker @change="onChange" showTime format="YYYY-MM-DD HH:mm:ss"
-                                 placeholder="请选择结束时间"/>
-                </span>
-              </div>
-            </a-breadcrumb>
             <a-layout-content
               :style="{ background: '#fff', padding: '10px', margin: 0, minHeight: '280px' }">
               <!--********************************* 下一办理人选用户(区分：普通/并行/包容网关) [仅记录选择记录] ********************************-->
@@ -63,6 +48,9 @@
               <!--1 普通-->
               <div v-if="!isDept">
                 <div v-if="!isMul">
+                  已发送用户
+                  <div v-for="i in currentClick.userHaveChoice">{{i.uname}}</div>
+
                   <a-table
                     ref="table"
                     size="middle"
@@ -76,13 +64,19 @@
                   >
                   </a-table>
                 </div>
-                <div v-if="isMul">
+                <div v-if="isMul" >
+                  <div  style="width: 100%;height: 30px;background-color: #d6ebff !important;display: flex;align-items: center !important; "><span style="margin-left: 10px;">已发送用户</span></div>
+                  <div style="width: 100%;height: 120px;border:1px solid #dddddd; padding-top: 10px; margin-bottom: 10px;">
+                      <span  style="margin: 8px;" v-for="i in currentClick.userHaveChoice"> {{i.uname}}</span>
+                  </div>
+
                   <a-table
                     ref="table"
                     size="middle"
                     bordered
                     :pagination="false"
                     rowKey="uid"
+                    disabled
                     :customRow="setRowCheck"
                     :columns="columns"
                     :dataSource="dataSource"
@@ -119,14 +113,31 @@
                   <div ref="itemPartBox" class="itemPartBox" v-for="item in deptsList">
 
                     <div class="partBox">
-                      <div style="padding: 6px;background: #d6ebff !important;">
-                        <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
-
-                        {{item==null||item==undefined||item==''?singleDept:item}}部门
+                      <!--background: #d6ebff !important;-->
+                      <div style="padding: 6px;">
+                        <!--<a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>-->
+                        <!--{{item==null||item==undefined||item==''?singleDept:item}}部门-->
+                        已发送部门
                       </div>
+                      <div class="sendedListsBox" >
+                        <span v-for="i in currentClick.deptHaveChoice">{{i.departName}}</span>
+                      </div>
+
                       <!--<hr>-->
-                      <div class="partBoxChild" style="overflow: hidden">
+                      <!--<p>{{item}}</p>-->
+                    </div>
+
+
+
+                    <div class="userBox">
+                      <h1 class="usertitle">
+                        <a-checkbox :id="item" @change="onCheckAllChange"></a-checkbox>
+                        待发送部门
+                      </h1>
+
+                      <div class="partBoxChild">
                         <a-row v-for="i in departSelect[item]">
+
                           <a-col :span="100">
                             <a-checkbox :ref="item" :key="i.id" :value="i.id+'-'+item" @change="onChangeCheck">
 
@@ -135,45 +146,41 @@
                           </a-col>
                         </a-row>
                       </div>
-                    </div>
+                      <!--<div class="userList">-->
+                      <!--<template>-->
+                      <!--<a-row v-for="i in departUsersMsg[item]">-->
+                      <!--<a-col :span="100">-->
+                      <!--{{i.username}} ( {{i.departName}})-->
+                      <!--</a-col>-->
+                      <!--</a-row>-->
+                      <!--</template>-->
+                      <!--</div>-->
 
-                    <div class="optionBox">
-                      <!--<center>-->
-                      <a-button @click="toRight(item)" size="small">
-                        <!--<a-icon type="right"/>-->
-                        <a-icon type="add"/>
-                        <!--添加到{{item}}-->
-                        添加
+                      <div class="optionBox">
+                        <!--<center>-->
+                        <a-button @click="toRight(item)" size="small">
+                          <!--<a-icon type="right"/>-->
+                          <a-icon type="add"/>
+                          <!--添加到{{item}}-->
+                          添加
 
-                      </a-button>
-                      &nbsp;
-                      <a-button @click="toLeft(item)" size="small">
-                        <!--<a-icon type="left"/>-->
-                        <a-icon/>
-                        <!--从{{item}}删除-->
-                        删除
-                      </a-button>
-                      <!--</center>-->
-
-
-                    </div>
+                        </a-button>
+                        &nbsp;
+                        <a-button @click="toLeft(item)" size="small">
+                          <!--<a-icon type="left"/>-->
+                          <a-icon/>
+                          <!--从{{item}}删除-->
+                          删除
+                        </a-button>
+                        <!--</center>-->
 
 
-                    <div class="userBox">
-                      <h1 class="usertitle">待发送用户</h1>
-                      <div class="userList">
-                        <template>
-                          <a-row v-for="i in departUsersMsg[item]">
-                            <a-col :span="100">
-                              {{i.username}} ( {{i.departName}})
-                            </a-col>
-                          </a-row>
-                        </template>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
 
             </a-layout-content>
           </a-layout>
@@ -219,7 +226,7 @@
 </template>
 
 <script>
-  import {postAction} from "../../../api/manage";
+  import {getAction, postAction} from "../../../api/manage";
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import DictItemList from "../../system/DictItemList";
 
@@ -232,9 +239,8 @@
       return {
         singleDept: null,
         defaultSelectedKeys: [],
-        scrHeight: window.innerHeight-300+ 'px',
-        // scrHeight: '',
-        title: '下一任务',
+        scrHeight: window.innerHeight - 300 + 'px',
+        title: '追加用户',
         okText: '确定',
         //控制组件数据可见
         isMul: false, //下一任务是单选/多选
@@ -251,7 +257,7 @@
         //部门对应用户id
         departUsersId: {},
         departUsersMsg: {},
-        userGroupByDepts:{},
+        userGroupByDepts: {},
         //环节分类，从属于 排他，并行，包容网关
         gateWayTypeSelect: {
           parallel: {},
@@ -268,6 +274,7 @@
         currentClick: null,
         timeCheck: false,//是否限制时间
         columns: [
+
           {
             title: '用户姓名',
             align: "center",
@@ -276,11 +283,16 @@
             title: '所在部门',
             align: "center",
             dataIndex: 'dname'
-          }
+          },
+          // {
+          //   title: '状态',
+          //   align: "center",
+          //   dataIndex: 'status',
+          // },
         ],
         columns2: [
           {
-            title: '待选部门',
+            title: '部门名称',
             align: "center",
             dataIndex: 'departName'
           }
@@ -306,39 +318,42 @@
       }
     },
     computed: {},
-    created() {
-    },
     methods: {
+      statusJudge() {
+      },
       //进页面 初始数据
       showNextUsers(nextsActs) {
-        if (nextsActs.length > 0 && nextsActs[0].actMsg.type == 'endEvent') {
-          this.endType = true
-          this.title = '办结'
-          this.okText = '办结'
-          this.currentClick = nextsActs[0]
-        } else {
-          this.nextsActs = nextsActs
-          //统计数量
-          for (let i of nextsActs) {
-            let inclusiveGateway = i.actMsg.inclusiveGateway
-            let parallelGateway = i.actMsg.parallelGateway
-            if (inclusiveGateway) {
-              this.typeCount.inclusive.push(i)
-            } else if (parallelGateway) {
-              this.typeCount.parallel.push(i)
-            } else {
-              this.typeCount.normal.push(i)
-            }
-            //记录节点
-            this.showPreClick(i, false, false, true)
+        this.nextsActs = nextsActs
+        //统计数量
+        for (let i of nextsActs) {
+          let inclusiveGateway = i.actMsg.inclusiveGateway
+          let parallelGateway = i.actMsg.parallelGateway
+          if (inclusiveGateway) {
+            this.typeCount.inclusive.push(i)
+          } else if (parallelGateway) {
+            this.typeCount.parallel.push(i)
+          } else {
+            this.typeCount.normal.push(i)
           }
-          //---------默认选择 下一任下第一个环节----------
-          this.defaultSelectedKeys.push(this.nextsActs[0].oaProcActinst.actId)
-          this.clickAct(this.nextsActs[0]);
+          //记录节点
+          this.showPreClick(i, false, false, true)
         }
+        //---------默认选择 第一个环节----------
+        this.defaultSelectedKeys.push(this.nextsActs[0].oaProcActinst.actId)
+        this.clickAct(this.nextsActs[0]);
+
         this.visible = true
       },
       handleTableChangeMy(rowKeys, rows) {
+        console.log(rows)
+        //排除掉不可追加
+        for (let i in rows) {
+          if (rows[i].status == '处理人') {
+            this.$message.error('处理人不可选')
+            return
+          }
+        }
+
         this.onSelectChange(rowKeys, rows)
         //并记录用户
         this.showPreClick(this.currentClick, false, true, false)
@@ -387,15 +402,22 @@
       setRowCheck(res) {
         return {
           on: {
-            click: () => {
+            click: (e) => {
+              if (res.status == '处理人') {
+                this.$message.error('处理人不可选')
+                return
+              }
               let rowkeys = this.selectedRowKeys;
+              let rows = this.selectionRows;
               if (rowkeys.length > 0 && rowkeys.includes(res.uid)) {
                 rowkeys.splice(rowkeys.indexOf(res.uid), 1);
+                rows.splice(rowkeys.indexOf(res.uid), 1);
               } else {
                 rowkeys.push(res.uid);
+                rows.push(res)
               }
               this.selectedRowKeys = rowkeys;
-
+              this.selectionRows = rows;
               //记录用户选择
               this.showPreClick(this.currentClick, false, true, false)
             }
@@ -437,7 +459,6 @@
        */
       showPreClick(item, isMock, isChange, isShowNext) {
 
-
         //TODO 仅标识 @1.1 ###################################### 各种属性判断 #############################################
         //记录当前点击的节点 用于属性填充
         this.currentClick = item
@@ -465,7 +486,6 @@
             }
           }, 1000)
         }
-
 
         //TODO 仅标识 @1.2 ############################################  数据源 ###########################################
         if (!this.isDept) {
@@ -501,7 +521,6 @@
         //记录节点属性
         select['activity'] = item
         if (this.isDept) {
-
           this.selectedRowKeys = []
           this.selectionRows = []
           //部门
@@ -603,8 +622,17 @@
           if (this.dataSource.length > 0 && !isShowNext && !isChange) {
             if (this.selectedRowKeys.length == 0 || isNormal) {
               let defaultSelected = []
-              defaultSelected.push(this.dataSource[0].uid)
-              this.selectedRowKeys = defaultSelected
+
+              for (let i of this.dataSource) {
+                if (i.status != '处理人') {
+                  defaultSelected.push(i.uid)
+                  this.selectedRowKeys = defaultSelected
+                  this.selectionRows.push(i)
+                  break;
+                }
+              }
+
+
               select.selectedRowKeys = this.selectedRowKeys
               select.selectionRows = this.selectionRows
             }
@@ -635,6 +663,7 @@
       //点击某一节点---选择节点相关信息
       clickAct(item) {
         this.singleDept = item.actMsg.name
+        console.log('======>>>>>>>>>>>>>>',item)
 
         /**
          *  (包容/并行网关)展示上一节点的选择信息
@@ -644,9 +673,8 @@
       },
       confirm() {
 
-        //时间校验
-        let flag= this.timeCheckMethod()
-        if (flag)return
+        // //时间校验
+        // this.timeCheckMethod()
         //校验并行与包容
         let palllen = this.typeCount.parallel.length
         let ialllen = this.typeCount.inclusive.length
@@ -654,6 +682,7 @@
           this.singleType()
         } else {//包容/并行
           this.gateWayCheck()
+          // this.moreThanOneType()
         }
       },
       //并行或包容
@@ -666,22 +695,16 @@
         if (this.timeCheck) {
           if (this.endTime == '') {
             this.$message.error('请选择办理结束时间')
-            return true
+            return
           }
           if (new Date() > new Date(this.endTime)) {
             this.$message.error('办理结束时间不得小于当前时间')
-            return true
+            return
           }
         }
-        return false
-
       },
       confirm2() {
 
-        if(this.selectedRowKeys2.length==0){
-          this.$message.error('请选择环节')
-          return
-        }
         let isPass = this.moreThanOneUserCheck();
         if (isPass) {
           this.moreThanOneType()
@@ -850,7 +873,6 @@
 
           let ids = []
           let depMSg = {}
-
           for (let i in this.departUsersId) {
 
             if (i.indexOf("主办") >= 0 && this.departUsersId[i].length == 0) {
@@ -866,11 +888,12 @@
           for (let k of Object.keys(this.userGroupByDepts)) {
             ids.push(this.userGroupByDepts[k])
           }
-          //校验
-          if (ids.length==0){
+          if (ids.length == 0) {
             this.$message.error('请选择用户')
             return
           }
+          // ////console.log('==========部门：：：', ids, JSON.stringify(this.currentClick))
+          //校验
           this.$emit('func', ids, this.currentClick, this.endTime, depMSg)
           this.cancel()
         } else if (this.endType) {
@@ -884,7 +907,7 @@
           }
           ids = this.selectedRowKeys
 
-          // ////console.log('------普通：' + ids, JSON.stringify(this.currentClick))
+          console.log('------普通：' + ids, JSON.stringify(this.currentClick))
           //办理流程
           this.$emit('func', ids, this.currentClick, this.endTime)
           this.cancel()
@@ -930,6 +953,8 @@
       },
       toLeft(item) {
         //添加到部门列表中--从list中移除
+
+
         var right = []
         for (var i in this.departSelect[item]) {
           var itt = this.departSelect[item][i]
@@ -982,17 +1007,17 @@
               return
             } else {
               let ids = []
-              this.userGroupByDepts={}
+              this.userGroupByDepts = {}
+
               for (let i in res.result[item]) {
                 ids.push(res.result[item][i].id)
-                if (this.userGroupByDepts[res.result[item][i].departId]==undefined){
-                  this.userGroupByDepts[res.result[item][i].departId]=[]
+                if (this.userGroupByDepts[res.result[item][i].departId] == undefined) {
+                  this.userGroupByDepts[res.result[item][i].departId] = []
                   this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
                 } else {
                   this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
                 }
               }
-
               this.departUsersId[item] = ids
               this.departUsersMsg[item] = res.result[item]
 
@@ -1021,13 +1046,6 @@
       ,
       onChange(date, dateString) {
         this.endTime = dateString
-
-        if (new Date()>date)
-        {
-          this.$message.error('结束时间不得小于当前时间')
-          return
-        }
-
       }
       ,
       changeChoice(e) {
@@ -1042,8 +1060,10 @@
       dataInit() {
         this.singleDept = null
         this.defaultSelectedKeys = []
-        this.scrHeight = ''
-        this.isMul = false //下一任务是单选/多选
+        // this.scrHeight = ''
+        scrHeight: window.innerHeight - 300 + 'px',
+
+          this.isMul = false //下一任务是单选/多选
         this.isDept = false
         this.endType = false//是否是结束节点
         this.nextsActs = []
@@ -1074,12 +1094,11 @@
         this.timeCheck = false//是否限制时间
 
         this.dataSource = []
-        this.visible = false
-        this.visible2 = false
-        this.confirmLoading = false
         this.actChoice = []
-        this.selectedRowKeys2 = []
-        this.selectedRows2= []
+        this.selectedRowKeys = []
+        this.selectedRows2 = []
+
+
         this.endTime = ''
       },
       /**
@@ -1129,6 +1148,7 @@
       align-items: center;
       justify-content: flex-start;
       width: 69%;
+      min-width: 480px;
       /*height: px;*/
       background: #ffffff;
       /*overflow-y: scroll;*/
@@ -1149,32 +1169,30 @@
 
         .partBox {
           width: 100%;
-          height: 190px;
+          height: 150px;
 
           /*background: #2eabff;*/
 
           /*padding-bottom: 20px;*/
 
-          .partBoxChild {
-            height: 150px;
-            overflow-y: scroll;
+          div:first-child{
+            background: #d6ebff !important;
+
+          }
+
+          .sendedListsBox{
+            width: 99%;
+            height: 100px;
+            /*background: #00ff80;*/
+            margin: 10px auto;
+            span{
+              margin: 10px;
+            }
+
           }
 
         }
 
-        .optionBox {
-          width: 100%;
-          /*width: 30%;*/
-          /*height: 30px;*/
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          /*border-bottom: 1px solid #dddddd;*/
-          padding-bottom: 5px;
-          margin-top: 1px;
-
-        }
 
         .userBox {
           /*width: 90%;*/
@@ -1199,6 +1217,28 @@
             /*margin-top: 20px;*/
             overflow-y: scroll;
           }
+
+
+          .partBoxChild {
+            height: 120px;
+            /*background: #00ff00;*/
+            overflow-y: scroll;
+          }
+
+          .optionBox {
+            width: 100%;
+            /*width: 30%;*/
+            /*height: 30px;*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /*border-bottom: 1px solid #dddddd;*/
+            padding-bottom: 5px;
+            margin-top: 1px;
+
+          }
+
         }
       }
 
