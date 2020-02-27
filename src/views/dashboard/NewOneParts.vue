@@ -15,7 +15,7 @@
               <i></i>
               <p class="tongzhi">[{{item.s_varchar5}}]</p>
               <span :title="item.s_title">{{item.s_title|filterText2}}</span>
-              <i></i>
+              <!--<i></i>-->
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>

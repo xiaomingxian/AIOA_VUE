@@ -140,7 +140,7 @@
                           <i></i>
                           <p class="tongzhi">[{{postitem.s_varchar5}}]</p>
                           <span :title="postitem.s_title">{{postitem.s_title|filterText2}}</span>
-                          <i></i>
+                          <!--<i></i>-->
                         </div>
                         <span class="time">{{postitem.d_create_time|timeStrings}}</span>
                         <!--</a-popover>-->
