@@ -151,13 +151,18 @@
                       </a-select-option>
                     </a-select>
 
-                    <span v-if="conditionList.length == 0" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
+                    <!--<span v-if="conditionList.length == 0" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">-->
+                      <!--<a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>-->
+                      <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                    <!--</span >-->
+                    <!--<span v-else class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">-->
+                      <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
+                    <!--</span>-->
+
+                    <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
                       <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
                       <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
                     </span >
-                    <span v-else class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">
-                      <a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>
-                    </span>
                   </a-form-item>
                 </a-col>
               </a-row>
@@ -169,15 +174,15 @@
                     <a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>
                     </a-select>
                     <a-input v-else class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
-                    <span v-if="conditionList.length == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 352.4%;">
-                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
-                    </span >
-                    <span v-else-if="conditionList.length == 2 && index == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 239.7%;">
-                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
-                    </span >
-                    <span v-else-if="index == 2" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">
-                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
-                    </span >
+                    <!--<span v-if="conditionList.length == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 352.4%;">-->
+                      <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                    <!--</span >-->
+                    <!--<span v-else-if="conditionList.length == 2 && index == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 239.7%;">-->
+                      <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                    <!--</span >-->
+                    <!--<span v-else-if="index == 2" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">-->
+                      <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                    <!--</span >-->
                   </a-form-item>
 
                 </a-col>
