@@ -787,14 +787,13 @@
               display: flex;
               align-items: center;
               .tongzhi{
+                min-width: 70px;
                 background: #f8ffbb;
                 font-weight: 600;
                 margin: 0;
                 margin-left: 6px;
               }
-              p{
-                min-width: 90px;
-              }
+
               span{
                 width: 75%;
                 overflow: hidden;
