@@ -169,31 +169,7 @@
                               <span v-show="false" :ref="(index+1)+'item'" v-html="item.url"></span>
                             </div>
                           </div>
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/2.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/3.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/4.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/3.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/4.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
+
                         </div>
                         <!--Add Arrows-->
                         <div ref="left" style="display: none" class="swiper-button-next"></div>
@@ -226,18 +202,17 @@
 
                   <div class="itemline" style="height: 62%;">
                       <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index" @click="openDetialModelTaskToDo(item)"  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
-                        <p class="p">
+                        <div class="p">
 
                           <template v-if="willdoindex==0">
                              <p>
-                                 <i></i>
-                                <span :title="item.title+'   '+item.createTime+item.name">
-
-                                 <span>{{item.title|filterText1}}</span>
-                               <div v-if="item.important==1">
-                                  <img src="../../assets/zhong.png" alt="" >
-                               </div>
-                               </span>
+                              <i></i>
+                              <span :title="item.title+'   '+item.createTime+item.name">
+                                <span>{{item.title|filterText1}}</span>
+                                <div v-if="item.important==1">
+                                   <img src="../../assets/zhong.png" alt="" >
+                                </div>
+                              </span>
                             </p>
                             <span >{{item.createTime|timeText}}</span>
                           </template>
@@ -257,7 +232,7 @@
                           </template>
 
 
-                        </p>
+                        </div>
                       </div>
                       <div v-else>
                         暂无待办工作
@@ -958,9 +933,12 @@
         findwaitLists(operstatus='task_todo'){
 
           getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
+            console.log(res.result.records);
             console.log(Array.isArray(res.result.records));
 
             this.findwaitdataLists =res.result.records.splice(0,5)
+            console.log(this.findwaitdataLists);
+
 
             if(operstatus=='task_todo'){
               this.total = res.result.total;
@@ -1331,7 +1309,7 @@
                 /*justify-content: space-between;*/
                 margin: 0;
                 .tongzhi{
-                  min-width: 90px;
+                  min-width: 70px;
                   background: #f8ffbb;
                   font-weight: 600;
                   margin: 0;
