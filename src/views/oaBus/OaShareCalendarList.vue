@@ -174,6 +174,8 @@
                 return "分管";
               } else if (text == 3) {
                 return "部门内";
+              }else if (text == 0) {
+                return "自己查看";
               }
             }
 

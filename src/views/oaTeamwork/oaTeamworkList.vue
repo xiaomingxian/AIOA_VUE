@@ -8,8 +8,8 @@
           <a-col :md="8" :sm="4">
             <a-form-item   :labelCol="labelCol"
                            :wrapperCol="wrapperCol" label="协同业务" >
-             <a-select  v-model="queryParam.agentUserName" placeholder="请选择协同业务" >
-               <a-select-option v-for="(item,index) in dataSource" :key="index" :value="item.steamworkName">{{item.steamworkName}}
+             <a-select  v-model="queryParam.sTeamworkName" placeholder="请选择协同业务" >
+               <a-select-option v-for="(item,index) in TenworkList" :key="index" :value="item.steamworkName">{{item.steamworkName}}
                 </a-select-option>
                </a-select>
             </a-form-item>
@@ -130,6 +130,7 @@
             title: '操作',
             dataIndex: 'action',
             align:"center",
+            width:200,
             scopedSlots: { customRender: 'action' },
           }
         ],
@@ -146,12 +147,14 @@
         visibleDel:false,
         selectedRowKeys:[],
         selectionRows: [],
+        TenworkList:[],
     }
   },
 
   created(){
 
     this.setFontSize();
+    this.selectOption();
 
   },
 
@@ -198,6 +201,12 @@
         getAction(this.url.list).then((res) => {
           this.dataSource = res.result.records;
           this.ipagination.total =  res.result.total;
+        })
+      } ,
+      selectOption(){
+        // alert(111)
+        getAction(this.url.list).then((res) => {
+          this.TenworkList = res.result.records;
         })
       } ,
       //---------删除功能---------------------------
