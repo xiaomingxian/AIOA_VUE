@@ -208,10 +208,12 @@
                              <p>
                               <i></i>
                               <span :title="item.title+'   '+item.createTime+item.name">
-                                <span>{{item.title|filterText1}}</span>
-                                <div v-if="item.important==1">
-                                   <img src="../../assets/zhong.png" alt="" >
-                                </div>
+                                <span>{{item.title|filterText1}}
+                                  <div v-if="item.important==1">
+                                       <img src="../../assets/zhong.png" alt="" >
+                                  </div>
+                                </span>
+
                               </span>
                             </p>
                             <span >{{item.createTime|timeText}}</span>
@@ -221,11 +223,13 @@
                              <p>
                               <span :title="item.s_title+'   '+item.d_create_time">
                                <i></i>
-                              <span>  {{item.s_title|filterText1}}</span>
+                              <span>  {{item.s_title|filterText1}}
+                                <div v-if="item.important==1">
+                                   <img src="../../assets/zhong.png" alt="" >
+                                </div>
+                              </span>
 
-                             <div v-if="item.important==1">
-                                <img src="../../assets/zhong.png" alt="" >
-                             </div>
+
                              </span>
                             </p>
                             <span >{{item.d_create_time|timeText}}</span>
@@ -683,11 +687,13 @@
         if(e==0){
           // 代办日程
           // alert(e)
+          this.willdoindex = 0;
           this.findwaitLists('task_todo');
         }else{
 
           // alert(e)
           // this.findwaitLists('task_done');
+          this.willdoindex = 1;
            this.homeLists(this.userid,)
 
         }
