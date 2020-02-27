@@ -141,7 +141,7 @@
                <span class="shuline"></span>
               <span>{{model1.sName}}</span>
             </span>
-            <span class="more" @click="openmore(model1.url)">MORE <a-icon type="plus"></a-icon> </span>
+            <span class="more" @click="openmore(model1.url,model1.sName)">MORE <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p  class="each"  v-for="(item,index) in model1Lists"  :key="index" @click="openDetialModel(model1.tableName,item.i_id)">
@@ -162,7 +162,7 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span class="more"  @click="openmore(model2.url)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span class="more"  @click="openmore(model2.url,model2.sName)">MORE  <a-icon type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p  class="each"  v-for="(item,index) in model2Lists"  :key="index" @click="openDetialModel(model2.tableName,item.i_id)">
@@ -181,7 +181,7 @@
                  <span>{{model3.sName}}</span>
                 <!--<span>{{model3}}</span>-->
               </span>
-              <span class="more" @click="openmore(model3.url)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span class="more" @click="openmore(model3.url,model3.sName)">MORE  <a-icon type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p  class="each"  v-for="(item,index) in model3Lists"  :key="index" @click="openDetialModel(model3.tableName,item.i_id)">
@@ -201,7 +201,7 @@
                  <span>{{model4.sName}}</span>
                 <!--<span>{{model4}}</span>-->
               </span>
-            <span class="more" @click="openmore(model4.url)">MORE <a-icon type="plus"></a-icon> </span>
+            <span class="more" @click="openmore(model4.url,model4.sName)">MORE <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p  class="each"  v-for="(item,index) in model4Lists"  :key="index" @click="openDetialModel(model4.tableName,item.i_id)">
@@ -319,15 +319,15 @@
       filterText(text){
         if(text!=undefined) {
           if (text.length > 20) {
-            return text.substring(0, 17) + '...'
+            return text.substring(0, 12) + '...'
           } else {
             return text
           }
         }
       }, filterText2(text){
         if(text!=undefined) {
-          if (text.length > 25) {
-            return text.substring(0, 22) + '...'
+          if (text.length > 22) {
+            return text.substring(0, 17) + '...'
           } else {
             return text
           }
@@ -535,9 +535,9 @@
       postMore(){
         this.$router.push('/'+'publicMessage/electronicFile');
       },
-      openmore(url){ //四个模块的跳转
+      openmore(url,moduleName){ //四个模块的跳转
 
-        this.$router.push('/'+url);
+        this.$router.push('/'+url+'?moduleName='+moduleName);
         // console.log(url)
       },
       DaiBanMore(){ //待办任务的跳转
@@ -769,7 +769,7 @@
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          justify-content: space-between;
+          justify-content: flex-start;
           padding: 15px;
           padding-bottom: 20px;
 
@@ -904,24 +904,26 @@
           .titlebox{
             width: 100%;
             height: 40px;
+            background: #f4f4f4;
             border-bottom: 2px solid #009dee;
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             margin: 0;
             span:first-child{
               width: auto;
               height: 40px;
               padding: 0 8px;
               padding-left: 0;
-              background: #009dee;
+              /*background: #009dee;*/
               font-size: 16px;
               font-weight: bold;
-              color: #ffffff;
+              color: #333333;
               display: flex;
               align-items: center;
               span{
-                color: #ffffff;
+                /*color: #ffffff;*/
               }
               .shuline{
                 width: 5px;
@@ -1097,6 +1099,7 @@
             .titlebox{
               width: 100%;
               height: 40px;
+              background: #f4f4f4;
               border-bottom: 2px solid #0074b9;
               margin: 0px;
               /*background: #f2dede;*/
@@ -1108,15 +1111,15 @@
                 height: 40px;
                 padding: 0 8px;
                 padding-left: 0;
-                background: #009dee;
+                /*background: #009dee;*/
                 font-size: 14px;
                 font-weight: bold;
-                color: #ffffff;
+                color: #333333 !important;
                 display: flex;
                 align-items: center;
                 span:nth-child(2){
                   min-width: 75px;
-                  color: #ffffff !important;
+                  /*color: #ffffff !important;*/
                   font-size: 16px !important;
                   font-weight: bold;
                 }

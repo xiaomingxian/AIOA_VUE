@@ -180,6 +180,7 @@
 
         // 高级搜索 展开/关闭
         advanced: true,
+        isClick:false,
         // 查询参数
         queryParam: {
           function_id: '',
@@ -315,8 +316,8 @@
       getBusModelSelectList(){
         let url = "/oaBus/busModel/findList";
         getAction(url, {}).then((res) => {
-          console.log('--------------------模块-下拉列表------------------------------');
-          console.log(res);
+//          console.log('--------------------模块-下拉列表------------------------------');
+//          console.log(res);
           this.modelList=res.result;
         });
       },
@@ -325,8 +326,8 @@
         let url = "/oaBus/oaBusdata/queryFunSelByModelId";
         postAction(url, {modelId: modelId.toString(), function_id: ""}).then((res) => {
           // this.conditionList = res.colList;
-          console.log('--------------------业务-下拉列表------------------------------');
-          console.log(res);
+//          console.log('--------------------业务-下拉列表------------------------------');
+//          console.log(res);
           this.selectList = res.funList;
           this.timeList = res.d_create_time;
           this.queryParam.function_id = this.selectList[0].i_id;
@@ -340,8 +341,8 @@
       this.queryParam.function_id=funcation;
       },
       handleTableChange(page) {
-        console.log("0-0-0-0000000000000000000000000");
-        console.log(page);
+//        console.log("0-0-0-0000000000000000000000000");
+//        console.log(page);
         this.pagination.current = page.current;
         this.pagination.pageSize = page.pageSize;
         this.getPgSearchList(this.iBMId);
@@ -351,116 +352,110 @@
         if (iBMId!=null && iBMId>0){
           this.iBMId = iBMId;
         }
-        // let url = "oaBus/oaBusdata/queryByModelId";
-        let url = "modify/fields/queryOaBusdataList";
-        // this.queryParam.function_id = this.queryParam.function_id.toString();
-        // this.queryParam.i_is_state = this.queryParam.i_is_state.toString();
-        // this.queryParam.s_create_name = this.queryParam.s_create_name.toString();
-        // this.queryParam.d_create_time = this.queryParam.d_create_time.toString();
-        postAction(url, {modelId:  this.iBMId, pageNo:this.pagination.current,pageSize:this.pagination.pageSize,map: this.queryParam}).then((res) => {
-          console.log("000000000000000运维-数据列表000000000000000");
-          console.log(res);
-          // JSON.parse(res.message);----------------表头列表-----------
-          this.searchColumns = res.result.colList
-          this.searchList = res.result.dataList;
-          this.tableName=res.result.tableName;
-          //当前页码
-          this.pagination.current = this.searchList.current;
-          this.pagination.pageSize = this.searchList.size;
-          this.pagination.total = this.searchList.total;
+
+        if(this.isClick==false){
+          this.isClick=true;
+          // let url = "oaBus/oaBusdata/queryByModelId";
+          let url = "modify/fields/queryOaBusdataList";
+          // this.queryParam.function_id = this.queryParam.function_id.toString();
+          // this.queryParam.i_is_state = this.queryParam.i_is_state.toString();
+          // this.queryParam.s_create_name = this.queryParam.s_create_name.toString();
+          // this.queryParam.d_create_time = this.queryParam.d_create_time.toString();
+          postAction(url, {modelId:  this.iBMId, pageNo:this.pagination.current,pageSize:this.pagination.pageSize,map: this.queryParam}).then((res) => {
+//          console.log("000000000000000运维-数据列表000000000000000");
+//          console.log(res);
+            this.isClick=false;
+            // JSON.parse(res.message);----------------表头列表-----------
+            this.searchColumns = res.result.colList
+            this.searchList = res.result.dataList;
+            this.tableName=res.result.tableName;
+            //当前页码
+            this.pagination.current = this.searchList.current;
+            this.pagination.pageSize = this.searchList.size;
+            this.pagination.total = this.searchList.total;
 
 
-          this.dataSource = this.searchList.records;
-          this.columns.push({
-            title: '顺序号',
-            // dataIndex: 'mm',
-            align: "center",
-            customRender: (text,row,index) => {
+            this.dataSource = this.searchList.records;
+            this.columns.push({
+              title: '顺序号',
+              // dataIndex: 'mm',
+              align: "center",
+              customRender: (text,row,index) => {
                 return index+1;
-            }
-          });
+              }
+            });
 
-          for (let i = 1; i < this.searchColumns.length; i++) {
-            // this.columns.push({
-            //   title: this.searchColumns[i].s_column_name,
-            //   dataIndex: this.searchColumns[i].s_table_column,
-            //   align: "center",
-            //
-            // });
-            if (this.searchColumns[i].s_table_column != 'i_id') {
-              if(this.searchColumns[i].s_table_column =='i_is_state'){
-                this.columns.push({
-                  title: this.searchColumns[i].s_column_name,
-                  dataIndex: this.searchColumns[i].s_table_column,
-                  align: "center",
-                  customRender: (text) => {
-                    if(text == true){
-                      return '已办结'
-                    }else if(text == false){
-                      return '未办结'
-                    }else{
-                      return text
+            for (let i = 1; i < this.searchColumns.length; i++) {
+              // this.columns.push({
+              //   title: this.searchColumns[i].s_column_name,
+              //   dataIndex: this.searchColumns[i].s_table_column,
+              //   align: "center",
+              //
+              // });
+              if (this.searchColumns[i].s_table_column != 'i_id') {
+                if(this.searchColumns[i].s_table_column =='i_is_state'){
+                  this.columns.push({
+                    title: this.searchColumns[i].s_column_name,
+                    dataIndex: this.searchColumns[i].s_table_column,
+                    align: "center",
+                    customRender: (text) => {
+                      if(text == true){
+                        return '已办结'
+                      }else if(text == false){
+                        return '未办结'
+                      }else{
+                        return text
+                      }
                     }
-                  }
-                });
-              }else{
-                this.columns.push({
-                  title: this.searchColumns[i].s_column_name,
-                  dataIndex: this.searchColumns[i].s_table_column,
-                  align: "center",
-                });
+                  });
+                }else{
+                  this.columns.push({
+                    title: this.searchColumns[i].s_column_name,
+                    dataIndex: this.searchColumns[i].s_table_column,
+                    align: "center",
+                  });
+                }
+
               }
 
+              // for (let j = 0; j < this.dataSource.length; j++) {
+              //   if (this.dataSource[j][this.searchColumns[i].s_table_column] == true) {
+              //     this.dataSource[j][this.searchColumns[i].s_table_column] = '已办结';
+              //   } else if (this.dataSource[j][this.searchColumns[i].s_table_column] == false) {
+              //     this.dataSource[j][this.searchColumns[i].s_table_column] = '未办结';
+              //   }
+              //   if (this.dataSource[j][this.searchColumns[i].s_table_column] == 1) {
+              //     this.dataSource[j][this.searchColumns[i].s_table_column] = '是';
+              //   } else if (this.dataSource[j][this.searchColumns[i].s_table_column] == 0) {
+              //     this.dataSource[j][this.searchColumns[i].s_table_column] = '否';
+              //   }
+              // }
             }
 
-            // for (let j = 0; j < this.dataSource.length; j++) {
-            //   if (this.dataSource[j][this.searchColumns[i].s_table_column] == true) {
-            //     this.dataSource[j][this.searchColumns[i].s_table_column] = '已办结';
-            //   } else if (this.dataSource[j][this.searchColumns[i].s_table_column] == false) {
-            //     this.dataSource[j][this.searchColumns[i].s_table_column] = '未办结';
-            //   }
-            //   if (this.dataSource[j][this.searchColumns[i].s_table_column] == 1) {
-            //     this.dataSource[j][this.searchColumns[i].s_table_column] = '是';
-            //   } else if (this.dataSource[j][this.searchColumns[i].s_table_column] == 0) {
-            //     this.dataSource[j][this.searchColumns[i].s_table_column] = '否';
-            //   }
-            // }
-          }
-
-          this.columns.push({
-            title: '操作',
-            dataIndex: 'action',
-            align: "center",
-            scopedSlots: {customRender: 'action'},
+            this.columns.push({
+              title: '操作',
+              dataIndex: 'action',
+              align: "center",
+              scopedSlots: {customRender: 'action'},
+            });
           });
-        });
+        }else {
+
+        }
+
+
 
       },
       changeInput(event, obj) {
-
         this.queryParam[obj] = event.currentTarget.value;
-
-        console.log('----------------------------------------------------------');
-        console.log("object: " + obj + " value: " + event);
-        console.log('----------------------------------------------------------');
-        console.log(this.queryParam);
       },
       changeSelect(event, obj) {
         // this.queryParam[obj] = event.toString();
-
-        console.log('----------------------------------------------------------');
-        console.log("object: " + obj + " value: " + event);
-        console.log('----------------------------------------------------------');
-        console.log(this.queryParam);
       },
       onClick(record, index) {
         return {
           on: {
             click: () => {
-              // console.log('----------------------------------------------------------');
-              // console.log(record);
-              // console.log('----------------------------------------------------------');
-              // console.log("record: "+record+" index: "+index);
               this.$refs.cutFile.show(record)
 
 
@@ -470,8 +465,6 @@
         }
       },
       chooseSearch(e){
-        console.log('222----------------------------------------------------------222');
-        console.log('radio checked',e.target.value)
       }
 
     },

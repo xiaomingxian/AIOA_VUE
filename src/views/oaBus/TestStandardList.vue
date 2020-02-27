@@ -100,6 +100,7 @@
           <a-list v-else size="large" :pagination="pagination" >
 
             <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].iTableId,dataSource[index].sTable)">
+
               <a-list-item-meta>
               <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].sTitle"></a>
               <p slot="description" style="float: left;padding: 17px 27px 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-for="(atom, index) in searchOut[index]" v-html="atom"></p>

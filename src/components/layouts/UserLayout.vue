@@ -167,6 +167,11 @@
 </script>
 
 <style lang="scss" scoped>
+
+  #userLayout{
+    overflow: hidden;
+  }
+
   #userLayout.user-layout-wrapper {
     height: 100%;
 
