@@ -1273,7 +1273,7 @@
             padding-top: 0px !important;
             width: 100%;
             min-height: 180px;
-            /*background: darkcyan;*/
+
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -1332,12 +1332,17 @@
                 /*justify-content: space-between;*/
                 margin: 0;
                 .tongzhi{
+                  min-width: 90px;
                   background: #f8ffbb;
                   font-weight: 600;
                   margin: 0;
                   margin-left: 6px;
                 }
                 span{
+                  width: 75%;
+                  overflow: hidden;
+                  text-overflow:ellipsis;
+                  white-space: nowrap;
                   margin: 0 10px;
                 }
                 i{

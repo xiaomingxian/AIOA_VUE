@@ -792,7 +792,14 @@
                 margin: 0;
                 margin-left: 6px;
               }
+              p{
+                min-width: 90px;
+              }
               span{
+                width: 75%;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
                 margin: 0 10px;
               }
               i{
