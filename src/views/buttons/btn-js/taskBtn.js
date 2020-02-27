@@ -1277,9 +1277,12 @@ export const taskBth = {
         this.backData.i_is_state = 1
         postAction(this.url.updateBusdata, this.backData).then(res => {
           if (res.success) {
+            this.$message.success('办结成功')
             getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
               if (res.success) {
                 this.$message.success(res.message)
+                this.reload();
+
               } else {
                 this.$message.error(res.message)
               }
