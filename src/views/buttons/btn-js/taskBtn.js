@@ -166,6 +166,10 @@ export const taskBth = {
         }
       })
     },
+    //取消关注件
+    cImportantObj(){
+      this.$emit('cancelImportantObj')
+    },
     //关注件--是否重要
     important() {
       this.$emit('iIsImportantObj')
