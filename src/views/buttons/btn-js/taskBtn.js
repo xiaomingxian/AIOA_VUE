@@ -1676,6 +1676,15 @@ export const taskBth = {
     }
     ,
 
+    //电子公告-预览
+    lookUpBusdata(){
+      let table = 'oa_busdata30';
+      if (this.backData.table === table) {
+        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + table + '&busdataId=' + this.backData.i_id + '&navisshow=true')
+      }else {
+        this.$message.error("该业务暂不支持预览！")
+      }
+    },
 //日期格式化
     dateFormat(date) {
       let date1 = new Date(date);
@@ -1708,6 +1717,6 @@ export const taskBth = {
       // window.location.replace(window.location.href);
       that.showBtn(that.butArrLists);
     }
-  }
-  ,
+  },
+
 }
