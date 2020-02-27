@@ -175,7 +175,11 @@
       }
     },
     created() {
-
+      if(this.$route.query.searchWords){
+        this.FilterAllFiles(this.$route.query.searchWords);
+      }else {
+        return;
+      }
     },
     destroyed(){
       this.dataDestroy();
