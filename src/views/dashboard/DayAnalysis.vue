@@ -260,9 +260,29 @@
                   <hr>
                 
                   <div class="top" style="width: 90%;height: 38%;display: flex;align-items: center; border-top: 1px solid #999999;  margin: 0 auto">
-                    <a-input placeholder="请输入关键字">
-                      <a-icon slot="prefix" type="search"></a-icon>
-                    </a-input>
+                    <!--<a-input placeholder="请输入关键字">-->
+                      <!--<a-icon slot="prefix" type="search"></a-icon>-->
+                    <!--</a-input>-->
+                    <span class="table-page-search-submitButtons" style="position: relative;left: -4px;top: -1px;cursor: pointer;">
+                    <!--<a-button type="primary" icon="search"></a-button>-->
+                      <a-icon type="search"  @click="openSearch"></a-icon>
+                    </span>
+                    <!--<a-icon type="search"></a-icon>-->
+                    <a-select
+                      mode="combobox"
+                      labelInValue
+                      placeholder="公文检索"
+                      style="width: 100%"
+                      @search="fetchUser"
+                      @change="handleChange"
+                      :showArrow="false"
+                      :allowClear="true"
+                      :defaultActiveFirstOption="false"
+                      :notFoundContent="fetching ? undefined : null"
+                    >
+                      <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+                      <a-select-option v-for="d in data" :key="d.text">{{d.text}}</a-select-option>
+                    </a-select>
                   </div>
                 </div>
               </a-col>
@@ -325,6 +345,7 @@
 <script>
 
   import { httpAction,getAction,postAction,deleteAction} from '@/api/manage'
+  import debounce from 'lodash/debounce';
   import oaCalendarCatModal from '../oaBus//modules/oaCalendarCatModal'
   import oaCalendarModal from '../oaBus/modules/oaCalendarModal'
   import detailFile from '../mytask/taskList/detailFile'
@@ -338,7 +359,12 @@
   export default {
       name: "Dayanalysis",
       data () {
+        this.lastFetchId = 0;
+        this.fetchUser = debounce(this.fetchUser, 800);
         return {
+          data: [],
+          fetching: false,
+          search: '',
           iisCalendar:1,
           visible:false,
           editvisible:false,
@@ -594,6 +620,57 @@
     },
 
     methods:{
+      fetchUser(value) {
+        // console.log('fetching user', value);
+        this.lastFetchId += 1;
+        const fetchId = this.lastFetchId;
+        this.data = [];
+        this.fetching = true;
+        let url = "/oaEs/oaelasticsearch/getsearch";
+        let reg = new RegExp("^[0-9]*$");
+        if(!reg.test(value)) {
+          postAction(url, {keyWord: value}).then((res) => {
+            if (fetchId !== this.lastFetchId) {
+              // for fetch callback order
+              return;
+            }
+            for(let i = 0;i<res.result.length;i++){
+              this.data.push({
+                text: res.result[i].keyWord,
+                value: res.result[i].id
+              });
+            }
+            this.fetching = false;
+          });
+
+        } else {
+
+          // this.$message.error('请输入搜索内容')
+          return;
+
+        }
+
+      },
+      handleChange(obj) {
+
+        //判断  全文检索搜索框是否输入    检测输入变化则赋值  否则清空变量
+        if(obj){
+          // console.log(obj);
+          this.search = obj.key;
+        }else{
+          this.search = '';
+        }
+        // Object.assign(this, {
+        //   value,
+        //   data: [],
+        //   fetching: false,
+        // });
+      },
+      openSearch(){
+
+        this.$router.push({path:'/ioaBus/busModel/search',query:{searchWords : this.search}})
+
+      },
       openUrl(e){
         console.log(e);
         console.log(this.$refs[e][0].lastChild);
