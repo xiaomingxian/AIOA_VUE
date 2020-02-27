@@ -1,5 +1,5 @@
 <template>
-<!--  position: fixed;-->
+  <!--  position: fixed;-->
   <form style="background-color: #fff;padding-top: 20px;">
     <!--<div v-show="true" @change="changRouter" v-model="routeParam">{{this.$route.params.tableName}}</div>-->
     <center>
@@ -437,7 +437,7 @@
         } else if (data.cmd == "user") {
           //TODO 用户消息
           let res = JSON.parse(e.data)
-          console.log("websocket接受消息:",res.msgTxt)
+          console.log("websocket接受消息:", res.msgTxt)
           if (res.msgTxt == "kongjian") {
             console.log(this.dealBtn);
             //this.$refs.taskRef.saveBusData();
@@ -734,7 +734,7 @@
         this.$refs[this.pageRef].saveDelTime(data)
 
       },
-      cancelImportantObj(){
+      cancelImportantObj() {
         this.$refs[this.pageRef].cancelImportant()
       },
       // 关注件--是否重要
@@ -950,8 +950,9 @@
             this.busFunction = res.result.busFunction;
             this.busTextData = res.result.busTextData;
             //处理是否为电子公告预览页面
+            var lookup = this.$route.query.lookUp;
             let userInfo = JSON.parse(window.localStorage.getItem('userdata')).userInfo;
-            if (this.backData.s_create_by != userInfo.id && this.busFunction.iisProc == 0 && this.busFunction.iisEditor == 1) {
+            if ((this.backData.s_create_by != userInfo.id && this.busFunction.iisProc == 0 && this.busFunction.iisEditor == 1) || lookup) {
               this.pageRef = 'preview';
               if (this.busTextData != null) {
                 this.jeditor.value = this.busTextData.s_text;
@@ -1013,15 +1014,15 @@
       //     }
       //   }
       // },
-      reloadOpinion(key){
-        let  param = {};
+      reloadOpinion(key) {
+        let param = {};
         param.proSetId = this.busFunction.iprocSetId;
-        param.taskDefKey= key;
+        param.taskDefKey = key;
         param.opinionTable = this.backData.table + "_opinion";
         param.busdataId = this.backData.i_id;
-        postAction('/oaBus/oaBusdataOpinion/reloadOpinionList',param).then(res=>{
-          if (res.success){
-            this.optSet(res.result,this.backData.key);
+        postAction('/oaBus/oaBusdataOpinion/reloadOpinionList', param).then(res => {
+          if (res.success) {
+            this.optSet(res.result, this.backData.key);
           } else {
             this.$message.error("查询意见失败")
           }
@@ -1043,13 +1044,13 @@
             map[key].optionContext2 = ''
             map[key].optionContext2 += opts[i].optionContext + '\t' + opts[i].signName + '\t' + opts[i].signTime + '\n'
             map[key].taskDefKeys = []
-            map[key].taskDefKeys.push({key:map[key].taskDefKey,optionSetId:map[key].optionSetId})
+            map[key].taskDefKeys.push({key: map[key].taskDefKey, optionSetId: map[key].optionSetId})
           } else {
             let optx = opts[i].optionContext + '\t' + opts[i].signName + '\t' + opts[i].signTime + '\n'
             map[key].optionContext2 += optx
             // if ((map[key].taskDefKeys).indexOf(opts[i].taskDefKey) < 0) {
 
-              map[key].taskDefKeys.push({key:opts[i].taskDefKey,optionSetId:opts[i].optionSetId})
+            map[key].taskDefKeys.push({key: opts[i].taskDefKey, optionSetId: opts[i].optionSetId})
             // }
           }
 
@@ -1103,8 +1104,8 @@
 </script>
 <style lang="less" scoped>
 
-  ::-webkit-scrollbar{
-    display:none;
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   .fuwenben {
@@ -1118,23 +1119,23 @@
     cursor: pointer;
   }
 
-  /deep/.ant-input{
+  /deep/ .ant-input {
     font-size: 16px;
   }
 
-  /deep/.ant-select{
+  /deep/ .ant-select {
     font-size: 16px;
   }
 
-  /deep/.ant-btn-default{
+  /deep/ .ant-btn-default {
     font-size: 16px;
   }
 
-  /deep/.ant-btn-lg{
+  /deep/ .ant-btn-lg {
     font-size: 18px;
   }
 
-  /deep/.ant-radio-wrapper{
+  /deep/ .ant-radio-wrapper {
     font-size: 16px;
   }
 </style>

@@ -323,7 +323,7 @@ export const busdataTemplate = {
       let i_safetylevel = localStorage.getItem('密级:' + this.backData.table + this.backData.i_id)
       this.backData.i_safetylevel = i_safetylevel == null ? 1 : i_safetylevel
       if (this.backData.i_bigint3 == ""){
-        this.backData.i_bigint3 = 0;
+        this.backData.i_bigint3 = 1;
       }
       //火狐浏览器时间字段（d_datetime1）处理
       var internet = navigator.userAgent;
