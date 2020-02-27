@@ -191,8 +191,10 @@
             customRender:function (id) {
               if (id==0){
                 return "无效"
-              } else {
+              } else if (id==1) {
                 return "有效"
+              }else {
+                return '无状态'
               }
             }
           },
