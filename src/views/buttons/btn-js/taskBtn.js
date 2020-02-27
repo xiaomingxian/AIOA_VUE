@@ -1680,7 +1680,8 @@ export const taskBth = {
     lookUpBusdata(){
       let table = 'oa_busdata30';
       if (this.backData.table === table) {
-        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + table + '&busdataId=' + this.backData.i_id + '&navisshow=true')
+        this.$emit('savaObj',false);
+        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?lookUp=true&tableName=' + table + '&busdataId=' + this.backData.i_id + '&navisshow=true')
       }else {
         this.$message.error("该业务暂不支持预览！")
       }

@@ -15,7 +15,7 @@
               <i></i>
               <p class="tongzhi">[{{item.s_varchar5}}]</p>
               <span :title="item.s_title">{{item.s_title|filterText2}}</span>
-              <i></i>
+              <!--<i></i>-->
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
@@ -297,6 +297,7 @@
           HomeList:'/oaBus/homeAnalysis/HomeList',
           Posturl:'/oaBus/oaBusdata/queryByModelId',
           MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
+          LinkLists:'/oaBus/Calendar/oaCalendar/LinkList',
         },
         //---------------------------------环节选择相关
         loading: false,
@@ -428,7 +429,7 @@
         });
       },5000)
 
-      postAction(this.url.MostUserLink).then((res) => {
+      postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
         /*  if(res.length==1){
             this.LinkList.push(JSON.parse(JSON.stringify(res)))
@@ -453,7 +454,13 @@
             this.LinkList = JSON.parse(JSON.stringify(res));
           }*/
         this.LinkList =  res;
-        console.log( this.LinkList.length);
+        for(var i=0;i<this.LinkList.length;i++){
+          console.log(typeof this.LinkList[i])
+          getAction(this.url.MostUserLink,{id:this.LinkList[i]}).then((res) => {
+            console.log(res);
+          });
+        }
+        console.log(res);
       });
     },
     components: {
@@ -786,12 +793,18 @@
               display: flex;
               align-items: center;
               .tongzhi{
+                min-width: 70px;
                 background: #f8ffbb;
                 font-weight: 600;
                 margin: 0;
                 margin-left: 6px;
               }
+
               span{
+                width: 75%;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
                 margin: 0 10px;
               }
               i{

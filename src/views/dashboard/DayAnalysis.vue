@@ -140,7 +140,7 @@
                           <i></i>
                           <p class="tongzhi">[{{postitem.s_varchar5}}]</p>
                           <span :title="postitem.s_title">{{postitem.s_title|filterText2}}</span>
-                          <i></i>
+                          <!--<i></i>-->
                         </div>
                         <span class="time">{{postitem.d_create_time|timeStrings}}</span>
                         <!--</a-popover>-->
@@ -169,31 +169,7 @@
                               <span v-show="false" :ref="(index+1)+'item'" v-html="item.url"></span>
                             </div>
                           </div>
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/2.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/3.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/4.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/3.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
-                          <!--<div class="swiper-slide">-->
-                            <!--<div>-->
-                              <!--<img src="../../assets/4.png" alt="">-->
-                            <!--</div>-->
-                          <!--</div>-->
+
                         </div>
                         <!--Add Arrows-->
                         <div ref="left" style="display: none" class="swiper-button-next"></div>
@@ -226,18 +202,19 @@
 
                   <div class="itemline" style="height: 62%;">
                       <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index" @click="openDetialModelTaskToDo(item)"  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
-                        <p class="p">
+                        <div class="p">
 
                           <template v-if="willdoindex==0">
                              <p>
-                                 <i></i>
-                                <span :title="item.title+'   '+item.createTime+item.name">
+                              <i></i>
+                              <span :title="item.title+'   '+item.createTime+item.name">
+                                <span>{{item.title|filterText1}}
+                                  <div v-if="item.important==1">
+                                       <img src="../../assets/zhong.png" alt="" >
+                                  </div>
+                                </span>
 
-                                 <span>{{item.title|filterText1}}</span>
-                               <div v-if="item.important==1">
-                                  <img src="../../assets/zhong.png" alt="" >
-                               </div>
-                               </span>
+                              </span>
                             </p>
                             <span >{{item.createTime|timeText}}</span>
                           </template>
@@ -246,18 +223,20 @@
                              <p>
                               <span :title="item.s_title+'   '+item.d_create_time">
                                <i></i>
-                              <span>  {{item.s_title|filterText1}}</span>
+                              <span>  {{item.s_title|filterText1}}
+                                <div v-if="item.important==1">
+                                   <img src="../../assets/zhong.png" alt="" >
+                                </div>
+                              </span>
 
-                             <div v-if="item.important==1">
-                                <img src="../../assets/zhong.png" alt="" >
-                             </div>
+
                              </span>
                             </p>
                             <span >{{item.d_create_time|timeText}}</span>
                           </template>
 
 
-                        </p>
+                        </div>
                       </div>
                       <div v-else>
                         暂无待办工作
@@ -402,6 +381,7 @@
               delete: "/oaBus/Calendar/oaCalendar/delete",
               Posturl:'/oaBus/oaBusdata/queryByModelId',
               busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
+              LinkLists:'/oaBus/Calendar/oaCalendar/LinkList',
             },
           total:'',//代办数量
           total1:'',//模块的数量
@@ -593,7 +573,7 @@
 
 
 
-      postAction(this.url.MostUserLink).then((res) => {
+      postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
       /*  if(res.length==1){
           this.LinkList.push(JSON.parse(JSON.stringify(res)))
@@ -707,11 +687,13 @@
         if(e==0){
           // 代办日程
           // alert(e)
+          this.willdoindex = 0;
           this.findwaitLists('task_todo');
         }else{
 
           // alert(e)
           // this.findwaitLists('task_done');
+          this.willdoindex = 1;
            this.homeLists(this.userid,)
 
         }
@@ -958,9 +940,12 @@
         findwaitLists(operstatus='task_todo'){
 
           getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
+            console.log(res.result.records);
             console.log(Array.isArray(res.result.records));
 
             this.findwaitdataLists =res.result.records.splice(0,5)
+            console.log(this.findwaitdataLists);
+
 
             if(operstatus=='task_todo'){
               this.total = res.result.total;
@@ -1272,7 +1257,7 @@
             padding-top: 0px !important;
             width: 100%;
             min-height: 180px;
-            /*background: darkcyan;*/
+
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -1331,12 +1316,17 @@
                 /*justify-content: space-between;*/
                 margin: 0;
                 .tongzhi{
+                  min-width: 70px;
                   background: #f8ffbb;
                   font-weight: 600;
                   margin: 0;
                   margin-left: 6px;
                 }
                 span{
+                  width: 75%;
+                  overflow: hidden;
+                  text-overflow:ellipsis;
+                  white-space: nowrap;
                   margin: 0 10px;
                 }
                 i{

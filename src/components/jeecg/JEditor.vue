@@ -79,6 +79,12 @@
           toolbar: this.toolbar,
           branding: false,
           menubar: false,
+          toolbar:
+            ['undo redo | formatselect| fontsizeselect | bold |italic | link image media|',
+            'forecolor|backcolor',
+            'alignleft | aligncenter | alignright | alignjustify',
+            'outdent | indent ',
+            'removeformat | fullscreen'],
           images_upload_handler: (blobInfo, success) => {
             const img = 'data:image/jpeg;base64,' + blobInfo.base64()
             success(img)
