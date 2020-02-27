@@ -3,7 +3,7 @@
   <a-card :bordered="false">
 
     <!-- 查询区域 -->
-    <div class="table-page-search-wrapper">
+   <!-- <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
 
@@ -26,7 +26,7 @@
 
         </a-row>
       </a-form>
-    </div>
+    </div>-->
 
     <!-- 操作按钮区域 -->
 
@@ -176,18 +176,13 @@
         console.log(this.dataId)
         getAction(this.url.findOrder,{iteamworkId:this.keysObjs[0].iteamworkId}).then((res) => {
           this.Order = res.result;
-          for(let i=0;i<this.Order.length;i++){
-            if(this.Order[i]<this.keysObjs[0].maxOrder){
-              console.log(this.keysObjs[0])
-              console.log(this.Order[i])
-              this.$message.error("您选择的流程还没有完成");
-              return ;
-            }else
-              {
+          console.log(this.Order)
+          if(this.Order.length == 0){
               let param = {
                 modelId: this.keysObjs[0].orderModelId.split(",")[1],
                 functionId: this.keysObjs[0].orderFunctionId.split(",")[1],
               }
+              console.log(param)
               postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
                 if (res.success) {
                   const promise1 = new Promise((resolve => {
@@ -235,14 +230,22 @@
                   this.$message.error(res.message)
                 }
               })
-            }
+
+          }else{
+          for(let i=0;i<this.Order.length;i++){
+            if(this.Order[i]<this.keysObjs[0].maxOrder){
+              console.log(this.keysObjs[0])
+              console.log(this.Order[i])
+              this.$message.error("您选择的流程还没有完成");
+              return ;
+             }
+           }
           }
         })
 
 
       },
       handleCancle() {
-        this.$refs.modalForm.letCler();
         this.showFunPer = false;
       },
     }
