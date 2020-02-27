@@ -155,10 +155,10 @@
 
     this.setFontSize();
     this.selectOption();
+    this.searchReset();
 
   },
-
-  computed: {
+    computed: {
     importExcelUrl: function(){
       return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
     }
