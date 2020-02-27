@@ -178,7 +178,7 @@
                 @savaObj="savaObj" :backData="backData" :busFunction="busFunction" :backDataOpt="backDataOpt"
                 :taskMsg="task"
                 :opts="opts" @downFiles="downFiles"
-                @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj"
+                @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj" @cancelImportantObj="cancelImportantObj"
                 @watchSub="watchSub" :oaFileList="oaFileList" @close="handleCancel" @callaboration="callaboration"
                 @getbackDataNew="getbackDataNew" @reloadOpinion="reloadOpinion"
       ></task-btn>
@@ -733,6 +733,9 @@
       saveDelTime(data) {
         this.$refs[this.pageRef].saveDelTime(data)
 
+      },
+      cancelImportantObj(){
+        this.$refs[this.pageRef].cancelImportant()
       },
       // 关注件--是否重要
       iIsImportantObj(e) {

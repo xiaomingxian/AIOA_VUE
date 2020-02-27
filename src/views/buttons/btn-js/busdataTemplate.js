@@ -151,24 +151,43 @@ export const busdataTemplate = {
       })
     },
 
-    //关注件--是否重要
-    iIsImportant(date) {
-      if (this.i_important) {
-        this.backData.i_is_important = 1;
-      } else {
-        this.backData.i_is_important = 0;
-      }
+    // 关注件--取消关注件
+    cancelImportant(date){
+      this.backData.i_is_important = 0;
       postAction(this.url.updateBusdata, {
         'updateBusdata': this.backData
       }).then(res => {
         if (res.success) {
-          if (this.i_important) {
-            this.$message.success("设置成功")
-          } else {
-            this.$message.success("取消成功")
-          }
-          this.i_important = !this.i_important;
+          // if (this.i_important) {
+          this.$message.success("取消成功")
           this.$emit("getBackData", this.backData)
+          this.reload();
+          //this.close();
+        } else {
+          this.$message.error("取消失败")
+        }
+      })
+    },
+
+    //关注件--是否重要
+    iIsImportant(date) {
+      // if (this.i_important) {
+        this.backData.i_is_important = 1;
+      // } else {
+      //   this.backData.i_is_important = 0;
+      // }
+      postAction(this.url.updateBusdata, {
+        'updateBusdata': this.backData
+      }).then(res => {
+        if (res.success) {
+          // if (this.i_important) {
+            this.$message.success("设置成功")
+          // } else {
+          //   this.$message.success("取消成功")
+          // }
+          // this.i_important = !this.i_important;
+          this.$emit("getBackData", this.backData)
+          this.reload();
           //this.close();
         } else {
           this.$message.error("设置失败")
