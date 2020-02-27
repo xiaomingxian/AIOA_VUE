@@ -402,6 +402,7 @@
               delete: "/oaBus/Calendar/oaCalendar/delete",
               Posturl:'/oaBus/oaBusdata/queryByModelId',
               busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
+              LinkLists:'/oaBus/Calendar/oaCalendar/LinkList',
             },
           total:'',//代办数量
           total1:'',//模块的数量
@@ -593,7 +594,7 @@
 
 
 
-      postAction(this.url.MostUserLink).then((res) => {
+      postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
       /*  if(res.length==1){
           this.LinkList.push(JSON.parse(JSON.stringify(res)))
