@@ -453,7 +453,13 @@
           }else{
             this.LinkList = JSON.parse(JSON.stringify(res));
           }*/
-        //this.LinkList =  res;
+        this.LinkList =  res;
+        for(var i=0;i<this.LinkList.length;i++){
+          console.log(typeof this.LinkList[i])
+          getAction(this.url.MostUserLink,{id:this.LinkList[i]}).then((res) => {
+            console.log(res);
+          });
+        }
         console.log(res);
       });
     },
