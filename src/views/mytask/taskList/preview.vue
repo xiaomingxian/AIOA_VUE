@@ -8,7 +8,7 @@
       <!--<center><h2>{{detailList.s_title}}</h2></center>-->
       <!--</td>-->
       <!--<td colspan="3">-->
-      <span style="color:#333333;margin-left:1%;border: 0px;font-size: 36px;font-weight: 10px" cols="92" rows="2" ref="s_title" v-on:blur="blurText(index,$event)"
+      <span style="color:#333333;margin-left:1%;border: 0px;font-size: 26px;font-weight: 10px" cols="92" rows="2" ref="s_title" v-on:blur="blurText(index,$event)"
             v-model="backData.s_title">{{backData.s_title}}</span>
       <!--</td>-->
       <!--</tr>-->
@@ -36,8 +36,8 @@
       <!--</td>-->
       <!--<td>-->
       <br>
-      <span style="color: #999999;margin-left:75%;border: 0px;font-size: 18px;font-weight: 10px">{{backData.s_create_name}}</span>
-      <span style="color: #999999;margin-left:20px;border: 0px;font-size: 18px;font-weight: 10px">{{backData.d_create_time}}</span>
+     <!-- <span style="color: #999999;margin-left:75%;border: 0px;font-size: 18px;font-weight: 10px">{{backData.s_create_name}}</span>
+      <span style="color: #999999;margin-left:20px;border: 0px;font-size: 18px;font-weight: 10px">{{backData.d_create_time}}</span>-->
       <!--</td>-->
       <!--&lt;!&ndash;创建部门&ndash;&gt;-->
       <!--<td class="title" width="15%">-->

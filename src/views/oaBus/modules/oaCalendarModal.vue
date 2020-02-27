@@ -54,6 +54,7 @@
           <a-select style="width: 200px;"
                     placeholder="消息提醒"
                     v-decorator="['iremindType', {}]">
+            <a-select-option :value="0">不提示</a-select-option>
             <a-select-option :value="1">10分钟前</a-select-option>
             <a-select-option :value="2">30分钟前</a-select-option>
             <a-select-option :value="3">1小时前</a-select-option>
@@ -67,6 +68,7 @@
           <a-select style="width: 200px;"
                     placeholder="公开类型"
                     v-decorator="['iopenType', {}]">
+            <a-select-option :value="0">自己查看</a-select-option>
             <a-select-option :value="1">全行</a-select-option>
             <a-select-option :value="2">分管</a-select-option>
             <a-select-option :value="3">部门内</a-select-option>
@@ -143,7 +145,6 @@
     created () {
       const  userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
 
-   console.log(this.userRealName);
       this.username = userinfo.username;
 
     },
@@ -173,9 +174,9 @@
       },
       senUserName(data){
         this.userRealName=data
-        console.log(this.userRealName.toString())
+        let usernames = this.userRealName.toString()+"," +this.username;
         this.$nextTick(() => {
-          this.form.setFieldsValue({suserNames:this.userRealName.toString()})
+          this.form.setFieldsValue({suserNames:usernames})
         });
       },
       senUserId(data){
@@ -195,6 +196,7 @@
         this.visible = true;
         this.$nextTick(() => {
           console.log(this.model.suserNames)
+
           this.form.setFieldsValue(pick(this.model,'stitle','iid','suserId','suserNames','saddress','iisTop','iisLeader','iremindType','iopenType','dStartTime','dEndTime','screateBy','ibusModelId','ibusFunctionId','ifunDataId'))
           //时间格式化
           this.form.setFieldsValue({dStartTime:this.model.dStartTime?moment(this.model.dStartTime):null})
@@ -251,7 +253,7 @@
         if(!this.ischeck){
           const that = this;
           // 触发表单验证
-          this.form.validateFields((err, values) => {
+            this.form.validateFields((err, values) => {
             if (!err) {
               let formData = Object.assign(this.model, values);
               that.confirmLoading = true;

@@ -18,10 +18,10 @@
               <a-input placeholder="请输入代理人" v-model="queryParam.agentUserName"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="4" :sm="6">
+          <a-col :md="6" :sm="6">
             <a-form-item label="状态">
               <!--<a-input placeholder="请输入状态0无效1有效" v-model="queryParam.status"></a-input>-->
-              <a-select style="width: 80px" v-model="queryParam.status">
+              <a-select v-model="queryParam.status">
                 <a-select-option value="1">有效</a-select-option>
                 <a-select-option value="0">无效</a-select-option>
               </a-select>
@@ -191,8 +191,10 @@
             customRender:function (id) {
               if (id==0){
                 return "无效"
-              } else {
+              } else if (id==1) {
                 return "有效"
+              }else {
+                return '无状态'
               }
             }
           },
