@@ -254,7 +254,6 @@
         }
         if (cmd == 8) {
           //未保存办文单，进行保存办文单
-          // alert(i_is_approve)
           if (i_is_approve == 0) {
             var url1 = urlContextPath + "/ntko/formalfile/queryById";
             $.ajax({
@@ -277,13 +276,14 @@
                       var basePath = getBasePath();
                       var filePath = "/templateFiles/";
                       var fileName = data.result;
+                      ntko.OpenFromURL(basePath + filePath + fileName);
                       //插入书签
                       for (var bookMark in bookMarkMap) {
                         var BookmarkName = bookMark;
                         var value = bookMarkMap[bookMark];
                         setBookmarkValue(BookmarkName, value);
                       }
-                      ntko.OpenFromURL(basePath + filePath + fileName);
+
                     }
                   })
                 }
@@ -335,7 +335,6 @@
         var fileName = getQueryString('fileName');
         ntko.OpenFromURL(basePath + filePath + fileName);
       }
-
     }
   </script>
   <script type="text/javascript">
