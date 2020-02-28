@@ -176,15 +176,15 @@
             scopedSlots: { customRender: 'suserNames' },
 
             key: 'suserNames',
-            customRender: function (text) {
-              console.log(typeof text)
-              if(text.length>20){
-                console.log(text)
-                return text.substring(0, 15) + '...'
-              }else{
-                return text;
-              }
-            }
+            // customRender: function (text) {
+            //   console.log(typeof text)
+            //   if(text.length>20){
+            //     console.log(text)
+            //     return text.substring(0, 15) + '...'
+            //   }else{
+            //     return text;
+            //   }
+            // }
           },
           {
             title: '地点',
