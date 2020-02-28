@@ -23,6 +23,7 @@
           <a-col :md="8" :sm="8">
             <a-form-item label="时段选择">
               <a-range-picker
+                style="width: 250px"
                 :showTime="{format:'HH:mm'}"
                 format="YYYY-MM-DD HH:mm"
                 :placeholder="['开始时间','结束时间']"
