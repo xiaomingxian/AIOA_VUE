@@ -190,16 +190,16 @@
             align: "center",
             dataIndex: 'taskDefKey',
             customRender:(text,row,index)=>{
-              const obj = {
-                children: text,
-                attrs: {}
-              };
-              if(text==this.heBingcolumn){
-                  this.HBcolumn+=1;
-              }else {
-                this.HBcolumn=1;
-              }
-              obj.attrs.rowSpan =this.HBcolumn;
+//              const obj = {
+//                children: text,
+//                attrs: {}
+//              };
+//              if(text==this.heBingcolumn){
+//                  this.HBcolumn+=1;
+//              }else {
+//                this.HBcolumn=1;
+//              }
+//              obj.attrs.rowSpan =this.HBcolumn;
               for (let i = 0; i < this.TaskLink.length ; i++) {
 //                 console.log("**********************************111");
 //                 console.log(text);
@@ -213,7 +213,7 @@
                 }
               }
               //保存上一条数据
-              this.heBingcolumn=text;
+//              this.heBingcolumn=text;
             }
           },
           {
