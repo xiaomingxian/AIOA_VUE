@@ -157,15 +157,10 @@
                       <div class="swiper-container swiper-no-swiping bottomm">
                         <div class="swiper-wrapper">
                           <div class="swiper-slide" v-for="(item,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
-                            <div>
-<!--                              <h1>{{index}}</h1>-->
-<!--                              <img :src="'../../assets/'+(index)+'.png'" :title="item.s_title" alt="">-->
-                              <img src="../../assets/1.png" :title="item.s_title" alt="">
-                              <img :src="item.path" :title="item.s_title" alt="">
+                            <div style="display:flex;align-items: center;justify-content: center">
 
-<!--
-                             <img src="E:\upFiles\2020\2\15\u=3040270443,1380685712&fm=26&gp=0_1581780507162.jpg" :title="item.s_title" alt="">
--->
+                              <img style="width:60px;height: 60px;" :src="item.picUrl1" :title="item.s_title" alt="">
+
                               <span v-show="false" :ref="(index+1)+'item'" v-html="item.url"></span>
                             </div>
                           </div>
@@ -339,6 +334,9 @@
   import Swiper from 'swiper/js/swiper.min.js'
   import  'swiper/css/swiper.min.css'
   import moment from 'moment'
+  import axios from "axios";
+  import Vue from "vue";
+  import {ACCESS_TOKEN} from "../../store/mutation-types";
 
 
   export default {
@@ -349,6 +347,9 @@
         return {
           data: [],
           fetching: false,
+          headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
+          pic:'',
+          picurlLists:[],
           search: '',
           iisCalendar:1,
           visible:false,
@@ -559,7 +560,7 @@
           slidesPerView:4,
           spaceBetween:13,
           lazyLoading:true,
-          loop:true,
+          loop:false,
           obeserver:true,
           obeserverParents:true,
           navigation:{
@@ -568,44 +569,60 @@
           }
 
         });
-      },4000)
+      },5000)
 
 
 
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
-      /*  if(res.length==1){
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-        }else if(res.length==2){
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-        }else if(res.length==3){
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          this.LinkList.push(JSON.parse(JSON.stringify(res)))
-        }else if(res.length==0){
-          this.LinkList.push(
-            {s_title:'mytask/taskToDo',value:0},
-            {s_title:'mytask/taskToDo',value:1},
-            {s_title:'mytask/taskToDo',value:2},
-            {s_title:'mytask/taskToDo',value:3},
-            )
-        }else{
-          this.LinkList = JSON.parse(JSON.stringify(res));
-        }*/
+        /*  if(res.length==1){
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+          }else if(res.length==2){
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+          }else if(res.length==3){
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+            this.LinkList.push(JSON.parse(JSON.stringify(res)))
+          }else if(res.length==0){
+            this.LinkList.push(
+              {s_title:'mytask/taskToDo',value:0},
+              {s_title:'mytask/taskToDo',value:1},
+              {s_title:'mytask/taskToDo',value:2},
+              {s_title:'mytask/taskToDo',value:3},
+              )
+          }else{
+            this.LinkList = JSON.parse(JSON.stringify(res));
+          }*/
         this.LinkList =  res;
-        console.log( this.LinkList.length);
+        for(var i=0;i<this.LinkList.length;i++){
+          this.show(this.LinkList[i].i_id,i)
+        }
+        console.log(this.LinkList.length)
       });
-
-
-
     },
-
     methods:{
+      //监听选择范围
+      show(id,index) {
+        let requestpicurl = window._CONFIG['domianURL'] + '/oaBus/Calendar/oaCalendar/MostUserLink?id=' + id + '&resourceType=image'
+        axios.get(requestpicurl, {
+          responseType: 'arraybuffer',
+          headers: {
+            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+          }
+        }).then(res => {
+          console.log(res)
+          if(res){
+            this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+            console.log(this.LinkList)
+
+          }
+        })
+      },
       fetchUser(value) {
         // console.log('fetching user', value);
         this.lastFetchId += 1;
@@ -1396,8 +1413,8 @@
                   /*margin-right: 0px !important;*/
                   /*margin-left: 5px !important;*/
                   div{
-                    width: 90px;
-                    height: 90px;
+                    width: 60px;
+                    height: 60px;
                     border-radius: 50%;
                     /*background: #2eabff;*/
                     img{
