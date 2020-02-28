@@ -159,7 +159,17 @@
           {
             title: '对象',
             align:"left",
-            dataIndex: 'suserNames'
+            dataIndex: 'suserNames',
+            key: 'suserNames',
+            customRender: function (text) {
+              console.log(typeof text)
+              if(text.length>20){
+                console.log(text)
+                return text.substring(0, 15) + '...'
+              }else{
+                return text;
+              }
+            }
           },
           {
             title: '地点',

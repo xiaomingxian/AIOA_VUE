@@ -90,6 +90,15 @@
            <a @click.stop="handleDelete1(record.iid,record.screateBy)">删除</a>
         </span>
 
+
+        <!-- 字符串超长截取省略号显示 -->
+        <span slot="url" slot-scope="text">
+          <j-ellipsis :value="text" :length="25"/>
+        </span>
+        <!-- 字符串超长截取省略号显示-->
+        <span slot="suserNames" slot-scope="text">
+          <j-ellipsis :value="text"/>
+        </span>
       </a-table>
     </div>
     <!--模态框-->
@@ -114,13 +123,19 @@
   import oaCalendarCatModal from './modules/oaCalendarCatModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import { httpAction,getAction,postAction,deleteAction} from '@/api/manage'
+  import JEllipsis from '@/components/jeecg/JEllipsis'
+  import PermissionDataRuleList from "../system/PermissionDataRuleList";
+  import PermissionModal from "../system/modules/PermissionModal";
+
 
   export default {
     name: "oaCalendarList",
     mixins:[JeecgListMixin],
     components: {
       oaCalendarModal,
-      oaCalendarCatModal
+      oaCalendarCatModal,
+      JEllipsis
+
     },
     inject:['reload'],
     data () {
@@ -157,13 +172,25 @@
           {
             title: '对象',
             align:"left",
-            dataIndex: 'suserNames'
+            dataIndex: 'suserNames',
+            scopedSlots: { customRender: 'suserNames' },
+
+            key: 'suserNames',
+            customRender: function (text) {
+              console.log(typeof text)
+              if(text.length>20){
+                console.log(text)
+                return text.substring(0, 15) + '...'
+              }else{
+                return text;
+              }
+            }
           },
           {
             title: '地点',
             align:"center",
             width:100,
-            dataIndex: 'saddress'
+            dataIndex: 'saddress',
           },
           {
             title: '日程类型',
@@ -222,6 +249,7 @@
         },
       }
     },
+
     computed: {
       importExcelUrl: function(){
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
