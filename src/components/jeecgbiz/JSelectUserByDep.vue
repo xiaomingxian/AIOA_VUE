@@ -54,16 +54,19 @@
         type: Boolean,
         required: false,
         default: false
+      },
+      defaultUser:{
+        type: '',
       }
     },
     data() {
       return {
         selectedDepUsers: "",
+        selectedDepUsersid:''
       }
     },
-    mounted() {
-      this.selectedDepUsers = this.value
-    },
+
+
     watch: {
       value(val) {
         this.selectedDepUsers = val
@@ -74,7 +77,19 @@
       event: 'change'
     },
     created(){
-      console.log(this.userIdLists);
+      console.log(this.defaultUser);
+      this.selectedDepUsers = this.defaultUser.username;
+      this.selectedDepUsersid = this.defaultUser.id;
+      this.userIdLists.push(this.defaultUser.id)
+      console.log(this.selectedDepUsers);
+
+      // alert(this.defaultUser)
+    },
+    mounted() {
+      if(this.value){
+        this.selectedDepUsers = this.value
+      }
+
     },
     methods: {
 

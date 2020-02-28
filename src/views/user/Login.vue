@@ -347,7 +347,8 @@
               that.Login(loginParams).then((res) => {
                 //储存用户信息到本地
                 const userdata = res.result;
-                localStorage.setItem('userdata',JSON.stringify(userdata));
+
+                window.localStorage.setItem('userdata',JSON.stringify(userdata));
                 this.departConfirm(res)
               }).catch((err) => {
                 that.requestFailed(err);

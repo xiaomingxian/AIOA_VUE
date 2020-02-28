@@ -144,7 +144,7 @@
     },
     created() {
 
-      // console.log(this.userIdLists);
+      console.log(this.userIdLists);
       //
       // this.userIdLists =this.selectedRowKeys;
       // 该方法触发屏幕自适应
