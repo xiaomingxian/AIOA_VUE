@@ -265,8 +265,8 @@
         this.$refs.catModalForm.disableSubmit = false;
       },
       docNumExportXls(record) {
-        const fileName = record.sname
-        downFile("/papertitle/docNumSet/docNumExportXls", {iid:record.iid,s_create_by:record.s_create_by}).then((data) => {
+        const fileName = record.fname+"-"+record.sname+new Date().getTime()
+        downFile("/papertitle/docNumSet/docNumExportXls", {iid:record.iid,s_create_by:record.screateBy}).then((data) => {
           if (!data) {
             this.$message.warning("文件下载失败")
             return
