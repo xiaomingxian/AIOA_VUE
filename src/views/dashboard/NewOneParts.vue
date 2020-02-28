@@ -78,7 +78,7 @@
           <!--<a-input placeholder="请输入关键字">-->
             <!---->
           <!--</a-input>-->
-          <span class="table-page-search-submitButtons" style="position: relative;left: -17px;top: 27px;cursor: pointer;">
+          <span class="table-page-search-submitButtons" style="position: relative;left: -20px;top: 27px;cursor: pointer;">
               <!--<a-button type="primary" icon="search"></a-button>-->
             <a-icon type="search"  @click="openSearch"></a-icon>
             </span>
