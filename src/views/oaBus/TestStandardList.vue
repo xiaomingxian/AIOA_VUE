@@ -175,7 +175,11 @@
       }
     },
     created() {
-
+      if(this.$route.query.searchWords){
+        this.FilterAllFiles(this.$route.query.searchWords);
+      }else {
+        return;
+      }
     },
     destroyed(){
       this.dataDestroy();
@@ -190,7 +194,7 @@
         this.defaultActivityKey = e.toString();
         let reg = new RegExp("^[0-9]*$");
         //点击查询按钮检测  检测是否填写
-        if(this.search) {
+        // if(this.search) {
           if(!reg.test(this.search)) {
             //若用户已填写 判断此时Tab 是全文检索0   附件检索1
             if (e == '0') {
@@ -208,7 +212,7 @@
 
           }
 
-        }
+        // }
 
       },
       //---切换分页-----
@@ -293,6 +297,7 @@
       FilterAllFiles(serchval,pageindex='1'){
         let url = "/oaEs/oaelasticsearch/list";
         postAction(url, {keyWord:serchval,pageNo:pageindex}).then((res) => {
+          console.log('=====================================');
           console.log(res);
           if(res.success){
             this.pagination.total =  res.result.total;
@@ -364,14 +369,13 @@
       //全文检索  点击打开大详情   需要  tableName
       openDetial(i_id,tableName){
         let checkjururl = "/oaBus/oaBusdata/checkBusData";
-        postAction(url, {tableName:tableName,id:i_id}).then((res) => {
+        console.log("=============")
+        postAction(checkjururl, {tableName:tableName,id:i_id}).then((res) => {
           console.log("---------------------")
-
-          console.log(res)
-          if(res.success){
-            // window.open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+tableName+'&busdataId='+i_id+'&navisshow=false')
+          if(res){
+            window.open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+tableName+'&busdataId='+i_id+'&navisshow=false')
           }else{
-            this.$message.error('查询失败')
+            this.$message.error('没有权限打开')
           }
         })
       },
