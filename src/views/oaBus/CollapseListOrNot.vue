@@ -171,7 +171,7 @@
                 <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-if="atom.i_column_type == 2" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
-                    <a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>
+                      <a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>
                     </a-select>
                     <a-input v-else class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
                     <!--<span v-if="conditionList.length == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 352.4%;">-->
@@ -295,7 +295,7 @@
     data() {
       return {
         moduleName:'',
-        defaultActiveKey:'1',
+        defaultActiveKey: 1,
         description: '这是公共查询列表页面',
         iisFontSize: '16px',
         visibleCreateModal: false,
@@ -379,7 +379,9 @@
 
     },
     destroyed() {
+
       this.dataDestroy();
+
     },
     methods: {
       // loadData (arg){
@@ -440,7 +442,7 @@
       // },
       changFunId: async function (index) {
       // console.log(index);
-      this.defaultActiveKey = index;
+        this.defaultActiveKey = index;
         index = index - 1;
 
         this.conditionList = [];
@@ -484,9 +486,9 @@
         this.conditionList = [];
         this.queryParam = {
           function_id: '',
-          i_is_state: '',
-          // selType: 1,
-          s_create_name: '',
+            i_is_state: '',
+            // selType: 1,
+            s_create_name: '',
           d_create_time: '',
           orderFlag: '',    //排序字段
         };
@@ -495,6 +497,7 @@
         this.columnes = [];
         this.dataSource = [];
         this.dataSources = [];
+        this.defaultActiveKey = 1;
       },
       // getQueryParams() {
       //   let param = Object.assign({}, this.queryParam, this.isorter);
@@ -597,13 +600,12 @@
       //   });
       // },
       getPgConditionList: async function () {
+
         let url = "/oaBus/oaBusdata/queryFunSelByModelId";
         this.clearData();
         await postAction(url, {modelId: this.modelId, function_id: this.queryParam.function_id}).then((res) => {
           this.conditionList = res.colList;
           this.selectList = res.funList;
-
-          // console.log( this.selectList);
 
 
           //selectList   defaultActiveKey
@@ -611,18 +613,16 @@
           //   获取首页带来的模块名称   对tabs 进行判断   再获取对应索引   赋值
           this.moduleName = this.$route.query.moduleName;
 
-          console.log(this.moduleName);
+          // console.log(this.moduleName);
           //  判断  对应光标  显示对应
           this.selectList.map((itemModuleName,index)=>{
 
             if( this.moduleName==itemModuleName.sname){
               this.defaultActiveKey = (index+1)
-              console.log(index.toString());
-              console.log(this.defaultActiveKey);
+              // console.log(index.toString());
+              // console.log(this.defaultActiveKey);
             }
           })
-
-
 
 
           this.tableName = res.tableName;
@@ -966,12 +966,20 @@
       dataDestroy() {
         this.searchColumns = []
         this.conditionList = [];
-        this.queryParam = {};
+        this.queryParam = {
+          function_id: '',
+          i_is_state: '',
+          // selType: 1,
+          s_create_name: '',
+          d_create_time: '',
+          orderFlag: '',    //排序字段
+        };
         this.selectList = [];
         this.columns = [];
         this.columnes = [];
         this.dataSource = [];
         this.dataSources = [];
+        this.defaultActiveKey = 1;
       },
       resetPgConditionList() {
         this.queryParam = Object.assign({}, this.resetConditionList);
