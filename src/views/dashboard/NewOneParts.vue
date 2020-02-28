@@ -30,9 +30,10 @@
           <div class="swiper-container swiper-no-swiping bottom">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
-                <div>
-                  <img src="../../assets/1.png" :title="atom.s_title" alt="">
-                  <img :src="atom.path" :title="atom.s_title" alt="">
+                <div style="display:flex;align-items: center;justify-content: center">
+
+                  <img style="width:60px;height: 60px;" :src="atom.picUrl1" :title="atom.s_title" alt="">
+
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
               </div>
@@ -264,6 +265,8 @@
   import detailFile from '../mytask/taskList/detailFile'
   import Swiper from 'swiper/js/swiper.min.js'
   import  'swiper/css/swiper.min.css'
+  import axios from "axios";
+  import {ACCESS_TOKEN} from "../../store/mutation-types";
   export default {
     components: {
       HeadInfo
@@ -274,6 +277,7 @@
       return {
         // lastFetchId: 0,
         // fetchUser: debounce(this.fetchUser, 800),
+        headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         data: [],
         fetching: false,
         search: '',
@@ -285,6 +289,8 @@
         model3:[],
         model4:[],
         total:'',
+        pic:'',
+        picurlLists:[],
         waitDoData:[],
         model1Lists:[],
         model2Lists:[],
@@ -418,7 +424,7 @@
           slidesPerView:4,
           spaceBetween:13,
           lazyLoading:true,
-          loop:true,
+          loop:false,
           obeserver:true,
           obeserverParents:true,
           navigation:{
@@ -427,7 +433,7 @@
           }
 
         });
-      },5000)
+      },500)
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
@@ -454,13 +460,19 @@
             this.LinkList = JSON.parse(JSON.stringify(res));
           }*/
         this.LinkList =  res;
+
+
         for(var i=0;i<this.LinkList.length;i++){
-          console.log(typeof this.LinkList[i])
-          getAction(this.url.MostUserLink,{id:this.LinkList[i]}).then((res) => {
-            console.log(res);
-          });
-        }
-        console.log(res);
+
+          this.show(this.LinkList[i].i_id,i)
+
+          }
+
+        console.log(this.LinkList.length)
+
+
+
+
       });
     },
     components: {
@@ -468,6 +480,21 @@
       detailFile,
     },
     methods: {
+      //监听选择范围
+      show(id,index) {
+        let requestpicurl = window._CONFIG['domianURL'] + '/oaBus/Calendar/oaCalendar/MostUserLink?id=' + id + '&resourceType=image'
+        axios.get(requestpicurl, {
+          responseType: 'arraybuffer',
+          headers: {
+            'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
+          }
+        }).then(res => {
+          console.log(res)
+          if(res){
+            this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+          }
+        })
+      },
       openUrl(e){
         console.log(e);
         console.log(this.$refs[e][0].lastChild);
@@ -864,8 +891,8 @@
               /*margin-right: 0px !important;*/
               /*margin-left: 5px !important;*/
               div{
-                width: 90px;
-                height: 90px;
+                width: 60px;
+                height: 60px;
                 border-radius: 50%;
                 /*background: #2eabff;*/
                 img{
