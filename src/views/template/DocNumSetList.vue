@@ -98,7 +98,8 @@
       >
 
         <span slot="action" slot-scope="text, record">
-
+           <a @click="docNumExportXls(record)">文号使用情况</a>
+          <a-divider type="vertical"/>
           <a @click="handleCat(record)">查看</a>
           <a-divider type="vertical"/>
           <a @click="handleEdit(record)">编辑</a>
@@ -126,8 +127,7 @@
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import DocNumCopyModal from './modules/DocNumCopyModal'
   import DocNumCatModal from './modules/DocNumCatModal'
-  import {httpAction, getAction} from '@/api/manage'
-
+  import {httpAction, getAction,downFile,postAction} from '@/api/manage'
   export default {
     name: "DocNumSetList",
     mixins: [JeecgListMixin],
@@ -263,7 +263,25 @@
         this.$refs.catModalForm.add(record);
         this.$refs.catModalForm.title = "查看";
         this.$refs.catModalForm.disableSubmit = false;
-      }
+      },
+      docNumExportXls(record) {
+        const fileName = record.sname
+        downFile("/papertitle/docNumSet/docNumExportXls", {iid:record.iid,s_create_by:record.s_create_by}).then((data) => {
+          if (!data) {
+            this.$message.warning("文件下载失败")
+            return
+          }
+            let url = window.URL.createObjectURL(new Blob([data]))
+            let link = document.createElement('a')
+            link.style.display = 'none'
+            link.href = url
+            link.setAttribute('download', fileName + '.xls')
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link); //下载完成移除元素
+            window.URL.revokeObjectURL(url); //释放掉blob对象
+        })
+      },
     }
   }
 </script>
