@@ -381,6 +381,8 @@
     },
     destroyed() {
       this.backData = {};
+      localStorage.removeItem('缓急:' + this.backData.table + this.backData.i_id)
+      localStorage.removeItem('密级:' + this.backData.table + this.backData.i_id)
       this.destroy = false;
     },
     watch: {
@@ -873,6 +875,13 @@
         }
         //************************************************* 任务相关参数  END
 
+        //获取的对应的数据字典数据,参数为1：查询对应的机密和缓急的等级
+        postAction("/oaBus/oaBusdata/querySysDictData",{param:1}).then((res) => {
+          //this.optionMap = Object.assign(res.result);
+          this.secretDegree = res.result.secretDegree;
+          //this.urgencyList = res.result.optionMap.i_urgency_option;
+          this.urgencyList = res.result.urgencyList;
+        })
         postAction(this.url.busDataAndColums, param).then((res) => {
           if (res.success) {
 
@@ -922,11 +931,12 @@
                 this.isShowFile = true;
               }
             })
-            //字典值获取
             this.optionMap = res.result.optionMap;
+            //字典值获取
+           /* this.optionMap = res.result.optionMap;
             this.secretDegree = res.result.optionMap.secretDegree;
             //this.urgencyList = res.result.optionMap.i_urgency_option;
-            this.urgencyList = res.result.optionMap.urgencyList;
+            this.urgencyList = res.result.optionMap.urgencyList;*/
             //业务数据赋值
 
             this.backData = res.result.oaBusdata;
@@ -939,8 +949,11 @@
             //机密等级
             let secretModleTest = this.backData.i_safetylevel;
             this.secretModle = JSON.stringify(secretModleTest)
+            localStorage.setItem('密级:' + this.backData.table + this.backData.i_id, this.backData.i_safetylevel)
             //缓急
             this.i_urgency = this.backData.i_urgency
+            //将缓急放到缓存中
+            localStorage.setItem('缓急:' + this.backData.table + this.backData.i_id, this.i_urgency)
 
             //文档数据
             this.detailList = res.result.detailList;

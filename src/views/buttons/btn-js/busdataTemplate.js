@@ -25,7 +25,7 @@ export const busdataTemplate = {
     }
   },
   created() {
-
+    this.queryRegulars();
   },
   computed:{
     confirmUser(){
@@ -40,6 +40,14 @@ export const busdataTemplate = {
     }
   },
   methods: {
+    //查询对应的校验规则（全部规则）
+    queryRegulars(){
+      //参数为2：查询对应校验规则
+      postAction("/oaBus/oaBusdata/querySysDictData",{param:2}).then((res) => {
+        //this.optionMap = Object.assign(res.result);
+        this.optionMap.regulars = res.result.regulars;
+      })
+    },
 
     //附件-修改附件名称
     updateFileName(item) {
@@ -234,6 +242,7 @@ export const busdataTemplate = {
       let result = true;
       let checkList = this.optionMap.checkList;
       let regulars = this.optionMap.regulars;
+      //console.log(regulars)
       if (checkList != undefined && checkList.length > 0) {
         for (let i = 0; i < checkList.length; i++) {
           //如果有js校验的话
@@ -509,6 +518,7 @@ export const busdataTemplate = {
 
       let checkList = this.optionMap.checkList;
       let regulars = this.optionMap.regulars;
+      console.log(regulars)
       let flag = false;
       //let message = "红色区域为必填业务，请录入！";
       if (checkList != undefined && checkList.length > 0) {

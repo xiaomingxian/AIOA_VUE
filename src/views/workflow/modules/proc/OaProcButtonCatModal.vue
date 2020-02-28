@@ -119,6 +119,7 @@
   import moment from "moment"
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import {getAction} from '@/api/manage.js'
+  import {postAction} from '@/api/manage.js'
 
   export default {
     name: "OaProcButtonModal",
@@ -189,16 +190,16 @@
             align: "center",
             dataIndex: 'taskDefKey',
             customRender:(text,row,index)=>{
-              const obj = {
-                children: text,
-                attrs: {}
-              };
-              if(text==this.heBingcolumn){
-                  this.HBcolumn+=1;
-              }else {
-                this.HBcolumn=1;
-              }
-              obj.attrs.rowSpan =this.HBcolumn;
+//              const obj = {
+//                children: text,
+//                attrs: {}
+//              };
+//              if(text==this.heBingcolumn){
+//                  this.HBcolumn+=1;
+//              }else {
+//                this.HBcolumn=1;
+//              }
+//              obj.attrs.rowSpan =this.HBcolumn;
               for (let i = 0; i < this.TaskLink.length ; i++) {
 //                 console.log("**********************************111");
 //                 console.log(text);
@@ -212,7 +213,7 @@
                 }
               }
               //保存上一条数据
-              this.heBingcolumn=text;
+//              this.heBingcolumn=text;
             }
           },
           {
@@ -308,8 +309,8 @@
           }
         ],
         url: {
-          list: "/oabuttonset/oaButtonSet/list",
-          findById:"/oabuttonset/oaButtonSet/findById",
+//          list: "/oabuttonset/oaButtonSet/list",
+          findById:"/oabuttonset/oaButtonSet/findByIf",
           delete: "/oabuttonset/oaButtonSet/delete",
           deleteBatch: "/oabuttonset/oaButtonSet/deleteBatch",
           exportXlsUrl: "oabuttonset/oaButtonSet/exportXls",
@@ -358,8 +359,8 @@
       },
       add (record,TaskLinkId,procDefKey) {
 //        清除查询条件
-        this.buttonId="";
-        this.taskDefKey="";
+        this.buttonId=[];
+        this.taskDefKey=[];
 //        ------
         this.procDefKey=procDefKey;
 
@@ -415,40 +416,15 @@
         this.loadData();
       },
       searchQueryCha(){
-//        let btn=false;
-//        let task=false;
-//        if(this.sbtnName!=null && this.sbtnName!=""){
-//          for (let i = 0; i < this.buttonList.length ; i++) {
-//            if (this.sbtnName==this.buttonList[i].sbtnName) {
-//              this.buttonId=this.buttonList[i].iid;
-//              btn=true;
-//            }
-//          }
-//          if (btn==false ){
-//            this.buttonId="999999";
-//          }
-//        }
-//        if (this.name!=null && this.name!=""){
-//          for (let j = 0; j < this.TaskLink.length; j++) {
-//            if (this.name==this.TaskLink[j].name) {
-//              this.taskDefKey=this.TaskLink[j].id;
-//              task=true;
-//            }
-//          }
-//          if (task==false ){
-//            this.taskDefKey="999999";
-//          }
-//        }
-
         const promise1 = new Promise(resolve => {
 //        if(this.sbtnName!=null && this.sbtnName!=""){
-          getAction("/oabutton/oaButton/queryById",{sbtnName:this.sbtnName}).then(res=>{
+          getAction("/oabutton/oaButton/queryBySbtnName",{sbtnName:this.sbtnName}).then(res=>{
 //            console.log("000000000000000-----------");
             if(res.success){
 //            console.log(res.result);
-              this.buttonId = res.result.iid;
+              this.buttonId = res.result;
             }else {
-              this.buttonId ="";
+              this.buttonId =[];
             }
               this.data =""
               this.ipagination.total =""
@@ -464,9 +440,9 @@
 //            console.log("1111111111111-----------");
             if(res.success){
 //            console.log(res.result);
-              this.taskDefKey = res.result.actId;
+              this.taskDefKey = res.result;
             }else {
-              this.taskDefKey ="";
+              this.taskDefKey =[];
             }
             this.data =""
             this.ipagination.total =""
@@ -475,7 +451,13 @@
 
         }).then(()=>{
          setTimeout(()=>{
-           this.loadData()
+           postAction("/oabuttonset/oaButtonSet/findByIf",{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
+             pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
+//          console.log("22222222222222222222222-----------");
+             // console.log(res);
+             this.data = res.result.records;
+             this.ipagination.total = res.result.total;
+           })
          },3200)
         })
 
@@ -484,13 +466,13 @@
 
 
 
-//        this.buttonId="";
-//        this.taskDefKey="";
+//        this.buttonId=[];
+//        this.taskDefKey=[];
       },
       loadData(){
         // this.columns = [];
         // this.data = [];
-        getAction(this.url.findById,{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
+        postAction(this.url.findById,{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
           pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
 
 //          console.log("22222222222222222222222-----------");

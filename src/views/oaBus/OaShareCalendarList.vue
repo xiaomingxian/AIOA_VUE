@@ -23,6 +23,7 @@
           <a-col :md="8" :sm="8">
             <a-form-item label="时段选择">
               <a-range-picker
+                style="width: 250px"
                 :showTime="{format:'HH:mm'}"
                 format="YYYY-MM-DD HH:mm"
                 :placeholder="['开始时间','结束时间']"
@@ -90,6 +91,15 @@
           <a @click.stop="handleDelete1(record.iid,record.screateBy)">删除</a>
         </span>
 
+
+        <!-- 字符串超长截取省略号显示 -->
+        <span slot="url" slot-scope="text">
+          <j-ellipsis :value="text" :length="25"/>
+        </span>
+        <!-- 字符串超长截取省略号显示-->
+        <span slot="suserNames" slot-scope="text">
+          <j-ellipsis :value="text"/>
+        </span>
       </a-table>
     </div>
     <!-- table区域-end -->
@@ -113,13 +123,15 @@
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import oaCalendarCatModal from './modules/oaCalendarCatModal'
   import { httpAction,getAction,postAction,deleteAction} from '@/api/manage'
+  import JEllipsis from '@/components/jeecg/JEllipsis'
 
   export default {
     name: "oaShareCalendarList",
     mixins:[JeecgListMixin],
     components: {
       oaCalendarModal,
-      oaCalendarCatModal
+      oaCalendarCatModal,
+      JEllipsis
     },
     inject:['reload'],
     data () {
@@ -155,7 +167,18 @@
           {
             title: '对象',
             align:"left",
-            dataIndex: 'suserNames'
+            dataIndex: 'suserNames',
+            key: 'suserNames',
+            scopedSlots: { customRender: 'suserNames' },
+            // customRender: function (text) {
+            //   console.log(typeof text)
+            //   if(text.length>20){
+            //     console.log(text)
+            //     return text.substring(0, 15) + '...'
+            //   }else{
+            //     return text;
+            //   }
+            // }
           },
           {
             title: '地点',

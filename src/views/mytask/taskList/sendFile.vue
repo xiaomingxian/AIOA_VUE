@@ -459,12 +459,19 @@
             }
           })
         }
-        if (this.optionMap.xxgk != undefined) {
+        //参数为3：查询对应的不公开理由
+        postAction("/oaBus/oaBusdata/querySysDictData",{param:3}).then((res) => {
+          this.regularsList = res.result.regulars;
+          this.xxgkList = res.result.xxgk;
+          this.bgklyList = res.result.bgkly;
+        })
+
+        /*if (this.optionMap.xxgk != undefined) {
           this.xxgkList = this.optionMap.xxgk;
         }
         if (this.optionMap.bgkly != undefined) {
           this.bgklyList = this.optionMap.bgkly;
-        }
+        }*/
         //业务数据赋值
         for (var i in this.backData) {
           this.backData[i] = this.backDataRef[i]

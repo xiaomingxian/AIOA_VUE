@@ -51,7 +51,7 @@
                                 <!--&lt;!&ndash;<span style="font-size: 12px;color: #666666">{{item.dCreateTime}}</span>&ndash;&gt;-->
                               <!--</p>-->
                               <div class="contentbox" >
-                                <p class="content" style="font-size: 12px;color: #333333">{{item.stitle|filterText}}</p>
+                                <p class="content" :title="item.stitle+'('+item.suserNames+')'" style="font-size: 12px;color: #333333">{{item.stitle +"("+ item.suserNames+")"|filterText}}</p>
                                 <div style="visibility: hidden">
                                     <img style="width: 22px;" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
                                 </div>
@@ -78,7 +78,7 @@
                                 <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
                               <!--</p>-->
                               <div class="contentbox" >
-                                <p class="content" style="font-size: 12px;color: #333333">{{myitem.stitle|filterText}}</p>
+                                <p class="content"  :title="myitem.stitle+'('+myitem.suserNames+')'" style="font-size: 12px;color: #333333">{{myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
                                 <div >
                                    <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
                                     <img style="width: 22px;" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
@@ -103,7 +103,7 @@
                           <div class="itembox"   v-if="publictitleLists!=''" style="border: none" >
                             <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click="chakan(publicitem.iid)">
                               <div class="contentbox">
-                                <p class="content" style="font-size: 12px;color: #333333">{{publicitem.stitle|filterText}}</p>
+                                <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'" style="font-size: 12px;color: #333333">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
                                <div style="visibility: hidden">
                                     <img style="width: 22px;" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
                                 </div>
