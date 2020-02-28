@@ -20,7 +20,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="参与人员">
-          <j-select-user-by-dep ref="joinpeopleComponent" v-decorator="[ 'suserNames', {rules:[{required:true,message:'参与人员不能为空'}]}]"   @senUserId="senUserId" @senUserName="senUserName" :userIdLists="userIdLists" v-model="userRealName" @getUD2="getUD2" ></j-select-user-by-dep>
+          <j-select-user-by-dep ref="joinpeopleComponent" :defaultUser="defaultUser" v-decorator="[ 'suserNames', {rules:[{required:false,message:'参与人员不能为空'}]}]"   @senUserId="senUserId" @senUserName="senUserName" :userIdLists="userIdLists" v-model="userRealName" @getUD2="getUD2" ></j-select-user-by-dep>
           </a-form-item>
 
         <a-form-item
@@ -106,6 +106,7 @@
     },
     data () {
       return {
+        defaultUser:null,// 默认本用户  已选择
         ischeck:false,// 判断进入模态框此时状态   是编辑还是查看  默认为编辑
         richengData:'',//日程办公数据回显数据
         userlistid:'',//所选人员id  为字符串拼接
@@ -143,10 +144,26 @@
       }
     },
     created () {
-      const  userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
+      const  userinfo =JSON.parse( window.localStorage.getItem('userdata')).userInfo;
 
+      // alert(userinfo)
+      this.defaultUser = {
+        username:userinfo.realname,
+        id:userinfo.id
+      }
+
+      console.log(userinfo)
+      console.log(this.defaultUser)
       this.username = userinfo.username;
+      this.userRealName =  userinfo.realname;
 
+      // this.form.resetFields();
+      // this.model = Object.assign({},data);
+      //
+      // this.$nextTick(() => {
+      //   // this.form.setFieldsValue(pick(this.model,'stitle','iid','suserNames','saddress','iisTop','iisLeader','iremindType','iopenType','dStartTime','dEndTime','screateBy','ibusModelId','ibusFunctionId','ifunDataId')
+      //   this.form.setFieldsValue({suserNames: userinfo.username})
+      // });
     },
     methods: {
       //修改
@@ -174,7 +191,7 @@
       },
       senUserName(data){
         this.userRealName=data
-        let usernames = this.userRealName.toString()+"," +this.username;
+        let usernames = this.userRealName.toString();
         this.$nextTick(() => {
           this.form.setFieldsValue({suserNames:usernames})
         });
@@ -274,7 +291,7 @@
                 formData.dEndTime =this.timer(this.model.dEndTime)  ;
                 formData.dendTime =this.timer(this.model.dEndTime)  ;
               }
-              formData.suserNames = this.model.suserNames;
+              formData.suserNames = this.model.suserNames?this.model.suserNames:this.userRealName;
               let ds = Object.keys(formData);
               putAction(httpurl,formData,method).then((res)=>{
                 if(res.success){

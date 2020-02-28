@@ -433,7 +433,7 @@
           }
 
         });
-      },5000)
+      },500)
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
