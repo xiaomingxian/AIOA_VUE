@@ -159,7 +159,8 @@
                           <div class="swiper-slide" v-for="(item,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
                             <div style="display:flex;align-items: center;justify-content: center">
 
-                              <img style="width:60px;height: 60px;" :src="item.picUrl1" :title="item.s_title" alt="">
+
+                              <img style="width:60px;height: 60px;" :src="item.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':item.picUrl1" :title="item.s_title" alt="">
 
                               <span v-show="false" :ref="(index+1)+'item'" v-html="item.url"></span>
                             </div>
@@ -514,12 +515,12 @@
       this.myDayLists(newTime);
 
       // 代办日程
-      setTimeout(()=>{
-
-
-
-
-    },500)
+    //   setTimeout(()=>{
+    //
+    //
+    //
+    //
+    // },500)
 
       //公告列表lineitem
         this.getPostLists();
@@ -553,23 +554,23 @@
 
 
 
-      setTimeout(()=>{
-
-        var mySwiper = new Swiper('.swiper-container',{
-          initialSlide:0,
-          slidesPerView:4,
-          spaceBetween:13,
-          lazyLoading:true,
-          loop:false,
-          obeserver:true,
-          obeserverParents:true,
-          navigation:{
-            nextEl:'.swiper-button-next',
-            prevEl:'.swiper-button-prev',
-          }
-
-        });
-      },500)
+      // setTimeout(()=>{
+      //
+      //   var mySwiper = new Swiper('.swiper-container',{
+      //     initialSlide:0,
+      //     slidesPerView:4,
+      //     spaceBetween:13,
+      //     lazyLoading:true,
+      //     loop:false,
+      //     obeserver:true,
+      //     obeserverParents:true,
+      //     navigation:{
+      //       nextEl:'.swiper-button-next',
+      //       prevEl:'.swiper-button-prev',
+      //     }
+      //
+      //   });
+      // },4000)
 
 
 
@@ -602,6 +603,23 @@
         for(var i=0;i<this.LinkList.length;i++){
           this.show(this.LinkList[i].i_id,i)
         }
+        setTimeout(()=>{
+
+          var mySwiper = new Swiper('.swiper-container',{
+            initialSlide:0,
+            slidesPerView:4,
+            spaceBetween:13,
+            lazyLoading:true,
+            loop:false,
+            obeserver:true,
+            obeserverParents:true,
+            navigation:{
+              nextEl:'.swiper-button-next',
+              prevEl:'.swiper-button-prev',
+            }
+
+          });
+        },1000)
         console.log(this.LinkList.length)
       });
     },
