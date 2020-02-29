@@ -11,7 +11,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
               label="协同业务">
-              <a-select   v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork" placeholder="请选择协同业务">
+              <a-select      v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork" placeholder="请选择协同业务">
                 <a-select-option v-for="(item,index) in teamworkList" :key="index" :value="item.iid">{{item.steamworkName}}
                 </a-select-option>
               </a-select>
@@ -64,13 +64,15 @@
       >
 
         <span slot="action" slot-scope="text, record">
-          <a @click="handleEdit(record)">编辑</a>
+         <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
           <a @click="previewModal(record)">协同预览</a>
-          <a-divider type="vertical" />
+        <!--  <a-divider type="vertical" />
+           <a @click="previewModal(record)">发起下一步协同</a>-->
+        <!--  <a-divider type="vertical" />
           <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
             <a>删除</a>
-          </a-popconfirm>
+          </a-popconfirm>-->
         </span>
 
       </a-table>
@@ -136,35 +138,20 @@
 		   {
             title: '标题',
             align:"center",
-            dataIndex: 'busModelName',
+            dataIndex: 'stitle',
          sorter: (i, ii, type) => {
            //descend倒叙
            //ascend正序
 
            this.queryParam.tableOrder = true
            //置空其他环节
-           this.nullOther('iTeamworkSetId')
+           this.nullOther('stitle')
            this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
            return true
 
         },
            },
-          {
-            title: '创建时间',
-            align:"center",
-            dataIndex: 'dCreateTime',
-            sorter: (i, ii, type) => {
-              //descend倒叙
-              //ascend正序
 
-              this.queryParam.tableOrder = true
-              //置空其他环节
-              this.nullOther('dCreateTime')
-              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
-              return true
-            },
-
-          },
           {
             title: '当前步骤',
             align:"center",
@@ -195,6 +182,21 @@
               return true
             },
 
+          },
+          {
+            title: '创建时间',
+            align:"center",
+            dataIndex: 'dCreateTime',
+            sorter: (i, ii, type) => {
+              //descend倒叙
+              //ascend正序
+
+              this.queryParam.tableOrder = true
+              //置空其他环节
+              this.nullOther('dCreateTime')
+              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+              return true
+            },
           },
           {
             title: '操作',
