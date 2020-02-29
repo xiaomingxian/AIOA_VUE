@@ -11,43 +11,64 @@
   >
     
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form">
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="步骤序号">
-          <a-input :placeholder="findMax" ref="indexStep" v-decorator="['iorder', {}]" />
-        </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="业务模块">
-          <a-select  v-decorator="['ibusModelId', {}]"   @change="getModelVal" placeholder="请选业务模块">
-            <a-select-option v-for="(item,index) in modelList" :key="index" :value="item.modelid">{{item.modelSName}}
-            </a-select-option>
-          </a-select>
+      <div style="width: 700px;margin: 30px auto">
+        <a-form :form="form">
+          <div >
+            <p style=" font-size: 18px;font-weight: bold;margin-left: 30px;">步骤序号：</p>
+            <div style="width: 80%;margin: 0 auto">
+              <a-form-item
+                style="display: flex;align-items: center;justify-content: flex-start"
+                :labelCol="labelCol"
+                :wrapperCol="wrapperCol"
+                label="步骤序号">
+                <a-input style="width: 350px" :placeholder="findMax" ref="indexStep" v-decorator="['iorder', {}]" />
+              </a-form-item>
+            </div>
 
-        </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="业务功能">
-        <!--  <a-select v-decorator="[ 'ibusFunctionId', {}]">
-            <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.functionSName}}
-            </a-select-option>
-          </a-select> -->
-          <a-select v-decorator="[ 'ibusFunctionId', {}]"   @change="selectTaskDetail" placeholder="请选业务详情">
-            <a-select-option v-for="item2 in selectList" :value="item2.functionid">{{item2.functionSName}}</a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="描述">
-          <a-input placeholder="请输入描述" v-decorator="['description', {}]" />
-        </a-form-item>
-		
-      </a-form>
+          </div>
+
+
+          <div>
+            <p style="font-size: 18px;font-weight: bold;margin-left: 30px;">配置：</p>
+            <div style="width: 80%;margin: 0 auto">
+              <a-form-item
+                style="display: flex;align-items: center;justify-content: flex-start"
+                :labelCol="labelCol"
+                :wrapperCol="wrapperCol"
+                label="业务模块">
+                <a-select style="width: 350px"   v-decorator="['ibusModelId', {}]"   @change="getModelVal" placeholder="请选业务模块">
+                  <a-select-option v-for="(item,index) in modelList" :key="index" :value="item.modelid">{{item.modelSName}}
+                  </a-select-option>
+                </a-select>
+
+              </a-form-item>
+              <a-form-item
+                style="display: flex;align-items: center;justify-content: flex-start"
+                :labelCol="labelCol"
+                :wrapperCol="wrapperCol"
+                label="业务功能">
+                <!--  <a-select v-decorator="[ 'ibusFunctionId', {}]">
+                    <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.functionSName}}
+                    </a-select-option>
+                  </a-select> -->
+                <a-select style="width: 350px"  v-decorator="[ 'ibusFunctionId', {}]"   @change="selectTaskDetail" placeholder="请选业务详情">
+                  <a-select-option v-for="item2 in selectList" :value="item2.functionid">{{item2.functionSName}}</a-select-option>
+                </a-select>
+              </a-form-item>
+              <a-form-item
+                style="display: flex;align-items: center;justify-content: flex-start"
+                :labelCol="labelCol"
+                :wrapperCol="wrapperCol"
+                label="业务描述">
+                <a-input style="width: 350px"  placeholder="请输入描述" v-decorator="['description', {}]" />
+              </a-form-item>
+            </div>
+          </div>
+
+
+        </a-form>
+
+      </div>
     </a-spin>
 
 
