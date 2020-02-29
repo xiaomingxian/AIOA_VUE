@@ -12,7 +12,7 @@ import {ntkoBrowser} from './ntkobackground.min.js'
 
 export const taskBth = {
   //接收父组件传值
-  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'backDataOpt'],
+  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt'],
   inject: ['reload'],
   data() {
     return {
@@ -167,7 +167,7 @@ export const taskBth = {
       })
     },
     //取消关注件
-    cImportantObj(){
+    cImportantObj() {
       this.$emit('cancelImportantObj')
     },
     //关注件--是否重要
@@ -1368,6 +1368,11 @@ export const taskBth = {
     ,
 //填写意见
     saveOption(optionContext) {
+      var deptType = null
+      if (this.deptMsg != undefined && this.deptMsg != null && this.deptMsg.length > 0) {
+        //去匹配部门环节
+        deptType = this.deptMsg[0]
+      }
       this.backDataOpt.s_opinion = optionContext
       this.backDataOpt.i_bus_function_id = this.backData.i_bus_function_id
       this.backDataOpt.i_busdata_id = this.backData.i_id
@@ -1387,15 +1392,30 @@ export const taskBth = {
       for (var index in this.opts) {
         //判断意见环节是否匹配
         let td = this.taskMsg.taskDefinitionKey
+        let type = this.opts[index].type
         for (let i of this.opts[index].taskDefKeys) {
-          if (i.key == td) {
-            this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
-            this.backDataOpt.i_order = this.opts[index]['orderId']
-            this.backDataOpt.i_opinion_set_id = i.optionSetId
-            this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
-            this.flag = true;
-            break
+          if (deptType != null) {
+            //有部门类型就匹配环节和 type
+            if (i.key == td && type == deptType) {
+              this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+              this.backDataOpt.i_order = this.opts[index]['orderId']
+              this.backDataOpt.i_opinion_set_id = i.optionSetId
+              this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+              this.flag = true;
+              break
+            }
+          } else {
+            //没有部门类型就只匹配环节
+            if (i.key == td) {
+              this.backDataOpt.i_id = this.backDataOpt.i_id == '' ? this.opts[index].optId : this.backDataOpt.i_id
+              this.backDataOpt.i_order = this.opts[index]['orderId']
+              this.backDataOpt.i_opinion_set_id = i.optionSetId
+              this.backDataOpt.s_opinion_type = this.opts[index]['type'] //意见类型
+              this.flag = true;
+              break
+            }
           }
+
         }
       }
       if (!this.flag) {
@@ -1677,12 +1697,12 @@ export const taskBth = {
     ,
 
     //电子公告-预览
-    lookUpBusdata(){
+    lookUpBusdata() {
       let table = 'oa_busdata30';
       if (this.backData.table === table) {
-        this.$emit('savaObj',false);
+        this.$emit('savaObj', false);
         window.open(window.location.origin + '/mytask/taskList/Test-detailFile?lookUp=true&tableName=' + table + '&busdataId=' + this.backData.i_id + '&navisshow=true')
-      }else {
+      } else {
         this.$message.error("该业务暂不支持预览！")
       }
     },
