@@ -177,6 +177,7 @@
                 @saveGongwenData="saveGongwenData" @saveDelTime="saveDelTime"
                 @savaObj="savaObj" :backData="backData" :busFunction="busFunction" :backDataOpt="backDataOpt"
                 :taskMsg="task"
+                :deptMsg="deptMsg"
                 :opts="opts" @downFiles="downFiles"
                 @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj" @cancelImportantObj="cancelImportantObj"
                 @watchSub="watchSub" :oaFileList="oaFileList" @close="handleCancel" @callaboration="callaboration"
@@ -273,6 +274,8 @@
         previewFlag: true,
         //代办信息
         task: {},
+        //用户部门信息
+        deptMsg:null,
         //已办信息
         taskDone: '',
         opts: [],//意见框信息
@@ -876,7 +879,7 @@
         //************************************************* 任务相关参数  END
 
         //获取的对应的数据字典数据,参数为1：查询对应的机密和缓急的等级
-        postAction("/oaBus/oaBusdata/querySysDictData",{param:1}).then((res) => {
+        postAction("/oaBus/oaBusdata/querySysDictData", {param: 1}).then((res) => {
           //this.optionMap = Object.assign(res.result);
           this.secretDegree = res.result.secretDegree;
           //this.urgencyList = res.result.optionMap.i_urgency_option;
@@ -933,10 +936,10 @@
             })
             this.optionMap = res.result.optionMap;
             //字典值获取
-           /* this.optionMap = res.result.optionMap;
-            this.secretDegree = res.result.optionMap.secretDegree;
-            //this.urgencyList = res.result.optionMap.i_urgency_option;
-            this.urgencyList = res.result.optionMap.urgencyList;*/
+            /* this.optionMap = res.result.optionMap;
+             this.secretDegree = res.result.optionMap.secretDegree;
+             //this.urgencyList = res.result.optionMap.i_urgency_option;
+             this.urgencyList = res.result.optionMap.urgencyList;*/
             //业务数据赋值
 
             this.backData = res.result.oaBusdata;
@@ -1003,8 +1006,8 @@
             this.task.executionId = res.result.executionId
             this.task.table = res.result.table
             this.task.functionId = res.result.functionId
-
-
+            //将主板，辅办,传阅信息
+            this.deptMsg=res.result.deptOptTypes
           } else {
             this.$message.error(res.message)
           }
