@@ -64,8 +64,8 @@
       >
 
         <span slot="action" slot-scope="text, record">
-         <a @click="handleEdit(record)">编辑</a>
-          <a-divider type="vertical" />
+         <!--<a @click="handleEdit(record)">编辑</a>
+          <a-divider type="vertical" />-->
           <a @click="previewModal(record)">协同预览</a>
         <!--  <a-divider type="vertical" />
            <a @click="previewModal(record)">发起下一步协同</a>-->
