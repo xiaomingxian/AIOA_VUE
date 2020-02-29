@@ -820,11 +820,15 @@
               display: flex;
               align-items: center;
               .tongzhi{
-                min-width: 70px;
+                min-width: 90px;
+                /*width: auto;*/
                 background: #f8ffbb;
                 font-weight: 600;
                 margin: 0;
                 margin-left: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
               }
 
               span{
