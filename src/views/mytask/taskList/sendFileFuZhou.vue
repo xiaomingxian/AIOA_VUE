@@ -506,25 +506,23 @@
         }
         this.$refs.selDepartNameRef.show(param);
       },
-      openFile(cmd, fileName) {
-        let ntkoed = ntkoBrowser.ExtensionInstalled();
-        if (ntkoed) {
-          ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd + "&fileName=" + fileName + "&userName=" + "admin" + "&sbtnid=" + 43);
-        } else {
-          window.open(window.location.origin + "/ntko/exeindex.html")
-        }
-        window.ntkoCloseEvent = function () {
-          // alert("跨浏览器插件应用程序窗口已关闭")
-        }
-      },
-      qiCao1(index, fileName) {
-        //alert(fileName)
-
-        let name = fileName.split('\\')
-        var name1 = name[name.length - 1]
-        alert(name1)
-        this.$refs.taskRef.showFujianFile2(index, name1);
-      },
+//      openFile(cmd, fileName) {
+//        let ntkoed = ntkoBrowser.ExtensionInstalled();
+//        if (ntkoed) {
+//          ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd + "&fileName=" + fileName + "&userName=" + "admin" + "&sbtnid=" + 43);
+//        } else {
+//          window.open(window.location.origin + "/ntko/exeindex.html")
+//        }
+//        window.ntkoCloseEvent = function () {
+//          // alert("跨浏览器插件应用程序窗口已关闭")
+//        }
+//      },
+//      qiCao1(index, fileName) {
+//        let name = fileName.split('\\')
+//        var name1 = name[name.length - 1]
+//        alert(name1)
+//        this.$refs.taskRef.showFujianFile2(index, name1);
+//      },
       optsGet(opts) {
         this.opts = opts
       },
