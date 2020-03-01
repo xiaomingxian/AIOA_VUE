@@ -24,7 +24,7 @@
         <!--</div>-->
       <!--</div> direction="vertical"-->
       <a-steps  direction="vertical"  :current="total"  style="margin-left: 50px">
-        <a-step class="step" style="width:400px" v-for="(item,index) in listqq" @dblclick="openXieTong(item.tableName,item.busDataId,index)"  :title="item.busFunctionName+'    '+item.stitle" :description="item.dCreateTime"></a-step>
+        <a-step class="step" style="width:400px" v-for="(item,index) in listqq" @dblclick="openXieTong(item.tableName,item.busDataId,index)"  :title="'['+item.busFunctionName+']'+'    '+item.stitle" :description="item.dCreateTime"></a-step>
       </a-steps>
 
     </a-spin>
