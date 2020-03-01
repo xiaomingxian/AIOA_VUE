@@ -44,6 +44,7 @@ export const taskBth = {
         taskMsg: {}
       },
       clickTotal:0,//点击次数参数
+      isUpSend:0, //是否已上报
       url: {
         delete: '/oaBus/dynamic/delete', //删除数据
         insert: '/oaBus/dynamic/insert',//动态插入数据
@@ -602,6 +603,18 @@ export const taskBth = {
           this.dictData.unitName = res.result["unitTables"][0].unitName;
           this.dictData.dictUnitId = res.result["unitTables"][0].unitId;
           this.usersData = res.result[this.dictData.dictUnitId];
+          let oaOutLog = {};
+          oaOutLog.iBusModelId = this.backData.i_bus_model_id;
+          oaOutLog.iBusFunctionId = this.backData.i_bus_function_id;
+          oaOutLog.sBusdataTable = this.backData.table;
+          oaOutLog.iBusdataId = this.backData.i_id;
+          oaOutLog.iType = 1;
+          oaOutLog.sSendName = '公文上报'
+          getAction('oaBus/dynamic/queryOaOutLogById', oaOutLog).then(res => {
+            if (res.success && res.result.length>0) {
+              this.isUpSend = 1;
+            }
+          })
           this.visibleModel = true;
         } else {
           this.$message.error("请检查相关配置是否完善！")

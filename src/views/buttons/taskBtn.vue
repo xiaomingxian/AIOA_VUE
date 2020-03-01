@@ -54,7 +54,8 @@
       :visible="visibleModel"
       @ok="upSendConfirm"
       @cancel="closeModal">
-      <p style="font-size: 15px;font-weight: bolder">请确认是否上报<span style="color: red">{{this.dictData.unitName}} </span>？
+      <p v-show="this.isUpSend === 0" style="font-size: 15px;font-weight: bolder">该公文将上报至{{this.dictData.unitName}}，您确定上报吗？
+      <p v-show="this.isUpSend === 1" style="font-size: 15px;font-weight: bolder">该公文<span style="color: red">已上报</span>至{{this.dictData.unitName}}，您确定<span style="color: red">重新上报</span>吗？
       </p>
     </a-modal>
   </div>
@@ -131,6 +132,7 @@
         this.$emit('watchSub', e);
       },
       closeModal() {
+        this.isUpSend = 0;
         this.$emit('close')
       },
       alertBtnStaus(flagValue, dealBtn) {
