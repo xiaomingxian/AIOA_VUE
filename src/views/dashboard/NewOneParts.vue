@@ -32,7 +32,7 @@
               <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
                 <div style="display:flex;align-items: center;justify-content: center">
 
-                  <img style="width:60px;height: 60px;" :src="atom.picUrl1" :title="atom.s_title" alt="">
+                  <img style="width:60px;height: 60px;" :src="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':atom.picUrl1" :title="atom.s_title" alt="">
 
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
@@ -417,23 +417,23 @@
 
 
 
-      setTimeout(()=>{
+      // setTimeout(()=>{
 
-        var mySwiper = new Swiper('.swiper-container',{
-          initialSlide:0,
-          slidesPerView:4,
-          spaceBetween:13,
-          lazyLoading:true,
-          loop:false,
-          obeserver:true,
-          obeserverParents:true,
-          navigation:{
-            nextEl:'.swiper-button-next',
-            prevEl:'.swiper-button-prev',
-          }
-
-        });
-      },500)
+      //   var mySwiper = new Swiper('.swiper-container',{
+      //     initialSlide:0,
+      //     slidesPerView:4,
+      //     spaceBetween:13,
+      //     lazyLoading:true,
+      //     loop:false,
+      //     obeserver:true,
+      //     obeserverParents:true,
+      //     navigation:{
+      //       nextEl:'.swiper-button-next',
+      //       prevEl:'.swiper-button-prev',
+      //     }
+      //
+      //   });
+      // },4000)
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
@@ -466,8 +466,26 @@
 
           this.show(this.LinkList[i].i_id,i)
 
+
           }
 
+        setTimeout(()=>{
+
+          var mySwiper = new Swiper('.swiper-container',{
+            initialSlide:0,
+            slidesPerView:4,
+            spaceBetween:13,
+            lazyLoading:true,
+            loop:false,
+            obeserver:true,
+            obeserverParents:true,
+            navigation:{
+              nextEl:'.swiper-button-next',
+              prevEl:'.swiper-button-prev',
+            }
+
+          });
+        },1000)
         console.log(this.LinkList.length)
 
 
@@ -492,7 +510,16 @@
           console.log(res)
           if(res){
             this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+            console.log(this.LinkList)
           }
+          // if(res.data.byteLength>4){
+          //   this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+          //   console.log(this.LinkList)
+          //
+          // }else{
+          //   console.log("1112")
+          //   this.LinkList[index].picUrl1 = '../../assets/1.png'
+          // }
         })
       },
       openUrl(e){
@@ -820,11 +847,15 @@
               display: flex;
               align-items: center;
               .tongzhi{
-                min-width: 70px;
+                min-width: 90px;
+                /*width: auto;*/
                 background: #f8ffbb;
                 font-weight: 600;
                 margin: 0;
                 margin-left: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
               }
 
               span{
