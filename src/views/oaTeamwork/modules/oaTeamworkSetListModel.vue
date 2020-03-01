@@ -150,12 +150,13 @@
         })
       },
       showOpen (userid,backData,busDataid) {
-        this.showFunPer = true
         this.dataId=busDataid;
         getAction(this.url.list,{sCreateBy:userid,iBusFunctionId:backData.i_bus_function_id}).then((res) => {
           if(res.result.records.length == 0){
             this.$message.error("该业务没有匹配的协同办公");
+            this.showFunPer = false;
           }else{
+            this.showFunPer = true;
             this.ipagination.total =  res.result.total;
             this.dataSource = res.result.records;
           }
