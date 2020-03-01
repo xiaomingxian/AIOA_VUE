@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="710"
+    :width="610"
     :height="450"
     :visible="visible"
     @ok="handleOk"
@@ -13,6 +13,7 @@
              bordered
              :columns="columns"
              :dataSource="mockData1"
+             :dropdownStyle="{overflow:'auto'}"
              :pagination="false"
              :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
     >
@@ -35,9 +36,25 @@
           {
             title: '县行',
             dataIndex: 'depart_name',
-            width: 300,
+            width: 150,
             align: "center",
-          }],
+          },
+          {
+            title: '发送状态',
+            dataIndex: 'send_status',
+            width: 100,
+            align: "center",
+            customRender:function (id) {
+              if (id == "1"){
+                return "已发送";
+              } else if(id == "0"){
+                return "未发送";
+              }else {
+                return id;
+              }
+            }
+          }
+        ],
         busData: [],
         userData: [],
         selectedRowKeys: [],
@@ -45,6 +62,7 @@
         mockData1: [],
         usersAndTable: [],
         visible: false,
+        oaOutLogList:[],
         url: {
           queryDownUnits: '/oaBus/dynamic/queryUnitsByUser',
           downSendFile: '/oaBus/dynamic/downSendFile',
@@ -58,16 +76,42 @@
     methods: {
 
       show(data) {
-        // console.log(data)
+        console.log(data)
         this.busData = data;
         this.initData();
         this.visible = true;
       },
       //初始化数据，查出部门名称对应的数据字典数据
       initData() {
-        let url = this.url.queryDownUnits;
-        postAction(url).then((rec) => {
-          this.mockData1 = rec.result;
+        let param ={};
+        param.iBusModelId = this.busData.i_bus_model_id
+        param.iBusFunctionId= this.busData.i_bus_function_id
+        param.sBusdataTable = this.busData.table
+        param.iBusdataId = this.busData.i_id
+        param.sSendName = '公文下发'
+        param.iType = 1
+        this.queryOaOutLogById(param);
+      },
+      //查询对外传输日志
+      queryOaOutLogById(param){
+        getAction('oaBus/dynamic/queryOaOutLogById',param).then(res=>{
+          if (res.success && res.result.length>0) {
+            this.oaOutLogList = res.result;
+            let url = this.url.queryDownUnits;
+            postAction(url).then((res) => {
+              if (res.result.length>0){
+                res.result.map((item)=>{
+                  if (this.oaOutLogList.includes(item.id)){
+                    item.send_status = 1;
+                  }else {
+                    item.send_status = 0;
+                  }
+                })
+                this.mockData1 = res.result
+              }
+              // this.mockData1 = rec.result;
+            })
+          }
         })
       },
       onSelectChange(selectedRowKeys, selectionRows) {
@@ -75,6 +119,7 @@
         this.selectionRows = selectionRows;
       },
       handleOk() {
+        let data = this.busData;
         let departs = [];
         let obj = this.selectionRows;
         if (obj.length <= 0) {
@@ -91,8 +136,11 @@
         let flag = false;
         postAction(this.url.downSendFile, map).then((res) => {
           if (res.success) {
-
             let unitData = res.result["unitTables"];
+            if (!unitData) {
+              this.$message.error("请完善相关配置！")
+              return;
+            }
             this.userData = res.result;
             //遍历县行
             for (let i in unitData) {
@@ -115,13 +163,13 @@
                    * s_varchar5  来文机关
                    */
                   let receiveData = {};
-                  receiveData.s_title = this.busData.s_title  //标题
-                  receiveData.d_sealdate = this.busData.d_sealdate//成文日期  d_sealdate
-                  receiveData.s_receive_num = this.busData.s_file_num //来文字号 s_file_num
-                  receiveData.s_varchar5 = this.busData.s_unit_name//来文机关 s_unit_name
-                  receiveData.i_urgency = this.busData.i_urgency; //缓急 i_urgency
-                  receiveData.i_bigint1 = this.busData.i_bigint1  //印发份数
-                  receiveData.i_bigint2 = this.busData.i_bigint2  //正文页数
+                  receiveData.s_title = data.s_title  //标题
+                  receiveData.d_sealdate = data.d_sealdate//成文日期  d_sealdate
+                  receiveData.s_receive_num = data.s_file_num //来文字号 s_file_num
+                  receiveData.s_varchar5 = data.s_unit_name//来文机关 s_unit_name
+                  receiveData.i_urgency = data.i_urgency; //缓急 i_urgency
+                  receiveData.i_bigint1 = data.i_bigint1  //印发份数
+                  receiveData.i_bigint2 = data.i_bigint2  //正文页数
                   receiveData.table = res.result.tableName
                   receiveData.i_id = res.result.busdataId
                   receiveData.s_create_by = "";
@@ -145,27 +193,26 @@
                                 iBusdataId: receiveData.i_id,
                                 table: receiveData.table
                               }).then(res => {
-                                if (res.success){
+                                if (res.success) {
                                   //复制发文附件
                                   let fileParam = {};
-                                  fileParam.sTable = this.busData.table; //发文业务表
-                                  fileParam.iTableId = this.busData.i_id; //发文业务数据id
+                                  fileParam.sTable = data.table; //发文业务表
+                                  fileParam.iTableId = data.i_id; //发文业务数据id
                                   fileParam.sFileType = 4; //附件类型
                                   fileParam.receiveTable = receiveData.table;
                                   fileParam.receiveId = receiveData.i_id
-                                  postAction(this.url.copyFile,fileParam).then(res => {
+                                  postAction(this.url.copyFile, fileParam).then(res => {
                                     if (res.success) {
                                       //组装参数--传输日志记录
                                       let oaOutLog = {};
-                                      oaOutLog.i_bus_model_id = this.busData.i_bus_model_id;
-                                      oaOutLog.i_bus_function_id = this.busData.i_bus_function_id;
-                                      oaOutLog.s_busdata_table = this.busData.table;
-                                      oaOutLog.i_busdata_id = this.busData.i_id;
+                                      oaOutLog.i_bus_model_id = data.i_bus_model_id;
+                                      oaOutLog.i_bus_function_id = data.i_bus_function_id;
+                                      oaOutLog.s_busdata_table = data.table;
+                                      oaOutLog.i_busdata_id = data.i_id;
                                       oaOutLog.i_type = 1;
                                       oaOutLog.s_rec_unitid = unitId;
-                                      this.insertOaOutLog(oaOutLog);  //记录传输日志；
-
-                                      if (i == unitData.length-1){
+                                      this.insertOaOutLog(oaOutLog, 2);  //记录传输日志；
+                                      if (i == unitData.length - 1) {
                                         flag = true;
                                         this.$message.success("下发成功！")
                                       }
@@ -173,7 +220,7 @@
                                       this.$message.error("附件复制失败！")
                                     }
                                   })
-                                }else {
+                                } else {
                                   this.$message.error("用户权限写入失败！")
                                 }
                               })
@@ -206,6 +253,7 @@
         this.selectionRows = [];
         this.selectedRowKeys = [];
         this.busData = [];
+        this.oaOutLogList =[];
       },
 
       handleCancel() {

@@ -20,7 +20,7 @@
           </a-col>
           <template v-if="advanced">
             <a-col :md="8" :sm="24" style="margin:0 0 -7px 120px;">
-              <a-form-item label="模块">
+              <a-form-item label="业务分类">
                 <a-select v-model="iBMId"
                           @change="getFunctionList">
                   <a-select-option v-for="(item,index) in modelList" :key="index" :value="item.iid">{{item.sname}}
@@ -107,7 +107,7 @@
         >
           <span slot="action" slot-scope="text, record">
             <a @click="editModify(record)">编辑数据</a>
-          <a-divider type="vertical" />
+          <!--<a-divider type="vertical" />-->
             <br/>
             <a @click="replaceFile(record)">替换文件</a>
           </span>
@@ -161,7 +161,7 @@
         modelList: [],
         selectList: [],
         timeList:[],
-        iBMId: '1',
+        iBMId: '',
         searchColumns: [],
         searchList: [],
         model: {pageDetailList: [{}]},
@@ -220,8 +220,9 @@
       }
     },
     created() {
-      this.getPgSearchList(1);
-      this.getBusModelSelectList();//模块列表
+      console.log("9999999999999999999999")
+//      this.getPgSearchList(1);
+      this.getBusModelSelectList();//业务分类列表
       // this.getPgList();
       this.setFontSize();
     },
@@ -316,9 +317,11 @@
       getBusModelSelectList(){
         let url = "/oaBus/busModel/findList";
         getAction(url, {}).then((res) => {
-//          console.log('--------------------模块-下拉列表------------------------------');
-//          console.log(res);
+          console.log('--------------------模块-下拉列表------------------------------');
+          console.log(res);
           this.modelList=res.result;
+          this.iBMId=this.modelList[0].iid;
+          this.getFunctionList(this.iBMId);
         });
       },
       getFunctionList(modelId){
@@ -326,11 +329,13 @@
         let url = "/oaBus/oaBusdata/queryFunSelByModelId";
         postAction(url, {modelId: modelId.toString(), function_id: ""}).then((res) => {
           // this.conditionList = res.colList;
-//          console.log('--------------------业务-下拉列表------------------------------');
-//          console.log(res);
+          console.log('--------------------业务-下拉列表------------------------------');
+          console.log(res);
           this.selectList = res.funList;
           this.timeList = res.d_create_time;
-          this.queryParam.function_id = this.selectList[0].i_id;
+          this.queryParam.function_id = this.selectList[0].iid;
+          this.getPgSearchList(modelId);
+
           // for (let i = 0; i < this.conditionList.length; i++) {
           //   this.queryParam = Object.assign({}, this.queryParam, {[this.conditionList[i].s_table_column]: ""});
           // }
@@ -341,13 +346,14 @@
       this.queryParam.function_id=funcation;
       },
       handleTableChange(page) {
-//        console.log("0-0-0-0000000000000000000000000");
 //        console.log(page);
         this.pagination.current = page.current;
         this.pagination.pageSize = page.pageSize;
         this.getPgSearchList(this.iBMId);
       },
       getPgSearchList(iBMId) {
+        console.log("0-0-0-0000000000000000000000000");
+        console.log(this.queryParam.function_id);
         this.columns = [];
         if (iBMId!=null && iBMId>0){
           this.iBMId = iBMId;
@@ -362,7 +368,7 @@
           // this.queryParam.s_create_name = this.queryParam.s_create_name.toString();
           // this.queryParam.d_create_time = this.queryParam.d_create_time.toString();
           postAction(url, {modelId:  this.iBMId, pageNo:this.pagination.current,pageSize:this.pagination.pageSize,map: this.queryParam}).then((res) => {
-//          console.log("000000000000000运维-数据列表000000000000000");
+          console.log("000000000000000运维-数据列表000000000000000");
 //          console.log(res);
             this.isClick=false;
             // JSON.parse(res.message);----------------表头列表-----------
@@ -436,6 +442,7 @@
               title: '操作',
               dataIndex: 'action',
               align: "center",
+              width:"150px",
               scopedSlots: {customRender: 'action'},
             });
           });
