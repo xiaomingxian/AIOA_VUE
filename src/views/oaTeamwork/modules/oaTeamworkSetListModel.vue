@@ -204,7 +204,8 @@
                       ibusdataId:this.dataId,
                       iversion:this.dataId,
                       ibusModelId:this.keysObjs[0].orderModelId.split(",")[0],
-                      ibusFunctionId:this.keysObjs[0].orderFunctionId.split(",")[0]
+                      ibusFunctionId:this.keysObjs[0].orderFunctionId.split(",")[0],
+                      iText:1
                     }
                     let data2 = {
                       iteamworkId:this.keysObjs[0].iteamworkId,
@@ -213,7 +214,8 @@
                       ibusdataId:newDataId,
                       iversion:this.dataId,
                       ibusModelId:this.keysObjs[0].orderModelId.split(",")[1],
-                      ibusFunctionId:this.keysObjs[0].orderFunctionId.split(",")[1]
+                      ibusFunctionId:this.keysObjs[0].orderFunctionId.split(",")[1],
+                      iText:''
                     }
                     let dataList = {
                       data1:data1,data2:data2
