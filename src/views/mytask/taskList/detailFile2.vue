@@ -1006,6 +1006,7 @@
             this.task.executionId = res.result.executionId
             this.task.table = res.result.table
             this.task.functionId = res.result.functionId
+            this.task.name = res.result.taskDefName
             //将主板，辅办,传阅信息
             this.deptMsg=res.result.deptOptTypes
           } else {

@@ -742,12 +742,18 @@
             let url = "urgency/degree/queryTask";
             let Urgency = res;
             getAction(url, {operstatus: 'task_done', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
-              if (res.result.total > 0) {
-                this.dataSources.push({
-                  key: i,
-                  wenHao: Urgency.result[i].text,
-                });
-              }
+
+              setTimeout(()=> {
+
+                if (res.result.total > 0) {
+                  this.dataSources.push({
+                    key: i,
+                    wenHao: Urgency.result[i].text,
+                  });
+                }
+
+              },500)
+
             })
           }
 

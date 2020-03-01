@@ -95,9 +95,9 @@
             <center><h3>数量</h3></center>
           </td>
           <td>
-            <a-input style="width: 45%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" v-model="backData.i_bigint1"></a-input>
+            <a-input style="width: 42%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" v-model="backData.i_bigint1"></a-input>
             份
-            <a-input style="width: 45%" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
+            <a-input style="width: 42%" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
             页
           </td>
         </tr>
