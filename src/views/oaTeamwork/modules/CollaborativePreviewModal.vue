@@ -24,7 +24,7 @@
         <!--</div>-->
       <!--</div> direction="vertical"-->
       <a-steps  direction="vertical"  :current="total"  style="margin-left: 50px">
-        <a-step class="step" v-for="(item,index) in listqq" @dblclick="openXieTong(item.tableName,item.busDataId,index)"  :title="item.busFunctionName" :description="item.dCreateTime"></a-step>
+        <a-step class="step" style="width:400px" v-for="(item,index) in listqq" @dblclick="openXieTong(item.tableName,item.busDataId,index)"  :title="item.busFunctionName+'    '+item.stitle" :description="item.dCreateTime"></a-step>
       </a-steps>
 
     </a-spin>
@@ -88,10 +88,8 @@
     },
     methods: {
       openXieTong(e,d,i){
-
-         if(this.IntsList[i] == undefined){
+        if(this.IntsList[i] == undefined){
            this.$message.warning("没有业务数据");
-
          }
          else if(this.listqq[i].tableName != null &&  this.IntsList[i].busDataId != undefined){
            window.open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+this.listqq[i].tableName+'&busdataId='+this.IntsList[i].busDataId+'&navisshow=false')

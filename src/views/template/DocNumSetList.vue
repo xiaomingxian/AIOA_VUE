@@ -19,7 +19,7 @@
           <a-col :md="6" :sm="8">
             <a-form-item label="所属业务">
               <!--<a-input placeholder="" v-model="queryParam.iBusFunctionId"></a-input>-->
-              <a-select  v-model="queryParam.iBusFunctionId" @change="getFunctionId">
+              <a-select v-model="queryParam.iBusFunctionId" @change="getFunctionId">
                 <a-select-option v-for="(item,index) in functionList" :key="index" :value="item.iid">{{item.sname}}
                 </a-select-option>
               </a-select>
@@ -98,16 +98,17 @@
       >
 
         <span slot="action" slot-scope="text, record">
-
           <a @click="handleCat(record)">查看</a>
           <a-divider type="vertical"/>
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
-           <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
+          <a @click="handleCopy(record)">复制文号</a>
+          <a-divider type="vertical"/>
+          <a @click="docNumExportXls(record)">导出文件目录</a>
+          <a-divider type="vertical"/>
+            <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
             <a>删除</a>
            </a-popconfirm>
-          <a-divider type="vertical"/>
-          <a @click="handleCopy(record)">复制文号</a>
         </span>
 
       </a-table>
@@ -126,7 +127,7 @@
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import DocNumCopyModal from './modules/DocNumCopyModal'
   import DocNumCatModal from './modules/DocNumCatModal'
-  import {httpAction, getAction} from '@/api/manage'
+  import {httpAction, getAction, downFile, postAction} from '@/api/manage'
 
   export default {
     name: "DocNumSetList",
@@ -196,10 +197,10 @@
         modelData: [],
         functionList: [],
         functionData: [],
-        queryParam:{
-          iBusModelId:'',
-          iBusFunctionId:'',
-          sName:''
+        queryParam: {
+          iBusModelId: '',
+          iBusFunctionId: '',
+          sName: ''
         }
 
       }
@@ -214,15 +215,15 @@
       this.setFontSize();
     },
     methods: {
-      setFontSize(){
-        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+      setFontSize() {
+        const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         let url = "/testt/sysUserSet/queryByUserId";
-        getAction(url,{userId:userid}).then((res) => {
-          if(res.result.iisFontSize == 1){
+        getAction(url, {userId: userid}).then((res) => {
+          if (res.result.iisFontSize == 1) {
             this.iisFontSize = '18px';
-          }else if(res.result.iisFontSize == 3){
+          } else if (res.result.iisFontSize == 3) {
             this.iisFontSize = '14px';
-          }else{
+          } else {
             this.iisFontSize = '16px';
           }
           document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
@@ -244,14 +245,14 @@
         })
       },
       //所属业务赋值
-      getFunctionId(value){
+      getFunctionId(value) {
         this.queryParam.iBusFunctionId = value;
       },
       //重置
       searchReset() {
-        this.queryParam.iBusModelId= "";
-        this.queryParam.iBusFunctionId= "";
-        this.queryParam.sName= "";
+        this.queryParam.iBusModelId = "";
+        this.queryParam.iBusFunctionId = "";
+        this.queryParam.sName = "";
         this.loadData(1);
       },
       handleCopy: function (record) {
@@ -263,7 +264,28 @@
         this.$refs.catModalForm.add(record);
         this.$refs.catModalForm.title = "查看";
         this.$refs.catModalForm.disableSubmit = false;
-      }
+      },
+      docNumExportXls(record) {
+        const fileName = record.fname + "-" + record.sname + new Date().getTime()
+        downFile("/papertitle/docNumSet/docNumExportXls", {
+          iid: record.iid,
+          s_create_by: record.screateBy
+        }).then((data) => {
+          if (!data) {
+            this.$message.warning("文件下载失败")
+            return
+          }
+          let url = window.URL.createObjectURL(new Blob([data]))
+          let link = document.createElement('a')
+          link.style.display = 'none'
+          link.href = url
+          link.setAttribute('download', fileName + '.xls')
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link); //下载完成移除元素
+          window.URL.revokeObjectURL(url); //释放掉blob对象
+        })
+      },
     }
   }
 </script>

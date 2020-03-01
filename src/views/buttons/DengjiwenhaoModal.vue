@@ -30,7 +30,7 @@
       <div class="line2">
         <p>
           <span>文件号</span>
-          <a-input  v-model="docnum" style="width: 150px;" placeholder="文件号" @change="getNowNum($event)"></a-input>
+          <a-input v-model="docnum" style="width: 100px;" placeholder="文件号" @change="getNowNum($event)"></a-input>
           <a-button type="primary" style="margin-left: 10px;" @click="showTable">{{listName}}</a-button>
         </p>
         <p>
@@ -45,7 +45,7 @@
       <div class="line3">
         <p>
           <span>文件字号</span>
-          <a-input v-model="docwordNum" style="width:150px;" placeholder="文件号" disabled></a-input>
+          <a-input v-model="docwordNum" style="width:170px;" placeholder="文件号" disabled></a-input>
         </p>
 
       </div>
@@ -250,7 +250,7 @@
         })
 
       },
-      getNowNum(event){
+      getNowNum(event) {
         this.docnum = event.srcElement.value;
         this.docwordNum = this.selectedModel.label.trim() + '〔' + this.defaultYear + '〕' + this.docnum + '号';
       },
@@ -264,16 +264,17 @@
       close() {
         this.$emit('close');
         this.selectData = "",
-        this.secoendData = "",
-        this.selectedModel = "",
-        this.wenhao = "",
-        this.sendObj = "",
-        this.table = "",
-        this.functionId = "",
-        this.busdataId = "",
-        this.docnum = '',
-        // this.docwordNum = '',
-        this.visible = false;
+          this.secoendData = "",
+          this.selectedModel = "",
+          this.wenhao = "",
+          this.sendObj = "",
+          this.table = "",
+          this.functionId = "",
+          this.busdataId = "",
+          this.docnum = '',
+          this.isshowTable = false;
+          this.docwordNum = '',
+          this.visible = false;
       },
       handleOk() {
         let iSend = '';
@@ -283,20 +284,7 @@
           } else {
             iSend = 2;
           }
-          getAction(this.url.setNum, {
-            iDocnumId: this.numId,
-            sYear: this.defaultYear,
-            iDocNum: this.docnum,
-            sBusdataTable: this.table,
-            iBusdataId: this.busdataId,
-            iSendObj: iSend
-          }).then((res) => {
-            this.docnumData.id = res.result.iid;
-            this.docnumData.docnum = this.docwordNum;
-            // alert(JSON.stringify(this.docnumData))
-            this.$emit('saveDocNum', this.docnumData)
-          })
-          this.close()
+          this.checkDocNum(this.numId, this.defaultYear, this.docnum, iSend);
         } else {
           this.$notification['warning']({
             message: '温馨提示',
@@ -305,18 +293,73 @@
         }
 
       },
+      //文号登记
+      registerDocnum(iSend,status) {
+        getAction(this.url.setNum, {
+          iDocnumId: this.numId,
+          sYear: this.defaultYear,
+          iDocNum: this.docnum,
+          sBusdataTable: this.table,
+          iBusdataId: this.busdataId,
+          iSendObj: iSend,
+          status:status
+        }).then((res) => {
+          this.docnumData.id = res.result.iid;
+          this.docnumData.docnum = this.docwordNum;
+          // alert(JSON.stringify(this.docnumData))
+          this.$emit('saveDocNum', this.docnumData)
+          this.close();
+        })
+      },
+      //文号检验
+      checkDocNum(docNumId, year, docnum, iSend) {
+        getAction("docnum/docNumManage/checkDocNum", {
+          iDocnumId: docNumId,
+          sYear: year,
+          iDocNum: docnum,
+        }).then(res => {
+          if (res.success && res.result.length > 0) {
+            let status = res.result[0].iid;
+            if (res.result[0].ibusdataId == -1){
+              this.$message.error("该文号已设置线下占用！")
+              return;
+            } else if (res.result[0].ibusdataId != 0 &&  res.result[0].ibusdataId != 1 && res.result[0].ibusdataId != -1){
+              this.$message.error("该文号正在使用！")
+              return;
+            } else {
+              this.registerDocnum(iSend,status);
+            }
+          }else {
+            this.registerDocnum(iSend,status);
+          }
+        })
+      },
+
       handleDenji() {
         this.close()
       },
       use(e) {
-        console.log(e);
-
-        getAction(this.url.selectNum, {iId: e.iid, iBusdataId: this.busdataId}).then((res) => {
+        // console.log(e);
+        getAction(this.url.selectNum, {
+          iDocnumId: e.idocnumId,
+          sYear: e.syear,
+          iDocNum: e.idocNum,
+          iId: e.iid,
+          sBusdataTable: e.table,
+          iBusdataId: this.busdataId}).then((res) => {
           let idocNum = e.idocNum;
           this.docnum = idocNum;
           this.docwordNum = this.wenhao.trim() + '〔' + this.defaultYear + '〕' + this.docnum + '号';
+            if (res.success){
+              this.docnumData.id = res.result.iid;
+              this.docnumData.docnum = this.docwordNum;
+              this.$emit('saveDocNum', this.docnumData)
+              this.close();
+            }else{
+              this.$message.error("请检查数据是否完整！")
+            }
           getAction(this.url.numlist, {iDocnumId: this.numId, sYear: this.defaultYear}).then((res) => {
-            console.log(res.result);
+            // console.log(res.result);
             //分页
             this.pagination.total = res.result.total;
             let resNumLists = res.result.records;
@@ -387,7 +430,7 @@
         let that = this;
         let url = that.url.sendobj;
         getAction(url, {id: val.key}).then((res) => {
-          that.docnum = res.result.idocNum+1;
+          that.docnum = res.result.idocNum + 1;
           let iud = res.result.iutemplateId;
           let idd = res.result.idtemplateId;
           let arr = [];
@@ -415,7 +458,7 @@
       changeYear(e) {
         console.log(e);
         this.defaultYear = e;
-        this.docwordNum = this.wenhao + '〔' + e + '〕' + this.docnum + '号';
+        this.docwordNum = this.wenhao.trim() + '〔' + e + '〕' + this.docnum + '号';
 
       }
     }
