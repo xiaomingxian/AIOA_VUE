@@ -779,8 +779,7 @@
         let url = "/sys/dict/getDictByKeyObj";
         await getAction(url, {dictKey: 'urgencyDegree'}).then((res) => {
 
-          console.log('6575444446745')
-          console.log(res)
+          // console.log(res)
 
           this.columnes.push({
             dataIndex: 'wenHao',
@@ -791,12 +790,18 @@
             let url = "urgency/degree/queryTask";
             let Urgency = res;
             getAction(url, {operstatus: 'my_agent', urgencyDegree: this.taskKey[i],jY:1}).then((res) => {
-              if(res.result.total > 0){
-                this.dataSources.push({
-                  key: i,
-                  wenHao: Urgency.result[i].text,
-                });
-              }
+
+              setTimeout(()=> {
+
+                if (res.result.total > 0) {
+                  this.dataSources.push({
+                    key: i,
+                    wenHao: Urgency.result[i].text,
+                  });
+                }
+
+              },500)
+
             })
           }
 

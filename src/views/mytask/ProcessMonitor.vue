@@ -751,12 +751,16 @@
           for (let i = 0; i < res.result.length; i++) {
             this.taskKey.push(res.result[i].itemValue);
 
-            if(res.result.length > 0){
-              this.dataSources.push({
-                key: i,
-                wenHao: res.result[i].itemText,
-              });
-            }
+            setTimeout(()=> {
+
+              if(res.result.length > 0){
+                this.dataSources.push({
+                  key: i,
+                  wenHao: res.result[i].itemText,
+                });
+              }
+
+            },500)
 
             //   let url = "urgency/degree/queryTask";
             //   let Urgency = res;
