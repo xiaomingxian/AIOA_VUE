@@ -294,7 +294,7 @@
 
       },
       //文号登记
-      registerDocnum(iSend,status) {
+      registerDocnum(iSend, status) {
         getAction(this.url.setNum, {
           iDocnumId: this.numId,
           sYear: this.defaultYear,
@@ -302,7 +302,7 @@
           sBusdataTable: this.table,
           iBusdataId: this.busdataId,
           iSendObj: iSend,
-          status:status
+          status: status
         }).then((res) => {
           this.docnumData.id = res.result.iid;
           this.docnumData.docnum = this.docwordNum;
@@ -320,17 +320,17 @@
         }).then(res => {
           if (res.success && res.result.length > 0) {
             let status = res.result[0].iid;
-            if (res.result[0].ibusdataId == -1){
+            if (res.result[0].ibusdataId == -1) {
               this.$message.error("该文号已设置线下占用！")
               return;
-            } else if (res.result[0].ibusdataId != 0 &&  res.result[0].ibusdataId != 1 && res.result[0].ibusdataId != -1){
+            } else if (res.result[0].ibusdataId != 0 && res.result[0].ibusdataId != 1 && res.result[0].ibusdataId != -1) {
               this.$message.error("该文号正在使用！")
               return;
             } else {
-              this.registerDocnum(iSend,status);
+              this.registerDocnum(iSend, status);
             }
-          }else {
-            this.registerDocnum(iSend,status);
+          } else {
+            this.registerDocnum(iSend, status);
           }
         })
       },
@@ -346,18 +346,19 @@
           iDocNum: e.idocNum,
           iId: e.iid,
           sBusdataTable: e.table,
-          iBusdataId: this.busdataId}).then((res) => {
+          iBusdataId: this.busdataId
+        }).then((res) => {
           let idocNum = e.idocNum;
           this.docnum = idocNum;
           this.docwordNum = this.wenhao.trim() + '〔' + this.defaultYear + '〕' + this.docnum + '号';
-            if (res.success){
-              this.docnumData.id = res.result.iid;
-              this.docnumData.docnum = this.docwordNum;
-              this.$emit('saveDocNum', this.docnumData)
-              this.close();
-            }else{
-              this.$message.error("请检查数据是否完整！")
-            }
+          if (res.success) {
+            this.docnumData.id = res.result.iid;
+            this.docnumData.docnum = this.docwordNum;
+            this.$emit('saveDocNum', this.docnumData)
+            this.close();
+          } else {
+            this.$message.error("请检查数据是否完整！")
+          }
           getAction(this.url.numlist, {iDocnumId: this.numId, sYear: this.defaultYear}).then((res) => {
             // console.log(res.result);
             //分页
@@ -420,25 +421,44 @@
 
         })
       },
+      //根据文号配置id查询
       getModalVal(val) {
         this.numId = val.key;
         this.wenhao = val.label;
-        setTimeout(() => {
-          console.log('-------', this.docnum)
-          this.docwordNum = val.label.trim() + '〔' + this.defaultYear + '〕' + that.docnum + '号';
-        }, 200)
+        this.docwordNum = val.label.trim() + '〔' + this.defaultYear + '〕' + this.docnum + '号';
+        this.reloadDocNum(this.numId, this.defaultYear)
+        // setTimeout(() => {
+        //   console.log('-------', this.docnum)
+        //
+        // }, 200)
+      },
+      //刷新文号
+      reloadDocNum(num, year) {
         let that = this;
         let url = that.url.sendobj;
-        getAction(url, {id: val.key}).then((res) => {
-          that.docnum = res.result.idocNum + 1;
-          let iud = res.result.iutemplateId;
-          let idd = res.result.idtemplateId;
+        getAction(url, {id: num, sYear: year}).then((res) => {
+          let result = res.result;
+          let iud = ""; //上报
+          let idd = ""; //下发
+          if (res.result == null) {
+            that.docnum = 1;
+            this.docwordNum = this.wenhao.trim() + '〔' + this.defaultYear + '〕' + that.docnum + '号';
+          } else {
+            that.docnum = res.result.idocNum + 1;
+            this.docwordNum = this.wenhao.trim() + '〔' + this.defaultYear + '〕' + that.docnum + '号';
+          }
+
+          if (result !== null && result.iutemplateId != null) {
+            iud = result.iutemplateId;
+          }
+          if (result !== null && result.idtemplateId != null) {
+            idd = result.idtemplateId;
+          }
           let arr = [];
           if (iud) {
             arr.push({id: '1', name: '上报'})
           } else {
             arr.splice(0, 1);
-
           }
           if (idd) {
             arr.push({id: '2', name: '下发'})
@@ -447,17 +467,17 @@
 
           }
           this.selectData = arr;
-          console.log(this.selectData);
+          // console.log(this.selectData);
           this.secoendData = this.selectData[0].name;
-          this.docwordNum = val.label.trim() + '〔' + this.defaultYear + '〕' + that.docnum + '号';
           // console.log(this.selectedModel)
           // this.docwordNum = that.modelData[val.key].name+that.docnum
         })
       },
-
+      //年改变文号数据
       changeYear(e) {
-        console.log(e);
+        // console.log(e);
         this.defaultYear = e;
+        this.reloadDocNum(this.numId, this.defaultYear);
         this.docwordNum = this.wenhao.trim() + '〔' + e + '〕' + this.docnum + '号';
 
       }
