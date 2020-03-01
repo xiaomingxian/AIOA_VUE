@@ -34,7 +34,7 @@
       return {
         columns: [
           {
-            title: '地市',
+            title: '地市中支',
             dataIndex: 'text',
             width: 300,
             align: "center",

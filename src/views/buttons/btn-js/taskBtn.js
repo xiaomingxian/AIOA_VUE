@@ -584,12 +584,12 @@ export const taskBth = {
     },
     //按钮-省会-->地市(收文流程)
     provinceToCityReceviceSend() {
-      this.$refs.selectCityModel.title = "选择地市";
+      this.$refs.selectCityModel.title = "选择地市中支";
       this.$refs.selectCityModel.show(this.backData, 1);
     },
     //按钮-省会-->地市(传阅不带流程)
     provinceToCityInsideSend() {
-      this.$refs.selectCityModel.title = "选择地市";
+      this.$refs.selectCityModel.title = "选择地市中支";
       this.$refs.selectCityModel.show(this.backData, 2);
     },
     //按钮-上报
