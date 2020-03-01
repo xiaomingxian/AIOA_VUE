@@ -32,14 +32,14 @@
         <!--</a-form-item>-->
         <!--水平分割-->
         <!--<a-divider style="margin-top: 0px"/>-->
-        <span style="font-weight: 1000;font-size: 16px;">选择:</span>
+        <span style="font-weight: 1000;font-size: 16px;">选择(非特殊情况办文单意见类型选空):</span>
         <!--<a-divider/>-->
         <!-- 查询区域 -->
         <div class="table-page-search-wrapper">
           <a-form layout="inline">
-            <a-row :gutter="12">
+            <a-row :gutter="12" style="margin-top: 25px;margin-left: 35px">
               <!--<template v-if="toggleSearchStatus">-->
-              <a-col :md="10" :sm="8" style="margin-top: 10px;margin-left: 50px;padding-bottom: 0px">
+              <a-col :md="8" :sm="8">
                 <a-form-item label="流程任务">
                   <!--<a-input placeholder="请输入流程任务" v-model="queryParam.taskDefKey"></a-input>-->
                   <!--@change="handelChange"-->
@@ -53,8 +53,16 @@
                   </a-select>
                 </a-form-item>
               </a-col>
+              <a-col :md="9" :sm="8">
+                <a-form-item label="办文单意见类型">
+                  <a-select v-model="type" @change="getType">
+                    <a-select-option v-for="(item,index) in typeList" :key="index" :value="item.itemValue">{{item.itemText}}
+                    </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
               <a-col>
-                <a-button style="margin-top: 10px;margin-left: 10px;" v-if="toggleSearchStatusSet"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>
+                <a-button style="margin-left: 10px;" v-if="toggleSearchStatusSet"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>
               </a-col>
               <!--<a-col :md="6" :sm="8">-->
                 <!--<a-form-item label="按钮列表">-->
@@ -131,13 +139,13 @@
 
 <!--<div v-show="show">-->
 <div>
-  <a-form-item  style="margin:20px;">
-    <span>办文单意见类型:</span>
-    <a-select style="margin-left:15px;width: 330px" v-model="type" @change="getType">
-      <a-select-option v-for="(item,index) in typeList" :key="index" :value="item.itemValue">{{item.itemText}}
-      </a-select-option>
-    </a-select>
-  </a-form-item>
+  <!--<a-form-item  style="margin:20px;">-->
+    <!--<span>办文单意见类型:</span>-->
+    <!--<a-select style="margin-left:15px;width: 330px" v-model="type" @change="getType">-->
+      <!--<a-select-option v-for="(item,index) in typeList" :key="index" :value="item.itemValue">{{item.itemText}}-->
+      <!--</a-select-option>-->
+    <!--</a-select>-->
+  <!--</a-form-item>-->
 </div>
 
 
@@ -234,8 +242,12 @@
     },
     methods: {
       //
-      getType(){
-        this.opinionSetModal.type=this.type
+      getType(re){
+//        console.log("010101001010103478382348323432-----------")
+//        console.log(this.type)
+//        console.log(this.typeList)
+          this.opinionSetModal.type=this.type;
+        this.onTasklink();
       },
       //修改意见组合名称
       iTaskOpinionNewName(){
@@ -261,12 +273,18 @@
           }
         })
       },
-      getTypeList(){//获取任务环节
+      getTypeList(){//获取意见类型列表
       let url="/sys/dict/getDictByKey";
       getAction(url, {dictKey: 'type'}).then(res => {
         console.log('--------------------意见类型-下拉列表------------------------------');
-        console.log(res);
+//        console.log(res);
         this.typeList=res.result;
+        if (this.type==null||this.type==''){
+          this.type=this.typeList[0].itemValue;//得到默认值
+        }
+        if (this.taskDefKey!=null &&this.type!=null){
+          this.onTasklink();
+        }
       });
       },
       getTaskLinkList(){//获取任务环节
@@ -276,7 +294,9 @@
           if (this.taskDefKey==null||this.taskDefKey==''){
             this.taskDefKey=this.TaskLinkList[0].id;//得到默认值
           }
-          this.onTasklink();
+          if (this.taskDefKey!=null &&this.type!=null){
+            this.onTasklink();
+          }
         });
       },
       onTasklink() {//请求表单数据
@@ -286,10 +306,11 @@
         this.itaskOpinionName='';//意见框名称
         this.itaskOpinionOrder=0;//意见框位置
         // this.iProcSetId='';
+//        console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmm');
+//        console.log(this.type);
         let url="/oaopinionset/oaOpinionSet/queryByTaskDefKey";
-        postAction(url, {taskDefKey: this.taskDefKey,iProcOpinionId: this.model.iid,procDefKey: this.procDefKey}).then(res => {
-          console.log('0000000000000000000000000000000');
-          console.log(res.result);
+        postAction(url, {type:this.type,taskDefKey: this.taskDefKey,iProcOpinionId: this.model.iid,procDefKey: this.procDefKey}).then(res => {
+
           this.model.taskDefKey=this.taskDefKey;
           if (res.success) {
             this.toggleSearchStatusSet=true;
@@ -395,12 +416,18 @@
         this.edit({});
       },
       editBeforelvjian(record,TaskLinkId,res){
-        console.log("fdsfasafadfasdfsadfsadfsadfas")
-        console.log(res);
+
+        this.type=res.type;
+        if (this.type===null||this.type===''){
+//          console.log("`1`1`1`1``1`1111111111")
+          this.type='9999';
+        }
         this.taskDefKey= res.taskDefKey;
         this.editlvjian(record,TaskLinkId);
       },
       editlvjian(record,TaskLinkId) {
+//        console.log("fdsfasafadfasdfsadfsadfsadfas")
+//        console.log(this.type);
         this.confirmLoading = true;
         this.toggleSearchStatus=false;
         this.itaskOpinionName='';//意见框名称
@@ -411,6 +438,7 @@
         this.TaskLinkId=TaskLinkId;
         console.log(this.TaskLinkId);
         this.getTaskLinkList();//获取任务环节下拉列表
+        this.getTypeList();//获取意见类型下拉列表
         this.getFunctionList();
         this.form.resetFields();
         this.model = Object.assign({}, record);
@@ -431,7 +459,6 @@
         });
         //默认加载回显第一个
         this.onTasklink();
-        this.getTypeList();
       },
       getFunctionList(){//获取全部业务下拉列表;
         console.log('--------------------获取全部业务下拉列表-下拉列表------------------------------');
@@ -455,7 +482,7 @@
 
       handleOk() {
         // this.opinionSetModal.iProcSetId=this.iProcSetId;
-        console.log('-=-=-=',JSON.stringify(this.opinionSetModal));
+//        console.log('-=-=-=',JSON.stringify(this.opinionSetModal));
         const that = this;
         // 触发表单验证
         this.form.validateFields((err, values) => {
@@ -463,12 +490,14 @@
             that.confirmLoading = true;
             let httpurl = '';
             let method = '';
+//            console.log('----------------------------------090');
+//            console.log(this.opinionSetModal);
             if (this.opinionSetModal.iid==null || this.opinionSetModal.iid == undefined || !this.opinionSetModal.iid) {
-              console.log('----------------------------------090');
-              console.log(this.opinionSetModal);
+//              console.log('----------------------------------09111111');
               this.opinionSetModal.iprocOpinionId=this.model.iid;
               this.opinionSetModal.procDefKey=this.model.procDefKey;
               this.opinionSetModal.taskDefKey=this.taskDefKey;
+              this.opinionSetModal.type=this.type;
               httpurl += this.url.add;
               method = 'post';
             } else {
