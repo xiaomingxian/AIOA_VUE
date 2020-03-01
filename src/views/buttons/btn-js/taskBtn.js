@@ -43,6 +43,7 @@ export const taskBth = {
         busData: {},
         taskMsg: {}
       },
+      clickTotal:0,//点击次数参数
       url: {
         delete: '/oaBus/dynamic/delete', //删除数据
         insert: '/oaBus/dynamic/insert',//动态插入数据
@@ -438,7 +439,6 @@ export const taskBth = {
                     //展示数据
                     if (res.success) {
                       this.$refs.addUserCy.title = '内部发送'
-
                       this.$refs.addUserCy.showNextUsers(res.result)
                     } else {
                       this.$message.error(res.message)
@@ -610,6 +610,10 @@ export const taskBth = {
     },
     //确认上报
     upSendConfirm() {
+      this.clickTotal++;
+      if (this.clickTotal>1){
+        return;
+      }
       this.busData = this.backData;
       let param = {};
       param.table = this.dictData.table;
@@ -661,6 +665,7 @@ export const taskBth = {
                         if (res.success) {
                           flag = true;
                           this.$message.success("上报成功！")
+                          this.closeModal();
                           //组装参数--传输日志记录
                           let oaOutLog = {};
                           oaOutLog.i_bus_model_id = this.backData.i_bus_model_id;
@@ -669,7 +674,7 @@ export const taskBth = {
                           oaOutLog.i_busdata_id = this.backData.i_id;
                           oaOutLog.i_type = 1;
                           oaOutLog.s_rec_unitid = unitId;
-                          this.insertOaOutLog(oaOutLog);  //记录传输日志；
+                          this.insertOaOutLog(oaOutLog,1);  //记录传输日志；
                         } else {
                           this.$message.error("附件复制失败！")
                         }
@@ -690,7 +695,6 @@ export const taskBth = {
           this.$message.error("新建任务失败！")
         }
       });
-      this.closeModal();
     },
     //按钮-传阅下发
     downSendFile() {
@@ -702,9 +706,9 @@ export const taskBth = {
     },
 
     //记录对外传输数据日志
-    insertOaOutLog(data) {
+    insertOaOutLog(data,type) {
       /**
-       * data参数项：
+       * 参数1:data项：
        * 1.s_send_by  发送者id
        * 2.i_bus_model_id   业务模块id
        * 3.i_bus_function_id  业务功能id
@@ -712,10 +716,33 @@ export const taskBth = {
        * 5.i_type     类型：1为机构id；2为数据字典itemid'
        * 6.s_rec_unitid   接收者机构对应的数据字典id（机构id）
        * 7.d_create_time
+       * 参数2:type类型
+       * 1.公文上报
+       * 2.公文下发
+       * 3.内部传阅
+       * 4.省会转地市收文
+       * 5.省会转地市传阅
        */
+      var sendName = "";
+      if (type == 1){
+        sendName="公文上报";
+      }
+      if (type == 2){
+        sendName="公文下发";
+      }
+      if (type == 3){
+        sendName="内部传阅";
+      }
+      if (type == 4){
+        sendName="省会转地市收文";
+      }
+      if (type == 5){
+        sendName="省会转地市传阅";
+      }
       data.table = "oa_out_log"
+      data.s_send_name = sendName;
       postAction("oaBus/dynamic/insertOaOutLog", data).then(res => {
-        if (res.success()) {
+        if (res.success) {
           return;
         } else {
           this.$message.error("传输日志记录失败！")
@@ -1427,9 +1454,6 @@ export const taskBth = {
         if (res.success) {
           this.isSaveFlag = true;
           this.$message.success("填写意见成功！")
-          // setTimeout(() => {
-          //   this.reload();
-          // }, 800)
           this.$emit("reloadOpinion", this.taskMsg.taskDefinitionKey);
           this.backDataOpt.i_id = res.result.i_id;
         } else {
@@ -1580,8 +1604,8 @@ export const taskBth = {
       }
       postAction("oaBus/dynamic/updateData", param).then(res => {
         if (res.success) {
-          this.reload(); //页面刷新
-          // this.$emit("saveDocNum", data)
+          // this.reload(); //页面刷新
+          this.$emit("saveDocNum", data)
           this.$message.success("登记文号成功！")
         } else {
           this.$message.error(res.message)
