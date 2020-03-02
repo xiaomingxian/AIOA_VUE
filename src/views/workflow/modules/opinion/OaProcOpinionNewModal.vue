@@ -243,10 +243,11 @@
     methods: {
       //
       getType(re){
-//        console.log("010101001010103478382348323432-----------")
-//        console.log(this.type)
+        console.log("010101001010103478382348323432-----------")
+        console.log(this.type)
 //        console.log(this.typeList)
           this.opinionSetModal.type=this.type;
+        console.log(this.opinionSetModal.type)
         this.onTasklink();
       },
       //修改意见组合名称
@@ -318,14 +319,14 @@
             // this.iProcSetId=this.opinionSetModal.iprocSetId;
             this.itaskOpinionName=this.opinionSetModal.itaskOpinionName;//拟稿人
             this.itaskOpinionOrder=this.opinionSetModal.itaskOpinionOrder; //读者
-            this.type=this.opinionSetModal.type//意见框类型
+//            this.type=this.opinionSetModal.type//意见框类型
           } else {
             this.opinionSetModal.iid = null;
             this.toggleSearchStatusSet=false;
             // this.opinionSetModal.iProcSetId='';
             this.opinionSetModal.itaskOpinionName='';//意见框名称
             this.opinionSetModal.itaskOpinionOrder=0;//意见框位置
-            this.opinionSetModal.type=''//意见框类型
+//            this.opinionSetModal.type=''//意见框类型
           }
           this.confirmLoading = false;//让loading消失
         })
@@ -405,7 +406,7 @@
               this.itaskOpinionOrder=0;//意见框位置
               this.toggleSearchStatus=false;
               this.toggleSearchStatusSet=false;
-              this.opinionSetModal.type=''//意见框类型
+//              this.opinionSetModal.type=''//意见框类型
             } else {
               that.$message.warning(res.message);
             }
@@ -432,7 +433,7 @@
         this.toggleSearchStatus=false;
         this.itaskOpinionName='';//意见框名称
         this.itaskOpinionOrder=0;//意见框位置
-        this.opinionSetModal.type=''//意见框类型
+//        this.opinionSetModal.type=''//意见框类型
         //record---为上一页面数据，TaskLinkId---流程定义Key
         // console.log('------------------888888888');
         this.TaskLinkId=TaskLinkId;
@@ -490,8 +491,8 @@
             that.confirmLoading = true;
             let httpurl = '';
             let method = '';
-//            console.log('----------------------------------090');
-//            console.log(this.opinionSetModal);
+            console.log('----------------------------------090');
+            console.log(this.opinionSetModal);
             if (this.opinionSetModal.iid==null || this.opinionSetModal.iid == undefined || !this.opinionSetModal.iid) {
 //              console.log('----------------------------------09111111');
               this.opinionSetModal.iprocOpinionId=this.model.iid;
