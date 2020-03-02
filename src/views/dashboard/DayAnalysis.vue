@@ -634,10 +634,12 @@
           }
         }).then(res => {
           console.log(res)
-          if(res){
+          if(res!='true'){
             this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
             console.log(this.LinkList)
 
+          }else{
+            this.LinkList[index].picUrl1 = '../../assets/1.png'
           }
         })
       },
@@ -743,9 +745,11 @@
 
       },
       openmore1(e){  //待办/模块的跳转
-        if(e){ //是0就跳待办
+
+        console.log(e);
+        if(e=='1'){ //是0就跳待办
           let url = this.path
-          this.$router.push('/'+url);
+          this.$router.push('/'+url+"?moduleName="+this.model1);
 
         }else{ //否则就跳别的模块
           this.$router.push('/mytask/taskToDo');
