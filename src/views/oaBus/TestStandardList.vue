@@ -99,7 +99,7 @@
 
           <a-list v-else size="large" :pagination="pagination" >
 
-            <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].iTableId,dataSource[index].sTable)">
+            <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].tableId,dataSource[index].tableName)">
 
               <a-list-item-meta>
               <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].sTitle"></a>
@@ -332,7 +332,7 @@
             this.dataSource = res.result.records;
 
             this.searchOut = JSON.parse(JSON.stringify(this.dataSource,function(key,value){
-              if(key == 'iId' ||key  == 'sTable' || key == 'iTableId' || key == 'sFileType' || key == 'iOrder' || key == 'sFilePath'){
+              if(key == 'i_id' ||key  == 'tableName' || key == 'tableId' || key == 'sFileType' || key == 'iOrder'){
                 return undefined;
               }else{
                 return value;
