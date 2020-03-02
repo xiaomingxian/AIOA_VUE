@@ -293,11 +293,11 @@
         const formData=new FormData();
         formData.append("iid",this.iid);
         formData.append("file",file);
-        console.log('))))))))))))))))))');
+//        console.log('))))))))))))))))))');
 
         httpAction(this.fileUpload, formData, "post").then((res) => {
-          console.log('((((((((((((((((((((((');
-          console.log(res);
+//          console.log('((((((((((((((((((((((');
+//          console.log(res);
           if (res.success) {
             this.$message.success(res.message);
             this.$emit('ok');
