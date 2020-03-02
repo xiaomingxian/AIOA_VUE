@@ -272,7 +272,7 @@
         return str;
       },
       editModify(record) {
-        this.$refs.modalForm.edit(record,this.searchColumns,this.tableName);
+        this.$refs.modalForm.edit(record,this.queryParam.function_id,this.tableName);
         this.$refs.modalForm.title = "编辑";
         this.$refs.modalForm.disableSubmit = false;
       },
@@ -287,7 +287,16 @@
         this.visible = true;
       },
       handleOk() {
-
+        formData.d_create_time !=null?formData.d_create_time.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_update_time !=null?formData.d_update_time.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_datetime1 !=null?formData.d_datetime1.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_datetime2 !=null?formData.d_datetime2.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_datetime3 !=null?formData.d_datetime3.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_datetime4 !=null?formData.d_datetime4.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_datetime5 !=null?formData.d_datetime5.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_datetime6 !=null?formData.d_datetime6.format('YYYY-MM-DD HH:mm:ss'):null;
+        formData.d_date1 !=null?formData.d_date1.format('YYYY-MM-DD'):null;
+        formData.d_date2 !=null?formData.d_date2.format('YYYY-MM-DD'):null;
       },
 
       //添加逻辑
