@@ -190,12 +190,10 @@
                     // console.log(window.location);
                     this.newDataId =   JSON.stringify(res.result.busdataId)
                     console.log(this.newDataId);
-                    //window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
-                    this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
+                    window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
+                   // this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
                     resolve(this.newDataId)
                   }))
-
-
                   promise1.then((newDataId)=>{
                     let data1 = {
                       iteamworkId:this.keysObjs[0].iteamworkId,
@@ -215,7 +213,7 @@
                       iversion:this.dataId,
                       ibusModelId:this.keysObjs[0].orderModelId.split(",")[1],
                       ibusFunctionId:this.keysObjs[0].orderFunctionId.split(",")[1],
-                      iText:''
+                      iText:1
                     }
                     let dataList = {
                       data1:data1,data2:data2

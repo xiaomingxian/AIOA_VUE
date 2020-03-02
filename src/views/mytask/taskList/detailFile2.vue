@@ -466,6 +466,7 @@
       callaboration() {
         getAction(this.url.Intslist).then((res) => {
           this.intslist = res.result;
+          console.log(this.intslist)
           if (this.intslist.length == 0) {
             this.$refs.teamword.showOpen(this.userid, this.backData, this.busDataId);
           } else {
@@ -473,6 +474,8 @@
             this.iteamworkId = this.intslist[this.intslist.length - 1].iteamworkId;
             this.iorder = this.intslist[this.intslist.length - 1].iorder + 1;
             this.iteamworkSetId = this.intslist[this.intslist.length - 1].iteamworkSetId
+            console.log(this.dataId)
+
             if (this.dataId != Number(this.busDataId)) { //新的流程
               console.log(this.dataId)
               console.log(this.busDataId)
@@ -493,16 +496,14 @@
                       modelId: res.ibusModelId,
                       functionId: res.ibusFunctionId,
                     }
-
-
                     postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
                       if (res.success) {
                         const promise1 = new Promise((resolve => {
                           this.newDataId = JSON.stringify(res.result.busdataId)
                           console.log(JSON.stringify(res.result));
                           // console.log(window.location);
-                          // window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
-                         this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
+                           window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
+                        // this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
                           resolve(this.newDataId)
                         }))
 
