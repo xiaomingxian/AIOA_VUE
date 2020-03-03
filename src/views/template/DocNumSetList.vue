@@ -7,10 +7,20 @@
         <a-row :gutter="24">
 
           <a-col :md="6" :sm="8">
-            <a-form-item label="所属模块">
+          <a-form-item label="所属模块">
+            <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
+            <a-select v-model="queryParam.iBusModelId" @change="getModelValue">
+              <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+
+          <a-col :md="8" :sm="6">
+            <a-form-item label="所属机构">
               <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
-              <a-select v-model="queryParam.iBusModelId" @change="getModelValue">
-                <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+              <a-select v-model="queryParam.iBusUnitId" @change="getUnitVal">
+                <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
                 </a-select-option>
               </a-select>
             </a-form-item>
@@ -27,14 +37,13 @@
             </a-form-item>
           </a-col>
 
+          <template v-if="toggleSearchStatus">
           <a-col :md="6" :sm="8">
             <a-form-item label="文号名称">
               <a-input placeholder="" v-model="queryParam.sName"></a-input>
             </a-form-item>
           </a-col>
-
-          <!--<template v-if="toggleSearchStatus">-->
-          <!--</template>-->
+          </template>
           <a-col :md="6" :sm="8">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
@@ -164,6 +173,11 @@
             dataIndex: 'mname'
           },
           {
+            title: '所属机构',
+            align: "center",
+            dataIndex: 'uname'
+          },
+          {
             title: '所属业务',
             align: "center",
             dataIndex: 'fname'
@@ -194,7 +208,9 @@
         },
         selectedModel: null,
         selectedFunction: null,
+        selectedUnit:null,
         modelData: [],
+        unitData:[],
         functionList: [],
         functionData: [],
         queryParam: {
@@ -212,6 +228,7 @@
     },
     created() {
       this.getModelList();
+      this.getUnitList();
       this.setFontSize();
     },
     methods: {
@@ -236,11 +253,27 @@
           this.modelData = res.result;
         })
       },
+      //查询机构
+      getUnitList(){
+        let url ='/sys/sysDepart/query';
+        getAction(url,{orgType:'1'}).then(res=>{
+          this.unitData = res.result;
+          this.queryParam.iBusUnitId = this.unitData[0].id
+        })
+      },
       //所属业务
-      getModelValue(value) {
-        this.queryParam.iBusFunctionId = ""
-        let url = "/papertitle/docNumSet/busFunctionList?ibusModelId=" + value;
-        getAction(url).then((res) => {
+      getModelValue(model) {
+        this.queryParam.iBusFunctionId = null
+        let url = "/papertitle/docNumSet/busFunctionList";
+        getAction(url,{iBusModelId:model,iBusUnitId:this.queryParam.iBusUnitId}).then((res) => {
+          this.functionList = res.result;
+        })
+      },
+      //选择机构--》更新查业务
+      getUnitVal(unit){
+        let url = "/papertitle/docNumSet/busFunctionList";
+        this.queryParam.iBusFunctionId = null;
+        getAction(url,{iBusModelId:this.queryParam.iBusModelId,iBusUnitId:unit}).then((res) => {
           this.functionList = res.result;
         })
       },
@@ -252,6 +285,7 @@
       searchReset() {
         this.queryParam.iBusModelId = "";
         this.queryParam.iBusFunctionId = "";
+        this.queryParam.iBusUnitId = this.unitData[0].id;
         this.queryParam.sName = "";
         this.loadData(1);
       },
