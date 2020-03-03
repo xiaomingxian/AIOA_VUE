@@ -557,7 +557,7 @@
         })
       },
       cancel() {
-        console.log('------->取消选择')
+//        console.log('------->取消选择')
       },
       showPic(record) {
         this.$refs.pic2Modal.show(record)
@@ -737,25 +737,26 @@
             dataIndex: 'wenHao',
           });
 
-          for (let i = 0; i < res.result.length; i++) {
-            this.taskKey.push(res.result[i].value);
-            let url = "urgency/degree/queryTask";
-            let Urgency = res;
-            getAction(url, {operstatus: 'task_done', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
-
-              setTimeout(()=> {
-
-                if (res.result.total > 0) {
-                  this.dataSources.push({
-                    key: i,
-                    wenHao: Urgency.result[i].text,
-                  });
-                }
-
-              },500)
-
-            })
-          }
+          this.getData(0,res.result.length,res.result)
+//          for (let i = 0; i < res.result.length; i++) {
+//            this.taskKey.push(res.result[i].value);
+//            let url = "urgency/degree/queryTask";
+//            let Urgency = res;
+//            getAction(url, {operstatus: 'task_done', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+//
+//              setTimeout(()=> {
+//
+//                if (res.result.total > 0) {
+//                  this.dataSources.push({
+//                    key: i,
+//                    wenHao: Urgency.result[i].text,
+//                  });
+//                }
+//
+//              },500)
+//
+//            })
+//          }
 
           // console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
           // console.log(this.taskKey);
@@ -775,6 +776,23 @@
           return;
         }
 
+      },
+
+      getData(i,length,data){
+        this.taskKey.push(data[i].value);
+        let url = "urgency/degree/queryTask";
+        let Urgency = data;
+        getAction(url, {operstatus: 'task_done', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+          if (res.result.total > 0) {
+            this.dataSources.push({
+              key: i,
+              wenHao: Urgency[i].text,
+            });
+          }
+          if(++i<length){
+            this.getData(i,length,data)
+          }
+        })
       },
       getExpandRecords(expanded, record) {
         if (expanded == false) {
@@ -1167,7 +1185,7 @@
                     //
                     // })
 
-                    console.log(r)
+//                    console.log(r)
                     if (r) {
 
                       if (res.result.length == 1) {
@@ -1177,7 +1195,7 @@
                         this.taskRecord.processDefinitionId = res.result[0].processDefinitionId
                         this.taskRecord.hiTaskId = undefined
 
-                        console.log(res.result,this.taskRecord)
+//                        console.log(res.result,this.taskRecord)
                         window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName='
                           + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId
                           + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
