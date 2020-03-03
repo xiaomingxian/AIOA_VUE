@@ -95,22 +95,33 @@
       //查询对外传输日志
       queryOaOutLogById(param){
         getAction('oaBus/dynamic/queryOaOutLogById',param).then(res=>{
-          if (res.success && res.result.length>0) {
-            this.oaOutLogList = res.result;
-            let url = this.url.queryDownUnits;
-            postAction(url).then((res) => {
-              if (res.result.length>0){
+          if (res.success) {
+            if (res.result.length>0){
+              this.oaOutLogList = res.result;
+              let url = this.url.queryDownUnits;
+              postAction(url).then((res) => {
+                if (res.result.length>0){
+                  res.result.map((item)=>{
+                    if (this.oaOutLogList.includes(item.id)){
+                      item.send_status = 1;
+                    }else {
+                      item.send_status = 0;
+                    }
+                  })
+                  this.mockData1 = res.result
+                }
+              })
+            } else {
+              let url = this.url.queryDownUnits;
+              postAction(url).then((res) => {
                 res.result.map((item)=>{
-                  if (this.oaOutLogList.includes(item.id)){
-                    item.send_status = 1;
-                  }else {
-                    item.send_status = 0;
-                  }
+                  item.send_status = 0;
                 })
                 this.mockData1 = res.result
-              }
-              // this.mockData1 = rec.result;
-            })
+              })
+            }
+          }else{
+            this.$message.error("请检查相关配置！")
           }
         })
       },
@@ -167,6 +178,9 @@
                   receiveData.d_sealdate = data.d_sealdate//成文日期  d_sealdate
                   receiveData.s_receive_num = data.s_file_num //来文字号 s_file_num
                   receiveData.s_varchar5 = data.s_unit_name//来文机关 s_unit_name
+                  receiveData.s_main_unit_names = data.s_main_unit_names //主办部门
+                  receiveData.s_cc_unit_names = data.s_cc_unit_names //辅办部门
+                  receiveData.s_inside_deptnames = data.s_inside_deptnames //传阅部门
                   receiveData.i_urgency = data.i_urgency; //缓急 i_urgency
                   receiveData.i_bigint1 = data.i_bigint1  //印发份数
                   receiveData.i_bigint2 = data.i_bigint2  //正文页数
