@@ -13,7 +13,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="所属模块">
+          label="业务分类">
           <a-select v-model="selectedModel" @change="getModalVal">
             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
             </a-select-option>
@@ -31,7 +31,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="所属业务">
+          label="业务名称">
           <!--:defaultValue=1 -->
           <a-select v-if="functionList" v-model="selectedFunction" placeholder="" v-decorator="[ 'ibusFunctionId', {}]"
                     ref="sss" id="selop">
@@ -58,12 +58,12 @@
           label="文号规则">
           <a-input placeholder="" v-decorator="['sdocRule', {}]"/>
         </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="当前文号">
-          <a-input-number placeholder="" v-decorator="['idocNum', {}]"/>
-        </a-form-item>
+<!--        <a-form-item-->
+<!--          :labelCol="labelCol"-->
+<!--          :wrapperCol="wrapperCol"-->
+<!--          label="当前文号">-->
+<!--          <a-input-number placeholder="" v-decorator="['idocNum', {}]"/>-->
+<!--        </a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"

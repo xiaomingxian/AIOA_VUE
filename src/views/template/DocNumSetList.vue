@@ -7,7 +7,7 @@
         <a-row :gutter="24">
 
           <a-col :md="6" :sm="8">
-          <a-form-item label="所属模块">
+          <a-form-item label="业务分类">
             <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
             <a-select v-model="queryParam.iBusModelId" @change="getModelValue">
               <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
@@ -27,7 +27,7 @@
           </a-col>
 
           <a-col :md="6" :sm="8">
-            <a-form-item label="所属业务">
+            <a-form-item label="业务名称">
               <!--<a-input placeholder="" v-model="queryParam.iBusFunctionId"></a-input>-->
               <a-select v-model="queryParam.iBusFunctionId" @change="getFunctionId">
                 <a-select-option v-for="(item,index) in functionList" :key="index" :value="item.iid">{{item.sname}}
@@ -163,12 +163,7 @@
             }
           },
           {
-            title: '文号名称',
-            align: "center",
-            dataIndex: 'sname'
-          },
-          {
-            title: '所属模块',
+            title: '业务分类',
             align: "center",
             dataIndex: 'mname'
           },
@@ -178,9 +173,14 @@
             dataIndex: 'uname'
           },
           {
-            title: '所属业务',
+            title: '业务名称',
             align: "center",
             dataIndex: 'fname'
+          },
+          {
+            title: '文号名称',
+            align: "center",
+            dataIndex: 'sname'
           },
           {
             title: '当前文号',
