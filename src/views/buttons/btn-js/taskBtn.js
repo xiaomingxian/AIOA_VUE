@@ -16,6 +16,7 @@ export const taskBth = {
   inject: ['reload'],
   data() {
     return {
+      orgSchema:'',
       //按钮展示
       btn: [],
       defindBtns: [], //按钮组二
@@ -1571,16 +1572,15 @@ export const taskBth = {
     openFile(cmd, fileName) {
       let ntkoed = ntkoBrowser.ExtensionInstalled();
       if (ntkoed) {
-        //console.log('--------------------->>>>>>!!!!!',JSON.stringify("&taskId=" +this.taskMsg.id))
-        //console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.currentBtn.iid))
-        //console.log('--------------------->>>>>>!!!!!',JSON.stringify(this.currentUserMessage))
-        //console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData.s_varchar20))
-        console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
-        //console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.opts));
+        getAction("/sys/user/getLoginInfo", {}).then(res => {
+          // alert(res.orgSchema)
+          this.orgSchema=res.orgSchema;
+        })
+        // console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
         ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
           "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
           this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
-          + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName);
+          + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName+"&orgSchema="+this.orgSchema);
       } else {
         window.open(window.location.origin + "/ntko/exeindex.html")
       }

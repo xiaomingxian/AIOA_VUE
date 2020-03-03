@@ -59,15 +59,15 @@ function Ntko_OpenDoc(fileUrl) {
 }
 
 //关闭页面保存
-function onPageClose(cmd, stable, tableid, fileId) {
+function onPageClose(cmd, stable, tableid, fileId,orgSchema) {
   if (!ntko.activeDocument.saved) {
     if (confirm("文档修改过,还没有保存,是否需要保存?")) {
       if (cmd == 1 || cmd == 2 || cmd == 7) {
-        saveFileToUrl(cmd, stable, tableid);
+        saveFileToUrl(cmd, stable, tableid,orgSchema);
       }
       //编辑底稿..4//校核正文..6
       if (cmd == 4 || cmd == 6 || cmd == 10 || cmd ==11) {
-        saveOldFileToUrl(cmd, stable, tableid, fileId)
+        saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema)
       }
     }
   } else {
@@ -75,7 +75,7 @@ function onPageClose(cmd, stable, tableid, fileId) {
   }
 }
 
-function saveOldFileToUrl(cmd, stable, tableid, fileId) {
+function saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema) {
   var fileType = "";
   var action = "";
   if (cmd == 4) {
@@ -85,18 +85,20 @@ function saveOldFileToUrl(cmd, stable, tableid, fileId) {
     fileType = "2"
   }
   if (cmd == 4 || cmd == 6) {
-    action = urlContextPath + "/ntko/filentko/edit?" + "stable=" + stable + "&tableid=" + tableid + "&fileType=" + fileType;
+    action = urlContextPath + "/ntko/filentko/edit?" + "stable=" + stable + "&tableid=" + tableid
+                            + "&fileType=" + fileType+"&orgSchema="+orgSchema;
   } else if (cmd == 10 ) {
-    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId ;
+    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId+"&orgSchema="+orgSchema;
   }else if (cmd ==11) {
     fileType="2";
-    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId  + "&fileType=" + fileType;
+    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId  + "&fileType=" + fileType
+                            +"&orgSchema="+orgSchema;
   }
   ntko.SaveToURL(action, "file");
 }
 
 //保存文件到服务器路径
-function saveFileToUrl(cmd, stable, tableid) {
+function saveFileToUrl(cmd, stable, tableid,orgSchema) {
   var fileType = "";
   var action = "";
   if (cmd == 1) {
@@ -109,8 +111,8 @@ function saveFileToUrl(cmd, stable, tableid) {
     fileType = "3"
   }
   if (cmd == 1 || cmd == 2 || cmd == 7) {
-    action = urlContextPath + "/ntko/filentko/upload?" + "stable=" + stable + "&tableid=" + tableid + "&fileType=" + fileType
-    ;
+    action = urlContextPath + "/ntko/filentko/upload?" + "stable=" + stable + "&tableid=" + tableid
+                            + "&fileType=" + fileType+"&orgSchema="+orgSchema;
   }
   ntko.SaveToURL(action, "file");
 }
