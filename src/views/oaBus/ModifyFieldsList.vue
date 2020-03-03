@@ -220,7 +220,7 @@
       }
     },
     created() {
-      console.log("9999999999999999999999")
+//      console.log("9999999999999999999999")
 //      this.getPgSearchList(1);
       this.getBusModelSelectList();//业务分类列表
       // this.getPgList();
@@ -283,7 +283,7 @@
       },
       handleEdit(record) {
         this.mdl = Object.assign({}, record);
-        console.log(this.mdl);
+//        console.log(this.mdl);
         this.visible = true;
       },
       handleOk() {
@@ -312,7 +312,7 @@
         this.selectedRowKeys = row.selectedRowKeys;
         this.selectedRows = row.selectedRows;
 
-        console.log(this.$refs.table)
+//        console.log(this.$refs.table)
       },
       toggleAdvanced() {
         this.advanced = !this.advanced
@@ -326,20 +326,20 @@
       getBusModelSelectList(){
         let url = "/oaBus/busModel/findList";
         getAction(url, {}).then((res) => {
-          console.log('--------------------模块-下拉列表------------------------------');
-          console.log(res);
+//          console.log('--------------------模块-下拉列表------------------------------');
+//          console.log(res);
           this.modelList=res.result;
           this.iBMId=this.modelList[0].iid;
           this.getFunctionList(this.iBMId);
         });
       },
       getFunctionList(modelId){
-        console.log(modelId);
+//        console.log(modelId);
         let url = "/oaBus/oaBusdata/queryFunSelByModelId";
         postAction(url, {modelId: modelId.toString(), function_id: ""}).then((res) => {
           // this.conditionList = res.colList;
-          console.log('--------------------业务-下拉列表------------------------------');
-          console.log(res);
+//          console.log('--------------------业务-下拉列表------------------------------');
+//          console.log(res);
           this.selectList = res.funList;
           this.timeList = res.d_create_time;
           this.queryParam.function_id = this.selectList[0].iid;
@@ -361,8 +361,8 @@
         this.getPgSearchList(this.iBMId);
       },
       getPgSearchList(iBMId) {
-        console.log("0-0-0-0000000000000000000000000");
-        console.log(this.queryParam.function_id);
+//        console.log("0-0-0-0000000000000000000000000");
+//        console.log(this.queryParam.function_id);
         this.columns = [];
         if (iBMId!=null && iBMId>0){
           this.iBMId = iBMId;
@@ -377,7 +377,7 @@
           // this.queryParam.s_create_name = this.queryParam.s_create_name.toString();
           // this.queryParam.d_create_time = this.queryParam.d_create_time.toString();
           postAction(url, {modelId:  this.iBMId, pageNo:this.pagination.current,pageSize:this.pagination.pageSize,map: this.queryParam}).then((res) => {
-          console.log("000000000000000运维-数据列表000000000000000");
+//          console.log("000000000000000运维-数据列表000000000000000");
 //          console.log(res);
             this.isClick=false;
             // JSON.parse(res.message);----------------表头列表-----------
@@ -472,7 +472,7 @@
         return {
           on: {
             click: () => {
-              this.$refs.cutFile.show(record)
+//              this.$refs.cutFile.show(record)
 
 
             }
