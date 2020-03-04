@@ -1,7 +1,7 @@
 <template>
 
 
-  <div style="padding-bottom: 0.7%;">
+  <div style="min-height: 150px; padding-bottom: 0.7%;">
     <!--<a-button  @click="showPic">图</a-button>-->
     <!--<a-button  @click="reCall">撤回</a-button>-->
     <!--<a-button  @click="showBack">回退</a-button>-->
@@ -16,7 +16,7 @@
         <span style="font-size:14px;font-weight: bold;margin-left: 5px;">操作按钮</span>
       </a>
     </div>
-    <tempalte v-show="setIndexShow==1">
+    <div  v-show="setIndexShow==1">
       <div class="btndefindbox">
         <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
                   icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
@@ -28,7 +28,7 @@
                   size="large" style="margin-left: 3px;margin-bottom: 14px;">{{item.sbtnName}}
         </a-button>
       </div>
-    </tempalte>
+    </div>
 
 
 
