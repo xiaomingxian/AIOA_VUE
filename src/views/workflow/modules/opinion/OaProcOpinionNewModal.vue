@@ -32,15 +32,15 @@
         <!--</a-form-item>-->
         <!--水平分割-->
         <!--<a-divider style="margin-top: 0px"/>-->
-        <span style="font-weight: 1000;font-size: 16px;">选择(非特殊情况办文单意见类型选空):</span>
+        <span style="font-weight: 1000;font-size: 16px;">选择(非特殊情况办文单类型选空):</span>
         <!--<a-divider/>-->
         <!-- 查询区域 -->
         <div class="table-page-search-wrapper">
           <a-form layout="inline">
             <a-row :gutter="12" style="margin-top: 25px;margin-left: 35px">
               <!--<template v-if="toggleSearchStatus">-->
-              <a-col :md="8" :sm="8">
-                <a-form-item label="流程任务">
+              <a-col :md="10" :sm="8">
+                <a-form-item label="流 程 任 务">
                   <!--<a-input placeholder="请输入流程任务" v-model="queryParam.taskDefKey"></a-input>-->
                   <!--@change="handelChange"-->
                   <a-select
@@ -53,17 +53,7 @@
                   </a-select>
                 </a-form-item>
               </a-col>
-              <a-col :md="9" :sm="8">
-                <a-form-item label="办文单意见类型">
-                  <a-select v-model="type" @change="getType">
-                    <a-select-option v-for="(item,index) in typeList" :key="index" :value="item.itemValue">{{item.itemText}}
-                    </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col>
-                <a-button style="margin-left: 10px;" v-if="toggleSearchStatusSet"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>
-              </a-col>
+
               <!--<a-col :md="6" :sm="8">-->
                 <!--<a-form-item label="按钮列表">-->
                   <!--&lt;!&ndash;<a-input placeholder="请输入按钮名称" v-model="queryParam.iButtonId"></a-input>&ndash;&gt;-->
@@ -88,6 +78,20 @@
               <!--</a>-->
               <!--</span>-->
               <!--</a-col>-->
+            </a-row>
+
+            <a-row :gutter="12" style="margin-left: 35px">
+              <a-col :md="10" :sm="8">
+                <a-form-item label="办文单类型">
+                  <a-select v-model="type" @change="getType">
+                    <a-select-option v-for="(item,index) in typeList" :key="index" :value="item.itemValue">{{item.itemText}}
+                    </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col>
+                <a-button style="margin-left: 10px;" v-if="toggleSearchStatusSet"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>
+              </a-col>
             </a-row>
           </a-form>
         </div>
@@ -241,13 +245,12 @@
       }
     },
     methods: {
-      //
       getType(re){
-        console.log("010101001010103478382348323432-----------")
-        console.log(this.type)
+//        console.log("010101001010103478382348323432-----------")
+//        console.log(this.type)
 //        console.log(this.typeList)
           this.opinionSetModal.type=this.type;
-        console.log(this.opinionSetModal.type)
+//        console.log(this.opinionSetModal.type)
         this.onTasklink();
       },
       //修改意见组合名称
@@ -277,7 +280,7 @@
       getTypeList(){//获取意见类型列表
       let url="/sys/dict/getDictByKey";
       getAction(url, {dictKey: 'type'}).then(res => {
-        console.log('--------------------意见类型-下拉列表------------------------------');
+//        console.log('--------------------意见类型-下拉列表------------------------------');
 //        console.log(res);
         this.typeList=res.result;
         if (this.type==null||this.type==''){
@@ -437,7 +440,7 @@
         //record---为上一页面数据，TaskLinkId---流程定义Key
         // console.log('------------------888888888');
         this.TaskLinkId=TaskLinkId;
-        console.log(this.TaskLinkId);
+//        console.log(this.TaskLinkId);
         this.getTaskLinkList();//获取任务环节下拉列表
         this.getTypeList();//获取意见类型下拉列表
         this.getFunctionList();
@@ -462,7 +465,7 @@
         this.onTasklink();
       },
       getFunctionList(){//获取全部业务下拉列表;
-        console.log('--------------------获取全部业务下拉列表-下拉列表------------------------------');
+//        console.log('--------------------获取全部业务下拉列表-下拉列表------------------------------');
 
         let url = "/modify/fields/queryBusList";
         getAction(url, {}).then((res) => {
@@ -491,8 +494,8 @@
             that.confirmLoading = true;
             let httpurl = '';
             let method = '';
-            console.log('----------------------------------090');
-            console.log(this.opinionSetModal);
+//            console.log('----------------------------------090');
+//            console.log(this.opinionSetModal);
             if (this.opinionSetModal.iid==null || this.opinionSetModal.iid == undefined || !this.opinionSetModal.iid) {
 //              console.log('----------------------------------09111111');
               this.opinionSetModal.iprocOpinionId=this.model.iid;
