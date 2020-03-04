@@ -36,7 +36,7 @@
 
 
         <td width="50%">
-          <p style="width: 100%;height: 15px;" class="otherLineShow" v-if="index==1" @click="otherLineShow">
+          <p id="otherLineShow1" style="width: 100%;height: 40px;line-height: 40px;background: #F0F5FC;padding: 0; margin-top: -5px; margin-bottom: 5px;" class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
               <a-icon  :type="iconType" />
               <span style="font-size:14px;font-weight: bold;margin-left: 5px;">其他意见</span>
@@ -50,7 +50,7 @@
 
         </td>
         <td width="50%">
-          <p class="otherLineShow" v-if="index==1" style="visibility: hidden; width: 100%;height: 15px;border: 1px solid #aa7d7d ;border-radius: 4px;line-height: 15px" @click="otherLineShow">50%点击事件占位符</p>
+          <p id="otherLineShow" class="otherLineShow" v-if="index==1" style="background: #F0F5FC;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;" @click="otherLineShow"></p>
           <div v-show="index==0||setIndexShow==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
                         :cols="otherLine.width"
@@ -81,6 +81,19 @@
       }
     },
     created() {
+
+
+    },
+    mounted(){
+
+
+      // setTimeout(()=>{
+      //   console.log(document.getElementById('otherLineShow1').parentNode.height = '10px');
+      //   document.getElementById('otherLineShow1').parentNode.height = '10px';
+      //   document.getElementById('otherLineShow1').parentNode.style.margin = '0px';
+      // },3000)
+
+
     },
     methods: {
       otherLineShow(){
