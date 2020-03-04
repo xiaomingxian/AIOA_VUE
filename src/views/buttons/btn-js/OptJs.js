@@ -10,6 +10,7 @@ import {ACCESS_TOKEN} from "@/store/mutation-types"
 export const OptJs = {
   data() {
     return {
+
       justOne: false,
       jiShu: false,
       ouShu: false,

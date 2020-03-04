@@ -29,7 +29,7 @@
             </td>
           </tr>
           <tr v-show="previewFlag">
-            <td style="padding: 4% 0% 2%" align="center" colspan="2" height="50" valign="bottom">
+            <td style="padding: 1% 0% 0%" align="center" colspan="2" height="50" valign="bottom">
               <h1 style="color: red; font-weight: 800; font-size: 34px;margin-top: -60px;">
                 <span>{{backData.s_left_parameter}}</span>
                 <span>{{backData.s_unit_name}}</span>

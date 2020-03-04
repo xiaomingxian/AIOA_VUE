@@ -30,24 +30,35 @@
           </div>
         </td>
       </tr>
+
+
       <tr v-if="ouShu" v-for="item,index in otherLine.data">
 
+
         <td width="50%">
-          <div >
-            <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*2:otherLine.height"
+          <p style="width: 100%;height: 15px;" class="otherLineShow" v-if="index==1" @click="otherLineShow">
+            <a href="#">
+              <a-icon  :type="iconType" />
+              <span style="font-size:14px;font-weight: bold;margin-left: 5px;">其他意见</span>
+            </a>
+          </p>
+          <div  v-show="index==0||setIndexShow==0">
+            <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
                         :cols="otherLine.width"
                         :value="item[0].optionName+'\n'+ item[0].optionContext2"  readonly></a-textarea>
           </div>
 
         </td>
         <td width="50%">
-          <div >
-            <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*2:otherLine.height"
+          <p class="otherLineShow" v-if="index==1" style="visibility: hidden; width: 100%;height: 15px;border: 1px solid #aa7d7d ;border-radius: 4px;line-height: 15px" @click="otherLineShow">50%点击事件占位符</p>
+          <div v-show="index==0||setIndexShow==0">
+            <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
                         :cols="otherLine.width"
                         :value="item[1].optionName+'\n'+ item[1].optionContext2"  readonly></a-textarea>
           </div>
 
         </td>
+
       </tr>
 
     </table>
@@ -64,11 +75,27 @@
     mixins: [OptJs],
     components: {},
     data() {
-      return {}
+      return {
+        setIndexShow:1,
+        iconType:'down'
+      }
     },
     created() {
     },
-    methods: {}
+    methods: {
+      otherLineShow(){
+        if(this.setIndexShow==1){
+          this.setIndexShow = 0;
+          this.iconType = 'up'
+        }else{
+          this.setIndexShow = 1;
+          this.iconType = 'down'
+
+        }
+      }
+
+
+    }
   }
 </script>
 
@@ -81,5 +108,11 @@
 
   form .textarea.ant-input {
     margin-bottom: 11px !important;
+  }
+
+  /deep/.otherLineShow{
+    width: 100%;
+    height: 30px;
+    border: 1px solid #dddddd;
   }
 </style>
