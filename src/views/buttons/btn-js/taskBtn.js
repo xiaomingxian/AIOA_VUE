@@ -12,7 +12,7 @@ import {ntkoBrowser} from './ntkobackground.min.js'
 
 export const taskBth = {
   //接收父组件传值
-  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt'],
+  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt','btnStatusA'],
   inject: ['reload'],
   data() {
     return {
@@ -91,9 +91,18 @@ export const taskBth = {
   },
   created() {
     //监听页签切换   切换至当前页时刷新底部按钮接口
+
     var _this = this;
     document.addEventListener('visibilitychange', function () {
-      // alert(document.hidden)
+
+      _this.setIndexShow = 0;
+      _this.iconType = 'down'
+      _this.queryBtnFun();
+      //查询对应到按钮。每一次活动页就要查询一次
+   /* })
+    var _this = this;
+    document.addEventListener('visibilitychange', function () {
+    */  // alert(document.hidden)
       // document.title = document.hidden?'拜拜11111':' 回来啦2222'
       if (document.hidden) {
         _this.showBtn(_this.butArrLists);
@@ -150,6 +159,21 @@ export const taskBth = {
         }
       }*/
       this[item.smethod]()
+    },
+    queryBtnFun(){
+      let url = '/bus/button/getButtons';
+      let paramsBtn = {proSetId:this.backData.iprocSetId,
+        table:this.taskMsg.table,
+        id:this.taskMsg.tableId,
+        taskDef:this.backData.key,
+        proInstanId:this.taskMsg.processInstanceId,
+        taskId:this.taskMsg.id,
+        status:this.btnStatusA}
+      getAction(url,paramsBtn).then(res =>{
+        this.btn = res.result.btn.isNotDefend
+        this.defindBtns = res.result.btn.isDefend
+        //console.log(res)
+      })
     },
     doPost(url, data) {
       postAction(url, data).then(res => {
@@ -869,13 +893,15 @@ export const taskBth = {
       }
       data['taskDefKey'] = activity.actMsg.id
 
+      //this.sendMesToUser(data.assignee);
       //参数构造完毕***********************
       postAction(this.url.doTask, data).then(res => {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          // this.saveBusData()
+          //this.sendMesToUser(data.assignee);
+          //this.saveBusData()
           setTimeout(function () {
             this.close()
           }, 500)
@@ -883,6 +909,19 @@ export const taskBth = {
         } else {
           this.$message.error(res.message)
         }
+      })
+    },
+    //通过ids查询用户，查看是否设置了代办消息发送
+    sendMesToUser(ids){
+      console.log('AAAA',ids)
+      let url = "/testt/sysUserSet/queryUserSet" ;
+      postAction(url,{ids:ids}).then(res =>{
+        let userList = res.result ;
+        if(userList != undefined && userList.length > 0 ){
+          let url = ' http://127.0.0.1:8012/sendnotify.cgi?msg=&receiver=wwjs'
+          postAction()
+        }
+
       })
     },
     //并行/包容网关的确定

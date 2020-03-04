@@ -177,6 +177,7 @@
                 @saveGongwenData="saveGongwenData" @saveDelTime="saveDelTime"
                 @savaObj="savaObj" :backData="backData" :busFunction="busFunction" :backDataOpt="backDataOpt"
                 :taskMsg="task"
+                :btnStatusA="btnStatus"
                 :deptMsg="deptMsg"
                 :opts="opts" @downFiles="downFiles"
                 @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj" @cancelImportantObj="cancelImportantObj"
@@ -248,6 +249,7 @@
     data() {
       return {
         visible: false,
+        btnStatus: '',
         title: '业务详情',
         confirmLoading: false,
         userData: '',
@@ -903,7 +905,7 @@
               let qiCaoIndex = -1;         //起草底稿按钮的标志
               let editDiGaoIndex = -1;     //编辑底稿按钮的标志
               //开启websocket
-              this.initWebSocket(res.result.oaBusdata.i_id);
+              ///this.initWebSocket(res.result.oaBusdata.i_id);
               for (let i = 0; i < res.result.btnAndOpt.btn.isNotDefend.length; i++) {
                 if (res.result.btnAndOpt.btn.isNotDefend[i].smethod == 'qiCao') {
                   qiCaoIndex = i;
@@ -948,7 +950,7 @@
             this.backData['key'] = res.result.taskDefKey
             this.backData.act_show = res.result.actShow
 
-
+            this.btnStatus = res.result.status
             this.backDataOpt.s_task_id = res.result.taskId
             //机密等级
             let secretModleTest = this.backData.i_safetylevel;

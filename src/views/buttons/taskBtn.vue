@@ -98,6 +98,7 @@
   import  AddUsersModal from  '../mytask/modules/AddUsersModal'
   //传阅特殊化
   import  AddUsersModalChuanYue from  '../mytask/modules/AddUsersModalChuanYue'
+  import {getAction} from "../../api/manage";
 
   export default {
     name: "taskBtn",
@@ -135,25 +136,7 @@
     },
     created() {
       //监听页签切换  修改标题
-      var _this = this;
-      document.addEventListener('visibilitychange', function () {
 
-        _this.setIndexShow = 0;
-        _this.iconType = 'down'
-        // document.title = document.hidden?'拜拜11111':' 回来啦2222'
-        // if (document.hidden) {
-        //   console.log( this.setIndexShow)
-        //
-        // }else{
-        //   console.log( this.setIndexShow)
-        //   setTimeout(()=>{
-        //     this.setIndexShow = 0;
-        //     this.iconType = 'down'
-        //   },1000)
-        // }
-
-
-      })
     },
     methods: {
       btnBoxShow(){

@@ -22,8 +22,18 @@
                 <a-input placeholder="请输入业务名称" v-model="queryParam.sName"></a-input>
               </a-form-item>
             </a-col>
+            <a-col :md="7" :sm="8">
+              <a-form-item label="业务所属机构">
+                <!--<a-input placeholder="请输入业务类别" v-model="queryParam.iId" v-decorator="[ 'ibusModelId', {}]"></a-input>-->
+                <a-select v-model="queryParam.unitId">
+                  <a-select-option v-for="(item,index) in unitList" :key="index" :value="item.id">
+                    {{item.departName}}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
           </template>
-          <a-col :md="6" :sm="8">
+          <a-col :md="5" :sm="8">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
@@ -128,6 +138,7 @@
         // 表头
         iBusModelId: '',
         selectModelData: [],
+        unitList: [],
         iBMId: '',
         columns: [
           /*{
@@ -327,6 +338,10 @@
         let url = "/oaBus/busModel/modelList";
         getAction(url).then((res) => {
           this.selectModelData = res.result.modelList;
+        })
+        let url2 = '/sys/sysDepart/query' ;
+        getAction(url2,{orgType:'1'}).then((res) => {
+          this.unitList = res.result;
         })
       },
       //业务所属机构
