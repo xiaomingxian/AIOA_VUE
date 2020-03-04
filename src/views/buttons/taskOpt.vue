@@ -36,7 +36,7 @@
 
 
         <td width="50%">
-          <p style="width: 100%;height: 20px;line-height: 25px" class="otherLineShow" v-if="index==1" @click="otherLineShow">
+          <p style="width: 100%;height: 15px;" class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
               <a-icon  :type="iconType" />
               <span style="font-size:14px;font-weight: bold;margin-left: 5px;">其他意见</span>
@@ -50,7 +50,7 @@
 
         </td>
         <td width="50%">
-          <p class="otherLineShow" v-if="index==1" style="visibility: hidden; width: 100%;height: 20px;border: 1px solid #aa7d7d ;border-radius: 4px;line-height: 25px" @click="otherLineShow">50%点击事件占位符</p>
+          <p class="otherLineShow" v-if="index==1" style="visibility: hidden; width: 100%;height: 15px;border: 1px solid #aa7d7d ;border-radius: 4px;line-height: 15px" @click="otherLineShow">50%点击事件占位符</p>
           <div v-show="index==0||setIndexShow==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
                         :cols="otherLine.width"
