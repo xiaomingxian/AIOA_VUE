@@ -82,6 +82,11 @@ export const OptJs = {
         }
         return
       }
+
+
+      // if(this.ouShu&&this.jiShu){
+      //   this.ouShu = false
+      // }
     },
     clear(){
       this.oneLine.data=[]
