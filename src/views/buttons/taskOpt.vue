@@ -56,7 +56,7 @@
 
 
 
-      <tr v-if="false" v-for="item,index in otherLine.data">
+      <tr v-if="jishuOtherShow" v-for="item,index in otherLine.data">
         <td width="50%">
           <p id="otherLineShow1" style="width: 100%;height: 40px;line-height: 40px;background: #F0F5FC;padding: 0; margin-top: -5px; margin-bottom: 5px;" class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
@@ -64,7 +64,7 @@
               <span style="font-size:14px;font-weight: bold;margin-left: 5px;">其他意见</span>
             </a>
           </p>
-          <div  v-show="index==0||setIndexShow==0">
+          <div  v-show="index==0||setIndexShowJi==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
                         :cols="otherLine.width"
                         :value="item[0].optionName+'\n'+ item[0].optionContext2"  readonly></a-textarea>
@@ -73,7 +73,7 @@
         </td>
         <td width="50%">
           <p id="otherLineShow" class="otherLineShow" v-if="index==1" style="background: #F0F5FC;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;" @click="otherLineShow"></p>
-          <div v-show="index==0||setIndexShow==0">
+          <div v-show="index==0||setIndexShowJi==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
                         :cols="otherLine.width"
                         :value="item[1].optionName+'\n'+ item[1].optionContext2"  readonly></a-textarea>
@@ -84,7 +84,7 @@
       </tr>
 
 
-      <tr v-if="ouShu&&jiShu" v-for="item,index in otherLine.data">
+      <tr v-if="ouShu&&!jiShu" v-for="item,index in otherLine.data">
         <td width="50%">
           <p  style="width: 100%;height: 40px;line-height: 40px;background: #F0F5FC;padding: 0; margin-top: -5px; margin-bottom: 5px;" class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
@@ -126,7 +126,9 @@
     data() {
       return {
         setIndexShow:1,
-        iconType:'down'
+        setIndexShowJi:0,
+        iconType:'down',
+        jishuOtherShow:false,
       }
     },
     created() {
@@ -156,11 +158,13 @@
         }
       },
       otherJiLineShow(){
-        if(this.setIndexShow==1){
-          this.setIndexShow = 0;
+        if(this.setIndexShowJi==1){
+          this.setIndexShowJi = 0;
+          this.jishuOtherShow=false
           this.iconType = 'up'
         }else{
-          this.setIndexShow = 1;
+          this.setIndexShowJi = 1;
+          this.jishuOtherShow=true
           this.iconType = 'down'
 
         }
