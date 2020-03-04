@@ -10,18 +10,26 @@
     <!--<a-button  @click="addUserOrDepart">追加</a-button>-->
     <!--<a-button  @click="insideReading">内部传阅</a-button>-->
 
+    <div class="optionTip" @click="btnBoxShow">
+      <a href="#">
+        <a-icon  :type="iconType" />
+        <span style="font-size:14px;font-weight: bold;margin-left: 5px;">操作按钮</span>
+      </a>
+    </div>
+    <tempalte v-show="setIndexShow==1">
+      <div class="btndefindbox">
+        <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
+                  icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
+        </a-button>
+      </div>
+      <br>
+      <div class="btnnotdefindbox">
+        <a-button v-for="(item,index) in btn" @click="method_router(item,index)" ref="isNotDefendBtn" :id="item.id"
+                  size="large" style="margin-left: 3px;margin-bottom: 14px;">{{item.sbtnName}}
+        </a-button>
+      </div>
+    </tempalte>
 
-    <div class="btndefindbox">
-      <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
-                icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
-      </a-button>
-    </div>
-    <br>
-    <div class="btnnotdefindbox">
-      <a-button v-for="(item,index) in btn" @click="method_router(item,index)" ref="isNotDefendBtn" :id="item.id"
-                size="large" style="margin-left: 3px;margin-bottom: 14px;">{{item.sbtnName}}
-      </a-button>
-    </div>
 
 
     <!--.............引入具体展示组件.....................-->
@@ -120,11 +128,46 @@
       AddUsersModalChuanYue
     },
     data() {
-      return {}
+      return {
+        setIndexShow:1,
+        iconType:'down'
+      }
     },
     created() {
+      //监听页签切换  修改标题
+      var _this = this;
+      document.addEventListener('visibilitychange', function () {
+
+        _this.setIndexShow = 0;
+        _this.iconType = 'down'
+        // document.title = document.hidden?'拜拜11111':' 回来啦2222'
+        // if (document.hidden) {
+        //   console.log( this.setIndexShow)
+        //
+        // }else{
+        //   console.log( this.setIndexShow)
+        //   setTimeout(()=>{
+        //     this.setIndexShow = 0;
+        //     this.iconType = 'down'
+        //   },1000)
+        // }
+
+
+      })
     },
     methods: {
+      btnBoxShow(){
+
+        if(this.setIndexShow==0){
+          this.setIndexShow = 1;
+          this.iconType = 'up'
+        }else{
+          this.setIndexShow = 0;
+          this.iconType = 'down'
+        }
+
+        console.log( this.setIndexShow)
+      },
       modalFormOk() {
 
       },
@@ -162,10 +205,19 @@
   }
 </script>
 <style lang="less" scoped>
+
+  .optionTip{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 88%;
+    margin: 0 auto;
+  }
   .btndefindbox {
     display: flex;
     width: 88%;
     margin: 0 auto;
+    margin-top: 10px;
   }
 
   .btnnotdefindbox {
