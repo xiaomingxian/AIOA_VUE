@@ -214,7 +214,6 @@
         var procInstId = this.record.processInstanceId
 
 
-        console.log('assdsdsd',this.record)
         let url = ''
         if (this.record.table == '' || this.record.table == undefined) {
           // this.$message.error('业务数据信息不完整,请检查是否是过期数据')
@@ -254,8 +253,11 @@
 
         //查询图片
         // window._CONFIG['domianURL'] +
-        this.picurl = '/wf/process/resource/read?processDefinitionId='
-          + processDefinitionId + '&resourceType=image'
+        // this.picurl = '/wf/process/resource/read?processDefinitionId='
+        //   + processDefinitionId + '&resourceType=image'
+
+        this.picurl = '/wf/task/queryProPlan?ProcessInstanceId='
+          + procInstId
         this.locationUrl = '/wf/task/pointLocationQuery?processId=' + procInstId + '&taskId=' + taskDefinitionKey
           + "&processDefinitionId=" + processDefinitionId
 
@@ -267,20 +269,20 @@
 
 
         //坐标
-        getAction(this.locationUrl).then(res => {
-
-          this.styles = []
-          for (let i in res.result) {
-            var x = res.result[i].x;
-            var y = res.result[i].y;
-            var width = res.result[i].width;
-            var height = res.result[i].height;
-            // let style = "position:absolute;left:" + x + "px;top:" + (y + 31) + "px;width:" + (width + 1) + "px;height:" + (height + 1) + "px"
-            let style = "position:absolute;left:" + x + "px;top:" + y + "px;width:" + (width + 1) + "px;height:" + (height + 1) + "px"
-            this.styles.push(style)
-          }
-
-        })
+        // getAction(this.locationUrl).then(res => {
+        //
+        //   this.styles = []
+        //   for (let i in res.result) {
+        //     var x = res.result[i].x;
+        //     var y = res.result[i].y;
+        //     var width = res.result[i].width;
+        //     var height = res.result[i].height;
+        //     // let style = "position:absolute;left:" + x + "px;top:" + (y + 31) + "px;width:" + (width + 1) + "px;height:" + (height + 1) + "px"
+        //     let style = "position:absolute;left:" + x + "px;top:" + y + "px;width:" + (width + 1) + "px;height:" + (height + 1) + "px"
+        //     this.styles.push(style)
+        //   }
+        //
+        // })
 
 
         this.showPic = true

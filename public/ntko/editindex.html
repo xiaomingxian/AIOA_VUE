@@ -539,7 +539,7 @@
   <script language="JavaScript" for="TANGER_OCX" event="OnDocumentClosed()">
     //文档关闭后执行
     if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
-      onPageClose(cmd, stable, tableid, fileId);
+      onPageClose(cmd, stable, tableid, fileId,orgSchema);
     }
   </script>
 
@@ -547,12 +547,12 @@
     if (Item == 3) {
       if (cmd == 1 || cmd == 2 || cmd == 7) {
         setFileSaveAs(false)
-        saveFileToUrl(cmd, stable, tableid);
+        saveFileToUrl(cmd, stable, tableid,orgSchema);
         ntko.CancelLastCommand = true;
       }
       if (cmd == 4 || cmd == 6 || cmd == 8 || cmd == 10) {
         setFileSaveAs(false)
-        saveOldFileToUrl(cmd, stable, tableid);
+        saveOldFileToUrl(cmd, stable, tableid,orgSchema);
         if (cmd == 4 || cmd == 6 || cmd == 10) {
           saveOldFileToUrl(cmd, stable, tableid, fileId);
           ntko.CancelLastCommand = true;
@@ -568,7 +568,11 @@
 </script>
 
 <body
-  onload="cmd=getQueryString('cmd');docNumId=getQueryString('docNumId'); stable=getQueryString('stable');tableid=getQueryString('tableid');fileId=getQueryString('fileId');fileName=getQueryString('fileName');userName=getQueryString('userName');init(cmd,stable,tableid);">
+  onload="cmd=getQueryString('cmd');docNumId=getQueryString('docNumId');
+  stable=getQueryString('stable');tableid=getQueryString('tableid');
+  fileId=getQueryString('fileId');fileName=getQueryString('fileName');
+  userName=getQueryString('userName');orgSchema=getQueryString('orgSchema');
+  init(cmd,stable,tableid);">
 
 </body>
 </html>

@@ -106,8 +106,15 @@
             <!--主办部门-->
             <center><h3>{{detailList.s_create_dept}}</h3></center>
           </td>
-          <td colspan="3">
+          <td >
             <a-input :value="backData.s_create_dept"></a-input>
+          </td>
+          <td class="title" width="10%">
+            <!--登记人-->
+            <center><h3>{{detailList.s_create_name}}</h3></center>
+          </td>
+          <td colspan="3">
+            <a-input :value="backData.s_create_name"></a-input>
           </td>
         </tr>
         <tr>

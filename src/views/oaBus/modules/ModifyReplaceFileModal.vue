@@ -163,31 +163,31 @@
               return parseInt(index)+1;
             }
            },*/
-          {
-            title: '主键id',
-            align: "center",
-            dataIndex: 'iid'
-          },
-          {
-            title: '附件所属数据所在表',
-            align: "center",
-            dataIndex: 'stable'
-          },
-          {
-            title: '附件所属数据id',
-            align: "center",
-            dataIndex: 'itableId'
-          },
-          {
-            title: '附件类型',  //（1 底稿 2 正文 3办文单4 附件 5背景材料 6办文依据）
-            align: "center",
-            dataIndex: 'sfileType'
-          },
-          {
-            title: '序号',
-            align: "center",
-            dataIndex: 'iorder'
-          },
+//          {
+//            title: '主键id',
+//            align: "center",
+//            dataIndex: 'iid'
+//          },
+//          {
+//            title: '附件所属数据所在表',
+//            align: "center",
+//            dataIndex: 'stable'
+//          },
+//          {
+//            title: '附件所属数据id',
+//            align: "center",
+//            dataIndex: 'itableId'
+//          },
+//          {
+//            title: '附件类型',  //（1 底稿 2 正文 3办文单4 附件 5背景材料 6办文依据）
+//            align: "center",
+//            dataIndex: 'sfileType'
+//          },
+//          {
+//            title: '序号',
+//            align: "center",
+//            dataIndex: 'iorder'
+//          },
           {
             title: '附件名',
             align: "center",
@@ -264,11 +264,11 @@
         this.loadData();
       },
       loadData(stable,itableId) {
-        console.log(stable);
-        console.log(itableId);
-        getAction(this.url.list, {sTable: stable,iTableId:itableId,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res => {
-          console.log('vvvvvvvvvvvvvvvvvvvvvvvvv');
-          console.log(res.result.records);
+//        console.log(stable);
+//        console.log(itableId);
+        getAction(this.url.list, {sTable: this.stable,iTableId:this.itableId,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res => {
+//          console.log('vvvvvvvvvvvvvvvvvvvvvvvvv');
+//          console.log(res.result.records);
           this.data = res.result.records;
           this.ipagination.total = res.result.total;
         })
@@ -293,11 +293,11 @@
         const formData=new FormData();
         formData.append("iid",this.iid);
         formData.append("file",file);
-        console.log('))))))))))))))))))');
+//        console.log('))))))))))))))))))');
 
         httpAction(this.fileUpload, formData, "post").then((res) => {
-          console.log('((((((((((((((((((((((');
-          console.log(res);
+//          console.log('((((((((((((((((((((((');
+//          console.log(res);
           if (res.success) {
             this.$message.success(res.message);
             this.$emit('ok');

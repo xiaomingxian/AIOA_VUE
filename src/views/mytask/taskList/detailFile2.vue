@@ -29,7 +29,7 @@
             </td>
           </tr>
           <tr v-show="previewFlag">
-            <td style="padding: 4% 0% 2%" align="center" colspan="2" height="50" valign="bottom">
+            <td style="padding: 1% 0% 0%" align="center" colspan="2" height="50" valign="bottom">
               <h1 style="color: red; font-weight: 800; font-size: 34px;margin-top: -60px;">
                 <span>{{backData.s_left_parameter}}</span>
                 <span>{{backData.s_unit_name}}</span>
@@ -177,6 +177,7 @@
                 @saveGongwenData="saveGongwenData" @saveDelTime="saveDelTime"
                 @savaObj="savaObj" :backData="backData" :busFunction="busFunction" :backDataOpt="backDataOpt"
                 :taskMsg="task"
+                :btnStatusA="btnStatus"
                 :deptMsg="deptMsg"
                 :opts="opts" @downFiles="downFiles"
                 @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj" @cancelImportantObj="cancelImportantObj"
@@ -248,6 +249,7 @@
     data() {
       return {
         visible: false,
+        btnStatus: '',
         title: '业务详情',
         confirmLoading: false,
         userData: '',
@@ -466,6 +468,7 @@
       callaboration() {
         getAction(this.url.Intslist).then((res) => {
           this.intslist = res.result;
+          console.log(this.intslist)
           if (this.intslist.length == 0) {
             this.$refs.teamword.showOpen(this.userid, this.backData, this.busDataId);
           } else {
@@ -473,6 +476,8 @@
             this.iteamworkId = this.intslist[this.intslist.length - 1].iteamworkId;
             this.iorder = this.intslist[this.intslist.length - 1].iorder + 1;
             this.iteamworkSetId = this.intslist[this.intslist.length - 1].iteamworkSetId
+            console.log(this.dataId)
+
             if (this.dataId != Number(this.busDataId)) { //新的流程
               console.log(this.dataId)
               console.log(this.busDataId)
@@ -493,16 +498,14 @@
                       modelId: res.ibusModelId,
                       functionId: res.ibusFunctionId,
                     }
-
-
                     postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
                       if (res.success) {
                         const promise1 = new Promise((resolve => {
                           this.newDataId = JSON.stringify(res.result.busdataId)
                           console.log(JSON.stringify(res.result));
                           // console.log(window.location);
-                          // window.location.href(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
-                          this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
+                           window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
+                        // this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
                           resolve(this.newDataId)
                         }))
 
@@ -902,7 +905,7 @@
               let qiCaoIndex = -1;         //起草底稿按钮的标志
               let editDiGaoIndex = -1;     //编辑底稿按钮的标志
               //开启websocket
-              this.initWebSocket(res.result.oaBusdata.i_id);
+              ///this.initWebSocket(res.result.oaBusdata.i_id);
               for (let i = 0; i < res.result.btnAndOpt.btn.isNotDefend.length; i++) {
                 if (res.result.btnAndOpt.btn.isNotDefend[i].smethod == 'qiCao') {
                   qiCaoIndex = i;
@@ -947,7 +950,7 @@
             this.backData['key'] = res.result.taskDefKey
             this.backData.act_show = res.result.actShow
 
-
+            this.btnStatus = res.result.status
             this.backDataOpt.s_task_id = res.result.taskId
             //机密等级
             let secretModleTest = this.backData.i_safetylevel;

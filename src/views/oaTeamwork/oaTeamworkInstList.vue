@@ -139,10 +139,13 @@
             title: '标题',
             align:"center",
             dataIndex: 'stitle',
-         sorter: (i, ii, type) => {
-           //descend倒叙
-           //ascend正序
-
+            customRender:function (text,record,index) {
+           if(record.busFunctionName){
+             return "["+record.busFunctionName + ']'+text;
+           }else{
+             return text;
+           }},
+           sorter: (i, ii, type) => {
            this.queryParam.tableOrder = true
            //置空其他环节
            this.nullOther('stitle')

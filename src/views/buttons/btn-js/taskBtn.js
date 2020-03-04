@@ -12,10 +12,11 @@ import {ntkoBrowser} from './ntkobackground.min.js'
 
 export const taskBth = {
   //接收父组件传值
-  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt'],
+  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt','btnStatusA'],
   inject: ['reload'],
   data() {
     return {
+      orgSchema: '',
       //按钮展示
       btn: [],
       defindBtns: [], //按钮组二
@@ -43,6 +44,8 @@ export const taskBth = {
         busData: {},
         taskMsg: {}
       },
+      clickTotal: 0,//点击次数参数
+      isUpSend: 0, //是否已上报
       url: {
         delete: '/oaBus/dynamic/delete', //删除数据
         insert: '/oaBus/dynamic/insert',//动态插入数据
@@ -88,9 +91,18 @@ export const taskBth = {
   },
   created() {
     //监听页签切换   切换至当前页时刷新底部按钮接口
+
     var _this = this;
     document.addEventListener('visibilitychange', function () {
-      // alert(document.hidden)
+
+      _this.setIndexShow = 0;
+      _this.iconType = 'down'
+      _this.queryBtnFun();
+      //查询对应到按钮。每一次活动页就要查询一次
+   /* })
+    var _this = this;
+    document.addEventListener('visibilitychange', function () {
+    */  // alert(document.hidden)
       // document.title = document.hidden?'拜拜11111':' 回来啦2222'
       if (document.hidden) {
         _this.showBtn(_this.butArrLists);
@@ -147,6 +159,21 @@ export const taskBth = {
         }
       }*/
       this[item.smethod]()
+    },
+    queryBtnFun(){
+      let url = '/bus/button/getButtons';
+      let paramsBtn = {proSetId:this.backData.iprocSetId,
+        table:this.taskMsg.table,
+        id:this.taskMsg.tableId,
+        taskDef:this.backData.key,
+        proInstanId:this.taskMsg.processInstanceId,
+        taskId:this.taskMsg.id,
+        status:this.btnStatusA}
+      getAction(url,paramsBtn).then(res =>{
+        this.btn = res.result.btn.isNotDefend
+        this.defindBtns = res.result.btn.isDefend
+        //console.log(res)
+      })
     },
     doPost(url, data) {
       postAction(url, data).then(res => {
@@ -302,7 +329,8 @@ export const taskBth = {
         return
       }
       let hiTaskId = this.taskMsg.hiTaskId
-      getAction(this.url.addUserOrDepart + '?taskId=' + hiTaskId).then(res => {
+      getAction(this.url.addUserOrDepart + '?taskId=' + hiTaskId + '&table=' +
+        this.backData.table + '&i_id=' + this.backData.i_id).then(res => {
         if (res.success) {
           // this.$refs.addUsersModal
           this.$refs.addUsersModal.showNextUsers(res.result)
@@ -385,6 +413,8 @@ export const taskBth = {
         taskId: this.taskMsg.id,
         processDefinitionId: this.taskMsg.processDefinitionId,
         taskDefinitionKey: this.taskMsg.taskDefinitionKey,
+        table: this.backData.table,
+        i_id: this.backData.i_id,
       }).then(res => {
         //展示数据
         if (res.success) {
@@ -430,15 +460,20 @@ export const taskBth = {
                 if (res.success && res.result != null) {
                   //情况1:获取已经传阅业务数据
                   this.insideReadingData = res.result;
+
+                  // console.log('===============>>>>',this.insideReadingData)
+                  // return
                   getAction(this.url.addUserOrDepartCy, {
                     procKey: this.insideReadingData.s_cur_proc_name, // this.backData.s_cur_proc_name,
                     drafterId: this.insideReadingData.s_create_by,
-                    procInstId: this.insideReadingData.s_varchar10
+                    procInstId: this.insideReadingData.s_varchar10,
+                    i_id: this.insideReadingData.i_id,
+                    table: isRead.table,
+
                   }).then(res => {
                     //展示数据
                     if (res.success) {
                       this.$refs.addUserCy.title = '内部发送'
-
                       this.$refs.addUserCy.showNextUsers(res.result)
                     } else {
                       this.$message.error(res.message)
@@ -534,7 +569,9 @@ export const taskBth = {
                                   //下一任务
                                   getAction(this.url.nextUsers, {
                                     procDefkey: res.result.oaBusdata.s_cur_proc_name, // this.backData.s_cur_proc_name,
-                                    drafterId: res.result.oaBusdata.s_create_by
+                                    drafterId: res.result.oaBusdata.s_create_by,
+                                    i_id: res.result.oaBusdata.i_id,
+                                    table: res.result.oaBusdata.table
                                   }).then(res => {
                                     //展示数据
                                     if (res.success) {
@@ -584,12 +621,12 @@ export const taskBth = {
     },
     //按钮-省会-->地市(收文流程)
     provinceToCityReceviceSend() {
-      this.$refs.selectCityModel.title = "选择地市";
+      this.$refs.selectCityModel.title = "选择地市中支";
       this.$refs.selectCityModel.show(this.backData, 1);
     },
     //按钮-省会-->地市(传阅不带流程)
     provinceToCityInsideSend() {
-      this.$refs.selectCityModel.title = "选择地市";
+      this.$refs.selectCityModel.title = "选择地市中支";
       this.$refs.selectCityModel.show(this.backData, 2);
     },
     //按钮-上报
@@ -602,6 +639,18 @@ export const taskBth = {
           this.dictData.unitName = res.result["unitTables"][0].unitName;
           this.dictData.dictUnitId = res.result["unitTables"][0].unitId;
           this.usersData = res.result[this.dictData.dictUnitId];
+          let oaOutLog = {};
+          oaOutLog.iBusModelId = this.backData.i_bus_model_id;
+          oaOutLog.iBusFunctionId = this.backData.i_bus_function_id;
+          oaOutLog.sBusdataTable = this.backData.table;
+          oaOutLog.iBusdataId = this.backData.i_id;
+          oaOutLog.iType = 1;
+          oaOutLog.sSendName = '公文上报'
+          getAction('oaBus/dynamic/queryOaOutLogById', oaOutLog).then(res => {
+            if (res.success && res.result.length > 0) {
+              this.isUpSend = 1;
+            }
+          })
           this.visibleModel = true;
         } else {
           this.$message.error("请检查相关配置是否完善！")
@@ -610,6 +659,10 @@ export const taskBth = {
     },
     //确认上报
     upSendConfirm() {
+      this.clickTotal++;
+      if (this.clickTotal > 1) {
+        return;
+      }
       this.busData = this.backData;
       let param = {};
       param.table = this.dictData.table;
@@ -624,7 +677,10 @@ export const taskBth = {
           receiveData.s_title = this.busData.s_title  //标题
           receiveData.d_sealdate = this.busData.d_sealdate//成文日期  d_sealdate
           receiveData.s_receive_num = this.busData.s_file_num //来文字号 s_file_num
-          // receiveData.s_varchar5 = this.busData.s_unit_name//来文机关 s_unit_name
+          receiveData.s_main_unit_names = this.busData.s_main_unit_names //主办部门
+          receiveData.s_cc_unit_names = this.busData.s_cc_unit_names //辅办部门
+          receiveData.s_inside_deptnames = this.busData.s_inside_deptnames //传阅部门
+          receiveData.s_varchar5 = this.busData.s_unit_name//来文机关 s_unit_name
           receiveData.i_urgency = this.busData.i_urgency; //缓急 i_urgency
           receiveData.i_safetylevel = this.busData.i_safetylevel; //密级 i_safetylevel
           receiveData.i_bigint1 = this.busData.i_bigint1  //印发份数
@@ -661,6 +717,7 @@ export const taskBth = {
                         if (res.success) {
                           flag = true;
                           this.$message.success("上报成功！")
+                          this.closeModal();
                           //组装参数--传输日志记录
                           let oaOutLog = {};
                           oaOutLog.i_bus_model_id = this.backData.i_bus_model_id;
@@ -669,7 +726,7 @@ export const taskBth = {
                           oaOutLog.i_busdata_id = this.backData.i_id;
                           oaOutLog.i_type = 1;
                           oaOutLog.s_rec_unitid = unitId;
-                          this.insertOaOutLog(oaOutLog);  //记录传输日志；
+                          this.insertOaOutLog(oaOutLog, 1);  //记录传输日志；
                         } else {
                           this.$message.error("附件复制失败！")
                         }
@@ -690,7 +747,6 @@ export const taskBth = {
           this.$message.error("新建任务失败！")
         }
       });
-      this.closeModal();
     },
     //按钮-传阅下发
     downSendFile() {
@@ -702,9 +758,9 @@ export const taskBth = {
     },
 
     //记录对外传输数据日志
-    insertOaOutLog(data) {
+    insertOaOutLog(data, type) {
       /**
-       * data参数项：
+       * 参数1:data项：
        * 1.s_send_by  发送者id
        * 2.i_bus_model_id   业务模块id
        * 3.i_bus_function_id  业务功能id
@@ -712,10 +768,33 @@ export const taskBth = {
        * 5.i_type     类型：1为机构id；2为数据字典itemid'
        * 6.s_rec_unitid   接收者机构对应的数据字典id（机构id）
        * 7.d_create_time
+       * 参数2:type类型
+       * 1.公文上报
+       * 2.公文下发
+       * 3.内部传阅
+       * 4.省会转地市收文
+       * 5.省会转地市传阅
        */
+      var sendName = "";
+      if (type == 1) {
+        sendName = "公文上报";
+      }
+      if (type == 2) {
+        sendName = "公文下发";
+      }
+      if (type == 3) {
+        sendName = "内部传阅";
+      }
+      if (type == 4) {
+        sendName = "省会转地市收文";
+      }
+      if (type == 5) {
+        sendName = "省会转地市传阅";
+      }
       data.table = "oa_out_log"
+      data.s_send_name = sendName;
       postAction("oaBus/dynamic/insertOaOutLog", data).then(res => {
-        if (res.success()) {
+        if (res.success) {
           return;
         } else {
           this.$message.error("传输日志记录失败！")
@@ -825,13 +904,15 @@ export const taskBth = {
       }
       data['taskDefKey'] = activity.actMsg.id
 
+      //this.sendMesToUser(data.assignee);
       //参数构造完毕***********************
       postAction(this.url.doTask, data).then(res => {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          // this.saveBusData()
+          //this.sendMesToUser(data.assignee);
+          //this.saveBusData()
           setTimeout(function () {
             this.close()
           }, 500)
@@ -839,6 +920,19 @@ export const taskBth = {
         } else {
           this.$message.error(res.message)
         }
+      })
+    },
+    //通过ids查询用户，查看是否设置了代办消息发送
+    sendMesToUser(ids){
+      console.log('AAAA',ids)
+      let url = "/testt/sysUserSet/queryUserSet" ;
+      postAction(url,{ids:ids}).then(res =>{
+        let userList = res.result ;
+        if(userList != undefined && userList.length > 0 ){
+          let url = ' http://127.0.0.1:8012/sendnotify.cgi?msg=&receiver=wwjs'
+          postAction()
+        }
+
       })
     },
     //并行/包容网关的确定
@@ -1427,9 +1521,6 @@ export const taskBth = {
         if (res.success) {
           this.isSaveFlag = true;
           this.$message.success("填写意见成功！")
-          // setTimeout(() => {
-          //   this.reload();
-          // }, 800)
           this.$emit("reloadOpinion", this.taskMsg.taskDefinitionKey);
           this.backDataOpt.i_id = res.result.i_id;
         } else {
@@ -1531,16 +1622,15 @@ export const taskBth = {
     openFile(cmd, fileName) {
       let ntkoed = ntkoBrowser.ExtensionInstalled();
       if (ntkoed) {
-        //console.log('--------------------->>>>>>!!!!!',JSON.stringify("&taskId=" +this.taskMsg.id))
-        //console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.currentBtn.iid))
-        //console.log('--------------------->>>>>>!!!!!',JSON.stringify(this.currentUserMessage))
-        //console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData.s_varchar20))
-        console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
-        //console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.opts));
+        getAction("/sys/user/getLoginInfo", {}).then(res => {
+          // alert(res.orgSchema)
+          this.orgSchema = res.orgSchema;
+        })
+        // console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
         ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
           "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
           this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
-          + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName);
+          + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName + "&orgSchema=" + this.orgSchema);
       } else {
         window.open(window.location.origin + "/ntko/exeindex.html")
       }
@@ -1580,8 +1670,8 @@ export const taskBth = {
       }
       postAction("oaBus/dynamic/updateData", param).then(res => {
         if (res.success) {
-          this.reload(); //页面刷新
-          // this.$emit("saveDocNum", data)
+          // this.reload(); //页面刷新
+          this.$emit("saveDocNum", data)
           this.$message.success("登记文号成功！")
         } else {
           this.$message.error(res.message)

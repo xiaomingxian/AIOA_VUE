@@ -24,7 +24,7 @@
         <!--</div>-->
       <!--</div> direction="vertical"-->
       <a-steps  direction="vertical"  :current="total"  style="margin-left: 50px">
-        <a-step class="step" style="width:400px" v-for="(item,index) in listqq" @dblclick="openXieTong(item.tableName,item.busDataId,index)"  :title="item.busFunctionName+'    '+item.stitle" :description="item.dCreateTime"></a-step>
+        <a-step class="step" style="width:400px" v-for="(item,index) in listqq" @dblclick="openXieTong(item.tableName,item.busDataId,index)"  :title="item.busFunctionName" :description="item.dCreateTime"></a-step>
       </a-steps>
 
     </a-spin>
@@ -100,15 +100,26 @@
         this.model.iteamworkId = e.iid
         this.model.steamworkName = e.steamworkName
         this.model.iversion = e.iversion;
-        //查询实例表里面的东西，为了确定走到那个步骤
-        getAction(this.url.Setlist, {iVersion: e.iversion}).then((res) => {
-          this.total  = res.result.length
-          this.IntsList =  res.result
 
-        })
+
+        setTimeout(()=>{
+          //查询实例表里面的东西，为了确定走到那个步骤
+          getAction(this.url.Setlist, {iVersion: e.iversion}).then((res) => {
+            this.total  = res.result.length
+            this.IntsList =  res.result
+            for (let i=0;i<this.IntsList.length;i++){
+              console.log(this.IntsList[i].stitle);
+              this.listqq[i].busFunctionName = this.listqq[i].busFunctionName + this.IntsList[i].stitle;
+              console.log(  this.listqq);
+            }
+          })
+        },1000)
         //查出该所有的协同办公
         getAction(this.url.queryListL, {iTeamworkId: e.iteamworkId}).then((res) => {
           this.listqq = res.result.records;
+          this.listqq.map((item)=>{
+            item.busFunctionName = '['+item.busFunctionName+']'
+          })
 
         })
       },

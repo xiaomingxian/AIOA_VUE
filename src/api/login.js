@@ -19,6 +19,13 @@ export function login(parameter) {
     data: parameter
   })
 }
+export function loginRtx(parameter) {
+  return axios({
+    url: '/sys/RTXLogin',
+    method: 'post',
+    data: parameter
+  })
+}
 
 export function phoneLogin(parameter) {
   return axios({

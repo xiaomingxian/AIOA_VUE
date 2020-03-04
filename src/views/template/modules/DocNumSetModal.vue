@@ -13,7 +13,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="所属模块">
+          label="业务分类">
           <a-select v-model="selectedModel" @change="getModalVal">
             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
             </a-select-option>
@@ -22,7 +22,16 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="所属业务">
+          label="所属机构">
+          <a-select  v-model="selectedUnit" @change="getUnitVal">
+            <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="业务名称">
           <!--:defaultValue=1 -->
           <a-select v-if="functionList" v-model="selectedFunction" placeholder="" v-decorator="[ 'ibusFunctionId', {}]"
                     ref="sss" id="selop">
@@ -49,12 +58,12 @@
           label="文号规则">
           <a-input placeholder="" v-decorator="['sdocRule', {}]"/>
         </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="当前文号">
-          <a-input-number placeholder="" v-decorator="['idocNum', {}]"/>
-        </a-form-item>
+<!--        <a-form-item-->
+<!--          :labelCol="labelCol"-->
+<!--          :wrapperCol="wrapperCol"-->
+<!--          label="当前文号">-->
+<!--          <a-input-number placeholder="" v-decorator="['idocNum', {}]"/>-->
+<!--        </a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -117,6 +126,7 @@
   import {disabledAuthFilter} from "@/utils/authFilter"
   import {duplicateCheck} from '@/api/api'
   import SelectDepartWindow from "../../system/modules/SelectDepartWindow";
+  import {postAction} from '@/api/manage'
 
   export default {
     name: "DocNumSetModal",
@@ -147,6 +157,7 @@
           userId: "/sys/user/generateUserId"
         },
         selectedModel: null,
+        selectedUnit:null,
         selectedFunction: null,
         allowClear: false,
         modelData: [],
@@ -155,6 +166,7 @@
         upData: [],
         downData: [],
         officeData: [],
+        unitData:[],
         //部门控件
         departDisabled: false, //是否是我的部门调用该页面
         roleDisabled: false, //是否是角色维护调用该页面
@@ -172,36 +184,54 @@
       }
     },
     created() {
-      this.getBusModelList();
-      this.getTemplateUp();
-      this.getTemplateDown();
-      this.getTemplateOffice();
-      const token = Vue.ls.get(ACCESS_TOKEN);
-      this.headers = {"X-Access-Token": token}
+      this.initData();
+      // const token = Vue.ls.get(ACCESS_TOKEN);
+      // this.headers = {"X-Access-Token": token}
     },
-
     methods: {
+      initData(){
+        this.getBusModelList();
+        this.getUnitList();
+        this.getTemplateUp();
+        this.getTemplateDown();
+        this.getTemplateOffice();
+      },
       add() {
+        this.selectedUnit = this.unitData[0].id;
         this.edit({});
       },
       edit(record) {
-        this.selectedModel = record.ibusModelId;
-        //获取子集
-        let url = "/papertitle/docNumSet/busFunctionList?ibusModelId=" + this.selectedModel;
-        getAction(url).then((res) => {
-          // console.log(res);
-          this.functionList = res.result;
-        })
         this.form.resetFields();
         this.userId = record.iid;
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model, 'iid', 'ibusModelId', 'ibusFunctionId', 'iorder', 'sname', 'sdocRule', 'idocNum', 'iutemplateId', 'idtemplateId', 'iatemplateId', 'sremarks', 'screateBy', 'supdateBy'))
+          this.form.setFieldsValue(pick(this.model, 'iid', 'ibusModelId', 'ibusUnitId','ibusFunctionId', 'iorder', 'sname', 'sdocRule', 'idocNum', 'iutemplateId', 'idtemplateId', 'iatemplateId', 'sremarks', 'screateBy', 'supdateBy'))
         });
+        this.selectedModel = record.ibusModelId;
+        if (Object.keys(record).length !== 0){
+          this.selectedUnit = record.ibusUnitId;
+          //选中所选业务
+          this.initFunctionList(this.selectedModel,this.selectedUnit);
+          this.selectedFunction = record.ibusFunctionId;
+        }
         // 调用查询用户对应的部门信息的方法
         this.checkedDepartKeys = [];
         this.loadCheckDeparts();
+      },
+      //初始化业务
+      initFunctionList(model,unit){
+        let url = "/papertitle/docNumSet/busFunctionList";
+        getAction(url,{iBusModelId:model,iBusUnitId:unit}).then((res) => {
+          this.functionList = res.result;
+        })
+      },
+      //查询机构
+      getUnitList(){
+        let url ='/sys/sysDepart/query';
+        getAction(url,{orgType:'1'}).then(res=>{
+            this.unitData = res.result;
+        })
       },
       //下拉选列表-所属模块
       getBusModelList() {
@@ -211,11 +241,24 @@
           this.modelData = res.result;
         })
       },
-      getModalVal(value) {
+      //选择模块--》更新查业务
+      getModalVal(model) {
         // console.log(value);
-        let url = "/papertitle/docNumSet/busFunctionList?ibusModelId=" + value;
-        getAction(url).then((res) => {
+        let url = "/papertitle/docNumSet/busFunctionList";
+        getAction(url,{iBusModelId:model,iBusUnitId:this.selectedUnit}).then((res) => {
           this.functionList = res.result;
+          this.selectedFunction = null;
+          this.form.setFieldsValue({
+            ibusFunctionId: ''
+          })
+        })
+      },
+      //选择模块--》更新查业务
+      getUnitVal(unit){
+        let url = "/papertitle/docNumSet/busFunctionList";
+        getAction(url,{iBusModelId:this.selectedModel,iBusUnitId:unit}).then((res) => {
+          this.functionList = res.result;
+          this.selectedFunction = null;
           this.form.setFieldsValue({
             ibusFunctionId: ''
           })
@@ -316,6 +359,7 @@
             let formData = Object.assign(this.model, values);
             formData.ibusModelId = this.selectedModel;
             formData.ibusFunctionId = this.selectedFunction;
+            formData.ibusUnitId = this.selectedUnit;
             formData.selecteddeparts = this.userDepartModel.departIdList.length > 0 ? this.userDepartModel.departIdList.join(",") : '';
             httpAction(httpurl, formData, method).then((res) => {
               if (res.success) {

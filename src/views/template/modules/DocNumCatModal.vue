@@ -14,7 +14,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="所属模块">
+          label="业务分类">
           <!--<a-select v-model="selectedModel"  v-decorator="[ 'ibusModelId', {}]">-->
             <!--<a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}</a-select-option>-->
           <!--</a-select>-->
@@ -23,7 +23,16 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="所属业务">
+          label="所属机构">
+          <!--<a-select v-model="selectedModel"  v-decorator="[ 'ibusModelId', {}]">-->
+          <!--<a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}</a-select-option>-->
+          <!--</a-select>-->
+          <a-input placeholder=""  :value="uname" />
+        </a-form-item>
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="业务名称">
           <!--<a-select   v-decorator="[ 'ibusFunctionId', {}]" >-->
             <!--<a-select-option v-for="(item,index) in functionData" :key="index" :value="item.iid">{{item.sname}}</a-select-option>-->
           <!--</a-select>-->
@@ -140,6 +149,7 @@
         },
         fname:'',
         mname:'',
+        uname:'',
         selectedModel:null,
         selectedFunction:null,
         modelData:[],
@@ -180,6 +190,7 @@
         this.userId = record.iid;
         this.fname = record.fname;
         this.mname = record.mname;
+        this.uname = record.uname;
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {

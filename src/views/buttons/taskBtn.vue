@@ -1,7 +1,7 @@
 <template>
 
 
-  <div style="padding-bottom: 0.7%;">
+  <div style="min-height: 150px; padding-bottom: 0.7%;">
     <!--<a-button  @click="showPic">图</a-button>-->
     <!--<a-button  @click="reCall">撤回</a-button>-->
     <!--<a-button  @click="showBack">回退</a-button>-->
@@ -10,18 +10,26 @@
     <!--<a-button  @click="addUserOrDepart">追加</a-button>-->
     <!--<a-button  @click="insideReading">内部传阅</a-button>-->
 
+    <div class="optionTip" @click="btnBoxShow">
+      <a href="#">
+        <a-icon  :type="iconType" />
+        <span style="font-size:14px;font-weight: bold;margin-left: 5px;">操作按钮</span>
+      </a>
+    </div>
+    <div  v-show="setIndexShow==1">
+      <div class="btndefindbox">
+        <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
+                  icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
+        </a-button>
+      </div>
+      <br>
+      <div class="btnnotdefindbox">
+        <a-button v-for="(item,index) in btn" @click="method_router(item,index)" ref="isNotDefendBtn" :id="item.id"
+                  size="large" style="margin-left: 3px;margin-bottom: 14px;">{{item.sbtnName}}
+        </a-button>
+      </div>
+    </div>
 
-    <div class="btndefindbox">
-      <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
-                icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
-      </a-button>
-    </div>
-    <br>
-    <div class="btnnotdefindbox">
-      <a-button v-for="(item,index) in btn" @click="method_router(item,index)" ref="isNotDefendBtn" :id="item.id"
-                size="large" style="margin-left: 3px;margin-bottom: 14px;">{{item.sbtnName}}
-      </a-button>
-    </div>
 
 
     <!--.............引入具体展示组件.....................-->
@@ -54,7 +62,8 @@
       :visible="visibleModel"
       @ok="upSendConfirm"
       @cancel="closeModal">
-      <p style="font-size: 15px;font-weight: bolder">请确认是否上报<span style="color: red">{{this.dictData.unitName}} </span>？
+      <p v-show="this.isUpSend === 0" style="font-size: 15px;font-weight: bolder">该公文将上报至{{this.dictData.unitName}}，您确定上报吗？
+      <p v-show="this.isUpSend === 1" style="font-size: 15px;font-weight: bolder">该公文<span style="color: red">已上报</span>至{{this.dictData.unitName}}，您确定<span style="color: red">重新上报</span>吗？
       </p>
     </a-modal>
   </div>
@@ -89,6 +98,7 @@
   import  AddUsersModal from  '../mytask/modules/AddUsersModal'
   //传阅特殊化
   import  AddUsersModalChuanYue from  '../mytask/modules/AddUsersModalChuanYue'
+  import {getAction} from "../../api/manage";
 
   export default {
     name: "taskBtn",
@@ -119,11 +129,28 @@
       AddUsersModalChuanYue
     },
     data() {
-      return {}
+      return {
+        setIndexShow:1,
+        iconType:'down'
+      }
     },
     created() {
+      //监听页签切换  修改标题
+
     },
     methods: {
+      btnBoxShow(){
+
+        if(this.setIndexShow==0){
+          this.setIndexShow = 1;
+          this.iconType = 'up'
+        }else{
+          this.setIndexShow = 0;
+          this.iconType = 'down'
+        }
+
+        console.log( this.setIndexShow)
+      },
       modalFormOk() {
 
       },
@@ -131,6 +158,7 @@
         this.$emit('watchSub', e);
       },
       closeModal() {
+        this.isUpSend = 0;
         this.$emit('close')
       },
       alertBtnStaus(flagValue, dealBtn) {
@@ -160,10 +188,19 @@
   }
 </script>
 <style lang="less" scoped>
+
+  .optionTip{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 88%;
+    margin: 0 auto;
+  }
   .btndefindbox {
     display: flex;
     width: 88%;
     margin: 0 auto;
+    margin-top: 10px;
   }
 
   .btnnotdefindbox {

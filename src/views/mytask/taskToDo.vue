@@ -387,7 +387,6 @@
     },
     data() {
       return {
-
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         description: '待办任务',
         iisFontSize: '16px',
@@ -637,7 +636,7 @@
         })
       },
       cancel() {
-        console.log('------->取消选择')
+//        console.log('------->取消选择')
       },
       showPic(record) {
         this.$refs.pic2Modal.show(record)
@@ -888,26 +887,22 @@
           this.columnes.push({
             dataIndex: 'wenHao',
           });
-
-          for (let i = 0; i < res.result.length; i++) {
-            this.taskKey.push(res.result[i].value);
-            let url = "urgency/degree/queryTask";
-            let Urgency = res;
-            getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
-
-              setTimeout(()=> {
-
-                if (res.result.total > 0) {
-                  this.dataSources.push({
-                    key: i,
-                    wenHao: Urgency.result[i].text,
-                  });
-                }
-
-              },500)
-
-            })
-          }
+        this.getData(0,res.result.length,res.result)
+//          for (let i = 0; i < res.result.length; i++) {
+//            this.taskKey.push(res.result[i].value);
+//            let url = "urgency/degree/queryTask";
+//            let Urgency = res;
+//            this.arr3 = res;
+//            getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+//                if (res.result.total > 0) {
+//                  console.log(i)
+//                  this.dataSources.push({
+//                    key: i,
+//                    wenHao: Urgency.result[i].text,
+//                  });
+//                }
+//            })
+//          }
 
           // console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
           // console.log(this.taskKey);
@@ -915,7 +910,6 @@
           // console.log(this.dataSources);
 
         });
-
         this.setFontSize();
 
         // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
@@ -927,6 +921,23 @@
           return;
         }
 
+      },
+      getData(i,length,data){
+//        console.log(data)
+        this.taskKey.push(data[i].value);
+        let url = "urgency/degree/queryTask";
+        let Urgency = data;
+        getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+          if (res.result.total > 0) {
+            this.dataSources.push({
+              key: i,
+              wenHao: Urgency[i].text,
+            });
+          }
+          if(++i<length){
+            this.getData(i,length,data)
+          }
+        })
       },
       getExpandRecords(expanded, record) {
         if (expanded == false) {

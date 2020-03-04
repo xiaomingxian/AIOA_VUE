@@ -260,6 +260,7 @@
         this.table = record.table;
         this.visible = true;
         this.getDocNumList();
+
       },
       close() {
         this.$emit('close');
@@ -275,6 +276,7 @@
           this.isshowTable = false;
           this.docwordNum = '',
           this.visible = false;
+          this.defaultYear = new Date().getFullYear();
       },
       handleOk() {
         let iSend = '';
@@ -477,9 +479,12 @@
       changeYear(e) {
         // console.log(e);
         this.defaultYear = e;
+        if (this.selectedModel === ''){
+          this.$message.error("请先选择文件字号！")
+          return
+        }
         this.reloadDocNum(this.numId, this.defaultYear);
-        this.docwordNum = this.wenhao.trim() + '〔' + e + '〕' + this.docnum + '号';
-
+        // this.docwordNum = this.wenhao.trim() + '〔' + e + '〕' + this.docnum + '号';
       }
     }
   }
