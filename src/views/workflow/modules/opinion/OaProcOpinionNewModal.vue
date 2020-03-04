@@ -32,7 +32,7 @@
         <!--</a-form-item>-->
         <!--水平分割-->
         <!--<a-divider style="margin-top: 0px"/>-->
-        <span style="font-weight: 1000;font-size: 16px;">选择(非特殊情况办文单意见类型选空):</span>
+        <span style="font-weight: 1000;font-size: 16px;">选择(非特殊情况办文单类型选空):</span>
         <!--<a-divider/>-->
         <!-- 查询区域 -->
         <div class="table-page-search-wrapper">
@@ -53,8 +53,8 @@
                   </a-select>
                 </a-form-item>
               </a-col>
-              <a-col :md="9" :sm="8">
-                <a-form-item label="办文单意见类型">
+              <a-col :md="10" :sm="8">
+                <a-form-item label="办文单类型">
                   <a-select v-model="type" @change="getType">
                     <a-select-option v-for="(item,index) in typeList" :key="index" :value="item.itemValue">{{item.itemText}}
                     </a-select-option>
