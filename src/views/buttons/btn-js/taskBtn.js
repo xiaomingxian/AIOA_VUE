@@ -1394,19 +1394,23 @@ export const taskBth = {
         getAction(this.url.nextUsers, {
           procDefkey: this.backData.s_cur_proc_name,
           drafterId: this.backData.s_create_by,
-          taskId: this.taskMsg.id
+          taskId: this.taskMsg.id,
+          table: this.backData.table,
+          i_id: this.backData.i_id,
         }).then(res => {
           //展示数据
           if (res.success) {
             if (res.result.length == 1) {
-              this.confirmNextUsers([], res.result[0], null, null)
-              // setTimeout(function () {
-              //   this.close()
-              // }, 500)
+              if (res.result[0].actMsg.type=='endEvent') {
+                this.confirmNextUsers([], res.result[0], null, null)
+              }else {
+                this.$message.error('当前节点不可办结')
+                return
+              }
             } else {
               this.$message.error('当前节点不可办结')
+              return
             }
-            // this.$refs.nextUsers.showNextUsers(res.result)
             //TODO********************************* 档案系统接口  ************************************
             getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
               if (res.success) {
