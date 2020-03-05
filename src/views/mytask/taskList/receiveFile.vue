@@ -426,8 +426,12 @@
 
           this.backData[i] = this.backDataRef[i]
         }
-        this.recFileTypeList = this.optionMap.s_varchar4_option ;
-        this.recFileOrgList = this.optionMap.s_varchar5_option;
+        if(this.optionMap.s_varchar4_option != undefined && this.optionMap.s_varchar4_option.length >0){
+          this.recFileTypeList = this.optionMap.s_varchar4_option ;
+        }
+        if(this.optionMap.s_varchar5_option != undefined && this.optionMap.s_varchar5_option.length >0){
+          this.recFileOrgList = this.optionMap.s_varchar5_option;
+        }
         this.getOaFiles(this.backData.table, this.backData.i_id);
         // this.backData.table = table
         this.visible = true
