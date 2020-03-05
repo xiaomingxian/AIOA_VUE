@@ -700,7 +700,7 @@
             this.taskRecord.name = record2.name
             this.taskRecord.id = record2.id
 
-            getAction('/wf/task/taskStatus?taskid=' + record2.id).then(res => {
+            getAction('/wf/task/taskStatus?taskid=' + this.taskRecord.id).then(res => {
               if (res.success) {
                 if (res.message == 'todo') {
                   window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))

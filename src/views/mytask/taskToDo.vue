@@ -1265,8 +1265,28 @@
         this.taskRecord.id = this.selectedRows2[0].id
 
 
-        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
-        this.haveMore = false
+
+
+
+        getAction('/wf/task/taskStatus?taskid=' + this.taskRecord.id).then(res => {
+          if (res.success) {
+            if (res.message == 'todo') {
+              window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+              this.haveMore = false
+            } else if (res.message == 'done') {
+              this.$message.error('该任务已被办理,请刷新页面')
+              return
+            } else if (res.message == 'del') {
+              this.$message.error('该流程数据已被删除,请刷新页面')
+              return
+            }
+          }
+
+        })
+
+
+
+
 
 
       },
@@ -1338,12 +1358,46 @@
                   this.taskRecord.name = record2.name
                   this.taskRecord.id = record2.id
 
-                  window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+
+                  getAction('/wf/task/taskStatus?taskid=' +  this.taskRecord.id).then(res => {
+                    if (res.success) {
+                      if (res.message == 'todo') {
+
+                        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+
+
+                      } else if (res.message == 'done') {
+                        this.$message.error('该任务已被办理,请刷新页面')
+                        return
+                      } else if (res.message == 'del') {
+                        this.$message.error('该流程数据已被删除,请刷新页面')
+                        return
+                      }
+                    }
+
+                  })
+
                 }
 
 
               } else {
-                window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+
+                getAction('/wf/task/taskStatus?taskid=' + record.id).then(res => {
+                  if (res.success) {
+                    if (res.message == 'todo') {
+                      window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+                    } else if (res.message == 'done') {
+                      this.$message.error('该任务已被办理,请刷新页面')
+                      return
+                    } else if (res.message == 'del') {
+                      this.$message.error('该流程数据已被删除,请刷新页面')
+                      return
+                    }
+                  }
+
+                })
+
+
               }
 
 
