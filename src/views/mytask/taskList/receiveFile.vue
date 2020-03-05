@@ -119,6 +119,15 @@
         </tr>
         <tr>
           <td class="title" width="10%">
+            <!--主办部门-->
+            <center><h3>{{detailList.s_main_unit_names}}</h3></center>
+          </td>
+          <td colspan="3">
+            <a-input :value="backData.s_main_unit_names"></a-input>
+          </td>
+        </tr>
+        <tr>
+          <td class="title" width="10%">
             <!--辅办部门-->
             <center><h3>{{detailList.s_cc_dept_names}}</h3></center>
           </td>
@@ -293,6 +302,8 @@
           i_safetylevel: '0',
           //缓急
           i_urgency: '0',
+          //主办部门
+          s_main_unit_names:"",
           //主办部门
           s_main_dept_names: '主办部门',
           //辅办部门
