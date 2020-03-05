@@ -627,21 +627,34 @@ export const busdataTemplate = {
     },
     //打开附件
     qiCao1(index, item) {
-      let fileName = item.sfilePath.slice(item.sfilePath.lastIndexOf("\\") + 1);
+      // let fileName = item.sfilePath.slice(item.sfilePath.lastIndexOf("\\") + 1);
       let suffex = item.sfileName.slice(item.sfileName.lastIndexOf(".") + 1);
       if (suffex == 'docx' || suffex == 'doc' || suffex == 'xlsx' || suffex == 'xls' || suffex == 'pptx'
         || suffex == 'ppt' || suffex == 'pdf' || suffex == 'wps') {
         let param = {};
         param.sFilePath = item.sfilePath;
         postAction('/oaBus/oaFile/singleCopyFile', param).then(res => {
-          let ntkoed = ntkoBrowser.ExtensionInstalled();
-          if (ntkoed) {
-            ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + index + "&fileName=" + fileName);
-          } else {
-            window.open(window.location.origin + "/ntko/exeindex.html")
-          }
-          window.ntkoCloseEvent = function () {
-          }
+          getAction("/sys/user/getLoginInfo", {}).then(res => {
+            this.orgSchema = res.orgSchema;
+            if (this.orgSchema==null){
+              this.orgSchema="";
+            }
+            postAction("/ntko/filentko/getPasswordCode").then(res => {
+              if (res.success) {
+                this.password=res.result;
+                let ntkoed = ntkoBrowser.ExtensionInstalled();
+                if (ntkoed) {
+                  ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema);
+                } else {
+                  window.open(window._CONFIG['domianURL'] + "/ntko/exeindex.html")
+                }
+                window.ntkoCloseEvent = function () {
+                }
+              } else {
+                this.$message.error(res.message)
+              }
+            });
+          });
         })
       } else {
         this.downFileName(item.sfilePath);
@@ -660,20 +673,30 @@ export const busdataTemplate = {
       })
     },
     openFile(cmd, item) {
-      let fileName = item.sfilePath.slice(item.sfilePath.lastIndexOf("\\") + 1);
-
-      let ntkoed = ntkoBrowser.ExtensionInstalled();
-      if (ntkoed) {
-        ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd + "&fileName=" + fileName + "&fileId=" + item.iid
-          + "&fileType=" + item.sfileType + "&stable=" + item.stable +
-          "&tableid=" + item.itableId);
-      } else {
-        window.open(window.location.origin + "/ntko/exeindex.html")
-      }
-      window.ntkoCloseEvent = function () {
-      }
-
-
+      getAction("/sys/user/getLoginInfo", {}).then(res => {
+        this.orgSchema = res.orgSchema;
+        if (this.orgSchema==null){
+          this.orgSchema="";
+        }
+        postAction("/ntko/filentko/getPasswordCode").then(res => {
+          if (res.success) {
+            this.password=res.result;
+            let ntkoed = ntkoBrowser.ExtensionInstalled();
+            if (ntkoed) {
+              alert(cmd)
+              alert(item.iid)
+              ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + cmd
+                + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+ "&fileType=" + item.sfileType);
+            } else {
+              window.open(window._CONFIG['domianURL'] + "/ntko/exeindex.html")
+            }
+            window.ntkoCloseEvent = function () {
+            }
+          } else {
+            this.$message.error(res.message)
+          }
+        });
+      });
     },
   }
 }
