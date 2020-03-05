@@ -413,8 +413,8 @@
       filters:{
         filterText(text){
           if(text!=undefined) {
-            if (text.length > 18) {
-              return text.substring(0, 15) + '...'
+            if (text.length > 17) {
+              return text.substring(0, 14) + '...'
             } else {
               return text
             }
