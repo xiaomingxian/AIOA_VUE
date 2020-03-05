@@ -161,11 +161,12 @@
         if(this.setIndexShowJi==1){
           this.setIndexShowJi = 0;
           this.jishuOtherShow=false
-          this.iconType = 'up'
+          this.iconType = 'down'
+
         }else{
           this.setIndexShowJi = 1;
           this.jishuOtherShow=true
-          this.iconType = 'down'
+          this.iconType = 'up'
 
         }
       }

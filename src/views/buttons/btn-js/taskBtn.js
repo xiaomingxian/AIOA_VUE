@@ -95,8 +95,8 @@ export const taskBth = {
     var _this = this;
     document.addEventListener('visibilitychange', function () {
 
-      _this.setIndexShow = 0;
-      _this.iconType = 'down'
+      _this.setIndexShow = 1;
+      _this.iconType = 'up'
       _this.queryBtnFun();
       //查询对应到按钮。每一次活动页就要查询一次
    /* })

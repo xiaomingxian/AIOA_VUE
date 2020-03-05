@@ -95,10 +95,9 @@
   import SelectCityName from "./selectCityName";
   import YinRuYiJuModal from "./YinRuYiJuModal";
   //追加组件
-  import  AddUsersModal from  '../mytask/modules/AddUsersModal'
+  import AddUsersModal from '../mytask/modules/AddUsersModal'
   //传阅特殊化
-  import  AddUsersModalChuanYue from  '../mytask/modules/AddUsersModalChuanYue'
-  import {getAction} from "../../api/manage";
+  import AddUsersModalChuanYue from '../mytask/modules/AddUsersModalChuanYue'
 
   export default {
     name: "taskBtn",
@@ -131,7 +130,7 @@
     data() {
       return {
         setIndexShow:1,
-        iconType:'down'
+        iconType: 'up'
       }
     },
     created() {
