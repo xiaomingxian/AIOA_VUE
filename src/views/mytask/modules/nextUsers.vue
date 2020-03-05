@@ -232,7 +232,7 @@
       return {
         singleDept: null,
         defaultSelectedKeys: [],
-        scrHeight: window.innerHeight-300+ 'px',
+        scrHeight: window.innerHeight - 300 + 'px',
         // scrHeight: '',
         title: '下一任务',
         okText: '确定',
@@ -251,7 +251,7 @@
         //部门对应用户id
         departUsersId: {},
         departUsersMsg: {},
-        userGroupByDepts:{},
+        userGroupByDepts: {},
         //环节分类，从属于 排他，并行，包容网关
         gateWayTypeSelect: {
           parallel: {},
@@ -645,8 +645,8 @@
       confirm() {
 
         //时间校验
-        let flag= this.timeCheckMethod()
-        if (flag)return
+        let flag = this.timeCheckMethod()
+        if (flag) return
         //校验并行与包容
         let palllen = this.typeCount.parallel.length
         let ialllen = this.typeCount.inclusive.length
@@ -678,7 +678,7 @@
       },
       confirm2() {
 
-        if(this.selectedRowKeys2.length==0){
+        if (this.selectedRowKeys2.length == 0) {
           this.$message.error('请选择环节')
           return
         }
@@ -851,6 +851,8 @@
           let ids = []
           let depMSg = {}
 
+          let allIds = []
+
           for (let i in this.departUsersId) {
 
             if (i.indexOf("主办") >= 0 && this.departUsersId[i].length == 0) {
@@ -860,17 +862,36 @@
 
             if (this.departUsersId[i].length > 0) {
               // ids.push(this.departUsersId[i])
+              allIds = allIds.concat(this.departUsersId[i])
               depMSg[i] = this.departUsersId[i]
             }
           }
+          //排除掉取消的用户
           for (let k of Object.keys(this.userGroupByDepts)) {
-            ids.push(this.userGroupByDepts[k])
+            for (let i in  this.userGroupByDepts[k]) {
+              if (allIds.indexOf(this.userGroupByDepts[k][i]) == -1) {
+
+                this.userGroupByDepts[k].splice(i, 1);
+                i--
+              }
+            }
           }
+
+          for (let k of Object.keys(this.userGroupByDepts)) {
+            if (this.userGroupByDepts[k].length > 0) {
+              //去重
+              let setArr = new Set(this.userGroupByDepts[k])
+              let iids = Array.from(setArr)
+              ids.push(iids)
+            }
+          }
+
           //校验
-          if (ids.length==0){
+          if (ids.length == 0) {
             this.$message.error('请选择用户')
             return
           }
+
           this.$emit('func', ids, this.currentClick, this.endTime, depMSg)
           this.cancel()
         } else if (this.endType) {
@@ -982,11 +1003,11 @@
               return
             } else {
               let ids = []
-              this.userGroupByDepts={}
+              // this.userGroupByDepts={}
               for (let i in res.result[item]) {
                 ids.push(res.result[item][i].id)
-                if (this.userGroupByDepts[res.result[item][i].departId]==undefined){
-                  this.userGroupByDepts[res.result[item][i].departId]=[]
+                if (this.userGroupByDepts[res.result[item][i].departId] == undefined) {
+                  this.userGroupByDepts[res.result[item][i].departId] = []
                   this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
                 } else {
                   this.userGroupByDepts[res.result[item][i].departId].push(res.result[item][i].id)
@@ -1022,8 +1043,7 @@
       onChange(date, dateString) {
         this.endTime = dateString
 
-        if (new Date()>date)
-        {
+        if (new Date() > date) {
           this.$message.error('结束时间不得小于当前时间')
           return
         }
@@ -1079,7 +1099,7 @@
         this.confirmLoading = false
         this.actChoice = []
         this.selectedRowKeys2 = []
-        this.selectedRows2= []
+        this.selectedRows2 = []
         this.endTime = ''
       },
       /**
