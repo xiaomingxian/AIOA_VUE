@@ -16,7 +16,7 @@
           <!--label="主键id">-->
           <!--<a-input-number v-decorator="[ 'iId', validatorRules.iid ]" />-->
         <!--</a-form-item>-->
-        <a-form-item>
+        <a-form-item style="color: #1890ff;font-weight: 800;margin: 10px 0px;font-size: 16px;">
           <span>流程定义KEY：</span>
           <span>{{procDefKey}}</span>
           <!--<a-input style="width:300px;" placeholder="请输入流程定义KEY" v-decorator="['procDefKey', {}]" />-->
@@ -78,7 +78,7 @@
         <!--<a-divider />-->
         <div>
 
-          <a-form>
+          <a-form  class="configBox">
             <a-row :gutter="48" style="margin-left: 25px">
               <template v-if="toggleSearchStatus">
                 <!--<a-divider type="vertical" style="margin-left: 110px;"/>-->
@@ -89,14 +89,14 @@
 
                 <div style="width: 95%;margin: 0 auto; display: flex;align-items: center;justify-content: flex-start">
                   <a-form-item style="display: flex;align-items: center;justify-content: flex-start;width: 200px;">
-                    <span style="margin-left: 10px;">控 制：</span>
+                    <span style="margin-left: 10px;" class="configOption">控 制：</span>
                     <a-radio-group @change="onipermitType" v-model="ipermitType">
                       <a-radio :value="1">是</a-radio>
                       <a-radio :value="0">否</a-radio>
                     </a-radio-group>
                   </a-form-item>
                   <a-form-item style="display: flex;align-items: center;justify-content: flex-start;margin-left: 60px;width: 270px;">
-                    <span>拟稿人：</span>
+                    <span class="configOption">拟稿人：</span>
                     <a-radio-group  style="margin-left: 10px;" @change="oniisCreater" v-model="iisCreater">
                       <a-radio :value="1">是</a-radio>
                       <a-radio :value="0">否</a-radio>
@@ -108,14 +108,14 @@
 
                 <div style="width: 95%;margin: 0 auto; display: flex;align-items: center;justify-content: flex-start">
                   <a-form-item  style="display: flex;align-items: center;justify-content: flex-start;width: 200px;">
-                    <span style="margin-left: 10px;">读 者：</span>
+                    <span style="margin-left: 10px;" class="configOption">读 者：</span>
                     <a-radio-group @change="oniisReader" v-model="iisReader">
                       <a-radio :value="1">是</a-radio>
                       <a-radio :value="0">否</a-radio>
                     </a-radio-group>
                   </a-form-item>
                   <a-form-item style=" display: flex;align-items: center;justify-content: flex-start;width: 200px;margin-left: 60px;">
-                    <span >已办用户：</span>
+                    <span class="configOption">已办用户：</span>
                     <a-radio-group @change="oniisLastsender" v-model="iisLastsender">
                       <a-radio :value="1">是</a-radio>
                       <a-radio :value="0">否</a-radio>
@@ -126,14 +126,14 @@
 
                 <div style="width: 95%;margin: 0 auto; display: flex;align-items: center;justify-content: flex-start">
                   <a-form-item style=" display: flex;align-items: center;justify-content: flex-start;width: 200px;">
-                    <span style="margin-left: 10px;">处理人：</span>
+                    <span style="margin-left: 10px;" class="configOption">处理人：</span>
                     <a-radio-group @change="oniisTransactors" v-model="iisTransactors">
                       <a-radio :value="1">是</a-radio>
                       <a-radio :value="0">否</a-radio>
                     </a-radio-group>
                 </a-form-item>
                 <a-form-item style=" display: flex;align-items: center;justify-content: flex-start;width: 200px;margin-left: 60px;">
-                  <span>顺序号：</span>
+                  <span class="configOption">顺序号：</span>
                   <a-input-number style="margin-left: 10px" @change="oniorder" v-model="iorder" />
                 </a-form-item>
               </div>
@@ -142,7 +142,7 @@
 
 
                 <a-form-item  style="margin: 0px;">
-                  <span style="margin-left: 30px">显示的角色：</span>
+                  <span style="margin-left: 30px" class="configOption">显示的角色：</span>
                   <a-select
                   mode="tags"
                   style="width: 40%"
@@ -574,5 +574,8 @@
 </script>
 
 <style lang="less" scoped>
-
+.configBox .configOption{
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 16px;
+}
 </style>

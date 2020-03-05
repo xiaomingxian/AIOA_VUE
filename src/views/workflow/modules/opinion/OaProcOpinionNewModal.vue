@@ -17,7 +17,7 @@
           <!--label="主键id">-->
           <!--<a-input-number v-decorator="[ 'iId', validatorRules.iid ]" />-->
         <!--</a-form-item>-->
-        <a-form-item style="color: #1890ff;font-weight: 800;margin: 10px 0px">
+        <a-form-item style="color: #1890ff;font-weight: 800;margin: 10px 0px;font-size: 16px;">
           <span>流程定义KEY：</span>
           <!--<a-input placeholder="请输入流程定义KEY" v-decorator="['procDefKey', {}]" />-->
           <span >{{procDefKey}}</span>
@@ -131,12 +131,12 @@
                   <!--</a-form-item>-->
                 <a-form-item
                   style="margin:20px;">
-                  <span>页面意见框位置：</span>
+                  <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
                   <a-input-number @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
-                  <span>页面意见框名称：</span>
+                  <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框名称：</span>
                   <a-input style="width: 180px" @change="onitaskOpinionName" v-model="itaskOpinionName" />
                   <span v-show="showName" style="margin-left: 10px;color: red">序号为{{itaskOpinionOrder}}的意见框名字必须为"{{opinionName}}"。</span>
                 </a-form-item>
@@ -420,7 +420,7 @@
         this.edit({});
       },
       editBeforelvjian(record,TaskLinkId,res){
-
+        this.showName=false;
         this.type=res.type;
         if (this.type===null||this.type===''){
 //          console.log("`1`1`1`1``1`1111111111")
@@ -516,7 +516,7 @@
                   that.$message.success(res.message);
                   that.$emit('ok');
                 } else {
-                  // that.$message.warning(res.message);
+                   that.$message.warning(res.message);
                 }
               }).finally(() => {
                 that.confirmLoading = false;
