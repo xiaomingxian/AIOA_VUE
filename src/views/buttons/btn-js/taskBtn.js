@@ -12,7 +12,7 @@ import {ntkoBrowser} from './ntkobackground.min.js'
 
 export const taskBth = {
   //接收父组件传值
-  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt','btnStatusA'],
+  props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt', 'btnStatusA'],
   inject: ['reload'],
   data() {
     return {
@@ -99,10 +99,10 @@ export const taskBth = {
       _this.iconType = 'up'
       _this.queryBtnFun();
       //查询对应到按钮。每一次活动页就要查询一次
-   /* })
-    var _this = this;
-    document.addEventListener('visibilitychange', function () {
-    */  // alert(document.hidden)
+      /* })
+       var _this = this;
+       document.addEventListener('visibilitychange', function () {
+       */  // alert(document.hidden)
       // document.title = document.hidden?'拜拜11111':' 回来啦2222'
       if (document.hidden) {
         _this.showBtn(_this.butArrLists);
@@ -160,16 +160,18 @@ export const taskBth = {
       }*/
       this[item.smethod]()
     },
-    queryBtnFun(){
+    queryBtnFun() {
       let url = '/bus/button/getButtons';
-      let paramsBtn = {proSetId:this.backData.iprocSetId,
-        table:this.taskMsg.table,
-        id:this.taskMsg.tableId,
-        taskDef:this.backData.key,
-        proInstanId:this.taskMsg.processInstanceId,
-        taskId:this.taskMsg.id,
-        status:this.btnStatusA}
-      getAction(url,paramsBtn).then(res =>{
+      let paramsBtn = {
+        proSetId: this.backData.iprocSetId,
+        table: this.taskMsg.table,
+        id: this.taskMsg.tableId,
+        taskDef: this.backData.key,
+        proInstanId: this.taskMsg.processInstanceId,
+        taskId: this.taskMsg.id,
+        status: this.btnStatusA
+      }
+      getAction(url, paramsBtn).then(res => {
         this.btn = res.result.btn.isNotDefend
         this.defindBtns = res.result.btn.isDefend
         //console.log(res)
@@ -923,12 +925,12 @@ export const taskBth = {
       })
     },
     //通过ids查询用户，查看是否设置了代办消息发送
-    sendMesToUser(ids){
-      console.log('AAAA',ids)
-      let url = "/testt/sysUserSet/queryUserSet" ;
-      postAction(url,{ids:ids}).then(res =>{
-        let userList = res.result ;
-        if(userList != undefined && userList.length > 0 ){
+    sendMesToUser(ids) {
+      console.log('AAAA', ids)
+      let url = "/testt/sysUserSet/queryUserSet";
+      postAction(url, {ids: ids}).then(res => {
+        let userList = res.result;
+        if (userList != undefined && userList.length > 0) {
           let url = ' http://127.0.0.1:8012/sendnotify.cgi?msg=&receiver=wwjs'
           postAction()
         }
@@ -1245,11 +1247,22 @@ export const taskBth = {
     forceEndPro() {
       var res = window.confirm("是否强制办结");
       if (res) {
-        this.doGet(this.url.endProUrl, {processId: this.taskMsg.processInstanceId})
+        // this.doGet(this.url.endProUrl, {processId: this.taskMsg.processInstanceId})
+        getAction(this.url.endProUrl, {processId: this.taskMsg.processInstanceId}).then(res => {
+          if (res.success) {
+            this.$message.success(res.message)
+
+            setTimeout(function () {
+              this.close()
+            }, 500)
+          } else {
+            this.$message.error(res.message)
+          }
+        })
         //关闭页面刷新父组件
         // this.$emit('close');
         // this.visible = false;
-        this.reload()
+        // this.reload()
       }
     },
     //展示回退节点
@@ -1401,12 +1414,12 @@ export const taskBth = {
           //展示数据
           if (res.success) {
             if (res.result.length == 1) {
-              if (res.result[0].actMsg.type=='endEvent') {
+              // if (res.result[0].actMsg.type == 'endEvent') {
                 this.confirmNextUsers([], res.result[0], null, null)
-              }else {
-                this.$message.error('当前节点不可办结')
-                return
-              }
+              // } else {
+              //   this.$message.error('当前节点不可办结')
+              //   return
+              // }
             } else {
               this.$message.error('当前节点不可办结')
               return
