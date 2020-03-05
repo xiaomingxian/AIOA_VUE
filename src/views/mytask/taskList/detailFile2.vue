@@ -905,7 +905,7 @@
               let qiCaoIndex = -1;         //起草底稿按钮的标志
               let editDiGaoIndex = -1;     //编辑底稿按钮的标志
               //开启websocket
-              ///this.initWebSocket(res.result.oaBusdata.i_id);
+              this.initWebSocket(res.result.oaBusdata.i_id);
               for (let i = 0; i < res.result.btnAndOpt.btn.isNotDefend.length; i++) {
                 if (res.result.btnAndOpt.btn.isNotDefend[i].smethod == 'qiCao') {
                   qiCaoIndex = i;
