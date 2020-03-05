@@ -1,15 +1,17 @@
 <template>
   <!--  position: fixed;-->
-  <form style="background-color: #fff;padding-top: 20px;">
+  <form ref="detailFileRef" @mouseover="mouseOver" @mouseleave="mouseLeave" style="background-color: #fff;padding-top: 20px;">
     <!--<div v-show="true" @change="changRouter" v-model="routeParam">{{this.$route.params.tableName}}</div>-->
     <center>
+
       <div :style="{height: scrHeight}" style="overflow: auto;scrollbar-width: none;">
+     <!-- <div>-->
         <table width="87%" border="0">
 
-          <tr v-show="previewFlag">
+          <!--<tr v-show="previewFlag">
             <td style="padding: 2% 0%;" align="right" colspan="3">
               密级：
-              <!--<a-select style="width: 120px" v-model="bacwangzhaData.i_safetylevel" placeholder="请选择密级" @change="change">-->
+              &lt;!&ndash;<a-select style="width: 120px" v-model="bacwangzhaData.i_safetylevel" placeholder="请选择密级" @change="change">&ndash;&gt;
               <a-select style="width: 120px;margin-right: 27px;" v-model="secretModle" placeholder="请选择密级"
                         @change="change">
                 <a-select-option v-for="(item,index) in secretDegree" :key="index" :text="item.text"
@@ -19,7 +21,7 @@
 
 
               缓急：
-              <!--<a-select style="width: 120px" v-model="backData.i_safetylevel" placeholder="请选择密级" @change="change">-->
+              &lt;!&ndash;<a-select style="width: 120px" v-model="backData.i_safetylevel" placeholder="请选择密级" @change="change">&ndash;&gt;
               <a-select style="width: 120px" v-model="i_urgency" placeholder="请选择缓急" @change="changeUrgency">
                 <a-select-option v-for="(item,index) in urgencyList" :key="index" :text="item.text"
                                  :value="parseInt(item.value)">{{item.text}}
@@ -27,10 +29,10 @@
               </a-select>
 
             </td>
-          </tr>
+          </tr>-->
           <tr v-show="previewFlag">
             <td style="padding: 1% 0% 0%" align="center" colspan="2" height="50" valign="bottom">
-              <h1 style="color: red; font-weight: 800; font-size: 34px;margin-top: -60px;">
+              <h1 style="color: red; font-weight: 800; font-size: 28px;margin-top: 10px;">
                 <span>{{backData.s_left_parameter}}</span>
                 <span>{{backData.s_unit_name}}</span>
                 <span>{{backData.s_dept_name}}</span>
@@ -168,21 +170,22 @@
         </table>
       </div>
       <!--隐藏 按钮-->
-      <br/>
-      <task-btn v-show="previewFlag" ref="taskRef" @submit="submit" @publishInform="publishInform"
-                @unpublishBtn="unpublishBtn"
-                @saveDocNum="saveDocNum"
-                @checkData="checkData"
-                @nextCheckDataFun="nextCheckDataFun"
-                @saveGongwenData="saveGongwenData" @saveDelTime="saveDelTime"
-                @savaObj="savaObj" :backData="backData" :busFunction="busFunction" :backDataOpt="backDataOpt"
-                :taskMsg="task"
-                :btnStatusA="btnStatus"
-                :deptMsg="deptMsg"
-                :opts="opts" @downFiles="downFiles"
-                @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj" @cancelImportantObj="cancelImportantObj"
-                @watchSub="watchSub" :oaFileList="oaFileList" @close="handleCancel" @callaboration="callaboration"
-                @getbackDataNew="getbackDataNew" @reloadOpinion="reloadOpinion"
+      <!--<br/>-->
+      <task-btn  v-show="previewFlag" ref="taskRef" @submit="submit" @publishInform="publishInform"
+                 @unpublishBtn="unpublishBtn"
+                 @saveDocNum="saveDocNum"
+                 @checkData="checkData"
+                 @nextCheckDataFun="nextCheckDataFun"
+                 @saveGongwenData="saveGongwenData" @saveDelTime="saveDelTime"
+                 @savaObj="savaObj" :backData="backData" :busFunction="busFunction" :backDataOpt="backDataOpt"
+                 :taskMsg="task"
+                 :btnStatusA="btnStatus"
+                 :deptMsg="deptMsg"
+                 :opts="opts" @downFiles="downFiles"
+                 @dealHeight="dealHeight2"
+                 @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj" @cancelImportantObj="cancelImportantObj"
+                 @watchSub="watchSub" :oaFileList="oaFileList" @close="handleCancel" @callaboration="callaboration"
+                 @getbackDataNew="getbackDataNew" @reloadOpinion="reloadOpinion"
       ></task-btn>
     </center>
   </form>
@@ -251,6 +254,7 @@
         visible: false,
         btnStatus: '',
         title: '业务详情',
+        mouseFlag: false,
         confirmLoading: false,
         userData: '',
         disableFlag: false,
@@ -277,7 +281,7 @@
         //代办信息
         task: {},
         //用户部门信息
-        deptMsg:null,
+        deptMsg: null,
         //已办信息
         taskDone: '',
         opts: [],//意见框信息
@@ -358,7 +362,8 @@
     },
     created() {
       this.formHeight = window.innerHeight;
-      this.scrHeight = window.innerHeight - 60 + 'px';
+      this.scrHeight = window.innerHeight - 160 + 'px';
+
       //监听页签切换  修改标题
       var _this = this;
       document.addEventListener('visibilitychange', function () {
@@ -408,7 +413,17 @@
       //   }
       //
       // },
-
+      mouseOver(){
+        console.log(this.mouseFlag)
+        if(!this.mouseFlag){
+          this.mouseFlag = true ;
+          this.$refs.taskRef.queryBtnFun()
+        }
+      },
+      mouseLeave(){
+        console.log(this.mouseFlag)
+        this.mouseFlag = false ;
+      },
       //下一任务时校验对应点数据，并修改方法
       nextCheckDataFun() {
         this.$refs[this.pageRef].nullText();
@@ -504,8 +519,8 @@
                           this.newDataId = JSON.stringify(res.result.busdataId)
                           console.log(JSON.stringify(res.result));
                           // console.log(window.location);
-                           window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
-                        // this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
+                          window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false')
+                          // this.$router.push({path: '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&navisshow=false'})
                           resolve(this.newDataId)
                         }))
 
@@ -668,7 +683,7 @@
       },
       //获取发布范围数据
       change1(data) {
-        for (var i in  data) {
+        for (var i in data) {
           this.publishData = data
         }
       },
@@ -826,6 +841,12 @@
         this.task = task
         this.show(taskDetail)
       },
+      dealHeight2(param){
+        let str = this.scrHeight ;
+        str = str.substring(0,str.length-2)
+        this.scrHeight = parseInt(str) + param + 'px' ;
+        //alert(this.scrHeight)
+      },
       dealHeight(btn) {
         let btnHegiht = 50;
         console.log(btn)
@@ -897,37 +918,37 @@
             this.optSet(res.result.btnAndOpt.opt, this.backData.key);
             //处理显示高度
             if (res.result.btnAndOpt.btn != undefined) {
-              this.dealHeight(res.result.btnAndOpt.btn);
+              //this.dealHeight(res.result.btnAndOpt.btn);
             }
             //如果非默认按钮不是未定义且不为空的话，就将开启websocket
-            if (res.result.btnAndOpt.btn.isNotDefend != undefined && res.result.btnAndOpt.btn.isNotDefend.length > 0) {
-              console.log(res.result.btnAndOpt.btn)
-              let qiCaoIndex = -1;         //起草底稿按钮的标志
-              let editDiGaoIndex = -1;     //编辑底稿按钮的标志
-              //开启websocket
-              this.initWebSocket(res.result.oaBusdata.i_id);
-              for (let i = 0; i < res.result.btnAndOpt.btn.isNotDefend.length; i++) {
-                if (res.result.btnAndOpt.btn.isNotDefend[i].smethod == 'qiCao') {
-                  qiCaoIndex = i;
-                }
-                if (res.result.btnAndOpt.btn.isNotDefend[i].smethod == 'editDiGao') {
-                  editDiGaoIndex = i;
-                }
-              }
-              if (qiCaoIndex >= 0) {
-                //当前业务已经起草底稿
-                if (res.result.oaBusdata.i_is_draft != undefined && res.result.oaBusdata.i_is_draft == 1) {
-                  //将起草底稿按钮去除
-                  res.result.btnAndOpt.btn.isNotDefend.splice(qiCaoIndex, 1);
-                } else {    //当前业务没有起草底稿
-                  if (editDiGaoIndex >= 0) {
-                    this.dealBtn = res.result.btnAndOpt.btn.isNotDefend[editDiGaoIndex];
-                    res.result.btnAndOpt.btn.isNotDefend.splice(editDiGaoIndex, 1);
-                  }
-                }
-              }
-              console.log(res.result.btnAndOpt.btn)
-            }
+            /* if (res.result.btnAndOpt.btn.isNotDefend != undefined && res.result.btnAndOpt.btn.isNotDefend.length > 0) {
+               console.log(res.result.btnAndOpt.btn)
+               let qiCaoIndex = -1;         //起草底稿按钮的标志
+               let editDiGaoIndex = -1;     //编辑底稿按钮的标志
+               //开启websocket
+               //this.initWebSocket(res.result.oaBusdata.i_id);
+               /!*for (let i = 0; i < res.result.btnAndOpt.btn.isNotDefend.length; i++) {
+                 if (res.result.btnAndOpt.btn.isNotDefend[i].smethod == 'qiCao') {
+                   qiCaoIndex = i;
+                 }
+                 if (res.result.btnAndOpt.btn.isNotDefend[i].smethod == 'editDiGao') {
+                   editDiGaoIndex = i;
+                 }
+               }
+               if (qiCaoIndex >= 0) {
+                 //当前业务已经起草底稿
+                 if (res.result.oaBusdata.i_is_draft != undefined && res.result.oaBusdata.i_is_draft == 1) {
+                   //将起草底稿按钮去除
+                   res.result.btnAndOpt.btn.isNotDefend.splice(qiCaoIndex, 1);
+                 } else {    //当前业务没有起草底稿
+                   if (editDiGaoIndex >= 0) {
+                     this.dealBtn = res.result.btnAndOpt.btn.isNotDefend[editDiGaoIndex];
+                     res.result.btnAndOpt.btn.isNotDefend.splice(editDiGaoIndex, 1);
+                   }
+                 }
+               }
+               console.log(res.result.btnAndOpt.btn)*!/
+             }*/
             //为按钮赋值
             this.$refs.taskRef.showBtn(res.result.btnAndOpt.btn);
 
@@ -1011,7 +1032,7 @@
             this.task.functionId = res.result.functionId
             this.task.name = res.result.taskDefName
             //将主板，辅办,传阅信息
-            this.deptMsg=res.result.deptOptTypes
+            this.deptMsg = res.result.deptOptTypes
           } else {
             this.$message.error(res.message)
           }
