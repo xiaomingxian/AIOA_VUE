@@ -7,7 +7,7 @@
           <!--会议室名称-->
           <center><h3>{{detailList.s_title}}</h3></center>
         </td>
-        <td colspan="3">
+        <td colspan="3"  width="35%">
           <!--<a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)"  v-decorator="['backData.s_title',{rules:[{pattern:'^[a-zA-Z0-9]*$',message:'00000000'}]}]"></a-textarea>-->
           <a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-textarea>
         </td>
@@ -17,7 +17,7 @@
           <!--办公地点-->
           <center><h3>{{detailList.s_varchar1}}</h3></center>
         </td>
-        <td colspan="3">
+        <td colspan="3"  width="35%">
           <a-textarea cols="92" rows="2" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1"></a-textarea>
         </td>
       </tr>

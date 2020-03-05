@@ -91,7 +91,7 @@ export const taskBth = {
   },
   created() {
     //监听页签切换   切换至当前页时刷新底部按钮接口
-
+/*
     var _this = this;
     document.addEventListener('visibilitychange', function () {
 
@@ -99,15 +99,15 @@ export const taskBth = {
       _this.iconType = 'up'
       _this.queryBtnFun();
       //查询对应到按钮。每一次活动页就要查询一次
-      /* })
+      /!* })
        var _this = this;
        document.addEventListener('visibilitychange', function () {
-       */  // alert(document.hidden)
+       *!/  // alert(document.hidden)
       // document.title = document.hidden?'拜拜11111':' 回来啦2222'
       if (document.hidden) {
         _this.showBtn(_this.butArrLists);
       }
-    })
+    })*/
   },
   methods: {
     //将起草底稿按钮改为编辑底稿

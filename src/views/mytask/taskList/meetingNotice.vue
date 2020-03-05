@@ -5,14 +5,14 @@
         <td width="15%" class="title">
           <center><h3>{{detailList.s_create_dept}}</h3></center>
         </td>
-        <td>
+        <td  width="35%">
           <div style="padding-left: 10px;">{{backData.s_create_dept}}</div>
         </td>
         <td width="15%" class="title">
           <!--登记人员-->
           <centezr><h3>{{detailList.s_create_name}}</h3></centezr>
         </td>
-        <td>
+        <td  width="35%">
           <div style="padding-left: 10px">{{backData.s_create_name}}</div>
         </td>
       </tr>
