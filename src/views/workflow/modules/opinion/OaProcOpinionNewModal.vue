@@ -346,7 +346,7 @@
       jiaoYanXuh(){//改变时赋值并校验
         let url="/oaopinionset/oaOpinionSet/queryByOrderAndKey";
         httpAction(url, {itaskOpinionOrder:this.itaskOpinionOrder,
-          procDefKey: this.model.procDefKey}, 'post').then((res) => {
+          procDefKey: this.model.procDefKey,iid:this.opinionSetModal.iid,}, 'post').then((res) => {
           if (res.success) {
             // console.log("ffffffffffffffffffffffffffff");
             // console.log(res);
