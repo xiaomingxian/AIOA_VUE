@@ -1,7 +1,7 @@
 <template>
 
 
-  <div style="min-height: 150px; padding-bottom: 0.7%;">
+  <div style="min-height: 0px; padding-bottom: 0.7%;">
     <!--<a-button  @click="showPic">图</a-button>-->
     <!--<a-button  @click="reCall">撤回</a-button>-->
     <!--<a-button  @click="showBack">回退</a-button>-->
@@ -10,13 +10,14 @@
     <!--<a-button  @click="addUserOrDepart">追加</a-button>-->
     <!--<a-button  @click="insideReading">内部传阅</a-button>-->
 
-    <div class="optionTip" @click="btnBoxShow">
+    <!--<div class="optionTip" @click="btnBoxShow">
       <a href="#">
         <a-icon  :type="iconType" />
         <span style="font-size:14px;font-weight: bold;margin-left: 5px;">操作按钮</span>
       </a>
-    </div>
-    <div  v-show="setIndexShow==1">
+    </div>-->
+    <!--<div  v-show="setIndexShow==1">-->
+    <div>
       <div class="btndefindbox">
         <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
                   icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
@@ -143,9 +144,12 @@
         if(this.setIndexShow==0){
           this.setIndexShow = 1;
           this.iconType = 'up'
+          this.$emit('dealHeight',-110)
         }else{
           this.setIndexShow = 0;
-          this.iconType = 'down'
+          this.iconType = 'down';
+          this.$emit('dealHeight',110)
+
         }
 
         console.log( this.setIndexShow)
