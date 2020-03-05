@@ -414,14 +414,14 @@
       //
       // },
       mouseOver(){
-        console.log(this.mouseFlag)
+        //console.log(this.mouseFlag)
         if(!this.mouseFlag){
           this.mouseFlag = true ;
           this.$refs.taskRef.queryBtnFun()
         }
       },
       mouseLeave(){
-        console.log(this.mouseFlag)
+        //console.log(this.mouseFlag)
         this.mouseFlag = false ;
       },
       //下一任务时校验对应点数据，并修改方法
