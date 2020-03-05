@@ -8,6 +8,8 @@ import {deleteAction, downFile, getAction, postAction} from '@/api/manage'
 import {ACCESS_TOKEN} from "@/store/mutation-types"
 import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 import {ntkoBrowser} from './ntkobackground.min.js'
+import {windows} from "codemirror/src/util/browser";
+import request from "ant-design-vue/es/vc-upload/src/request";
 
 
 export const taskBth = {
@@ -16,7 +18,8 @@ export const taskBth = {
   inject: ['reload'],
   data() {
     return {
-      orgSchema: '',
+      orgSchema:'',
+      password:'',
       //按钮展示
       btn: [],
       defindBtns: [], //按钮组二
@@ -1563,7 +1566,14 @@ export const taskBth = {
 //TODO(仅标识)***************************************************** 控件相关 *****************************************
 //起草底稿
     qiCao() {
-      this.openFile(1, this.fileName)
+      postAction("/ntko/filentko/creatPath").then(res => {
+        if (res.success){
+          this.openFile(1)
+        } else {
+          alert("请联系管理员控件缺少empty.doc！")
+        }
+      })
+
     }
     ,
 //正文排版
@@ -1571,53 +1581,53 @@ export const taskBth = {
       if (parseInt(this.backData.s_varchar8) == 0) {
         this.$message.error("请您先登记文号");
       } else {
-        this.openFile(2, this.fileName)
+        this.openFile(2)
       }
     }
     ,
 //查看底稿
     showDiGao() {
-      this.openFile(3, this.fileName)
+      this.openFile(3)
     }
     ,
 //编辑底稿
     editDiGao() {
-      this.openFile(4, this.fileName)
+      this.openFile(4)
     }
     ,
 //查看正文
     showZw() {
-      this.openFile(5, this.fileName)
+      this.openFile(5)
     }
     ,
 //校核正文
     checkZw() {
-      this.openFile(6, this.fileName)
+      this.openFile(6)
     }
     ,
 //盖章(查看正文)
     sealFile() {
-      this.openFile(5, this.fileName)
+      this.openFile(5)
     }
     ,
 //保存办文单
     saveBanWen() {
-      this.openFile(7, this.fileName)
+      this.openFile(7)
     }
     ,
 //打印办文单
     printBanWen() {
-      this.openFile(8, this.fileName)
+      this.openFile(8)
     }
     ,
     //盖章(查看正文)
     CheachSealFile() {
-      this.openFile(12, this.fileName)
+      this.openFile(12)
     }
     ,
 //打印公文
     printZFile() {
-      this.openFile(13, this.fileName)
+      this.openFile(13)
     }
     ,
 //打开附件
@@ -1636,7 +1646,7 @@ export const taskBth = {
       window.open(URL);
     }
     ,
-    openFile(cmd, fileName) {
+   /* openFile(cmd, fileName) {
       let ntkoed = ntkoBrowser.ExtensionInstalled();
       if (ntkoed) {
         getAction("/sys/user/getLoginInfo", {}).then(res => {
@@ -1654,6 +1664,34 @@ export const taskBth = {
       window.ntkoCloseEvent = function () {
         this.$message.error("跨浏览器插件应用程序窗口已关闭");
       }
+    }*/
+
+    openFile(cmd) {
+      getAction("/sys/user/getLoginInfo", {}).then(res => {
+        this.orgSchema = res.orgSchema;
+        if (this.orgSchema==null){
+          this.orgSchema="";
+        }
+        postAction("/ntko/filentko/getPasswordCode").then(res => {
+          if (res.success) {
+            this.password=res.result;
+            let ntkoed = ntkoBrowser.ExtensionInstalled();
+            if (ntkoed) {
+              ntkoBrowser.openWindow(  window._CONFIG['domianURL']+"/ntko/editindex.html?cmd=" + cmd +
+                "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) +"&userId="+
+                this.currentUserMessage.sysUserId+"&password="+this.password+"&orgSchema="+this.orgSchema);
+            } else {
+              window.open(window.location.origin + "/ntko/exeindex.html")
+            }
+            window.ntkoCloseEvent = function () {
+              this.$message.error("跨浏览器插件应用程序窗口已关闭");
+            }
+          } else {
+            this.$message.error(res.message)
+          }
+        });
+      });
     }
     ,
 //新公文传输
