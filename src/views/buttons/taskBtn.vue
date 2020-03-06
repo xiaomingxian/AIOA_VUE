@@ -9,6 +9,8 @@
     <!--<a-button  @click="nextTaskQuery">下一任务</a-button>-->
     <!--<a-button  @click="addUserOrDepart">追加</a-button>-->
     <!--<a-button  @click="insideReading">内部传阅</a-button>-->
+    <!--<a-button  @click="refreshIndexClose">关闭刷新父页面</a-button>-->
+    <!--<a-button  @click="deleteBusData">删除</a-button>-->
 
     <!--<div class="optionTip" @click="btnBoxShow">
       <a href="#">
