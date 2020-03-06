@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div @mouseleave="mouseLeave" @mouseover="mouseOver" class="wrap">
     <div class="topp">
       <template>
 
@@ -325,7 +325,7 @@
 
 <script>
 
-  import { httpAction,getAction,postAction,deleteAction} from '@/api/manage'
+  import {deleteAction, getAction, httpAction, postAction} from '@/api/manage'
   import debounce from 'lodash/debounce';
   import oaCalendarCatModal from '../oaBus//modules/oaCalendarCatModal'
   import oaCalendarModal from '../oaBus/modules/oaCalendarModal'
@@ -333,8 +333,7 @@
   import DetailModel from './DetailModel'
 
   import Swiper from 'swiper/js/swiper.min.js'
-  import  'swiper/css/swiper.min.css'
-  import moment from 'moment'
+  import 'swiper/css/swiper.min.css'
   import axios from "axios";
   import Vue from "vue";
   import {ACCESS_TOKEN} from "../../store/mutation-types";
@@ -346,6 +345,7 @@
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        mouseFlag: false,
         data: [],
         fetching: false,
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
@@ -624,6 +624,19 @@
       });
     },
     methods:{
+
+      mouseOver() {
+        //console.log(this.mouseFlag)
+        if (!this.mouseFlag) {
+          this.mouseFlag = true;
+          this.findwaitLists();
+        }
+      },
+      mouseLeave() {
+        //console.log(this.mouseFlag)
+        this.mouseFlag = false;
+      },
+
       //监听选择范围
       show(id,index) {
         let requestpicurl = window._CONFIG['domianURL'] + '/oaBus/Calendar/oaCalendar/MostUserLink?id=' + id + '&resourceType=image'

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div @mouseleave="mouseLeave" @mouseover="mouseOver" class="wrap">
     <div class="nav">
       <div class="postList" style="position: relative">
         <div class="title">
@@ -267,7 +267,7 @@
 
 <script>
   import HeadInfo from '@/components/tools/HeadInfo'
-  import {httpAction, getAction, postAction} from '@/api/manage'
+  import {getAction, httpAction, postAction} from '@/api/manage'
   import debounce from 'lodash/debounce';
   import Vue from 'vue'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
@@ -285,6 +285,7 @@
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        mouseFlag: false,
         // lastFetchId: 0,
         // fetchUser: debounce(this.fetchUser, 800),
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
@@ -503,6 +504,18 @@
       detailFile,
     },
     methods: {
+
+      mouseOver() {
+        //console.log(this.mouseFlag)
+        if (!this.mouseFlag) {
+          this.mouseFlag = true;
+          this.waiteDoWith();
+        }
+      },
+      mouseLeave() {
+        //console.log(this.mouseFlag)
+        this.mouseFlag = false;
+      },
       //监听选择范围
       show(id, index) {
         let requestpicurl = window._CONFIG['domianURL'] + '/oaBus/Calendar/oaCalendar/MostUserLink?id=' + id + '&resourceType=image'
