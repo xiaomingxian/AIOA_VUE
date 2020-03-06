@@ -18,8 +18,8 @@ export const taskBth = {
   inject: ['reload'],
   data() {
     return {
-      orgSchema:'',
-      password:'',
+      orgSchema: '',
+      password: '',
       //按钮展示
       btn: [],
       defindBtns: [], //按钮组二
@@ -94,23 +94,23 @@ export const taskBth = {
   },
   created() {
     //监听页签切换   切换至当前页时刷新底部按钮接口
-/*
-    var _this = this;
-    document.addEventListener('visibilitychange', function () {
+    /*
+        var _this = this;
+        document.addEventListener('visibilitychange', function () {
 
-      _this.setIndexShow = 1;
-      _this.iconType = 'up'
-      _this.queryBtnFun();
-      //查询对应到按钮。每一次活动页就要查询一次
-      /!* })
-       var _this = this;
-       document.addEventListener('visibilitychange', function () {
-       *!/  // alert(document.hidden)
-      // document.title = document.hidden?'拜拜11111':' 回来啦2222'
-      if (document.hidden) {
-        _this.showBtn(_this.butArrLists);
-      }
-    })*/
+          _this.setIndexShow = 1;
+          _this.iconType = 'up'
+          _this.queryBtnFun();
+          //查询对应到按钮。每一次活动页就要查询一次
+          /!* })
+           var _this = this;
+           document.addEventListener('visibilitychange', function () {
+           *!/  // alert(document.hidden)
+          // document.title = document.hidden?'拜拜11111':' 回来啦2222'
+          if (document.hidden) {
+            _this.showBtn(_this.butArrLists);
+          }
+        })*/
   },
   methods: {
     //将起草底稿按钮改为编辑底稿
@@ -260,8 +260,8 @@ export const taskBth = {
       postAction("/oaBus/dynamic/deleteBusdata", param).then(res => {
         if (res.success) {
           this.$message.success(res.message)
-          setTimeout(function () {
-            this.close()
+          setTimeout(res=> {
+            this.refreshIndexClose()
           }, 500)
         } else {
           this.$message.error(res.message)
@@ -273,6 +273,28 @@ export const taskBth = {
       // this.$router.go(-1);
       // this.$emit("close")
       window.close()
+    },
+    refreshIndexClose() {
+      // window.opener.location.reload();
+      window.close()
+
+      var _this = this;
+      // alert(_this.$route.path)
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          console.log(_this.$route.path.endsWith('NewOneParts'));
+          if (_this.$route.path.endsWith('NewOneParts')
+            || _this.$route.path.endsWith('analysis')
+            || _this.$route.path.endsWith('Test-detailFile')
+            || _this.$route.path.endsWith('daynnalysis')) {
+
+            _this.reload()
+
+          }
+        }
+      })
+
     },
     //展示按钮
     showBtn(btn) {
@@ -918,8 +940,9 @@ export const taskBth = {
           this.nextConfirm = true
           //this.sendMesToUser(data.assignee);
           //this.saveBusData()
-          setTimeout(function () {
-            this.close()
+          setTimeout(res => {
+            // this.close()
+            this.refreshIndexClose()
           }, 500)
           // this.reload()
         } else {
@@ -955,9 +978,8 @@ export const taskBth = {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
-          this.nextConfirm = true
-          setTimeout(function () {
-            this.close()
+          this.nextConfirm( res=> {
+            this.refreshIndexClose()
           }, 500)
         } else {
           this.$message.error(res.message)
@@ -1051,8 +1073,8 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          setTimeout(function () {
-            this.close()
+          setTimeout(res=> {
+            this.refreshIndexClose()
           }, 500)
           this.reload()
         } else {
@@ -1082,8 +1104,8 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          setTimeout(function () {
-            this.close()
+          setTimeout(res=> {
+            this.refreshIndexClose()
           }, 500)
         } else {
           this.$message.error(res.message)
@@ -1255,8 +1277,8 @@ export const taskBth = {
           if (res.success) {
             this.$message.success(res.message)
 
-            setTimeout(function () {
-              this.close()
+            setTimeout(res=> {
+              this.refreshIndexClose()
             }, 500)
           } else {
             this.$message.error(res.message)
@@ -1347,8 +1369,8 @@ export const taskBth = {
         postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id).then(res => {
           if (res.success) {
             this.$message.success(res.message)
-            setTimeout(function () {
-              this.close()
+            setTimeout(res=> {
+              this.refreshIndexClose()
             }, 500)
           } else {
             this.$message.error(res.message)
@@ -1418,7 +1440,7 @@ export const taskBth = {
           if (res.success) {
             if (res.result.length == 1) {
               // if (res.result[0].actMsg.type == 'endEvent') {
-                this.confirmNextUsers([], res.result[0], null, null)
+              this.confirmNextUsers([], res.result[0], null, null)
               // } else {
               //   this.$message.error('当前节点不可办结')
               //   return
@@ -1567,7 +1589,7 @@ export const taskBth = {
 //起草底稿
     qiCao() {
       postAction("/ntko/filentko/creatPath").then(res => {
-        if (res.success){
+        if (res.success) {
           this.openFile(1)
         } else {
           alert("请联系管理员控件缺少empty.doc！")
@@ -1646,41 +1668,41 @@ export const taskBth = {
       window.open(URL);
     }
     ,
-   /* openFile(cmd, fileName) {
-      let ntkoed = ntkoBrowser.ExtensionInstalled();
-      if (ntkoed) {
-        getAction("/sys/user/getLoginInfo", {}).then(res => {
-          // alert(res.orgSchema)
-          this.orgSchema = res.orgSchema;
-        })
-        // console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
-        ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
-          "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-          this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
-          + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName + "&orgSchema=" + this.orgSchema);
-      } else {
-        window.open(window.location.origin + "/ntko/exeindex.html")
-      }
-      window.ntkoCloseEvent = function () {
-        this.$message.error("跨浏览器插件应用程序窗口已关闭");
-      }
-    }*/
+    /* openFile(cmd, fileName) {
+       let ntkoed = ntkoBrowser.ExtensionInstalled();
+       if (ntkoed) {
+         getAction("/sys/user/getLoginInfo", {}).then(res => {
+           // alert(res.orgSchema)
+           this.orgSchema = res.orgSchema;
+         })
+         // console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
+         ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
+           "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+           this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
+           + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName + "&orgSchema=" + this.orgSchema);
+       } else {
+         window.open(window.location.origin + "/ntko/exeindex.html")
+       }
+       window.ntkoCloseEvent = function () {
+         this.$message.error("跨浏览器插件应用程序窗口已关闭");
+       }
+     }*/
 
     openFile(cmd) {
       getAction("/sys/user/getLoginInfo", {}).then(res => {
         this.orgSchema = res.orgSchema;
-        if (this.orgSchema==null){
-          this.orgSchema="";
+        if (this.orgSchema == null) {
+          this.orgSchema = "";
         }
         postAction("/ntko/filentko/getPasswordCode").then(res => {
           if (res.success) {
-            this.password=res.result;
+            this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              ntkoBrowser.openWindow(  window._CONFIG['domianURL']+"/ntko/editindex.html?cmd=" + cmd +
+              ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + cmd +
                 "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-                this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) +"&userId="+
-                this.currentUserMessage.sysUserId+"&password="+this.password+"&orgSchema="+this.orgSchema);
+                this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema);
             } else {
               window.open(window.location.origin + "/ntko/exeindex.html")
             }

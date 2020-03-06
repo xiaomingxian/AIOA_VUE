@@ -232,7 +232,8 @@
       return {
         singleDept: null,
         defaultSelectedKeys: [],
-        scrHeight: window.innerHeight - 300 + 'px',
+        // scrHeight: window.innerHeight - 300 + 'px',
+        scrHeight: 350 + 'px',
         // scrHeight: '',
         title: '下一任务',
         okText: '确定',
