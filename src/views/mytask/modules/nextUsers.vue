@@ -869,11 +869,12 @@
           }
           //排除掉取消的用户
           for (let k of Object.keys(this.userGroupByDepts)) {
-            for (let i in  this.userGroupByDepts[k]) {
+            for (let i=0;i<this.userGroupByDepts[k].length;i++) {
+
               if (allIds.indexOf(this.userGroupByDepts[k][i]) == -1) {
 
                 this.userGroupByDepts[k].splice(i, 1);
-                i--
+                i=i-1
               }
             }
           }
