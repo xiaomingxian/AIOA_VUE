@@ -1001,6 +1001,7 @@
               //this.$refs.editTable.style.height="500px" ;
               this.jeditShow = true;
               this.newHeight = 500;
+              this.scrHeight = window.innerHeight - 40 + 'px';
               this.previewFlag = false;
               this.disableFlag = true;
             } else {
