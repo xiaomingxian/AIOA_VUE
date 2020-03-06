@@ -529,9 +529,8 @@
       },
       openUrl(e) {
         console.log(e);
-        console.log(this.$refs[e][0].lastChild);
+        console.log(this.$refs[e][0]);
         let lastChildNode = this.$refs[e][0].lastChild;
-
         console.log(lastChildNode.childNodes[0].nodeType);
         //判断文本节点3     还是元素节点1
         let nodeType = lastChildNode.childNodes[0].nodeType;
@@ -541,9 +540,15 @@
           window.open('http://' + nodeValueUrl)
         } else {
           console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-
           let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-          window.open(nodeValueUrl1)
+          console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
+          let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
+          if(nodeValueUrl1!=null){
+            window.open(nodeValueUrl1)
+          }else{
+            window.open(nodeValueUrl2)
+          }
+          console.log(nodeValueUrl1)
         }
 
       },

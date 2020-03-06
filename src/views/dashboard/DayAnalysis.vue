@@ -708,9 +708,14 @@
           window.open('http://'+nodeValueUrl)
         }else{
           console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-
           let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-          window.open(nodeValueUrl1)
+          console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
+          let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
+          if(nodeValueUrl1!=null){
+            window.open(nodeValueUrl1)
+          }else{
+            window.open(nodeValueUrl2)
+          }
         }
 
       },
