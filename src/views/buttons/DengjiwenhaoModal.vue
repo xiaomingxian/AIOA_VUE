@@ -8,7 +8,8 @@
     @cancel="handleDenji"
 
     cancelText="关闭">
-
+    <div v-show="this.isShowTip !== ''"><span style="color: red;font-size: 16px">此公文已登记过文号，再次登记将产生空号。</span></div>
+    <br>
     <div class="box">
       <div class="line1">
         <p>
@@ -80,7 +81,7 @@
         @ok="openok"
         @cancel="cancelModal"
       >
-        <p>确定要设置线下占用吗？</p>
+        <p style="font-size: 18px;">确定要设置线下占用吗？一旦占用将无法解除！</p>
       </a-modal>
 
     </div>
@@ -140,6 +141,7 @@
         docnum: '',
         docwordNum: '',
         isshowTable: false,
+        isShowTip: "",
         yearData: [
           {id: new Date().getFullYear(), name: new Date().getFullYear()},
           {id: new Date().getFullYear() - 1, name: new Date().getFullYear() - 1}
@@ -186,7 +188,7 @@
     methods: {
       //展开空号列表
       showTable() {
-        console.log(Boolean(this.selectedModel));
+        // console.log(Boolean(this.selectedModel));
         if (Boolean(this.selectedModel)) {
           // console.log(this.isshowTable);
           getAction(this.url.numlist, {iDocnumId: this.numId, sYear: this.defaultYear}).then((res) => {
@@ -228,14 +230,14 @@
         const pager = {...this.pagination};
         pager.current = pagination.current;
         this.pagination = pager;
-        console.log(pager);
+        // console.log(pager);
 
         getAction(this.url.numlist, {
           iDocnumId: this.numId,
           sYear: this.defaultYear,
           pageNo: this.pagination.current
         }).then((res) => {
-          console.log(res.result);
+          // console.log(res.result);
           //分页
           this.pagination.total = res.result.total;
           let resNumLists = res.result.records;
@@ -257,6 +259,7 @@
       dengji(record) {
         this.busdataId = record.i_id;
         this.functionId = record.i_bus_function_id;
+        this.isShowTip = record.s_varchar8;
         this.table = record.table;
         this.visible = true;
         this.getDocNumList();
@@ -276,6 +279,7 @@
           this.isshowTable = false;
           this.docwordNum = '',
           this.visible = false;
+          this.isShowTip = '';
           this.defaultYear = new Date().getFullYear();
       },
       handleOk() {
@@ -479,7 +483,7 @@
       changeYear(e) {
         // console.log(e);
         this.defaultYear = e;
-        if (this.selectedModel === ''){
+        if (this.selectedModel === '') {
           this.$message.error("请先选择文件字号！")
           return
         }

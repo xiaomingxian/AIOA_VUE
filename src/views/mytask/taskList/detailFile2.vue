@@ -970,7 +970,6 @@
             this.backData['iprocSetId'] = res.result.proSetId;
             this.backData['key'] = res.result.taskDefKey
             this.backData.act_show = res.result.actShow
-            this.backData.act_key = res.result.btnAndOpt.key; //流程任务key;
 
             this.btnStatus = res.result.status
             this.backDataOpt.s_task_id = res.result.taskId
