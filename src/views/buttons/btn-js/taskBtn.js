@@ -260,7 +260,7 @@ export const taskBth = {
       postAction("/oaBus/dynamic/deleteBusdata", param).then(res => {
         if (res.success) {
           this.$message.success(res.message)
-          setTimeout(res=> {
+          setTimeout(res => {
             this.refreshIndexClose()
           }, 500)
         } else {
@@ -394,6 +394,22 @@ export const taskBth = {
           return;
         }
       }
+        //登记文号校验
+        let url = "/workflow/oaProcActinst/list";
+        //环节校验
+        getAction(url,{procDefKey: this.backData.act_key}).then(res => {
+          if (res.success) {
+            for (let i in res.result.records){
+              if (res.result.records[i]["actName"].indexOf("登记文号")!== -1 && res.result.records[i]["actId"] === this.taskMsg.taskDefinitionKey){
+                if (this.backData.s_varchar8 === "" || this.backData.s_varchar8 === undefined) {
+                  this.$message.error("请登记文号！");
+                  return;
+                }
+              }
+            }
+          }
+        })
+
       // //校验意见
       /*if (this.flag) {    //如果要填写意见的话，就进行校验
         if (!this.isSaveFlag) {  //如果没有填写
@@ -977,7 +993,7 @@ export const taskBth = {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
-          this.nextConfirm( res=> {
+          this.nextConfirm(res => {
             this.refreshIndexClose()
           }, 500)
         } else {
@@ -1064,7 +1080,6 @@ export const taskBth = {
         data['executionId'] = user.executionId
       }
 
-
       let taskInfoVoList = {list: [data]}
       //参数构造完毕***********************
       postAction(this.url.doAddUsers, taskInfoVoList).then(res => {
@@ -1072,7 +1087,7 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          setTimeout(res=> {
+          setTimeout(res => {
             this.refreshIndexClose()
           }, 500)
           this.reload()
@@ -1103,7 +1118,7 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          setTimeout(res=> {
+          setTimeout(res => {
             this.refreshIndexClose()
           }, 500)
         } else {
@@ -1276,7 +1291,7 @@ export const taskBth = {
           if (res.success) {
             this.$message.success(res.message)
 
-            setTimeout(res=> {
+            setTimeout(res => {
               this.refreshIndexClose()
             }, 500)
           } else {
@@ -1362,20 +1377,20 @@ export const taskBth = {
 //部门完成
     deptFinish() {
       //拿到当前taskId
-      var res = window.confirm("是否部门完成");
-      if (res) {
-        // let param={taskId: this.taskMsg.id}
-        postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id).then(res => {
-          if (res.success) {
-            this.$message.success(res.message)
-            setTimeout(res=> {
-              this.refreshIndexClose()
-            }, 500)
-          } else {
-            this.$message.error(res.message)
-          }
-        })
-      }
+      // var res = window.confirm("是否部门完成");
+      // if (res) {
+      // let param={taskId: this.taskMsg.id}
+      postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id+'&processInstanceId='+this.taskMsg.processInstanceId).then(res => {
+        if (res.success) {
+          this.$message.success(res.message)
+          setTimeout(res => {
+            this.refreshIndexClose()
+          }, 500)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+      // }
     }
     ,
     showPic() {
