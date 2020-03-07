@@ -894,6 +894,7 @@
             return
           }
 
+
           this.$emit('func', ids, this.currentClick, this.endTime, depMSg)
           this.cancel()
         } else if (this.endType) {
