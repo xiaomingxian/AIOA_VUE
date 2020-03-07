@@ -8,7 +8,7 @@
     @cancel="handleDenji"
 
     cancelText="关闭">
-    <div v-show="this.isShowTip !== ''"><span style="color: red;font-size: 16px">此公文已登记过文号，再次登记将产生空号。</span></div>
+    <div v-show="this.isShowTip === true"><span style="color: red;font-size: 16px">此公文已登记过文号，再次登记将产生空号。</span></div>
     <br>
     <div class="box">
       <div class="line1">
@@ -141,7 +141,7 @@
         docnum: '',
         docwordNum: '',
         isshowTable: false,
-        isShowTip: "",
+        isShowTip: false,
         yearData: [
           {id: new Date().getFullYear(), name: new Date().getFullYear()},
           {id: new Date().getFullYear() - 1, name: new Date().getFullYear() - 1}
@@ -259,7 +259,9 @@
       dengji(record) {
         this.busdataId = record.i_id;
         this.functionId = record.i_bus_function_id;
-        this.isShowTip = record.s_varchar8;
+        if (record.s_varchar8!="" && record.s_varchar8 != undefined){
+          this.isShowTip = true;
+        }
         this.table = record.table;
         this.visible = true;
         this.getDocNumList();
@@ -279,7 +281,7 @@
           this.isshowTable = false;
           this.docwordNum = '',
           this.visible = false;
-          this.isShowTip = '';
+          this.isShowTip = false;
           this.defaultYear = new Date().getFullYear();
       },
       handleOk() {
