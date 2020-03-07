@@ -394,22 +394,6 @@ export const taskBth = {
           return;
         }
       }
-        //登记文号校验
-        let url = "/workflow/oaProcActinst/list";
-        //环节校验
-        getAction(url,{procDefKey: this.backData.act_key}).then(res => {
-          if (res.success) {
-            for (let i in res.result.records){
-              if (res.result.records[i]["actName"].indexOf("登记文号")!== -1 && res.result.records[i]["actId"] === this.taskMsg.taskDefinitionKey){
-                if (this.backData.s_varchar8 === "" || this.backData.s_varchar8 === undefined) {
-                  this.$message.error("请登记文号！");
-                  return;
-                }
-              }
-            }
-          }
-        })
-
       // //校验意见
       /*if (this.flag) {    //如果要填写意见的话，就进行校验
         if (!this.isSaveFlag) {  //如果没有填写
