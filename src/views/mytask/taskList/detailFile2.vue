@@ -970,7 +970,6 @@
             this.backData['iprocSetId'] = res.result.proSetId;
             this.backData['key'] = res.result.taskDefKey
             this.backData.act_show = res.result.actShow
-            this.backData.act_key = res.result.btnAndOpt.key; //流程任务key;
 
             this.btnStatus = res.result.status
             this.backDataOpt.s_task_id = res.result.taskId
@@ -1002,6 +1001,7 @@
               //this.$refs.editTable.style.height="500px" ;
               this.jeditShow = true;
               this.newHeight = 500;
+              this.scrHeight = window.innerHeight - 40 + 'px';
               this.previewFlag = false;
               this.disableFlag = true;
             } else {
