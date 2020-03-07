@@ -1364,7 +1364,7 @@ export const taskBth = {
       // var res = window.confirm("是否部门完成");
       // if (res) {
       // let param={taskId: this.taskMsg.id}
-      postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id+'&processInstanceId='+this.taskMsg.processInstanceId).then(res => {
+      postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id + '&processInstanceId=' + this.taskMsg.processInstanceId).then(res => {
         if (res.success) {
           this.$message.success(res.message)
           setTimeout(res => {
@@ -1495,7 +1495,7 @@ export const taskBth = {
       this.backDataOpt.table = this.backData.table + "_opinion"
       // console.log(JSON.stringify(this.taskMsg))
       // console.log(JSON.stringify(this.backDataOpt))
-      this.$emit("showOPinionOnWrite",this.opts.length)
+      this.$emit("showOPinionOnWrite", this.opts.length)
       this.$refs.opinionForm.suggest(this.backDataOpt);
       this.$refs.opinionForm.title = "填写意见";
       this.$refs.opinionForm.disableSubmit = false;
@@ -1731,6 +1731,7 @@ export const taskBth = {
     ,
 //弹框-登记文号
     djDocNum: function () {
+      this.backData.sname = this.busFunction.sname;
       this.$refs.docNumForm.dengji(this.backData);
       this.$refs.docNumForm.title = "登记文号";
       this.$refs.docNumForm.disableSubmit = false;

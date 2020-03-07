@@ -87,7 +87,7 @@
 
     </div>
 
-<!--收文-->
+    <!--收文-->
     <div v-else class="box">
       <div class="line1">
         <p>
@@ -212,7 +212,7 @@
         docwordNum: '',
         isshowTable: false,
         isShowTip: false,
-        isSendFile:true,
+        isSendFile: false,
         yearData: [
           {id: new Date().getFullYear(), name: new Date().getFullYear()},
           {id: new Date().getFullYear() - 1, name: new Date().getFullYear() - 1}
@@ -329,8 +329,11 @@
       dengji(record) {
         this.busdataId = record.i_id;
         this.functionId = record.i_bus_function_id;
-        if (record.s_varchar8!="" && record.s_varchar8 != undefined){
+        if (record.s_varchar8 != "" && record.s_varchar8 != undefined) {
           this.isShowTip = true;
+        }
+        if (record.sname.indexOf("发文") !== -1){
+          this.isSendFile = true;
         }
         this.table = record.table;
         this.visible = true;
@@ -352,6 +355,7 @@
           this.docwordNum = '',
           this.visible = false;
           this.isShowTip = false;
+          this.isSendFile = false;
           this.defaultYear = new Date().getFullYear();
       },
       handleOk() {
