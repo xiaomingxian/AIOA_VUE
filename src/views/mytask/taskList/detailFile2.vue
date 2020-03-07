@@ -185,7 +185,7 @@
                  @dealHeight="dealHeight2"
                  @destoryObj="destoryObj" @iIsImportantObj="iIsImportantObj" @cancelImportantObj="cancelImportantObj"
                  @watchSub="watchSub" :oaFileList="oaFileList" @close="handleCancel" @callaboration="callaboration"
-                 @getbackDataNew="getbackDataNew" @reloadOpinion="reloadOpinion"
+                 @getbackDataNew="getbackDataNew" @reloadOpinion="reloadOpinion" @showOPinionOnWrite="showOPinionOnWrite"
       ></task-btn>
     </center>
   </form>
@@ -405,6 +405,9 @@
       }
     },
     methods: {
+      showOPinionOnWrite(num){
+        this.$refs.taskOptRef.getOptionsNum(num);
+      },
       // jeditorBlurText(){
       //   if(this.$refs.jeditor.value == ''){
       //     this.$refs.jeditor.$el.style.border = '1px solid red';

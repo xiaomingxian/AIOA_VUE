@@ -1495,6 +1495,7 @@ export const taskBth = {
       this.backDataOpt.table = this.backData.table + "_opinion"
       // console.log(JSON.stringify(this.taskMsg))
       // console.log(JSON.stringify(this.backDataOpt))
+      this.$emit("showOPinionOnWrite",this.opts.length)
       this.$refs.opinionForm.suggest(this.backDataOpt);
       this.$refs.opinionForm.title = "填写意见";
       this.$refs.opinionForm.disableSubmit = false;

@@ -132,21 +132,24 @@
       }
     },
     created() {
-
-
     },
     mounted(){
-
-
       // setTimeout(()=>{
       //   console.log(document.getElementById('otherLineShow1').parentNode.height = '10px');
       //   document.getElementById('otherLineShow1').parentNode.height = '10px';
       //   document.getElementById('otherLineShow1').parentNode.style.margin = '0px';
       // },3000)
-
-
     },
     methods: {
+      getOptionsNum(num){
+        if(num%2==0){
+          this.setIndexShow = 0;
+          this.iconType = 'up'
+        }else{
+          this.jishuOtherShow=true
+          this.iconType = 'up'
+        }
+      },
       otherLineShow(){
         if(this.setIndexShow==1){
           this.setIndexShow = 0;

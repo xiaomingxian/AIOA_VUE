@@ -8,9 +8,10 @@
     @cancel="handleDenji"
 
     cancelText="关闭">
-    <div v-show="this.isShowTip !== ''"><span style="color: red;font-size: 16px">此公文已登记过文号，再次登记将产生空号。</span></div>
+    <div v-show="this.isShowTip === true"><span style="color: red;font-size: 16px">此公文已登记过文号，再次登记将产生空号。</span></div>
     <br>
-    <div class="box">
+    <!--发文-->
+    <div v-if="isSendFile === true" class="box">
       <div class="line1">
         <p>
           <span>文件字</span>
@@ -49,6 +50,75 @@
           <a-input v-model="docwordNum" style="width:170px;" placeholder="文件号" disabled></a-input>
         </p>
 
+      </div>
+
+      <template>
+        <a-table
+          :columns="columns"
+          rowKey="iid"
+          :dataSource="numLists"
+          :loading="loading"
+          @change="changePagenation"
+          v-show="isshowTable">
+          <!--:record="record.ibusdataId"-->
+          <template slot="action" slot-scope="text, record">
+            <div v-if="record.ibusdataId==='是'? false:true" class="editable-row-operations">
+              <a @click="()=>use(record)">选择使用</a>&nbsp
+              <a @click="()=>set(record)">设置线下占用</a>
+            </div>
+            <div v-else class="editable-row-operations" style="color: #999999;">
+              <span>选择使用</span>&nbsp
+              <span>设置线下占用</span>
+            </div>
+          </template>
+        </a-table>
+      </template>
+
+
+      <!--设置线下占用modal-->
+      <a-modal
+        title="温馨提示"
+        :visible="visible1"
+        @ok="openok"
+        @cancel="cancelModal"
+      >
+        <p style="font-size: 18px;">确定要设置线下占用吗？一旦占用将无法解除！</p>
+      </a-modal>
+
+    </div>
+
+<!--收文-->
+    <div v-else class="box">
+      <div class="line1">
+        <p>
+          <span>文件字</span>
+          <a-select v-model="selectedModel" style="width: 200px" labelInValue="true" @change="getModalVal">
+            <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+            </a-select-option>
+          </a-select>
+        </p>
+        <p>
+          <span>年份</span>
+          <a-select v-model="defaultYear" style="width:260px" @change="changeYear">
+            <a-select-option v-for="(item,index) in yearData" :key="index" :value="item.id">{{item.name}}
+            </a-select-option>
+          </a-select>
+        </p>
+
+      </div>
+
+      <div class="line2">
+
+        <p>
+          <span>文件号</span>
+          <a-input v-model="docnum" style="width: 100px;" placeholder="文件号" @change="getNowNum($event)"></a-input>
+          <a-button type="primary" style="margin-left: 10px;" @click="showTable">{{listName}}</a-button>
+        </p>
+
+        <p>
+          <span>文件字号</span>
+          <a-input v-model="docwordNum" style="width:260px;" placeholder="文件号" disabled></a-input>
+        </p>
       </div>
 
       <template>
@@ -141,7 +211,8 @@
         docnum: '',
         docwordNum: '',
         isshowTable: false,
-        isShowTip: "",
+        isShowTip: false,
+        isSendFile:true,
         yearData: [
           {id: new Date().getFullYear(), name: new Date().getFullYear()},
           {id: new Date().getFullYear() - 1, name: new Date().getFullYear() - 1}
@@ -222,7 +293,6 @@
             description: '先选择文件字'
           })
         }
-
       },
       //分页事件
       changePagenation(pagination) {
@@ -259,7 +329,9 @@
       dengji(record) {
         this.busdataId = record.i_id;
         this.functionId = record.i_bus_function_id;
-        this.isShowTip = record.s_varchar8;
+        if (record.s_varchar8!="" && record.s_varchar8 != undefined){
+          this.isShowTip = true;
+        }
         this.table = record.table;
         this.visible = true;
         this.getDocNumList();
@@ -279,7 +351,7 @@
           this.isshowTable = false;
           this.docwordNum = '',
           this.visible = false;
-          this.isShowTip = '';
+          this.isShowTip = false;
           this.defaultYear = new Date().getFullYear();
       },
       handleOk() {
