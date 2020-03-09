@@ -74,7 +74,7 @@
             <center><h3>{{detailList.s_receive_num}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_receive_num" :value="backData.s_receive_num"  v-on:blur="blurText(backData.s_receive_num,$refs.s_receive_num)"></a-input>
+            <a-input ref="s_receive_num" v-model="backData.s_receive_num"  v-on:blur="blurText(backData.s_receive_num,$refs.s_receive_num)"></a-input>
           </td>
         </tr>
         <tr>
