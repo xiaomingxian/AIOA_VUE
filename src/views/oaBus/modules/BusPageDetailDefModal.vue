@@ -89,6 +89,16 @@
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
+            label="全文检索">
+            <a-radio-group  :defaultValue="0" v-decorator="['iisEsquery', {}]">
+              <a-radio :value="1">是</a-radio>
+              <a-radio :value="0">否</a-radio>
+            </a-radio-group>
+            <!--<a-input placeholder="请输入是否作为列表查询条件" v-decorator="['iisListquery', {}]"/>-->
+          </a-form-item>
+          <a-form-item
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
             label="数据字典类别">
             <a-select @change="dictIdClick" v-decorator="[ 'sdictId', {}]" >
               <a-select-option v-for="(item,index) in directOpt" :key="index" :value="item.dictCode">
@@ -313,7 +323,7 @@
         }
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model, 'iid', 'ibusPageId', 'ibusFunctionId', 'sbusdataTable', 'stableColumn','icolumnType', 'scolumnName', 'iisListtitle','iorder','iisListquery', 'sdictId', 'sdictSqlKey', 'icheckIsNull', 'scheckExpjava', 'scheckExpsql', 'icheckExpjs', 'scheckShowmsg', 'ssendKey', 'sarchivesKey', 'iisDefault','smarkKey' ,'isetType', 'scolumnRemarks'))
+          this.form.setFieldsValue(pick(this.model, 'iid', 'ibusPageId', 'ibusFunctionId', 'sbusdataTable', 'stableColumn','icolumnType', 'scolumnName', 'iisListtitle','iorder','iisListquery','iisEsquery', 'sdictId', 'sdictSqlKey', 'icheckIsNull', 'scheckExpjava', 'scheckExpsql', 'icheckExpjs', 'scheckShowmsg', 'ssendKey', 'sarchivesKey', 'iisDefault','smarkKey' ,'isetType', 'scolumnRemarks'))
           //时间格式化
         });
       },
