@@ -1,7 +1,7 @@
 <template>
 
 
-  <div style="padding-bottom: 0.7%;">
+  <div style="min-height: 0px; padding-bottom: 0.7%;">
     <!--<a-button  @click="showPic">图</a-button>-->
     <!--<a-button  @click="reCall">撤回</a-button>-->
     <!--<a-button  @click="showBack">回退</a-button>-->
@@ -9,19 +9,30 @@
     <!--<a-button  @click="nextTaskQuery">下一任务</a-button>-->
     <!--<a-button  @click="addUserOrDepart">追加</a-button>-->
     <!--<a-button  @click="insideReading">内部传阅</a-button>-->
+    <!--<a-button  @click="refreshIndexClose">关闭刷新父页面</a-button>-->
+    <!--<a-button  @click="deleteBusData">删除</a-button>-->
 
+    <!--<div class="optionTip" @click="btnBoxShow">
+      <a href="#">
+        <a-icon  :type="iconType" />
+        <span style="font-size:14px;font-weight: bold;margin-left: 5px;">操作按钮</span>
+      </a>
+    </div>-->
+    <!--<div  v-show="setIndexShow==1">-->
+    <div>
+      <div class="btndefindbox">
+        <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
+                  icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
+        </a-button>
+      </div>
+      <br>
+      <div class="btnnotdefindbox">
+        <a-button v-for="(item,index) in btn" @click="method_router(item,index)" ref="isNotDefendBtn" :id="item.id"
+                  size="large" style="margin-left: 3px;margin-bottom: 14px;">{{item.sbtnName}}
+        </a-button>
+      </div>
+    </div>
 
-    <div class="btndefindbox">
-      <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
-                icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
-      </a-button>
-    </div>
-    <br>
-    <div class="btnnotdefindbox">
-      <a-button v-for="(item,index) in btn" @click="method_router(item,index)" ref="isNotDefendBtn" :id="item.id"
-                size="large" style="margin-left: 3px;margin-bottom: 14px;">{{item.sbtnName}}
-      </a-button>
-    </div>
 
 
     <!--.............引入具体展示组件.....................-->
@@ -87,9 +98,9 @@
   import SelectCityName from "./selectCityName";
   import YinRuYiJuModal from "./YinRuYiJuModal";
   //追加组件
-  import  AddUsersModal from  '../mytask/modules/AddUsersModal'
+  import AddUsersModal from '../mytask/modules/AddUsersModal'
   //传阅特殊化
-  import  AddUsersModalChuanYue from  '../mytask/modules/AddUsersModalChuanYue'
+  import AddUsersModalChuanYue from '../mytask/modules/AddUsersModalChuanYue'
 
   export default {
     name: "taskBtn",
@@ -120,11 +131,31 @@
       AddUsersModalChuanYue
     },
     data() {
-      return {}
+      return {
+        setIndexShow:1,
+        iconType: 'up'
+      }
     },
     created() {
+      //监听页签切换  修改标题
+
     },
     methods: {
+      btnBoxShow(){
+
+        if(this.setIndexShow==0){
+          this.setIndexShow = 1;
+          this.iconType = 'up'
+          this.$emit('dealHeight',-110)
+        }else{
+          this.setIndexShow = 0;
+          this.iconType = 'down';
+          this.$emit('dealHeight',110)
+
+        }
+
+        console.log( this.setIndexShow)
+      },
       modalFormOk() {
 
       },
@@ -162,10 +193,19 @@
   }
 </script>
 <style lang="less" scoped>
+
+  .optionTip{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 88%;
+    margin: 0 auto;
+  }
   .btndefindbox {
     display: flex;
     width: 88%;
     margin: 0 auto;
+    margin-top: 10px;
   }
 
   .btnnotdefindbox {

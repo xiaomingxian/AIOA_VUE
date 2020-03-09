@@ -387,7 +387,6 @@
     },
     data() {
       return {
-
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         description: '待办任务',
         iisFontSize: '16px',
@@ -637,7 +636,7 @@
         })
       },
       cancel() {
-        console.log('------->取消选择')
+//        console.log('------->取消选择')
       },
       showPic(record) {
         this.$refs.pic2Modal.show(record)
@@ -888,26 +887,22 @@
           this.columnes.push({
             dataIndex: 'wenHao',
           });
-
-          for (let i = 0; i < res.result.length; i++) {
-            this.taskKey.push(res.result[i].value);
-            let url = "urgency/degree/queryTask";
-            let Urgency = res;
-            getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
-
-              setTimeout(()=> {
-
-                if (res.result.total > 0) {
-                  this.dataSources.push({
-                    key: i,
-                    wenHao: Urgency.result[i].text,
-                  });
-                }
-
-              },500)
-
-            })
-          }
+        this.getData(0,res.result.length,res.result)
+//          for (let i = 0; i < res.result.length; i++) {
+//            this.taskKey.push(res.result[i].value);
+//            let url = "urgency/degree/queryTask";
+//            let Urgency = res;
+//            this.arr3 = res;
+//            getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+//                if (res.result.total > 0) {
+//                  console.log(i)
+//                  this.dataSources.push({
+//                    key: i,
+//                    wenHao: Urgency.result[i].text,
+//                  });
+//                }
+//            })
+//          }
 
           // console.log('-----------------------<><><><><><><><><><><><><>--------------------------');
           // console.log(this.taskKey);
@@ -915,7 +910,6 @@
           // console.log(this.dataSources);
 
         });
-
         this.setFontSize();
 
         // console.log('------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>---------------');
@@ -927,6 +921,23 @@
           return;
         }
 
+      },
+      getData(i,length,data){
+//        console.log(data)
+        this.taskKey.push(data[i].value);
+        let url = "urgency/degree/queryTask";
+        let Urgency = data;
+        getAction(url, {operstatus: 'task_todo', urgencyDegree: this.taskKey[i], jY: 1}).then((res) => {
+          if (res.result.total > 0) {
+            this.dataSources.push({
+              key: i,
+              wenHao: Urgency[i].text,
+            });
+          }
+          if(++i<length){
+            this.getData(i,length,data)
+          }
+        })
       },
       getExpandRecords(expanded, record) {
         if (expanded == false) {
@@ -1254,8 +1265,28 @@
         this.taskRecord.id = this.selectedRows2[0].id
 
 
-        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
-        this.haveMore = false
+
+
+
+        getAction('/wf/task/taskStatus?taskid=' + this.taskRecord.id).then(res => {
+          if (res.success) {
+            if (res.message == 'todo') {
+              window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+              this.haveMore = false
+            } else if (res.message == 'done') {
+              this.$message.error('该任务已被办理,请刷新页面')
+              return
+            } else if (res.message == 'del') {
+              this.$message.error('该流程数据已被删除,请刷新页面')
+              return
+            }
+          }
+
+        })
+
+
+
+
 
 
       },
@@ -1327,12 +1358,46 @@
                   this.taskRecord.name = record2.name
                   this.taskRecord.id = record2.id
 
-                  window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+
+                  getAction('/wf/task/taskStatus?taskid=' +  this.taskRecord.id).then(res => {
+                    if (res.success) {
+                      if (res.message == 'todo') {
+
+                        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+
+
+                      } else if (res.message == 'done') {
+                        this.$message.error('该任务已被办理,请刷新页面')
+                        return
+                      } else if (res.message == 'del') {
+                        this.$message.error('该流程数据已被删除,请刷新页面')
+                        return
+                      }
+                    }
+
+                  })
+
                 }
 
 
               } else {
-                window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+
+                getAction('/wf/task/taskStatus?taskid=' + record.id).then(res => {
+                  if (res.success) {
+                    if (res.message == 'todo') {
+                      window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+                    } else if (res.message == 'done') {
+                      this.$message.error('该任务已被办理,请刷新页面')
+                      return
+                    } else if (res.message == 'del') {
+                      this.$message.error('该流程数据已被删除,请刷新页面')
+                      return
+                    }
+                  }
+
+                })
+
+
               }
 
 

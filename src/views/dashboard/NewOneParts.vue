@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div @mouseleave="mouseLeave" @mouseover="mouseOver" class="wrap">
     <div class="nav">
       <div class="postList" style="position: relative">
         <div class="title">
@@ -10,7 +10,8 @@
           <span>公告</span>
         </div>
         <div class="listsBox" style="position: relative">
-          <div class="lineitem" v-for="(item,index) in postLists" :key="index" @click="openDetialModel('oa_busdata30',item.i_id)">
+          <div class="lineitem" v-for="(item,index) in postLists" :key="index"
+               @click="openDetialModel('oa_busdata30',item.i_id)">
             <div class="left">
               <i></i>
               <p class="tongzhi">[{{item.s_varchar5}}]</p>
@@ -22,17 +23,23 @@
           <img style="position: absolute;left: 0;bottom: -8px;width: 50px;" src="../../assets/bottomleft.png" alt="">
           <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
         </div>
-        <span @click="postMore"  class="postMore" style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+        <span @click="postMore" class="postMore"
+              style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon
+          style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
       </div>
       <div class="searchBox">
         <div style="display: flex;align-items: center;min-height: 90px;">
-          <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
+          <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png"
+               alt="">
           <div class="swiper-container swiper-no-swiping bottom">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
+              <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index"
+                   @click="openUrl((index+1)+'item')">
                 <div style="display:flex;align-items: center;justify-content: center">
 
-                  <img style="width:60px;height: 60px;" :src="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':atom.picUrl1" :title="atom.s_title" alt="">
+                  <img style="width:60px;height: 60px;"
+                       :src="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':atom.picUrl1"
+                       :title="atom.s_title" alt="">
 
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
@@ -67,20 +74,19 @@
             <div ref="left" style="display: none" class="swiper-button-next"></div>
             <div ref="right" style="display: none" class="swiper-button-prev"></div>
           </div>
-          <img @click="rightclick" style="width: 20px;height: 30px;margin-right: 20px;"  src="../../assets/right.png" alt="">
+          <img @click="rightclick" style="width: 20px;height: 30px;margin-right: 20px;" src="../../assets/right.png"
+               alt="">
         </div>
-
-
-
 
 
         <div class="top">
           <!--<a-input placeholder="请输入关键字">-->
-            <!---->
+          <!---->
           <!--</a-input>-->
-          <span class="table-page-search-submitButtons" style="position: relative;left: -20px;top: 27px;cursor: pointer;">
+          <span class="table-page-search-submitButtons"
+                style="position: relative;left: -20px;top: 27px;cursor: pointer;">
               <!--<a-button type="primary" icon="search"></a-button>-->
-            <a-icon type="search"  @click="openSearch"></a-icon>
+            <a-icon type="search" @click="openSearch"></a-icon>
             </span>
           <!--<a-icon type="search"></a-icon>-->
           <a-select
@@ -95,12 +101,10 @@
             :defaultActiveFirstOption="false"
             :notFoundContent="fetching ? undefined : null"
           >
-            <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+            <a-spin v-if="fetching" slot="notFoundContent" size="small"/>
             <a-select-option v-for="d in data" :key="d.text">{{d.text}}</a-select-option>
           </a-select>
         </div>
-
-
 
 
       </div>
@@ -112,25 +116,26 @@
             <span>
                <span class="shuline"></span>
                <span>待办工作</span>
-               <b style="color: #ffffff;font-weight: 400" v-if="total" > {{total}}</b>
+               <b style="color: #ffffff;font-weight: 400" v-if="total"> {{total}}</b>
             </span>
             <span class="more" @click="DaiBanMore(0)">MORE  <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <!--<div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openDetialModel(item.table,item.tableId)" :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">-->
-            <div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openTodoTaskModel(item)" :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
+            <div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openTodoTaskModel(item)"
+                 :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
               <p class="p">
                 <span :title="item.title+'   '+item.createTime+item.name">
                   <i></i>
                   {{item.title|filterText1}}
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
                    <div v-if="item.important==1">
-                      <img src="../../assets/zhong.png" alt="" >
+                      <img src="../../assets/zhong.png" alt="">
                    </div>
 
 
                 </span>
-                <span >{{item.createTime|timeText}}</span>
+                <span>{{item.createTime|timeText}}</span>
               </p>
               <!--<a @click="doTask(item)">办理</a>-->
             </div>
@@ -145,7 +150,8 @@
             <span class="more" @click="openmore(model1.url,model1.sName)">MORE <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
-            <p  class="each"  v-for="(item,index) in model1Lists"  :key="index" @click="openDetialModel(model1.tableName,item.i_id)">
+            <p class="each" v-for="(item,index) in model1Lists" :key="index"
+               @click="openDetialModel(model1.tableName,item.i_id)">
                 <span :title="item.s_title+'      '+item.d_create_time">
                   <i></i>
                   {{item.s_title|filterText}}
@@ -163,10 +169,11 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span class="more"  @click="openmore(model2.url,model2.sName)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span class="more" @click="openmore(model2.url,model2.sName)">MORE  <a-icon type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
-              <p  class="each"  v-for="(item,index) in model2Lists"  :key="index" @click="openDetialModel(model2.tableName,item.i_id)">
+              <p class="each" v-for="(item,index) in model2Lists" :key="index"
+                 @click="openDetialModel(model2.tableName,item.i_id)">
                 <span :title="item.s_title+'                     '+item.d_create_time">
                   <i></i>
                     {{item.s_title|filterText}}
@@ -185,7 +192,8 @@
               <span class="more" @click="openmore(model3.url,model3.sName)">MORE  <a-icon type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
-              <p  class="each"  v-for="(item,index) in model3Lists"  :key="index" @click="openDetialModel(model3.tableName,item.i_id)">
+              <p class="each" v-for="(item,index) in model3Lists" :key="index"
+                 @click="openDetialModel(model3.tableName,item.i_id)">
                  <span :title="item.s_title+'                     '+item.d_create_time">
                   <i></i>
                   {{item.s_title|filterText}}
@@ -205,7 +213,8 @@
             <span class="more" @click="openmore(model4.url,model4.sName)">MORE <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
-            <p  class="each"  v-for="(item,index) in model4Lists"  :key="index" @click="openDetialModel(model4.tableName,item.i_id)">
+            <p class="each" v-for="(item,index) in model4Lists" :key="index"
+               @click="openDetialModel(model4.tableName,item.i_id)">
                  <span :title="item.s_title+'                     '+item.d_create_time">
                   <i></i>
                   {{item.s_title|filterText}}
@@ -258,52 +267,54 @@
 
 <script>
   import HeadInfo from '@/components/tools/HeadInfo'
-  import { httpAction,getAction,postAction } from '@/api/manage'
+  import {getAction, httpAction, postAction} from '@/api/manage'
   import debounce from 'lodash/debounce';
   import Vue from 'vue'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import detailFile from '../mytask/taskList/detailFile'
   import Swiper from 'swiper/js/swiper.min.js'
-  import  'swiper/css/swiper.min.css'
+  import 'swiper/css/swiper.min.css'
   import axios from "axios";
   import {ACCESS_TOKEN} from "../../store/mutation-types";
+
   export default {
     components: {
       HeadInfo
     },
-    data () {
+    data() {
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        mouseFlag: false,
         // lastFetchId: 0,
         // fetchUser: debounce(this.fetchUser, 800),
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         data: [],
         fetching: false,
         search: '',
-        postLists:[],// 公告列表
-        userid:'',
-        iisCalendar:0,
-        model1:[],
-        model2:[],
-        model3:[],
-        model4:[],
-        total:'',
-        pic:'',
-        picurlLists:[],
-        waitDoData:[],
-        model1Lists:[],
-        model2Lists:[],
-        model3Lists:[],
-        model4Lists:[],
-        LinkList:[], //常用链接
+        postLists: [],// 公告列表
+        userid: '',
+        iisCalendar: 0,
+        model1: [],
+        model2: [],
+        model3: [],
+        model4: [],
+        total: '',
+        pic: '',
+        picurlLists: [],
+        waitDoData: [],
+        model1Lists: [],
+        model2Lists: [],
+        model3Lists: [],
+        model4Lists: [],
+        LinkList: [], //常用链接
         url: {
           busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
           list: "/wf/task/queryTask?operstatus=task_todo",
-          HomeList:'/oaBus/homeAnalysis/HomeList',
-          Posturl:'/oaBus/oaBusdata/queryByModelId',
-          MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
-          LinkLists:'/oaBus/Calendar/oaCalendar/LinkList',
+          HomeList: '/oaBus/homeAnalysis/HomeList',
+          Posturl: '/oaBus/oaBusdata/queryByModelId',
+          MostUserLink: '/oaBus/Calendar/oaCalendar/MostUserLink',
+          LinkLists: '/oaBus/Calendar/oaCalendar/LinkList',
         },
         //---------------------------------环节选择相关
         loading: false,
@@ -322,17 +333,17 @@
 
       }
     },
-    filters:{
-      filterText(text){
-        if(text!=undefined) {
+    filters: {
+      filterText(text) {
+        if (text != undefined) {
           if (text.length > 20) {
             return text.substring(0, 12) + '...'
           } else {
             return text
           }
         }
-      }, filterText2(text){
-        if(text!=undefined) {
+      }, filterText2(text) {
+        if (text != undefined) {
           if (text.length > 22) {
             return text.substring(0, 17) + '...'
           } else {
@@ -340,81 +351,78 @@
           }
         }
       },
-      filterText1(text){ //电子公告
-        if(text!=undefined) {
-          if (text.length >55) {
+      filterText1(text) { //电子公告
+        if (text != undefined) {
+          if (text.length > 55) {
             return text.substring(0, 35) + '...'
           } else {
             return text
           }
         }
       },
-      timeText(text){
-        if(text!=undefined) {
-          if (text.length > 15){
+      timeText(text) {
+        if (text != undefined) {
+          if (text.length > 15) {
             return text.substring(0, 10)
           } else {
             return text
           }
         }
       },
-      timeStrings(time){
+      timeStrings(time) {
         let oneTime = new Date(time);
         let Y = oneTime.getFullYear();
-        let M = oneTime.getMonth()+1;
+        let M = oneTime.getMonth() + 1;
         let D = oneTime.getDate();
-        return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
+        return Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D);
 
       },
     },
-    created () {
+    created() {
       //公告列表
       // this.getPostLists();
 
-      postAction(this.url.Posturl,{modelId:49,condition:{function_id:64,selType:1}}).then((res) => {
+      postAction(this.url.Posturl, {modelId: 49, condition: {function_id: 64, selType: 1}}).then((res) => {
         console.log(res.result.records);
-        this.postLists = res.result.records.splice(0,4);
+        this.postLists = res.result.records.splice(0, 4);
       });
 
 
-
       //獲取用戶基本信息
-      const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+      const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
       console.log(userid);
       this.userid = userid;
 
 
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.homeLists(this.userid);
       })
 
       this.waiteDoWith();
 
     },
-    mounted(){
+    mounted() {
 
-      let height = document.body.clientHeight-145;
-      document.querySelector('.nav').style.height = height*.25 +'px'
-      document.querySelector('.box').style.height = height*.75+'px'
+      let height = document.body.clientHeight - 145;
+      document.querySelector('.nav').style.height = height * .25 + 'px'
+      document.querySelector('.box').style.height = height * .75 + 'px'
 
       // this.$nextTick(()=>{
       //
       // })
 
-      document.querySelector('.ttop').style.height = (height*.75)/2+'px'
-      document.querySelector('.bbottom').style.height =  (height*.75-20)/2+'px'
+      document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
+      document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
 
       window.onresize = function () {
 
-        let height = document.body.clientHeight-145;
-        document.querySelector('.nav').style.height = height*.25 +'px'
-        document.querySelector('.box').style.height = height*.75+'px'
+        let height = document.body.clientHeight - 145;
+        document.querySelector('.nav').style.height = height * .25 + 'px'
+        document.querySelector('.box').style.height = height * .75 + 'px'
 
-        document.querySelector('.ttop').style.height = (height*.75)/2+'px'
-        document.querySelector('.bbottom').style.height =  (height*.75-20)/2+'px'
+        document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
+        document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
       }
-
-
 
 
       // setTimeout(()=>{
@@ -459,36 +467,34 @@
           }else{
             this.LinkList = JSON.parse(JSON.stringify(res));
           }*/
-        this.LinkList =  res;
+        this.LinkList = res;
 
 
-        for(var i=0;i<this.LinkList.length;i++){
+        for (var i = 0; i < this.LinkList.length; i++) {
 
-          this.show(this.LinkList[i].i_id,i)
+          this.show(this.LinkList[i].i_id, i)
 
 
-          }
+        }
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-          var mySwiper = new Swiper('.swiper-container',{
-            initialSlide:0,
-            slidesPerView:4,
-            spaceBetween:13,
-            lazyLoading:true,
-            loop:false,
-            obeserver:true,
-            obeserverParents:true,
-            navigation:{
-              nextEl:'.swiper-button-next',
-              prevEl:'.swiper-button-prev',
+          var mySwiper = new Swiper('.swiper-container', {
+            initialSlide: 0,
+            slidesPerView: 4,
+            spaceBetween: 13,
+            lazyLoading: true,
+            loop: false,
+            obeserver: true,
+            obeserverParents: true,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
             }
 
           });
-        },1000)
+        }, 1000)
         console.log(this.LinkList.length)
-
-
 
 
       });
@@ -498,8 +504,20 @@
       detailFile,
     },
     methods: {
+
+      mouseOver() {
+        //console.log(this.mouseFlag)
+        if (!this.mouseFlag) {
+          this.mouseFlag = true;
+          this.waiteDoWith();
+        }
+      },
+      mouseLeave() {
+        //console.log(this.mouseFlag)
+        this.mouseFlag = false;
+      },
       //监听选择范围
-      show(id,index) {
+      show(id, index) {
         let requestpicurl = window._CONFIG['domianURL'] + '/oaBus/Calendar/oaCalendar/MostUserLink?id=' + id + '&resourceType=image'
         axios.get(requestpicurl, {
           responseType: 'arraybuffer',
@@ -508,8 +526,8 @@
           }
         }).then(res => {
           console.log(res)
-          if(res){
-            this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+          if (res) {
+            this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa(new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
             console.log(this.LinkList)
           }
           // if(res.data.byteLength>4){
@@ -522,23 +540,28 @@
           // }
         })
       },
-      openUrl(e){
+      openUrl(e) {
         console.log(e);
-        console.log(this.$refs[e][0].lastChild);
+        console.log(this.$refs[e][0]);
         let lastChildNode = this.$refs[e][0].lastChild;
-
         console.log(lastChildNode.childNodes[0].nodeType);
         //判断文本节点3     还是元素节点1
         let nodeType = lastChildNode.childNodes[0].nodeType;
-        if(nodeType=='3'){
+        if (nodeType == '3') {
           console.log(lastChildNode.childNodes[0].nodeValue);
           let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
-          window.open('http://'+nodeValueUrl)
-        }else{
+          window.open('http://' + nodeValueUrl)
+        } else {
           console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-
           let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-          window.open(nodeValueUrl1)
+          console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
+          let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
+          if(nodeValueUrl1!=null){
+            window.open(nodeValueUrl1)
+          }else{
+            window.open(nodeValueUrl2)
+          }
+          console.log(nodeValueUrl1)
         }
 
       },
@@ -550,13 +573,13 @@
         this.fetching = true;
         let url = "/oaEs/oaelasticsearch/getsearch";
         let reg = new RegExp("^[0-9]*$");
-        if(!reg.test(value)) {
+        if (!reg.test(value)) {
           postAction(url, {keyWord: value}).then((res) => {
             if (fetchId !== this.lastFetchId) {
               // for fetch callback order
               return;
             }
-            for(let i = 0;i<res.result.length;i++){
+            for (let i = 0; i < res.result.length; i++) {
               this.data.push({
                 text: res.result[i].keyWord,
                 value: res.result[i].id
@@ -576,10 +599,10 @@
       handleChange(obj) {
 
         //判断  全文检索搜索框是否输入    检测输入变化则赋值  否则清空变量
-        if(obj){
+        if (obj) {
           // console.log(obj);
           this.search = obj.key;
-        }else{
+        } else {
           this.search = '';
         }
         // Object.assign(this, {
@@ -588,79 +611,79 @@
         //   fetching: false,
         // });
       },
-      openSearch(){
+      openSearch() {
 
-        this.$router.push({path:'/ioaBus/busModel/search',query:{searchWords : this.search}})
+        this.$router.push({path: '/ioaBus/busModel/search', query: {searchWords: this.search}})
 
       },
-      postMore(){
-        this.$router.push('/'+'publicMessage/electronicFile');
+      postMore() {
+        this.$router.push('/' + 'publicMessage/electronicFile');
       },
-      openmore(url,moduleName){ //四个模块的跳转
+      openmore(url, moduleName) { //四个模块的跳转
 
-        this.$router.push('/'+url+'?moduleName='+moduleName);
+        this.$router.push('/' + url + '?moduleName=' + moduleName);
         // console.log(url)
       },
-      DaiBanMore(){ //待办任务的跳转
-        this.$router.push('/'+'mytask/taskToDo');
+      DaiBanMore() { //待办任务的跳转
+        this.$router.push('/' + 'mytask/taskToDo');
       },
-      LinkMore(e){ //常用链接的跳转
+      LinkMore(e) { //常用链接的跳转
         console.log(e)
 
-        this.$router.push('/'+e);
+        this.$router.push('/' + e);
 
 
       },
       //动态模块儿  业务详情
-      openDetialModel(tableName,i_id){
+      openDetialModel(tableName, i_id) {
 
         // alert(taskDetail)
         // this.$refs.detailFile.show(taskDetail)
 
-        let params = {tableName:tableName,busdataId:i_id};
+        let params = {tableName: tableName, busdataId: i_id};
 
-        this.$store.commit('pushNewDetial',params)
+        this.$store.commit('pushNewDetial', params)
         console.log(this.$store.state.postDetialLists);
 
         // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
-        window,open(window.location.origin+'/mytask/taskList/Test-detailFile?tableName='+tableName+'&busdataId='+i_id+'&navisshow=false')
+        window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + i_id + '&navisshow=false')
         // this.$router.push({path:'/mytask/taskList/Test-detailFile',query:params})
 
       },
       //事件委托 向左切换
-      leftclick(){
+      leftclick() {
         this.$refs.left.click();
       },
       //事件委托 向右切换
-      rightclick(){
+      rightclick() {
         this.$refs.right.click();
       },
       //  数据初始化  收文  发文数据
-      homeLists(userid){
-        getAction(this.url.HomeList,{userId:userid,createTime:''}).then((res) => {
+      homeLists(userid) {
+        getAction(this.url.HomeList, {userId: userid, createTime: ''}).then((res) => {
 
           this.model1 = res.model1;
           this.model2 = res.model2;
           this.model3 = res.model3;
           this.model4 = res.model4;
 
-          this.model1Lists = res.model1.list.splice(0,5);
-          this.model2Lists = res.model2.list.splice(0,5);
-          this.model3Lists = res.model3.list.splice(0,5);
-          this.model4Lists = res.model4.list.splice(0,5);
+          this.model1Lists = res.model1.list.splice(0, 5);
+          this.model2Lists = res.model2.list.splice(0, 5);
+          this.model3Lists = res.model3.list.splice(0, 5);
+          this.model4Lists = res.model4.list.splice(0, 5);
 
         });
       },
-      waiteDoWith(){
+      waiteDoWith() {
         getAction(this.url.list).then((res) => {
           console.log(res);
           //  过长截取  显示数组前五
-          this.waitDoData = res.result.records.splice(0,4);
+          this.waitDoData = res.result.records.splice(0, 4);
           this.total = res.result.total;
 
         });
       },
-      openTodoTaskModel(record){
+      openTodoTaskModel(record) {
 
         this.taskRecord = record
 
@@ -690,17 +713,47 @@
           }
           if (Object.values(map).length == 1) {
 
-            let  record2 = Object.values(map)[0]
+            let record2 = Object.values(map)[0]
             this.taskRecord.taskDefinitionKey = record2.key
             this.taskRecord.name = record2.name
             this.taskRecord.id = record2.id
 
-            window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+            getAction('/wf/task/taskStatus?taskid=' + this.taskRecord.id).then(res => {
+              if (res.success) {
+                if (res.message == 'todo') {
+                  window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+
+                } else if (res.message == 'done') {
+                  this.$message.error('该任务已被办理,请刷新页面')
+                  return
+                } else if (res.message == 'del') {
+                  this.$message.error('该流程数据已被删除,请刷新页面')
+                  return
+                }
+              }
+
+            })
+
           }
 
 
         } else {
-          window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+          getAction('/wf/task/taskStatus?taskid=' + record.id).then(res => {
+            if (res.success) {
+              if (res.message == 'todo') {
+                window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
+              } else if (res.message == 'done') {
+                this.$message.error('该任务已被办理,请刷新页面')
+                return
+              } else if (res.message == 'del') {
+                this.$message.error('该流程数据已被删除,请刷新页面')
+                return
+              }
+            }
+
+          })
+
+
         }
 
 
@@ -715,8 +768,23 @@
         this.taskRecord.id = this.selectedRows2[0].id
 
 
-        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
-        this.haveMore = false
+        getAction('/wf/task/taskStatus?taskid=' + this.taskRecord.id).then(res => {
+          if (res.success) {
+            if (res.message == 'todo') {
+              window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=todo&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
+              this.haveMore = false
+            } else if (res.message == 'done') {
+              this.$message.error('该任务已被办理,请刷新页面')
+              return
+            } else if (res.message == 'del') {
+              this.$message.error('该流程数据已被删除,请刷新页面')
+              return
+            }
+          }
+
+        })
+
+
 
 
       },
@@ -756,8 +824,8 @@
       },
 
       // 公告
-      getPostLists(){
-        postAction(this.url.Posturl,{modelId:49,condition:{function_id:64,selType:1}}).then((res) => {
+      getPostLists() {
+        postAction(this.url.Posturl, {modelId: 49, condition: {function_id: 64, selType: 1}}).then((res) => {
           console.log(res.result.records);
           this.postLists = res.result.records;
         });
@@ -766,27 +834,32 @@
   }
 </script>
 <style lang="less" scoped>
-  /deep/ .ant-input{
+  /deep/ .ant-input {
     border-color: #054c9c !important;
   }
-  .more:hover{
+
+  .more:hover {
     cursor: pointer;
   }
-  .postMore:hover{
+
+  .postMore:hover {
     cursor: pointer;
   }
-  .wrap{
+
+  .wrap {
     width: 100%;
-    .nav{
+
+    .nav {
       width: 100%;
       /*height: 138px;*/
       min-height: 183.5px;
       overflow: hidden;
       background: #ffffff;
-      display:flex;
+      display: flex;
       align-items: center;
       /*margin-top: 100px;*/
-      .postList{
+
+      .postList {
         width: 60%;
         /*height: 198px;*/
         height: 100%;
@@ -794,12 +867,12 @@
         background: #ffffff;
         background-image: url("../../assets/postBg.png");
         background-repeat: no-repeat;
-        background-size:cover;
+        background-size: cover;
         /*background-position: bottom right;*/
         display: flex;
         align-items: flex-start;
 
-        .title{
+        .title {
           width: 120px;
           /*height: 198px;*/
           background: transparent !important;
@@ -807,22 +880,26 @@
           margin-top: 10px;
           display: flex;
           align-items: center;
-          .imgzhanwei{
+
+          .imgzhanwei {
             width: 50px;
             height: 50px;
             /*background: #2eabff;*/
             margin-right: 10px;
-            img{
+
+            img {
               width: 100%;
 
             }
           }
-          span{
+
+          span {
             font-size: 16px;
             font-weight: 800;
           }
         }
-        .listsBox{
+
+        .listsBox {
           /*margin-left: 20px;*/
           width: 100%;
           height: 80%;
@@ -835,18 +912,19 @@
           padding-bottom: 20px;
 
 
-          .lineitem{
+          .lineitem {
             width: 98%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-top: 10px;
 
-            .left{
+            .left {
               width: 75%;
               display: flex;
               align-items: center;
-              .tongzhi{
+
+              .tongzhi {
                 min-width: 90px;
                 /*width: auto;*/
                 background: #f8ffbb;
@@ -858,14 +936,15 @@
                 justify-content: center;
               }
 
-              span{
+              span {
                 width: 75%;
                 overflow: hidden;
-                text-overflow:ellipsis;
+                text-overflow: ellipsis;
                 white-space: nowrap;
                 margin: 0 10px;
               }
-              i{
+
+              i {
                 width: 5px;
                 height: 5px;
                 background: firebrick;
@@ -873,13 +952,15 @@
                 -moz-border-radius: 5px;
                 border-radius: 5px;
               }
-              i:first-child{
+
+              i:first-child {
                 background: #2eabff;
               }
             }
 
           }
-          .lineitem:hover{
+
+          .lineitem:hover {
             /*background: #2eabff;*/
             /*color: #ffffff;*/
             cursor: pointer;
@@ -887,20 +968,24 @@
 
         }
       }
-      .searchBox{
+
+      .searchBox {
         width: 40%;
         /*height: 198px;*/
         /*background: firebrick;*/
         padding: 10px;
-        /deep/img:hover{
+
+        /deep/ img:hover {
           cursor: pointer;
         }
-        .top{
+
+        .top {
           width: 75%;
           margin: 0 auto;
           /*margin-top: 10px;*/
         }
-        .bottom{
+
+        .bottom {
           width: 75%;
           /*height: 145px;*/
           /*height: 130px;*/
@@ -908,10 +993,11 @@
           margin: 0px auto;
 
 
-          /deep/.swiper-wrapper{
+          /deep/ .swiper-wrapper {
             width: 60%;
             /*margin-left: 20px;*/
-            .swiper-slide{
+
+            .swiper-slide {
               /*width: 100px;*/
               /*height: 100%;*/
               /*background: red;*/
@@ -921,16 +1007,19 @@
               justify-content: space-around;
               /*margin-right: 0px !important;*/
               /*margin-left: 5px !important;*/
-              div{
+
+              div {
                 width: 60px;
                 height: 60px;
                 border-radius: 50%;
                 /*background: #2eabff;*/
-                img{
+
+                img {
                   width: 100%;
                 }
               }
-              span{
+
+              span {
                 font-size: 14px;
                 color: #333333;
               }
@@ -943,14 +1032,15 @@
     }
 
 
-    .box{
+    .box {
       width: 100%;
       height: auto;
       margin-top: 8px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      .top,.bottom{
+
+      .top, .bottom {
         width: 100%;
         // min-height: 245px;
         min-height: 235px;
@@ -961,7 +1051,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .left,.right{
+
+        .left, .right {
           width: 60.3%;
           height: 100%;
           /*padding: 10px;*/
@@ -972,7 +1063,7 @@
           justify-content: flex-start;
           overflow: hidden !important;
 
-          .titlebox{
+          .titlebox {
             width: 100%;
             height: 40px;
             background: #f4f4f4;
@@ -982,7 +1073,8 @@
             justify-content: space-between;
 
             margin: 0;
-            span:first-child{
+
+            span:first-child {
               width: auto;
               height: 40px;
               padding: 0 8px;
@@ -993,20 +1085,24 @@
               color: #333333;
               display: flex;
               align-items: center;
-              span{
+
+              span {
                 /*color: #ffffff;*/
               }
-              .shuline{
+
+              .shuline {
                 width: 5px;
                 height: 40px;
                 background: #1174b9;
                 padding: 0;
                 margin-right: 10px;
               }
-              span:nth-child(2){
-                  min-width: 50px;
+
+              span:nth-child(2) {
+                min-width: 50px;
               }
-              b{
+
+              b {
                 min-width: 15px;
                 height: 15px;
                 border-radius: 10px;
@@ -1021,7 +1117,8 @@
                 font-size: 12px;
               }
             }
-            span:last-child{
+
+            span:last-child {
               /*background: none;*/
               color: #333333;
               margin-right: 20px;
@@ -1030,7 +1127,7 @@
 
           }
 
-          .itemline{
+          .itemline {
             width: 100%;
             min-height: 200px;
             /*background: #999999;*/
@@ -1040,7 +1137,7 @@
             flex-direction: column;
             /*margin: 0;*/
 
-            .each{
+            .each {
               width: 100%;
               /*background: red;*/
               display: flex;
@@ -1049,8 +1146,9 @@
 
               border-left: 5px solid #c7ecff;
               /*margin-left: 10px;*/
-              .p{
-                width:100%;
+
+              .p {
+                width: 100%;
                 height: 46px;
                 display: flex;
                 align-items: center;
@@ -1060,25 +1158,28 @@
                 font-size: 14px;
                 margin-left: 20px;
                 /*margin-top: 19px;*/
-                span:first-child{
+
+                span:first-child {
                   display: block;
                   /*line-height: 40px;*/
                   // width: 60%;
                   /*height: 20px;*/
-              //  overflow:hidden;
-              //   white-space:no-wrap;
-              //   text-overfow:ellipsis;
-              //   -webkit-line-clamp: 1;
-              //   white-space: nowrap;
+                  //  overflow:hidden;
+                  //   white-space:no-wrap;
+                  //   text-overfow:ellipsis;
+                  //   -webkit-line-clamp: 1;
+                  //   white-space: nowrap;
                   display: flex;
                   align-items: center;
-                  i{
+
+                  i {
                     width: 5px;
                     height: 5px;
                     background: #2eabff;
                     margin-right: 10px;
                   }
-                  img{
+
+                  img {
                     width: 40px;
                     margin-bottom: 18px;
                     margin-left: 5px;
@@ -1086,20 +1187,22 @@
 
 
                 }
-                span:last-child{
+
+                span:last-child {
                   display: block;
                   line-height: 40px;
                   margin-right: 20px;
                 }
               }
-              a{
+
+              a {
 
                 margin-top: 5px;
 
               }
             }
 
-            .each:hover{
+            .each:hover {
               /*background: rgb(226, 241, 246);*/
               cursor: pointer;
               color: #333333;
@@ -1108,7 +1211,7 @@
         }
 
 
-        .right{
+        .right {
           width: 39%;
           height: 100%;
           /*padding: 10px;*/
@@ -1118,7 +1221,8 @@
           /*align-items: center;*/
           /*justify-content: flex-start;*/
           /*overflow: no-content;*/
-          .itemline{
+
+          .itemline {
             min-height: 200px;
 
             /*background: red;*/
@@ -1128,17 +1232,19 @@
             justify-content: flex-start;
 
 
-            .each{
+            .each {
               width: 95%;
-              border-left: none ;
+              border-left: none;
               /*padding-bottom: 5px;*/
               margin: 0px;
               margin-top: 16px;
-              span{
+
+              span {
                 display: flex;
                 align-items: center;
                 font-size: 14px;
-                i{
+
+                i {
                   display: block;
                   width: 5px;
                   height: 5px;
@@ -1151,23 +1257,26 @@
 
         }
       }
-      .bottom{
+
+      .bottom {
         margin-top: 7px;
 
-        .bottomleft{
+        .bottomleft {
           width: 60.3%;
           height: 100%;
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          .first,.last{
+
+          .first, .last {
             width: 49.4%;
             height: 100%;
             /*background: firebrick;*/
             background: #ffffff;
 
             /*padding: 10px;*/
-            .titlebox{
+
+            .titlebox {
               width: 100%;
               height: 40px;
               background: #f4f4f4;
@@ -1177,7 +1286,8 @@
               display: flex;
               align-items: center;
               justify-content: space-between;
-              span{
+
+              span {
                 width: auto;
                 height: 40px;
                 padding: 0 8px;
@@ -1188,13 +1298,15 @@
                 color: #333333 !important;
                 display: flex;
                 align-items: center;
-                span:nth-child(2){
+
+                span:nth-child(2) {
                   min-width: 75px;
                   /*color: #ffffff !important;*/
                   font-size: 16px !important;
                   font-weight: bold;
                 }
-                .shuline{
+
+                .shuline {
                   width: 5px;
                   height: 40px;
                   background: #1174b9;
@@ -1202,21 +1314,23 @@
                   margin-right: 10px;
                 }
               }
-              span:last-child{
+
+              span:last-child {
                 background: none;
                 color: #333333;
               }
 
             }
 
-            .itemline{
+            .itemline {
               width: 100%;
-              min-height:200px;
+              min-height: 200px;
               /*background: #999999;*/
               padding: 10px;
               /*color: #ffffff;*/
               overflow: hidden;
-              p{
+
+              p {
                 width: 100%;
                 display: flex;
                 align-items: center;
@@ -1224,11 +1338,12 @@
                 // padding-bottom: 3px;
                 /*border-bottom: 1px solid #f0f2f5;*/
 
-                span{
+                span {
                   display: flex;
                   align-items: center;
                   font-size: 14px;
-                  i{
+
+                  i {
                     display: block;
                     width: 5px;
                     height: 5px;
@@ -1237,7 +1352,8 @@
                   }
                 }
               }
-              p:hover{
+
+              p:hover {
                 /*background: rgb(226, 241, 246);*/
                 cursor: pointer;
                 color: #333333;

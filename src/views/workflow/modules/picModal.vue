@@ -35,7 +35,8 @@
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         visible: false,
         picurl: '',
-        scrHeight: window.innerHeight - 250 + 'px'
+        // scrHeight: window.innerHeight - 250 + 'px'
+        scrHeight: 400+ 'px'
       }
     },
     created() {

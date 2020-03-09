@@ -150,6 +150,8 @@
                   return '所有部门'
                 case 'current_dept' :
                   return '当前用户所在部门'
+                case 'main_dept' :
+                  return '主办部门'
               }
             },
           },

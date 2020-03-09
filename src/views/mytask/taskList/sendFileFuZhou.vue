@@ -308,6 +308,10 @@
         type: Object,
         required: false
       },
+      isShowFile:{
+        type: Object,
+        required: false
+      }
     },
     data() {
       return {

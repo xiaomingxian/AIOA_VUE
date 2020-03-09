@@ -119,11 +119,20 @@
         </tr>
         <tr>
           <td class="title" width="10%">
-            <!--辅办部门-->
-            <center><h3>{{detailList.s_cc_dept_names}}</h3></center>
+            <!--主办部门-->
+            <center><h3>{{detailList.s_main_unit_names}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input :value="backData.s_cc_dept_names"></a-input>
+            <a-input :value="backData.s_main_unit_names"></a-input>
+          </td>
+        </tr>
+        <tr>
+          <td class="title" width="10%">
+            <!--辅办部门-->
+            <center><h3>{{detailList.s_cc_unit_names}}</h3></center>
+          </td>
+          <td colspan="3">
+            <a-input :value="backData.s_cc_unit_names"></a-input>
           </td>
         </tr>
         <tr>
@@ -294,11 +303,15 @@
           //缓急
           i_urgency: '0',
           //主办部门
+          s_main_unit_names:"",
+          //副办部门
+          s_cc_unit_names:"",
+          //传阅部门
+          s_inside_deptnames:"",
+          //主办部门
           s_main_dept_names: '主办部门',
           //辅办部门
           s_cc_dept_names: '辅办部门',
-          //内部发送部门
-          s_inside_deptnames: '内部发送部门',
           //标题
           s_title: '中国人民银行永州市中心支行收文处理签',
           //左侧参数页面头部
@@ -371,11 +384,11 @@
       }
     },
     created() {
-      this.initSelDate() ;
+      //this.initSelDate() ;
       this.show();
     },
     methods: {
-      initSelDate(){
+      /*initSelDate(){
         //初始化来文文种
         getAction(this.url.initSelDate,{dictKey:"recFileType"}).then(res =>{
           this.recFileTypeList = res.result ;
@@ -384,7 +397,7 @@
         getAction(this.url.initSelDate,{dictKey:"recFileOrg"}).then(res =>{
           this.recFileOrgList = res.result ;
         })
-      },
+      },*/
       optsGet(opts) {
         this.opts = opts
       },
@@ -412,6 +425,12 @@
         for (var i in this.backData) {
 
           this.backData[i] = this.backDataRef[i]
+        }
+        if(this.optionMap.s_varchar4_option != undefined && this.optionMap.s_varchar4_option.length >0){
+          this.recFileTypeList = this.optionMap.s_varchar4_option ;
+        }
+        if(this.optionMap.s_varchar5_option != undefined && this.optionMap.s_varchar5_option.length >0){
+          this.recFileOrgList = this.optionMap.s_varchar5_option;
         }
         this.getOaFiles(this.backData.table, this.backData.i_id);
         // this.backData.table = table

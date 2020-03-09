@@ -10,6 +10,7 @@
   import enquireScreen from '@/utils/device'
 
   export default {
+    inject: ['reload'],
     data () {
       return {
         locale: zhCN,
@@ -19,6 +20,13 @@
     provide(){
       return {
         reload:this.reload
+      }
+    },
+    watch: {
+      '$route.path': function (newVal, oldVal) {
+        if (newVal.includes('analysis') || newVal.includes('NewOneParts') || newVal.includes('daynnalysis')) {
+          this.reload();
+        }
       }
     },
     created () {
@@ -40,6 +48,26 @@
         }
 
       })
+
+
+      //监听页签切换 监听当页面是活动页时  刷新页面
+
+      var _this = this;
+
+      document.addEventListener('visibilitychange', function () {
+        // document.title = document.hidden?'拜拜11111':' 回来啦2222'
+        if (document.hidden) {
+
+          console.log(_this.$route.path.endsWith('NewOneParts'));
+          if (_this.$route.path.endsWith('NewOneParts') || _this.$route.path.endsWith('analysis') || _this.$route.path.endsWith('daynnalysis')) {
+            _this.reload()
+
+          }
+        }
+      })
+
+
+
     },
     methods:{
       reload(){

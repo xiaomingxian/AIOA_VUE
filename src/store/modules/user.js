@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {login, logout, phoneLogin} from "@/api/login"
+import {login, logout, phoneLogin,loginRtx} from "@/api/login"
 import {ACCESS_TOKEN, USER_NAME, USER_INFO, USER_AUTH, SYS_BUTTON_AUTH} from "@/store/mutation-types"
 import {welcome} from "@/utils/util"
 import {queryPermissionsByUser} from '@/api/api'
@@ -62,9 +62,10 @@ const user = {
       })
     },
     // 登录
-    Login({commit}, userInfo) {
+    LoninRtx({commit}, userInfo){
       return new Promise((resolve, reject) => {
-        login(userInfo).then(response => {
+        loginRtx(userInfo).then(response => {
+          console.log("AAAA",commit)
           if (response.code == '200') {
             const result = response.result
             const userInfo = result.userInfo
@@ -82,6 +83,54 @@ const user = {
         }).catch(error => {
           reject(error)
         })
+      })
+    },
+    Login({commit}, userInfo) {
+      return new Promise((resolve, reject) => {
+        if(userInfo.password == undefined || userInfo.password == ''){
+          loginRtx(userInfo).then(response => {
+              console.log("AAAA",commit)
+              if (response.code == '200') {
+                const result = response.result
+                const userInfo = result.userInfo
+                Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
+                Vue.ls.set(USER_NAME, userInfo.username, 7 * 24 * 60 * 60 * 1000)
+                Vue.ls.set(USER_INFO, userInfo, 7 * 24 * 60 * 60 * 1000)
+                commit('SET_TOKEN', result.token)
+                commit('SET_INFO', userInfo)
+                commit('SET_NAME', {username: userInfo.username, realname: userInfo.realname, welcome: welcome()})
+                commit('SET_AVATAR', userInfo.avatar)
+                resolve(response)
+              } else {
+                reject(response)
+              }
+            }
+          ).catch(error => {
+            reject(error)
+          })
+        }else{
+          login(userInfo).then(response => {
+              console.log("AAAA",commit)
+              if (response.code == '200') {
+                const result = response.result
+                const userInfo = result.userInfo
+                Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
+                Vue.ls.set(USER_NAME, userInfo.username, 7 * 24 * 60 * 60 * 1000)
+                Vue.ls.set(USER_INFO, userInfo, 7 * 24 * 60 * 60 * 1000)
+                commit('SET_TOKEN', result.token)
+                commit('SET_INFO', userInfo)
+                commit('SET_NAME', {username: userInfo.username, realname: userInfo.realname, welcome: welcome()})
+                commit('SET_AVATAR', userInfo.avatar)
+                resolve(response)
+              } else {
+                reject(response)
+              }
+            }
+          ).catch(error => {
+            reject(error)
+          })
+        }
+
       })
     },
     //手机号登录

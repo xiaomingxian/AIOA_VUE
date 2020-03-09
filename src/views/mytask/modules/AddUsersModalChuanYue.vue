@@ -247,7 +247,8 @@
       return {
         singleDept: null,
         defaultSelectedKeys: [],
-        scrHeight: window.innerHeight - 300 + 'px',
+        // scrHeight: window.innerHeight - 300 + 'px',
+        scrHeight: 350 + 'px',
         title: '追加用户',
         okText: '确定',
         //控制组件数据可见
@@ -881,6 +882,8 @@
 
           let ids = []
           let depMSg = {}
+          let allIds = []
+
           for (let i in this.departUsersId) {
 
             if (i.indexOf("主办") >= 0 && this.departUsersId[i].length == 0) {
@@ -890,11 +893,29 @@
 
             if (this.departUsersId[i].length > 0) {
               // ids.push(this.departUsersId[i])
+              allIds = allIds.concat(this.departUsersId[i])
+
               depMSg[i] = this.departUsersId[i]
             }
           }
+          //排除掉取消的用户
           for (let k of Object.keys(this.userGroupByDepts)) {
-            ids.push(this.userGroupByDepts[k])
+            for (let i=0;i<this.userGroupByDepts[k].length;i++) {
+              if (allIds.indexOf(this.userGroupByDepts[k][i]) == -1) {
+
+                this.userGroupByDepts[k].splice(i, 1);
+                i--
+              }
+            }
+          }
+
+          for (let k of Object.keys(this.userGroupByDepts)) {
+            if (this.userGroupByDepts[k].length > 0) {
+              //去重
+              let setArr = new Set(this.userGroupByDepts[k])
+              let iids = Array.from(setArr)
+              ids.push(iids)
+            }
           }
           if (ids.length == 0) {
             this.$message.error('请选择用户')
