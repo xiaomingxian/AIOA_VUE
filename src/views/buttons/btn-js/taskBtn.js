@@ -59,6 +59,7 @@ export const taskBth = {
         start: '/wf/task/start',//开启流程
         insertDataAndStartPro: '/oaBus/newTask/insertDataAndStartPro',//保存业务同时开启流程
         nextUsers: '/oaBus/taskInAct/nextUserQuery',
+        nextUsersEnd: '/oaBus/taskInAct/nextUserQueryEnd',
         endProUrl: '/wf/task/endProcess',
         showBackAct: '/wf/task/showBackAct',//展示回退/跳转 节点
         currentUserMsg: '/sys/user/getUserSectionInfoByToken',
@@ -958,9 +959,9 @@ export const taskBth = {
       data['busDataId'] = this.backData.i_id
       //下一节点为 结束节点不需要拼接 下一办理用户
       data['isDept'] = false
+      //连线信息--决定走向
+      var vars = activity.actMsg.conditionContext;
       if (ids.length > 0) {
-        //连线信息--决定走向
-        var vars = activity.actMsg.conditionContext;
         if (vars == undefined) {
           vars = {}
         }
@@ -978,9 +979,9 @@ export const taskBth = {
         } else {
           vars[activity.actMsg.assignee] = ids[0]
         }
-        //流程所需变量
-        data['vars'] = vars
       }
+      //流程所需变量
+      data['vars'] = vars
       //记录部门相关信息
       var deptMsg = {}
       //如果是部门 记录部门信息
@@ -1013,7 +1014,7 @@ export const taskBth = {
       //参数构造完毕***********************
       postAction(this.url.doTask, data).then(res => {
         if (res.success) {
-          this.$message.success('办结成功')
+          this.$message.success('办理成功')
           this.havaOtherProc = false
           this.nextConfirm = true
           //this.sendMesToUser(data.assignee);
@@ -1462,7 +1463,7 @@ export const taskBth = {
           setTimeout(res => {
             this.refreshIndexClose()
           }, 500)
-        }, 1700)
+        }, 2000)
       }
 
 
@@ -1518,7 +1519,7 @@ export const taskBth = {
 
         })
       } else {
-        getAction(this.url.nextUsers, {
+        getAction(this.url.nextUsersEnd, {
           procDefkey: this.backData.s_cur_proc_name,
           drafterId: this.backData.s_create_by,
           taskId: this.taskMsg.id,
@@ -1527,17 +1528,28 @@ export const taskBth = {
         }).then(res => {
           //展示数据
           if (res.success) {
-            if (res.result.length == 1) {
-              // if (res.result[0].actMsg.type == 'endEvent') {
-              this.confirmNextUsersEnd([], res.result[0], null, null)
-              // } else {
-              //   this.$message.error('当前节点不可办结')
-              //   return
-              // }
+            // if (res.result.length == 1) {
+            if (res.result.length > 1) {
+              var flag = true
+              for (let i in res.result) {
+                if (res.result[i].actMsg.type == 'endEvent') {
+                  this.confirmNextUsersEnd([], res.result[i], null, null)
+                  flag = false
+                  break
+                }
+              }
+              //如果遍历完成都没有找到结束类型节点
+              if (flag) {
+                this.$message.error('此环节不可完成,请检查流程图设计或按钮配置')
+                return
+              }
             } else {
-              this.$message.error('当前节点不可办结')
-              return
+              this.confirmNextUsersEnd([], res.result[0], null, null)
             }
+            // } else {
+            //   this.$message.error('当前节点不可办结')
+            //   return
+            // }
             //TODO********************************* 档案系统接口  ************************************
             // getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
             //   if (res.success) {
