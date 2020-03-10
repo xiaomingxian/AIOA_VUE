@@ -1297,7 +1297,7 @@ export const taskBth = {
       this.showPoint('all')
     },
     showPoint(type) {
-      var text = type == 'all' ? '跳转' : '回退'
+      var text = type == 'all' ? '跳转' : '退回'
       getAction(this.url.showBackAct,
         {
           processDefinitionId: this.taskMsg.processDefinitionId,
@@ -1360,21 +1360,31 @@ export const taskBth = {
     },
 //部门完成
     deptFinish() {
+      var flag = true
       //拿到当前taskId
       // var res = window.confirm("是否部门完成");
       // if (res) {
       // let param={taskId: this.taskMsg.id}
       postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id + '&processInstanceId=' + this.taskMsg.processInstanceId).then(res => {
         if (res.success) {
-          this.$message.success(res.message)
-          setTimeout(res => {
-            this.refreshIndexClose()
-          }, 500)
+          // this.$message.success(res.message)
+          // setTimeout(res => {
+          //   this.refreshIndexClose()
+          // }, 500)
         } else {
+          flag = false
           this.$message.error(res.message)
         }
       })
-      // }
+
+      if (flag) {
+        setTimeout(res => {
+          this.$message.success('部门完成成功')
+          this.refreshIndexClose()
+        }, 1500)
+      }
+
+
     }
     ,
     showPic() {

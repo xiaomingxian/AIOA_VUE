@@ -181,7 +181,7 @@
       return {
         // scrHeight: window.innerHeight - 350 + 'px',
         scrHeight: 350 + 'px',
-        title: '回退',
+        title: '退回',
         visible: false,
         confirmLoading: false,
         taskMsg: '',
@@ -476,9 +476,9 @@
       },
       jump() {
         console.log(this.dataSource)
-        if (this.title == '回退') {
+        if (this.title == '退回') {
           if (this.reason == null || this.reason.length == 0) {
-            this.$message.error('请先填写意见')
+            this.$message.error('请填写退回原因')
             return
           }
         }
