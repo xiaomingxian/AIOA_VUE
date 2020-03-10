@@ -423,6 +423,7 @@
 
         this.destMsg = record
 
+
         if (this.title == '退回') return
 
         //展示节点所需要的办理人
@@ -431,6 +432,8 @@
           taskId: record.id,
           taskName: record.name,
           drafterId: this.taskMsg.drafterId,
+          table:this.taskMsg.table,
+          i_id:this.taskMsg.tableId,
         }).then(res => {
           if (res.success) {
             //console.log('-------------success:::::::')
