@@ -249,7 +249,7 @@
         defaultSelectedKeys: [],
         // scrHeight: window.innerHeight - 300 + 'px',
         scrHeight: 350 + 'px',
-        title: '追加用户',
+        title: '追加',
         okText: '确定',
         //控制组件数据可见
         isMul: false, //下一任务是单选/多选
