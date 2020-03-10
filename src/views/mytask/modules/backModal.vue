@@ -606,7 +606,8 @@
         } else {
           postAction(this.url.jump, data).then(res => {
             if (res.success) {
-              this.$message.success(res.message)
+              // this.$message.success(res.message)
+              this.$message.success('流程重置成功')
               setTimeout(function () {
                 window.close()
               }, 500)
