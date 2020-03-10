@@ -700,8 +700,6 @@ export const busdataTemplate = {
             this.password=res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              alert(cmd)
-              alert(item.iid)
               ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + cmd
                 + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+ "&fileType=" + item.sfileType);
             } else {
