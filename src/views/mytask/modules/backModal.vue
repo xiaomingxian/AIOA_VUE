@@ -364,7 +364,7 @@
       show() {
         //console.log('-------------',this.title)
         this.isCurrentUsers = false
-        if (this.title == '回退') this.isBack = true
+        if (this.title == '退回') this.isBack = true
         else this.isBack = false
 
         this.visible = true
@@ -423,7 +423,7 @@
 
         this.destMsg = record
 
-        if (this.title == '回退') return
+        if (this.title == '退回') return
 
         //展示节点所需要的办理人
         getAction(this.url.currentUserQuery, {
@@ -532,7 +532,7 @@
             }
 
 
-            if (this.title == '回退') {
+            if (this.title == '退回') {
               if (this.selectionRows.length <= 0) {
                 this.$message.error('请选择要退回的环节')
                 return
@@ -549,7 +549,7 @@
           }
         } else {//非多实例
 
-          if (this.title == '回退') {
+          if (this.title == '退回') {
             if (this.selectionRows.length <= 0) {
               this.$message.error('请选择要退回的环节')
               return
@@ -571,7 +571,7 @@
           destActDefKey: this.destMsg.id,
           destActDefName: this.destMsg.name,
           currActDefKey: this.taskMsg.taskDefinitionKey,
-          deleteReason: this.title == '回退' ? 'completed_back' : 'completed_jump',
+          deleteReason: this.title == '退回' ? 'completed_back' : 'completed_jump',
           //办理人信息
           vars: vars,
           isDept: this.isDept,
@@ -584,7 +584,7 @@
         }
 
 
-        if (this.title == '回退') {
+        if (this.title == '退回') {
           data['backReason'] = this.reason
 
           postAction(this.url.back, data).then(res => {
