@@ -861,7 +861,6 @@ export const taskBth = {
     },
     //选择下一办理人的同时办理任务
     confirmNextUsers(ids, activity, endTime, depts) {
-      console.log('------------------', activity)
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id
@@ -903,16 +902,12 @@ export const taskBth = {
       //如果是部门 记录部门信息
       if (activity.oaProcActinst != undefined && activity.oaProcActinst.userOrRole == 'dept') {
         //记录部门信息
+        deptMsg['mainDept'] = activity.mainDept
+        deptMsg['fuDept'] = activity.fuDept
+        deptMsg['cyDept'] = activity.cyDept
         deptMsg['tskId'] = this.taskMsg.id
         deptMsg['taskDefKey'] = activity.actMsg.id
         deptMsg['deptMsg'] = depts
-        var mainDept = ''
-        for (let i in activity.departSelect) {
-          if (i.indexOf("主办") >= 0) {
-            mainDept = activity.departSelect[i][0].departName
-          }
-        }
-        deptMsg['mainDept'] = mainDept
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
 
