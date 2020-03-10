@@ -944,6 +944,90 @@ export const taskBth = {
         }
       })
     },
+    confirmNextUsersEnd(ids, activity, endTime, depts) {
+      //传后台的参数
+      var data = {};
+      var taskId = this.taskMsg.id
+      if (this.havaOtherProc) {
+        taskId = undefined
+      }
+      data['taskId'] = taskId
+      //业务数据权限表（流转过程中逐步维护该表数据、收回删除人员权限）
+      data['assignee'] = ids
+      data['functionId'] = this.backData.i_bus_function_id
+      data['busDataId'] = this.backData.i_id
+      //下一节点为 结束节点不需要拼接 下一办理用户
+      data['isDept'] = false
+      if (ids.length > 0) {
+        //连线信息--决定走向
+        var vars = activity.actMsg.conditionContext;
+        if (vars == undefined) {
+          vars = {}
+        }
+        //进行任务办理
+        if (endTime != '') {
+          //有时间限制
+          vars.endTime = endTime;
+        }
+        //组装办理人信息
+        //是否是设计上的多实例
+        if (activity.actMsg.allowMulti) {
+          //数据库配置是否允许多实例
+          vars[activity.actMsg.multiAssignee] = ids
+          vars[activity.actMsg.loopSize] = ids.length
+        } else {
+          vars[activity.actMsg.assignee] = ids[0]
+        }
+        //流程所需变量
+        data['vars'] = vars
+      }
+      //记录部门相关信息
+      var deptMsg = {}
+      //如果是部门 记录部门信息
+      if (activity.oaProcActinst != undefined && activity.oaProcActinst.userOrRole == 'dept') {
+        //记录部门信息
+        deptMsg['mainDept'] = activity.mainDept
+        deptMsg['fuDept'] = activity.fuDept
+        deptMsg['cyDept'] = activity.cyDept
+        deptMsg['tskId'] = this.taskMsg.id
+        deptMsg['taskDefKey'] = activity.actMsg.id
+        deptMsg['deptMsg'] = depts
+        data['taskWithDepts'] = deptMsg
+        data['isDept'] = true
+
+      }
+      this.backData.page_ref = this.taskMsg.pageRef
+      //业务数据
+      this.$emit("getbackDataNew", this.backData.page_ref)
+      this.lastedUrgency()
+
+      if (this.havaOtherProc) {
+        data['busData'] = this.otherProc.busData
+        // data['busData']['justStart'] = true
+      } else {
+        data['busData'] = this.backData
+      }
+      data['taskDefKey'] = activity.actMsg.id
+
+      //this.sendMesToUser(data.assignee);
+      //参数构造完毕***********************
+      postAction(this.url.doTask, data).then(res => {
+        if (res.success) {
+          this.$message.success('办结成功')
+          this.havaOtherProc = false
+          this.nextConfirm = true
+          //this.sendMesToUser(data.assignee);
+          //this.saveBusData()
+          setTimeout(res => {
+            // this.close()
+            this.refreshIndexClose()
+          }, 500)
+          // this.reload()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
     //通过ids查询用户，查看是否设置了代办消息发送
     sendMesToUser(ids) {
       console.log('AAAA', ids)
@@ -1375,8 +1459,10 @@ export const taskBth = {
       if (flag) {
         setTimeout(res => {
           this.$message.success('部门完成成功')
-          this.refreshIndexClose()
-        }, 1500)
+          setTimeout(res => {
+            this.refreshIndexClose()
+          }, 500)
+        }, 1700)
       }
 
 
@@ -1416,18 +1502,18 @@ export const taskBth = {
         this.backData.i_is_state = 1
         postAction(this.url.updateBusdata, this.backData).then(res => {
           if (res.success) {
-            this.$message.success('办结成功')
-            getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
-              if (res.success) {
-                this.$message.success(res.message)
-                this.reload();
-
-              } else {
-                this.$message.error(res.message)
-              }
-            })
+            this.$message.success('办理完成')
+            // getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
+            //   if (res.success) {
+            //     this.$message.success(res.message)
+            //     this.reload();
+            //
+            //   } else {
+            //     this.$message.error(res.message)
+            //   }
+            // })
           } else {
-            this.$message.error('数据更新失败')
+            this.$message.error('办理失败')
           }
 
         })
@@ -1443,7 +1529,7 @@ export const taskBth = {
           if (res.success) {
             if (res.result.length == 1) {
               // if (res.result[0].actMsg.type == 'endEvent') {
-              this.confirmNextUsers([], res.result[0], null, null)
+              this.confirmNextUsersEnd([], res.result[0], null, null)
               // } else {
               //   this.$message.error('当前节点不可办结')
               //   return
@@ -1453,13 +1539,13 @@ export const taskBth = {
               return
             }
             //TODO********************************* 档案系统接口  ************************************
-            getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
-              if (res.success) {
-                this.$message.success(res.message)
-              } else {
-                this.$message.error(res.message)
-              }
-            })
+            // getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
+            //   if (res.success) {
+            //     this.$message.success(res.message)
+            //   } else {
+            //     this.$message.error(res.message)
+            //   }
+            // })
           } else {
             this.$message.error(res.message)
           }
