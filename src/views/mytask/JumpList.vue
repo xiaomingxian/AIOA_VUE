@@ -40,13 +40,13 @@
               </a-form-item>
             </a-col>
 
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="开始时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间"
                                v-model='startTimeFake' @change="startTime"/>
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="结束时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间"
                                v-model='endTimeFake' @change="endTime"/>
