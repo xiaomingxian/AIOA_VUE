@@ -449,7 +449,7 @@ export const busdataTemplate = {
     downFileName(path) {
       // alert(path)
       let url = window._CONFIG['domianURL'] + "/papertitle/oaTemplate/download";
-      window.open(url + "/" + path);
+      window.open(url + path);
     },
     blurText(value, event, label) {
 
