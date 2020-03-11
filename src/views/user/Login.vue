@@ -269,7 +269,7 @@
     },
     methods: {
       downLoadFile() {
-        let URL = 'http://localhost:4000/ntko/files/AI综合办公服务平台体验指导手册.docx';
+        let URL = '/ntko/files/AI综合办公服务平台体验指导手册.docx';
         window.open(URL);
       },
 
