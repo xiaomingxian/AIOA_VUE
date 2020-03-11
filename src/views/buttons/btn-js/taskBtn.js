@@ -1828,7 +1828,7 @@ export const taskBth = {
                 this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                 this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema+"&url="+window._CONFIG['domianURL']);
             } else {
-              window.open(window.location.origin + "/ntko/exeindex.html")
+              window.open( "/ntko/exeindex.html")
             }
             window.ntkoCloseEvent = function () {
               this.$message.error("跨浏览器插件应用程序窗口已关闭");
