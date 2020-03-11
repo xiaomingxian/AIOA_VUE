@@ -241,10 +241,10 @@
         this.uploading = true;
         let url = this.url.upload;
         let method = 'post';
-        if (this.fileType == 1) {
-          this.fileType = 2;
-        }
-        data.append("fileType", this.fileType);
+        // if (this.fileType == 1) {
+        //   this.fileType = 2;
+        // }
+        data.append("fileType", 7); //模板类型
         httpAction(url, data, method).then(res => {
           this.fileList = [];
           this.uploading = false;

@@ -76,7 +76,7 @@
     methods: {
 
       show(data) {
-        console.log(data)
+        // console.log(data)
         this.busData = data;
         this.initData();
         this.visible = true;
@@ -134,7 +134,7 @@
         let departs = [];
         let obj = this.selectionRows;
         if (obj.length <= 0) {
-          alert("请选择下发县行")
+          this.$message.error("请选择下发县行")
           return;
         }
         //组装县行id
