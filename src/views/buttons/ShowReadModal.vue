@@ -125,7 +125,7 @@
 
           this.dataSources = res.result.records;
           var map = {}
-          let collation = res.result.records
+          let collation = res.result.records;
          for (let i in collation){
            let  key = collation[i].deptName;
            if (map[key] == undefined) {

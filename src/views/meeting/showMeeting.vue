@@ -83,9 +83,9 @@
             dataIndex: 'iisState',
             customRender: function (iisState) {
               if (iisState == '1') {
-                return "办理申请中";
-              } else if (iisState == "0") {
                 return "已申请成功";
+              } else if (iisState == "0") {
+                return "办理申请中";
               } else if (iisState == null && iisState == undefined){
                 return "准备申请中";
               } else {
@@ -116,13 +116,9 @@
       showMeetingCase(e) {
         this.visible = true
         this.meetingRoom = e;
-
         getAction(this.url.queryMeetingRoom, {s_varchar1: this.meetingRoom}).then(res => {
           this.dataSources = res.result.records;
-
-
         })
-
       },
 
       handleTableChange(paginations){
