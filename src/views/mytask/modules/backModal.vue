@@ -477,6 +477,39 @@
           }
         })
       },
+      deptTypes(depMSg) {
+        depMSg.mainDept = ''
+        depMSg.fuDept = ''
+        depMSg.cyDept = ''
+        for (let k  of Object.keys(this.departSelect)) {
+
+          var types = this.departSelect[k]
+          for (let i in types) {
+            if (k.indexOf('主办') >= 0) {
+              if (depMSg.mainDept == '') {
+                depMSg.mainDept += types[i].departName
+              } else {
+                depMSg.mainDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('辅办') >= 0) {
+              if (depMSg.fuDept == '') {
+                depMSg.fuDept += types[i].departName
+              } else {
+                depMSg.fuDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('传阅') >= 0) {
+              if (depMSg.cyDept == '') {
+                depMSg.cyDept += types[i].departName
+              } else {
+                depMSg.cyDept += '_' + types[i].departName
+              }
+            }
+          }
+        }
+
+      },
       jump() {
         console.log(this.dataSource)
         if (this.title == '退回') {
@@ -528,6 +561,10 @@
               let idd = userGroupByDept[i]
               uids.push(idd)
             }
+            this.deptTypes(taskWithDepts)
+
+
+
 
             if (Object.keys(this.allUserMsg).length==0){
               this.$message.error('请选择用户')
@@ -585,7 +622,6 @@
           functionId: this.taskMsg.functionId,
           assignee: assignee
         }
-
 
         if (this.title == '退回') {
           data['backReason'] = this.reason

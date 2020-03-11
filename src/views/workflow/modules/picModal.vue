@@ -36,7 +36,7 @@
         visible: false,
         picurl: '',
         // scrHeight: window.innerHeight - 250 + 'px'
-        scrHeight: 400+ 'px'
+        scrHeight: 500+ 'px'
       }
     },
     created() {

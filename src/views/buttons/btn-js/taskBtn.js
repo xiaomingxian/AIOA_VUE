@@ -1529,14 +1529,17 @@ export const taskBth = {
         }
       })
 
-      if (flag) {
-        setTimeout(res => {
-          this.$message.success('部门完成成功')
+      setTimeout(res => {
+        if (flag) {
           setTimeout(res => {
-            this.refreshIndexClose()
-          }, 500)
-        }, 2000)
-      }
+            this.$message.success('部门完成成功')
+            setTimeout(res => {
+              this.refreshIndexClose()
+            }, 500)
+          }, 2000)
+        }
+      }, 500)
+
 
 
     }
