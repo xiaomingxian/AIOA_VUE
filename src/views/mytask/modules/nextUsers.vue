@@ -12,7 +12,7 @@
     cancelText="取消">
     <div id="pic" style="overflow: auto;" :style="{height: scrHeight}">
 
-      <a-layout id="components-layout-demo-top-side-2">
+      <a-layout  id="components-layout-demo-top-side-2">
         <a-layout>
           <div v-if="endType">
             <center><h3 style="color: red; font-weight: 600; font-size: 20px">下一节点为结束节点</h3></center>
@@ -39,9 +39,9 @@
             </a-menu>
           </a-layout-sider>
           <!--.........................//////////////////////////////////////////..........................................................................-->
-          <a-layout v-if="!endType" style="padding: 2px 2px 2px">
+          <a-layout v-if="!endType" style="background:#ffffff !important; padding: 2px 2px 2px">
 
-            <a-breadcrumb style="height: 50px;display: flex;align-items: center">
+            <a-breadcrumb style="background: #d6ebff; height: 50px;display: flex;align-items: center">
               <div>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a-radio-group name="radioGroup" @change="changeChoice" :defaultValue="1">
@@ -57,7 +57,7 @@
               </div>
             </a-breadcrumb>
             <a-layout-content
-              :style="{ background: '#fff', padding: '10px', margin: 0, minHeight: '280px' }">
+              :style="{ background: '#fff', padding: '0px', margin: 0, minHeight: '280px' }">
               <!--********************************* 下一办理人选用户(区分：普通/并行/包容网关) [仅记录选择记录] ********************************-->
               <!--可多选 1 数据分类(单选/多选/部门选) -->
               <!--1 普通-->
@@ -233,7 +233,7 @@
         singleDept: null,
         defaultSelectedKeys: [],
         // scrHeight: window.innerHeight - 300 + 'px',
-        scrHeight: 350 + 'px',
+        scrHeight: 450 + 'px',
         // scrHeight: '',
         title: '下一任务',
         okText: '确定',
@@ -1164,6 +1164,16 @@
 </script>
 
 <style scoped lang="less">
+
+  /deep/.ant-table-bordered.ant-table-empty .ant-table-placeholder{
+    border:none !important;
+  }
+  /deep/.ant-table-content>.ant-table-body>table{
+    border: none;
+  }
+  /*.ant-table-bordered .ant-table-header > table, .ant-table-bordered .ant-table-body > table, .ant-table-bordered .ant-table-fixed-left table, .ant-table-bordered .ant-table-fixed-right table{*/
+    /*border: none;*/
+  /*}*/
   .box {
     width: 100%;
     display: flex;

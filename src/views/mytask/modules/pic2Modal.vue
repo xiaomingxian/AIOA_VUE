@@ -90,8 +90,8 @@
     name: "pic2Modal",
     data() {
       return {
-        // scrHeight: window.innerHeight - 320 + 'px',
-        scrHeight: 500 + 'px',
+        scrHeight: window.innerHeight - 320 + 'px',
+        // scrHeight: 500 + 'px',
         styles: [],
         title: '流程查看',
         confirmLoading: false,
