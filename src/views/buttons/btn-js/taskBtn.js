@@ -1823,9 +1823,7 @@ export const taskBth = {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              // alert(window._CONFIG['domianURL'])
-              // alert(window.location.origin)
-              ntkoBrowser.openWindow( window.location.origin+ "/ntko/editindex.html?cmd=" + cmd +
+              ntkoBrowser.openWindow(  "/ntko/editindex.html?cmd=" + cmd +
                 "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                 this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                 this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema+"&url="+window._CONFIG['domianURL']);
