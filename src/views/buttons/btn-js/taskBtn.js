@@ -945,6 +945,7 @@ export const taskBth = {
         }
       })
     },
+    //完成任务
     confirmNextUsersEnd(ids, activity, endTime, depts) {
       //传后台的参数
       var data = {};
@@ -1052,12 +1053,14 @@ export const taskBth = {
         }
       }
       let taskInfoVoList = {list: datas}
+
       //请求后台
       postAction(this.url.doTaskMore, taskInfoVoList).then(res => {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
-          this.nextConfirm(res => {
+          this.nextConfirm = true
+          setTimeout(res => {
             this.refreshIndexClose()
           }, 500)
         } else {
@@ -1239,16 +1242,18 @@ export const taskBth = {
           //记录部门信息
           deptMsg['tskId'] = taskId
           deptMsg['taskDefKey'] = activity.actMsg.id
-          var mainDept = '';
-          for (let i in v.departSelect) {
-            if (i.indexOf("主办") >= 0 && (v.departSelect[i].length > 0)) {
-              mainDept = v.departSelect[i][0].departName
-              break
-            }
-          }
-          deptMsg['mainDept'] = mainDept
+          // var mainDept = '';
+          // for (let i in v.departSelect) {
+          //   if (i.indexOf("主办") >= 0 && (v.departSelect[i].length > 0)) {
+          //     mainDept = v.departSelect[i][0].departName
+          //     break
+          //   }
+          // }
+          // deptMsg['mainDept'] = mainDept
           //记录主办部门信息
           deptMsg['deptMsg'] = v.departUsersId
+          //主办 辅办 传阅 部门记录
+          this.deptTypes(deptMsg,v.departSelect)
           data['taskWithDepts'] = deptMsg
           data['isDept'] = true
 
@@ -1324,6 +1329,43 @@ export const taskBth = {
         datas.push(data)
 
       }
+    },
+    //部门类型组装
+    deptTypes(depMSg,departSelect) {
+      depMSg.mainDept = ''
+      depMSg.fuDept = ''
+      depMSg.cyDept = ''
+      if (departSelect==undefined){
+        return
+      }
+      for (let k  of Object.keys(departSelect)) {
+
+        var types = departSelect[k]
+        for (let i in types) {
+          if (k.indexOf('主办') >= 0) {
+            if (depMSg.mainDept == '') {
+              depMSg.mainDept += types[i].departName
+            } else {
+              depMSg.mainDept += '_' + types[i].departName
+            }
+          }
+          if (k.indexOf('辅办') >= 0) {
+            if (depMSg.fuDept == '') {
+              depMSg.fuDept += types[i].departName
+            } else {
+              depMSg.fuDept += '_' + types[i].departName
+            }
+          }
+          if (k.indexOf('传阅') >= 0) {
+            if (depMSg.cyDept == '') {
+              depMSg.cyDept += types[i].departName
+            } else {
+              depMSg.cyDept += '_' + types[i].departName
+            }
+          }
+        }
+      }
+
     },
     //仅保存数据
     justSave() {
