@@ -428,7 +428,7 @@ export const taskBth = {
     },
 
     nextRealQuery() {
-      if (this.taskMsg.id == undefined && this.taskMsg.hiTaskId != undefined) {
+      if (this.taskMsg.status !=undefined && this.taskMsg.status=='done') {
         this.$message.error('已办环节没有下一任务')
         return
       }
@@ -1112,21 +1112,15 @@ export const taskBth = {
       //如果是部门 记录部门信息
       if (activity.oaProcActinst != undefined && activity.oaProcActinst.userOrRole == 'dept') {
         //记录部门信息
+        deptMsg['mainDept'] = activity.mainDept
+        deptMsg['fuDept'] = activity.fuDept
+        deptMsg['cyDept'] = activity.cyDept
         deptMsg['tskId'] = this.taskMsg.id
         deptMsg['taskDefKey'] = activity.actMsg.id
         deptMsg['deptMsg'] = depts
-        var mainDept = ''
-        for (let i in activity.departSelect) {
-          if (i.indexOf("主办") >= 0) {
-            mainDept = activity.departSelect[i][0].departName
-          }
-        }
-        deptMsg['mainDept'] = mainDept
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
         //遍历节点属性找出所选择的用户
-
-
       }
       this.backData.page_ref = this.taskMsg.pageRef
       //业务数据
@@ -1148,6 +1142,7 @@ export const taskBth = {
       }
 
       let taskInfoVoList = {list: [data]}
+
       //参数构造完毕***********************
       postAction(this.url.doAddUsers, taskInfoVoList).then(res => {
         if (res.success) {
