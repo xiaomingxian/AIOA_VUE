@@ -244,7 +244,7 @@
                 <span class="delCss" v-show="isShowFile">
                 <img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>
                 <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>
-                <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,4)" src="../../../../src/assets/delete.png"/>
+                <img :title="fileBtnName(3)" class="pices" @click.stop="(item,4)" src="../../../../src/assets/delete.png"/>
                 <img :title="fileBtnName(4)" v-show="oaFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,4)" src="../../../../src/assets/top.png"/>
                 <img :title="fileBtnName(5)" v-show="oaFileList.length > 1 && index < oaFileList.length-1" class="pices" @click.stop="lowFile(item,index,4)" src="../../../../src/assets/bottom.png"/>
               </span>
@@ -266,7 +266,7 @@
                 <span class="delCss" v-show="isShowFile">
                 <img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>
                 <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>
-                <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,6)" src="../../../../src/assets/delete.png"/>
+                <img :title="fileBtnName(3)" class="pices" @click.stop="(item,6)" src="../../../../src/assets/delete.png"/>
                 <img :title="fileBtnName(4)" v-show="banWenFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,6)" src="../../../../src/assets/top.png"/>
                 <img :title="fileBtnName(5)" v-show="banWenFileList.length > 1 && index < banWenFileList.length-1" class="pices" @click.stop="lowFile(item,index,6)" src="../../../../src/assets/bottom.png"/>
               </span>
@@ -277,7 +277,7 @@
         </tr>
       </table>
     </center>
-
+    <del-time ref="updateFileNameModal" @reloadAfterUpdate="reloadAfterUpdate"></del-time>
     <sel-depart-name ref="selDepartNameRef" @ok="witeDepart"></sel-depart-name>
   </form>
 
@@ -289,12 +289,14 @@
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import SelDepartName from "../../oaBus/pageModels/selDepartName";
+  import UpdatePaperTitle from "../../buttons/UpdatePaperTitleModal";
+  import DelTime from "../../buttons/DelTimeModal";
   import ATextarea from "ant-design-vue/es/input/TextArea";
 
   export default {
     name: "sendFileFuZhou",
     mixins: [JeecgListMixin, busdataTemplate],
-    components: {ATextarea, SelDepartName},
+    components: {ATextarea, DelTime, UpdatePaperTitle, SelDepartName},
     props: {
       backDataRef: {
         type: Object,
