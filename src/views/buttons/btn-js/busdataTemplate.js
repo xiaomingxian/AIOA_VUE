@@ -446,18 +446,17 @@ export const busdataTemplate = {
       let newTime = new Date(lastMonth).toISOString().split(('T')[0]);
       return newTime;
     },
-    downFileName(path) {
+    downFileName(item) {
       // alert(path)
       let url = window._CONFIG['domianURL'] + "/papertitle/oaTemplate/download";
-      let fileName = path.slice(path.lastIndexOf("\\")+1);
-      let str = fileName.slice(fileName.lastIndexOf("_"),fileName.lastIndexOf("."));
-      let fileName2 = fileName.replace(str,"")
-      downFile(url,{filePath:path}).then(res=>{
+      let filepath = item.sfilePath;
+      let filename = item.sfileName;
+      downFile(url,{filePath:item.sfilePath}).then(res=>{
         let url = window.URL.createObjectURL(new Blob([res]));
         let edik = document.createElement('a');
         edik.style.display = 'none';
         edik.href = url;
-        edik.setAttribute('download', fileName2);
+        edik.setAttribute('download', filename);
         document.body.appendChild(edik);
         //点击下载
         edik.click();
@@ -674,7 +673,7 @@ export const busdataTemplate = {
           });
         })
       } else {
-        this.downFileName(item.sfilePath);
+        this.downFileName(item);
       }
     },
     //编辑附件
