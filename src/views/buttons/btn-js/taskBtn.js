@@ -49,6 +49,7 @@ export const taskBth = {
       },
       clickTotal: 0,//点击次数参数
       isUpSend: 0, //是否已上报
+      timeRecord: {},
       url: {
         delete: '/oaBus/dynamic/delete', //删除数据
         insert: '/oaBus/dynamic/insert',//动态插入数据
@@ -140,7 +141,41 @@ export const taskBth = {
 */
     //TODO(仅标识)**********************************************  BASE START   ******************************************
     //方法路由
+    frequentClickCheck(item) {
+      let mval = item.smethod
+      if (mval == undefined || mval == '') {
+        this.$message.error('该按钮配置不完善,请检查按钮配置')
+        return
+      }
+      let time = this.timeRecord[mval]
+      var now = Date.parse(new Date());
+
+      if (time != undefined) {
+        if ((now - time) < 5 * 1000) {
+          let t = (5 - (now - time) / 1000) == 0 ? 1 : (5 - (now - time) / 1000)
+          // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
+          this.$message.error('系统正在处理您的请求,请耐心等待')
+          return true
+        } else {
+          this.timeRecord[mval] = now
+          console.log('-------------->>>>>成功请求方法222')
+
+        }
+      } else {
+        this.timeRecord[mval] = now
+        console.log('-------------->>>>>成功请求方法111')
+      }
+      return false
+
+    },
     method_router(item, index) {
+
+      //频繁点击校验
+      let f = this.frequentClickCheck(item)
+      if (f) {
+        return
+      }
+
       // console.log(item);
       // console.log( this.$refs.isDefendBtn[index]);
       // console.log( this.$refs.isNotDefendBtn[index]);
@@ -428,7 +463,7 @@ export const taskBth = {
     },
 
     nextRealQuery() {
-      if (this.taskMsg.status !=undefined && this.taskMsg.status=='done') {
+      if (this.taskMsg.status != undefined && this.taskMsg.status == 'done') {
         this.$message.error('已办环节没有下一任务')
         return
       }
@@ -1248,7 +1283,7 @@ export const taskBth = {
           //记录主办部门信息
           deptMsg['deptMsg'] = v.departUsersId
           //主办 辅办 传阅 部门记录
-          this.deptTypes(deptMsg,v.departSelect)
+          this.deptTypes(deptMsg, v.departSelect)
           data['taskWithDepts'] = deptMsg
           data['isDept'] = true
 
@@ -1326,11 +1361,11 @@ export const taskBth = {
       }
     },
     //部门类型组装
-    deptTypes(depMSg,departSelect) {
+    deptTypes(depMSg, departSelect) {
       depMSg.mainDept = ''
       depMSg.fuDept = ''
       depMSg.cyDept = ''
-      if (departSelect==undefined){
+      if (departSelect == undefined) {
         return
       }
       for (let k  of Object.keys(departSelect)) {
@@ -1791,16 +1826,16 @@ export const taskBth = {
       this.openFile(13)
     }
     ,
-/*//打开附件
-    showFujianFile() {
-      this.openFile(9, fileName)
-    }
-    ,
-//打开附件
-    showFujianFile2(cmd, fileName) {
-      this.openFile(9, fileName)
-    }
-    ,*/
+    /*//打开附件
+        showFujianFile() {
+          this.openFile(9, fileName)
+        }
+        ,
+    //打开附件
+        showFujianFile2(cmd, fileName) {
+          this.openFile(9, fileName)
+        }
+        ,*/
 //对比拟稿
     compareFile() {
       let URL = '/mytask/taskList/Test-detailFile?tableName=' + this.backData.table + '&busdataId=' + this.backData.i_id;
@@ -1818,12 +1853,12 @@ export const taskBth = {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              ntkoBrowser.openWindow(  "/ntko/editindex.html?cmd=" + cmd +
+              ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd +
                 "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                 this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
-                this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema+"&url="+window._CONFIG['domianURL']);
+                this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
             } else {
-              window.open( "/ntko/exeindex.html")
+              window.open("/ntko/exeindex.html")
             }
             window.ntkoCloseEvent = function () {
               this.$message.error("跨浏览器插件应用程序窗口已关闭");
