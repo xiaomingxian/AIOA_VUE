@@ -100,21 +100,30 @@
       //查询对外传输日志
       queryOaOutLogById(param) {
         getAction('oaBus/dynamic/queryOaOutLogById', param).then(res => {
-          if (res.success && res.result.length > 0) {
-            this.oaOutLogList = res.result;
-            getAction('/sys/dict/getDictByKeyObj', {dictKey: 'org_schema'}).then(res => {
+          if (res.success) {
+            if (res.result.length > 0) {
               this.oaOutLogList = res.result;
-              if (res.result.length > 0) {
+              getAction('/sys/dict/getDictByKeyObj', {dictKey: 'org_schema'}).then(res => {
+                if (res.result.length > 0) {
+                  res.result.map((item) => {
+                    if (this.oaOutLogList.includes(item.id)) {
+                      item.send_status = 1;
+                    } else {
+                      item.send_status = 0;
+                    }
+                  })
+                  this.mockData1 = res.result
+                }
+              })
+            } else {
+              getAction('/sys/dict/getDictByKeyObj', {dictKey: 'org_schema'}).then((res) => {
                 res.result.map((item) => {
-                  if (this.oaOutLogList.includes(item.id)) {
-                    item.send_status = 1;
-                  } else {
-                    item.send_status = 0;
-                  }
+                  item.send_status = 0;
                 })
                 this.mockData1 = res.result
-              }
-            })
+              })
+            }
+
           }
         })
       },
