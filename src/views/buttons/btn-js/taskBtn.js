@@ -1834,7 +1834,7 @@ export const taskBth = {
         ,*/
 //对比拟稿
     compareFile() {
-      let URL = 'http://localhost:4000/mytask/taskList/Test-detailFile?tableName=' + this.backData.table + '&busdataId=' + this.backData.i_id;
+      let URL = '/mytask/taskList/Test-detailFile?tableName=' + this.backData.table + '&busdataId=' + this.backData.i_id;
       window.open(URL);
     }
     ,
