@@ -661,9 +661,9 @@ export const busdataTemplate = {
                 this.password=res.result;
                 let ntkoed = ntkoBrowser.ExtensionInstalled();
                 if (ntkoed) {
-                  ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema);
+                  ntkoBrowser.openWindow( "/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+"&url="+window._CONFIG['domianURL']);
                 } else {
-                  window.open(window._CONFIG['domianURL'] + "/ntko/exeindex.html")
+                  window.open( "/ntko/exeindex.html")
                 }
                 window.ntkoCloseEvent = function () {
                 }
@@ -700,10 +700,10 @@ export const busdataTemplate = {
             this.password=res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + cmd
-                + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+ "&fileType=" + item.sfileType);
+              ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd
+                + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+ "&fileType=" + item.sfileType+"&url="+window._CONFIG['domianURL']);
             } else {
-              window.open(window._CONFIG['domianURL'] + "/ntko/exeindex.html")
+              window.open( "/ntko/exeindex.html")
             }
             window.ntkoCloseEvent = function () {
             }

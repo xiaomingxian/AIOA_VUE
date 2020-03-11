@@ -1767,10 +1767,10 @@ export const taskBth = {
     }
     ,
 //盖章(查看正文)
-    sealFile() {
-      this.openFile(5)
-    }
-    ,
+//     sealFile() {
+//       this.openFile(5)
+//     }
+
 //保存办文单
     saveBanWen() {
       this.openFile(7)
@@ -1791,7 +1791,7 @@ export const taskBth = {
       this.openFile(13)
     }
     ,
-//打开附件
+/*//打开附件
     showFujianFile() {
       this.openFile(9, fileName)
     }
@@ -1800,33 +1800,13 @@ export const taskBth = {
     showFujianFile2(cmd, fileName) {
       this.openFile(9, fileName)
     }
-    ,
+    ,*/
 //对比拟稿
     compareFile() {
       let URL = 'http://localhost:4000/mytask/taskList/Test-detailFile?tableName=' + this.backData.table + '&busdataId=' + this.backData.i_id;
       window.open(URL);
     }
     ,
-    /* openFile(cmd, fileName) {
-       let ntkoed = ntkoBrowser.ExtensionInstalled();
-       if (ntkoed) {
-         getAction("/sys/user/getLoginInfo", {}).then(res => {
-           // alert(res.orgSchema)
-           this.orgSchema = res.orgSchema;
-         })
-         // console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
-         ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
-           "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-           this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
-           + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName + "&orgSchema=" + this.orgSchema);
-       } else {
-         window.open(window.location.origin + "/ntko/exeindex.html")
-       }
-       window.ntkoCloseEvent = function () {
-         this.$message.error("跨浏览器插件应用程序窗口已关闭");
-       }
-     }*/
-
     openFile(cmd) {
       getAction("/sys/user/getLoginInfo", {}).then(res => {
         this.orgSchema = res.orgSchema;
@@ -1838,12 +1818,12 @@ export const taskBth = {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + cmd +
+              ntkoBrowser.openWindow(  "/ntko/editindex.html?cmd=" + cmd +
                 "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                 this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
-                this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema);
+                this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema+"&url="+window._CONFIG['domianURL']);
             } else {
-              window.open(window.location.origin + "/ntko/exeindex.html")
+              window.open( "/ntko/exeindex.html")
             }
             window.ntkoCloseEvent = function () {
               this.$message.error("跨浏览器插件应用程序窗口已关闭");
@@ -1858,8 +1838,6 @@ export const taskBth = {
 //新公文传输
 //TODO *************************  新公文传输接口 *************************
     newPublicFileSend() {
-      // console.log('=======================>>>>',this.backData.table)
-      // console.log('=======================>>>>',this.backData.i_id)
       getAction(this.url.newPublicFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
         if (res.success) {
           this.$message.success(res.message)
