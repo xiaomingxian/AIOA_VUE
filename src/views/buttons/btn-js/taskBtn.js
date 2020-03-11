@@ -143,7 +143,7 @@ export const taskBth = {
     //方法路由
     frequentClickCheck(item) {
       let mval = item.smethod
-      if (mval==undefined || mval==''){
+      if (mval == undefined || mval == '') {
         this.$message.error('该按钮配置不完善,请检查按钮配置')
         return
       }
@@ -155,7 +155,7 @@ export const taskBth = {
           let t = (5 - (now - time) / 1000) == 0 ? 1 : (5 - (now - time) / 1000)
           // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
           this.$message.error('系统正在处理您的请求,请耐心等待')
-          return
+          return true
         } else {
           this.timeRecord[mval] = now
           console.log('-------------->>>>>成功请求方法222')
@@ -165,12 +165,16 @@ export const taskBth = {
         this.timeRecord[mval] = now
         console.log('-------------->>>>>成功请求方法111')
       }
+      return false
 
     },
     method_router(item, index) {
 
       //频繁点击校验
-      this.frequentClickCheck(item)
+      let f = this.frequentClickCheck(item)
+      if (f) {
+        return
+      }
 
       // console.log(item);
       // console.log( this.$refs.isDefendBtn[index]);
