@@ -222,7 +222,7 @@
         startAnalysis(initModal=this.subData.modelId,initYear=this.subData.iCreateYear,initYewu=this.subData.iBusFunctionId){
 
             if(!Boolean(initModal)||!Boolean(initYear)){
-                this.$message.warning('所属模块与申请年份为必选项')
+               // this.$message.warning('所属模块与申请年份为必选项')
             }else{
 
               const urlStr = this.$route.path;
