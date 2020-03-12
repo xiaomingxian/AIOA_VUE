@@ -196,7 +196,7 @@
           for (let i in obj){
             param.cityUrl = obj[i];  //地市url
             postAction('oaBus/dynamic/provinceToCity', param).then(res => {
-              alert(JSON.stringify(res))
+              // alert(JSON.stringify(res))
               if (res.success === true && res.code === 200) {
                 this.close();
                 //组装参数--传输日志记录
