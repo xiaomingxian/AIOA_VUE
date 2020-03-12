@@ -82,12 +82,12 @@
                   <center><h3>{{detailList.s_title}}</h3></center>
                 </td>
                 <td colspan="7" height="100px">
-                  <center>
+                  <left>
                     <template>
-                      <a-textarea placeholder="请输入会议内容..." ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px"
+                      <a-textarea  ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px;width: 95%"
                                   :rows="true"></a-textarea>
                     </template>
-                  </center>
+                  </left>
                 </td>
               </tr>
               <!--附件-->
