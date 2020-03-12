@@ -34,7 +34,7 @@
           <!--@change="changeIphone"-->
           <!--@blur="blurIphone"-->
           <a-input
-            type="number"
+            type="number" min="1"
             style="padding-left: 10px" ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_phone"></a-input>
         </td>
         <td class="title" width="15%">
@@ -141,7 +141,7 @@
           <center><h3>{{detailList.i_bigint1}}</h3></center>
         </td>
         <td colspan="2">
-          <a-input ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" style="padding-left: 10px" v-model="backData.i_bigint1"></a-input>
+          <a-input type="number" min="1" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" style="padding-left: 10px" v-model="backData.i_bigint1"></a-input>
           <!--<a-textarea cols="92" rows="5" v-model="backData.s_varchar4"></a-textarea>-->
         </td>
         <!--- 正文页数-->
@@ -149,7 +149,7 @@
           <center><h3>{{detailList.i_bigint2}}</h3></center>
         </td>
         <td colspan="2">
-          <a-input ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_bigint2"></a-input>
+          <a-input type="number" min="1" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_bigint2"></a-input>
         </td>
       </tr>
 

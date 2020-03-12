@@ -34,7 +34,7 @@
             <center><h3>{{detailList.i_phone}}</h3></center>
           </td>
           <td>
-            <a-input  type="number" ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
+            <a-input  type="number" min="1"  ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
           </td>
         </tr>
 
@@ -106,7 +106,7 @@
             <center><h3>{{detailList.i_bigint3}}</h3></center>
           </td>
           <td>
-            <a-input type="number" ref="i_bigint3" v-on:blur="blurText(backData.i_bigint3,$refs.i_bigint3)" v-model="backData.i_bigint3"></a-input>
+            <a-input type="number" min="1" ref="i_bigint3" v-on:blur="blurText(backData.i_bigint3,$refs.i_bigint3)" v-model="backData.i_bigint3"></a-input>
           </td>
         </tr>
         <!--<tr>-->
@@ -169,7 +169,7 @@
             <center><h3>{{detailList.i_bigint1}}</h3></center>
           </td>
           <td>
-            <a-input  type="number" style="width: 94%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)"
+            <a-input  type="number" min="1" style="width: 94%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)"
                      v-model="backData.i_bigint1"></a-input>
             &nbsp份
           </td>
@@ -196,7 +196,7 @@
             <center><h3>{{detailList.i_bigint2}}</h3></center>
           </td>
           <td>
-            <a-input  type="number" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
+            <a-input  type="number" min="1" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
           </td>
         </tr>
 
