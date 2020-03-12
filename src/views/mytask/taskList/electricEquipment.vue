@@ -45,7 +45,7 @@
             <center><h3>{{detailList.i_phone}}</h3></center>
           </td>
           <td>
-            <a-input ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)"
+            <a-input type="number" min="1" ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)"
                      v-model="backData.i_phone"></a-input>
           </td>
         </tr>
@@ -68,7 +68,7 @@
             <center><h3>{{detailList.s_varchar1}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input type="number" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
+            <a-input ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                      v-model="backData.s_varchar1"></a-input>
           </td>
         </tr>
