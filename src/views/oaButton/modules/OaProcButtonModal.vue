@@ -334,11 +334,12 @@
       },
       //弹框
       showConfirm(iid){
+        let that=this;
         this.$confirm({
           title:'您的某些业务已经使用了这套按钮!!!',
           content:'删除将影响业务办理,你确定还要删除吗?',
           onOk(){
-            this.handleDelete(iid);
+            that.handleDelete(iid);
           },
           onCancel(){
           }
