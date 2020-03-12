@@ -652,6 +652,7 @@
               this.$message.error(res.message)
             }
           })
+          this.$message.success('请求已发送')
         }
 
         this.handleCancel()
