@@ -3,7 +3,7 @@
 
     <table width="100%" border="1" style="border:#F0F5FC;">
       <tr>
-        <td class="title" width="15%">
+        <td class="title" width="10%">
           <!--会议室名称-->
           <center><h3>{{detailList.s_title}}</h3></center>
         </td>
@@ -13,7 +13,7 @@
         </td>
       </tr>
       <tr>
-        <td class="title" width="15%">
+        <td class="title" width="10%">
           <!--办公地点-->
           <center><h3>{{detailList.s_varchar1}}</h3></center>
         </td>
@@ -22,7 +22,7 @@
         </td>
       </tr>
       <tr>
-        <td class="title" width="5%">
+        <td class="title" width="10%">
           <!--房间号-->
           <center><h3>{{detailList.s_varchar2}}</h3></center>
         </td>
@@ -31,7 +31,7 @@
         </td>
       </tr>
       <tr>
-        <td class="title" width="15%">
+        <td class="title" width="10%">
           <!--容纳人数-->
           <center><h3>{{detailList.s_varchar3}}</h3></center>
         </td>
@@ -40,12 +40,12 @@
         </td>
       </tr>
       <tr>
-        <td class="title" width="15%">
+        <td class="title" width="10%">
           <!--会议室设施-->
           <center><h3>{{detailList.s_varchar4}}</h3></center>
         </td>
         <td colspan="3">
-          <a-textarea cols="92" rows="5" ref="s_varchar4" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4"></a-textarea>
+          <a-textarea cols="92" rows="5"  style="height: 150px" ref="s_varchar4" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4"></a-textarea>
         </td>
       </tr>
       <tr>
@@ -69,12 +69,12 @@
         </td>
       </tr>
       <tr>
-        <td class="title" width="15%">
+        <td class="title" width="10%">
           <!--录入时间-->
           <center><h3>{{detailList.d_create_time}}</h3></center>
         </td>
         <td colspan="3">
-          <a-input cols="92" rows="2" v-model="backData.d_create_time"></a-input>
+          <a-input cols="92" rows="2" v-model="backData.d_create_time"  readonly></a-input>
         </td>
       </tr>
     </table>

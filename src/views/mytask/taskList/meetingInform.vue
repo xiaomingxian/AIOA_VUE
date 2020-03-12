@@ -26,13 +26,13 @@
                   <center><h3>{{detailList.s_varchar1}}</h3></center>
                 </td>
                 <td colspan="7">
-                  <center>
-                    <a-select style="width:86%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
+                  <left>
+                    <a-select style="width:80%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
                               v-model="backData.s_varchar4" @change="changeHuanJi">
                       <a-select-option  v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text" :value="item.value" >{{item.text}}</a-select-option>
                     </a-select>
                     <a-button style="height:50px"  @click="showMeeting" >会议室使用情况</a-button>
-                  </center>
+                  </left>
                 </td>
 
               </tr>
@@ -42,12 +42,12 @@
                   <center><h3>{{detailList.s_varchar4}}</h3></center>
                 </td>
                 <td colspan="7">
-                  <center>
+                  <left>
                     <template v-if="backData.d_datetime1 == null && backData.d_datetime2 ==null">
                       <a-range-picker
                         ref="s_varchar4"
                         v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
-                        style="width: 100%"
+                        style="width: 95%"
                         showTime
                        :disabledDate="disabledDate"
                        :disabledTime="disabledRangeTime"
@@ -62,7 +62,7 @@
                       <a-range-picker
                         ref="s_varchar4"
                         v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
-                        style="width: 100%"
+                        style="width: 95%"
                         :showTime="{format}"
                         :disabledDate="disabledDate"
                        :disabledTime="disabledRangeTime"
@@ -73,7 +73,7 @@
                         :defaultValue="[moment(backData.d_datetime1),moment(backData.d_datetime2)]"
                       />
                     </template>
-                  </center>
+                  </left>
                 </td>
               </tr>
               <!--会议内容-->
