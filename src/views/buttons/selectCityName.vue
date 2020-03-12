@@ -210,7 +210,7 @@
                 this.insertOaOutLog(oaOutLog, 4);  //记录传输日志；
                 // this.$message.success("地市传输成功！");
                 if (i == obj.length-1){
-                  this.$message.success(obj[i].text+res.message);
+                  this.$message.success(res.message);
                 }
                 // setTimeout(function () {
                 //   this.close()
