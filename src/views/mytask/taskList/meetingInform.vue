@@ -3,7 +3,7 @@
       <center>
         <table  width="100%" border="0">
           <center>
-            <table  width="100%" border="1" borderColor="#aa7d7d">
+            <table  width="100%" border="1" borderColor="#F0F5FC">
               <tr style="height: 50px;">
                 <td width="15%" class="title">
                   <center><h3>{{detailList.s_create_dept}}</h3></center>
