@@ -8,6 +8,7 @@ import {deleteAction, downFile, getAction, postAction} from '@/api/manage'
 import {ACCESS_TOKEN} from "@/store/mutation-types"
 import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 import {ntkoBrowser} from './ntkobackground.min.js'
+import  {systemTool} from './systemTools.js'
 import {windows} from "codemirror/src/util/browser";
 import request from "ant-design-vue/es/vc-upload/src/request";
 
@@ -18,6 +19,9 @@ export const taskBth = {
   inject: ['reload'],
   data() {
     return {
+      brower:'',
+      os:'',
+      browerNum:'',
       orgSchema: '',
       password: '',
       //按钮展示
@@ -1855,11 +1859,37 @@ export const taskBth = {
           if (res.success) {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
+            let browerN=systemTool.getBrowserInfo()+'';//浏览器
+            this.os=systemTool.GetOs();//系统
+            let a=browerN.substr(0,1);
+            if (a == "f") {
+              this.brower=browerN.substr(0,7);
+              this.browerNum=browerN.substr(8,4);
+            }else if (a == "c"){
+              this.brower=browerN.substr(0,6);
+              this.browerNum=browerN.substr(7,2);
+            }
             if (ntkoed) {
-              ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd +
-                "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-                this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
-                this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+              if (this.os == 'xp'){
+                if (this.brower == "chrome" && this.browerNum <=42){
+                  window.open("/ntko/editindex.html?cmd=" + cmd +
+                    "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                    this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                    this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                }
+                if (this.brower == "firefox" && this.browerNum <=52.3){
+                  window.open("/ntko/editindex.html?cmd=" + cmd +
+                    "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                    this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                    this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                }
+              }else {
+                ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd +
+                  "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                  this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                  this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+
+              }
             } else {
               window.open("/ntko/exeindex.html")
             }
