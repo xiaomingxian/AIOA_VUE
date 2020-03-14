@@ -402,6 +402,28 @@
     }
   </script>
 
+  <script type="text/javascript" >
+    document.write('<object id="TANGER_OCX"   ForOnSaveToURL="ntkosavetourl"  ForOndocumentopened="ntkoondocumentopened"');
+    document.write('ForOnpublishAshtmltourl="ntkopublishashtml"');
+    document.write('ForOnpublishAspdftourl="ntkopublishaspdf"');
+    document.write('ForOnSaveAsOtherFormatToUrl="ntkosaveasotherurl"');
+    document.write('ForOnDocumentClosed="Close">');
+    document.write('</object>');
+  </script>
+
+  <script type="text/javascript">
+    function Close(){
+      var cmd=getQueryString('cmd');
+      var stable=getQueryString('stable');
+      var tableid=getQueryString('tableid');
+      var  fileId=getQueryString('fileId');
+      //文档关闭后执行
+      if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
+        onPageClose(cmd, stable, tableid, fileId,orgSchema);
+      }
+    }
+  </script>
+
   <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
     var ntko = document.getElementById("TANGER_OCX");
     ntko.FullScreenMode = true;
@@ -624,21 +646,7 @@
 
 </head>
 <body>
-<object id="TANGER_OCX" ForOndocumentopened="Close"  >
 
-</object>
-<script>
-  function Close(){
-    var cmd=getQueryString('cmd');
-    var stable=getQueryString('stable');
-    var tableid=getQueryString('tableid');
-    var  fileId=getQueryString('fileId');
-    //文档关闭后执行
-    if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
-      onPageClose(cmd, stable, tableid, fileId,orgSchema);
-    }
-  }
-</script>
 </body>
 
 </html>
