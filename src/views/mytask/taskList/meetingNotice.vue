@@ -17,45 +17,45 @@
         </td>
       </tr>
       <!--会议室申请-->
-      <tr style="height: 50px;">
-        <td colspan="1" class="title">
-          <center><h3>{{detailList.s_varchar1}}</h3></center>
-        </td>
-        <td colspan="7">
-          <center>
-            <a-select style="width: 100%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1"
-                      @change="changeMeetingRoom">
-              <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text"
-                               :value="item.value">{{item.text}}
-              </a-select-option>
-            </a-select>
-          </center>
-        </td>
-      </tr>
+      <!--<tr style="height: 50px;">-->
+        <!--<td colspan="1" class="title">-->
+          <!--<center><h3>{{detailList.s_varchar1}}</h3></center>-->
+        <!--</td>-->
+        <!--<td colspan="7">-->
+          <!--<center>-->
+            <!--<a-select style="width: 100%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1"-->
+                      <!--@change="changeMeetingRoom">-->
+              <!--<a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text"-->
+                               <!--:value="item.value">{{item.text}}-->
+              <!--</a-select-option>-->
+            <!--</a-select>-->
+          <!--</center>-->
+        <!--</td>-->
+      <!--</tr>-->
       <!--申请时间-->
-      <tr style="height: 50px;">
-        <td colspan="1" class="title">
-          <center><h3>{{detailList.d_datetime1}}</h3></center>
-        </td>
-        <td colspan="7">
-          <center>
-            <a-select style="width: 100%" v-model="backData.d_datetime1" multiple placeholder="请选择会议时间" ref="d_datetime1"  v-on:blur="blurText($event,$refs.d_datetime1)" @focus="dasdasfdsfs"  @change="changeTime">
-              <a-select-option v-for="(item,index) in meetingTime" :key="index" :value="item.dDatetime1">
-                {{item.dDatetime1}}
-              </a-select-option>
-            </a-select>
-          </center>
-        </td>
-      </tr>
+      <!--<tr style="height: 50px;">-->
+        <!--<td colspan="1" class="title">-->
+          <!--<center><h3>{{detailList.d_datetime1}}</h3></center>-->
+        <!--</td>-->
+        <!--<td colspan="7">-->
+          <!--<center>-->
+            <!--<a-select style="width: 100%" v-model="backData.d_datetime1" multiple placeholder="请选择会议时间" ref="d_datetime1"  v-on:blur="blurText($event,$refs.d_datetime1)" @focus="dasdasfdsfs"  @change="changeTime">-->
+              <!--<a-select-option v-for="(item,index) in meetingTime" :key="index" :value="item.dDatetime1">-->
+                <!--{{item.dDatetime1}}-->
+              <!--</a-select-option>-->
+            <!--</a-select>-->
+          <!--</center>-->
+        <!--</td>-->
+      <!--</tr>-->
       <!--会议内容-->
       <tr>
         <td colspan="1" class="title">
-          <center><h3>{{detailList.s_varchar2}}</h3></center>
+          <center><h3>{{detailList.s_title}}</h3></center>
         </td>
-        <td colspan="7" height="100px">
+        <td colspan="9" height="100px">
           <center>
             <template>
-              <a-textarea placeholder="请输入会议内容..." ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar2" style="height: 100px"
+              <a-textarea placeholder="请输入会议内容..." ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px"
                           :rows="true"></a-textarea>
             </template>
           </center>
@@ -236,15 +236,15 @@
           //缓急
           i_urgency: 0,
           //主办部门
-          s_main_dept_names: '主办部门',
+          s_main_dept_names: '',
           //辅办部门
-          s_cc_dept_names: '辅办部门',
+          s_cc_dept_names: '',
           //内部发送部门
-          s_inside_deptnames: '内部发送部门',
+          s_inside_deptnames: '',
           //标题
-          s_title: '中国人民银行永州市中心支行收文处理签',
+          s_title: '',
           //左侧参数页面头部
-          s_left_parameter: '左侧参数页面头部',
+          s_left_parameter: '',
           //机构
           s_unit_name: '',
           //部门
@@ -296,7 +296,7 @@
           //申请会议室id
           s_varchar1: 0,
           //会议内容--标题
-          s_varchar2: '',
+          // s_varchar2: '',
           //附件
           s_varchar3: '',
           //参会人员---参会人员id
@@ -362,24 +362,24 @@
         this.backData.s_varchar5 = iIsLimits;
       },
       //选择会议室查对应时间
-      changeMeetingRoom(e, d) {
-        this.backData.d_datetime1 = '';
-        this.backData.s_varchar1 = e;
-        this.backData.s_varchar6 = d.data.attrs.text;
-        getAction(this.url.queryMeetingTime, {
-          meetingRoom: this.backData.s_varchar1,
-          tableName: this.backData.table
-        }).then((res) => {
-          this.meetingTime = res.result
-        });
-      },
+      // changeMeetingRoom(e, d) {
+      //   this.backData.d_datetime1 = '';
+      //   this.backData.s_varchar1 = e;
+      //   this.backData.s_varchar6 = d.data.attrs.text;
+      //   getAction(this.url.queryMeetingTime, {
+      //     meetingRoom: this.backData.s_varchar1,
+      //     tableName: this.backData.table
+      //   }).then((res) => {
+      //     this.meetingTime = res.result
+      //   });
+      // },
       //选择会议时间
-      changeTime(e) {
-        // if (backData.s_varchar1 == null || backData.s_varchar1 == undefined){
-        //   this.$message.error("请选择会议室");
-        // }
-        this.backData.d_datetime1 = e;
-      },
+      // changeTime(e) {
+      //   // if (backData.s_varchar1 == null || backData.s_varchar1 == undefined){
+      //   //   this.$message.error("请选择会议室");
+      //   // }
+      //   this.backData.d_datetime1 = e;
+      // },
 
       close() {
         this.visible = false;

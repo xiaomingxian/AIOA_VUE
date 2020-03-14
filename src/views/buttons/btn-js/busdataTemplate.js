@@ -446,10 +446,26 @@ export const busdataTemplate = {
       let newTime = new Date(lastMonth).toISOString().split(('T')[0]);
       return newTime;
     },
-    downFileName(path) {
+    downFileName(item) {
       // alert(path)
       let url = window._CONFIG['domianURL'] + "/papertitle/oaTemplate/download";
-      window.open(url + "/" + path);
+      let filepath = item.sfilePath;
+      let filename = item.sfileName;
+      downFile(url,{filePath:item.sfilePath}).then(res=>{
+        let url = window.URL.createObjectURL(new Blob([res]));
+        let edik = document.createElement('a');
+        edik.style.display = 'none';
+        edik.href = url;
+        edik.setAttribute('download', filename);
+        document.body.appendChild(edik);
+        //点击下载
+        edik.click();
+        // 释放掉blob对象
+        window.URL.revokeObjectURL(edik);
+        // 下载完成移除元素
+        document.body.removeChild(edik);
+      })
+      // window.open(url +"/" +path);
     },
     blurText(value, event, label) {
 
@@ -644,9 +660,9 @@ export const busdataTemplate = {
                 this.password=res.result;
                 let ntkoed = ntkoBrowser.ExtensionInstalled();
                 if (ntkoed) {
-                  ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema);
+                  ntkoBrowser.openWindow( "/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+"&url="+window._CONFIG['domianURL']);
                 } else {
-                  window.open(window._CONFIG['domianURL'] + "/ntko/exeindex.html")
+                  window.open( "/ntko/exeindex.html")
                 }
                 window.ntkoCloseEvent = function () {
                 }
@@ -657,7 +673,7 @@ export const busdataTemplate = {
           });
         })
       } else {
-        this.downFileName(item.sfilePath);
+        this.downFileName(item);
       }
     },
     //编辑附件
@@ -683,12 +699,10 @@ export const busdataTemplate = {
             this.password=res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              alert(cmd)
-              alert(item.iid)
-              ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + cmd
-                + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+ "&fileType=" + item.sfileType);
+              ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd
+                + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+ "&fileType=" + item.sfileType+"&url="+window._CONFIG['domianURL']);
             } else {
-              window.open(window._CONFIG['domianURL'] + "/ntko/exeindex.html")
+              window.open( "/ntko/exeindex.html")
             }
             window.ntkoCloseEvent = function () {
             }

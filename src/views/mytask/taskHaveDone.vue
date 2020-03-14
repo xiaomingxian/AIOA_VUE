@@ -121,7 +121,7 @@
               <!--</a-form-item>-->
             <!--</a-col>-->
 
-            <a-col :md="2" :sm="8">
+            <a-col :md="6" :sm="8">
 
               <a-form-item label="任务类型">
                 <a-select style="width: 150px" @change="taskTypeChange" v-model="queryParam.taskType">
@@ -138,13 +138,13 @@
               </a-form-item>
             </a-col>
 
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="开始时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间"
                                v-model='queryParam.startTimeFake' @change="startTime"/>
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="结束时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间"
                                v-model='queryParam.endTimeFake' @change="endTime"/>

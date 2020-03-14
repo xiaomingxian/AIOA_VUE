@@ -177,7 +177,7 @@
     data() {
       return {
         visible: false,
-        title: '发文',
+        title: '案情线索登记',
         confirmLoading: false,
         s_varchar: [],
         userData: '',

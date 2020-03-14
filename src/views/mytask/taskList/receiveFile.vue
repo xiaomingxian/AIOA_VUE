@@ -74,7 +74,7 @@
             <center><h3>{{detailList.s_receive_num}}</h3></center>
           </td>
           <td>
-            <a-input :value="backData.s_receive_num"></a-input>
+            <a-input ref="s_receive_num" v-model="backData.s_receive_num"  v-on:blur="blurText(backData.s_receive_num,$refs.s_receive_num)"></a-input>
           </td>
         </tr>
         <tr>
@@ -286,89 +286,78 @@
           //---------------------------------- 以下为表存储字段
 
           //*******
-          i_id: '',
-          i_bigint1: '',   //份数
-          i_bigint2: '',   //页数
-          s_receive_type: '',     //来文文种
-          s_varchar3: '',//"办文依据"
-          //d_datetime1: '',//"成文日期"
-          d_sealdate: '',//"成文日期"
-          //*******
-          //模块
-          i_bus_model_id: '',
-          //
-          i_bus_function_id: '',
-          //密级
-          i_safetylevel: '0',
-          //缓急
-          i_urgency: '0',
-          //主办部门
-          s_main_unit_names:"",
-          //副办部门
-          s_cc_unit_names:"",
-          //传阅部门
-          s_inside_deptnames:"",
-          //主办部门
-          s_main_dept_names: '主办部门',
-          //辅办部门
-          s_cc_dept_names: '辅办部门',
-          //标题
-          s_title: '中国人民银行永州市中心支行收文处理签',
-          //左侧参数页面头部
-          s_left_parameter: '左侧参数页面头部',
-          //机构
-          s_unit_name: '',
-          //部门
-          s_dept_name: '',
-          //插入参数（修改文头）（页面头部）
-          s_middle_parameter: '',
-          //右侧参数（页面头部）
-          s_right_parameter: '',
-          //来文字号
-          s_receive_num: '',
-          //文件字号
-          s_file_num: '',
-          //来文机关（数据字典取值）
-          i_receive_dept_id: '',
-          //是否办结
-          i_is_state: '0',
-          //是否保存办文单
-          i_is_approve: '0',
-          //是否归档
-          i_is_archives: '0',
-          //是否已送全文检索
-          i_is_es: '0',
-          //是否送公文传输
-          i_is_send: '0',
-          //是否为临时文件
-          i_is_display: '0',
-          //备注
-          s_remarks: '',
-          //创建时间-年
-          i_create_year: new Date().getFullYear(),
-          //创建时间-月
-          i_create_month: new Date().getMonth(),
-          //创建时间-日期
-          i_create_day: new Date().getDate(),
-          //创建人id
-          s_create_by: '',
-          //创建者姓名
-          s_create_name: '',
-          //创建人部门name
-          s_create_dept: '',
-          //创建人部门id
-          s_create_deptid: '',
-          //创建人机构id
-          s_create_unitid: '',
-          d_sealdate: '',
-          //创建时间
-          d_create_time: '',
-          //修改时间
-          d_update_time: '',
-          //当前流程名称
-          s_cur_proc_name: '',
-          //当前任务名称
-          s_cur_task_name: ''
+          i_id:'',
+          i_bus_model_id:'',
+          i_bus_function_id:'',
+          PROC_INST_ID:'',
+          i_safetylevel:'',
+          i_urgency:'',
+          s_signer:'',
+          s_create_dept:'',
+          s_cc_dept_names:'',
+          s_main_unit_names:'',
+          s_cc_unit_names:'',
+          s_inside_deptnames:'',
+          s_report_nuit_names:'',
+          s_crc_deptnames:'',
+          s_title:'',
+          s_left_parameter:'',
+          s_unit_name:'',
+          s_dept_name:'',
+          s_middle_parameter:'',
+          s_right_parameter:'',
+          s_receive_num:'',
+          s_file_num:'',
+          i_is_state:'',
+          d_sealdate:'',
+          i_is_typeset:'',
+          i_is_approve:'',
+          i_is_archives:'',
+          i_is_important:'',
+          i_is_es:'',
+          i_is_publish:'',
+          i_is_file:'',
+          i_is_draft:'',
+          i_is_send:'',
+          i_is_display:'',
+          s_remarks:'',
+          i_create_year:'',
+          i_create_month:'',
+          i_create_day:'',
+          i_phone:'',
+          s_create_name:'',
+          s_create_by:'',
+          s_create_deptid:'',
+          s_create_unitid:'',
+          d_create_time:'',
+          d_update_time:'',
+          s_cur_proc_name:'',
+          s_cur_task_name:'',
+          i_fun_version:'',
+          i_bigint1:'',
+          i_bigint2:'',
+          d_datetime1:'',
+          d_datetime2:'',
+          d_date1:'',
+          d_date2:'',
+          s_varchar1:'',
+          s_varchar2:'',
+          s_varchar3:'',
+          s_varchar4:'',
+          s_varchar5:'',
+          s_varchar6:'',
+          s_varchar7:'',
+          s_varchar8:'',
+          s_varchar9:'',
+          s_varchar10:'',
+          i_is_1:'',
+          i_is_2:'',
+          d_datetime3:'',
+          d_datetime4:'',
+          d_datetime5:'',
+          d_datetime6:'',
+          i_bigint3:'',
+
         },
 
         url: {

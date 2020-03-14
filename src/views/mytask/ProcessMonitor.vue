@@ -137,13 +137,13 @@
               </a-form-item>
             </a-col>
 
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="开始时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间"
                                v-model='queryParam.startTimeFake' @change="startTime"/>
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="结束时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间"
                                v-model='queryParam.endTimeFake' @change="endTime"/>
@@ -1114,6 +1114,11 @@
         this.taskRecord.id = this.selectedRows2[0].id
         let status = this.selectedRows2[0].deleteReasons == this.taskRecord.id + ':todo' ? 'todo' : 'done'
 
+        if (status=='done'){
+          this.taskRecord.hiTaskId= this.taskRecord.id
+          this.taskRecord.id=undefined
+        }
+
         window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=' + status + '&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
         this.haveMore = false
 
@@ -1168,12 +1173,21 @@
                   this.taskRecord.name = record2.name
                   this.taskRecord.id = record2.id
                   let status = record2.deleteReason == record2.id + ':todo' ? 'todo' : 'done'
+                  if (status=='done'){
+                    this.taskRecord.hiTaskId= record2.id
+                    this.taskRecord.id=undefined
+                  }
+
                   window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status='
                     + status + '&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
                 }
 
               } else {
                 let status = record.deleteReason == record.id + ':todo' ? 'todo' : 'done'
+                if (status=='done'){
+                  record.hiTaskId= record.id
+                  record.id=undefined
+                }
 
                 window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=' + status + '&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
               }

@@ -417,7 +417,7 @@
       },
       searchQueryCha(){
         const promise1 = new Promise(resolve => {
-//        if(this.sbtnName!=null && this.sbtnName!=""){
+        if(this.sbtnName!=null && this.sbtnName.trim()!=""){
           getAction("/oabutton/oaButton/queryBySbtnName",{sbtnName:this.sbtnName}).then(res=>{
 //            console.log("000000000000000-----------");
             if(res.success){
@@ -430,27 +430,36 @@
               this.ipagination.total =""
 //            this.loadData();
           })
-//        }
+        }
           resolve(this.buttonId)
         })
 
-        promise1.then((newDataId)=>{
-//         if (this.name!=null && this.name!=""){
-          getAction("/workflow/oaProcActinst/queryByKeyAndName",{procDefKey:this.procDefKey,actName:this.name}).then(res=>{
-//            console.log("1111111111111-----------");
-            if(res.success){
+        promise1.then((newDataId)=> {
+          if (this.name!=null && this.name.trim()!=""){
+          getAction("/workflow/oaProcActinst/queryByKeyAndName", {
+            procDefKey: this.procDefKey,
+            actName: this.name
+          }).then(res => {
+            if (res.success) {
 //            console.log(res.result);
               this.taskDefKey = res.result;
-            }else {
-              this.taskDefKey =[];
+            } else {
+              this.taskDefKey = [];
             }
-            this.data =""
-            this.ipagination.total =""
+            this.data = ""
+            this.ipagination.total = ""
           })
-//         }
-
+        }
         }).then(()=>{
          setTimeout(()=>{
+           if (this.sbtnName == null || this.sbtnName.trim() == ""){
+//             console.log("9999999999999999999-----------");
+             this.buttonId = null;
+           }
+           if (this.name == null || this.name.trim() == "") {
+//             console.log("1111111111111-----------");
+             this.taskDefKey = null;
+           }
            postAction("/oabuttonset/oaButtonSet/findByIf",{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
              pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
 //          console.log("22222222222222222222222-----------");
@@ -460,6 +469,7 @@
            })
          },3200)
         })
+
 
 
 

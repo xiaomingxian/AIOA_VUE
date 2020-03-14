@@ -12,7 +12,7 @@
         <div style="display: flex;align-items: center;justify-content: center;height: 500px;overflow: auto">
     -->
 
-    <div class="contentBox">
+    <div class="contentBox" >
       <div class="topBox">
           <div class="origionData">
             <h1 class="title">待选主送抄送单位</h1>
@@ -601,8 +601,8 @@
 <style lang="less" scoped>
   .contentBox{
     width: 100%;
-    height: 100%;
-
+    height: 500px;
+    overflow: auto;scrollbar-width: none;
 
     .topBox{
       position: relative;

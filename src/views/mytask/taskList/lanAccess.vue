@@ -92,7 +92,7 @@
             <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
+            <a-input type="number" min="1" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
           </td>
           <!--网络/电话终端节点号-->
           <td width="10%" class="title">

@@ -79,12 +79,12 @@
               <!--会议内容-->
               <tr>
                 <td colspan="1" class="title">
-                  <center><h3>{{detailList.s_varchar2}}</h3></center>
+                  <center><h3>{{detailList.s_title}}</h3></center>
                 </td>
                 <td colspan="7" height="100px">
                   <center>
                     <template>
-                      <a-textarea placeholder="请输入会议内容..." ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar2" style="height: 100px"
+                      <a-textarea placeholder="请输入会议内容..." ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px"
                                   :rows="true"></a-textarea>
                     </template>
                   </center>
@@ -279,7 +279,7 @@
           //申请会议室名
           s_varchar1:'',
           //会议内容
-          s_varchar2:'',
+          // s_varchar2:'',
           //附件
           s_varchar3:'',
           /*申请时间

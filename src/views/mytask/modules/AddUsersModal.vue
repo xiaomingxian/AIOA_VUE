@@ -27,7 +27,7 @@
               <!--...................................................................................................-->
               <a-sub-menu key="sub1">
 
-                <span slot="title"><a-icon type="user"/>可追加环节</span>
+                <span slot="title"><a-icon type="user"/>可追加任务</span>
 
                 <a-menu-item :key="item.oaProcActinst.actId" v-for="item in nextsActs" @click="clickAct(item)">
                   {{item.oaProcActinst.actName}}
@@ -233,7 +233,7 @@
         defaultSelectedKeys: [],
         // scrHeight: window.innerHeight - 300 + 'px',
         scrHeight:350 + 'px',
-        title: '追加用户',
+        title: '追加',
         okText: '确定',
         //控制组件数据可见
         isMul: false, //下一任务是单选/多选
@@ -904,7 +904,8 @@
             this.$message.error('请选择用户')
             return
           }
-
+          //主办/辅办/传阅 部门记录
+          this.deptTypes(this.currentClick)
           this.$emit('func', ids, this.currentClick, this.endTime, depMSg)
           this.cancel()
         } else if (this.endType) {
@@ -918,11 +919,43 @@
           }
           ids = this.selectedRowKeys
 
-          console.log('------普通：' + ids, JSON.stringify(this.currentClick))
           //办理流程
           this.$emit('func', ids, this.currentClick, this.endTime)
           this.cancel()
         }
+      },
+      deptTypes(depMSg) {
+        depMSg.mainDept = ''
+        depMSg.fuDept = ''
+        depMSg.cyDept = ''
+        for (let k  of Object.keys(this.departSelect)) {
+
+          var types = this.departSelect[k]
+          for (let i in types) {
+            if (k.indexOf('主办') >= 0) {
+              if (depMSg.mainDept == '') {
+                depMSg.mainDept += types[i].departName
+              } else {
+                depMSg.mainDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('辅办') >= 0) {
+              if (depMSg.fuDept == '') {
+                depMSg.fuDept += types[i].departName
+              } else {
+                depMSg.fuDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('传阅') >= 0) {
+              if (depMSg.cyDept == '') {
+                depMSg.cyDept += types[i].departName
+              } else {
+                depMSg.cyDept += '_' + types[i].departName
+              }
+            }
+          }
+        }
+
       },
       //穿梭方法实现
       toRight: function (item) {

@@ -1027,6 +1027,7 @@
             //  */
             this.task.pageRef = res.result.pageRef
             this.task.id = res.result.taskId
+            this.task.status = res.result.status
             this.task.taskDefinitionKey = res.result.taskDefKey
             this.task.processDefinitionId = res.result.processDefinitionId
             this.task.processInstanceId = res.result.processInstanceId

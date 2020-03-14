@@ -8,6 +8,7 @@ import {deleteAction, downFile, getAction, postAction} from '@/api/manage'
 import {ACCESS_TOKEN} from "@/store/mutation-types"
 import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 import {ntkoBrowser} from './ntkobackground.min.js'
+import  {systemTool} from './systemTools.js'
 import {windows} from "codemirror/src/util/browser";
 import request from "ant-design-vue/es/vc-upload/src/request";
 
@@ -18,6 +19,9 @@ export const taskBth = {
   inject: ['reload'],
   data() {
     return {
+      brower:'',
+      os:'',
+      browerNum:'',
       orgSchema: '',
       password: '',
       //按钮展示
@@ -49,6 +53,7 @@ export const taskBth = {
       },
       clickTotal: 0,//点击次数参数
       isUpSend: 0, //是否已上报
+      timeRecord: {},
       url: {
         delete: '/oaBus/dynamic/delete', //删除数据
         insert: '/oaBus/dynamic/insert',//动态插入数据
@@ -59,6 +64,7 @@ export const taskBth = {
         start: '/wf/task/start',//开启流程
         insertDataAndStartPro: '/oaBus/newTask/insertDataAndStartPro',//保存业务同时开启流程
         nextUsers: '/oaBus/taskInAct/nextUserQuery',
+        nextUsersEnd: '/oaBus/taskInAct/nextUserQueryEnd',
         endProUrl: '/wf/task/endProcess',
         showBackAct: '/wf/task/showBackAct',//展示回退/跳转 节点
         currentUserMsg: '/sys/user/getUserSectionInfoByToken',
@@ -139,7 +145,41 @@ export const taskBth = {
 */
     //TODO(仅标识)**********************************************  BASE START   ******************************************
     //方法路由
+    frequentClickCheck(item) {
+      let mval = item.smethod
+      if (mval == undefined || mval == '') {
+        this.$message.error('该按钮配置不完善,请检查按钮配置')
+        return
+      }
+      let time = this.timeRecord[mval]
+      var now = Date.parse(new Date());
+
+      if (time != undefined) {
+        if ((now - time) < 5 * 1000) {
+          let t = (5 - (now - time) / 1000) == 0 ? 1 : (5 - (now - time) / 1000)
+          // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
+          this.$message.error('系统正在处理您的请求,请耐心等待')
+          return true
+        } else {
+          this.timeRecord[mval] = now
+          console.log('-------------->>>>>成功请求方法222')
+
+        }
+      } else {
+        this.timeRecord[mval] = now
+        console.log('-------------->>>>>成功请求方法111')
+      }
+      return false
+
+    },
     method_router(item, index) {
+
+      //频繁点击校验
+      let f = this.frequentClickCheck(item)
+      if (f) {
+        return
+      }
+
       // console.log(item);
       // console.log( this.$refs.isDefendBtn[index]);
       // console.log( this.$refs.isNotDefendBtn[index]);
@@ -427,7 +467,7 @@ export const taskBth = {
     },
 
     nextRealQuery() {
-      if (this.taskMsg.id == undefined && this.taskMsg.hiTaskId != undefined) {
+      if (this.taskMsg.status != undefined && this.taskMsg.status == 'done') {
         this.$message.error('已办环节没有下一任务')
         return
       }
@@ -861,7 +901,6 @@ export const taskBth = {
     },
     //选择下一办理人的同时办理任务
     confirmNextUsers(ids, activity, endTime, depts) {
-      console.log('------------------', activity)
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id
@@ -903,16 +942,12 @@ export const taskBth = {
       //如果是部门 记录部门信息
       if (activity.oaProcActinst != undefined && activity.oaProcActinst.userOrRole == 'dept') {
         //记录部门信息
+        deptMsg['mainDept'] = activity.mainDept
+        deptMsg['fuDept'] = activity.fuDept
+        deptMsg['cyDept'] = activity.cyDept
         deptMsg['tskId'] = this.taskMsg.id
         deptMsg['taskDefKey'] = activity.actMsg.id
         deptMsg['deptMsg'] = depts
-        var mainDept = ''
-        for (let i in activity.departSelect) {
-          if (i.indexOf("主办") >= 0) {
-            mainDept = activity.departSelect[i][0].departName
-          }
-        }
-        deptMsg['mainDept'] = mainDept
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
 
@@ -935,6 +970,91 @@ export const taskBth = {
       postAction(this.url.doTask, data).then(res => {
         if (res.success) {
           this.$message.success(res.message)
+          this.havaOtherProc = false
+          this.nextConfirm = true
+          //this.sendMesToUser(data.assignee);
+          //this.saveBusData()
+          setTimeout(res => {
+            // this.close()
+            this.refreshIndexClose()
+          }, 500)
+          // this.reload()
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    //完成任务
+    confirmNextUsersEnd(ids, activity, endTime, depts) {
+      //传后台的参数
+      var data = {};
+      var taskId = this.taskMsg.id
+      if (this.havaOtherProc) {
+        taskId = undefined
+      }
+      data['taskId'] = taskId
+      //业务数据权限表（流转过程中逐步维护该表数据、收回删除人员权限）
+      data['assignee'] = ids
+      data['functionId'] = this.backData.i_bus_function_id
+      data['busDataId'] = this.backData.i_id
+      //下一节点为 结束节点不需要拼接 下一办理用户
+      data['isDept'] = false
+      //连线信息--决定走向
+      var vars = activity.actMsg.conditionContext;
+      if (ids.length > 0) {
+        if (vars == undefined) {
+          vars = {}
+        }
+        //进行任务办理
+        if (endTime != '') {
+          //有时间限制
+          vars.endTime = endTime;
+        }
+        //组装办理人信息
+        //是否是设计上的多实例
+        if (activity.actMsg.allowMulti) {
+          //数据库配置是否允许多实例
+          vars[activity.actMsg.multiAssignee] = ids
+          vars[activity.actMsg.loopSize] = ids.length
+        } else {
+          vars[activity.actMsg.assignee] = ids[0]
+        }
+      }
+      //流程所需变量
+      data['vars'] = vars
+      //记录部门相关信息
+      var deptMsg = {}
+      //如果是部门 记录部门信息
+      if (activity.oaProcActinst != undefined && activity.oaProcActinst.userOrRole == 'dept') {
+        //记录部门信息
+        deptMsg['mainDept'] = activity.mainDept
+        deptMsg['fuDept'] = activity.fuDept
+        deptMsg['cyDept'] = activity.cyDept
+        deptMsg['tskId'] = this.taskMsg.id
+        deptMsg['taskDefKey'] = activity.actMsg.id
+        deptMsg['deptMsg'] = depts
+        data['taskWithDepts'] = deptMsg
+        data['isDept'] = true
+
+      }
+      this.backData.page_ref = this.taskMsg.pageRef
+      //业务数据
+      this.$emit("getbackDataNew", this.backData.page_ref)
+      this.lastedUrgency()
+
+      if (this.havaOtherProc) {
+        data['busData'] = this.otherProc.busData
+        // data['busData']['justStart'] = true
+      } else {
+        data['busData'] = this.backData
+      }
+      data['taskDefKey'] = activity.actMsg.id
+
+      //this.sendMesToUser(data.assignee);
+      //参数构造完毕***********************
+      postAction(this.url.doTask, data).then(res => {
+        if (res.success) {
+          this.$message.success('办理成功')
           this.havaOtherProc = false
           this.nextConfirm = true
           //this.sendMesToUser(data.assignee);
@@ -972,12 +1092,14 @@ export const taskBth = {
         }
       }
       let taskInfoVoList = {list: datas}
+
       //请求后台
       postAction(this.url.doTaskMore, taskInfoVoList).then(res => {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
-          this.nextConfirm(res => {
+          this.nextConfirm = true
+          setTimeout(res => {
             this.refreshIndexClose()
           }, 500)
         } else {
@@ -1029,21 +1151,15 @@ export const taskBth = {
       //如果是部门 记录部门信息
       if (activity.oaProcActinst != undefined && activity.oaProcActinst.userOrRole == 'dept') {
         //记录部门信息
+        deptMsg['mainDept'] = activity.mainDept
+        deptMsg['fuDept'] = activity.fuDept
+        deptMsg['cyDept'] = activity.cyDept
         deptMsg['tskId'] = this.taskMsg.id
         deptMsg['taskDefKey'] = activity.actMsg.id
         deptMsg['deptMsg'] = depts
-        var mainDept = ''
-        for (let i in activity.departSelect) {
-          if (i.indexOf("主办") >= 0) {
-            mainDept = activity.departSelect[i][0].departName
-          }
-        }
-        deptMsg['mainDept'] = mainDept
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
         //遍历节点属性找出所选择的用户
-
-
       }
       this.backData.page_ref = this.taskMsg.pageRef
       //业务数据
@@ -1065,6 +1181,7 @@ export const taskBth = {
       }
 
       let taskInfoVoList = {list: [data]}
+
       //参数构造完毕***********************
       postAction(this.url.doAddUsers, taskInfoVoList).then(res => {
         if (res.success) {
@@ -1159,16 +1276,18 @@ export const taskBth = {
           //记录部门信息
           deptMsg['tskId'] = taskId
           deptMsg['taskDefKey'] = activity.actMsg.id
-          var mainDept = '';
-          for (let i in v.departSelect) {
-            if (i.indexOf("主办") >= 0 && (v.departSelect[i].length > 0)) {
-              mainDept = v.departSelect[i][0].departName
-              break
-            }
-          }
-          deptMsg['mainDept'] = mainDept
+          // var mainDept = '';
+          // for (let i in v.departSelect) {
+          //   if (i.indexOf("主办") >= 0 && (v.departSelect[i].length > 0)) {
+          //     mainDept = v.departSelect[i][0].departName
+          //     break
+          //   }
+          // }
+          // deptMsg['mainDept'] = mainDept
           //记录主办部门信息
           deptMsg['deptMsg'] = v.departUsersId
+          //主办 辅办 传阅 部门记录
+          this.deptTypes(deptMsg, v.departSelect)
           data['taskWithDepts'] = deptMsg
           data['isDept'] = true
 
@@ -1245,6 +1364,43 @@ export const taskBth = {
 
       }
     },
+    //部门类型组装
+    deptTypes(depMSg, departSelect) {
+      depMSg.mainDept = ''
+      depMSg.fuDept = ''
+      depMSg.cyDept = ''
+      if (departSelect == undefined) {
+        return
+      }
+      for (let k  of Object.keys(departSelect)) {
+
+        var types = departSelect[k]
+        for (let i in types) {
+          if (k.indexOf('主办') >= 0) {
+            if (depMSg.mainDept == '') {
+              depMSg.mainDept += types[i].departName
+            } else {
+              depMSg.mainDept += '_' + types[i].departName
+            }
+          }
+          if (k.indexOf('辅办') >= 0) {
+            if (depMSg.fuDept == '') {
+              depMSg.fuDept += types[i].departName
+            } else {
+              depMSg.fuDept += '_' + types[i].departName
+            }
+          }
+          if (k.indexOf('传阅') >= 0) {
+            if (depMSg.cyDept == '') {
+              depMSg.cyDept += types[i].departName
+            } else {
+              depMSg.cyDept += '_' + types[i].departName
+            }
+          }
+        }
+      }
+
+    },
     //仅保存数据
     justSave() {
       postAction(this.url.insert, this.backData).then(res => {
@@ -1297,7 +1453,7 @@ export const taskBth = {
       this.showPoint('all')
     },
     showPoint(type) {
-      var text = type == 'all' ? '跳转' : '回退'
+      var text = type == 'all' ? '跳转' : '退回'
       getAction(this.url.showBackAct,
         {
           processDefinitionId: this.taskMsg.processDefinitionId,
@@ -1360,21 +1516,36 @@ export const taskBth = {
     },
 //部门完成
     deptFinish() {
+      var flag = true
       //拿到当前taskId
       // var res = window.confirm("是否部门完成");
       // if (res) {
       // let param={taskId: this.taskMsg.id}
       postAction(this.url.departFinish + "?taskId=" + this.taskMsg.id + '&processInstanceId=' + this.taskMsg.processInstanceId).then(res => {
         if (res.success) {
-          this.$message.success(res.message)
-          setTimeout(res => {
-            this.refreshIndexClose()
-          }, 500)
+          // this.$message.success(res.message)
+          // setTimeout(res => {
+          //   this.refreshIndexClose()
+          // }, 500)
         } else {
+          flag = false
           this.$message.error(res.message)
         }
       })
-      // }
+
+      setTimeout(res => {
+        if (flag) {
+          setTimeout(res => {
+            this.$message.success('部门完成成功')
+            setTimeout(res => {
+              this.refreshIndexClose()
+            }, 500)
+          }, 2000)
+        }
+      }, 500)
+
+
+
     }
     ,
     showPic() {
@@ -1411,23 +1582,23 @@ export const taskBth = {
         this.backData.i_is_state = 1
         postAction(this.url.updateBusdata, this.backData).then(res => {
           if (res.success) {
-            this.$message.success('办结成功')
-            getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
-              if (res.success) {
-                this.$message.success(res.message)
-                this.reload();
-
-              } else {
-                this.$message.error(res.message)
-              }
-            })
+            this.$message.success('办理完成')
+            // getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
+            //   if (res.success) {
+            //     this.$message.success(res.message)
+            //     this.reload();
+            //
+            //   } else {
+            //     this.$message.error(res.message)
+            //   }
+            // })
           } else {
-            this.$message.error('数据更新失败')
+            this.$message.error('办理失败')
           }
 
         })
       } else {
-        getAction(this.url.nextUsers, {
+        getAction(this.url.nextUsersEnd, {
           procDefkey: this.backData.s_cur_proc_name,
           drafterId: this.backData.s_create_by,
           taskId: this.taskMsg.id,
@@ -1436,25 +1607,36 @@ export const taskBth = {
         }).then(res => {
           //展示数据
           if (res.success) {
-            if (res.result.length == 1) {
-              // if (res.result[0].actMsg.type == 'endEvent') {
-              this.confirmNextUsers([], res.result[0], null, null)
-              // } else {
-              //   this.$message.error('当前节点不可办结')
-              //   return
-              // }
-            } else {
-              this.$message.error('当前节点不可办结')
-              return
-            }
-            //TODO********************************* 档案系统接口  ************************************
-            getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
-              if (res.success) {
-                this.$message.success(res.message)
-              } else {
-                this.$message.error(res.message)
+            // if (res.result.length == 1) {
+            if (res.result.length > 1) {
+              var flag = true
+              for (let i in res.result) {
+                if (res.result[i].actMsg.type == 'endEvent') {
+                  this.confirmNextUsersEnd([], res.result[i], null, null)
+                  flag = false
+                  break
+                }
               }
-            })
+              //如果遍历完成都没有找到结束类型节点
+              if (flag) {
+                this.$message.error('此环节不可完成,请检查流程图设计或按钮配置')
+                return
+              }
+            } else {
+              this.confirmNextUsersEnd([], res.result[0], null, null)
+            }
+            // } else {
+            //   this.$message.error('当前节点不可办结')
+            //   return
+            // }
+            //TODO********************************* 档案系统接口  ************************************
+            // getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
+            //   if (res.success) {
+            //     this.$message.success(res.message)
+            //   } else {
+            //     this.$message.error(res.message)
+            //   }
+            // })
           } else {
             this.$message.error(res.message)
           }
@@ -1627,10 +1809,10 @@ export const taskBth = {
     }
     ,
 //盖章(查看正文)
-    sealFile() {
-      this.openFile(5)
-    }
-    ,
+//     sealFile() {
+//       this.openFile(5)
+//     }
+
 //保存办文单
     saveBanWen() {
       this.openFile(7)
@@ -1651,42 +1833,22 @@ export const taskBth = {
       this.openFile(13)
     }
     ,
-//打开附件
-    showFujianFile() {
-      this.openFile(9, fileName)
-    }
-    ,
-//打开附件
-    showFujianFile2(cmd, fileName) {
-      this.openFile(9, fileName)
-    }
-    ,
+    /*//打开附件
+        showFujianFile() {
+          this.openFile(9, fileName)
+        }
+        ,
+    //打开附件
+        showFujianFile2(cmd, fileName) {
+          this.openFile(9, fileName)
+        }
+        ,*/
 //对比拟稿
     compareFile() {
-      let URL = 'http://localhost:4000/mytask/taskList/Test-detailFile?tableName=' + this.backData.table + '&busdataId=' + this.backData.i_id;
+      let URL = '/mytask/taskList/Test-detailFile?tableName=' + this.backData.table + '&busdataId=' + this.backData.i_id;
       window.open(URL);
     }
     ,
-    /* openFile(cmd, fileName) {
-       let ntkoed = ntkoBrowser.ExtensionInstalled();
-       if (ntkoed) {
-         getAction("/sys/user/getLoginInfo", {}).then(res => {
-           // alert(res.orgSchema)
-           this.orgSchema = res.orgSchema;
-         })
-         // console.log('--------------------->>>>>>!!!!!', JSON.stringify(this.backData));
-         ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd +
-           "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-           this.currentBtn.iid + "&userName=" + this.currentUserMessage.sysUserName + "&docNumId="
-           + parseInt(this.backData.s_varchar8) + "&fileName=" + fileName + "&orgSchema=" + this.orgSchema);
-       } else {
-         window.open(window.location.origin + "/ntko/exeindex.html")
-       }
-       window.ntkoCloseEvent = function () {
-         this.$message.error("跨浏览器插件应用程序窗口已关闭");
-       }
-     }*/
-
     openFile(cmd) {
       getAction("/sys/user/getLoginInfo", {}).then(res => {
         this.orgSchema = res.orgSchema;
@@ -1697,13 +1859,39 @@ export const taskBth = {
           if (res.success) {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
+            let browerN=systemTool.getBrowserInfo()+'';//浏览器
+            this.os=systemTool.GetOs();//系统
+            let a=browerN.substr(0,1);
+            if (a == "f") {
+              this.brower=browerN.substr(0,7);
+              this.browerNum=browerN.substr(8,4);
+            }else if (a == "c"){
+              this.brower=browerN.substr(0,6);
+              this.browerNum=browerN.substr(7,2);
+            }
             if (ntkoed) {
-              ntkoBrowser.openWindow(window._CONFIG['domianURL'] + "/ntko/editindex.html?cmd=" + cmd +
-                "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-                this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
-                this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema);
+              if (this.os == 'xp'){
+                if (this.brower == "chrome" && this.browerNum <=42){
+                  window.open("/ntko/editindex.html?cmd=" + cmd +
+                    "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                    this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                    this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                }
+                if (this.brower == "firefox" && this.browerNum <=52.3){
+                  window.open("/ntko/editindex.html?cmd=" + cmd +
+                    "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                    this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                    this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                }
+              }else {
+                ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd +
+                  "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                  this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                  this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+
+              }
             } else {
-              window.open(window.location.origin + "/ntko/exeindex.html")
+              window.open("/ntko/exeindex.html")
             }
             window.ntkoCloseEvent = function () {
               this.$message.error("跨浏览器插件应用程序窗口已关闭");
@@ -1718,8 +1906,6 @@ export const taskBth = {
 //新公文传输
 //TODO *************************  新公文传输接口 *************************
     newPublicFileSend() {
-      // console.log('=======================>>>>',this.backData.table)
-      // console.log('=======================>>>>',this.backData.i_id)
       getAction(this.url.newPublicFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
         if (res.success) {
           this.$message.success(res.message)

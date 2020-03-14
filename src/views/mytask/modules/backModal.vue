@@ -181,7 +181,7 @@
       return {
         // scrHeight: window.innerHeight - 350 + 'px',
         scrHeight: 350 + 'px',
-        title: '回退',
+        title: '退回',
         visible: false,
         confirmLoading: false,
         taskMsg: '',
@@ -364,7 +364,7 @@
       show() {
         //console.log('-------------',this.title)
         this.isCurrentUsers = false
-        if (this.title == '回退') this.isBack = true
+        if (this.title == '退回') this.isBack = true
         else this.isBack = false
 
         this.visible = true
@@ -423,7 +423,8 @@
 
         this.destMsg = record
 
-        if (this.title == '回退') return
+
+        if (this.title == '退回') return
 
         //展示节点所需要的办理人
         getAction(this.url.currentUserQuery, {
@@ -431,6 +432,8 @@
           taskId: record.id,
           taskName: record.name,
           drafterId: this.taskMsg.drafterId,
+          table:this.taskMsg.table,
+          i_id:this.taskMsg.tableId,
         }).then(res => {
           if (res.success) {
             //console.log('-------------success:::::::')
@@ -474,11 +477,44 @@
           }
         })
       },
+      deptTypes(depMSg) {
+        depMSg.mainDept = ''
+        depMSg.fuDept = ''
+        depMSg.cyDept = ''
+        for (let k  of Object.keys(this.departSelect)) {
+
+          var types = this.departSelect[k]
+          for (let i in types) {
+            if (k.indexOf('主办') >= 0) {
+              if (depMSg.mainDept == '') {
+                depMSg.mainDept += types[i].departName
+              } else {
+                depMSg.mainDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('辅办') >= 0) {
+              if (depMSg.fuDept == '') {
+                depMSg.fuDept += types[i].departName
+              } else {
+                depMSg.fuDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('传阅') >= 0) {
+              if (depMSg.cyDept == '') {
+                depMSg.cyDept += types[i].departName
+              } else {
+                depMSg.cyDept += '_' + types[i].departName
+              }
+            }
+          }
+        }
+
+      },
       jump() {
         console.log(this.dataSource)
-        if (this.title == '回退') {
+        if (this.title == '退回') {
           if (this.reason == null || this.reason.length == 0) {
-            this.$message.error('请先填写意见')
+            this.$message.error('请填写退回原因')
             return
           }
         }
@@ -525,6 +561,10 @@
               let idd = userGroupByDept[i]
               uids.push(idd)
             }
+            this.deptTypes(taskWithDepts)
+
+
+
 
             if (Object.keys(this.allUserMsg).length==0){
               this.$message.error('请选择用户')
@@ -532,7 +572,7 @@
             }
 
 
-            if (this.title == '回退') {
+            if (this.title == '退回') {
               if (this.selectionRows.length <= 0) {
                 this.$message.error('请选择要退回的环节')
                 return
@@ -549,7 +589,7 @@
           }
         } else {//非多实例
 
-          if (this.title == '回退') {
+          if (this.title == '退回') {
             if (this.selectionRows.length <= 0) {
               this.$message.error('请选择要退回的环节')
               return
@@ -571,7 +611,7 @@
           destActDefKey: this.destMsg.id,
           destActDefName: this.destMsg.name,
           currActDefKey: this.taskMsg.taskDefinitionKey,
-          deleteReason: this.title == '回退' ? 'completed_back' : 'completed_jump',
+          deleteReason: this.title == '退回' ? 'completed_back' : 'completed_jump',
           //办理人信息
           vars: vars,
           isDept: this.isDept,
@@ -583,8 +623,7 @@
           assignee: assignee
         }
 
-
-        if (this.title == '回退') {
+        if (this.title == '退回') {
           data['backReason'] = this.reason
 
           postAction(this.url.back, data).then(res => {
@@ -603,7 +642,8 @@
         } else {
           postAction(this.url.jump, data).then(res => {
             if (res.success) {
-              this.$message.success(res.message)
+              // this.$message.success(res.message)
+              this.$message.success('流程重置成功')
               setTimeout(function () {
                 window.close()
               }, 500)
@@ -612,6 +652,7 @@
               this.$message.error(res.message)
             }
           })
+          this.$message.success('请求已发送')
         }
 
         this.handleCancel()

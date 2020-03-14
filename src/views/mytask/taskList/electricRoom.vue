@@ -119,7 +119,7 @@
             <center><h3>{{detailList.s_varchar4}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar4" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4"></a-input>
+            <a-input type="number" min="1" ref="s_varchar4" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4"></a-input>
           </td>
         </tr>
 
@@ -129,14 +129,14 @@
             <center><h3>{{detailList.s_varchar5}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)" v-model="backData.s_varchar5"></a-input>
+            <a-input type="number" min="1" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)" v-model="backData.s_varchar5"></a-input>
           </td>
           <!--计算机需求台数-->
           <td width="10%" class="title">
             <center><h3>{{detailList.s_varchar6}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)" v-model="backData.s_varchar6"></a-input>
+            <a-input type="number" min="1" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)" v-model="backData.s_varchar6"></a-input>
           </td>
         </tr>
 

@@ -1,4 +1,4 @@
-﻿var urlContextPath = "/AIOA";//个人ip端口配置
+﻿var urlContextPath = "http://localhost:8080/AIOA";//个人ip端口配置
 var ntko = document.getElementById("TANGER_OCX");
 
 function insertFromUrl(FileURL) {
@@ -84,15 +84,19 @@ function saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema) {
   if (cmd == 6) {
     fileType = "2"
   }
+  if (cmd == 11){
+    fileType="3";
+  }
   if (cmd == 4 || cmd == 6) {
     action = urlContextPath + "/ntko/filentko/edit?" + "stable=" + stable + "&tableid=" + tableid
-                            + "&fileType=" + fileType+"&orgSchema="+orgSchema;
-  } else if (cmd == 10 ) {
-    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId+"&orgSchema="+orgSchema;
-  }else if (cmd ==11) {
-    fileType="2";
-    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId  + "&fileType=" + fileType
-                            +"&orgSchema="+orgSchema;
+        + "&fileType=" + fileType+"&orgSchema="+orgSchema;
+  }
+  if (cmd == 10 ) {
+    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId +"&orgSchema="+orgSchema ;
+  }
+  if (cmd == 11) {
+    action = urlContextPath + "/ntko/filentko/editFile?" + "fileId=" + fileId
+        + "&fileType=" + fileType+"&orgSchema="+orgSchema;
   }
   ntko.SaveToURL(action, "file");
 }
@@ -112,7 +116,8 @@ function saveFileToUrl(cmd, stable, tableid,orgSchema) {
   }
   if (cmd == 1 || cmd == 2 || cmd == 7) {
     action = urlContextPath + "/ntko/filentko/upload?" + "stable=" + stable + "&tableid=" + tableid
-                            + "&fileType=" + fileType+"&orgSchema="+orgSchema;
+        + "&fileType=" + fileType+"&orgSchema="+orgSchema
+    ;
   }
   ntko.SaveToURL(action, "file");
 }

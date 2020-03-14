@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    width="72%"
     :visible="visible"
     :confirmLoading="confirmLoading"
     okText="提交意见"
@@ -26,8 +26,8 @@
       <!--<a-button @click="toModal" type="primary" icon="plus">定制个人意见</a-button>-->
     </div>
 
-    <div style="margin-top: 30px">
-    <a-textarea style="font-weight: bolder" :rows="3" placeholder="请填选意见" v-model="areatext"></a-textarea>
+    <div style="margin-top: 30px;">
+    <a-textarea style="font-weight: bolder;height: 300px;"  placeholder="请填选意见" v-model="areatext"></a-textarea>
     </div>
     <create-user-opinion-modal ref="userOpinionForm"></create-user-opinion-modal>
 

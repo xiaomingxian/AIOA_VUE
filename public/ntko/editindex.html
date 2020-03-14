@@ -5,26 +5,42 @@
   <link href="officecontrol/ntkoStyle.css" rel="stylesheet" type="text/css"/>
   <script type="text/javascript" src="officecontrol/ntkoofficecontrol.min.js"></script>
   <script type="text/javascript" src="officecontrol/ntko.js"></script>
-  <script src="./js/jquery-1.7.1.js"></script>
+  <script src="js/jquery-1.7.1.js"></script>
   <script type="text/javascript">
     var ntko = document.getElementById("TANGER_OCX");
     //个人ip端口配置
-    var urlContextPath = "/AIOA";
-    function getQueryString(name) {
-      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-      var r = window.location.search.substr(1).match(reg);
-      if (r != null) return unescape(r[2]);
-      return null;
+    var urlContextPath = getQueryString("url");
+
+    window.onload=checkCode();
+    function checkCode() {
+      var password=getQueryString('password');
+      var cmd=getQueryString('cmd');
+      var stable=getQueryString('stable');
+      var tableid=getQueryString('tableid');
+      var docNumId=getQueryString('docNumId');
+      var  fileId=getQueryString('fileId');
+      orgSchema=getQueryString('orgSchema');
+      $.ajax({
+        type: "post",
+        dataType: "json",
+        url: urlContextPath + "/ntko/filentko/checkPasswordCode",
+        data: {"password":password,"orgSchema":orgSchema},
+        success: function (data) {
+          if (data.success){
+            init(cmd, stable, tableid,orgSchema,fileId,docNumId);
+          } else {
+            ntko.Close();
+            closewin();
+            window.close();
+          }
+        }
+      })
     }
-    function getBasePath() {
-      var pathName = document.location.pathname;
-      var index = pathName.substr(1).indexOf("/");
-      var result = pathName.substr(0, index + 1);
-      return result;
-    }
+
     //初始化去打开文档(cmd为文件类型1为底稿，2为正文，3办文单，4附件，5背景材料，6办文依据)
-    function init(cmd, stable, tableid) {
+    function init(cmd, stable, tableid,orgSchema,fileId) {
       // var ntko = document.getElementById("TANGER_OCX");
+      var docNumId=getQueryString('docNumId');
       if (cmd == 3 || cmd == 4 || cmd == 2) {
         var fileType = "1";
       }
@@ -36,12 +52,14 @@
       }
       //起草底稿ntko
       if (cmd == 1) {
-        ntko.OpenFromURL("templateFiles/empty.doc");
+        url=urlContextPath+"/templateFiles/empty.doc";
+        ntko.OpenFromURL(url);
       }
       //正文排版2，保存办文单7
       if (cmd == 2 || cmd == 7) {
         if (cmd == 2) {
           var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
+          // alert(url)
         } else {
           var url = urlContextPath + "/ntko/formalfile/queryById"
         }
@@ -49,7 +67,7 @@
           type: "get",
           dataType: "json",
           url: url,
-          data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType},
+          data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
           success: function (data) {
             var fileName = data.result.fileName;
             var bookMarkMap = data.result;
@@ -61,15 +79,15 @@
                   type: "post",
                   dataType: "json",
                   url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                  data: {"filepath": Path1},
+                  data: {"filepath": Path1,"orgSchema":orgSchema},
                   success: function (data) {
-                    var basePath = getBasePath();
                     var mFileName = fileName;
-                    var filePath = "/templateFile/";
+                    // var filePath = "/templateFile/";
                     var mFilePath="/templateFiles/";
+                    var filePath="/temporaryFiles/";
                     var fileName1 = data.result;
-                    ntko.OpenFromURL(basePath + mFilePath + mFileName);
-                    insertFromUrl(basePath + filePath + fileName1);
+                    ntko.OpenFromURL(urlContextPath + mFilePath + mFileName);
+                    insertFromUrl(urlContextPath + filePath + fileName1);
                     //插入书签
                     for (var bookMark in bookMarkMap) {
                       var BookmarkName = bookMark;
@@ -86,12 +104,12 @@
                   type: "post",
                   dataType: "json",
                   url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                  data: {"filepath": Path1},
+                  data: {"filepath": Path1,"orgSchema":orgSchema},
                   success: function (data) {
-                    var basePath = getBasePath();
-                    var filePath = "/templateFiles/";
+                    // var basePath = getBasePath();
+                    var filePath = "/temporaryFiles/";
                     var mFileName = data.result;
-                    ntko.OpenFromURL(basePath + filePath + mFileName);
+                    ntko.OpenFromURL(urlContextPath + filePath + mFileName);
                     //插入书签
                     for (var bookMark in bookMarkMap) {
                       var BookmarkName = bookMark;
@@ -123,7 +141,7 @@
           type: "get",
           dataType: "json",
           url: url,
-          data: {"stable": stable, "tableid": tableid, "fileType": fileType},
+          data: {"stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
           success: function (data) {
             if (data.result != null) {
               var Path1 = data.result;
@@ -131,12 +149,12 @@
                 type: "post",
                 dataType: "json",
                 url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                data: {"filepath": Path1},
+                data: {"filepath": Path1,"orgSchema":orgSchema},
                 success: function (data) {
-                  var basePath = getBasePath();
-                  var filePath = "/templateFile/";
+                  // var basePath = getBasePath();
+                  var filePath = "/temporaryFiles/";
                   var fileName = data.result;
-                  ntko.OpenFromURL(basePath + filePath + fileName);
+                  ntko.OpenFromURL(urlContextPath + filePath + fileName);
                 }
               })
             }
@@ -162,7 +180,7 @@
           dataType: "json",
           url: url,
           async: false,
-          data: {"stable": stable, "tableid": tableid},
+          data: {"stable": stable, "tableid": tableid,"orgSchema":orgSchema},
           success: function (data) {
             //插入书签
             var busDataMap = data.result;
@@ -189,7 +207,7 @@
               dataType: "json",
               url: url,
               async: false,
-              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType},
+              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
               success: function (data) {
                 var fileName = data.result.fileName;
                 var bookMarkMap1 = data.result;
@@ -201,15 +219,15 @@
                     type: "post",
                     dataType: "json",
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                    data: {"filepath": Path1},
+                    data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
-                      var basePath = getBasePath();
                       var mFileName = fileName;
-                      var filePath = "/templateFile/";
+                      // var filePath = "/templateFile/";
                       var mFilePath="/templateFiles/";
+                      var filePath="/temporaryFiles/";
                       var fileName1 = data.result;
-                      ntko.OpenFromURL(basePath + mFilePath + mFileName);
-                      insertFromUrl(basePath + filePath + fileName1);
+                      ntko.OpenFromURL(urlContextPath + mFilePath + mFileName);
+                      insertFromUrl(urlContextPath + filePath + fileName1);
                       //插入书签
                       for (var bookMark1 in bookMarkMap1) {
                         var BookmarkName1 = bookMark1;
@@ -231,7 +249,7 @@
               type: "get",
               dataType: "json",
               url: url,
-              data: {"stable": stable, "tableid": tableid, "fileType": fileType},
+              data: {"stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
               success: function (data) {
                 if (data.result != null) {
                   var Path1 = data.result;
@@ -239,12 +257,12 @@
                     type: "post",
                     dataType: "json",
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                    data: {"filepath": Path1},
+                    data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
-                      var basePath = getBasePath();
-                      var filePath = "/templateFile/";
+                      // var basePath = getBasePath();
+                      var filePath = "/temporaryFiles/";
                       var fileName = data.result;
-                      ntko.OpenFromURL(basePath + filePath + fileName);
+                      ntko.OpenFromURL(urlContextPath + filePath + fileName);
                     }
                   })
                 }
@@ -261,7 +279,7 @@
               dataType: "json",
               url: url1,
               // async:false,
-              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType},
+              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
               success: function (data) {
                 var fileName = data.result.fileName;
                 var bookMarkMap = data.result;
@@ -271,12 +289,12 @@
                     type: "post",
                     dataType: "json",
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                    data: {"filepath": Path1},
+                    data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
-                      var basePath = getBasePath();
-                      var filePath = "/templateFiles/";
+                      // var basePath = getBasePath();
+                      var filePath = "/temporaryFiles/";
                       var fileName = data.result;
-                      ntko.OpenFromURL(basePath + filePath + fileName);
+                      ntko.OpenFromURL(urlContextPath + filePath + fileName);
                       //插入书签
                       for (var bookMark in bookMarkMap) {
                         var BookmarkName = bookMark;
@@ -299,7 +317,7 @@
               type: "get",
               dataType: "json",
               url: url,
-              data: {"stable": stable, "tableid": tableid, "fileType": fileType},
+              data: {"stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
               success: function (data) {
                 if (data.result != null) {
                   var Path1 = data.result;
@@ -307,12 +325,11 @@
                     type: "post",
                     dataType: "json",
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                    data: {"filepath": Path1},
+                    data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
-                      var basePath = getBasePath();
-                      var filePath = "/templateFile/";
+                      var filePath = "/temporaryFiles/";
                       var fileName = data.result;
-                      ntko.OpenFromURL(basePath + filePath + fileName);
+                      ntko.OpenFromURL(urlContextPath + filePath + fileName);
                     }
                   })
                 }
@@ -323,22 +340,60 @@
       }
 
       if (cmd == 9 || cmd == 10) {
-        var basePath = getBasePath();
-        var filePath = "/templateFile/";
-        var fileName = getQueryString('fileName');
-        ntko.OpenFromURL(basePath + filePath + fileName);
+        fileType='4';
+        $.ajax({
+          type: "get",
+          dataType: "json",
+          url: urlContextPath + "/ntko/filentko/templateFile",
+          data: {"fileId":fileId,"orgSchema":orgSchema},
+          success: function (data) {
+            fileName=data.result;
+            var filePath = "/temporaryFiles/";
+            ntko.OpenFromURL(urlContextPath + filePath + fileName);
+          }
+        })
       }
 
-      if(cmd == 11){
-        var basePath = getBasePath();
-        var filePath = "/templateFiles/";
-        var fileName = getQueryString('fileName');
-        ntko.OpenFromURL(basePath + filePath + fileName);
+      if( cmd == 11){
+        $.ajax({
+          type: "get",
+          dataType: "json",
+          url: urlContextPath + "/ntko/filentko/templateFile",
+          data: {"fileId":fileId,"orgSchema":orgSchema},
+          success: function (data) {
+              // var Path1=data.message;
+              // $.ajax({
+              //     type: "post",
+              //     dataType: "json",
+              //     url: urlContextPath + "/ntko/filentko/singleCopyFile",
+              //     data: {"filepath": Path1,"fileType":"3","orgSchema":orgSchema},
+              //     success: function (data) {
+              //         var filePath = "/templateFiles/";
+              //         var fileName = data.result;
+              //         ntko.OpenFromURL(urlContextPath + filePath + fileName);
+              //     }
+              // });
+            fileName=data.result;
+            var filePath = "/templateFiles/";
+            ntko.OpenFromURL(urlContextPath + filePath + fileName);
+          }
+        })
       }
     }
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      var num=null;
+      if (name == 'orgSchema'){
+          num='';
+      }
+      return num;
+    }
+
   </script>
   <script type="text/javascript">
-    var cmd;	//命令类型
     function closewin() {
       self.opener = null;
       self.open('', '_self');
@@ -363,7 +418,7 @@
         type: "GET",
         dataType: "json",
         url: url,
-        data: {"id": id},
+        data: {"id": id,"orgSchema":orgSchema},
         success: function (data) {
           //获取按钮配置允许相关操作
           var filePrint = data.result.iisPrint;// 是否允许打印
@@ -478,19 +533,15 @@
         }
       })
     }
-    /*if (cmd == 3 || cmd == 5 || cmd == 9) {
-      //是否显示工具栏
-      ntko.ToolBars = false;
-      //允许或者禁止文件菜单的新建项
-      ntko.FileNew = false;
-      //允许或者禁止文件菜单的打开项
-      ntko.FileOpen = false;
-      //是否显示office功能区
-      ntko.RibbonBars = false;
+    if (cmd==9) {
       ntko.SetReadOnly(true, "", 3);
-
-      // ntko.WebUserName ="";
-    }*/
+      if (cmd == 3 || cmd == 5 || cmd == 9 || cmd ==12) {
+        //是否显示工具栏
+        ntko.ToolBars = false;
+        //是否显示office功能区
+        ntko.RibbonBars = false;
+      }
+    }
     //痕迹保留的用户名
     ntko.WebUserName = userName;
   </script>
@@ -537,6 +588,10 @@
   </script>
 
   <script language="JavaScript" for="TANGER_OCX" event="OnDocumentClosed()">
+      var cmd=getQueryString('cmd');
+      var stable=getQueryString('stable');
+      var tableid=getQueryString('tableid');
+      var  fileId=getQueryString('fileId');
     //文档关闭后执行
     if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
       onPageClose(cmd, stable, tableid, fileId,orgSchema);
@@ -544,6 +599,9 @@
   </script>
 
   <script language="JScript" for="TANGER_OCX" event="OnFileCommand(Item, IsCancel)">
+      var stable=getQueryString('stable');
+      var tableid=getQueryString('tableid');
+      var  fileId=getQueryString('fileId');
     if (Item == 3) {
       if (cmd == 1 || cmd == 2 || cmd == 7) {
         setFileSaveAs(false)
@@ -552,9 +610,9 @@
       }
       if (cmd == 4 || cmd == 6 || cmd == 8 || cmd == 10) {
         setFileSaveAs(false)
-        saveOldFileToUrl(cmd, stable, tableid,orgSchema);
+        saveOldFileToUrl(cmd, stable, tableid);
         if (cmd == 4 || cmd == 6 || cmd == 10) {
-          saveOldFileToUrl(cmd, stable, tableid, fileId);
+          saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema);
           ntko.CancelLastCommand = true;
         }
       }
@@ -568,11 +626,6 @@
 </script>
 
 <body
-  onload="cmd=getQueryString('cmd');docNumId=getQueryString('docNumId');
-  stable=getQueryString('stable');tableid=getQueryString('tableid');
-  fileId=getQueryString('fileId');fileName=getQueryString('fileName');
-  userName=getQueryString('userName');orgSchema=getQueryString('orgSchema');
-  init(cmd,stable,tableid);">
-
+  onload="">
 </body>
 </html>

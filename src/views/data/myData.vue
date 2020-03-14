@@ -111,7 +111,7 @@
         //  初始化 加载图表
         setTimeout(()=>{
           this.startAnalysis(this.initModal,this.initYear,'')
-          let url = "/papertitle/docNumSet/busFunctionList?ibusModelId="+ this.initModal;
+          let url = "/oaBus/busModelPermit/findFunctionListByModelId?id="+ this.initModal;
           getAction(url).then((res)=>{
             this.ProData = res.result;
           })
@@ -148,7 +148,7 @@
 
         // 所属业务模块数据  参数依赖于所属模块 所选id
         getProList(value){
-          let url = "/papertitle/docNumSet/busFunctionList?ibusModelId="+value;
+          let url = "/oaBus/busModelPermit/findFunctionListByModelId?id="+value;
           getAction(url).then((res)=>{
             this.ProData = res.result;
           })
@@ -222,7 +222,7 @@
         startAnalysis(initModal=this.subData.modelId,initYear=this.subData.iCreateYear,initYewu=this.subData.iBusFunctionId){
 
             if(!Boolean(initModal)||!Boolean(initYear)){
-                this.$message.warning('所属模块与申请年份为必选项')
+               // this.$message.warning('所属模块与申请年份为必选项')
             }else{
 
               const urlStr = this.$route.path;

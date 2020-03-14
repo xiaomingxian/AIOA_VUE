@@ -9,23 +9,23 @@
     @cancel="handleCancel"
     cancelText="取消">
 
-    <div>
-      <a-table
-        ref="table"
-        size="middle"
-        bordered
-        rowKey="iid"
-        :columns="columnes"
-        :dataSource="dataSources"
-        :pagination="paginations"
-        :loading="loading"
-        @change="handleTableChange"
 
-      >
+    <a-table
+      :columns="columnes"
+      :dataSource="dataSources"
+      :loading="loading"
+      :pagination="paginations"
+      @change="handleTableChange"
+      bordered
+      ref="table"
+      rowKey="iid"
+      size="middle"
+
+    >
 
 
-      </a-table>
-    </div>
+    </a-table>
+
   </a-modal>
 </template>
 
@@ -43,7 +43,7 @@
         description: '会议室使用情况',
         visible: false,
         confirmLoading: false,
-        title: '',
+        title: '会议室使用情况',
         meetingRoom: '',
         // 表头
         columnes: [
@@ -51,7 +51,7 @@
             title: '序号',
             dataIndex: '',
             key: 'rowIndex',
-            width: 100,
+
             align: "center",
             customRender: function (t, r, index) {
               return parseInt(index) + 1;
@@ -60,32 +60,32 @@
           {
             title: '会议内容',
             align: "center",
-            width: 400,
+
             dataIndex: 'svarchar2',
 
           },
           {
             title: '使用时间',
             align: "center",
-            width: 400,
+
             dataIndex: 'dDatetime1',
           },
           {
             title: '结束时间',
             align: "center",
-            width: 400,
+
             dataIndex: 'dDatetime2',
           },
           {
             title: '审批状态',
             align: "center",
-            width: 400,
+
             dataIndex: 'iisState',
             customRender: function (iisState) {
               if (iisState == '1') {
-                return "办理申请中";
-              } else if (iisState == "0") {
                 return "已申请成功";
+              } else if (iisState == "0") {
+                return "办理申请中";
               } else if (iisState == null && iisState == undefined){
                 return "准备申请中";
               } else {
@@ -116,13 +116,9 @@
       showMeetingCase(e) {
         this.visible = true
         this.meetingRoom = e;
-
         getAction(this.url.queryMeetingRoom, {s_varchar1: this.meetingRoom}).then(res => {
           this.dataSources = res.result.records;
-
-
         })
-
       },
 
       handleTableChange(paginations){
