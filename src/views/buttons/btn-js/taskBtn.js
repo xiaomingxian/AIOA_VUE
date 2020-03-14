@@ -1872,13 +1872,13 @@ export const taskBth = {
             if (ntkoed) {
               if (this.os == 'xp'){
                 if (this.brower == "chrome" && this.browerNum <=42){
-                  window.open("/ntko/editindex.html?cmd=" + cmd +
+                  window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                     "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                     this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                     this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
                 }
                 if (this.brower == "firefox" && this.browerNum <=52.3){
-                  window.open("/ntko/editindex.html?cmd=" + cmd +
+                  window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                     "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                     this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                     this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
