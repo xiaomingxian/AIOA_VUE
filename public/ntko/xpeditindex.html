@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta content="IE=10" http-equiv="X-UA-Compatible"/>
   <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -361,18 +362,18 @@
           url: urlContextPath + "/ntko/filentko/templateFile",
           data: {"fileId":fileId,"orgSchema":orgSchema},
           success: function (data) {
-              // var Path1=data.message;
-              // $.ajax({
-              //     type: "post",
-              //     dataType: "json",
-              //     url: urlContextPath + "/ntko/filentko/singleCopyFile",
-              //     data: {"filepath": Path1,"fileType":"3","orgSchema":orgSchema},
-              //     success: function (data) {
-              //         var filePath = "/templateFiles/";
-              //         var fileName = data.result;
-              //         ntko.OpenFromURL(urlContextPath + filePath + fileName);
-              //     }
-              // });
+            // var Path1=data.message;
+            // $.ajax({
+            //     type: "post",
+            //     dataType: "json",
+            //     url: urlContextPath + "/ntko/filentko/singleCopyFile",
+            //     data: {"filepath": Path1,"fileType":"3","orgSchema":orgSchema},
+            //     success: function (data) {
+            //         var filePath = "/templateFiles/";
+            //         var fileName = data.result;
+            //         ntko.OpenFromURL(urlContextPath + filePath + fileName);
+            //     }
+            // });
             fileName=data.result;
             var filePath = "/templateFiles/";
             ntko.OpenFromURL(urlContextPath + filePath + fileName);
@@ -387,18 +388,18 @@
       if (r != null) return unescape(r[2]);
       var num=null;
       if (name == 'orgSchema'){
-          num='';
+        num='';
       }
       return num;
     }
 
   </script>
+
   <script type="text/javascript">
     function closewin() {
       self.opener = null;
       self.open('', '_self');
     }
-
   </script>
 
   <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
@@ -508,7 +509,7 @@
           if (isNoCopy == 1) {
             // setIsNoCopy(false);
             ntko.IsStrictNoCopy = true
-            
+
           } else if (isNoCopy == 0) {
             // setIsNoCopy(true);
             ntko.IsStrictNoCopy = false;
@@ -554,6 +555,18 @@
     }
   </script>
 
+  <script language="JavaScript" for="TANGER_OCX" event="OnDocumentClosed()">
+    var cmd=getQueryString('cmd');
+    var stable=getQueryString('stable');
+    var tableid=getQueryString('tableid');
+    var  fileId=getQueryString('fileId');
+    //文档关闭后执行
+    if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
+      onPageClose(cmd, stable, tableid, fileId,orgSchema);
+    }
+
+  </script>
+
 
   <script language="JScript" for="TANGER_OCX" event="OnCustomButtonOnMenuCmd(btnPos, btnCaption, btnID)">
     //用户点击菜单上自定义按钮事件
@@ -571,6 +584,7 @@
       }
     }
 
+
     if (btnCaption == "隐藏修订") {
       // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
       var protectionType = ntko.ActiveDocument.ProtectionType;
@@ -587,21 +601,10 @@
     }
   </script>
 
-  <script language="JavaScript" for="TANGER_OCX" event="OnDocumentClosed()">
-      var cmd=getQueryString('cmd');
-      var stable=getQueryString('stable');
-      var tableid=getQueryString('tableid');
-      var  fileId=getQueryString('fileId');
-    //文档关闭后执行
-    if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
-      onPageClose(cmd, stable, tableid, fileId,orgSchema);
-    }
-  </script>
-
   <script language="JScript" for="TANGER_OCX" event="OnFileCommand(Item, IsCancel)">
-      var stable=getQueryString('stable');
-      var tableid=getQueryString('tableid');
-      var  fileId=getQueryString('fileId');
+    var stable=getQueryString('stable');
+    var tableid=getQueryString('tableid');
+    var  fileId=getQueryString('fileId');
     if (Item == 3) {
       if (cmd == 1 || cmd == 2 || cmd == 7) {
         setFileSaveAs(false)
@@ -620,8 +623,22 @@
   </script>
 
 </head>
+<body>
+<object id="TANGER_OCX" ForOndocumentopened="Close" ForOnDocumentOpened="" ForOndocumentopened="ntkoondocumentopened">
 
-<body
-  onload="">
+</object>
+<script>
+  function Close(){
+    var cmd=getQueryString('cmd');
+    var stable=getQueryString('stable');
+    var tableid=getQueryString('tableid');
+    var  fileId=getQueryString('fileId');
+    //文档关闭后执行
+    if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
+      onPageClose(cmd, stable, tableid, fileId,orgSchema);
+    }
+  }
+</script>
 </body>
+
 </html>
