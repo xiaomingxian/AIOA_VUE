@@ -43,7 +43,7 @@
             </p>
             <div>
               <div style="line-height: 30.9999px;" v-for="(item,index) in fileList">
-                <span style="display: inline-block;max-width: 259px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 79px;line-height: 30.9999px;">{{item.name}}</span>
+                <span style="display: inline-block;max-width: 259px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 79px;line-height: 30.9999px;font-size: 17px">{{item.name}}</span>
                 <img class="pices"  @click.stop="handleRemove(item)" src="../../../src/assets/delete.png" /><br/>
               </div>
             </div>
@@ -335,7 +335,7 @@
   .pices{
     float: right;
     margin: 1.4% 27% 0% 0%;
-    width: 22px;
-    height: 22px;
+    width: 23px;
+    height: 23px;
   }
 </style>
