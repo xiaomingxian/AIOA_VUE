@@ -93,10 +93,10 @@
       title: '手机号',
       dataIndex: 'mobile'
     },
-    {
+   /* {
       title: '传真',
       dataIndex: 'fax'
-    },
+    },*/
     {
       title: '地址',
       dataIndex: 'address'

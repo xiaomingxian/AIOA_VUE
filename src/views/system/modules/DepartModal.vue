@@ -18,7 +18,7 @@
           label="名称"
           :hidden="false"
           hasFeedback>
-          <a-input id="departName" placeholder="请输入机构/部门名称" v-decorator="['departName', validatorRules.departName ]"/>
+          <a-input id="departName" placeholder="请输入机构/部门名称" v-decorator="['departName', validatorRules.departName ]" @change="departNameChange"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -44,15 +44,15 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="电话">
-          <a-input placeholder="请输入电话" v-decorator="['mobile',validatorRules.mobile]"/>
+          label="手机号">
+          <a-input placeholder="请输入手机号" v-decorator="['mobile',validatorRules.mobile]"/>
         </a-form-item>
-        <a-form-item
+        <!--<a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="传真">
           <a-input placeholder="请输入传真" v-decorator="['fax', {}]"/>
-        </a-form-item>
+        </a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -88,6 +88,7 @@
     components: {ATextarea},
     data() {
       return {
+        depName:'',
         departTree: [],
         orgTypeData: [],
         phoneWarning: '',
@@ -124,6 +125,9 @@
     created() {
     },
     methods: {
+      departNameChange(e){
+        this.depName = e;
+      },
       loadTreeData() {
         var that = this;
         queryIdTree().then((res) => {
@@ -161,30 +165,34 @@
         this.visible = false;
       },
       handleOk() {
-        const that = this;
-        // 触发表单验证
-        this.form.validateFields((err, values) => {
-          console.log('~~~~~~~~~~~~~~~::::' + JSON.stringify(values))
-          if (!err) {
-            that.confirmLoading = true;
-            let formData = Object.assign(this.model, values);
-            //时间格式化
-            console.log(formData)
-            httpAction(this.url.add, formData, "post").then((res) => {
-              if (res.success) {
-                that.$message.success(res.message);
-                that.loadTreeData();
-                that.$emit('ok');
-              } else {
-                that.$message.warning(res.message);
-              }
-            }).finally(() => {
-              that.confirmLoading = false;
-              that.close();
-            })
+        if (this.depName.data.length > 30){
+          this.$message.warning("名称不得超过30个汉字");
+        }else {
+          const that = this;
+          // 触发表单验证
+          this.form.validateFields((err, values) => {
+            console.log('~~~~~~~~~~~~~~~::::' + JSON.stringify(values))
+            if (!err) {
+              that.confirmLoading = true;
+              let formData = Object.assign(this.model, values);
+              //时间格式化
+              console.log(formData)
+              httpAction(this.url.add, formData, "post").then((res) => {
+                if (res.success) {
+                  that.$message.success(res.message);
+                  that.loadTreeData();
+                  that.$emit('ok');
+                } else {
+                  that.$message.warning(res.message);
+                }
+              }).finally(() => {
+                that.confirmLoading = false;
+                that.close();
+              })
 
-          }
-        })
+            }
+          })
+        }
       },
       handleCancel() {
         this.close()
