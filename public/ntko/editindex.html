@@ -59,7 +59,6 @@
       if (cmd == 2 || cmd == 7) {
         if (cmd == 2) {
           var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
-          // alert(url)
         } else {
           var url = urlContextPath + "/ntko/formalfile/queryById"
         }
@@ -408,7 +407,10 @@
     ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
     //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
     ntko.activeDocument.Saved = true;
-    var userName = getQueryString('userName');
+    getUserName();
+    function getUserName(){
+
+    }
     //按钮权限
     setBtn();
     function setBtn() {
@@ -527,6 +529,21 @@
           } else if(showReview == 0){
             ntko.ActiveDocument.ShowRevisions = false;
           }
+          var userId = getQueryString('userId');
+          var url = urlContextPath + "/sys/user/queryUserNameById";
+          $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: url,
+            data: {"userId": userId,"orgSchema":orgSchema},
+            success: function (data) {
+              var userName=data.result;
+              //痕迹保留的用户名
+              ntko.WebUserName = userName;
+            }
+          })
+
+
         },
         error: function (data) {
           alert("按钮功能正在升级，请联系管理员")
@@ -542,8 +559,6 @@
         ntko.RibbonBars = false;
       }
     }
-    //痕迹保留的用户名
-    ntko.WebUserName = userName;
   </script>
 
   <script language="JScript" for="TANGER_OCX" event="OnScreenModeChanged()">
@@ -621,7 +636,7 @@
 
 </head>
 
-<body
-  onload="">
+<body>
+
 </body>
 </html>

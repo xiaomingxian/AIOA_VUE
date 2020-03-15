@@ -1871,13 +1871,15 @@ export const taskBth = {
             }
             if (ntkoed) {
               if (this.os == 'xp'){
+                //浏览器和版本号chrome--42版本以下
                 if (this.brower == "chrome" && this.browerNum <=42){
                   window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                     "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                     this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                     this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
                 }
-                if (this.brower == "firefox" && this.browerNum <=52.3){
+                //浏览器和版本号firefox--52.3版本以下
+                if (this.brower == "firefox" && this.browerNum <=52){
                   window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                     "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                     this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
