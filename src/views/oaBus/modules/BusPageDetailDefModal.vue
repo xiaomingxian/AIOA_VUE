@@ -256,10 +256,10 @@
           //时间格式化
         });*/
         param[value]=this.form.getFieldValue(value) ;
-        if(param[value]==undefined || param[value]==null || param[value]==""){
+        if(param[value]==undefined || param[value]==null ){
           this.$message.error("请填写对应的值！！！")
         }else{
-          postAction(this.url.updateDetail,param).then(res =>{
+            postAction(this.url.updateDetail,param).then(res =>{
             console.log(res)
           })
         }
