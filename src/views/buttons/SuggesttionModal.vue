@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    width="72%"
+    width="50%"
     :visible="visible"
     :confirmLoading="confirmLoading"
     okText="提交意见"
