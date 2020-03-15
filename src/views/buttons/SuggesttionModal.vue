@@ -27,7 +27,7 @@
     </div>
 
     <div style="margin-top: 30px;">
-    <a-textarea style="font-weight: bolder;height: 300px;"  placeholder="请填选意见" v-model="areatext"></a-textarea>
+    <a-textarea style="font-weight: bolder;height: 200px;"  placeholder="请填选意见" v-model="areatext"></a-textarea>
     </div>
     <create-user-opinion-modal ref="userOpinionForm"></create-user-opinion-modal>
 
