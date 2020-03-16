@@ -1,7 +1,7 @@
 <template>
   <center>
 
-    <div width="100%" border="0" style="border:#913838;">
+    <div width="100%" border="0" style="border:#F0F5FC;">
       <!--<tr >-->
       <!--<td class="title" width="15%">-->
       <!--标题-->
