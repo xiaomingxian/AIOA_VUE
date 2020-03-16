@@ -8,7 +8,7 @@
     cancelText="关闭">
     <template slot="footer">
       <a-button type="primary" @click.stop="close()">取消</a-button>
-      <a-button type="primary" @click.stop="confrimUpLoad()" :disabled="isShowProgress">确定</a-button>
+      <a-button type="primary" @click.stop="confrimUpLoad()" :disabled="isShowProgress == true">确定</a-button>
     </template>
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
@@ -43,8 +43,9 @@
             </p>
             <div>
               <div style="line-height: 30.9999px;" v-for="(item,index) in fileList">
-                <span style="display: inline-block;max-width: 259px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 79px;line-height: 30.9999px;font-size: 17px">{{item.name}}</span>
-                <img class="pices"  @click.stop="handleRemove(item)" src="../../../src/assets/delete.png" /><br/>
+                <span
+                  style="display: inline-block;max-width: 259px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 79px;line-height: 30.9999px;font-size: 17px">{{item.name}}</span>
+                <img class="pices" @click.stop="handleRemove(item)" src="../../../src/assets/delete.png"/><br/>
               </div>
             </div>
             <p v-if="isShowProgress == true" style="float: left;margin: 17px 0 0 27px;">上传进度：</p>
@@ -89,7 +90,9 @@
           'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
         },
         initSize: 0,
-        maxSize: 1024 * 1024 * 100,
+        maxSize:100*1024*1024,
+        maxSizeName:"",
+        fileSuffix: ['doc','docx','xls','xlsx','wps','jpg','png','pdf','pptx','ppt'],
         fileList: [],
         tableSelection: [],
         fileData: {
@@ -111,6 +114,7 @@
         },
         url: {
           upload: "/papertitle/oaTemplate/uploads",
+          getDictValue: '/sys/dict/getDictByKeyObj',
         },
 
       }
@@ -118,13 +122,48 @@
     created() {
     },
     methods: {
-
       show(data) {
-        console.log(data)
+        this.initData(data);
+      },
+      //初始化页面变量
+      initData(data) {
         this.fileData.sTable = data.table;
         this.fileData.iTableId = data.i_id;
         this.fileData.sFileType = 4;
+        this.getFileMaxTotal();
+        this.getFileSuffix();
         this.visible = true;
+      },
+      //初始化--最大上传总量
+      getFileMaxTotal() {
+        getAction(this.url.getDictValue, {dictKey: 'uploadFile_maxSize'}).then(res => {
+          if (res.success && res.result[0].value !==undefined) {
+            this.maxSize =this.countTotal(res.result[0].value);
+            this.maxSizeName =res.result[0].description;
+            console.log(this.maxSize)
+          }
+        })
+      },
+      //初始化--文件格式
+      getFileSuffix() {
+        getAction(this.url.getDictValue, {dictKey: 'uploadFile_suffix'}).then(res => {
+          if (res.success && res.result[0].value !==undefined) {
+            this.fileSuffix = res.result[0].value.split(",");
+          }
+        })
+      },
+      //文件大小转换
+      countTotal(size) {
+        let total = 0;
+        if (size.indexOf("M") !== -1) {
+          total = parseInt(size.slice(0, size.indexOf("M"))) * 1024 * 1024
+          // console.log(total)
+        }
+        if (size.indexOf("G") !== -1) {
+          total = parseInt(size.slice(0, size.indexOf("G"))) * 1024 * 1024 * 1024
+          // console.log(total)
+        }
+        return total;
       },
       beforeUpload: function (file, fileList) {
         this.fileList = [...this.fileList, file];
@@ -137,6 +176,11 @@
         this.fileList = newFileList;
       },
       confrimUpLoad() {
+        this.clickTotal++;
+        if (this.clickTotal > 1) {
+          this.$message.error("系统正在处理您的请求，请耐心等待...")
+          return;
+        }
         if (this.fileList.length > 0) {
           postAction('/oaBus/oaFile/addFiles', this.fileList).then(res => {
             if (res.success) {
@@ -167,7 +211,7 @@
         fileList.forEach(file => {
           data.append('file', file);
         });
-        console.log(this, data, fileList)
+        // console.log(this, data, fileList)
         data.append("sTable", this.fileData.sTable)
         data.append("iTableId", this.fileData.iTableId)
         data.append("sFileType", this.fileData.sFileType)
@@ -196,12 +240,18 @@
         vm.initSize = 0;
         for (var i = 0; i < e.target.files.length; i++) {
           vm.initSize += fileData[i].size;
+          var name = fileData[i].name;
+          var suffix = name.slice(name.indexOf(".")+1)
+          if (this.fileSuffix.indexOf(suffix) == -1){
+            vm.$message.error("文件上传暂不支持"+suffix+"格式！");
+            return;
+          }
           if (fileData[i].size > vm.maxSize) {
-            vm.$message.error(fileData[i].name + "已超出限制100M!");
+            vm.$message.error(fileData[i].name + "已超出文件限制大小"+this.maxSizeName+"!");
             return;
           }
           if (vm.initSize > vm.maxSize) {
-            vm.$message.error("上传已超出限制100M!");
+            vm.$message.error("上传列表大小已超出限制"+this.maxSizeName+"!");
             return;
           }
         }
@@ -213,7 +263,7 @@
           // vm.filename = file.name;
           // console.log(file);
         }
-        console.log(vm.fileList);
+        // console.log(vm.fileList);
         this.isShowProgress = true;
         var config = {
           headers: {'Content-Type': 'multipart/form-data', 'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
@@ -332,7 +382,8 @@
     height: 100%;
     z-index: 2;
   }
-  .pices{
+
+  .pices {
     float: right;
     margin: 1.4% 27% 0% 0%;
     width: 23px;
