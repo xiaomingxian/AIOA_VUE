@@ -577,9 +577,10 @@
       var stable=getQueryString('stable');
       var tableid=getQueryString('tableid');
       var  fileId=getQueryString('fileId');
-    //文档关闭后执行
+      var urlContextPath = getQueryString("url");
+      //文档关闭后执行
     if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
-      onPageClose(cmd, stable, tableid, fileId,orgSchema);
+      onPageClose(cmd, stable, tableid, fileId,orgSchema,urlContextPath);
     }
   </script>
 
@@ -587,17 +588,18 @@
       var stable=getQueryString('stable');
       var tableid=getQueryString('tableid');
       var  fileId=getQueryString('fileId');
+      var urlContextPath = getQueryString("url");
     if (Item == 3) {
       if (cmd == 1 || cmd == 2 || cmd == 7) {
         setFileSaveAs(false);
-        saveFileToUrl(cmd, stable, tableid,orgSchema);
+        saveFileToUrl(cmd, stable, tableid,orgSchema,urlContextPath);
         ntko.CancelLastCommand = true;
       }
       if (cmd == 4 || cmd == 6 || cmd == 8 || cmd == 10) {
         setFileSaveAs(false);
         saveOldFileToUrl(cmd, stable, tableid);
         if (cmd == 4 || cmd == 6 || cmd == 10) {
-          saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema);
+          saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema,urlContextPath);
           ntko.CancelLastCommand = true;
         }
       }
