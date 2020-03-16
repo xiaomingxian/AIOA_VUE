@@ -1,4 +1,4 @@
-﻿var urlContextPath = "http://localhost:8080/AIOA";//个人ip端口配置
+﻿// var urlContextPath = "http://localhost:8080/AIOA";//个人ip端口配置
 var ntko = document.getElementById("TANGER_OCX");
 
 function insertFromUrl(FileURL) {
@@ -59,15 +59,15 @@ function Ntko_OpenDoc(fileUrl) {
 }
 
 //关闭页面保存
-function onPageClose(cmd, stable, tableid, fileId,orgSchema) {
+function onPageClose(cmd, stable, tableid, fileId,orgSchema,urlContextPath) {
   if (!ntko.activeDocument.saved) {
     if (confirm("文档修改过,还没有保存,是否需要保存?")) {
       if (cmd == 1 || cmd == 2 || cmd == 7) {
-        saveFileToUrl(cmd, stable, tableid,orgSchema);
+        saveFileToUrl(cmd, stable, tableid,orgSchema,urlContextPath);
       }
       //编辑底稿..4//校核正文..6
       if (cmd == 4 || cmd == 6 || cmd == 10 || cmd ==11) {
-        saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema)
+        saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema,urlContextPath)
       }
     }
   } else {
@@ -75,7 +75,7 @@ function onPageClose(cmd, stable, tableid, fileId,orgSchema) {
   }
 }
 
-function saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema) {
+function saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema,urlContextPath) {
   var fileType = "";
   var action = "";
   if (cmd == 4) {
@@ -102,7 +102,7 @@ function saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema) {
 }
 
 //保存文件到服务器路径
-function saveFileToUrl(cmd, stable, tableid,orgSchema) {
+function saveFileToUrl(cmd, stable, tableid,orgSchema,urlContextPath) {
   var fileType = "";
   var action = "";
   if (cmd == 1) {

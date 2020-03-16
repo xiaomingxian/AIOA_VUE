@@ -164,7 +164,7 @@
             label="公文传输字段">
             <a-input  style="width: 50%"  placeholder="请输入对应公文传输字段" v-decorator="['ssendKey', {}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
-              <a-button type="primary" @click="updateDetail('ssendKey')"  style="width: 160px">修改全部【本模板】</a-button>
+              <a-button type="primary" @click="updateDetail('ssendKey')"  style="width: 180px">修改全部【本业务类别】</a-button>
             </span>
           </a-form-item>
           <a-form-item
@@ -173,7 +173,7 @@
             label="档案系统字段">
             <a-input  style="width: 50%"  placeholder="请输入档案系统对应字段" v-decorator="['sarchivesKey', {}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
-              <a-button type="primary" @click="updateDetail('sarchivesKey')"  style="width: 160px">修改全部【本模板】</a-button>
+              <a-button type="primary" @click="updateDetail('sarchivesKey')"  style="width: 180px">修改全部【本业务类别】</a-button>
             </span>
           </a-form-item>
           <a-form-item
@@ -182,7 +182,7 @@
             label="书签字段">
             <a-input  style="width: 50%"  placeholder="书签字段" v-decorator="['smarkKey', {}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
-              <a-button type="primary" @click="updateDetail('smarkKey')"  style="width: 160px">修改全部【本模板】</a-button>
+              <a-button type="primary" @click="updateDetail('smarkKey')"  style="width: 180px">修改全部【本业务类别】</a-button>
             </span>
           </a-form-item>
           <a-form-item
