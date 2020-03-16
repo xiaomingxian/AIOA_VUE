@@ -519,9 +519,10 @@
       var tableid=getQueryString('tableid');
       var  fileId=getQueryString('fileId');
       var orgSchema=getQueryString('orgSchema');
+      var urlContextPath = getQueryString("url");
       //文档关闭后执行
       if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
-        onPageClose(cmd, stable, tableid, fileId,orgSchema);
+        onPageClose(cmd, stable, tableid, fileId,orgSchema,urlContextPath);
       }
 
     }
