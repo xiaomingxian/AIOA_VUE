@@ -553,11 +553,6 @@
     },
     created: async function () {
 
-      let url = "/oaBus/oaBusdata/queryByModelId";
-      await postAction(url).then((res) => {
-        this.i_is_radio = res.code;
-      })
-
       await this.init();
 
     },
@@ -782,7 +777,17 @@
       getModelIdByUrl: async function (str) {
         //let url = "/papertitle/docNumSet/busModelList";
         await getAction(this.url.getModelIdByUrl, {str: str}).then((res) => {
+
           this.modelId = res;
+
+          getAction("/oaBus/oaBusdata/queryModel", {
+            modelId: parseInt(this.modelId)
+          }).then((res) => {
+
+            this.i_is_radio = res.result;
+
+          })
+
           this.getPgConditionList();
 
           //this.getPgSearchList();
@@ -961,9 +966,9 @@
 
         postAction(url, {
           modelId: this.modelId,
-          pageNo: this.paginations.current,
-          pageSize: this.paginations.pageSize,
-          condition: this.queryParam
+            pageNo: this.paginations.current,
+            pageSize: this.paginations.pageSize,
+            condition: this.queryParam
         }).then((res) => {
           this.searchList = [];
           this.columns = [];
