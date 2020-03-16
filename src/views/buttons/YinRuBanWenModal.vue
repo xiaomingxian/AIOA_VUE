@@ -242,10 +242,11 @@
           vm.initSize += fileData[i].size;
           var name = fileData[i].name;
           var suffix = name.slice(name.indexOf(".")+1)
-          if (this.fileSuffix.indexOf(suffix) == -1){
-            vm.$message.error("文件上传暂不支持"+suffix+"格式！");
-            return;
-          }
+          //文件格式校验
+          // if (this.fileSuffix.indexOf(suffix) == -1){
+          //   vm.$message.error("文件上传暂不支持"+suffix+"格式！");
+          //   return;
+          // }
           if (fileData[i].size > vm.maxSize) {
             vm.$message.error(fileData[i].name + "已超出文件限制大小"+this.maxSizeName+"!");
             return;
