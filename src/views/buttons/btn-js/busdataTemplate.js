@@ -662,7 +662,7 @@ export const busdataTemplate = {
             postAction("/ntko/filentko/getPasswordCode").then(res => {
               if (res.success) {
                 let browerN = systemTool.getBrowserInfo() + '';//浏览器
-                this.os = systemTool.GetOs();//系统
+                this.os = systemTool.getOS();//系统
                 let a = browerN.substr(0, 1);
                 if (a == "f") {
                   this.brower = browerN.substr(0, 7);
@@ -674,7 +674,7 @@ export const busdataTemplate = {
                 this.password = res.result;
                 let ntkoed = ntkoBrowser.ExtensionInstalled();
                 if (ntkoed) {
-                  if (this.os != 'win7' && this.os != 'win10') {
+                  if (this.os != 'Win7' && this.os != 'Win10') {
                     if (this.brower == "chrome") {
                       if (this.browerNum <= 42) {
                         window.open("/ntko/xpeditindex.html?cmd="+ + index + "&fileId=" + item.iid + "&password=" + this.password
@@ -731,7 +731,7 @@ export const busdataTemplate = {
         postAction("/ntko/filentko/getPasswordCode").then(res => {
           if (res.success) {
             let browerN = systemTool.getBrowserInfo() + '';//浏览器
-            this.os = systemTool.GetOs();//系统
+            this.os = systemTool.getOS();//系统
             let a = browerN.substr(0, 1);
             if (a == "f") {
               this.brower = browerN.substr(0, 7);
@@ -743,7 +743,7 @@ export const busdataTemplate = {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              if (this.os != 'win7' && this.os != 'win10') {
+              if (this.os != 'Win7' && this.os != 'Win10') {
                 if (this.brower == "chrome") {
                   if (this.browerNum <= 42) {
                     window.open("/ntko/xpeditindex.html?cmd="+ cmd
