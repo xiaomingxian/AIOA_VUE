@@ -4,11 +4,454 @@
   <meta content="IE=10" http-equiv="X-UA-Compatible"/>
   <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
   <link href="officecontrol/ntkoStyle.css" rel="stylesheet" type="text/css"/>
-  <script type="text/javascript" src="officecontrol/ntkoofficecontrol.min.js"></script>
   <script type="text/javascript" src="officecontrol/ntko.js"></script>
   <script src="js/jquery-1.7.1.js"></script>
   <script type="text/javascript">
+    /*------------------------------------------------------*/
+    /*                   修改控件的配置信息                                                                    */
+    /*                   version:1.7.3                      */
+    /*                   number:002                         */
+    /*------------------------------------------------------*/
+    //64位控件的calssid
+    var classidx64="A64E3073-2016-4baf-A89D-FFE1FAA10EE0";
+    //32位控件的classid
+    var classid="A64E3073-2016-4baf-A89D-FFE1FAA10EC0";
+    //32位控件包的路径
+    var codebase="officecontrol/OfficeControl.cab#version=6.0.0.1";
+    //64位控件包的路径
+    var codebase64="officecontrol/OfficeControlx64.cab#version=6,0,0,1";
+    //设置高度
+    var height="100%";
+    //设置宽度
+    var width="100%";
+    //买断授权密钥如果不是买断可以不用写
+    var MakerCaption="";
+    //买断授权密钥如果不是买断可以不用写
+    var MakerKey="";
+    //密钥
+    var ProductCaption="";
+    //密钥
+    var ProductKey="";
+    //解除时间密钥
+    var NoExpireKey="";
+
+
+
+
+    /*------------------------------------------------------*/
+    /*             以下内容 请勿修改，否则可能出错                                                              */
+    /*------------------------------------------------------*/
+
+    var userAgent = navigator.userAgent,
+      rMsie = /(msie\s|trident.*rv:)([\w.]+)/,
+      rFirefox = /(firefox)\/([\w.]+)/,
+      rOpera = /(opera).+version\/([\w.]+)/,
+      rChrome = /(chrome)\/([\w.]+)/,
+      rSafari = /version\/([\w.]+).*(safari)/;
+    var browser;
+    var version;
+    var ua = userAgent.toLowerCase();
+    function uaMatch(ua) {
+      var match = rMsie.exec(ua);
+      if (match != null) {
+        return { browser : "IE", version : match[2] || "0" };
+      }
+      var match = rFirefox.exec(ua);
+      if (match != null) {
+        return { browser : match[1] || "", version : match[2] || "0" };
+      }
+      var match = rOpera.exec(ua);
+      if (match != null) {
+        return { browser : match[1] || "", version : match[2] || "0" };
+      }
+      var match = rChrome.exec(ua);
+      if (match != null) {
+        return { browser : match[1] || "", version : match[2] || "0" };
+      }
+      var match = rSafari.exec(ua);
+      if (match != null) {
+        return { browser : match[2] || "", version : match[1] || "0" };
+      }
+      if (match != null) {
+        return { browser : "", version : "0" };
+      }
+    }
+    var browserMatch = uaMatch(userAgent.toLowerCase());
+    if (browserMatch.browser) {
+      browser = browserMatch.browser;
+      version = browserMatch.version;
+    }
+
+
+    if (browser=="IE"){
+      if(window.navigator.platform=="Win32"){
+
+        document.write('<!-- 用来产生编辑状态的ActiveX控件的JS脚本-->   ');
+        document.write('<!-- 因为微软的ActiveX新机制，需要一个外部引入的js-->   ');
+        document.write('<object id="TANGER_OCX" classid="clsid:'+classid+'"');
+        document.write('codebase="'+codebase+'" width="'+width+'" height="'+height+'">   ');
+        document.write('<param name="MakerCaption" value="'+MakerCaption+'">   ');
+        document.write('<param name="MakerKey" value="'+MakerKey+'">   ');
+        document.write('<param name="ProductCaption" value="'+ProductCaption+'">   ');
+        document.write('<param name="ProductKey" value="'+ProductKey+'">   ');
+        document.write('<param name="NoExpireKey" value="'+NoExpireKey+'">   ');
+        document.write('<param name="IsUseUTF8URL" value="-1">   ');
+        document.write('<param name="IsUseUTF8Data" value="-1">   ');
+        document.write('<param name="Caption" value="NTKO OFFICE文档控件示例演示 http://www.ntko.com">   ');
+        document.write('<SPAN STYLE="color:red">不能装载文档控件。请在检查浏览器的选项中检查浏览器的安全设置。</SPAN>   ');
+        document.write('</object>');
+      }
+      if(window.navigator.platform=="Win64"){
+
+        document.write('<!-- 用来产生编辑状态的ActiveX控件的JS脚本-->   ');
+        document.write('<!-- 因为微软的ActiveX新机制，需要一个外部引入的js-->   ');
+        document.write('<object id="TANGER_OCX" classid="clsid:'+classidx64+'"');
+        document.write('codebase="'+codebase64+'" width="'+width+'" height="'+height+'">   ');
+        document.write('<param name="MakerCaption" value="'+MakerCaption+'">   ');
+        document.write('<param name="MakerKey" value="'+MakerKey+'">   ');
+        document.write('<param name="ProductCaption" value="'+ProductCaption+'">   ');
+        document.write('<param name="ProductKey" value="'+ProductKey+'">   ');
+        document.write('<param name="NoExpireKey" value="'+NoExpireKey+'">   ');
+        document.write('<param name="IsUseUTF8URL" value="-1">   ');
+        document.write('<param name="IsUseUTF8Data" value="-1">   ');
+        document.write('<param name="Caption" value="NTKO OFFICE文档控件示例演示 http://www.ntko.com">   ');
+        document.write('<SPAN STYLE="color:red">不能装载文档控件。请在检查浏览器的选项中检查浏览器的安全设置。</SPAN>   ');
+        document.write('</object>');
+      }
+    }
+    else if (browser=="firefox"){
+      document.write('<object id="TANGER_OCX" type="application/ntko-plug"  codebase="'+codebase+'" width="'+width+'" height="'+height+'" ForOnSaveToURL="ntkosavetourl"  ForOndocumentopened="ntkoondocumentopened"');
+      document.write('ForOnpublishAshtmltourl="ntkopublishashtml"');
+      document.write('ForOnpublishAspdftourl="ntkopublishaspdf"');
+      document.write('ForOnSaveAsOtherFormatToUrl="ntkosaveasotherurl"');
+      document.write('ForOnFileCommand="OnFileCommand"');
+      document.write('ForOnDocumentOpened="OnDocumentOpened"');
+      document.write('ForOnDocumentClosed="OnDocumentClosed"');
+      document.write('ForOnScreenModeChanged="ScreenModeChanged"');
+      document.write('ForOnCustomButtonOnMenuCmd="OnCustomButtonOnMenuCmd"');
+      document.write('_MakerCaption="'+MakerCaption+'"  ');
+      document.write('_MakerKey="'+MakerKey+'"  ');
+      document.write('_ProductCaption="'+ProductCaption+'"  ');
+      document.write('_ProductKey="'+ProductKey+'"   ');
+      document.write('_NoExpireKey="'+NoExpireKey+'"   ');
+      document.write('clsid="{'+classid+'}" >');
+      document.write('<SPAN STYLE="color:red">尚未安装NTKO Web FireFox跨浏览器插件</SPAN>   ');
+      document.write('</object>   ');
+    }else if(browser=="chrome"){
+      document.write('<object id="TANGER_OCX" clsid="{'+classid+'}"  ForOnSaveToURL="ntkosavetourl"  ForOndocumentopened="ntkoondocumentopened"');
+      document.write('ForOnpublishAshtmltourl="ntkopublishashtml"');
+      document.write('ForOnpublishAspdftourl="ntkopublishaspdf"');
+      document.write('ForOnSaveAsOtherFormatToUrl="ntkosaveasotherurl"');
+      document.write('_IsUseUTF8URL="-1"   ');
+      document.write('_IsUseUTF8Data="-1"   ');
+      document.write('_MakerCaption="'+MakerCaption+'"  ');
+      document.write('_MakerKey="'+MakerKey+'"  ');
+      document.write('_ProductCaption="'+ProductCaption+'"  ');
+      document.write('_NoExpireKey="'+NoExpireKey+'"   ');
+      document.write('_ProductKey="'+ProductKey+'"   ');
+      document.write('codebase="'+codebase+'" width="'+width+'" height="'+height+'" type="application/ntko-plug" ');
+      document.write('<SPAN STYLE="color:red">尚未安装NTKO Web Chrome跨浏览器插件</SPAN>   ');
+      document.write('</object>');
+    }else if (Sys.opera){
+      alert("sorry,ntko web印章暂时不支持opera!");
+    }else if (Sys.safari){
+      alert("sorry,ntko web印章暂时不支持safari!");
+    }
+    window.onunload =function(){
+      var ntkojb= ntkoBrowser.NtkoJudgingBrowsers();
+      if(ntkojb){
+        window.opener.ntkoCloseEvent();
+      }
+
+
+    }
+    window.onbeforeunload=function(){
+      if(cmd==4){
+        ntkoSendDataToParentPage();
+      }
+    }
+
+    //ie,谷歌，火狐传值
+    var ntkoBrowser={
+      ntkoSetReturnValueToParentPage:function(data1,text1){
+
+        var ntkojb= ntkoBrowser.NtkoJudgingBrowsers();
+        if(ntkojb){
+          window.opener.ieattachEventntko(data1,text1);
+        }else{
+          window.external.SetReturnValueToParentPage(data1,text1);
+        }
+      },
+      NtkoBrower:function(){
+        if(browser=="IE"){
+          return false;
+        }
+        if(browser=="firefox"){
+          if(userAgent.indexOf("Windows NT 5.1") > -1){
+            return false;
+          }
+          if(version>="50"){
+            return true;
+          }else{
+            return false;
+          }
+        }
+        if(browser=="chrome"){
+          if(userAgent.indexOf("Windows NT 5.1") > -1){
+            return false;
+          }
+          if(version>="45"){
+            return true;
+          }else{
+            return false;
+          }
+        }
+      },
+      NtkoJudgingBrowsers:function(){
+        try{
+          var ntkobtop=window.opener.top.browser;
+          return true;
+        }catch(err){
+          return false;
+        }
+      }
+
+    }
+
+  </script>
+
+
+  <script type="text/javascript">
     var ntko = document.getElementById("TANGER_OCX");
+
+    /*
+        谷歌浏览器事件接管
+        */
+
+    function OnDocumentOpened(type,code){
+      //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
+      ntko.activeDocument.Saved = true;
+      var userName = getQueryString('userName');
+      //按钮权限
+      setBtn();
+      function setBtn() {
+        var url = urlContextPath + "/oabutton/oaButton/queryById";
+        var id = getQueryString('sbtnid');
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: url,
+          data: {"id": id,"orgSchema":orgSchema},
+          success: function (data) {
+            //获取按钮配置允许相关操作
+            var filePrint = data.result.iisPrint;// 是否允许打印
+            var filePrintPreview = data.result.iisPrintpreview;// 是否允许打印预览
+            var fileSaveAs = data.result.iisSaveas; //是否允许另存
+            var fileSave = data.result.iisSave;//是否允许保存
+            var fileNew = data.result.iisNew;//是否允许新建
+            var fileClose = data.result.iisClose; //是否允许文件菜单的关闭项
+            var fileOpen = data.result.iisOpen; //是否允许文件菜单的打开项
+            var fileEdit = data.result.iisEdit;//是否允许编辑
+            var reviewMode = data.result.iisSaverevision; // 设置是否保留痕迹
+            var showReview = data.result.iisShowrevision;// 设置是否显示痕迹
+            var isNoCopy = data.result.iisCopy; //是否禁止拷贝
+            // 是否允许打印
+            if (filePrint == 1) {
+              // setFilePrint(true);
+              ntko.fileprint=true;
+            } else if(filePrint == 0){
+              ntko.fileprint=false;
+            }
+            // 是否允许打印预览
+            if (filePrintPreview == 1) {
+              // setFilePrintPreview(true)
+              ntko.FilePrintPreview = true;
+            } else if (filePrintPreview == 0) {
+              // setFilePrintPreview(false)
+              ntko.FilePrintPreview = false;
+            }
+            //是否允许另存
+            if (fileSaveAs == 1) {
+              // setFileSaveAs(true);
+              ntko.FileSaveAs = true
+            } else if (fileSaveAs == 0) {
+              // setFileSaveAs(false);
+              ntko.FileSaveAs = false
+            }
+            //是否允许保存
+            if (fileSave == 1) {
+              // setFileSave(true);
+              ntko.FileSave = true;
+            } else if (fileSave == 0) {
+              // setFileSave(false);
+              ntko.FileSave = false;
+            }
+            //是否允许新建
+            if (fileNew == 1) {
+              // setFileNew(true);
+              ntko.FileNew = true;
+            } else if (fileNew == 0) {
+              // setFileNew(false);
+              ntko.FileNew = false;
+            }
+            //是否允许文件菜单的关闭项
+            if (fileClose == 1) {
+              // setFileClose(true);
+              ntko.FileClose = true;
+            } else if (fileClose == 0) {
+              // setFileClose(false);
+              ntko.FileClose = false;
+            }
+            //是否允许文件菜单的打开项
+            if (fileOpen == 1) {
+              // setFileOpen(true);
+              ntko.FileOpen = true;
+            } else if (fileOpen == 0) {
+              // ntko.SetReadOnly(true,3);
+              // setFileOpen(false);
+              ntko.FileOpen = false;
+            }
+            //是否允许编辑,可编辑显示留痕
+            if (fileEdit == 1) {
+              // setReadOnly(false);
+              // setShowRevisions(true);
+              ntko.SetReadOnly(false, "", 3);
+            } else if (fileEdit == 0) {
+              // setReadOnly(true);
+              // setShowRevisions(false);
+              ntko.SetReadOnly(true, "", 3);
+              if (cmd == 3 || cmd == 5 || cmd == 9 || cmd ==12) {
+                //是否显示工具栏
+                ntko.ToolBars = false;
+                //是否显示office功能区
+                ntko.RibbonBars = false;
+              }
+            }
+            //是否禁止拷贝
+            if (isNoCopy == 1) {
+              // setIsNoCopy(false);
+              ntko.IsStrictNoCopy = true
+
+            } else if (isNoCopy == 0) {
+              // setIsNoCopy(true);
+              ntko.IsStrictNoCopy = false;
+            }
+            // 设置是否保留痕迹状态
+            if (reviewMode == 1) {
+              // setReviewMode(true);
+              ntko.TrackRevisions(true)
+            } else if (reviewMode == 0) {
+              // setReviewMode(false);
+              ntko.TrackRevisions(false)
+            }
+            //显示保留痕迹状态
+            if (showReview == 1){
+              ntko.ActiveDocument.ShowRevisions = true;
+            } else if(showReview == 0){
+              ntko.ActiveDocument.ShowRevisions = false;
+            }
+          },
+          error: function (data) {
+            alert("按钮功能正在升级，请联系管理员")
+          }
+        })
+      }
+      if (cmd==9) {
+        ntko.SetReadOnly(true, "", 3);
+        if (cmd == 3 || cmd == 5 || cmd == 9 || cmd ==12) {
+          //是否显示工具栏
+          ntko.ToolBars = false;
+          //是否显示office功能区
+          ntko.RibbonBars = false;
+        }
+      }
+      //痕迹保留的用户名
+      ntko.WebUserName = userName;
+    }
+    function ntkosavetourl(type,code,html)
+    {
+      //alert("SaveToURL成功回调");
+    }
+
+    function OnFileCommand(Item,IsCancel){
+      var stable=getQueryString('stable');
+      var tableid=getQueryString('tableid');
+      var  fileId=getQueryString('fileId');
+      if (Item == 3) {
+        if (cmd == 1 || cmd == 2 || cmd == 7) {
+          setFileSaveAs(false);
+          saveFileToUrl(cmd, stable, tableid,orgSchema);
+          ntko.CancelLastCommand = true;
+        }
+        if (cmd == 4 || cmd == 6 || cmd == 8 || cmd == 10) {
+          setFileSaveAs(false)
+          saveOldFileToUrl(cmd, stable, tableid);
+          if (cmd == 4 || cmd == 6 || cmd == 10) {
+            saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema);
+            ntko.CancelLastCommand = true;
+          }
+        }
+      }
+
+    }
+    function OnCustomButtonOnMenuCmd(btnPos, btnCaption, btnID){
+      if (btnCaption == "显示修订") {
+        // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
+        var protectionType = ntko.ActiveDocument.ProtectionType;
+        // 必须取消只读，才能显示痕迹，否则会报错
+        setReadOnly(false);
+        setShowRevisions(true);
+        ntko.RemoveCustomButtonOnMenu(6);
+        ntko.AddCustomButtonOnMenu(7, "隐藏修订", true, 7);
+        // 原来是只读的，需要重新设置为只读
+        if (protectionType == 2) {
+          setReadOnly(true);
+        }
+      }
+
+
+      if (btnCaption == "隐藏修订") {
+        // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
+        var protectionType = ntko.ActiveDocument.ProtectionType;
+        // 必须取消只读，才能隐藏痕迹，否则会报错
+        setReadOnly(false);
+        setShowRevisions(false);
+        // setReviewMode(false);
+        ntko.RemoveCustomButtonOnMenu(7);
+        ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
+        // 原来是只读的，需要重新设置为只读
+        if (protectionType == 2) {
+          setReadOnly(true);
+        }
+      }
+    }
+    function ntkopublishaspdf(type,code,html){
+   //alert("Onpublishaspdftourl成功回调");
+    }
+    function ntkosaveasotherurl(type,code,html){
+    //alert("SaveAsOtherformattourl成功回调");
+    }
+    function ScreenModeChanged(type,code,html){
+      if (ntko.FullScreenMode == false) {
+        ntko.Close();
+        closewin();
+        window.close();
+      }
+    }
+    function OnDocumentClosed(type,code,html){
+      var cmd=getQueryString('cmd');
+      var stable=getQueryString('stable');
+      var tableid=getQueryString('tableid');
+      var  fileId=getQueryString('fileId');
+      //文档关闭后执行
+      if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
+        onPageClose(cmd, stable, tableid, fileId,orgSchema);
+      }
+
+    }
+
+
+
     //个人ip端口配置
     var urlContextPath = getQueryString("url");
 
@@ -41,7 +484,14 @@
     //初始化去打开文档(cmd为文件类型1为底稿，2为正文，3办文单，4附件，5背景材料，6办文依据)
     function init(cmd, stable, tableid,orgSchema,fileId) {
       // var ntko = document.getElementById("TANGER_OCX");
+      ntko.FullScreenMode = true;
+      ntko.Caption = "欢迎使用AI综合办公服务平台";
+      ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
+      var userName = getQueryString('userName');
       var docNumId=getQueryString('docNumId');
+      //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
+      ntko.svSaved = true;
+      setBtn();
       if (cmd == 3 || cmd == 4 || cmd == 2) {
         var fileType = "1";
       }
@@ -402,15 +852,6 @@
     }
   </script>
 
-  <script type="text/javascript" >
-    document.write('<object id="TANGER_OCX"   ForOnSaveToURL="ntkosavetourl"  ForOndocumentopened="ntkoondocumentopened"');
-    document.write('ForOnpublishAshtmltourl="ntkopublishashtml"');
-    document.write('ForOnpublishAspdftourl="ntkopublishaspdf"');
-    document.write('ForOnSaveAsOtherFormatToUrl="ntkosaveasotherurl"');
-    document.write('ForOnDocumentClosed="Close">');
-    document.write('</object>');
-  </script>
-
   <script type="text/javascript">
     function Close(){
       var cmd=getQueryString('cmd');
@@ -422,18 +863,6 @@
         onPageClose(cmd, stable, tableid, fileId,orgSchema);
       }
     }
-  </script>
-
-  <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
-    var ntko = document.getElementById("TANGER_OCX");
-    ntko.FullScreenMode = true;
-    ntko.Caption = "欢迎使用AI综合办公服务平台";
-    ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
-    //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
-    ntko.activeDocument.Saved = true;
-    var userName = getQueryString('userName');
-    //按钮权限
-    setBtn();
     function setBtn() {
       var url = urlContextPath + "/oabutton/oaButton/queryById";
       var id = getQueryString('sbtnid');
@@ -555,92 +984,6 @@
           alert("按钮功能正在升级，请联系管理员")
         }
       })
-    }
-    if (cmd==9) {
-      ntko.SetReadOnly(true, "", 3);
-      if (cmd == 3 || cmd == 5 || cmd == 9 || cmd ==12) {
-        //是否显示工具栏
-        ntko.ToolBars = false;
-        //是否显示office功能区
-        ntko.RibbonBars = false;
-      }
-    }
-    //痕迹保留的用户名
-    ntko.WebUserName = userName;
-  </script>
-
-  <script language="JScript" for="TANGER_OCX" event="OnScreenModeChanged()">
-    if (ntko.FullScreenMode == false) {
-      ntko.Close();
-      closewin();
-      window.close();
-    }
-  </script>
-
-  <script language="JavaScript" for="TANGER_OCX" event="OnDocumentClosed()">
-    var cmd=getQueryString('cmd');
-    var stable=getQueryString('stable');
-    var tableid=getQueryString('tableid');
-    var  fileId=getQueryString('fileId');
-    //文档关闭后执行
-    if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
-      onPageClose(cmd, stable, tableid, fileId,orgSchema);
-    }
-
-  </script>
-
-
-  <script language="JScript" for="TANGER_OCX" event="OnCustomButtonOnMenuCmd(btnPos, btnCaption, btnID)">
-    //用户点击菜单上自定义按钮事件
-    if (btnCaption == "显示修订") {
-      // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
-      var protectionType = ntko.ActiveDocument.ProtectionType;
-      // 必须取消只读，才能显示痕迹，否则会报错
-      setReadOnly(false);
-      setShowRevisions(true);
-      ntko.RemoveCustomButtonOnMenu(6);
-      ntko.AddCustomButtonOnMenu(7, "隐藏修订", true, 7);
-      // 原来是只读的，需要重新设置为只读
-      if (protectionType == 2) {
-        setReadOnly(true);
-      }
-    }
-
-
-    if (btnCaption == "隐藏修订") {
-      // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
-      var protectionType = ntko.ActiveDocument.ProtectionType;
-      // 必须取消只读，才能隐藏痕迹，否则会报错
-      setReadOnly(false);
-      setShowRevisions(false);
-      // setReviewMode(false);
-      ntko.RemoveCustomButtonOnMenu(7);
-      ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
-      // 原来是只读的，需要重新设置为只读
-      if (protectionType == 2) {
-        setReadOnly(true);
-      }
-    }
-  </script>
-
-  <script language="JScript" for="TANGER_OCX" event="OnFileCommand(Item, IsCancel)">
-    var stable=getQueryString('stable');
-    var tableid=getQueryString('tableid');
-    var  fileId=getQueryString('fileId');
-    if (Item == 3) {
-      if (cmd == 1 || cmd == 2 || cmd == 7) {
-        setFileSaveAs(false)
-        saveFileToUrl(cmd, stable, tableid,orgSchema);
-        ntko.CancelLastCommand = true;
-      }
-      if (cmd == 4 || cmd == 6 || cmd == 8 || cmd == 10) {
-        setFileSaveAs(false)
-        saveOldFileToUrl(cmd, stable, tableid);
-        if (cmd == 4 || cmd == 6 || cmd == 10) {
-          saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema);
-          ntko.CancelLastCommand = true;
-        }
-      }
     }
   </script>
 
