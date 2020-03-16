@@ -8,9 +8,7 @@
   <script src="js/jquery-1.7.1.js"></script>
   <script type="text/javascript">
     var ntko = document.getElementById("TANGER_OCX");
-    //个人ip端口配置
     var urlContextPath = getQueryString("url");
-
     window.onload=checkCode();
     function checkCode() {
       var password=getQueryString('password');
@@ -59,7 +57,6 @@
       if (cmd == 2 || cmd == 7) {
         if (cmd == 2) {
           var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
-          // alert(url)
         } else {
           var url = urlContextPath + "/ntko/formalfile/queryById"
         }
@@ -82,7 +79,6 @@
                   data: {"filepath": Path1,"orgSchema":orgSchema},
                   success: function (data) {
                     var mFileName = fileName;
-                    // var filePath = "/templateFile/";
                     var mFilePath="/templateFiles/";
                     var filePath="/temporaryFiles/";
                     var fileName1 = data.result;
@@ -106,7 +102,6 @@
                   url: urlContextPath + "/ntko/filentko/singleCopyFile",
                   data: {"filepath": Path1,"orgSchema":orgSchema},
                   success: function (data) {
-                    // var basePath = getBasePath();
                     var filePath = "/temporaryFiles/";
                     var mFileName = data.result;
                     ntko.OpenFromURL(urlContextPath + filePath + mFileName);
@@ -151,7 +146,6 @@
                 url: urlContextPath + "/ntko/filentko/singleCopyFile",
                 data: {"filepath": Path1,"orgSchema":orgSchema},
                 success: function (data) {
-                  // var basePath = getBasePath();
                   var filePath = "/temporaryFiles/";
                   var fileName = data.result;
                   ntko.OpenFromURL(urlContextPath + filePath + fileName);
@@ -199,7 +193,6 @@
 
         if (cmd == 6) {
           //未保存正文，进行正文排版
-          // alert(i_is_typeset)
           if (i_is_typeset == 0) {
             var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
             $.ajax({
@@ -214,7 +207,6 @@
                 var zwFileNamePath = data.result.zwFileNamePath;
                 if (zwFileNamePath != null) {
                   var Path1 = zwFileNamePath;
-                  // alert(path1);
                   $.ajax({
                     type: "post",
                     dataType: "json",
@@ -222,7 +214,6 @@
                     data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
                       var mFileName = fileName;
-                      // var filePath = "/templateFile/";
                       var mFilePath="/templateFiles/";
                       var filePath="/temporaryFiles/";
                       var fileName1 = data.result;
@@ -259,7 +250,6 @@
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
                     data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
-                      // var basePath = getBasePath();
                       var filePath = "/temporaryFiles/";
                       var fileName = data.result;
                       ntko.OpenFromURL(urlContextPath + filePath + fileName);
@@ -278,7 +268,6 @@
               type: "get",
               dataType: "json",
               url: url1,
-              // async:false,
               data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
               success: function (data) {
                 var fileName = data.result.fileName;
@@ -291,7 +280,6 @@
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
                     data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
-                      // var basePath = getBasePath();
                       var filePath = "/temporaryFiles/";
                       var fileName = data.result;
                       ntko.OpenFromURL(urlContextPath + filePath + fileName);
@@ -361,18 +349,6 @@
           url: urlContextPath + "/ntko/filentko/templateFile",
           data: {"fileId":fileId,"orgSchema":orgSchema},
           success: function (data) {
-              // var Path1=data.message;
-              // $.ajax({
-              //     type: "post",
-              //     dataType: "json",
-              //     url: urlContextPath + "/ntko/filentko/singleCopyFile",
-              //     data: {"filepath": Path1,"fileType":"3","orgSchema":orgSchema},
-              //     success: function (data) {
-              //         var filePath = "/templateFiles/";
-              //         var fileName = data.result;
-              //         ntko.OpenFromURL(urlContextPath + filePath + fileName);
-              //     }
-              // });
             fileName=data.result;
             var filePath = "/templateFiles/";
             ntko.OpenFromURL(urlContextPath + filePath + fileName);
@@ -398,7 +374,6 @@
       self.opener = null;
       self.open('', '_self');
     }
-
   </script>
 
   <script type="text/javascript" for="TANGER_OCX" event="OnDocumentOpened(File, Document)">
@@ -408,7 +383,6 @@
     ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
     //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
     ntko.activeDocument.Saved = true;
-    var userName = getQueryString('userName');
     //按钮权限
     setBtn();
     function setBtn() {
@@ -527,6 +501,19 @@
           } else if(showReview == 0){
             ntko.ActiveDocument.ShowRevisions = false;
           }
+          var userId = getQueryString('userId');
+          var url = urlContextPath + "/sys/user/queryUserNameById";
+          $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: url,
+            data: {"userId": userId,"orgSchema":orgSchema},
+            success: function (data) {
+              var userName=data.result;
+              //痕迹保留的用户名
+              ntko.WebUserName = userName;
+            }
+          })
         },
         error: function (data) {
           alert("按钮功能正在升级，请联系管理员")
@@ -542,8 +529,6 @@
         ntko.RibbonBars = false;
       }
     }
-    //痕迹保留的用户名
-    ntko.WebUserName = userName;
   </script>
 
   <script language="JScript" for="TANGER_OCX" event="OnScreenModeChanged()">
@@ -592,9 +577,10 @@
       var stable=getQueryString('stable');
       var tableid=getQueryString('tableid');
       var  fileId=getQueryString('fileId');
-    //文档关闭后执行
+      var urlContextPath = getQueryString("url");
+      //文档关闭后执行
     if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
-      onPageClose(cmd, stable, tableid, fileId,orgSchema);
+      onPageClose(cmd, stable, tableid, fileId,orgSchema,urlContextPath);
     }
   </script>
 
@@ -602,17 +588,18 @@
       var stable=getQueryString('stable');
       var tableid=getQueryString('tableid');
       var  fileId=getQueryString('fileId');
+      var urlContextPath = getQueryString("url");
     if (Item == 3) {
       if (cmd == 1 || cmd == 2 || cmd == 7) {
-        setFileSaveAs(false)
-        saveFileToUrl(cmd, stable, tableid,orgSchema);
+        setFileSaveAs(false);
+        saveFileToUrl(cmd, stable, tableid,orgSchema,urlContextPath);
         ntko.CancelLastCommand = true;
       }
       if (cmd == 4 || cmd == 6 || cmd == 8 || cmd == 10) {
-        setFileSaveAs(false)
+        setFileSaveAs(false);
         saveOldFileToUrl(cmd, stable, tableid);
         if (cmd == 4 || cmd == 6 || cmd == 10) {
-          saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema);
+          saveOldFileToUrl(cmd, stable, tableid, fileId,orgSchema,urlContextPath);
           ntko.CancelLastCommand = true;
         }
       }
@@ -620,8 +607,6 @@
   </script>
 
 </head>
-
-<body
-  onload="">
+<body>
 </body>
 </html>

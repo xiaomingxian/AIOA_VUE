@@ -91,9 +91,9 @@
                                  :detailList="detailList"></inside-reading-file>
             <!--富文本框-->
             <table width="100%"
-                   style=" border-right:1px solid rgb(145, 56, 56); ;border-left:1px  solid rgb(145, 56, 56); ;border-bottom:1px solid rgb(145, 56, 56); ;">
+                   style=" border-right:1px solid #F0F5FC; ;border-left:1px  solid #F0F5FC; ;border-bottom:1px solid #F0F5FC; ;">
               <tr v-show="jeditShow">
-                <!--<td class="title" colspan="1" width="15%" style="border-right: 1px solid rgb(145, 56, 56);">-->
+                <!--<td class="title" colspan="1" width="15%" style="border-right: 1px solid #F0F5FC;">-->
                 <!--<center><h3>{{detailList.s_title}}</h3></center>-->
                 <!--</td>-->
                 <td colspan="4">
@@ -103,9 +103,9 @@
             </table>
             <!--发布范围-->
             <table width="100%"
-                   style=" border-right:1px solid rgb(145, 56, 56); ;border-left:1px  solid rgb(145, 56, 56); ;border-bottom:1px solid rgb(145, 56, 56); ;">
+                   style=" border-right:1px solid #F0F5FC; ;border-left:1px  solid #F0F5FC; ;border-bottom:1px solid #F0F5FC; ;">
               <tr v-show="isLimitsShow">
-                <td class="title" width="10%" style="width: 163px;border-right: 1px solid rgb(145, 56, 56);">
+                <td class="title" width="10%" style="width: 163px;border-right: 1px solid #F0F5FC;">
                   <center><h3>发布范围：</h3></center>
                 </td>
                 <td colspan="3">

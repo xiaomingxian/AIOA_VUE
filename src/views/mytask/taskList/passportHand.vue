@@ -3,7 +3,7 @@
   <form>
     <center>
       <!--part3-->
-      <table width="100%" border="1" borderColor="#aa7d7d">
+      <table width="100%" border="1" borderColor="#F0F5FC">
         <tr>
           <td width="15%" class="title">
             <!--申请人：：-->

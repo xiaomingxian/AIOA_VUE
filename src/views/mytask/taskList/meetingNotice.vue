@@ -1,6 +1,6 @@
 <template>
   <center>
-    <table width="100%" border="1" :submit="submit">
+    <table width="100%" borderColor="#F0F5FC" border="1" :submit="submit">
       <tr style="height: 50px;">
         <td width="15%" class="title">
           <center><h3>{{detailList.s_create_dept}}</h3></center>
