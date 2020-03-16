@@ -2,7 +2,7 @@
   <form>
   <center>
 
-    <table width="100%" border="1" style="border:#913838;">
+    <table width="100%" border="1" style="border:#F0F5FC;">
       <tr>
         <td class="title" width="15%">
           <!--主办部门-->
