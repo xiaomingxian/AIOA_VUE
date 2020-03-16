@@ -257,12 +257,16 @@
         });*/
         param[value]=this.form.getFieldValue(value) ;
         if(param[value]==undefined || param[value]==null ){
-          this.$message.error("请填写对应的值！！！")
-        }else{
-            postAction(this.url.updateDetail,param).then(res =>{
-            console.log(res)
-          })
+          param[value]= "00000" ;
         }
+        postAction(this.url.updateDetail,param).then(res =>{
+          if(res.success){
+            this.$message.success("修改成功！！！")
+            console.log(res)
+          }
+
+        })
+
       },
       listTitleChange(params){
         let param = params.target.value
