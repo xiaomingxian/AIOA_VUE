@@ -37,19 +37,19 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="字段名">
-            <a-input placeholder="请输入字段名" v-model="stableColumn"  v-decorator="['stableColumn', {}]"/>
+            <a-input style="width: 50%" placeholder="请输入字段名" v-model="stableColumn"  v-decorator="['stableColumn', {}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="列名">
-            <a-input placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true}]}]"/>
+            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true}]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="列输入类型">
-            <a-select disabled="disabled" v-decorator="[ 'icolumnType', {}]" >
+            <a-select style="width: 50%" disabled="disabled" v-decorator="[ 'icolumnType', {}]" >
               <a-select-option v-for="(item,index) in columnTypeList" :key="index" :value="parseInt(item.value)">
                 {{item.text}}
               </a-select-option>
@@ -60,7 +60,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="标题列">
-            <a-radio-group ref="refTitle"
+            <a-radio-group  ref="refTitle"
                            v-model="titleModel"
                            :disabled="disableFlag"
                            @change="listTitleChange"
@@ -74,7 +74,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="数据列排序">
-            <a-input-number v-decorator="[ 'iorder', {}]" />
+            <a-input-number style="width: 50%" v-decorator="[ 'iorder', {}]" />
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -100,7 +100,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="数据字典类别">
-            <a-select @change="dictIdClick" v-decorator="[ 'sdictId', {}]" >
+            <a-select style="width: 50%" @change="dictIdClick" v-decorator="[ 'sdictId', {}]" >
               <a-select-option v-for="(item,index) in directOpt" :key="index" :value="item.dictCode">
                 {{item.dictName}}
               </a-select-option>
@@ -112,7 +112,7 @@
 
             :wrapperCol="wrapperCol"
             label="查询sql">
-            <a-select v-decorator="[ 'sdictSqlKey', {}]" @change="dictSqlClick">
+            <a-select  style="width: 50%" v-decorator="[ 'sdictSqlKey', {}]" @change="dictSqlClick">
               <a-select-option v-for="(item,index) in sqlOpt" :key="index" :value="item.value">
                 {{item.text}}
               </a-select-option>
@@ -133,19 +133,19 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="java校验">
-            <a-input placeholder="请输入java校验规则，正则表达式" v-decorator="['scheckExpjava', {}]"/>
+            <a-input  style="width: 50%" placeholder="请输入java校验规则，正则表达式" v-decorator="['scheckExpjava', {}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="sql校验">
-            <a-input placeholder="请输入数据校验sql" v-decorator="['scheckExpsql', {}]"/>
+            <a-input  style="width: 50%" placeholder="请输入数据校验sql" v-decorator="['scheckExpsql', {}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="js校验">
-            <a-select v-decorator="[ 'icheckExpjs', {}]">
+            <a-select  style="width: 50%" v-decorator="[ 'icheckExpjs', {}]">
               <a-select-option v-for="(item,index) in regulars" :key="index" :value="item.value">
                 {{item.text}}
               </a-select-option>
@@ -156,40 +156,40 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="提示信息">
-            <a-input placeholder="请输入校验提示信息" v-decorator="['scheckShowmsg', {}]"/>
+            <a-input  style="width: 50%" placeholder="请输入校验提示信息" v-decorator="['scheckShowmsg', {}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="公文传输字段">
-            <a-input style="width: calc(100% - 202px);" placeholder="请输入对应公文传输字段" v-decorator="['ssendKey', {}]"/>
+            <a-input  style="width: 50%"  placeholder="请输入对应公文传输字段" v-decorator="['ssendKey', {}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
-              <a-button type="primary" @click="updateDetail('ssendKey')"  style="width: 200px">修改全部公文传输字段</a-button>
+              <a-button type="primary" @click="updateDetail('ssendKey')"  style="width: 160px">修改全部【本模板】</a-button>
             </span>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="档案系统字段">
-            <a-input style="width: calc(100% - 202px);" placeholder="请输入档案系统对应字段" v-decorator="['sarchivesKey', {}]"/>
+            <a-input  style="width: 50%"  placeholder="请输入档案系统对应字段" v-decorator="['sarchivesKey', {}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
-              <a-button type="primary" @click="updateDetail('sarchivesKey')"  style="width: 200px">修改全部档案系统对应字段</a-button>
+              <a-button type="primary" @click="updateDetail('sarchivesKey')"  style="width: 160px">修改全部【本模板】</a-button>
             </span>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="书签字段">
-            <a-input style="width: calc(100% - 202px);" placeholder="书签字段" v-decorator="['smarkKey', {}]"/>
+            <a-input  style="width: 50%"  placeholder="书签字段" v-decorator="['smarkKey', {}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
-              <a-button type="primary" @click="updateDetail('smarkKey')"  style="width: 200px">修改全部书签字段</a-button>
+              <a-button type="primary" @click="updateDetail('smarkKey')"  style="width: 160px">修改全部【本模板】</a-button>
             </span>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="备注">
-            <a-input placeholder="请输入业务数据列备注" v-decorator="['scolumnRemarks', {}]"/>
+            <a-input  style="width: 50%" placeholder="请输入业务数据列备注" v-decorator="['scolumnRemarks', {}]"/>
           </a-form-item>
 
         </a-form>
@@ -256,10 +256,10 @@
           //时间格式化
         });*/
         param[value]=this.form.getFieldValue(value) ;
-        if(param[value]==undefined || param[value]==null || param[value]==""){
+        if(param[value]==undefined || param[value]==null ){
           this.$message.error("请填写对应的值！！！")
         }else{
-          postAction(this.url.updateDetail,param).then(res =>{
+            postAction(this.url.updateDetail,param).then(res =>{
             console.log(res)
           })
         }
