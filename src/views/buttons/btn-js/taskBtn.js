@@ -64,6 +64,7 @@ export const taskBth = {
         start: '/wf/task/start',//开启流程
         insertDataAndStartPro: '/oaBus/newTask/insertDataAndStartPro',//保存业务同时开启流程
         nextUsers: '/oaBus/taskInAct/nextUserQuery',
+        nextUsersChoice: '/oaBus/taskInAct/nextUsersChoice',
         nextUsersEnd: '/oaBus/taskInAct/nextUserQueryEnd',
         endProUrl: '/wf/task/endProcess',
         showBackAct: '/wf/task/showBackAct',//展示回退/跳转 节点
@@ -462,6 +463,30 @@ export const taskBth = {
         this.nextRealQuery()
       }
       // this.nextRealQuery()
+
+
+    },
+    //本部门用户
+    userChoice(){
+      if (this.taskMsg.status != undefined && this.taskMsg.status == 'done') {
+        this.$message.error('您已经选择过用户,请使用追加按钮进行选择')
+        return
+      }
+
+      //根据当前节点查到下几个节点再去表里查具体信息
+      getAction(this.url.nextUsersChoice, {
+        procDefkey: this.backData.s_cur_proc_name,
+        taskId: this.taskMsg.id,
+        processDefinitionId: this.taskMsg.processDefinitionId,
+        taskDefinitionKey: this.taskMsg.taskDefinitionKey,
+      }).then(res => {
+        //展示数据
+        if (res.success) {
+          this.$refs.nextUsers.showNextUsers(res.result)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
 
 
     },
@@ -1860,7 +1885,7 @@ export const taskBth = {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             let browerN=systemTool.getBrowserInfo()+'';//浏览器
-            this.os=getOS();//系统
+            this.os=systemTool.getOS();//系统
             let a=browerN.substr(0,1);
             if (a == "f") {
               this.brower=browerN.substr(0,7);
@@ -1873,24 +1898,24 @@ export const taskBth = {
               if (this.os != 'Win7'&&this.os != 'Win10'){
                 if (this.brower == "chrome" ){
                   if (tthis.browerNum <=42){
-                  window.open("/ntko/xpeditindex.html?cmd=" + cmd +
-                    "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-                    this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
-                    this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
-                }else{
-                  alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
+                    window.open("/ntko/xpeditindex.html?cmd=" + cmd +
+                      "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                      this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                      this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                  }else{
+                    alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
+                  }
                 }
-              }
                 if (this.brower == "firefox"){
                   if (this.browerNum <=52.3){
-                  window.open("/ntko/xpeditindex.html?cmd=" + cmd +
-                    "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
-                    this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
-                    this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
-                }else{
-                  alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
+                    window.open("/ntko/xpeditindex.html?cmd=" + cmd +
+                      "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
+                      this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
+                      this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                  }else{
+                    alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
+                  }
                 }
-               }
               }else {
                 ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd +
                   "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +

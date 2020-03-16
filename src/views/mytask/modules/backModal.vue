@@ -257,9 +257,12 @@
         url: {
           currentUserQuery: '/oaBus/taskInAct/currentUserQuery',
           departUsetQuery: '/oaBus/taskInAct/deptUsersQuery',
+          deleteOaFile: '/oaBus/taskInAct/deleteOaFile',
           jump: '/wf/task/jump',
           back: '/wf/task/back',
-          getUserByDeparts: '/sys/user/queryUserByDepts'
+          someActFore: '/wf/task/someActFore',
+          getUserByDeparts: '/sys/user/queryUserByDepts',
+
         },
       }
     },
@@ -432,8 +435,8 @@
           taskId: record.id,
           taskName: record.name,
           drafterId: this.taskMsg.drafterId,
-          table:this.taskMsg.table,
-          i_id:this.taskMsg.tableId,
+          table: this.taskMsg.table,
+          i_id: this.taskMsg.tableId,
         }).then(res => {
           if (res.success) {
             //console.log('-------------success:::::::')
@@ -564,9 +567,7 @@
             this.deptTypes(taskWithDepts)
 
 
-
-
-            if (Object.keys(this.allUserMsg).length==0){
+            if (Object.keys(this.allUserMsg).length == 0) {
               this.$message.error('请选择用户')
               return
             }
@@ -620,19 +621,32 @@
           table: this.taskMsg.table,
           tableId: this.taskMsg.tableId,
           functionId: this.taskMsg.functionId,
-          assignee: assignee
+          assignee: assignee,
+          juTiAct: '排版'
         }
+        // juTiAct : '排版'
+
 
         if (this.title == '退回') {
           data['backReason'] = this.reason
 
-          postAction(this.url.back, data).then(res => {
+          postAction(this.url.someActFore, data).then(res => {
             if (res.success) {
-              this.$message.success(res.message)
-              setTimeout(function () {
-                window.close()
-              }, 500)
 
+              if (res.result) {
+                var con = confirm("是否重新排版?");
+                if (con) {
+                  getAction(this.url.deleteOaFile+"?table="+this.taskMsg.table+"&id="+this.taskMsg.tableId)
+
+                  this.back(data)
+                } else {
+                  this.back(data)
+                }
+
+              } else {
+
+                this.back(data)
+              }
             } else {
               this.$message.error(res.message)
             }
@@ -640,22 +654,60 @@
 
 
         } else {
-          postAction(this.url.jump, data).then(res => {
+          postAction(this.url.someActFore, data).then(res => {
             if (res.success) {
-              // this.$message.success(res.message)
-              this.$message.success('流程重置成功')
-              setTimeout(function () {
-                window.close()
-              }, 500)
 
+              if (res.result) {
+                //删除排版
+                var con = confirm("是否重新排版?");
+                if (con) {
+                  getAction(this.url.deleteOaFile+"?table="+this.taskMsg.table+"&id="+this.taskMsg.tableId)
+
+                  // this.doJump(data)
+                } else {
+                  this.doJump(data)
+                }
+
+              } else {
+                this.doJump(data)
+              }
             } else {
               this.$message.error(res.message)
             }
           })
-          this.$message.success('请求已发送')
+
+
         }
 
         this.handleCancel()
+      },
+      doJump(data) {
+        postAction(this.url.jump, data).then(res => {
+          if (res.success) {
+            // this.$message.success(res.message)
+            this.$message.success('流程重置成功')
+            setTimeout(function () {
+              window.close()
+            }, 500)
+
+          } else {
+            this.$message.error(res.message)
+          }
+        })
+        this.$message.success('请求已发送')
+      },
+      back(data) {
+        postAction(this.url.back, data).then(res => {
+          if (res.success) {
+            this.$message.success(res.message)
+            setTimeout(function () {
+              window.close()
+            }, 500)
+
+          } else {
+            this.$message.error(res.message)
+          }
+        })
       },
       cancel() {
 

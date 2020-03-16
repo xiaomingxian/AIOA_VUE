@@ -6,12 +6,16 @@ import {deleteAction, downFile, getAction, postAction} from '@/api/manage'
 import {ACCESS_TOKEN} from "@/store/mutation-types"
 import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 import {ntkoBrowser} from './ntkobackground.min.js'
+import {systemTool} from './systemTools.js'
 
 
 export const busdataTemplate = {
   inject: ['reload'],
   data() {
     return {
+      brower: '',
+      os: '',
+      browerNum: '',
       i_important: true,
       url: {
         queryOaFileList: "/oaBus/oaFile/queryOaFileList",
@@ -27,23 +31,23 @@ export const busdataTemplate = {
   created() {
     this.queryRegulars();
   },
-  computed:{
-    confirmUser(){
-      return this.$store.state.confimePaiBan ;
+  computed: {
+    confirmUser() {
+      return this.$store.state.confimePaiBan;
     }
   },
-  watch:{
-    confirmUser(newVal,oldVal){
+  watch: {
+    confirmUser(newVal, oldVal) {
       console.log(newVal)
-      this.backData.s_varchar1 = this.backData.s_create_name ;
-      this.backData.s_varchar2 = this.$store.state.confimePaiBan.currentUsername ;
+      this.backData.s_varchar1 = this.backData.s_create_name;
+      this.backData.s_varchar2 = this.$store.state.confimePaiBan.currentUsername;
     }
   },
   methods: {
     //查询对应的校验规则（全部规则）
-    queryRegulars(){
+    queryRegulars() {
       //参数为2：查询对应校验规则
-      postAction("/oaBus/oaBusdata/querySysDictData",{param:2}).then((res) => {
+      postAction("/oaBus/oaBusdata/querySysDictData", {param: 2}).then((res) => {
         //this.optionMap = Object.assign(res.result);
         this.optionMap.regulars = res.result.regulars;
       })
@@ -160,7 +164,7 @@ export const busdataTemplate = {
     },
 
     // 关注件--取消关注件
-    cancelImportant(date){
+    cancelImportant(date) {
       this.backData.i_is_important = 0;
       postAction(this.url.updateBusdata, {
         'updateBusdata': this.backData
@@ -180,7 +184,7 @@ export const busdataTemplate = {
     //关注件--是否重要
     iIsImportant(date) {
       // if (this.i_important) {
-        this.backData.i_is_important = 1;
+      this.backData.i_is_important = 1;
       // } else {
       //   this.backData.i_is_important = 0;
       // }
@@ -189,7 +193,7 @@ export const busdataTemplate = {
       }).then(res => {
         if (res.success) {
           // if (this.i_important) {
-            this.$message.success("设置成功")
+          this.$message.success("设置成功")
           // } else {
           //   this.$message.success("取消成功")
           // }
@@ -331,13 +335,13 @@ export const busdataTemplate = {
 
       let i_safetylevel = localStorage.getItem('密级:' + this.backData.table + this.backData.i_id)
       this.backData.i_safetylevel = i_safetylevel == null ? 1 : i_safetylevel
-      if (this.backData.i_bigint3 == ""){
+      if (this.backData.i_bigint3 == "") {
         this.backData.i_bigint3 = 1;
       }
       //火狐浏览器时间字段（d_datetime1）处理
       var internet = navigator.userAgent;
-      if (/firefox/i.test(internet) && this.backData.d_datetime1 !=undefined && this.backData.d_datetime1 !=""){
-        this.backData.d_datetime1 = this.backData.d_datetime1[0]+" "+ this.backData.d_datetime1[1].slice(0,8)
+      if (/firefox/i.test(internet) && this.backData.d_datetime1 != undefined && this.backData.d_datetime1 != "") {
+        this.backData.d_datetime1 = this.backData.d_datetime1[0] + " " + this.backData.d_datetime1[1].slice(0, 8)
       }
       console.log(this.backData);
       postAction(this.url.updateBusdata, {
@@ -451,7 +455,7 @@ export const busdataTemplate = {
       let url = window._CONFIG['domianURL'] + "/papertitle/oaTemplate/download";
       let filepath = item.sfilePath;
       let filename = item.sfileName;
-      downFile(url,{filePath:item.sfilePath}).then(res=>{
+      downFile(url, {filePath: item.sfilePath}).then(res => {
         let url = window.URL.createObjectURL(new Blob([res]));
         let edik = document.createElement('a');
         edik.style.display = 'none';
@@ -483,10 +487,10 @@ export const busdataTemplate = {
 
             event.$el.style.borderColor = '#d9d9d9';
 
-          if(label == '标题'){
-            let s_title =  value.replace(/，/g, '_');
-            this.backData.s_title =  s_title.replace(/,/g, '_');
-          }
+            if (label == '标题') {
+              let s_title = value.replace(/，/g, '_');
+              this.backData.s_title = s_title.replace(/,/g, '_');
+            }
 
           }
 
@@ -652,17 +656,47 @@ export const busdataTemplate = {
         postAction('/oaBus/oaFile/singleCopyFile', param).then(res => {
           getAction("/sys/user/getLoginInfo", {}).then(res => {
             this.orgSchema = res.orgSchema;
-            if (this.orgSchema==null){
-              this.orgSchema="";
+            if (this.orgSchema == null) {
+              this.orgSchema = "";
             }
             postAction("/ntko/filentko/getPasswordCode").then(res => {
               if (res.success) {
-                this.password=res.result;
+                let browerN = systemTool.getBrowserInfo() + '';//浏览器
+                this.os = systemTool.getOS();//系统
+                let a = browerN.substr(0, 1);
+                if (a == "f") {
+                  this.brower = browerN.substr(0, 7);
+                  this.browerNum = browerN.substr(8, 4);
+                } else if (a == "c") {
+                  this.brower = browerN.substr(0, 6);
+                  this.browerNum = browerN.substr(7, 2);
+                }
+                this.password = res.result;
                 let ntkoed = ntkoBrowser.ExtensionInstalled();
                 if (ntkoed) {
-                  ntkoBrowser.openWindow( "/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+"&url="+window._CONFIG['domianURL']);
+                  if (this.os != 'Win7' && this.os != 'Win10') {
+                    if (this.brower == "chrome") {
+                      if (this.browerNum <= 42) {
+                        window.open("/ntko/xpeditindex.html?cmd="+ + index + "&fileId=" + item.iid + "&password=" + this.password
+                          + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                      } else {
+                        alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
+                      }
+                    }
+                    if (this.brower == "firefox") {
+                      if (this.browerNum <= 52.3) {
+                        window.open("/ntko/xpeditindex.html?cmd=" + index + "&fileId=" + item.iid + "&password=" + this.password
+                          + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                      } else {
+                        alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
+                      }
+                    }
+                  }else {
+                    ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid + "&password=" + this.password
+                      + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
+                  }
                 } else {
-                  window.open( "/ntko/exeindex.html")
+                  window.open("/ntko/exeindex.html")
                 }
                 window.ntkoCloseEvent = function () {
                 }
@@ -691,18 +725,50 @@ export const busdataTemplate = {
     openFile(cmd, item) {
       getAction("/sys/user/getLoginInfo", {}).then(res => {
         this.orgSchema = res.orgSchema;
-        if (this.orgSchema==null){
-          this.orgSchema="";
+        if (this.orgSchema == null) {
+          this.orgSchema = "";
         }
         postAction("/ntko/filentko/getPasswordCode").then(res => {
           if (res.success) {
-            this.password=res.result;
+            let browerN = systemTool.getBrowserInfo() + '';//浏览器
+            this.os = systemTool.getOS();//系统
+            let a = browerN.substr(0, 1);
+            if (a == "f") {
+              this.brower = browerN.substr(0, 7);
+              this.browerNum = browerN.substr(8, 4);
+            } else if (a == "c") {
+              this.brower = browerN.substr(0, 6);
+              this.browerNum = browerN.substr(7, 2);
+            }
+            this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
             if (ntkoed) {
-              ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd
-                + "&fileId=" + item.iid+"&password="+this.password+"&orgSchema="+this.orgSchema+ "&fileType=" + item.sfileType+"&url="+window._CONFIG['domianURL']);
+              if (this.os != 'Win7' && this.os != 'Win10') {
+                if (this.brower == "chrome") {
+                  if (this.browerNum <= 42) {
+                    window.open("/ntko/xpeditindex.html?cmd="+ cmd
+                      + "&fileId=" + item.iid + "&password=" + this.password + "&orgSchema=" + this.orgSchema
+                      + "&fileType=" + item.sfileType + "&url=" + window._CONFIG['domianURL']);
+                  } else {
+                    alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
+                  }
+                }
+                if (this.brower == "firefox") {
+                  if (this.browerNum <= 52.3) {
+                    window.open("/ntko/xpeditindex.html?cmd=" + cmd
+                      + "&fileId=" + item.iid + "&password=" + this.password + "&orgSchema=" + this.orgSchema
+                      + "&fileType=" + item.sfileType + "&url=" + window._CONFIG['domianURL']);
+                  } else {
+                    alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
+                  }
+                }
+              } else {
+                ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd
+                  + "&fileId=" + item.iid + "&password=" + this.password + "&orgSchema=" + this.orgSchema
+                  + "&fileType=" + item.sfileType + "&url=" + window._CONFIG['domianURL']);
+              }
             } else {
-              window.open( "/ntko/exeindex.html")
+              window.open("/ntko/exeindex.html")
             }
             window.ntkoCloseEvent = function () {
             }
