@@ -7,11 +7,11 @@
         <a-row style="margin-left: 14px">
           <a-button @click="handleAdd(2)" type="primary">添加子部门</a-button>
           <a-button @click="handleAdd(1)" type="primary">添加一级部门</a-button>
-          <a-button type="primary" icon="download" @click="handleExportXls('部门信息')">导出</a-button>
+          <!--<a-button type="primary" icon="download" @click="handleExportXls('部门信息')">导出</a-button>
           <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader"
                     :action="importExcelUrl" @change="handleImportExcel">
-            <a-button type="primary" icon="import">导入</a-button>
-          </a-upload>
+            <a-button type="primary" icon="import">导入</a-button>-->
+          <!--</a-upload>-->
           <a-button title="删除多条数据" @click="batchDel" type="default">批量删除</a-button>
           <!--<a-button @click="refresh" type="default" icon="reload" :loading="loading">刷新</a-button>-->
         </a-row>
@@ -62,7 +62,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="机构名称">
-            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', validatorRules.departName ]"/>
+            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', validatorRules.departName ]" @change="departNameChange"/>
           </a-form-item>
           <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="上级部门">
             <a-tree-select
@@ -98,7 +98,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input-number v-decorator="[ 'departOrder',{'initialValue':0}]"/>
+            <a-input-number v-decorator="[ 'departOrder',{'initialValue':0}]" @change="orderChange"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -155,10 +155,10 @@
       title: '手机号',
       dataIndex: 'mobile'
     },
-    {
+    /*{
       title: '传真',
       dataIndex: 'fax'
-    },
+    },*/
     {
       title: '地址',
       dataIndex: 'address'
@@ -185,6 +185,8 @@
     },
     data() {
       return {
+        depName:'',
+        departOrder:'',
         iExpandedKeys: [],
         loading: false,
         autoExpandParent: true,
@@ -238,6 +240,17 @@
       }
     },
     methods: {
+      departNameChange(e){
+        this.depName = e;
+        console.log("-------------------")
+        console.log(this.depName);
+      },
+      orderChange(e){
+        this.departOrder = e;
+        // if (e>1000){
+        //   this.$message.error("哈哈哈");
+        // }
+      },
       loadData() {
         this.refresh();
       },
@@ -397,25 +410,32 @@
         this.currSelected.receiptTriggerType = value
       },
       submitCurrForm() {
-        this.form.validateFields((err, values) => {
-          if (!err) {
-            if (!this.currSelected.id) {
-              this.$message.warning('请点击选择要修改部门!')
-              return
-            }
-
-            let formData = Object.assign(this.currSelected, values)
-            console.log('Received values of form: ', formData)
-            httpAction(this.url.edit, formData, 'put').then((res) => {
-              if (res.success) {
-                this.$message.success('保存成功!')
-                this.loadTree()
-              } else {
-                this.$message.error(res.message)
+        if (this.departOrder > 1000 ){
+          this.$message.warning("排序的数值不能超过1000")
+        } else if (this.depName.data.length >30) {
+          this.$message.warning("机构名称不得超过30个汉字")
+        } else {
+          this.form.validateFields((err, values) => {
+            if (!err) {
+              if (!this.currSelected.id) {
+                this.$message.warning('请点击选择要修改部门!')
+                return
               }
-            })
-          }
-        })
+
+              let formData = Object.assign(this.currSelected, values)
+              console.log('Received values of form: ', formData)
+              httpAction(this.url.edit, formData, 'put').then((res) => {
+                if (res.success) {
+                  this.$message.success('保存成功!')
+                  this.loadTree()
+                } else {
+                  this.$message.error(res.message)
+                }
+              })
+            }
+          })
+        }
+
       },
       emptyCurrForm() {
         this.form.resetFields()
