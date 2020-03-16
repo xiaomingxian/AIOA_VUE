@@ -88,8 +88,6 @@
     <a-card v-if="i_is_radio == 0" :bordered="ture">
       <a-form layout="inline">
 
-
-
         <a-row :gutter="48" style="margin-left: 0px;">
           <a-row :gutter="48" style="margin: 0 3px 27px -23px;border-bottom: 1px solid #e8e8e8;">
             <a-col :md="7" :sm="24">
@@ -101,7 +99,6 @@
               </a-form-item>
             </a-col>
           </a-row>
-
 
           <a-col :md="!advanced && 24 || 24" :sm="24">
             <span class="table-page-search-submitButtons"
