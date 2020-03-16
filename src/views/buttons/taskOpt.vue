@@ -1,17 +1,17 @@
 <template>
   <div>
     <!--意见table-->
-    <table width="100%" border="1">
+    <table width="100%" class="table">
       <tr v-if="justOne">
-        <td>
-          <a-textarea class="textarea" contenteditable="true" :rows="oneLine.height*1.5" :cols="oneLine.width"
+        <td class="td">
+          <a-textarea class="textarea" contenteditable="true" :rows="oneLine.height*2" :cols="oneLine.width"
                       :value="oneLine.data[0].optionName+'\n'+
                       oneLine.data[0].optionContext2+'\t'" readonly></a-textarea>
         </td>
       </tr>
       <tr v-if="jiShu">
         <!--autofocus="autofocus"-->
-        <td width="50%">
+        <td rowspan="2" width="50%">
 
           <div>
             <a-textarea class="textarea" contenteditable="true" :rows="oneLine.heightLeft" :cols="oneLine.widthLeft"
@@ -23,19 +23,13 @@
                 <a-textarea class="textarea"  contenteditable="true" :rows="oneLine.height" :cols="oneLine.width"
                             :value="oneLine.data[1].optionName+'\n'+
                       oneLine.data[1].optionContext2+'\t'" readonly></a-textarea>
-
-          <hr>
+         </td>
+         </tr>
+         <tr v-if="jiShu">
+         <td width="50%">
                 <a-textarea class="textarea" contenteditable="true" :rows="oneLine.height" :cols="oneLine.width"
                             :value="oneLine.data[2].optionName+'\n'+
                       oneLine.data[2].optionContext2+'\t'" readonly></a-textarea>
-
-          <!--<div>-->
-            <!--&lt;!&ndash;class="textarea"&ndash;&gt;-->
-            <!--&lt;!&ndash;rows="5" cols="50"&ndash;&gt;-->
-    <!---->
-           <!---->
-          <!---->
-          <!--</div>-->
         </td>
       </tr>
 
@@ -43,7 +37,7 @@
       <tr v-show="ouShu&&jiShu">
         <td width="50%">
           <p
-            style="width: 100%;height: 40px;line-height: 40px;background: #F0F5FC;padding: 0; margin-top: -5px; margin-bottom: 5px;"
+            style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
             class="otherLineShow" @click="otherJiLineShow">
             <a href="#">
               <a-icon :type="iconType"/>
@@ -53,7 +47,7 @@
         </td>
         <td width="50%">
           <p
-            style="width: 100%;height: 40px;line-height: 40px;background: #F0F5FC;padding: 0; margin-top: -5px; margin-bottom: 5px;"
+            style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
             class="otherLineShow" @click="otherJiLineShow">
             <a href="#">
 
@@ -67,11 +61,11 @@
       <tr v-if="jishuOtherShow" v-for="item,index in otherLine.data">
         <td width="50%">
           <p id="otherLineShow1"
-             style="width: 100%;height: 40px;line-height: 40px;background: #F0F5FC;padding: 0; margin-top: -5px; margin-bottom: 5px;"
+             style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
              class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
               <a-icon :type="iconType"/>
-              <span style="font-size:14px;font-weight: bold;margin-left: 5px;">其他意见</span>
+              <span style="font-size:14px;font-weight: bold;margin-left: 5px;cursor:pointer">其他意见</span>
             </a>
           </p>
           <div v-show="index==0||setIndexShowJi==0">
@@ -83,7 +77,7 @@
         </td>
         <td width="50%">
           <p id="otherLineShow" class="otherLineShow" v-if="index==1"
-             style="background: #F0F5FC;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;"
+             style="background: #E9ECF2;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;"
              @click="otherLineShow"></p>
           <div v-show="index==0||setIndexShowJi==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
@@ -99,11 +93,11 @@
       <tr v-if="ouShu&&!jiShu" v-for="item,index in otherLine.data">
         <td width="50%">
           <p
-            style="width: 100%;height: 40px;line-height: 40px;background: #F0F5FC;padding: 0; margin-top: -5px; margin-bottom: 5px;"
+            style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
             class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
               <a-icon :type="iconType"/>
-              <span style="font-size:14px;font-weight: bold;margin-left: 5px;">其他意见</span>
+              <span style="font-size:14px;font-weight: bold;margin-left: 5px;cursor:pointer">其他意见</span>
             </a>
           </p>
           <div v-show="index==0||setIndexShow==0">
@@ -115,7 +109,7 @@
         </td>
         <td width="50%">
           <p class="otherLineShow" v-if="index==1"
-             style="background: #F0F5FC;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;"
+             style="background:#E9ECF2;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;"
              @click="otherLineShow"></p>
           <div v-show="index==0||setIndexShow==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
@@ -202,9 +196,24 @@
     /*border-color: #aa7d7d !important;*/
     /*padding-top: 5% !important;*/
   }
+  .table{
+		border-collapse: collapse;
+	}
 
+	.table td {
+		border:1px solid #DAE0EA;
 
-  form .textarea.ant-input {
+	}
+
+	.table tr.lastrow td {
+		border-bottom: 0;
+	}
+
+	.table tr td.lastCol {
+		border-right: 0;
+
+ }
+ form .textarea.ant-input {
     margin-bottom: 11px !important;
   }
 
