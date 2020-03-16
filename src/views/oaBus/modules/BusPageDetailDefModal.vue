@@ -248,7 +248,8 @@
       updateDetail(value){
         let param ={
           ibusPageId:this.model.ibusPageId ,
-          stableColumn:this.model.stableColumn
+          stableColumn:this.model.stableColumn,
+          ibusFunctionId:this.model.ibusFunctionId
         };
         /*console.log(this.model)
         this.$nextTick(() => {
@@ -257,12 +258,21 @@
         });*/
         param[value]=this.form.getFieldValue(value) ;
         if(param[value]==undefined || param[value]==null || param[value]==""){
+          param[value]="00000";
+        }
+        postAction(this.url.updateDetail,param).then(res =>{
+          if(res.success){
+            this.$message.error("修改成功！！！");
+            console.log(res)
+          }
+        })
+        /*if(param[value]==undefined || param[value]==null || param[value]==""){
           this.$message.error("请填写对应的值！！！")
         }else{
           postAction(this.url.updateDetail,param).then(res =>{
             console.log(res)
           })
-        }
+        }*/
       },
       listTitleChange(params){
         let param = params.target.value
