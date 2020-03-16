@@ -248,7 +248,8 @@
       updateDetail(value){
         let param ={
           ibusPageId:this.model.ibusPageId ,
-          stableColumn:this.model.stableColumn
+          stableColumn:this.model.stableColumn,
+          ibusFunctionId:this.model.ibusFunctionId,
         };
         /*console.log(this.model)
         this.$nextTick(() => {
@@ -257,12 +258,17 @@
         });*/
         param[value]=this.form.getFieldValue(value) ;
         if(param[value]==undefined || param[value]==null ){
-          this.$message.error("请填写对应的值！！！")
-        }else{
-            postAction(this.url.updateDetail,param).then(res =>{
-            console.log(res)
-          })
+          param[value]= "00000" ;
         }
+        postAction(this.url.updateDetail,param).then(res =>{
+          if(res.success){
+            this.$message.success("全部业务修改完成！！！")
+            this.$emit('ok');
+            console.log(res)
+          }
+
+        })
+
       },
       listTitleChange(params){
         let param = params.target.value
