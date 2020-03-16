@@ -87,7 +87,22 @@
   <div class="table-page-search-wrapper">
     <a-card v-if="i_is_radio == 0" :bordered="ture">
       <a-form layout="inline">
+
+
+
         <a-row :gutter="48" style="margin-left: 0px;">
+          <a-row :gutter="48" style="margin: 0 3px 27px -23px;border-bottom: 1px solid #e8e8e8;">
+            <a-col :md="7" :sm="24">
+              <a-form-item  style="width: 85.3%;">
+                <a-select @change="changFunId1" v-model="queryParam.function_id">
+                  <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+          </a-row>
+
+
           <a-col :md="!advanced && 24 || 24" :sm="24">
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
@@ -99,14 +114,6 @@
           </a-col>
           <template v-if="advanced">
             <a-row :gutter="48" style="width: 88.3%;">
-              <a-col :md="7" :sm="24">
-                <a-form-item>
-                  <a-select @change="changFunId1" v-model="queryParam.function_id">
-                    <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}
-                    </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
 
               <a-col :md="7" :sm="24">
                 <a-form-item>
@@ -137,6 +144,16 @@
                     <a-select-option value="0">全部数据</a-select-option>
                     <a-select-option value="1">由我创建</a-select-option>
                   </a-select>
+                </a-form-item>
+              </a-col>
+
+              <a-col :md="7" :sm="24">
+                <a-form-item>
+                  <a-select v-model="queryParam.d_create_time">
+                    <a-select-option value="" disabled selected hidden>年份</a-select-option>
+                    <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
+                    </a-select-option>
+                  </a-select>
 
                   <!--<span v-if="conditionList.length == 0" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">-->
                   <!--<a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>-->
@@ -150,21 +167,12 @@
                       <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
                       <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
                   </span >
+
                 </a-form-item>
               </a-col>
             </a-row>
 
             <a-row :gutter="48" style="width: 88.3%;">
-              <a-col :md="7" :sm="24">
-                <a-form-item>
-                  <a-select v-model="queryParam.d_create_time">
-                    <a-select-option value="" disabled selected hidden>年份</a-select-option>
-                    <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
-                    </a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-
               <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">
                 <a-form-item>
                   <a-select v-if="atom.i_column_type == 2" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
