@@ -676,7 +676,7 @@ export const busdataTemplate = {
                 if (ntkoed) {
                   if (this.os != 'win7' && this.os != 'win10') {
                     if (this.brower == "chrome") {
-                      if (tthis.browerNum <= 42) {
+                      if (this.browerNum <= 42) {
                         window.open("/ntko/xpeditindex.html?cmd="+ + index + "&fileId=" + item.iid + "&password=" + this.password
                           + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
                       } else {
@@ -745,7 +745,7 @@ export const busdataTemplate = {
             if (ntkoed) {
               if (this.os != 'win7' && this.os != 'win10') {
                 if (this.brower == "chrome") {
-                  if (tthis.browerNum <= 42) {
+                  if (this.browerNum <= 42) {
                     window.open("/ntko/xpeditindex.html?cmd="+ cmd
                       + "&fileId=" + item.iid + "&password=" + this.password + "&orgSchema=" + this.orgSchema
                       + "&fileType=" + item.sfileType + "&url=" + window._CONFIG['domianURL']);

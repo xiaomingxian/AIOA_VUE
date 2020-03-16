@@ -1896,7 +1896,7 @@ export const taskBth = {
             if (ntkoed) {
               if (this.os != 'win7' && this.os != 'win10') {
                 if (this.brower == "chrome") {
-                  if (tthis.browerNum <= 42) {
+                  if (this.browerNum <= 42) {
                     window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                       "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                       this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
