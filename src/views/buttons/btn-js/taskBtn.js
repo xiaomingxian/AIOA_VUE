@@ -64,6 +64,7 @@ export const taskBth = {
         start: '/wf/task/start',//开启流程
         insertDataAndStartPro: '/oaBus/newTask/insertDataAndStartPro',//保存业务同时开启流程
         nextUsers: '/oaBus/taskInAct/nextUserQuery',
+        nextUsersChoice: '/oaBus/taskInAct/nextUsersChoice',
         nextUsersEnd: '/oaBus/taskInAct/nextUserQueryEnd',
         endProUrl: '/wf/task/endProcess',
         showBackAct: '/wf/task/showBackAct',//展示回退/跳转 节点
@@ -462,6 +463,30 @@ export const taskBth = {
         this.nextRealQuery()
       }
       // this.nextRealQuery()
+
+
+    },
+    //本部门用户
+    userChoice(){
+      if (this.taskMsg.status != undefined && this.taskMsg.status == 'done') {
+        this.$message.error('您已经选择过用户,请使用追加按钮进行选择')
+        return
+      }
+
+      //根据当前节点查到下几个节点再去表里查具体信息
+      getAction(this.url.nextUsersChoice, {
+        procDefkey: this.backData.s_cur_proc_name,
+        taskId: this.taskMsg.id,
+        processDefinitionId: this.taskMsg.processDefinitionId,
+        taskDefinitionKey: this.taskMsg.taskDefinitionKey,
+      }).then(res => {
+        //展示数据
+        if (res.success) {
+          this.$refs.nextUsers.showNextUsers(res.result)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
 
 
     },

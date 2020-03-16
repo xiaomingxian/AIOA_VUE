@@ -257,6 +257,7 @@
         url: {
           currentUserQuery: '/oaBus/taskInAct/currentUserQuery',
           departUsetQuery: '/oaBus/taskInAct/deptUsersQuery',
+          deleteOaFile: '/oaBus/taskInAct/deleteOaFile',
           jump: '/wf/task/jump',
           back: '/wf/task/back',
           someActFore: '/wf/task/someActFore',
@@ -635,7 +636,7 @@
               if (res.result) {
                 var con = confirm("是否重新排版?");
                 if (con) {
-                  //TODO 删除逻辑
+                  getAction(this.url.deleteOaFile+"?table="+this.taskMsg.table+"&id="+this.taskMsg.tableId)
 
                   this.back(data)
                 } else {
@@ -660,9 +661,9 @@
                 //删除排版
                 var con = confirm("是否重新排版?");
                 if (con) {
-                  //TODO 删除逻辑
+                  getAction(this.url.deleteOaFile+"?table="+this.taskMsg.table+"&id="+this.taskMsg.tableId)
 
-                  this.doJump(data)
+                  // this.doJump(data)
                 } else {
                   this.doJump(data)
                 }
