@@ -37,7 +37,8 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="状态选择">
-          <a-radio-group buttonStyle="solid" v-decorator="['status', {} ]" size="small" :defaultValue="1">
+          <!--:defaultValue-->
+          <a-radio-group buttonStyle="solid" v-decorator="['status', {} ]" size="small"  defaultValue="1">
             <a-radio-button value="1">有效</a-radio-button>
             <a-radio-button value="0">无效</a-radio-button>
           </a-radio-group>
@@ -99,6 +100,7 @@
         this.$refs.SelectDepartWindow.add(this.checkedDepartKeys, this.userId);
       },
       add() {
+        // this.form.setFieldsValue({startTime: 1})
         this.edit({});
       },
       senUserName(data) {

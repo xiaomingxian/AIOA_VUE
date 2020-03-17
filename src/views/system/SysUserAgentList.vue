@@ -21,7 +21,7 @@
           <a-col :md="6" :sm="6">
             <a-form-item label="状态">
               <!--<a-input placeholder="请输入状态0无效1有效" v-model="queryParam.status"></a-input>-->
-              <a-select v-model="queryParam.status">
+              <a-select v-model="queryParam.status" >
                 <a-select-option value="1">有效</a-select-option>
                 <a-select-option value="0">无效</a-select-option>
               </a-select>
@@ -258,15 +258,11 @@
         })
       },
       beforeUpload: function (file, fileList) {
-        alert(11)
         this.fileList = [...this.fileList, file];
         return false;
       },
       handleAddMy(){
-        // if (this.dataSource.length>0){
-        //   this.$message.error('一个用户只能设置一个代理人')
-        //   return
-        // }
+
         this.handleAdd()
       },
       handleEditMy(record){
