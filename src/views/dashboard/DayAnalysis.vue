@@ -157,13 +157,14 @@
                   <div class="swiper-container swiper-no-swiping bottomm">
                     <div class="swiper-wrapper">
                       <div :key="index" @click="openUrl(atom.s_varchar4)" class="swiper-slide"
-                           v-for="(item,index) in LinkList">
+                           v-for="(atom,index) in LinkList">
                         <div style="display:flex;align-items: center;justify-content: center">
 
+                          <img :src="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':atom.picUrl1"
+                               :title="atom.s_title"
+                               alt="" style="width:60px;height: 60px;">
 
-                          <img style="width:60px;height: 60px;" :src="item.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':item.picUrl1" :title="item.s_title" alt="">
-
-                          <span v-show="false" :ref="(index+1)+'item'" v-html="item.url"></span>
+                          <span :ref="(index+1)+'item'" v-html="atom.url" v-show="false"></span>
                         </div>
                       </div>
 
@@ -578,50 +579,74 @@
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
-        /*  if(res.length==1){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==2){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==3){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==0){
-            this.LinkList.push(
-              {s_title:'mytask/taskToDo',value:0},
-              {s_title:'mytask/taskToDo',value:1},
-              {s_title:'mytask/taskToDo',value:2},
-              {s_title:'mytask/taskToDo',value:3},
-              )
-          }else{
-            this.LinkList = JSON.parse(JSON.stringify(res));
-          }*/
-        this.LinkList =  res;
-        for(var i=0;i<this.LinkList.length;i++){
-          this.show(this.LinkList[i].i_id,i)
-        }
-        setTimeout(()=>{
+        this.LinkList = res;
+        if (this.LinkList.length == 1) {
+          this.show(this.LinkList[0].i_id, 0)
+          this.LinkList.push(
+            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+          )
 
-          var mySwiper = new Swiper('.swiper-container',{
-            initialSlide:0,
-            slidesPerView:4,
-            spaceBetween:13,
-            lazyLoading:true,
-            loop:false,
-            obeserver:true,
-            obeserverParents:true,
-            navigation:{
-              nextEl:'.swiper-button-next',
-              prevEl:'.swiper-button-prev',
+        } else if (this.LinkList.length == 2) {
+          this.show(this.LinkList[0].i_id, 0)
+          this.show(this.LinkList[1].i_id, 1)
+          this.LinkList.push(
+            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+          )
+        } else if (this.LinkList.length == 3) {
+          this.show(this.LinkList[0].i_id, 0)
+          this.show(this.LinkList[1].i_id, 1)
+          this.show(this.LinkList[2].i_id, 2)
+
+          this.LinkList.push(
+            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+          )
+        } else if (this.LinkList.length == 0) {
+          this.LinkList.push(
+            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+          )
+        } else {
+          // this.LinkList = JSON.parse(JSON.stringify(res));
+          for (var i = 0; i < this.LinkList.length; i++) {
+
+            this.show(this.LinkList[i].i_id, i)
+
+
+          }
+        }
+
+
+        setTimeout(() => {
+
+          var mySwiper = new Swiper('.swiper-container', {
+            initialSlide: 0,
+            slidesPerView: 4,
+            spaceBetween: 13,
+            lazyLoading: true,
+            loop: false,
+            obeserver: true,
+            obeserverParents: true,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
             }
 
           });
-        },1000)
+        }, 1000)
         console.log(this.LinkList.length)
+
+
       });
     },
     methods:{
@@ -709,7 +734,11 @@
 
       },
       openUrl(e){
-        window.open('http://' + e)
+        if (e.includes('www')) {
+          window.open('http://' + e)
+        } else {
+          this.$router.push('/' + e);
+        }
         // console.log(e);
         // console.log(this.$refs[e][0].lastChild);
         // let lastChildNode = this.$refs[e][0].lastChild;

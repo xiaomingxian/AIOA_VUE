@@ -421,37 +421,58 @@
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
-        /*  if(res.length==1){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==2){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==3){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==0){
-            this.LinkList.push(
-              {s_title:'mytask/taskToDo',value:0},
-              {s_title:'mytask/taskToDo',value:1},
-              {s_title:'mytask/taskToDo',value:2},
-              {s_title:'mytask/taskToDo',value:3},
-              )
-          }else{
-            this.LinkList = JSON.parse(JSON.stringify(res));
-          }*/
         this.LinkList = res;
+        if (this.LinkList.length == 1) {
+          this.show(this.LinkList[0].i_id, 0)
+          this.LinkList.push(
+            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+          )
+
+        } else if (this.LinkList.length == 2) {
+          this.show(this.LinkList[0].i_id, 0)
+          this.show(this.LinkList[1].i_id, 1)
+          this.LinkList.push(
+            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+          )
+        } else if (this.LinkList.length == 3) {
+          this.show(this.LinkList[0].i_id, 0)
+          this.show(this.LinkList[1].i_id, 1)
+          this.show(this.LinkList[2].i_id, 2)
+
+          this.LinkList.push(
+            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+          )
+        } else if (this.LinkList.length == 0) {
+            this.LinkList.push(
+              {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+              {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+              {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+              {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+            )
+          }else{
+          // this.LinkList = JSON.parse(JSON.stringify(res));
+          for (var i = 0; i < this.LinkList.length; i++) {
+
+            this.show(this.LinkList[i].i_id, i)
 
 
-        for (var i = 0; i < this.LinkList.length; i++) {
-
-          this.show(this.LinkList[i].i_id, i)
-
-
+          }
         }
+
+
+
+
+
+
 
         setTimeout(() => {
 
@@ -517,8 +538,12 @@
         })
       },
       openUrl(e) {
-        console.log(e);
-        window.open('http://' + e)
+        if (e.includes('www')) {
+          window.open('http://' + e)
+        } else {
+          this.$router.push('/' + e);
+        }
+
 
         // console.log(e);
         // console.log(this.$refs[e][0]);
