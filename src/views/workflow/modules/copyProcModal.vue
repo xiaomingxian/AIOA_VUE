@@ -54,6 +54,7 @@
         confirmLoading: false,
         name: undefined,
         key: undefined,
+        timeRecord:null,
         proMSg: {},
         url: {
           copy: '/workflowSet/copy'
@@ -74,6 +75,29 @@
         this.visible = false;
       },
       handleOk() {
+
+        let time = this.timeRecord
+        var now = Date.parse(new Date());
+
+        if (time != null) {
+          if ((now - time) < 7 * 1000) {
+            // let t = (7 - (now - time) / 1000) == 0 ? 1 : (7 - (now - time) / 1000)
+
+            // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
+
+            this.$message.error('系统正在处理您的请求,请耐心等待')
+            return
+          } else {
+            console.log('1111111111111111')
+            this.timeRecord = now
+          }
+        } else {
+          console.log('222222222222222')
+
+          this.timeRecord = now
+        }
+
+
         if (this.isClick){
           this.$message.error("请勿重复点击")
         }
@@ -118,18 +142,18 @@
           return
         }
 
-        postAction(this.url.copy + '?copyKey=' + this.key + '&copyName=' + this.name + '&sourceDefId=' + this.proMSg.id).then(res => {
-          if (res.success) {
-            this.isClick=true
-            this.$message.success(res.message)
-            //刷新父页面
-            this.$emit('reload')
-            this.handleCancel()
-
-          } else {
-            this.$message.error(res.message)
-          }
-        })
+        // postAction(this.url.copy + '?copyKey=' + this.key + '&copyName=' + this.name + '&sourceDefId=' + this.proMSg.id).then(res => {
+        //   if (res.success) {
+        //     this.isClick=true
+        //     this.$message.success(res.message)
+        //     //刷新父页面
+        //     this.$emit('reload')
+        //     this.handleCancel()
+        //
+        //   } else {
+        //     this.$message.error(res.message)
+        //   }
+        // })
 
       },
       handleCancel() {
