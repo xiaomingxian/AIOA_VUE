@@ -3,18 +3,20 @@
   <a-modal
     :visible="visible"
     :title="title"
-    :width="1150"
+    :width="1130"
     @ok="handleSubmit"
     @cancel="close"
     cancelText="关闭"
     style="margin-top: -70px"
-    wrapClassName="ant-modal-cust-warp"
   >
-    <div  style="overflow: auto;" :style="{height: scrHeight}">
+    <!--wrapClassName="ant-modal-cust-warp"-->
+    <div  :style="{height: scrHeight}">
     <a-row :gutter="10" style="background-color: #ececec; padding: 10px; margin: -10px">
-      <a-col :md="6" :sm="24">
+
+      <a-col :md="6" :sm="24"  style="overflow: auto;height:650px;overflow-x: hidden;">
         <a-card :bordered="false">
           <!--组织机构-->
+
           <a-directory-tree
             selectable
             :selectedKeys="selectedKeys"
@@ -23,6 +25,7 @@
             :dropdownStyle="{maxHeight:'200px',overflow:'auto'}"
             :treeData="departTree"
           />
+
         </a-card>
       </a-col>
       <a-col :md="18" :sm="24">
@@ -63,7 +66,7 @@
     props:['modalWidth'],
     data() {
       return {
-        scrHeight: 450 + 'px',
+        scrHeight: 650 + 'px',
         queryParam: {
           username:"",
         },
