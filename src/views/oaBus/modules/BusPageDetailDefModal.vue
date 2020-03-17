@@ -257,13 +257,13 @@
           //时间格式化
         });*/
         param[value]=this.form.getFieldValue(value) ;
-        if(param[value]==undefined || param[value]==null ){
+        if(param[value]==undefined || param[value]==null ||  param[value]==''){
           param[value]= "00000" ;
         }
         postAction(this.url.updateDetail,param).then(res =>{
           if(res.success){
             this.$message.success("全部业务修改完成！！！")
-            this.$emit('ok');
+            this.$emit('ok');   //刷新父页面
             console.log(res)
           }
 
