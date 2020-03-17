@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="600"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
@@ -13,18 +13,20 @@
 
       <a-form>
         <a-form-item>
+          <span>流程名称：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程名称(只能以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于5小于等于20)"
+            placeholder="请输入流程名称;5-20字符"
             v-model="name"
           ></a-input>
         </a-form-item>
         <a-form-item>
+          <span>流程&nbspkey：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程key(只能以字母开头,只能包含字母,数字,下划线;长度大于等于5小于等于20)"
+            placeholder="请输入流程key;5-20字符"
             v-model="key"
           ></a-input>
         </a-form-item>
@@ -138,5 +140,24 @@
 </script>
 
 <style lang="less" scoped>
+  /deep/ .ant-form-item-children {
+
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+      font-size: 16px;
+      font-weight: bold;
+      margin-left: 20px;
+    }
+
+    input {
+      width: 75%;
+      margin-left: 10px;
+
+    }
+  }
 
 </style>
