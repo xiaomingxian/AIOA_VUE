@@ -34,7 +34,7 @@
           <div class="swiper-container swiper-no-swiping bottom">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index"
-                   @click="openUrl((index+1)+'item')">
+                   @click="openUrl(atom.s_varchar4)">
                 <div style="display:flex;align-items: center;justify-content: center">
 
                   <img style="width:60px;height: 60px;"
@@ -44,38 +44,14 @@
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
               </div>
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/2.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/3.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/4.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/3.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/4.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
+
             </div>
             <!--Add Arrows-->
             <div ref="left" style="display: none" class="swiper-button-next"></div>
             <div ref="right" style="display: none" class="swiper-button-prev"></div>
           </div>
-          <img @click="rightclick" style="width: 20px;height: 30px;margin-right: 20px;" src="../../assets/right.png"
-               alt="">
+          <img @click="rightclick" alt="" src="../../assets/right.png"
+               style="width: 20px;height: 30px;margin-right: 20px;">
         </div>
 
 
@@ -542,27 +518,30 @@
       },
       openUrl(e) {
         console.log(e);
-        console.log(this.$refs[e][0]);
-        let lastChildNode = this.$refs[e][0].lastChild;
-        console.log(lastChildNode.childNodes[0].nodeType);
+        window.open('http://' + e)
+
+        // console.log(e);
+        // console.log(this.$refs[e][0]);
+        // let lastChildNode = this.$refs[e][0].lastChild;
+        // console.log(lastChildNode.childNodes[0].nodeType);
         //判断文本节点3     还是元素节点1
-        let nodeType = lastChildNode.childNodes[0].nodeType;
-        if (nodeType == '3') {
-          console.log(lastChildNode.childNodes[0].nodeValue);
-          let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
-          window.open('http://' + nodeValueUrl)
-        } else {
-          console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-          let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-          console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
-          let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
-          if(nodeValueUrl1!=null){
-            window.open(nodeValueUrl1)
-          }else{
-            window.open(nodeValueUrl2)
-          }
-          console.log(nodeValueUrl1)
-        }
+        // let nodeType = lastChildNode.childNodes[0].nodeType;
+        // if (nodeType == '3') {
+        //   console.log(lastChildNode.childNodes[0].nodeValue);
+        //   let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
+        //   window.open('http://' + nodeValueUrl)
+        // } else {
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
+        //   let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
+        //   let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
+        //   if(nodeValueUrl1!=null){
+        //     window.open(nodeValueUrl1)
+        //   }else{
+        //     window.open(nodeValueUrl2)
+        //   }
+        //   console.log(nodeValueUrl1)
+        // }
 
       },
       fetchUser(value) {

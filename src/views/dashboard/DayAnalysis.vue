@@ -156,7 +156,8 @@
                   <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
                   <div class="swiper-container swiper-no-swiping bottomm">
                     <div class="swiper-wrapper">
-                      <div class="swiper-slide" v-for="(item,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
+                      <div :key="index" @click="openUrl(atom.s_varchar4)" class="swiper-slide"
+                           v-for="(item,index) in LinkList">
                         <div style="display:flex;align-items: center;justify-content: center">
 
 
@@ -708,28 +709,29 @@
 
       },
       openUrl(e){
-        console.log(e);
-        console.log(this.$refs[e][0].lastChild);
-        let lastChildNode = this.$refs[e][0].lastChild;
-
-        console.log(lastChildNode.childNodes[0].nodeType);
-        //判断文本节点3     还是元素节点1
-        let nodeType = lastChildNode.childNodes[0].nodeType;
-        if(nodeType=='3'){
-          console.log(lastChildNode.childNodes[0].nodeValue);
-          let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
-          window.open('http://'+nodeValueUrl)
-        }else{
-          console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-          let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-          console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
-          let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
-          if(nodeValueUrl1!=null){
-            window.open(nodeValueUrl1)
-          }else{
-            window.open(nodeValueUrl2)
-          }
-        }
+        window.open('http://' + e)
+        // console.log(e);
+        // console.log(this.$refs[e][0].lastChild);
+        // let lastChildNode = this.$refs[e][0].lastChild;
+        //
+        // console.log(lastChildNode.childNodes[0].nodeType);
+        // //判断文本节点3     还是元素节点1
+        // let nodeType = lastChildNode.childNodes[0].nodeType;
+        // if(nodeType=='3'){
+        //   console.log(lastChildNode.childNodes[0].nodeValue);
+        //   let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
+        //   window.open('http://'+nodeValueUrl)
+        // }else{
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
+        //   let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
+        //   let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
+        //   if(nodeValueUrl1!=null){
+        //     window.open(nodeValueUrl1)
+        //   }else{
+        //     window.open(nodeValueUrl2)
+        //   }
+        // }
 
       },
       postMore(){
