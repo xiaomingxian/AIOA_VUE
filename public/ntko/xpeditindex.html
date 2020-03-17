@@ -124,10 +124,8 @@
       document.write('ForOnpublishAshtmltourl="ntkopublishashtml"');
       document.write('ForOnpublishAspdftourl="ntkopublishaspdf"');
       document.write('ForOnSaveAsOtherFormatToUrl="ntkosaveasotherurl"');
-      document.write('ForOnSaveAsOtherFormatToUrl="ntkosaveasotherurl"');
       document.write('ForOnFileCommand="OnFileCommand"');
       document.write('ForOnAddTemplateFromURL="addtemplatefromurl"');
-      document.write('ForOnDocumentOpened="OnDocumentOpened"');
       document.write('ForOnDocumentClosed="OnDocumentClosed"');
       document.write('ForOnScreenModeChanged="ScreenModeChanged"');
       document.write('ForOnCustomButtonOnMenuCmd="OnCustomButtonOnMenuCmd"');
@@ -164,8 +162,6 @@
       if(ntkojb){
         window.opener.ntkoCloseEvent();
       }
-
-
     }
     window.onbeforeunload=function(){
       if(cmd==4){
@@ -225,92 +221,214 @@
 
   <script type="text/javascript">
     var ntko = document.getElementById("TANGER_OCX");
-
     /*
         谷歌浏览器事件接管
         */
 
-    function addtemplatefromurl() {
-      var cmd = getQueryString('cmd');
-      if (cmd==2){
-        var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
-      } else {
-        var url = urlContextPath + "/ntko/formalfile/queryById"
+    function ntkoondocumentopened() {
+      var ntko = document.getElementById("TANGER_OCX");
+      var urlContextPath = getQueryString("url");
+      var cmd = getQueryString("cmd");
+      var id = getQueryString('sbtnid');
+      var orgSchema = getQueryString('orgSchema');
+      var stable=getQueryString('stable');
+      var tableid=getQueryString('tableid');
+      var docNumId=getQueryString('docNumId');
+      if (cmd == 3 || cmd == 4 || cmd == 2) {
+        var fileType = "1";
       }
-      $.ajax({
-        type: "get",
-        dataType: "json",
-        url: url,
-        data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
-        success: function (data) {
-          var fileName = data.result.fileName;
-          var bookMarkMap = data.result;
-          if (cmd == 2) {
-            var zwFileNamePath = data.result.zwFileNamePath;
-            if (zwFileNamePath != null) {
-              var Path1 = zwFileNamePath;
-              $.ajax({
-                type: "post",
-                dataType: "json",
-                url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                data: {"filepath": Path1,"orgSchema":orgSchema},
-                success: function (data) {
-                  // var mFileName = fileName;
-                  // var mFilePath="/templateFiles/";
-                  var filePath="/temporaryFiles/";
-                  var fileName1 = data.result;
-                  // ntko.OpenFromURL(urlContextPath + mFilePath + mFileName);
-                  // insertFromUrl(urlContextPath + filePath + fileName1);
-                  ntko.Activedocument.Application.Selection.Goto(-1, 0, 0, "zw1");//光标移动到书签
-                  ntko.addtemplatefromurl(urlContextPath + filePath + fileName1);//在光标位置插入红头文档
-                  //插入书签
-                  for (var bookMark in bookMarkMap) {
-                    var BookmarkName = bookMark;
-                    var value = bookMarkMap[bookMark];
-                    // setBookmarkValue(BookmarkName, value);
-                    ntko.SetBookmarkValue(BookmarkName, value)
-                  }
-                }
-              })
-            }
-          }else {
-            if (fileName != null) {
-              var Path1 = fileName;
-              $.ajax({
-                type: "post",
-                dataType: "json",
-                url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                data: {"filepath": Path1,"orgSchema":orgSchema},
-                success: function (data) {
-                  var filePath = "/temporaryFiles/";
-                  var mFileName = data.result;
-                  ntko.OpenFromURL(urlContextPath + filePath + mFileName);
-                  //插入书签
-                  for (var bookMark in bookMarkMap) {
-                    var BookmarkName = bookMark;
-                    var value = bookMarkMap[bookMark];
-                    setBookmarkValue(BookmarkName, value);
-                  }
-                }
-              })
-            }
-          }
-        },
-        error: function (data) {
-          alert(data.result.message);
+      if (cmd == 5 || cmd == 6) {
+        var fileType = "2";
+      }
+      if (cmd == 7) {
+        var fileType = "3";
+      }
+      //正文排版2，保存办文单7
+      if (cmd == 2 || cmd == 7) {
+        var url='';
+        if (cmd == 2) {
+           url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
+        } else {
+           url = urlContextPath + "/ntko/formalfile/queryById"
         }
-      });
-    }
-    function OnDocumentOpened(File, Document){
+        $.ajax({
+          type: "get",
+          dataType: "json",
+          url: url,
+          data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
+          success: function (data) {
+            var fileName = data.result.fileName;
+            var bookMarkMap = data.result;
+            if (cmd == 2) {
+              var zwFileNamePath = data.result.zwFileNamePath;
+              if (zwFileNamePath != null) {
+                var Path1 = zwFileNamePath;
+                $.ajax({
+                  type: "post",
+                  dataType: "json",
+                  url: urlContextPath + "/ntko/filentko/singleCopyFile",
+                  data: {"filepath": Path1,"orgSchema":orgSchema},
+                  success: function (data) {
+                    var filePath="/temporaryFiles/";
+                    var fileName1 = data.result;
+                    ntko.Activedocument.Application.Selection.Goto(-1, 0, 0, "zw1");//光标移动到书签
+                    ntko.addtemplatefromurl(urlContextPath + filePath + fileName1);//在光标位置插入内容文档
+                    // 插入书签
+                    for (var bookMark in bookMarkMap) {
+                      var BookmarkName = bookMark;
+                      var value = bookMarkMap[bookMark];
+                      setBookmarkValue(BookmarkName, value);
+                    }
+                  }
+                })
+              }
+            }else {
+              if (fileName != null) {
+                var Path1 = fileName;
+                $.ajax({
+                  type: "post",
+                  dataType: "json",
+                  url: urlContextPath + "/ntko/filentko/singleCopyFile",
+                  data: {"filepath": Path1,"orgSchema":orgSchema},
+                  success: function (data) {
+                    for (var bookMark in bookMarkMap) {
+                      var BookmarkName = bookMark;
+                      var value = bookMarkMap[bookMark];
+                      setBookmarkValue(BookmarkName, value);
+                    }
+                  }
+                })
+              }
+            }
+          },
+          error: function (data) {
+            document.getElementById("TANGER_OCX").ShowTipMessage("控件排版异常",data.result.message);
+          }
+        });
+      }
+
+      if (cmd == 8 || cmd == 6) {
+        //正文
+        if (cmd == 6) {
+          var fileType = "2";
+        }
+        //办文单
+        if (cmd == 8) {
+          var fileType = "3";
+        }
+        //是否排版
+        var i_is_typeset = 0;
+        //是否保存办文单
+        var i_is_approve = 0;
+        var url = urlContextPath + "/ntko/formalfile/queryStateById";
+        $.ajax({
+          type: "get",
+          dataType: "json",
+          url: url,
+          async: false,
+          data: {"stable": stable, "tableid": tableid,"orgSchema":orgSchema},
+          success: function (data) {
+            //插入书签
+            var busDataMap = data.result;
+            for (var busData in busDataMap) {
+              var busDataName = busData;
+              var value = busDataMap[busData];
+              if ("i_is_typeset" == busDataName) {
+                i_is_typeset = value;
+              }
+              if ("i_is_approve" == busDataName) {
+                i_is_approve = value;
+              }
+            }
+          },
+        });
+
+        if (cmd == 6) {
+          //未保存正文，进行正文排版
+          if (i_is_typeset == 0) {
+            var url = urlContextPath + "/ntko/formalfile/queryFormalFileById";
+            $.ajax({
+              type: "get",
+              dataType: "json",
+              url: url,
+              async: false,
+              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
+              success: function (data) {
+                var bookMarkMap1 = data.result;
+                var zwFileNamePath = data.result.zwFileNamePath;
+                if (zwFileNamePath != null) {
+                  var Path1 = zwFileNamePath;
+                  $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: urlContextPath + "/ntko/filentko/singleCopyFile",
+                    data: {"filepath": Path1,"orgSchema":orgSchema},
+                    success: function (data) {
+                      var filePath="/temporaryFiles/";
+                      var fileName1 = data.result;
+                      insertFromUrl(urlContextPath + filePath + fileName1);
+                      //插入书签
+                      for (var bookMark1 in bookMarkMap1) {
+                        var BookmarkName1 = bookMark1;
+                        var value1 = bookMarkMap1[bookMark1];
+                        setBookmarkValue(BookmarkName1, value1);
+                      }
+                    }
+                  })
+                }
+              },
+              error: function (data) {
+                document.getElementById("TANGER_OCX").ShowTipMessage("控件异常",data.result.message);
+              }
+            });
+          }
+        }
+        if (cmd == 8) {
+          //未保存办文单，进行保存办文单
+          if (i_is_approve == 0) {
+            var url1 = urlContextPath + "/ntko/formalfile/queryById";
+            $.ajax({
+              type: "get",
+              dataType: "json",
+              url: url1,
+              data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
+              success: function (data) {
+                var fileName = data.result.fileName;
+                var bookMarkMap = data.result;
+                if (fileName!= null) {
+                  var Path1 = fileName;
+                  $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: urlContextPath + "/ntko/filentko/singleCopyFile",
+                    data: {"filepath": Path1,"orgSchema":orgSchema},
+                    success: function (data) {
+                      // var filePath = "/temporaryFiles/";
+                      // var fileName = data.result;
+                      // ntko.OpenFromURL(urlContextPath + filePath + fileName);
+                      //插入书签
+                      for (var bookMark in bookMarkMap) {
+                        var BookmarkName = bookMark;
+                        var value = bookMarkMap[bookMark];
+                        setBookmarkValue(BookmarkName, value);
+                      }
+
+                    }
+                  })
+                }
+              },
+              error: function (data) {
+                document.getElementById("TANGER_OCX").ShowTipMessage("控件异常",data.result.message);
+              }
+            });
+          }
+        }
+      }
 
       //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
       ntko.activeDocument.Saved = true;
-      var urlContextPath = getQueryString("url");
-
       //按钮权限
       var url = urlContextPath + "/oabutton/oaButton/queryById";
-      var id = getQueryString('sbtnid');
-      var orgSchema = getQueryString('orgSchema');
       $.ajax({
         type: "GET",
         dataType: "json",
@@ -424,9 +542,22 @@
           } else if(showReview == 0){
             ntko.ActiveDocument.ShowRevisions = false;
           }
+          var userId = getQueryString('userId');
+          var url = urlContextPath + "/sys/user/queryUserNameById";
+          $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: url,
+            data: {"userId": userId,"orgSchema":orgSchema},
+            success: function (data) {
+              var userName=data.result;
+              //痕迹保留的用户名
+              ntko.WebUserName = userName;
+            }
+          })
         },
         error: function (data) {
-          alert("按钮功能正在升级，请联系管理员")
+          document.getElementById("TANGER_OCX").ShowTipMessage("控件异常",data.result.message);
         }
       });
       if (cmd==9) {
@@ -438,9 +569,8 @@
           ntko.RibbonBars = false;
         }
       }
-      //痕迹保留的用户名
-      ntko.WebUserName = userName;
     }
+
     function ntkosavetourl(type,code,html)
     {
       //alert("SaveToURL成功回调");
@@ -467,7 +597,6 @@
           }
         }
       }
-
     }
     function OnCustomButtonOnMenuCmd(btnPos, btnCaption, btnID){
       if (btnCaption == "显示修订") {
@@ -500,12 +629,7 @@
         }
       }
     }
-    function ntkopublishaspdf(type,code,html){
-   //alert("Onpublishaspdftourl成功回调");
-    }
-    function ntkosaveasotherurl(type,code,html){
-    //alert("SaveAsOtherformattourl成功回调");
-    }
+
     function ScreenModeChanged(type,code,html){
       if (ntko.FullScreenMode == false) {
         ntko.Close();
@@ -595,32 +719,11 @@
           data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
           success: function (data) {
             var fileName = data.result.fileName;
-            var bookMarkMap = data.result;
             if (cmd == 2) {
               var zwFileNamePath = data.result.zwFileNamePath;
               if (zwFileNamePath != null) {
-                var Path1 = zwFileNamePath;
-                $.ajax({
-                  type: "post",
-                  dataType: "json",
-                  url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                  data: {"filepath": Path1,"orgSchema":orgSchema},
-                  success: function (data) {
-                    var mFileName = fileName;
-                    var mFilePath="/templateFiles/";
-                    var filePath="/temporaryFiles/";
-                    var fileName1 = data.result;
-                    ntko.OpenFromURL(urlContextPath + mFilePath + mFileName);//打开书签文档
-                    ntko.Activedocument.Application.Selection.Goto(-1, 0, 0, "zw1");//光标移动到书签
-                    ntko.addtemplatefromurl(urlContextPath + filePath + fileName1);//在光标位置插入内容文档文档
-                    //插入书签
-                    // for (var bookMark in bookMarkMap) {
-                    //   var BookmarkName = bookMark;
-                    //   var value = bookMarkMap[bookMark];
-                    //   setBookmarkValue(BookmarkName, value);
-                    // }
-                  }
-                })
+                var mFilePath="/templateFiles/";
+                ntko.OpenFromURL(urlContextPath + mFilePath + fileName);//打开书签文档
               }
             }else {
               if (fileName != null) {
@@ -631,23 +734,16 @@
                   url: urlContextPath + "/ntko/filentko/singleCopyFile",
                   data: {"filepath": Path1,"orgSchema":orgSchema},
                   success: function (data) {
-                    // var basePath = getBasePath();
                     var filePath = "/temporaryFiles/";
                     var mFileName = data.result;
                     ntko.OpenFromURL(urlContextPath + filePath + mFileName);
-                    //插入书签
-                    for (var bookMark in bookMarkMap) {
-                      var BookmarkName = bookMark;
-                      var value = bookMarkMap[bookMark];
-                      setBookmarkValue(BookmarkName, value);
-                    }
                   }
                 })
               }
             }
           },
           error: function (data) {
-            alert(data.result.message);
+            document.getElementById("TANGER_OCX").ShowTipMessage("控件排版异常",data.result.message);
           }
         });
       }
@@ -686,6 +782,7 @@
           }
         });
       }
+
       if (cmd == 8 || cmd == 6) {
         //正文
         if (cmd == 6) {
@@ -734,30 +831,10 @@
               data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
               success: function (data) {
                 var fileName = data.result.fileName;
-                var bookMarkMap1 = data.result;
                 var zwFileNamePath = data.result.zwFileNamePath;
                 if (zwFileNamePath != null) {
-                  var Path1 = zwFileNamePath;
-                  $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                    data: {"filepath": Path1,"orgSchema":orgSchema},
-                    success: function (data) {
-                      var mFileName = fileName;
-                      var mFilePath="/templateFiles/";
-                      var filePath="/temporaryFiles/";
-                      var fileName1 = data.result;
-                      ntko.OpenFromURL(urlContextPath + mFilePath + mFileName);
-                      insertFromUrl(urlContextPath + filePath + fileName1);
-                      //插入书签
-                      for (var bookMark1 in bookMarkMap1) {
-                        var BookmarkName1 = bookMark1;
-                        var value1 = bookMarkMap1[bookMark1];
-                        setBookmarkValue(BookmarkName1, value1);
-                      }
-                    }
-                  })
+                  var mFilePath="/templateFiles/";
+                  ntko.OpenFromURL(urlContextPath + mFilePath + fileName);
                 }
               },
               error: function (data) {
@@ -802,31 +879,14 @@
               data: {"id": docNumId, "stable": stable, "tableid": tableid, "fileType": fileType,"orgSchema":orgSchema},
               success: function (data) {
                 var fileName = data.result.fileName;
-                var bookMarkMap = data.result;
                 if (fileName!= null) {
-                  var Path1 = fileName;
-                  $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: urlContextPath + "/ntko/filentko/singleCopyFile",
-                    data: {"filepath": Path1,"orgSchema":orgSchema},
-                    success: function (data) {
-                      var filePath = "/temporaryFiles/";
-                      var fileName = data.result;
-                      ntko.OpenFromURL(urlContextPath + filePath + fileName);
-                      //插入书签
-                      for (var bookMark in bookMarkMap) {
-                        var BookmarkName = bookMark;
-                        var value = bookMarkMap[bookMark];
-                        setBookmarkValue(BookmarkName, value);
-                      }
-
-                    }
-                  })
+                  var filePath = "/temporaryFiles/";
+                  ntko.OpenFromURL(urlContextPath + filePath + fileName);
                 }
               },
               error: function (data) {
                 alert(data.result.message);
+
               }
             });
           } else {
