@@ -49,6 +49,10 @@
             <send-file v-if="pageRef == 'sendFile'" ref="sendFile" :backDataRef="backData" :isShowFile="isShowFile"
                        @getBackData="getBackData"
                        :optionMap="optionMap" :detailList="detailList" :taskParent="task"></send-file>
+            <!--共享文件-->
+            <send-file v-if="pageRef == 'shareFile'" ref="shareFile" :backDataRef="backData" :isShowFile="isShowFile"
+                       @getBackData="getBackData"
+                       :optionMap="optionMap" :detailList="detailList" :taskParent="task"></send-file>
 
             <!--发文-->
             <send-file-fu-zhou v-if="pageRef == 'sendFileFuZhou'" ref="sendFileFuZhou" :backDataRef="backData"
@@ -200,6 +204,7 @@
   import {ntkoBrowser} from '../../buttons/btn-js/ntkobackground.min.js'
   import ReleaseScope from "@/views/oaBus/pageModels/releaseScope";
   //业务页面
+  import shareFile from '@/views/mytask/taskList/shareFile'
   import sendFile from '@/views/mytask/taskList/sendFile'
   import receiveFile from '@/views/mytask/taskList/receiveFile'
   import MeetingRoomFile from "@/views/mytask/taskList/meetingRoomFile";
@@ -244,6 +249,7 @@
       JEditor,
       //业务
       sendFile,
+      shareFile,
       MeetintInform,
       MeetingRoomFile,
       receiveFile,
