@@ -1,49 +1,48 @@
 <template>
   <div class="main">
-    <a-form :form="form" class="user-layout-login" ref="bpmn" id="bpmn">
-      <a-tabs
-        :activeKey="customActiveKey"
-        :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
-        @change="handleTabClick">
-        <a-tab-pane key="tab1" tab="流程描述">
-          <a-form-item>
-            <a-input
-              size="large"
-              type="text"
-              placeholder="请输入流程名称(只能以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于5小于等于20)"
-              v-model="bpmn.name"
-            >
-            </a-input>
-          </a-form-item>
+    <!--流程描述-->
+    <div id="bpmn" ref="bpmn">
+      <p class="titleBox">流程描述</p>
+      <div class="itembox">
+        <div class="item">
+          <span>流程名称：</span>
 
-          <a-form-item>
-            <a-input
-              size="large"
-              type="key"
-              autocomplete="false"
-              placeholder="请输入流程key(只能以字母开头,只能包含字母,数字,下划线;长度大于等于5小于等于20)"
-              v-model="bpmn.key"
+          <a-input
+            placeholder="以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于5小于等于20"
+            size="large"
+            type="text"
+            v-model="bpmn.name"
+          >
+          </a-input>
+        </div>
 
-            >
-            </a-input>
-          </a-form-item>
+        <div class="item">
+          <span>流程&nbspkey：</span>
 
-          <a-form-item>
-            <a-input
-              size="large"
-              type="text"
-              placeholder="请输入流程描述"
-              v-model="bpmn.description"
-            >
-            </a-input>
-          </a-form-item>
+          <a-input
+            autocomplete="false"
+            placeholder="以字母开头,只能包含字母,数字,下划线;长度大于等于5小于等于20"
+            size="large"
+            type="key"
+            v-model="bpmn.key"
 
+          >
+          </a-input>
+        </div>
 
-        </a-tab-pane>
-      </a-tabs>
+        <div class="item">
+          <span>流程描述：</span>
+          <a-input
+            placeholder="请输入流程描述"
+            size="large"
+            type="text"
+            v-model="bpmn.description"
+          >
+          </a-input>
+        </div>
 
-
-      <a-form-item style="margin-top:24px">
+      </div>
+      <div class="btnbox">
         <a-button
           size="large"
           type="primary"
@@ -53,9 +52,70 @@
           @click.stop.prevent="bpmn_create"
           :disabled="loginBtn">确定
         </a-button>
-      </a-form-item>
+      </div>
 
-    </a-form>
+    </div>
+    <!--<a-form :form="form" class="user-layout-login" ref="bpmn"  id="bpmn">-->
+    <!--<a-tabs-->
+    <!--:activeKey="customActiveKey"-->
+    <!--:tabBarStyle="{ textAlign: 'left', borderBottom: 'unset' }"-->
+    <!--@change="handleTabClick">-->
+    <!--<a-tab-pane key="tab1" style="width: 100%;height: 280px;  ">-->
+    <!--<a-form-item class="itemLine">-->
+    <!--<span>流程名称：</span>-->
+
+    <!--<a-input-->
+    <!--size="large"-->
+    <!--type="text"-->
+    <!--placeholder="以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于5小于等于20"-->
+    <!--v-model="bpmn.name"-->
+    <!--&gt;-->
+    <!--</a-input>-->
+    <!--</a-form-item>-->
+
+    <!--<a-form-item class="itemLine">-->
+    <!--<span>流程&nbspkey：</span>-->
+
+    <!--<a-input-->
+    <!--size="large"-->
+    <!--type="key"-->
+    <!--autocomplete="false"-->
+    <!--placeholder="以字母开头,只能包含字母,数字,下划线;长度大于等于5小于等于20"-->
+    <!--v-model="bpmn.key"-->
+
+    <!--&gt;-->
+    <!--</a-input>-->
+    <!--</a-form-item>-->
+
+    <!--<a-form-item class="itemLine">-->
+    <!--<span>流程描述：</span>-->
+    <!--<a-input-->
+    <!--size="large"-->
+    <!--type="text"-->
+    <!--placeholder="请输入流程描述"-->
+    <!--v-model="bpmn.description"-->
+    <!--&gt;-->
+    <!--</a-input>-->
+    <!--</a-form-item>-->
+
+
+    <!--</a-tab-pane>-->
+    <!--</a-tabs>-->
+
+
+    <!--<a-form-item class="subbtn" style="margin-top:24px">-->
+    <!--<a-button-->
+    <!--size="large"-->
+    <!--type="primary"-->
+    <!--htmlType="submit"-->
+    <!--class="login-button"-->
+    <!--:loading="loginBtn"-->
+    <!--@click.stop.prevent="bpmn_create"-->
+    <!--:disabled="loginBtn">确定-->
+    <!--</a-button>-->
+    <!--</a-form-item>-->
+
+    <!--</a-form>-->
 
 
   </div>
@@ -158,6 +218,56 @@
 
 <style lang="scss" scoped>
 
+
+  .main {
+    width: 100%;
+    height: 600px;
+    background: #ffffff;
+    padding: 20px;
+
+    .titleBox {
+      width: 100%;
+      height: 45px;
+      /*background: #2f54eb;*/
+      line-height: 45px;
+      border-bottom: 1px solid #dddddd;
+      color: #2f54eb;
+    }
+
+    .itembox {
+      width: 100%;
+      height: 280px;
+      /*background: aliceblue;*/
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 30px;
+
+        span {
+          font-size: 18px;
+          font-weight: bold;
+
+          margin-left: 30px;
+        }
+
+        input {
+          margin-left: 20px;
+          width: 70%;
+        }
+      }
+    }
+
+    .btnbox {
+      width: 100%;
+      /*height: ;*/
+      button {
+        width: 70%;
+        margin-left: 140px;
+      }
+    }
+
+  }
   .user-layout-login {
     label {
       font-size: 14px;
@@ -168,6 +278,7 @@
       width: 100%;
       height: 40px;
     }
+
 
     .forge-password {
       font-size: 14px;
