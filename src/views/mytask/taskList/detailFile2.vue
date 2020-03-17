@@ -50,9 +50,9 @@
                        @getBackData="getBackData"
                        :optionMap="optionMap" :detailList="detailList" :taskParent="task"></send-file>
             <!--共享文件-->
-            <send-file v-if="pageRef == 'shareFile'" ref="shareFile" :backDataRef="backData" :isShowFile="isShowFile"
+            <share-file v-if="pageRef == 'shareFile'" ref="shareFile" :backDataRef="backData" :isShowFile="isShowFile"
                        @getBackData="getBackData"
-                       :optionMap="optionMap" :detailList="detailList" :taskParent="task"></send-file>
+                       :optionMap="optionMap" :detailList="detailList" :taskParent="task"></share-file>
 
             <!--发文-->
             <send-file-fu-zhou v-if="pageRef == 'sendFileFuZhou'" ref="sendFileFuZhou" :backDataRef="backData"
