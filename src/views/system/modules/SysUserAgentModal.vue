@@ -127,10 +127,11 @@
           this.$message.error('结束时间不得小于开始时间')
           return true
         }
-        if (this.model.status == undefined) {
-          this.$message.error('状态值不能为空')
-          return true
-        }
+        // console.log(this.model.status)
+        // if (this.model.status == undefined) {
+        //   this.$message.error('状态值不能为空')
+        //   return true
+        // }
 
         return false
         // this.model.startTime
