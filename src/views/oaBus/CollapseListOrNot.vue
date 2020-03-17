@@ -85,7 +85,189 @@
 
 <template>
   <div class="table-page-search-wrapper">
-    <a-card :bordered="ture">
+    <a-card v-if="i_is_radio == 0" :bordered="ture">
+      <a-form layout="inline">
+
+        <a-row :gutter="48" style="margin-left: 0px;">
+          <a-row :gutter="48" style="margin: 0 3px 27px -23px;border-bottom: 1px solid #e8e8e8;">
+            <a-col :md="7" :sm="24">
+              <a-form-item  style="width: 85.3%;">
+                <a-select @change="changFunId1" v-model="queryParam.function_id">
+                  <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+          </a-row>
+
+          <a-col :md="!advanced && 24 || 24" :sm="24">
+            <span class="table-page-search-submitButtons"
+                  :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+              <a @click="toggleAdvanced" style="position: absolute;bottom: 58%;right: 7%;">
+                {{ advanced ? '隐藏' : '显示' }}
+                <a-icon :type="advanced ? 'up' : 'down'"/>
+              </a>
+            </span>
+          </a-col>
+          <template v-if="advanced">
+            <a-row :gutter="48" style="width: 88.3%;">
+
+              <a-col :md="7" :sm="24">
+                <a-form-item>
+                  <a-select v-model="queryParam.i_is_state">
+                    <a-select-option value="" disabled selected hidden>状态</a-select-option>
+                    <a-select-option value="0">未办结</a-select-option>
+                    <a-select-option value="1">已办结</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+
+              <!--<a-col :md="7" :sm="24">-->
+              <!--<a-form-item label="拟稿人">-->
+              <!--<a-radio-group v-model="queryParam.selType">-->
+              <!--<a-radio @click="clearCurPageIndex()" :value="0">由我创建</a-radio>-->
+              <!--<a-radio @click="clearCurPageIndex()" :value="1" style="width: 33%;">-->
+              <!--全部数据-->
+              <!--<a-input v-if="queryParam.selType === 1" v-model="queryParam.s_create_name" style="margin-left: 7px"/>-->
+              <!--</a-radio>-->
+              <!--</a-radio-group>-->
+              <!--</a-form-item>-->
+              <!--</a-col>-->
+
+              <a-col :md="7" :sm="24">
+                <a-form-item>
+                  <a-select v-model="queryParam.s_create_name">
+                    <a-select-option value="" disabled selected hidden>拟稿人</a-select-option>
+                    <a-select-option value="0">全部数据</a-select-option>
+                    <a-select-option value="1">由我创建</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+
+              <a-col :md="7" :sm="24">
+                <a-form-item>
+                  <a-select v-model="queryParam.d_create_time">
+                    <a-select-option value="" disabled selected hidden>年份</a-select-option>
+                    <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
+                    </a-select-option>
+                  </a-select>
+
+                  <!--<span v-if="conditionList.length == 0" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">-->
+                  <!--<a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>-->
+                  <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                  <!--</span >-->
+                  <!--<span v-else class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">-->
+                  <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
+                  <!--</span>-->
+
+                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
+                      <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                  </span >
+
+                </a-form-item>
+              </a-col>
+            </a-row>
+
+            <a-row :gutter="48" style="width: 88.3%;">
+              <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">
+                <a-form-item>
+                  <a-select v-if="atom.i_column_type == 2" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
+                    <a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>
+                  </a-select>
+                  <a-input v-else class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>
+                  <!--<span v-if="conditionList.length == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 352.4%;">-->
+                  <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                  <!--</span >-->
+                  <!--<span v-else-if="conditionList.length == 2 && index == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 239.7%;">-->
+                  <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                  <!--</span >-->
+                  <!--<span v-else-if="index == 2" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">-->
+                  <!--<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>-->
+                  <!--</span >-->
+                </a-form-item>
+
+              </a-col>
+
+            </a-row>
+
+            <!--<a-row :gutter="48">-->
+            <!--<a-col :md="!advanced && 7 || 24" :sm="24" style="text-align: center;padding-right:172px;">-->
+            <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">-->
+            <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
+            <!--<a-button type="primary" icon="reload" @click="resetPgConditionList" style="margin-left: 27px;">重置</a-button>-->
+            <!--</span>-->
+            <!--</a-col>-->
+            <!--</a-row>-->
+          </template>
+        </a-row>
+
+      </a-form>
+
+      <a-table
+        v-if="iisFold == 1 && collapse == 1"
+        :columns="columns"
+        :dataSource="dataSource"
+        :pagination="false"
+        :loading="loading"
+        :showAlertInfo="false"
+        :showHeader="false"
+        :expandIconAsCell="false"
+        bordered
+        :rowKey="record => record.key"
+        @expandedRowsChange="(expandedRows) => {
+                 getPgSecondList(expandedRows);
+            }"
+      >
+
+        <a-table
+          slot="expandedRowRender"
+          slot-scope="record,index,indent,expanded"
+          size="middle"
+          :columns="columnes"
+          :dataSource="dataSources"
+          :pagination="false"
+          :loading="loading"
+          :showAlertInfo="false"
+          :rowKey="record => record.key"
+          :customRow="onClick"
+          style="word-break: break-all"
+          :rowClassName="(record,index) => {
+                let className  = 'light-row';
+                if (index % 2 === 1) className = 'dark-row';
+                return className;
+            }"
+        >
+
+        </a-table>
+
+      </a-table>
+
+      <a-table
+        v-else
+        size="middle"
+        :columns="columns"
+        :dataSource="dataSource"
+        :pagination="paginations"
+        :loading="loading"
+        :showAlertInfo="false"
+        bordered
+        :rowKey="record => record.id"
+        :customRow="onClick"
+        @change="(page,pageSize) => {
+               handleTableChange(page)
+          }"
+        :rowClassName="(record,index) => {
+              let className  = 'light-row';
+              if (index % 2 === 1) className = 'dark-row';
+              return className;
+          }"
+      >
+
+      </a-table>
+    </a-card>
+
+    <a-card v-else :bordered="ture">
       <a-tabs @change="changFunId"  :activeKey="defaultActiveKey">
         <a-tab-pane v-for="(item,index) in selectList" :tab="item.sname" :key="(index+1)">
           <a-form layout="inline">
@@ -101,9 +283,9 @@
           </a-col>
             <template v-if="advanced">
               <a-row :gutter="48" style="width: 88.3%;">
-                <!--="<a-col :md="7" :sm="24">-->
-                <!--<a-form-item label="业务功能">-->
-                <!--<a-select @change="changFunId" v-model="queryParam.function_id">-->
+                <!--<a-col :md="7" :sm="24">-->
+                <!--<a-form-item>-->
+                <!--<a-select @change="changFunId1" v-model="queryParam.function_id">-->
                 <!--<a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}-->
                 <!--</a-select-option>-->
                 <!--</a-select>-->
@@ -303,6 +485,7 @@
         index: 0,
         collapse: 0,
         iisFold: 0,
+        i_is_radio: 0,
         getPageList: [],
         conditionList: [],
         resetConditionList: {},
@@ -441,7 +624,7 @@
       //   });
       // },
       changFunId: async function (index) {
-      // console.log(index);
+        // console.log(index);
         this.defaultActiveKey = index;
         index = index - 1;
 
@@ -457,6 +640,33 @@
             this.queryParam = Object.assign({}, this.queryParam, {[this.conditionList[i].s_table_column]: ""});
           }
           this.queryParam.function_id = this.selectList[index].iid;
+          this.resetConditionList = Object.assign({}, this.queryParam);
+          this.paginations.current = 1;
+
+          // console.log('----------------------------------------------------------');
+          // console.log(this.queryParam);
+
+          this.columns = [];
+          this.columnes = [];
+          this.dataSource = [];
+          this.dataSources = [];
+          this.collapseListOrNot();
+        });
+      },
+      changFunId1: async function (index) {
+
+        this.conditionList = [];
+        this.queryParam = {};
+
+        this.resetPgConditionList();
+
+        await getAction(this.url.getConditionByFunId, {functionId: index}).then((res) => {
+          this.conditionList = res;
+          this.queryParam = Object.assign({}, this.setConditionList);
+          for (let i = 0; i < this.conditionList.length; i++) {
+            this.queryParam = Object.assign({}, this.queryParam, {[this.conditionList[i].s_table_column]: ""});
+          }
+          this.queryParam.function_id = index;
           this.resetConditionList = Object.assign({}, this.queryParam);
           this.paginations.current = 1;
 
@@ -572,7 +782,17 @@
       getModelIdByUrl: async function (str) {
         //let url = "/papertitle/docNumSet/busModelList";
         await getAction(this.url.getModelIdByUrl, {str: str}).then((res) => {
+
           this.modelId = res;
+
+          getAction("/oaBus/oaBusdata/queryModel", {
+            modelId: parseInt(this.modelId)
+          }).then((res) => {
+
+            this.i_is_radio = res.result;
+
+          })
+
           this.getPgConditionList();
 
           //this.getPgSearchList();
@@ -751,9 +971,9 @@
 
         postAction(url, {
           modelId: this.modelId,
-          pageNo: this.paginations.current,
-          pageSize: this.paginations.pageSize,
-          condition: this.queryParam
+            pageNo: this.paginations.current,
+            pageSize: this.paginations.pageSize,
+            condition: this.queryParam
         }).then((res) => {
           this.searchList = [];
           this.columns = [];

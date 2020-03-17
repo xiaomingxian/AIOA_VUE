@@ -69,6 +69,7 @@ module.exports = {
       },*/
       '/AIOA': {
         target: 'http://localhost:8080', //请求本地 需要jeecg-boot后台项目
+        // target: 'http://11.130.6.144', //业务网环境配置 需要jeecg-boot后台项目
         // target: 'http://49.234.25.12:8080', //请求本地 需要jeecg-boot后台项目
         ws: false,
         changeOrigin: true
