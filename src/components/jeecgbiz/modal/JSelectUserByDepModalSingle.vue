@@ -3,7 +3,7 @@
   <a-modal
     :visible="visible"
     :title="title"
-    :width="1130"
+    :width="1200"
     @ok="handleSubmit"
     @cancel="close"
     cancelText="关闭"
