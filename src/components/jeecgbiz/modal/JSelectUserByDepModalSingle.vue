@@ -1,14 +1,16 @@
 <template>
+  <!--    :width="modalWidth"-->
   <a-modal
-    :width="modalWidth"
     :visible="visible"
     :title="title"
+    :width="1150"
     @ok="handleSubmit"
     @cancel="close"
     cancelText="关闭"
     style="margin-top: -70px"
     wrapClassName="ant-modal-cust-warp"
   >
+    <div  style="overflow: auto;" :style="{height: scrHeight}">
     <a-row :gutter="10" style="background-color: #ececec; padding: 10px; margin: -10px">
       <a-col :md="6" :sm="24">
         <a-card :bordered="false">
@@ -48,6 +50,7 @@
         </a-card>
       </a-col>
     </a-row>
+    </div>
   </a-modal>
 </template>
 
@@ -60,6 +63,7 @@
     props:['modalWidth'],
     data() {
       return {
+        scrHeight: 450 + 'px',
         queryParam: {
           username:"",
         },
