@@ -128,10 +128,11 @@
           return true
         }
         // console.log(this.model.status)
-        // if (this.model.status == undefined) {
-        //   this.$message.error('状态值不能为空')
-        //   return true
-        // }
+        if (this.model.status == undefined) {
+          // this.$message.error('状态值不能为空')
+          this.model.status=1
+          // return true
+        }
 
         return false
         // this.model.startTime
