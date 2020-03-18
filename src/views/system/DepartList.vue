@@ -12,7 +12,7 @@
                     :action="importExcelUrl" @change="handleImportExcel">
             <a-button type="primary" icon="import">导入</a-button>-->
           <!--</a-upload>-->
-          <a-button title="删除多条数据" @click="batchDel" type="default">批量删除</a-button>
+          <!--<a-button title="删除多条数据" @click="batchDel" type="default">批量删除</a-button>-->
           <!--<a-button @click="refresh" type="default" icon="reload" :loading="loading">刷新</a-button>-->
         </a-row>
         <div style="background: #fff;padding-left:16px;height: 100%; margin-top: 5px">

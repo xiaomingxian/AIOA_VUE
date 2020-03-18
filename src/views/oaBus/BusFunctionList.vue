@@ -83,7 +83,7 @@
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
-          <a @click="permitConfig(record)">权限配置</a>
+          <a @click="permitConfig(record)">拟稿权限</a>
           <a-divider type="vertical"/>
           <a @click="openPageDetailDef(record)">配置含义</a>
           <a-divider type="vertical"/>

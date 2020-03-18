@@ -612,8 +612,6 @@
           setReadOnly(true);
         }
       }
-
-
       if (btnCaption == "隐藏修订") {
         // 取得文档是否只读，非只读protectionType值为-1，只读protectionType值为2
         var protectionType = ntko.ActiveDocument.ProtectionType;
@@ -648,7 +646,6 @@
       if (cmd == 1 || cmd == 2 || cmd == 4 || cmd == 6 || cmd == 7 || cmd == 8 || cmd == 10 || cmd==11) {
         onPageClose(cmd, stable, tableid, fileId,orgSchema,urlContextPath);
       }
-
     }
 
     //个人ip端口配置
@@ -690,7 +687,6 @@
       var docNumId=getQueryString('docNumId');
       //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
       ntko.svSaved = true;
-
       if (cmd == 3 || cmd == 4 || cmd == 2) {
         var fileType = "1";
       }
@@ -772,7 +768,6 @@
                 url: urlContextPath + "/ntko/filentko/singleCopyFile",
                 data: {"filepath": Path1,"orgSchema":orgSchema},
                 success: function (data) {
-                  // var basePath = getBasePath();
                   var filePath = "/temporaryFiles/";
                   var fileName = data.result;
                   ntko.OpenFromURL(urlContextPath + filePath + fileName);
@@ -839,6 +834,7 @@
               },
               error: function (data) {
                 alert(data.result.message);
+                document.getElementById("TANGER_OCX").ShowTipMessage("控件排版异常",data.result.message);
               }
             });
           } else {
@@ -885,8 +881,7 @@
                 }
               },
               error: function (data) {
-                alert(data.result.message);
-
+                document.getElementById("TANGER_OCX").ShowTipMessage("控件排版异常",data.result.message);
               }
             });
           } else {

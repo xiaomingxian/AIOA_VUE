@@ -37,10 +37,10 @@
                    @click="openUrl(atom.s_varchar4)">
                 <div style="display:flex;align-items: center;justify-content: center">
 
-                  <img style="width:60px;height: 60px;"
-                       :src="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':atom.picUrl1"
+                  <img v-if="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='" style="width:60px;height: 60px;"
+                       src="../../assets/2.png"
                        :title="atom.s_title" alt="">
-
+                  <img v-else :src="atom.picUrl1"  :title="atom.s_title" alt="">
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
               </div>
@@ -422,51 +422,52 @@
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
         this.LinkList = res;
-        if (this.LinkList.length == 1) {
-          this.show(this.LinkList[0].i_id, 0)
-          this.LinkList.push(
-            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-          )
+       if( this.LinkList.length==1){
+         this.show(this.LinkList[0].i_id, 0)
+           this.LinkList.push(
+             {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+           )
 
-        } else if (this.LinkList.length == 2) {
-          this.show(this.LinkList[0].i_id, 0)
-          this.show(this.LinkList[1].i_id, 1)
-          this.LinkList.push(
-            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-          )
-        } else if (this.LinkList.length == 3) {
-          this.show(this.LinkList[0].i_id, 0)
-          this.show(this.LinkList[1].i_id, 1)
-          this.show(this.LinkList[2].i_id, 2)
+          }else if( this.LinkList.length==2){
+             this.show(this.LinkList[0].i_id, 0)
+             this.show(this.LinkList[1].i_id, 1)
+             this.LinkList.push(
+               {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+               {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+               {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+               {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
 
-          this.LinkList.push(
-            {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-            {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-          )
-        } else if (this.LinkList.length == 0) {
+             )
+          }else if( this.LinkList.length==3){
+         this.show(this.LinkList[0].i_id, 0)
+         this.show(this.LinkList[1].i_id, 1)
+         this.show(this.LinkList[2].i_id, 2)
+
+           this.LinkList.push(
+             {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+           )
+          }else if( this.LinkList.length==0){
             this.LinkList.push(
-              {s_title: '未定义', value: 0, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-              {s_title: '未定义', value: 1, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-              {s_title: '未定义', value: 2, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
-              {s_title: '未定义', value: 3, picUrl1: '/img/1.faaedd76.png', s_varchar4: 'www.baidu.com'},
+              {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+              {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+              {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+              {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
             )
           }else{
-          // this.LinkList = JSON.parse(JSON.stringify(res));
-          for (var i = 0; i < this.LinkList.length; i++) {
+           // this.LinkList = JSON.parse(JSON.stringify(res));
+         for (var i = 0; i < this.LinkList.length; i++) {
 
-            this.show(this.LinkList[i].i_id, i)
+           this.show(this.LinkList[i].i_id, i)
 
 
+         }
           }
-        }
 
 
 
@@ -538,10 +539,10 @@
         })
       },
       openUrl(e) {
-        if (e.includes('www')) {
+        if(e.includes('www')){
           window.open('http://' + e)
-        } else {
-          this.$router.push('/' + e);
+        }else{
+         this.$router.push('/'+e);
         }
 
 
