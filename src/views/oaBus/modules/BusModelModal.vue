@@ -20,19 +20,19 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务菜单名称">
-          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true}]}]" />
+          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{validator: dealLenth }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务路径名称">
-          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true}]}]" />
+          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{validator: dealLenth }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务分类">
-          <a-select placeholder="请选择业务分类" v-decorator="['sbusdataTable', {rules:[{required:true}]}]">
+          <a-select placeholder="请选择业务分类" v-decorator="['sbusdataTable', {rules:[{required:true,message:'业务分类不能为空'}]}]">
             <a-select-option  v-for="(item,index) in dbtable" :key="index" :value="item.value" >{{item.text}}</a-select-option>
           </a-select>
           <!--<a-input placeholder="" @change="updateOher" v-model="busDataTable" v-decorator="['sbusdataTable', {}]" />-->
@@ -92,6 +92,14 @@
     created () {
     },
     methods: {
+      //长度校验
+      dealLenth(rule, value, callback){
+        if (value.length <= 30 ) {
+          callback();
+        } else {
+          callback('长度不可以超过15个汉字或者30个字符！！');
+        }
+      },
       add () {
 
         this.edit({});

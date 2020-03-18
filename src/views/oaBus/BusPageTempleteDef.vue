@@ -183,11 +183,21 @@
       },
       show(rec) {
         this.visible = true;
-        this.title = rec.spageName + '含义定义';
+        if(rec.spageName != null || rec.spageName != "" || rec.spageName != undefined){
+          this.title = rec.spageName + '含义定义';
+        }
         this.pageId = rec.iid ;
         this.initTable1();
       },
       add() {
+        if(this.stableColumn.length > 30){
+          this.$message.error("列名太长！！！");
+          return ;
+        }
+        if(this.stableColumn.length > 30){
+          this.$message.error("含义字符太长！！！");
+          return ;
+        }
         if(this.stableColumn == undefined || this.stableColumn == ''){
           this.$message.error("请输入列名！！！");
           return ;
@@ -207,8 +217,12 @@
           icolumnType:this.icolumnType,
           iisDefault: 1,
         }).then((res)=>{
-          this.$message.success(res.message);
-          this.initTable1();
+          if(res.success){
+            this.$message.success(res.message);
+            this.initTable1();
+          }else{
+            this.$message.error(res.message);
+          }
         })
       },
       edit(record) {

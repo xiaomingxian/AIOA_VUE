@@ -17,7 +17,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="业务分类">
-            <a-select v-model="iBMId" v-decorator="[ 'ibusModelId', {rules:[{required:true}]}]">
+            <a-select v-model="iBMId" v-decorator="[ 'ibusModelId', {rules:[{required:true,message:'业务分类不能为空'}]}]">
               <a-select-option v-for="(item,index) in selectModelData" :key="index" :value="item.iid">
                 {{item.sname}}
               </a-select-option>
@@ -29,7 +29,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="业务名称">
-            <a-input placeholder="请输入业务类型名称" v-decorator="['sname', {rules:[{required:true,message:'业务名称必须输入！！！'}]}]"/>
+            <a-input placeholder="请输入业务类型名称" v-decorator="['sname', {rules:[{required:true,message:'业务名称必须输入！！！'},{validator: dealLenth }]}]"/>
           </a-form-item>
 
           <!-- <a-form-item
@@ -47,7 +47,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="详情页面">
-            <a-select placeholder="请选择对应的页面" style="width: calc(100% - 130px);" disabled v-decorator="[ 'ipageId', {rules:[{required:true}]}]">
+            <a-select placeholder="请选择对应的页面" style="width: calc(100% - 130px);" disabled v-decorator="[ 'ipageId', {rules:[{required:true,message:'详情页面不能为空'}]}]">
               <a-select-option v-for="(item,index) in dbtable" :key="index" :value="item.iid">
                 {{item.spageName}}
               </a-select-option>
@@ -180,7 +180,10 @@
             :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
             @change="handleTableChange">
           <span slot="action" slot-scope="text, record">
-            <a @click="handleEditUnit(record)">删除</a>
+            <a-popconfirm title="确定删除吗?" @confirm="() => handleEditUnit(record)">
+                  <a>删除</a>
+            </a-popconfirm>
+            <!--<a @click="handleEditUnit(record)">删除</a>-->
           </span>
           </a-table>
           <div class="ant-row ant-form-item">
@@ -201,7 +204,10 @@
             :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
             @change="handleTableChange">
           <span slot="action" slot-scope="text, record">
-            <a @click="handleEditView(record)">删除</a>
+            <a-popconfirm title="确定删除吗?" @confirm="() => handleEditView(record)">
+                  <a>删除</a>
+            </a-popconfirm>
+            <!--<a @click="handleEditView(record)">删除</a>-->
           </span>
           </a-table>
 
@@ -401,6 +407,14 @@
     },
     methods: {
 
+      //长度校验
+      dealLenth(rule, value, callback){
+        if (value.length <= 30 ) {
+          callback();
+        } else {
+          callback('长度不可以超过15个汉字或者30个字符！！!');
+        }
+      },
       //查找数组下标
       findIndex(rec,array){
         for (let i = 0; i < array.length; i++) {

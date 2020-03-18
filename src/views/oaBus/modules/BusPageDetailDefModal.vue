@@ -37,13 +37,13 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="字段名">
-            <a-input style="width: 50%" placeholder="请输入字段名" v-model="stableColumn"  v-decorator="['stableColumn', {}]"/>
+            <a-input style="width: 50%" placeholder="请输入字段名" v-model="stableColumn"  v-decorator="['stableColumn', {rules:[{required:true,message: '字段名不能为空'},{validator: dealLenth }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="列名">
-            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true,message: '列名不能为空'}]}]"/>
+            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true,message: '列名不能为空'},{validator: dealLenth }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -245,6 +245,14 @@
     created() {
     },
     methods: {
+      //长度校验
+      dealLenth(rule, value, callback){
+        if (value.length <= 30 ) {
+          callback();
+        } else {
+          callback('长度不可以超过15个汉字或者30个字符！！!');
+        }
+      },
       updateDetail(value){
         let param ={
           ibusPageId:this.model.ibusPageId ,
