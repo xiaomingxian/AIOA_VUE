@@ -255,6 +255,7 @@
         })
       },
       refesh() {
+        this.queryParam = {};
         this.initTabel1();
         this.initTabel2();
       },
