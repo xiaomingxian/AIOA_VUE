@@ -1,67 +1,72 @@
 <template>
+  <!--  :width="modalWidth"-->
   <a-modal
-    :width="modalWidth"
     :visible="visible"
     :title="title"
+    :width="1200"
     @ok="handleSubmit"
     @cancel="close"
     cancelText="关闭"
     style="margin-top: -70px"
-    wrapClassName="ant-modal-cust-warp"
   >
-    <a-row :gutter="10" style="background-color: #ececec; padding: 10px; margin: -10px">
-      <a-col :md="6" :sm="24">
-        <a-card :bordered="false">
-          <!--组织机构-->
-          <a-directory-tree
-            selectable
-            :selectedKeys="selectedKeys"
-            :checkStrictly="true"
-            @select="this.onSelect"
-            :dropdownStyle="{maxHeight:'200px',overflow:'auto'}"
-            :treeData="departTree"
-          />
-        </a-card>
-      </a-col>
-      <a-col :md="18" :sm="24">
-        <a-card :bordered="false">
-          用户账号:
-          <a-input-search
-            :style="{width:'150px',marginBottom:'15px'}"
-            placeholder="请输入用户账号"
-            v-model="queryParam.username"
-            @search="onSearch"
-          ></a-input-search>
-          <a-button @click="searchReset(1)" style="margin-left: 20px" icon="redo">重置</a-button>
-          <!--用户列表-->
-          <a-table
-            ref="table"
-            :scroll="scrollTrigger"
-            size="middle"
-            rowKey="id"
-            :columns="columns"
-            :dataSource="dataSource"
-            :pagination="ipagination"
-            :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
-            @change="handleTableChange">
-          </a-table>
-        </a-card>
-      </a-col>
-    </a-row>
+    <!--    wrapClassName="ant-modal-cust-warp"-->
+    <div :style="{height: scrHeight}">
+      <a-row :gutter="10" style="background-color: #ececec; padding: 10px; margin: -10px">
+        <a-col :md="6" :sm="24" style="overflow: auto;height:650px;overflow-x: hidden;">
+          <a-card :bordered="false">
+            <!--组织机构-->
+            <a-directory-tree
+              selectable
+              :selectedKeys="selectedKeys"
+              :checkStrictly="true"
+              @select="this.onSelect"
+              :dropdownStyle="{maxHeight:'200px',overflow:'auto'}"
+              :treeData="departTree"
+            />
+          </a-card>
+        </a-col>
+        <a-col :md="18" :sm="24">
+          <a-card :bordered="false">
+            用户账号:
+            <a-input-search
+              :style="{width:'150px',marginBottom:'15px'}"
+              placeholder="请输入用户账号"
+              v-model="queryParam.username"
+              @search="onSearch"
+            ></a-input-search>
+            <a-button @click="searchReset(1)" style="margin-left: 20px" icon="redo">重置</a-button>
+            <!--用户列表-->
+            <a-table
+              ref="table"
+              :scroll="scrollTrigger"
+              size="middle"
+              rowKey="id"
+              :columns="columns"
+              :dataSource="dataSource"
+              :pagination="ipagination"
+              :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+              @change="handleTableChange">
+            </a-table>
+          </a-card>
+        </a-col>
+      </a-row>
+    </div>
   </a-modal>
 </template>
 
 <script>
-  import { filterObj } from '@/utils/util'
-  import { queryDepartTreeList, getUserList, queryUserByDepId, queryUserRoleMap } from '@/api/api'
+  import {filterObj} from '@/utils/util'
+  import {queryDepartTreeList, getUserList, queryUserByDepId, queryUserRoleMap} from '@/api/api'
+
   export default {
     name: 'JSelectUserByDepModal',
     components: {},
-    props:['modalWidth'],
+    props: ['modalWidth'],
     data() {
       return {
+        scrHeight: 650 + 'px',
         queryParam: {
-          username:"",
+          username: "",
         },
         columns: [
           {
@@ -83,7 +88,7 @@
             title: '性别',
             align: 'center',
             dataIndex: 'sex',
-            customRender: function(text) {
+            customRender: function (text) {
               if (text === 1) {
                 return '男'
               } else if (text === 2) {
@@ -153,7 +158,7 @@
           }
         })
       },
-      queryUserRoleMap(){
+      queryUserRoleMap() {
         queryUserRoleMap().then((res) => {
           if (res.success) {
             this.userRolesMap = res.result;
@@ -165,7 +170,7 @@
       resetScreenSize() {
         let screenWidth = document.body.clientWidth;
         if (screenWidth < 500) {
-          this.scrollTrigger = { x: 800 };
+          this.scrollTrigger = {x: 800};
         } else {
           this.scrollTrigger = {};
         }
@@ -192,7 +197,7 @@
       },
       searchReset(num) {
         let that = this;
-        if(num !== 0){
+        if (num !== 0) {
           that.queryParam = {};
           that.loadData(1);
         }
@@ -253,7 +258,7 @@
       },
       // 根据选择的id来查询用户信息
       queryUserByDepId(selectedKeys) {
-        queryUserByDepId({ id: selectedKeys.toString() }).then((res) => {
+        queryUserByDepId({id: selectedKeys.toString()}).then((res) => {
           if (res.success) {
             this.dataSource = res.result;
             this.ipagination.total = res.result.length;
