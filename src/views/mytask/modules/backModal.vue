@@ -663,7 +663,7 @@
                 if (con) {
                   getAction(this.url.deleteOaFile+"?table="+this.taskMsg.table+"&id="+this.taskMsg.tableId)
 
-                  // this.doJump(data)
+                  this.doJump(data)
                 } else {
                   this.doJump(data)
                 }
