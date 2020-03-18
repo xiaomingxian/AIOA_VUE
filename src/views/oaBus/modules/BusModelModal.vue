@@ -10,12 +10,12 @@
     
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
-        <!--<a-form-item
+        <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
           <a-input-number v-decorator="[ 'iorder', {}]" />
-        </a-form-item>-->
+        </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
