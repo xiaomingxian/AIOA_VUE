@@ -43,7 +43,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="列名">
-            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true}]}]"/>
+            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true,message: '列名不能为空'}]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"

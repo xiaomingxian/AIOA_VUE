@@ -1654,14 +1654,16 @@ export const taskBth = {
             //   this.$message.error('当前节点不可办结')
             //   return
             // }
-            //TODO********************************* 档案系统接口  ************************************
-            // getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
-            //   if (res.success) {
-            //     this.$message.success(res.message)
-            //   } else {
-            //     this.$message.error(res.message)
-            //   }
-            // })
+            //档案系统---发文收文
+            if (this.backData.table == 'oa_busdata10' || this.backData.table == 'oa_busdata20') {
+              getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
+                if (res.success) {
+                  this.$message.success(res.message)
+                } else {
+                  this.$message.error(res.message)
+                }
+              })
+            }
           } else {
             this.$message.error(res.message)
           }

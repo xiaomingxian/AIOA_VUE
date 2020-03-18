@@ -1208,6 +1208,7 @@
     font-weight: bolder;
     margin-right: 30%;
     float: right;
+    padding-top: 1%;
   }
 
   .pices {
