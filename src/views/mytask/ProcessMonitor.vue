@@ -81,7 +81,7 @@
     fill: cyan;
   }
 
-  [v-cloak]{
+  [v-cloak] {
     display: none;
   }
 
@@ -106,7 +106,7 @@
           </a-col>
           <a-col :md="7" :sm="8">
             <a-form-item label="是否领导关注">
-              <a-select style="width: 150px"  v-model="queryParam.iImport">
+              <a-select style="width: 150px" v-model="queryParam.iImport">
                 <a-select-option value="1">是</a-select-option>
                 <a-select-option value="0">否</a-select-option>
               </a-select>
@@ -115,9 +115,9 @@
 
           <template v-if="toggleSearchStatus">
             <!--<a-col :md="6" :sm="8">-->
-              <!--<a-form-item label="拟稿人">-->
-                <!--<a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>-->
-              <!--</a-form-item>-->
+            <!--<a-form-item label="拟稿人">-->
+            <!--<a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>-->
+            <!--</a-form-item>-->
             <!--</a-col>-->
 
             <a-col :md="6" :sm="8">
@@ -170,7 +170,6 @@
     </div>
 
 
-
     <!-- table区域-begin -->
     <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
       <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
@@ -180,24 +179,24 @@
 
     <div v-if="iisFold == 0">
 
-            <a-table
-              ref="table"
-              size="middle"
-              bordered
-              rowKey="processInstanceId"
-              :columns="columns"
-              :dataSource="dataSource"
-              :pagination="ipagination"
-              :loading="loading"
-              :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
-              @change="handleTableChange"
-              :customRow="doTask"
-              :rowClassName="(record,index) => {
+      <a-table
+        ref="table"
+        size="middle"
+        bordered
+        rowKey="processInstanceId"
+        :columns="columns"
+        :dataSource="dataSource"
+        :pagination="ipagination"
+        :loading="loading"
+        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+        @change="handleTableChange"
+        :customRow="doTask"
+        :rowClassName="(record,index) => {
               let className  = 'light-row';
               if (index % 2 === 1) className = 'dark-row';
               return className;
           }"
-            >
+      >
 
                   <span slot="action" slot-scope="text, record">
           <a @click.stop="unDo(record)">未办理信息</a>
@@ -207,46 +206,46 @@
 
         </span>
 
-            </a-table>
-          </div>
+      </a-table>
+    </div>
 
-        <div  v-if="iisFold == 1">
+    <div v-if="iisFold == 1">
 
-          <a-table
-            v-once
-            :columns="columnes"
-            :dataSource="dataSources"
-            :pagination="false"
-            :showAlertInfo="false"
-            :showHeader="false"
-            :expandIconAsCell="false"
-            bordered
-            @expand="(expanded, record) => {
+      <a-table
+        v-once
+        :columns="columnes"
+        :dataSource="dataSources"
+        :pagination="false"
+        :showAlertInfo="false"
+        :showHeader="false"
+        :expandIconAsCell="false"
+        bordered
+        @expand="(expanded, record) => {
                getExpandRecords(expanded, record);
           }"
-            @expandedRowsChange="(expandedRows) => {
+        @expandedRowsChange="(expandedRows) => {
                getPgSecondList(expandedRows);
           }"
-          >
+      >
 
-            <a-table
-              slot="expandedRowRender"
-              slot-scope="record,index,indent,expanded"
-              size="middle"
-              bordered
-              rowKey="processInstanceId"
-              :columns="columns"
-              :dataSource="dataSource007"
-              :pagination="false"
-              :loading="loading"
-              :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
-              :customRow="doTask"
-              :rowClassName="(record,index) => {
+        <a-table
+          slot="expandedRowRender"
+          slot-scope="record,index,indent,expanded"
+          size="middle"
+          bordered
+          rowKey="processInstanceId"
+          :columns="columns"
+          :dataSource="dataSource007"
+          :pagination="false"
+          :loading="loading"
+          :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+          :customRow="doTask"
+          :rowClassName="(record,index) => {
               let className  = 'light-row';
               if (index % 2 === 1) className = 'dark-row';
               return className;
           }"
-            >
+        >
 
                     <span slot="action" slot-scope="text, record">
           <a @click.stop="unDo(record)">未办理信息</a>
@@ -257,11 +256,11 @@
         </span>
 
 
-            </a-table>
+        </a-table>
 
-          </a-table>
-        </div>
-          <!-- table区域-end -->
+      </a-table>
+    </div>
+    <!-- table区域-end -->
 
     <!-- 表单区域 -->
     <pic2-modal ref="pic2Modal" @ok="modalFormOk"></pic2-modal>
@@ -270,7 +269,6 @@
 
     <!--业务页面-->
     <detail-file ref="detailFile"></detail-file>
-
 
 
     <a-modal
@@ -442,18 +440,18 @@
       }
     },
     methods: {
-      setFontSize(){
-        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+      setFontSize() {
+        const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         let url = "/testt/sysUserSet/queryByUserId";
-        getAction(url,{userId:userid}).then((res) => {
-          if(res.result.iisFontSize == 1){
+        getAction(url, {userId: userid}).then((res) => {
+          if (res.result.iisFontSize == 1) {
             this.iisFontSize = '18px';
-          }else if(res.result.iisFontSize == 3){
+          } else if (res.result.iisFontSize == 3) {
             this.iisFontSize = '14px';
-          }else{
+          } else {
             this.iisFontSize = '16px';
           }
-          for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+          for (let i = 0; i < document.getElementsByClassName('ant-table').length; i++) {
             document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
           }
         })
@@ -530,11 +528,11 @@
       // },
       searchResetMy: async function () {
         this.queryParam.tableOrder = false
-        if(this.iisFold == 1){
+        if (this.iisFold == 1) {
 
           await this.getPgFirstList();
 
-        }else {
+        } else {
 
           this.searchReset();
 
@@ -663,7 +661,7 @@
       //     this.modelId = res;
       //     this.getPgConditionList();
 
-          //this.getPgSearchList();
+      //this.getPgSearchList();
       //   });
       // },
       // getPgConditionList() {
@@ -681,8 +679,8 @@
       //     }
       //     this.resetConditionList = Object.assign({}, this.queryParam);
 
-          // //console.log('----------------------------------------------------------');
-          // //console.log(this.queryParam);
+      // //console.log('----------------------------------------------------------');
+      // //console.log(this.queryParam);
 
       // this.collapseListOrNot();
       //   });
@@ -751,16 +749,16 @@
           for (let i = 0; i < res.result.length; i++) {
             this.taskKey.push(res.result[i].itemValue);
 
-            setTimeout(()=> {
+            setTimeout(() => {
 
-              if(res.result.length > 0){
+              if (res.result.length > 0) {
                 this.dataSources.push({
                   key: i,
                   wenHao: res.result[i].itemText,
                 });
               }
 
-            },500)
+            }, 500)
 
             //   let url = "urgency/degree/queryTask";
             //   let Urgency = res;
@@ -783,14 +781,14 @@
 
         this.setFontSize();
 
-        if(this.dataSource007.length > 0){
+        if (this.dataSource007.length > 0) {
           this.getSearchList();
-        }else {
+        } else {
           return;
         }
       },
-      getExpandRecords(expanded,record){
-        if(expanded == false){
+      getExpandRecords(expanded, record) {
+        if (expanded == false) {
           this.dataSource007 = [];
         }
       },
@@ -811,16 +809,26 @@
         this.columns = [];
         this.dataSource007 = [];
         let url = "urgency/degree/queryTask";
-        getAction(url, {operstatus: 'task_monitor', urgencyDegree: this.taskKey[this.taskNames],dataTitle: this.queryParam.dataTitle,fileNum: this.queryParam.fileNum,createName: this.queryParam.createName,mainDept: this.queryParam.mainDept,taskType: this.queryParam.taskType,startTimeFake: this.queryParam.startTimeFake,endTimeFake: this.queryParam.endTimeFake}).then((res) => {
+        getAction(url, {
+          operstatus: 'task_monitor',
+          urgencyDegree: this.taskKey[this.taskNames],
+          dataTitle: this.queryParam.dataTitle,
+          fileNum: this.queryParam.fileNum,
+          createName: this.queryParam.createName,
+          mainDept: this.queryParam.mainDept,
+          taskType: this.queryParam.taskType,
+          startTimeFake: this.queryParam.startTimeFake,
+          endTimeFake: this.queryParam.endTimeFake
+        }).then((res) => {
           // this.searchColumns = JSON.parse(res.records);
 
-        //   for (let i = 1; i < this.searchColumns.length; i++) {
-        //     this.columnes.push({
-        //       title: this.searchColumns[i].s_column_name,
-        //       dataIndex: this.searchColumns[i].s_table_column,
-        //       align: "center",
-        //     });
-        //   }
+          //   for (let i = 1; i < this.searchColumns.length; i++) {
+          //     this.columnes.push({
+          //       title: this.searchColumns[i].s_column_name,
+          //       dataIndex: this.searchColumns[i].s_table_column,
+          //       align: "center",
+          //     });
+          //   }
           this.columns.push({
               title: '序号',
               dataIndex: '',
@@ -918,159 +926,179 @@
           // this.dataSources = res.result.dataList;
 
           this.dataSource007 = res.result.records;
-          for(let i = 0;i < this.dataSource007.length;i++){
+          for (let i = 0; i < this.dataSource007.length; i++) {
             this.dataSource007[i].key = this.dataSource007[i].id;
           }
 
         });
         this.setFontSize();
       },
-      getSearchList (){
+      getSearchList() {
         this.dataSource007 = [];
         let url = "urgency/degree/queryTask";
-        getAction(url, {operstatus: 'task_monitor', urgencyDegree: this.taskSearch,dataTitle: this.queryParam.dataTitle,fileNum: this.queryParam.fileNum,createName: this.queryParam.createName,mainDept: this.queryParam.mainDept,taskType: this.queryParam.taskType,startTimeFake: this.queryParam.startTimeFake,endTimeFake: this.queryParam.endTimeFake}).then((res) => {
+        getAction(url, {
+          operstatus: 'task_monitor',
+          urgencyDegree: this.taskSearch,
+          dataTitle: this.queryParam.dataTitle,
+          fileNum: this.queryParam.fileNum,
+          createName: this.queryParam.createName,
+          mainDept: this.queryParam.mainDept,
+          taskType: this.queryParam.taskType,
+          startTimeFake: this.queryParam.startTimeFake,
+          endTimeFake: this.queryParam.endTimeFake
+        }).then((res) => {
           this.dataSource007 = res.result.records;
           for (let i = 0; i < this.dataSource007.length; i++) {
             this.dataSource007[i].key = this.dataSource007[i].id;
           }
         })
       },
-      getPgSearchList() {
+      getPgSearchList: function () {
         this.columns = [];
         this.dataSource = [];
         // this.chooseSearch();
         // let url = "urgency/degree/queryTask";
         // getAction(url, {operstatus: 'jump', urgencyDegree: 'null'}).then((res) => {
-          // this.searchColumns = JSON.parse(res.message);
-          // this.searchList = res.result;
-          // this.pagination.current = this.searchList.current;
-          // this.pagination.pageSize = this.searchList.size;
-          // this.pagination.total = this.searchList.total;
+        // this.searchColumns = JSON.parse(res.message);
+        // this.searchList = res.result;
+        // this.pagination.current = this.searchList.current;
+        // this.pagination.pageSize = this.searchList.size;
+        // this.pagination.total = this.searchList.total;
 
-          // this.dataSource = this.searchList.records;
-          // for (let i = 0; i < this.searchColumns.length; i++) {
-          //   if (this.searchColumns[i].s_table_column != 'i_id') {
-          //     if(this.searchColumns[i].s_table_column =='i_is_state'){
-          //       this.columns.push({
-          //         title: this.searchColumns[i].s_column_name,
-          //         dataIndex: this.searchColumns[i].s_table_column,
-          //         align: "center",
-          //         customRender: (text) => {
-          //           if(text == true){
-          //             return '已办结'
-          //           }else if(text == false){
-          //             return '未办结'
-          //           }else{
-          //             return text
-          //           }
-          //         }
-          //       });
-          //     }else{
-          //       this.columns.push({
-          //         title: this.searchColumns[i].s_column_name,
-          //         dataIndex: this.searchColumns[i].s_table_column,
-          //         align: "center",
-          //       });
-          //     }
+        // this.dataSource = this.searchList.records;
+        // for (let i = 0; i < this.searchColumns.length; i++) {
+        //   if (this.searchColumns[i].s_table_column != 'i_id') {
+        //     if(this.searchColumns[i].s_table_column =='i_is_state'){
+        //       this.columns.push({
+        //         title: this.searchColumns[i].s_column_name,
+        //         dataIndex: this.searchColumns[i].s_table_column,
+        //         align: "center",
+        //         customRender: (text) => {
+        //           if(text == true){
+        //             return '已办结'
+        //           }else if(text == false){
+        //             return '未办结'
+        //           }else{
+        //             return text
+        //           }
+        //         }
+        //       });
+        //     }else{
+        //       this.columns.push({
+        //         title: this.searchColumns[i].s_column_name,
+        //         dataIndex: this.searchColumns[i].s_table_column,
+        //         align: "center",
+        //       });
+        //     }
 
-          //   }
-          // }
+        //   }
+        // }
 
-          this.columns.push({
-              title: '序号',
-              dataIndex: '',
-              key: 'rowIndex',
-              width: 60,
-              align: "center",
-              customRender: function (t, r, index) {
-                return parseInt(index) + 1;
+        this.columns.push({
+            title: '序号',
+            dataIndex: '',
+            key: 'rowIndex',
+            width: 60,
+            align: "center",
+            customRender: function (t, r, index) {
+              return parseInt(index) + 1;
+            }
+          },
+
+          {
+            title: '标题',
+            sorter: (i, ii, type) => {
+              //descend倒叙
+              //ascend正序
+
+              this.queryParam.tableOrder = true
+              //置空其他环节
+              this.nullOther('orederByTile')
+              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+              return true
+            },
+            width: 400,
+            align: "left",
+            dataIndex: 'title'
+          },
+          // {
+          //   title: '流程名称',
+          //    sorter:(i, ii, type) => {
+          //       return true
+          //     },
+          //   align: "center",
+          //   dataIndex: 'proDefName'
+          // },
+          {
+            title: '参与环节',
+            width: 180,
+            sorter: (i, ii, type) => {
+              this.queryParam.tableOrder = true
+              this.nullOther('orederByHuanJie')
+
+              this.queryParam.orederByHuanJie = type == 'descend' ? -1 : 1
+              return true
+            },
+            align: "center",
+            customRender: function (t, r, index) {
+              console.log('--', t, r, index)
+              var name = t.name
+              if (name.indexOf(',') < 0) {
+                return name
+              } else {
+                var sz = name.split(',')
+                return sz[sz.length - 1]
               }
+            }
+            // dataIndex: 'name'
+          },
+          {
+            title: '文号',
+            width: 100,
+            sorter: (i, ii, type) => {
+
+              this.queryParam.tableOrder = true
+              this.nullOther('orederByWenHao')
+
+              this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+              return true
             },
+            align: "center",
+            dataIndex: 'index'
+          },
+          {
+            title: '转发时间',
+            sorter: (i, ii, type) => {
+              this.queryParam.tableOrder = true
+              this.nullOther('orederByTime')
 
-            {
-              title: '标题',
-              sorter: (i, ii, type) => {
-                //descend倒叙
-                //ascend正序
-
-                this.queryParam.tableOrder = true
-                //置空其他环节
-                this.nullOther('orederByTile')
-                this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
-                return true
-              },
-              width: 400,
-              align: "left",
-              dataIndex: 'title'
+              this.queryParam.orederByTime = type == 'descend' ? -1 : 1;
+              return true
             },
-            // {
-            //   title: '流程名称',
-            //    sorter:(i, ii, type) => {
-            //       return true
-            //     },
-            //   align: "center",
-            //   dataIndex: 'proDefName'
-            // },
-            {
-              title: '参与环节',
-              width: 180,
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByHuanJie')
+            align: "center",
+            dataIndex: 'createTime'
+          },
+          {
+            title: '拟稿人',
+            sorter: (i, ii, type) => {
+              this.queryParam.tableOrder = true
+              this.nullOther('orederByDrafter')
 
-                this.queryParam.orederByHuanJie = type == 'descend' ? -1 : 1
-                return true
-              },
-              align: "center",
-              dataIndex: 'name'
+              this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
+              return true
             },
-            {
-              title: '文号',
-              width: 100,
-              sorter: (i, ii, type) => {
+            align: "center",
+            dataIndex: 'drafter'
+          },
 
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByWenHao')
+          {
+            title: '操作',
+            dataIndex: 'action',
+            align: "center",
+            scopedSlots: {customRender: 'action'},
+          });
 
-                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'index'
-            },
-            {
-              title: '转发时间',
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByTime')
-
-                this.queryParam.orederByTime = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'createTime'
-            },
-            {
-              title: '拟稿人',
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByDrafter')
-
-                this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'drafter'
-            },
-
-            {
-              title: '操作',
-              dataIndex: 'action',
-              align: "center",
-              scopedSlots: {customRender: 'action'},
-            });
-
-          // this.dataSource = res.result.records;
+        // this.dataSource = res.result.records;
 
         this.searchQueryMy();
 
@@ -1079,17 +1107,17 @@
       },
       // changeInput(event, obj) {
       //   this.queryParam[obj] = event.currentTarget.value;
-        // //console.log('----------------------------------------------------------');
-        // //console.log("object: " + obj + " value: " + event);
-        // //console.log('----------------------------------------------------------');
-        // //console.log(this.queryParam);
+      // //console.log('----------------------------------------------------------');
+      // //console.log("object: " + obj + " value: " + event);
+      // //console.log('----------------------------------------------------------');
+      // //console.log(this.queryParam);
       // },
       // changeSelect(event, obj) {
-        // this.queryParam[obj] = event.toString();
-        // //console.log('----------------------------------------------------------');
-        // //console.log("object: " + obj + " value: " + event);
-        // //console.log('----------------------------------------------------------');
-        // //console.log(this.queryParam);
+      // this.queryParam[obj] = event.toString();
+      // //console.log('----------------------------------------------------------');
+      // //console.log("object: " + obj + " value: " + event);
+      // //console.log('----------------------------------------------------------');
+      // //console.log(this.queryParam);
       // },
       // onClick(record, index) {
       //   return {
@@ -1099,7 +1127,7 @@
       //         let param = {tableName: this.tableName, busdataId: record.i_id};
       //         this.$refs.detailFile.show(param)
 
-              // this.$router.push({path:'/mytask/taskList/Test-detailFile',query:param})
+      // this.$router.push({path:'/mytask/taskList/Test-detailFile',query:param})
       //       }
       //     }
       //   }
@@ -1114,9 +1142,9 @@
         this.taskRecord.id = this.selectedRows2[0].id
         let status = this.selectedRows2[0].deleteReasons == this.taskRecord.id + ':todo' ? 'todo' : 'done'
 
-        if (status=='done'){
-          this.taskRecord.hiTaskId= this.taskRecord.id
-          this.taskRecord.id=undefined
+        if (status == 'done') {
+          this.taskRecord.hiTaskId = this.taskRecord.id
+          this.taskRecord.id = undefined
         }
 
         window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status=' + status + '&navisshow=false&haveTask=true&task=' + JSON.stringify(this.taskRecord))
@@ -1147,7 +1175,7 @@
                 let map = {}
 
                 for (let i in keys) {
-                  let data={
+                  let data = {
                     key: keys[i], name: names[i], id: ids[i],
                     deleteReasons: deleteReasons[i]
                   }
@@ -1168,14 +1196,14 @@
                   this.haveMore = true
                 }
                 if (Object.values(map).length == 1) {
-                 let  record2 = Object.values(map)[0]
+                  let record2 = Object.values(map)[0]
                   this.taskRecord.taskDefinitionKey = record2.key
                   this.taskRecord.name = record2.name
                   this.taskRecord.id = record2.id
                   let status = record2.deleteReason == record2.id + ':todo' ? 'todo' : 'done'
-                  if (status=='done'){
-                    this.taskRecord.hiTaskId= record2.id
-                    this.taskRecord.id=undefined
+                  if (status == 'done') {
+                    this.taskRecord.hiTaskId = record2.id
+                    this.taskRecord.id = undefined
                   }
 
                   window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.taskRecord.table + '&busdataId=' + this.taskRecord.tableId + '&status='
@@ -1184,9 +1212,9 @@
 
               } else {
                 let status = record.deleteReason == record.id + ':todo' ? 'todo' : 'done'
-                if (status=='done'){
-                  record.hiTaskId= record.id
-                  record.id=undefined
+                if (status == 'done') {
+                  record.hiTaskId = record.id
+                  record.id = undefined
                 }
 
                 window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&status=' + status + '&navisshow=false&haveTask=true&task=' + JSON.stringify(record))
@@ -1201,8 +1229,8 @@
       //   if (this.queryParam.selType == 0) {
       //     this.queryParam.s_create_name = '';
       //   }
-        // //console.log('222----------------------------------------------------------222');
-        // //console.log('radio checked', e.target.value)
+      // //console.log('222----------------------------------------------------------222');
+      // //console.log('radio checked', e.target.value)
       // },
       dataDestroy() {
         // this.searchColumns = [];
@@ -1219,23 +1247,23 @@
       //     this.$refs.inputs[i].stateValue = '';
       //   }
       // },
-    //   collapseListOrNot() {
-    //     const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-    //     getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
-    //       console.log('------------',JSON.stringify(res.result))
-    //       this.iisFold = res.result.iisFold;
-    //       if (this.iisFold == 1) {
-    //         this.getPgFirstList();
-    //       } else {
-    //         this.getPgSearchList();
-    //       }
-    //     })
-    //   }
-    // },
-    collapseListOrNot: async function () {
+      //   collapseListOrNot() {
+      //     const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      //     getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+      //       console.log('------------',JSON.stringify(res.result))
+      //       this.iisFold = res.result.iisFold;
+      //       if (this.iisFold == 1) {
+      //         this.getPgFirstList();
+      //       } else {
+      //         this.getPgSearchList();
+      //       }
+      //     })
+      //   }
+      // },
+      collapseListOrNot: async function () {
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
-          console.log('------------',JSON.stringify(res.result))
+          console.log('------------', JSON.stringify(res.result))
           this.iisFold = res.result.iisFold;
           if (this.iisFold == 1) {
             this.getPgFirstList();

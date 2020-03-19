@@ -99,7 +99,7 @@
           this.$message.error('请勿重复点击')
           return
         }
-        this.haveClick=true
+
         const {fileList} = this;
         const data = new FormData();
 
@@ -112,6 +112,7 @@
         }
 
 
+        this.haveClick=true
         let url=this.uploadUrl
         let method='post'
 

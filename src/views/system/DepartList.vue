@@ -12,7 +12,7 @@
                     :action="importExcelUrl" @change="handleImportExcel">
             <a-button type="primary" icon="import">导入</a-button>-->
           <!--</a-upload>-->
-          <a-button title="删除多条数据" @click="batchDel" type="default">批量删除</a-button>
+          <!--<a-button title="删除多条数据" @click="batchDel" type="default">批量删除</a-button>-->
           <!--<a-button @click="refresh" type="default" icon="reload" :loading="loading">刷新</a-button>-->
         </a-row>
         <div style="background: #fff;padding-left:16px;height: 100%; margin-top: 5px">
@@ -25,12 +25,12 @@
           </a-alert>
           <a-input-search @search="onSearch" style="width:100%;margin-top: 10px" placeholder="请输入部门名称"/>
           <!-- 树-->
-          <a-col :md="10" :sm="24">
+          <a-col :md="10" :sm="24" style="margin-top: 15px; width: 100%; height:425px;overflow-y: scroll ">
             <template>
               <a-dropdown :trigger="[this.dropTrigger]" @visibleChange="dropStatus">
                <span style="user-select: none">
             <a-tree
-              checkable
+              :checkable="checkable"
               multiple
               @select="onSelect"
               @check="onCheck"
@@ -131,8 +131,8 @@
 <script>
   import DepartModal from './modules/DepartModal'
   import pick from 'lodash.pick'
-  import {queryDepartTreeList, searchByKeywords, deleteByDepartId} from '@/api/api'
-  import {httpAction, deleteAction} from '@/api/manage'
+  import {deleteByDepartId, queryDepartTreeList, searchByKeywords} from '@/api/api'
+  import {deleteAction, httpAction} from '@/api/manage'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import Index from "../profile/basic/Index";
   import InputElement from "ant-design-vue/es/auto-complete/InputElement";
@@ -185,6 +185,7 @@
     },
     data() {
       return {
+        checkable: false,//开启   关闭  属性图 树形  是否可以多选
         depName:'',
         departOrder:'',
         iExpandedKeys: [],
@@ -371,6 +372,10 @@
         console.log('onCheck', checkedKeys, info)
         this.hiding = false
         this.checkedKeys = checkedKeys.checked
+        // this.checkedKeys = Array.from(checkedKeys.checked)
+        // let arrkeys = Array.from(checkedKeys.checked);
+        // console.log(this.checkedKeys)
+        // console.log(arrkeys)
       },
       onSelect(selectedKeys, e) {
         console.log('selected', selectedKeys, e)

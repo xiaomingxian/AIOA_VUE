@@ -37,7 +37,8 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="状态选择">
-          <a-radio-group buttonStyle="solid" v-decorator="['status', {} ]" size="small" :defaultValue="1">
+          <!--:defaultValue-->
+          <a-radio-group buttonStyle="solid" v-decorator="['status', {} ]" size="small"  defaultValue="1">
             <a-radio-button value="1">有效</a-radio-button>
             <a-radio-button value="0">无效</a-radio-button>
           </a-radio-group>
@@ -99,6 +100,7 @@
         this.$refs.SelectDepartWindow.add(this.checkedDepartKeys, this.userId);
       },
       add() {
+        // this.form.setFieldsValue({startTime: 1})
         this.edit({});
       },
       senUserName(data) {
@@ -125,9 +127,11 @@
           this.$message.error('结束时间不得小于开始时间')
           return true
         }
+        // console.log(this.model.status)
         if (this.model.status == undefined) {
-          this.$message.error('状态值不能为空')
-          return true
+          // this.$message.error('状态值不能为空')
+          this.model.status=1
+          // return true
         }
 
         return false

@@ -23,6 +23,7 @@ export const JeecgListMixin = {
         pageSize: 10,
         pageSizeOptions: ['10', '20', '30'],
         showTotal: (total, range) => {
+          console.log('=========···········',total,range)
           return range[0] + "-" + range[1] + " 共" + total + "条"
         },
         showQuickJumper: true,
@@ -68,18 +69,13 @@ export const JeecgListMixin = {
       let paramMsg = localStorage.getItem(uid + path)
       if (paramMsg == undefined) return
       let params = JSON.parse(paramMsg)
+      // console.log('获取缓存',params)
 
-      this.ipagination = params.ipagination
+      this.ipagination.current= params.ipagination.current
+      this.ipagination.pageSize= params.ipagination.pageSize
+
       this.queryParam = params.queryParams
 
-
-      let total = params.ipagination.total
-      let current = params.ipagination.current
-      let pageSize = params.ipagination.pageSize
-      let end = current + pageSize >= total ? total : current + pageSize
-      // console.log(total, current, pageSize, end)
-      // this.ipagination.showTotal = (current - 1) * pageSize + "-" + end + " 共" + total + "条"
-      // this.ipagination.showTotal = total
     },
     //记录查询条件到缓存
     setQueryParams() {
@@ -88,11 +84,13 @@ export const JeecgListMixin = {
       if (userInfo == undefined) return
       let user = JSON.parse(userInfo)
       let uid = user.userInfo.id
+
       let params = {
         ipagination: this.ipagination,
         queryParams: this.queryParam
       }
 
+      // console.log('存入緩存',params)
       localStorage.setItem(uid + path, JSON.stringify(params))
 
     },

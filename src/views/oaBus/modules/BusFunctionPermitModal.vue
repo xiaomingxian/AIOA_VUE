@@ -21,7 +21,10 @@
       <a-form-item
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
-        label="权限类型">
+        label="权限类型"
+        validate-status="error"
+        help="必须选择一个类型"
+      >
         <a-select style="width: 200px;" v-model="typeModel"
                   @change="getTypeVal"
                   placeholder="权限类型"
@@ -116,7 +119,7 @@
         selectvalue:1,  //是否选中
         itypeName:'',// 角色或人员或部门的名字
         userRealName:'',
-        title: "操作",
+        title: "新增",
         visible: false,
         model: {
           itypeId:'',//角色或人员或部门的id

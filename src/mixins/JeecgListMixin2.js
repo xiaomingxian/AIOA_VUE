@@ -69,10 +69,11 @@ export const JeecgListMixin = {
       if (paramMsg == undefined) return
       let params = JSON.parse(paramMsg)
 
-      this.ipagination = params.ipagination
+      this.ipagination.current= params.ipagination.current
+      this.ipagination.pageSize= params.ipagination.pageSize
+
       this.queryParam = params.queryParams
 
-      this.ipagination
 
     },
     //记录查询条件到缓存

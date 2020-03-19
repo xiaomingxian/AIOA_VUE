@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="600"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
@@ -13,18 +13,20 @@
 
       <a-form>
         <a-form-item>
+          <span>流程名称：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程名称(只能以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于5小于等于20)"
+            placeholder="请输入流程名称;3-20字符"
             v-model="name"
           ></a-input>
         </a-form-item>
         <a-form-item>
+          <span>流程&nbspkey：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程key(只能以字母开头,只能包含字母,数字,下划线;长度大于等于5小于等于20)"
+            placeholder="请输入流程key;3-20字符"
             v-model="key"
           ></a-input>
         </a-form-item>
@@ -52,6 +54,7 @@
         confirmLoading: false,
         name: undefined,
         key: undefined,
+        timeRecord:null,
         proMSg: {},
         url: {
           copy: '/workflowSet/copy'
@@ -72,6 +75,9 @@
         this.visible = false;
       },
       handleOk() {
+
+
+
         if (this.isClick){
           this.$message.error("请勿重复点击")
         }
@@ -92,7 +98,7 @@
             this.$message.error('您输入的key长度过长')
             return
           }
-          if ((this.key).length < 5) {
+          if ((this.key).length < 3) {
             this.$message.error('您输入的key长度过短')
             return
           }
@@ -107,7 +113,7 @@
             this.$message.error('您输入的名称长度过长')
             return
           }
-          if ((this.name).length < 5) {
+          if ((this.name).length < 3) {
             this.$message.error('您输入的名称长度过短')
             return
           }
@@ -115,6 +121,28 @@
 
           return
         }
+
+        let time = this.timeRecord
+        var now = Date.parse(new Date());
+
+        if (time != null) {
+          if ((now - time) < 7 * 1000) {
+            // let t = (7 - (now - time) / 1000) == 0 ? 1 : (7 - (now - time) / 1000)
+
+            // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
+
+            this.$message.error('系统正在处理您的请求,请耐心等待')
+            return
+          } else {
+            console.log('1111111111111111')
+            this.timeRecord = now
+          }
+        } else {
+          console.log('222222222222222')
+
+          this.timeRecord = now
+        }
+
 
         postAction(this.url.copy + '?copyKey=' + this.key + '&copyName=' + this.name + '&sourceDefId=' + this.proMSg.id).then(res => {
           if (res.success) {
@@ -138,5 +166,24 @@
 </script>
 
 <style lang="less" scoped>
+  /deep/ .ant-form-item-children {
+
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+      font-size: 16px;
+      font-weight: bold;
+      margin-left: 20px;
+    }
+
+    input {
+      width: 75%;
+      margin-left: 10px;
+
+    }
+  }
 
 </style>

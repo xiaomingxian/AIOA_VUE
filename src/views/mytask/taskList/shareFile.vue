@@ -1,97 +1,101 @@
 <template>
   <center>
 
-    <div border="0" class="sendFileStyle" style="border:#F0F5FC;" width="100%">
-      <!--<tr >-->
-      <!--<td class="title" width="15%">-->
-      <!--标题-->
-      <!--<center><h2>{{detailList.s_title}}</h2></center>-->
-      <!--</td>-->
-      <!--<td colspan="3">-->
-      <span style="color:#333333;margin-left:1%;border: 0px;font-size: 26px;font-weight: 10px" cols="92" rows="2" ref="s_title" v-on:blur="blurText(index,$event)"
-            v-model="backData.s_title">{{backData.s_title}}</span>
-      <p></p>
-      <!--</td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="title" width="15%">-->
-      <!--&lt;!&ndash;类型&ndash;&gt;-->
-      <!--<center><h3>{{detailList.i_bigint1}}</h3></center>-->
+    <table border="1" class="sendFileStyle" style="border:#F0F5FC;" width="100%">
+      <tr>
+        <td class="title" width="15%">
+          <!--标题-->
+          <center><h3>{{detailList.s_title}}</h3></center>
+        </td>
+        <td colspan="3">
+          <a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)"
+                      onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"
+                      v-model="backData.s_title"></a-textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="title" width="15%">
+          <!--类型-->
+          <center><h3>{{detailList.s_varchar4}}</h3></center>
 
-      <!--</td>-->
-      <!--<td colspan="3">-->
-      <!--&lt;!&ndash;<a-textarea cols="92" rows="2" v-model="backData.i_bigint1"></a-textarea>v-model="select_type" &ndash;&gt;-->
-      <!--<a-select style="width:82%" placeholder="请选择类别" ref="i_bigint1" v-on:blur="blurText($event,$refs.i_bigint1)"-->
-      <!--v-model="backData.i_bigint1" @change="selectType">-->
-      <!--<a-select-option v-for="(item,index) in optionMap.i_bigint1_option" :key="index" :value="item.value">-->
-      <!--{{item.text}}-->
-      <!--</a-select-option>-->
-      <!--</a-select>-->
-      <!--</td>-->
-      <!--</tr>-->
-      <!--<tr style="height: 50px;">-->
+        </td>
+        <td colspan="3">
+          <a-textarea cols="92" rows="2" ref="s_varchar4" v-on:blur="blurText(backData.s_varchar4,$refs.s_title,detailList.s_varchar4)"
+                      onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"
+                      v-model="backData.s_varchar4"></a-textarea>
+        </td>
+      </tr>
+      <tr style="height: 50px;">
 
-      <!--<td class="title" width="15%">-->
-      <!--&lt;!&ndash;创建人&ndash;&gt;-->
-      <!--<center><h3>{{detailList.s_create_name}}</h3></center>-->
-      <!--</td>-->
-      <!--<td>-->
-      <br>
-     <!-- <span style="color: #999999;margin-left:75%;border: 0px;font-size: 18px;font-weight: 10px">{{backData.s_create_name}}</span>
-      <span style="color: #999999;margin-left:20px;border: 0px;font-size: 18px;font-weight: 10px">{{backData.d_create_time}}</span>-->
-      <!--</td>-->
-      <!--&lt;!&ndash;创建部门&ndash;&gt;-->
-      <!--<td class="title" width="15%">-->
-      <!--<center><h3>{{detailList.s_create_dept}}</h3></center>-->
-      <!--</td>-->
-      <!--<td>-->
-      <!--<div style="padding-left: 10px;">{{backData.s_create_dept}}</div>-->
-      <!--</td>-->
+        <td class="title" width="15%">
+          <!--创建人-->
+          <center><h3>{{detailList.s_create_name}}</h3></center>
+        </td>
+        <td>
+          <div style="padding-left: 10px">{{backData.s_create_name}}</div>
+        </td>
+        <!--创建部门-->
+        <td class="title" width="15%">
+          <center><h3>{{detailList.s_create_dept}}</h3></center>
+        </td>
+        <td>
+          <div style="padding-left: 10px;">{{backData.s_create_dept}}</div>
+        </td>
 
-      <!--</tr>-->
+      </tr>
 
-      <!--<tr style="height: 50px;">-->
-      <!--<td class="title" width="15%">-->
-      <!--&lt;!&ndash;创建时间&ndash;&gt;-->
-      <!--<center><h3>{{detailList.d_create_time}}</h3></center>-->
-      <!--</td>-->
-      <!--<td width="35%">-->
-      <!--<a-date-picker :defaultValue="moment(backData.d_create_time,'YYYY-MM-DD HH:mm:ss')" showTime="true"-->
-      <!--format="YYYY-MM-DD HH:mm:ss" style="width: 100%" disabled></a-date-picker>-->
-      <!--</td>-->
-      <!--&lt;!&ndash;有效时间&ndash;&gt;-->
-      <!--<td class="title" width="15%">-->
-      <!--<center><h3>{{detailList.d_datetime1}}</h3></center>-->
-      <!--</td>-->
-      <!--<td width="35%">-->
-      <!--<a-date-picker v-if="backData.d_datetime1" :defaultValue="moment(backData.d_datetime1,'YYYY-MM-DD HH:mm:ss')"-->
-      <!--:allowClear="false" showTime="true" format="YYYY-MM-DD HH:mm:ss" style="width: 100%"-->
-      <!--@change="selectTime"></a-date-picker>-->
-      <!--<a-date-picker v-else showTime="true" format="YYYY-MM-DD HH:mm:ss" style="width: 100%"-->
-      <!--@change="selectTime"></a-date-picker>-->
-      <!--</td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-      <!--<td class="title" width="10%">-->
-      <!--<center><h3>附件</h3></center>-->
-      <!--</td>-->
-      <!--<td colspan="3">-->
-      <!--<div v-for="(item,index) in oaFileList" style="padding-left: 15px">-->
-      <!--<div @click="qiCao1(9,item.sfilePath)"><span class="hoverred">{{index}}、{{item.sfileName}}</span>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</td>-->
-      <!--</tr>-->
-    </div>
-    <!--&lt;!&ndash;模态框&ndash;&gt;-->
-    <!--<a-modal-->
-    <!--title="温馨提示"-->
-    <!--:visible="visibleDel"-->
-    <!--@ok="comfirmModal"-->
-    <!--@cancel="closeModal"-->
-    <!--&gt;-->
-    <!--<p>有效时间尚未选择，是否发布？</p>-->
-    <!--</a-modal>-->
+      <tr style="height: 50px;">
+        <td class="title" width="15%">
+          <!--创建时间-->
+          <center><h3>{{detailList.d_create_time}}</h3></center>
+        </td>
+        <td width="35%">
+          <a-date-picker :defaultValue="moment(backData.d_create_time,'YYYY-MM-DD HH:mm:ss')" showTime="true"
+                         format="YYYY-MM-DD HH:mm:ss" style="width: 100%" disabled></a-date-picker>
+        </td>
+        <!--有效时间-->
+        <td class="title" width="15%">
+          <center><h3>{{detailList.d_datetime1}}</h3></center>
+        </td>
+        <td  width="35%">
+          <a-date-picker v-if="backData.d_datetime1" ref="d_datetime1"
+                         v-on:blur="blurText([backData.d_datetime1],$refs.d_datetime1)" :defaultValue="moment(backData.d_datetime1,'YYYY-MM-DD HH:mm:ss')"
+                         :allowClear="false" showTime="true" format="YYYY-MM-DD HH:mm:ss" style="width: 100%"
+                         @change="selectTime"></a-date-picker>
+          <a-date-picker v-else ref="d_datetime1"
+                         v-on:blur="blurText([backData.d_datetime1],$refs.d_datetime1)" showTime="true" format="YYYY-MM-DD HH:mm:ss" style="width: 100%"
+                         @change="selectTime"></a-date-picker>
+        </td>
+      </tr>
+      <tr>
+        <td class="title" width="10%">
+          <center><h3>{{detailList.s_varchar1}}</h3></center>
+        </td>
+        <td colspan="3">
+          <div v-for="(item,index) in oaFileList" style="padding-left: 15px">
+            <div class="qiCao"><span class="hoverred"@click="qiCao1(9,item)">{{index+1}}、{{item.sfileName}}</span>
+              <span class="delCss" v-show="isShowFile">
+                <img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>
+                <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>
+                <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,4)" src="../../../../src/assets/delete.png"/>
+                <img :title="fileBtnName(4)" v-show="oaFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,4)" src="../../../../src/assets/top.png"/>
+                <img :title="fileBtnName(5)" v-show="oaFileList.length > 1 && index < oaFileList.length-1" class="pices" @click.stop="lowFile(item,index,4)" src="../../../../src/assets/bottom.png"/>
+              </span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <!--模态框-->
+    <a-modal
+      title="温馨提示"
+      :visible="visibleDel"
+      @ok="comfirmModal"
+      @cancel="closeModal"
+    >
+      <p>有效时间尚未选择，是否发布？</p>
+    </a-modal>
+    <del-time ref="updateFileNameModal" @reloadAfterUpdate="reloadAfterUpdate"></del-time>
   </center>
 
 </template>
@@ -102,11 +106,13 @@
   import ATextarea from "ant-design-vue/es/input/TextArea";
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import moment from 'moment';
+  import DelTime from "../../buttons/DelTimeModal";
 
   export default {
-    name: "preview",
+    name: "electronicFile",
     mixins: [JeecgListMixin, busdataTemplate],
     components: {
+      DelTime,
       ATextarea,
     },
     props: {
@@ -129,6 +135,10 @@
       publishData: {
         type: Object,
         required: false
+      },
+      isShowFile:{
+        type: Object,
+        required: false
       }
     },
     data() {
@@ -145,6 +155,7 @@
         taskDone: '',
         detailList: null,    //  文档数据   字段含义
         oaFileList: [],    //  文档数据   字段含义
+        banWenFileList:[],
         typeList: [],    //类别
         select_type: '',
         //表中的数据相关值
@@ -223,11 +234,11 @@
           s_create_deptid: '',
           //创建人机构id
           s_create_unitid: '',
-          s_varchar1: '',
+          s_varchar1: '', //附件
           s_varchar2: '',
           s_varchar3: '',
           s_varchar4: '',
-
+          s_varchar5: '', //数据字典值汉字
           /************电子公告表单内容********************/
           //标题
           s_title: '',
@@ -273,12 +284,19 @@
       //获取选择类别
       selectType(e) {
         this.backData.i_bigint1 = e;
+        for (let i in  this.optionMap.i_bigint1_option) {
+          if (e + "" == this.optionMap.i_bigint1_option[i].value) {
+            this.backData.s_varchar5 = this.optionMap.i_bigint1_option[i].text;
+            return;
+          }
+        }
       },
       //获取选中结束时间
       selectTime(e) {
         if (e != null) {
           let endDate = this.dateFormat(e._d);
           this.backData.d_datetime1 = endDate
+          console.log('有效时间=====》', endDate);
           this.$emit("validDate", endDate)
         }
       },
@@ -297,12 +315,6 @@
       closeModal() {
         this.visibleDel = false;
       },
-      //打开附件
-      qiCao1(index, fileName) {
-        let name = fileName.split('\\')
-        var name1 = name[name.length - 1]
-        this.$refs.taskRef.showFujianFile2(index, name1);
-      },
       change(e) {
         this.backData.i_safetylevel = e
       }, changeHuanJi(e) {
@@ -316,24 +328,29 @@
         this.changeReadStatus()
       },
       show() {
-
         for (let i = 0; i < this.optionMap.checkList.length; i++) {
           this.s_varchar.push(this.optionMap.checkList[i].stableColumn);
         }
 
-        console.log('00000000000000000000000000000000000000');
-        console.log(this.s_varchar);
-
-
-        // console.log("----->", this.backDataRef)
         //业务数据赋值
         for (var i in this.backData) {
           this.backData[i] = this.backDataRef[i]
         }
+        if (this.backData.d_datetime1 == undefined) {
+          this.backData.d_datetime1 = this.getNextMonth(this.backData.d_create_time); //默认180天之后
+          var internet = navigator.userAgent;
+          if (/firefox/i.test(internet) && this.backData.d_datetime1 !=""){
+            this.backData.d_datetime1.replace(/-/g,"/");
+          }else {
+            this.backData.d_datetime1 = this.dateFormat(this.backData.d_datetime1);
+          }
+        }
         if (this.backData.i_bigint1 != "" && this.backData.i_bigint1 != undefined) {
           this.backData.i_bigint1 = this.backData.i_bigint1 + '';
         }
-        this.getOaFiles(this.backData.table, this.backData.i_id)
+        this.getOaFiles(this.backData.table, this.backData.i_id);
+        this.getBanWenFiles(this.backData.table, this.backData.i_id);
+
       },
       ok() {
         this.handleCancel()
@@ -377,17 +394,5 @@
 </style>
 
 <style>
-  /*.hoverred:hover {*/
-  /*color: red;*/
-  /*cursor: pointer;*/
-  /*}*/
 
-  /*.title {*/
-  /*background: #f8f8f8;*/
-  /*text-align: center;*/
-  /*}*/
-
-  /*.text {*/
-  /*padding: 10px;*/
-  /*}*/
 </style>

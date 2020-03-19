@@ -150,8 +150,23 @@
         })
       },
       downFileName() {
-        let url = window._CONFIG['domianURL'] + this.url.download;
-        window.open(url+"/"+this.downFilePath);
+        downFile(this.url.download, {filePath: this.downFilePath}).then(res => {
+          let filename =  this.upFileName
+          let url = window.URL.createObjectURL(new Blob([res]));
+          let edik = document.createElement('a');
+          edik.style.display = 'none';
+          edik.href = url;
+          edik.setAttribute('download', filename);
+          document.body.appendChild(edik);
+          //点击下载
+          edik.click();
+          // 释放掉blob对象
+          window.URL.revokeObjectURL(edik);
+          // 下载完成移除元素
+          document.body.removeChild(edik);
+        })
+        // let url = window._CONFIG['domianURL'] + this.url.download;
+        // window.open(url+"/"+this.downFilePath);
         }
     }
   }

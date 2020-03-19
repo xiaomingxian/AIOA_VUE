@@ -8,7 +8,7 @@ import {deleteAction, downFile, getAction, postAction} from '@/api/manage'
 import {ACCESS_TOKEN} from "@/store/mutation-types"
 import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 import {ntkoBrowser} from './ntkobackground.min.js'
-import  {systemTool} from './systemTools.js'
+import {systemTool} from './systemTools.js'
 import {windows} from "codemirror/src/util/browser";
 import request from "ant-design-vue/es/vc-upload/src/request";
 
@@ -19,9 +19,9 @@ export const taskBth = {
   inject: ['reload'],
   data() {
     return {
-      brower:'',
-      os:'',
-      browerNum:'',
+      brower: '',
+      os: '',
+      browerNum: '',
       orgSchema: '',
       password: '',
       //按钮展示
@@ -157,7 +157,7 @@ export const taskBth = {
 
       if (time != undefined) {
         if ((now - time) < 5 * 1000) {
-          let t = (5 - (now - time) / 1000) == 0 ? 1 : (5 - (now - time) / 1000)
+          // let t = (5 - (now - time) / 1000) == 0 ? 1 : (5 - (now - time) / 1000)
           // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
           this.$message.error('系统正在处理您的请求,请耐心等待')
           return true
@@ -389,6 +389,9 @@ export const taskBth = {
     //TODO(仅标识)**********************************************   BASE  END   ******************************************
 
     //TODO(仅标识)***************************************************** 工作流相关 START *********************************
+    isEnd() {//如果结束了 将信息持久化到磁盘 再删除流程中相关的信息
+
+    },
     //追加办理人
     addUserOrDepart() {
       //查询下n个节点 找出其中可追加的
@@ -467,7 +470,7 @@ export const taskBth = {
 
     },
     //本部门用户
-    userChoice(){
+    userChoice() {
       if (this.taskMsg.status != undefined && this.taskMsg.status == 'done') {
         this.$message.error('您已经选择过用户,请使用追加按钮进行选择')
         return
@@ -1570,7 +1573,6 @@ export const taskBth = {
       }, 500)
 
 
-
     }
     ,
     showPic() {
@@ -1654,14 +1656,19 @@ export const taskBth = {
             //   this.$message.error('当前节点不可办结')
             //   return
             // }
-            //TODO********************************* 档案系统接口  ************************************
-            // getAction(this.url.recordFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
-            //   if (res.success) {
-            //     this.$message.success(res.message)
-            //   } else {
-            //     this.$message.error(res.message)
-            //   }
-            // })
+            //档案系统---发文收文
+            if (this.backData.table == 'oa_busdata10' || this.backData.table == 'oa_busdata20') {
+              getAction(this.url.recordFileSend, {
+                stable: this.backData.table,
+                tableid: this.backData.i_id
+              }).then(res => {
+                if (res.success) {
+                  this.$message.success(res.message)
+                } else {
+                  this.$message.error(res.message)
+                }
+              })
+            }
           } else {
             this.$message.error(res.message)
           }
@@ -1884,39 +1891,39 @@ export const taskBth = {
           if (res.success) {
             this.password = res.result;
             let ntkoed = ntkoBrowser.ExtensionInstalled();
-            let browerN=systemTool.getBrowserInfo()+'';//浏览器
-            this.os=systemTool.getOS();//系统
-            let a=browerN.substr(0,1);
+            let browerN = systemTool.getBrowserInfo() + '';//浏览器
+            this.os = systemTool.getOS();//系统
+            let a = browerN.substr(0, 1);
             if (a == "f") {
-              this.brower=browerN.substr(0,7);
-              this.browerNum=browerN.substr(8,4);
-            }else if (a == "c"){
-              this.brower=browerN.substr(0,6);
-              this.browerNum=browerN.substr(7,2);
+              this.brower = browerN.substr(0, 7);
+              this.browerNum = browerN.substr(8, 4);
+            } else if (a == "c") {
+              this.brower = browerN.substr(0, 6);
+              this.browerNum = browerN.substr(7, 2);
             }
             if (ntkoed) {
-              if (this.os != 'Win7'&&this.os != 'Win10'){
-                if (this.brower == "chrome" ){
-                  if (tthis.browerNum <=42){
+              if (this.os != 'Win7' && this.os != 'Win10') {
+                if (this.brower == "chrome") {
+                  if (tthis.browerNum <= 42) {
                     window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                       "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                       this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                       this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
-                  }else{
+                  } else {
                     alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
                   }
                 }
-                if (this.brower == "firefox"){
-                  if (this.browerNum <=52.3){
+                if (this.brower == "firefox") {
+                  if (this.browerNum <= 52.3) {
                     window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                       "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                       this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                       this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
-                  }else{
+                  } else {
                     alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
                   }
                 }
-              }else {
+              } else {
                 ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + cmd +
                   "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                   this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
@@ -2126,6 +2133,7 @@ export const taskBth = {
   },
 
 }
+
 function getOS() {
   var sUserAgent = navigator.userAgent;
   var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");
@@ -2142,7 +2150,7 @@ function getOS() {
     if (isWinXP) return "WinXP";
     var isWin2003 = sUserAgent.indexOf("Windows NT 5.2") > -1 || sUserAgent.indexOf("Windows 2003") > -1;
     if (isWin2003) return "Win2003";
-    var isWinVista= sUserAgent.indexOf("Windows NT 6.0") > -1 || sUserAgent.indexOf("Windows Vista") > -1;
+    var isWinVista = sUserAgent.indexOf("Windows NT 6.0") > -1 || sUserAgent.indexOf("Windows Vista") > -1;
     if (isWinVista) return "WinVista";
     var isWin7 = sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1;
     if (isWin7) return "Win7";

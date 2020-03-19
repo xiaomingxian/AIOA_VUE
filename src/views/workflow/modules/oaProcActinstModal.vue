@@ -125,17 +125,17 @@
         </div>
 
 
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="是否填写完意见就完成任务">
-          <a-radio-group buttonStyle="solid" defaultValue="false"
-                         v-decorator="['completeTask', {} ]"
-                         size="small">
-            <a-radio-button value="false">否</a-radio-button>
-            <a-radio-button value="true">是</a-radio-button>
-          </a-radio-group>
-        </a-form-item>
+        <!--<a-form-item-->
+          <!--:labelCol="labelCol"-->
+          <!--:wrapperCol="wrapperCol"-->
+          <!--label="是否填写完意见就完成任务">-->
+          <!--<a-radio-group buttonStyle="solid" defaultValue="false"-->
+                         <!--v-decorator="['completeTask', {} ]"-->
+                         <!--size="small">-->
+            <!--<a-radio-button value="false">否</a-radio-button>-->
+            <!--<a-radio-button value="true">是</a-radio-button>-->
+          <!--</a-radio-group>-->
+        <!--</a-form-item>-->
 
         <div v-show="canRecord">
           <a-form-item
@@ -165,7 +165,7 @@
             <a-form-item
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
-              label="选择使用该记录的环节">
+              label="使用该记录的环节">
               <a-select placeholder="请选流程动节点名称" mode="multiple" v-decorator="['recordKeys', {}]">
                 <a-select-option v-for="(item,index) in canUserRecorduser" :key="index"
                                  :value="item.id+'-'+item.assignee">{{item.name}}

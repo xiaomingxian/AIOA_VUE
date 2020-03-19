@@ -327,9 +327,6 @@
 </script>
 
 <style lang="less" scoped>
-
-</style>
-<style>
   /*附件列表元素----开始*/
   .qiCao {
     padding-bottom: 1%;

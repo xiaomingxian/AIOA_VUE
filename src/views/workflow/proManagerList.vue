@@ -85,7 +85,7 @@
       >
 
         <span slot="action" slot-scope="text, record">
-          <a @click="editPro(record)">编辑</a>
+          <a @click="editPro(record)">流程源码</a>
 
 
           <a-divider type="vertical"/>

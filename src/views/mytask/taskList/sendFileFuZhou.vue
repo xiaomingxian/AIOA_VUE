@@ -3,7 +3,7 @@
   <form>
     <center>
       <!--part3-->
-      <table width="100%" border="1" borderColor="#aa7d7d">
+      <table border="1" borderColor="#F0F5FC" class="sendFileStyle" width="100%">
         <tr>
           <td width="15%" class="title">
             <!--部门：：-->
@@ -509,26 +509,9 @@
           str1: this.backData.s_main_unit_names,
           str2: this.backData.s_cc_unit_names,
           str3: this.backData.s_inside_deptnames
-        }
+        };
         this.$refs.selDepartNameRef.show(param);
       },
-//      openFile(cmd, fileName) {
-//        let ntkoed = ntkoBrowser.ExtensionInstalled();
-//        if (ntkoed) {
-//          ntkoBrowser.openWindow(window.location.origin + "/ntko/editindex.html?cmd=" + cmd + "&fileName=" + fileName + "&userName=" + "admin" + "&sbtnid=" + 43);
-//        } else {
-//          window.open(window.location.origin + "/ntko/exeindex.html")
-//        }
-//        window.ntkoCloseEvent = function () {
-//          // alert("跨浏览器插件应用程序窗口已关闭")
-//        }
-//      },
-//      qiCao1(index, fileName) {
-//        let name = fileName.split('\\')
-//        var name1 = name[name.length - 1]
-//        alert(name1)
-//        this.$refs.taskRef.showFujianFile2(index, name1);
-//      },
       optsGet(opts) {
         this.opts = opts
       },
@@ -605,42 +588,7 @@
   }
 </script>
 <style lang="less" scoped>
-  input.ant-input{
-    height: 48px;
-  }
+  @import "../../../assets/less/detailsBaseStyle";
 
-  textarea.ant-input{
-    height: 48px;
-  }
-
-  /deep/ .ant-select-selection--single{
-    height: 48px;
-    padding: 8px 0;
-  }
-
-  /deep/ .ant-calendar-picker-input{
-    height: 48px;
-  }
 </style>
 
-<style>
-  .hoverred:hover {
-    color: red;
-    cursor: pointer;
-  }
-
-  .title  h3 {
-    font-weight: bolder !important;
-  }
-
-  .ant-btn-default{
-    font-weight: bolder !important;
-    background: rgb(178, 218, 255) !important;
-  }
-
-  .title{
-    background-color: #e9ecf2 !important;
-    padding: 0.7% !important;
-    text-align: center !important;
-  }
-</style>

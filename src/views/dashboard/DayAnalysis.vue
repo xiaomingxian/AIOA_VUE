@@ -156,13 +156,15 @@
                   <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
                   <div class="swiper-container swiper-no-swiping bottomm">
                     <div class="swiper-wrapper">
-                      <div class="swiper-slide" v-for="(item,index) in LinkList" :key="index" @click="openUrl((index+1)+'item')">
+                      <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index"
+                           @click="openUrl(atom.s_varchar4)">
                         <div style="display:flex;align-items: center;justify-content: center">
 
-
-                          <img style="width:60px;height: 60px;" :src="item.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':item.picUrl1" :title="item.s_title" alt="">
-
-                          <span v-show="false" :ref="(index+1)+'item'" v-html="item.url"></span>
+                          <img v-if="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='" style="width:60px;height: 60px;"
+                               src="../../assets/2.png"
+                               :title="atom.s_title" alt="">
+                          <img v-else :src="atom.picUrl1"  :title="atom.s_title" alt="">
+                          <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                         </div>
                       </div>
 
@@ -204,7 +206,7 @@
                       <p>
                         <i></i>
                         <span :title="item.title+'   '+item.createTime+item.name">
-                                <span>{{item.title|filterText1}}
+                                <span :style="iisFontSize">{{item.title|filterText1}}
                                   <div v-if="item.important==1">
                                        <img src="../../assets/zhong.png" alt="" >
                                   </div>
@@ -212,14 +214,14 @@
 
                               </span>
                       </p>
-                      <span >{{item.createTime|timeText}}</span>
+                      <span :style="iisFontSize">{{item.createTime|timeText}}</span>
                     </template>
 
                     <template v-else>
                       <p>
                               <span :title="item.s_title+'   '+item.d_create_time">
                                <i></i>
-                              <span>  {{item.s_title|filterText1}}
+                              <span :style="iisFontSize">  {{item.s_title|filterText1}}
                                 <div v-if="item.important==1">
                                    <img src="../../assets/zhong.png" alt="" >
                                 </div>
@@ -228,7 +230,7 @@
 
                              </span>
                       </p>
-                      <span >{{item.d_create_time|timeText}}</span>
+                      <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
                     </template>
 
 
@@ -342,9 +344,13 @@
   export default {
     name: "Dayanalysis",
     data () {
+
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        iisFontSize: {
+          fontSize: '14px'
+        },
         mouseFlag: false,
         data: [],
         fetching: false,
@@ -430,8 +436,8 @@
         }
       },filterText1(text){
         if(text!=undefined){
-          if(text.length>25){
-            return text.substring(0,22)+'...'
+          if (text.length > 22) {
+            return text.substring(0, 16) + '...'
           }else{
             return text
           }
@@ -535,6 +541,22 @@
 
     },
     mounted(){
+
+      //设置字体大小
+      const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      let url = "/testt/sysUserSet/queryByUserId";
+      getAction(url, {userId: userid}).then((res) => {
+        if (res.result.iisFontSize == 1) {
+          this.iisFontSize.fontSize = '18px';
+        } else if (res.result.iisFontSize == 3) {
+          this.iisFontSize.fontSize = '14px';
+        } else {
+          this.iisFontSize.fontSize = '16px';
+        }
+        // document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+      })
+
+
       let height = document.body.clientHeight-145;
       document.querySelector('.topp').style.height = height/2 +'px'
       document.querySelector('.bottom').style.height = height/2 +'px'
@@ -577,50 +599,80 @@
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
-        /*  if(res.length==1){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==2){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==3){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==0){
-            this.LinkList.push(
-              {s_title:'mytask/taskToDo',value:0},
-              {s_title:'mytask/taskToDo',value:1},
-              {s_title:'mytask/taskToDo',value:2},
-              {s_title:'mytask/taskToDo',value:3},
-              )
-          }else{
-            this.LinkList = JSON.parse(JSON.stringify(res));
-          }*/
-        this.LinkList =  res;
-        for(var i=0;i<this.LinkList.length;i++){
-          this.show(this.LinkList[i].i_id,i)
-        }
-        setTimeout(()=>{
+        this.LinkList = res;
+        if( this.LinkList.length==1){
+          this.show(this.LinkList[0].i_id, 0)
+          this.LinkList.push(
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+          )
 
-          var mySwiper = new Swiper('.swiper-container',{
-            initialSlide:0,
-            slidesPerView:4,
-            spaceBetween:13,
-            lazyLoading:true,
-            loop:false,
-            obeserver:true,
-            obeserverParents:true,
-            navigation:{
-              nextEl:'.swiper-button-next',
-              prevEl:'.swiper-button-prev',
+        }else if( this.LinkList.length==2){
+          this.show(this.LinkList[0].i_id, 0)
+          this.show(this.LinkList[1].i_id, 1)
+          this.LinkList.push(
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+
+          )
+        }else if( this.LinkList.length==3){
+          this.show(this.LinkList[0].i_id, 0)
+          this.show(this.LinkList[1].i_id, 1)
+          this.show(this.LinkList[2].i_id, 2)
+
+          this.LinkList.push(
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+          )
+        }else if( this.LinkList.length==0){
+          this.LinkList.push(
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+          )
+        }else{
+          // this.LinkList = JSON.parse(JSON.stringify(res));
+          for (var i = 0; i < this.LinkList.length; i++) {
+
+            this.show(this.LinkList[i].i_id, i)
+
+
+          }
+        }
+
+
+
+
+
+
+
+        setTimeout(() => {
+
+          var mySwiper = new Swiper('.swiper-container', {
+            initialSlide: 0,
+            slidesPerView: 4,
+            spaceBetween: 13,
+            lazyLoading: true,
+            loop: false,
+            obeserver: true,
+            obeserverParents: true,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
             }
 
           });
-        },1000)
+        }, 1000)
         console.log(this.LinkList.length)
+
+
       });
     },
     methods:{
@@ -708,28 +760,37 @@
 
       },
       openUrl(e){
-        console.log(e);
-        console.log(this.$refs[e][0].lastChild);
-        let lastChildNode = this.$refs[e][0].lastChild;
-
-        console.log(lastChildNode.childNodes[0].nodeType);
-        //判断文本节点3     还是元素节点1
-        let nodeType = lastChildNode.childNodes[0].nodeType;
-        if(nodeType=='3'){
-          console.log(lastChildNode.childNodes[0].nodeValue);
-          let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
-          window.open('http://'+nodeValueUrl)
+        if (!e) {
+          this.$message.warn('此链接为空')
         }else{
-          console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-          let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-          console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
-          let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
-          if(nodeValueUrl1!=null){
-            window.open(nodeValueUrl1)
-          }else{
-            window.open(nodeValueUrl2)
+          if (e.startsWith('http')) {
+            window.open(e)
+          } else {
+            window.open('http://' + e)
           }
         }
+        // console.log(e);
+        // console.log(this.$refs[e][0].lastChild);
+        // let lastChildNode = this.$refs[e][0].lastChild;
+        //
+        // console.log(lastChildNode.childNodes[0].nodeType);
+        // //判断文本节点3     还是元素节点1
+        // let nodeType = lastChildNode.childNodes[0].nodeType;
+        // if(nodeType=='3'){
+        //   console.log(lastChildNode.childNodes[0].nodeValue);
+        //   let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
+        //   window.open('http://'+nodeValueUrl)
+        // }else{
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
+        //   let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
+        //   let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
+        //   if(nodeValueUrl1!=null){
+        //     window.open(nodeValueUrl1)
+        //   }else{
+        //     window.open(nodeValueUrl2)
+        //   }
+        // }
 
       },
       postMore(){

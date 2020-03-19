@@ -20,7 +20,7 @@
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
-          <img style="position: absolute;left: 0;bottom: -8px;width: 50px;" src="../../assets/bottomleft.png" alt="">
+          <img alt="" src="../../assets/bottomleft.png" style="position: absolute;left: 0;bottom: 5px;width: 50px;">
           <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
         </div>
         <span @click="postMore" class="postMore"
@@ -34,48 +34,23 @@
           <div class="swiper-container swiper-no-swiping bottom">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index"
-                   @click="openUrl((index+1)+'item')">
+                   @click="openUrl(atom.s_varchar4)">
                 <div style="display:flex;align-items: center;justify-content: center">
 
-                  <img style="width:60px;height: 60px;"
-                       :src="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='?'/img/1.faaedd76.png':atom.picUrl1"
+                  <img v-if="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='" style="width:60px;height: 60px;"
+                       src="../../assets/2.png"
                        :title="atom.s_title" alt="">
-
+                  <img v-else :src="atom.picUrl1"  :title="atom.s_title" alt="">
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
               </div>
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/2.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/3.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/4.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/3.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--<div class="swiper-slide">-->
-              <!--<div>-->
-              <!--<img src="../../assets/4.png" alt="">-->
-              <!--</div>-->
-              <!--</div>-->
             </div>
             <!--Add Arrows-->
             <div ref="left" style="display: none" class="swiper-button-next"></div>
             <div ref="right" style="display: none" class="swiper-button-prev"></div>
           </div>
-          <img @click="rightclick" style="width: 20px;height: 30px;margin-right: 20px;" src="../../assets/right.png"
-               alt="">
+          <img @click="rightclick" alt="" src="../../assets/right.png"
+               style="width: 20px;height: 30px;margin-right: 20px;">
         </div>
 
 
@@ -125,17 +100,21 @@
             <div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openTodoTaskModel(item)"
                  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
               <p class="p">
-                <span :title="item.title+'   '+item.createTime+item.name">
-                  <i></i>
-                  {{item.title|filterText1}}
+                <span :title="item.title+'   '+item.createTime+item.name" style="width: 80%">
+
+                    <section>
+                        <i></i>
+                      <span :style="iisFontSize">{{item.title}}</span>
+                    </section>
+                  <!--{{item.title|filterText1}}-->
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
-                   <div v-if="item.important==1">
+                   <div style="margin-left: -10px" v-if="item.important==1">
                       <img src="../../assets/zhong.png" alt="">
                    </div>
 
 
                 </span>
-                <span>{{item.createTime|timeText}}</span>
+                <span :style="iisFontSize">{{item.createTime|timeText}}</span>
               </p>
               <!--<a @click="doTask(item)">办理</a>-->
             </div>
@@ -152,11 +131,14 @@
           <div class="itemline">
             <p class="each" v-for="(item,index) in model1Lists" :key="index"
                @click="openDetialModel(model1.tableName,item.i_id)">
-                <span :title="item.s_title+'      '+item.d_create_time">
-                  <i></i>
-                  {{item.s_title|filterText}}
+              <section style="display: flex;align-items: center;justify-content: flex-start">
+                <i></i>
+                <span :style="iisFontSize" :title="item.s_title+'      '+item.d_create_time">
+                  {{item.s_title}}
+                  <!--{{item.s_title|filterText}}-->
                 </span>
-              <span>{{item.d_create_time|timeText}}</span>
+              </section>
+              <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
             </p>
           </div>
         </div>
@@ -169,16 +151,20 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span class="more" @click="openmore(model2.url,model2.sName)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span @click="openmore(model2.url,model2.sName)" class="more">MORE<a-icon
+                type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p class="each" v-for="(item,index) in model2Lists" :key="index"
                  @click="openDetialModel(model2.tableName,item.i_id)">
-                <span :title="item.s_title+'                     '+item.d_create_time">
+                <section style="display: flex;align-items: center;justify-content: flex-start">
                   <i></i>
-                    {{item.s_title|filterText}}
-                </span>
-                <span>{{item.d_create_time|timeText}}</span>
+                  <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
+                      {{item.s_title}}
+                    <!--{{item.s_title|filterText}}-->
+                  </span>
+                </section>
+                <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
               </p>
             </div>
           </div>
@@ -194,11 +180,14 @@
             <div class="itemline">
               <p class="each" v-for="(item,index) in model3Lists" :key="index"
                  @click="openDetialModel(model3.tableName,item.i_id)">
-                 <span :title="item.s_title+'                     '+item.d_create_time">
+                <section style="display: flex;align-items: center;justify-content: flex-start">
                   <i></i>
-                  {{item.s_title|filterText}}
-                </span>
-                <span>{{item.d_create_time|timeText}}</span>
+                  <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
+                    {{item.s_title}}
+                    <!--{{item.s_title|filterText}}-->
+                  </span>
+                </section>
+                <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
               </p>
             </div>
           </div>
@@ -215,11 +204,14 @@
           <div class="itemline">
             <p class="each" v-for="(item,index) in model4Lists" :key="index"
                @click="openDetialModel(model4.tableName,item.i_id)">
-                 <span :title="item.s_title+'                     '+item.d_create_time">
+              <section style="display: flex;align-items: center;justify-content: flex-start">
                   <i></i>
-                  {{item.s_title|filterText}}
-                </span>
-              <span>{{item.d_create_time|timeText}}</span>
+                <span :style="iisFontSize" :title="item.s_title+'                 '+item.d_create_time">
+                  {{item.s_title}}
+                  <!--{{item.s_title|filterText}}-->
+                  </span>
+              </section>
+              <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
             </p>
           </div>
         </div>
@@ -285,6 +277,9 @@
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        iisFontSize: {
+          fontSize: '14px'
+        },
         mouseFlag: false,
         // lastFetchId: 0,
         // fetchUser: debounce(this.fetchUser, 800),
@@ -336,7 +331,7 @@
     filters: {
       filterText(text) {
         if (text != undefined) {
-          if (text.length > 20) {
+          if (text.length > 16) {
             return text.substring(0, 12) + '...'
           } else {
             return text
@@ -344,8 +339,8 @@
         }
       }, filterText2(text) {
         if (text != undefined) {
-          if (text.length > 22) {
-            return text.substring(0, 17) + '...'
+          if (text.length > 16) {
+            return text.substring(0, 14) + '...'
           } else {
             return text
           }
@@ -403,13 +398,24 @@
     },
     mounted() {
 
+      //设置字体大小
+      const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      let url = "/testt/sysUserSet/queryByUserId";
+      getAction(url, {userId: userid}).then((res) => {
+        if (res.result.iisFontSize == 1) {
+          this.iisFontSize.fontSize = '18px';
+        } else if (res.result.iisFontSize == 3) {
+          this.iisFontSize.fontSize = '14px';
+        } else {
+          this.iisFontSize.fontSize = '16px';
+        }
+        // document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+      })
+
       let height = document.body.clientHeight - 145;
       document.querySelector('.nav').style.height = height * .25 + 'px'
       document.querySelector('.box').style.height = height * .75 + 'px'
 
-      // this.$nextTick(()=>{
-      //
-      // })
 
       document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
       document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
@@ -425,57 +431,63 @@
       }
 
 
-      // setTimeout(()=>{
 
-      //   var mySwiper = new Swiper('.swiper-container',{
-      //     initialSlide:0,
-      //     slidesPerView:4,
-      //     spaceBetween:13,
-      //     lazyLoading:true,
-      //     loop:false,
-      //     obeserver:true,
-      //     obeserverParents:true,
-      //     navigation:{
-      //       nextEl:'.swiper-button-next',
-      //       prevEl:'.swiper-button-prev',
-      //     }
-      //
-      //   });
-      // },4000)
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
-        /*  if(res.length==1){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==2){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==3){
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-            this.LinkList.push(JSON.parse(JSON.stringify(res)))
-          }else if(res.length==0){
-            this.LinkList.push(
-              {s_title:'mytask/taskToDo',value:0},
-              {s_title:'mytask/taskToDo',value:1},
-              {s_title:'mytask/taskToDo',value:2},
-              {s_title:'mytask/taskToDo',value:3},
-              )
-          }else{
-            this.LinkList = JSON.parse(JSON.stringify(res));
-          }*/
         this.LinkList = res;
+       if( this.LinkList.length==1){
+         this.show(this.LinkList[0].i_id, 0)
+           this.LinkList.push(
+             {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+           )
+
+          }else if( this.LinkList.length==2){
+             this.show(this.LinkList[0].i_id, 0)
+             this.show(this.LinkList[1].i_id, 1)
+             this.LinkList.push(
+               {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+               {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+               {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+               {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+
+             )
+          }else if( this.LinkList.length==3){
+         this.show(this.LinkList[0].i_id, 0)
+         this.show(this.LinkList[1].i_id, 1)
+         this.show(this.LinkList[2].i_id, 2)
+
+           this.LinkList.push(
+             {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+             {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+           )
+          }else if( this.LinkList.length==0){
+            this.LinkList.push(
+              {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+              {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+              {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+              {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            )
+          }else{
+           // this.LinkList = JSON.parse(JSON.stringify(res));
+         for (var i = 0; i < this.LinkList.length; i++) {
+
+           this.show(this.LinkList[i].i_id, i)
 
 
-        for (var i = 0; i < this.LinkList.length; i++) {
+         }
+          }
 
-          this.show(this.LinkList[i].i_id, i)
 
 
-        }
+
+
+
 
         setTimeout(() => {
 
@@ -541,28 +553,39 @@
         })
       },
       openUrl(e) {
-        console.log(e);
-        console.log(this.$refs[e][0]);
-        let lastChildNode = this.$refs[e][0].lastChild;
-        console.log(lastChildNode.childNodes[0].nodeType);
-        //判断文本节点3     还是元素节点1
-        let nodeType = lastChildNode.childNodes[0].nodeType;
-        if (nodeType == '3') {
-          console.log(lastChildNode.childNodes[0].nodeValue);
-          let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
-          window.open('http://' + nodeValueUrl)
-        } else {
-          console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-          let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-          console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
-          let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
-          if(nodeValueUrl1!=null){
-            window.open(nodeValueUrl1)
-          }else{
-            window.open(nodeValueUrl2)
+        if (!e) {
+          this.$message.warn('此链接为空')
+        }else{
+          if (e.startsWith('http')) {
+            window.open(e)
+          } else {
+            window.open('http://' + e)
           }
-          console.log(nodeValueUrl1)
         }
+
+
+        // console.log(e);
+        // console.log(this.$refs[e][0]);
+        // let lastChildNode = this.$refs[e][0].lastChild;
+        // console.log(lastChildNode.childNodes[0].nodeType);
+        //判断文本节点3     还是元素节点1
+        // let nodeType = lastChildNode.childNodes[0].nodeType;
+        // if (nodeType == '3') {
+        //   console.log(lastChildNode.childNodes[0].nodeValue);
+        //   let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
+        //   window.open('http://' + nodeValueUrl)
+        // } else {
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
+        //   let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
+        //   console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
+        //   let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
+        //   if(nodeValueUrl1!=null){
+        //     window.open(nodeValueUrl1)
+        //   }else{
+        //     window.open(nodeValueUrl2)
+        //   }
+        //   console.log(nodeValueUrl1)
+        // }
 
       },
       fetchUser(value) {
@@ -667,10 +690,10 @@
           this.model3 = res.model3;
           this.model4 = res.model4;
 
-          this.model1Lists = res.model1.list.splice(0, 5);
-          this.model2Lists = res.model2.list.splice(0, 5);
-          this.model3Lists = res.model3.list.splice(0, 5);
-          this.model4Lists = res.model4.list.splice(0, 5);
+          this.model1Lists = res.model1.list.splice(0, 4);
+          this.model2Lists = res.model2.list.splice(0, 4);
+          this.model3Lists = res.model3.list.splice(0, 4);
+          this.model4Lists = res.model4.list.splice(0, 4);
 
         });
       },
@@ -1129,7 +1152,7 @@
 
           .itemline {
             width: 100%;
-            min-height: 200px;
+            min-height: 185px;
             /*background: #999999;*/
             /*padding: 10px;*/
             padding-top: 0;
@@ -1147,6 +1170,8 @@
               border-left: 5px solid #c7ecff;
               /*margin-left: 10px;*/
 
+
+              /*待办工作    字体设置      ----------------------------------------------------*/
               .p {
                 width: 100%;
                 height: 46px;
@@ -1155,12 +1180,13 @@
                 justify-content: space-between;
                 /*line-height: 40px;*/
                 margin: 0;
-                font-size: 14px;
-                margin-left: 20px;
+
+                /*background: #87e8de;*/
+                /*margin-left: 20px;*/
                 /*margin-top: 19px;*/
 
                 span:first-child {
-                  display: block;
+                  /*display: block;*/
                   /*line-height: 40px;*/
                   // width: 60%;
                   /*height: 20px;*/
@@ -1169,15 +1195,37 @@
                   //   text-overfow:ellipsis;
                   //   -webkit-line-clamp: 1;
                   //   white-space: nowrap;
+                  font-size: 18px;
                   display: flex;
                   align-items: center;
+                  justify-content: flex-start;
 
-                  i {
-                    width: 5px;
-                    height: 5px;
-                    background: #2eabff;
-                    margin-right: 10px;
+                  section {
+                    width: 90%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    i {
+                      width: 5px;
+                      height: 5px;
+                      background: #2eabff;
+                      margin-right: 10px;
+                      margin-left: 5px;
+                    }
+
+                    span {
+                      width: 100%;
+                      height: 27px;
+                      /*background: #dddddd;*/
+                      line-height: 27px;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                    }
+
                   }
+
 
                   img {
                     width: 40px;
@@ -1223,7 +1271,7 @@
           /*overflow: no-content;*/
 
           .itemline {
-            min-height: 200px;
+            min-height: 185px;
 
             /*background: red;*/
             display: flex;
@@ -1239,18 +1287,37 @@
               margin: 0px;
               margin-top: 16px;
 
-              span {
-                display: flex;
-                align-items: center;
-                font-size: 14px;
+              i {
+                display: block;
+                width: 5px;
+                height: 5px;
+                background: #2eabff;
+                margin-right: 5px;
+              }
 
-                i {
-                  display: block;
-                  width: 5px;
-                  height: 5px;
-                  background: #2eabff;
-                  margin-right: 5px;
+              /*待办工作右侧字体大小   以及右下角 字体大小------------------------------------------*/
+
+              section {
+                width: 70%;
+
+                span {
+                  width: 100%;
+                  height: 27px;
+                  /*background: #dddddd;*/
+                  line-height: 27px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
                 }
+              }
+              span {
+
+                /*display: flex;*/
+                /*align-items: center;*/
+                font-size: 18px;
+
+
+
               }
             }
           }
@@ -1260,12 +1327,16 @@
 
       .bottom {
         margin-top: 7px;
+        display: flex;
+        align-items: self-start;
+        justify-content: space-between;
 
         .bottomleft {
           width: 60.3%;
           height: 100%;
+          /*background: #ffffff;*/
           display: flex;
-          align-items: flex-end;
+          align-items: flex-start;
           justify-content: space-between;
 
           .first, .last {
@@ -1324,7 +1395,7 @@
 
             .itemline {
               width: 100%;
-              min-height: 200px;
+              min-height: 185px;
               /*background: #999999;*/
               padding: 10px;
               /*color: #ffffff;*/
@@ -1338,18 +1409,38 @@
                 // padding-bottom: 3px;
                 /*border-bottom: 1px solid #f0f2f5;*/
 
-                span {
-                  display: flex;
-                  align-items: center;
-                  font-size: 14px;
+                i {
+                  display: block;
+                  width: 5px;
+                  height: 5px;
+                  background: #2eabff;
+                  margin-right: 5px;
+                }
 
-                  i {
-                    display: block;
-                    width: 5px;
-                    height: 5px;
-                    background: #2eabff;
-                    margin-right: 5px;
+                /*左下方字体大小控制区域-----------------------------------------------------------*/
+
+                section {
+                  width: 65%;
+
+                  span {
+                    width: 100%;
+                    height: 27px;
+                    /*background: #dddddd;*/
+                    line-height: 27px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                   }
+                }
+
+                span {
+
+                  /*display: flex;*/
+                  /*align-items: center;*/
+                  font-size: 18px;
+
+
+
                 }
               }
 
