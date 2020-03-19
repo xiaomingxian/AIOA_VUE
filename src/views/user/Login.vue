@@ -182,19 +182,17 @@
 
 <script>
   //import md5 from "md5"
-  import api from '@/api'
   import axios from 'axios'
   import ATextarea from "ant-design-vue/es/input/TextArea";
   import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
-  import { mapActions } from "vuex"
-  import { timeFix } from "@/utils/util"
+  import {mapActions} from "vuex"
+  import {timeFix} from "@/utils/util"
   import Vue from 'vue'
-  import { ACCESS_TOKEN ,ENCRYPTED_STRING} from "@/store/mutation-types"
+  import {ACCESS_TOKEN, ENCRYPTED_STRING, USER_INFO} from "@/store/mutation-types"
   import JGraphicCode from '@/components/jeecg/JGraphicCode'
-  import { getAction,postAction,putAction } from '@/api/manage'
-  import { encryption , getEncryptedString } from '@/utils/encryption/aesEncrypt'
+  import {getAction, postAction, putAction} from '@/api/manage'
+  import {encryption, getEncryptedString} from '@/utils/encryption/aesEncrypt'
   import store from '@/store/'
-  import { USER_INFO } from "@/store/mutation-types"
 
   export default {
     components: {
@@ -269,7 +267,7 @@
     },
     methods: {
       downLoadFile() {
-        let URL = window._CONFIG['domianURL']+'/templateFiles/AI综合办公服务平台体验指导手册.docx';
+        let URL = window._CONFIG['domianURL'] + '/templateFiles/AI Guidebooks.docx';
         window.open(URL);
       },
 

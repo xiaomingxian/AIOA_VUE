@@ -1,0 +1,152 @@
+//-----------------------大详情  标题样式   字体颜色   大小   加重  等
+.bigTitle {
+  color: red;
+  font-weight: 800;
+  font-size: 28px;
+}
+
+
+//--------------------------意见模块  样式修改
+.textarea {
+  font-weight: bold !important;
+  border-color: #ffffff !important;
+  /*border-color: #aa7d7d !important;*/
+  /*padding-top: 5% !important;*/
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.table td {
+  border: 1px solid #DAE0EA;
+
+}
+
+.table tr.lastrow td {
+  border-bottom: 0;
+}
+
+.table tr td.lastCol {
+  border-right: 0;
+
+}
+
+form .textarea.ant-input {
+  margin-bottom: 11px !important;
+}
+
+//其他意见  框样式  其他意见框  提示文字  背景  字体  等
+/deep/ .otherLineShow {
+  width: 100%;
+  border: 1px solid #dddddd;
+  height: 40px;
+  line-height: 40px;
+  background: #E9ECF2;
+  padding: 0;
+  margin-top: -5px;
+  margin-bottom: 5px;
+
+  /deep/ span {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}
+
+
+//所有模块  诸如大详情 title背景色  字体样式等的设置     样式综合
+.sendFileStyle {
+
+  input.ant-input {
+    height: 48px;
+  }
+
+  textarea.ant-input {
+    height: 48px;
+  }
+
+  /deep/ .ant-select-selection--single {
+    height: 48px;
+    padding: 8px 0;
+  }
+
+  /deep/ .ant-calendar-picker-input {
+    height: 48px;
+  }
+
+
+  .hoverred:hover {
+    color: red;
+    cursor: pointer;
+  }
+
+  .text {
+    padding: 10px;
+  }
+
+  //选择按钮样式
+  .ant-btn-default {
+    font-weight: bolder !important;
+    background: rgb(178, 218, 255) !important;
+  }
+
+  //---------------------------- #e9ecf2 ---------修改  标题框  背景颜色等 样式  标题颜色 字号等-------------------------------------------------------------------------
+  /deep/ .title {
+    background-color: #e9ecf2 !important;
+    padding: 0.7% !important;
+    text-align: center !important;
+
+    h3 {
+      font-weight: bold;
+      color: #333333;
+    }
+  }
+
+  //主送单位  抄送单位  内部发送  内部输入框字体颜色等
+  textarea.ant-input {
+    margin-bottom: 0 !important;
+
+  }
+}
+
+
+//按钮样式修改
+.btnStyle {
+  .optionTip {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 88%;
+    margin: 0 auto;
+  }
+
+  .btndefindbox {
+    display: flex;
+    width: 88%;
+    margin: 0 auto;
+    margin-top: 10px;
+
+    button {
+      background-color: #b2daff !important;
+
+    }
+  }
+
+  .btnnotdefindbox {
+    width: 88%;
+    margin: 0 auto;
+    display: flex;
+    /*align-items:center;*/
+    /*justify-content: space-around;*/
+    flex-wrap: wrap;
+  }
+
+  .btnnotdefindbox > button {
+    color: rgba(0, 0, 0, 0.65) !important;
+    font-weight: bolder !important;
+    /*border-radius: 14%;*/
+    background-color: #b2daff !important;
+    border-color: transparent !important;
+  }
+}

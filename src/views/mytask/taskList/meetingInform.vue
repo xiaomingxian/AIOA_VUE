@@ -1,7 +1,7 @@
 <template>
     <form>
       <center>
-        <table  width="100%" border="0">
+        <table border="0" class="sendFileStyle" width="100%">
           <center>
             <table  width="100%" border="1" borderColor="#F0F5FC">
               <tr style="height: 50px;">
@@ -141,13 +141,13 @@
 </template>
 
 <script>
-  import {getAction} from "../../../api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
   // import JEditor from '@/components/jeecg/JEditor'
   import moment from 'moment'
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
-  import showMeeting  from"../../meeting/showMeeting"
+  import showMeeting from "../../meeting/showMeeting"
   import DelTime from "../../buttons/DelTimeModal";
+
   export default {
     name: "meetintInform",
     mixins: [JeecgListMixin,busdataTemplate],
@@ -468,42 +468,44 @@
   }
 </script>
 <style lang="less" scoped>
-  input.ant-input{
-    height: 48px;
-  }
+  @import "../../../assets/less/detailsBaseStyle";
 
-  textarea.ant-input{
-    height: 48px;
-  }
+  /*input.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  /deep/ .ant-select-selection--single{
-    height: 48px;
-    padding: 8px 0;
-  }
+  /*textarea.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
- /deep/ .ant-calendar-picker-input{
-    height: 48px;
-  }
+  /*/deep/ .ant-select-selection--single{*/
+  /*height: 48px;*/
+  /*padding: 8px 0;*/
+  /*}*/
+
+  /*/deep/ .ant-calendar-picker-input{*/
+  /*height: 48px;*/
+  /*}*/
 </style>
 
 <style>
-  .hoverred:hover {
-    color: red;
-    cursor: pointer;
-  }
+  /*.hoverred:hover {*/
+  /*color: red;*/
+  /*cursor: pointer;*/
+  /*}*/
 
-  .title  h3 {
-    font-weight: bolder !important;
-  }
+  /*.title  h3 {*/
+  /*font-weight: bolder !important;*/
+  /*}*/
 
-  .ant-btn-default{
-    font-weight: bolder !important;
-    background: rgb(178, 218, 255) !important;
-  }
+  /*.ant-btn-default{*/
+  /*font-weight: bolder !important;*/
+  /*background: rgb(178, 218, 255) !important;*/
+  /*}*/
 
-  .title{
-    background-color: #e9ecf2 !important;
-    padding: 0.7% !important;
-    text-align: center !important;
-  }
+  /*.title{*/
+  /*background-color: #e9ecf2 !important;*/
+  /*padding: 0.7% !important;*/
+  /*text-align: center !important;*/
+  /*}*/
 </style>

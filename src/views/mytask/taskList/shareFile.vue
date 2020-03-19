@@ -1,7 +1,7 @@
 <template>
   <center>
 
-    <table width="100%" border="1" style="border:#F0F5FC;">
+    <table border="1" class="sendFileStyle" style="border:#F0F5FC;" width="100%">
       <tr>
         <td class="title" width="15%">
           <!--标题-->
@@ -373,47 +373,26 @@
   }
 </script>
 <style lang="less" scoped>
-  input.ant-input{
-    height: 48px;
-  }
+  @import "../../../assets/less/detailsBaseStyle";
 
-  textarea.ant-input{
-    height: 48px;
-  }
+  /*input.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  /deep/ .ant-select-selection--single{
-    height: 48px;
-    padding: 8px 0;
-  }
+  /*textarea.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  /deep/ .ant-calendar-picker-input{
-    height: 48px;
-  }
+  /*/deep/ .ant-select-selection--single{*/
+  /*height: 48px;*/
+  /*padding: 8px 0;*/
+  /*}*/
+
+  /*/deep/ .ant-calendar-picker-input{*/
+  /*height: 48px;*/
+  /*}*/
 </style>
 
 <style>
-  .hoverred:hover {
-    color: red;
-    cursor: pointer;
-  }
 
-  .title{
-    background-color: #e9ecf2 !important;
-    padding: 0.7% !important;
-    text-align: center !important;
-  }
-
-  .text {
-    padding: 10px;
-  }
-
-
-  .title  h3 {
-    font-weight: bolder !important;
-  }
-
-  .ant-btn-default{
-    font-weight: bolder !important;
-    background: rgb(178, 218, 255) !important;
-  }
 </style>

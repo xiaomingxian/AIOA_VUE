@@ -37,21 +37,18 @@
       <tr v-show="ouShu&&jiShu">
         <td width="50%">
           <p
-            style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
             class="otherLineShow" @click="otherJiLineShow">
             <a href="#">
               <a-icon :type="iconType"/>
-              <span style="font-size:14px;font-weight: bold;margin-left: 5px;">其他意见</span>
+              <span>其他意见</span>
             </a>
           </p>
         </td>
         <td width="50%">
           <p
-            style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
             class="otherLineShow" @click="otherJiLineShow">
             <a href="#">
-
-              <span style="font-size:14px;font-weight: bold;margin-left: 5px;"></span>
+              <span></span>
             </a>
           </p>
         </td>
@@ -61,11 +58,10 @@
       <tr v-if="jishuOtherShow" v-for="item,index in otherLine.data">
         <td width="50%">
           <p id="otherLineShow1"
-             style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
              class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
               <a-icon :type="iconType"/>
-              <span style="font-size:14px;font-weight: bold;margin-left: 5px;cursor:pointer">其他意见</span>
+              <span>其他意见</span>
             </a>
           </p>
           <div v-show="index==0||setIndexShowJi==0">
@@ -77,7 +73,7 @@
         </td>
         <td width="50%">
           <p id="otherLineShow" class="otherLineShow" v-if="index==1"
-             style="background: #E9ECF2;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;"
+
              @click="otherLineShow"></p>
           <div v-show="index==0||setIndexShowJi==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
@@ -93,11 +89,10 @@
       <tr v-if="ouShu&&!jiShu" v-for="item,index in otherLine.data">
         <td width="50%">
           <p
-            style="width: 100%;height: 40px;line-height: 40px;background:#E9ECF2;padding: 0; margin-top: -5px; margin-bottom: 5px;"
             class="otherLineShow" v-if="index==1" @click="otherLineShow">
             <a href="#">
               <a-icon :type="iconType"/>
-              <span style="font-size:14px;font-weight: bold;margin-left: 5px;cursor:pointer">其他意见</span>
+              <span>其他意见</span>
             </a>
           </p>
           <div v-show="index==0||setIndexShow==0">
@@ -109,7 +104,6 @@
         </td>
         <td width="50%">
           <p class="otherLineShow" v-if="index==1"
-             style="background:#E9ECF2;width: 100%;height: 40px;border-top-right-radius: 4px;border-bottom-right-radius: 4px;  line-height: 40px;padding: 0;margin-top: -5px;margin-bottom: 5px;"
              @click="otherLineShow"></p>
           <div v-show="index==0||setIndexShow==0">
             <a-textarea class="textarea" contenteditable="true" :rows="index==0?otherLine.height*1.5:otherLine.height"
@@ -189,37 +183,9 @@
   }
 </script>
 
-<style>
-  .textarea {
-    font-weight: bolder !important;
-    border-color: #ffffff !important;
-    /*border-color: #aa7d7d !important;*/
-    /*padding-top: 5% !important;*/
-  }
-  .table{
-		border-collapse: collapse;
-	}
+<style lang="less" scoped>
 
-	.table td {
-		border:1px solid #DAE0EA;
+  @import "../../assets/less/detailsBaseStyle.less";
 
-	}
 
-	.table tr.lastrow td {
-		border-bottom: 0;
-	}
-
-	.table tr td.lastCol {
-		border-right: 0;
-
- }
- form .textarea.ant-input {
-    margin-bottom: 11px !important;
-  }
-
-  /deep/ .otherLineShow {
-    width: 100%;
-    height: 30px;
-    border: 1px solid #dddddd;
-  }
 </style>

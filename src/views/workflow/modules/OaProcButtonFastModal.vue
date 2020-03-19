@@ -252,7 +252,7 @@
         //console.log(record.iid)
         this.$refs.catModalForm.add(record,this.TaskLinkId,this.procDefKey);
         this.$refs.catModalForm.loadData();
-        this.$refs.catModalForm.title = "查看";
+        this.$refs.catModalForm.title = "按钮配置";
         this.$refs.catModalForm.disableSubmit = false;
 
       },
@@ -264,7 +264,7 @@
       },
       handleEditNewName:function (record) {
         this.$refs.addModalForm.edit(record);
-        this.$refs.addModalForm.title = "编辑";
+        this.$refs.addModalForm.title = "修改名称";
         this.$refs.addModalForm.disableSubmit = false;
       },
       // handleEdit1:function (record) {
