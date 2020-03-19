@@ -11,15 +11,15 @@
         <a-row :gutter="48">
           <a-col :md="!advanced && 8 || 24" :sm="24">
             <span class="table-page-search-submitButtons"
-                  :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
-              <a @click="toggleAdvanced" style="margin-left: 1259px">
+                  :style="advanced && { float: 'left', overflow: 'hidden' } || {} ">
+              <a @click="toggleAdvanced" >
                 {{ advanced ? '隐藏' : '显示' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
           </a-col>
           <template v-if="advanced">
-            <a-col :md="8" :sm="24" style="margin:0 0 -7px 120px;">
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
               <a-form-item label="业务分类">
                 <a-select v-model="iBMId"
                           @change="getFunctionList">
@@ -28,7 +28,7 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24" style="margin:0 0 -7px 120px;">
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
               <a-form-item label="业务功能">
                 <a-select v-model="queryParam.function_id" @change="getFunctionListId">
                   <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}
@@ -36,15 +36,15 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <!--<a-col :md="8" :sm="24" style="margin:0 0 -7px 120px;">-->
-            <!--<a-form-item label="公文状态">-->
-            <!--<a-select v-model="queryParam.i_is_state">-->
-            <!--&lt;!&ndash;<a-select-option  v-for="(item,index) in selectList" :key="index" :value="item.i_id">{{item.s_name}}</a-select-option>&ndash;&gt;-->
-            <!--<a-select-option value="1">已办结</a-select-option>-->
-            <!--<a-select-option value="0">未办结</a-select-option>-->
-            <!--</a-select>-->
-            <!--</a-form-item>-->
-            <!--</a-col>-->
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
+            <a-form-item label="公文状态">
+            <a-select v-model="queryParam.i_is_state">
+            <!--<a-select-option  v-for="(item,index) in selectList" :key="index" :value="item.i_id">{{item.s_name}}</a-select-option>-->
+            <a-select-option value="1">已办结</a-select-option>
+            <a-select-option value="0">未办结</a-select-option>
+            </a-select>
+            </a-form-item>
+            </a-col>
             <!--<a-col :md="8" :sm="24" style="margin:0 0 -7px 120px;padding-right:0;">-->
             <!--<a-form-item label="申请人">-->
             <!--<a-radio-group @change="chooseSearch" v-model="queryParam.selType">-->
@@ -56,17 +56,33 @@
             <!--</a-radio-group>-->
             <!--</a-form-item>-->
             <!--</a-col>-->
-            <!--<a-col :md="8" :sm="24" style="margin:0 0 -7px 120px;">-->
-              <!--<a-form-item label="申请年份">-->
-                <!--<a-select v-model="queryParam.d_create_time">-->
-                  <!--<a-select-option  v-for="(item,index) in timeList" :key="index" :value="item">{{item}}</a-select-option>-->
-                <!--</a-select>-->
-              <!--</a-form-item>-->
-            <!--</a-col>-->
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
+              <a-form-item label="申请年份">
+                <a-select v-model="queryParam.d_create_time">
+                  <a-select-option  v-for="(item,index) in timeList" :key="index" :value="item">{{item}}</a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
+              <a-form-item label="标    题">
+                <a-input v-model="queryParam.s_title"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col v-show="iBMId==3" :md="6" :sm="24" style="margin:0 0 -7px 15px;">
+              <a-form-item label="来文字号">
+                <a-input v-model="queryParam.s_receive_num"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col v-show="iBMId!=3" :md="6" :sm="24" style="margin:0 0 -7px 15px;">
+              <a-form-item label="文件字号">
+                <a-input v-model="queryParam.s_file_num"></a-input>
+              </a-form-item>
+            </a-col>
 
 
             <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="8" :sm="24"
-                   style="margin:0 0 -7px 120px;">
+                   style="margin:0 0 -7px 15px;">
               <a-form-item :label="atom.s_column_name">
                 <!--<a-select v-if="atom.s_table_column=='s_file_num'" @change="changeSelect($event,atom.s_table_column)" placeholder="请选择">-->
                 <!--<a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>-->
@@ -78,7 +94,7 @@
             </a-col>
 
 
-            <a-col :md="!advanced && 8 || 24" :sm="24" style="text-align: center;">
+            <a-col :md="3" :sm="24" style="text-align: center;">
             <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
                <a-button type="primary" icon="search" @click="getPgSearchList">查询</a-button>
             </span>
@@ -188,6 +204,9 @@
           selType: 1,
           s_create_name: '',
           d_create_time: '',
+          s_title: '',
+          s_receive_num: '',
+          s_file_num: '',
         },
         // 表头
         columns: [],
@@ -353,6 +372,7 @@
       },
       getFunctionListId(funcation){
       this.queryParam.function_id=funcation;
+      this.getPgSearchList(this.iBMId)
       },
       handleTableChange(page) {
 //        console.log(page);
@@ -361,7 +381,7 @@
         this.getPgSearchList(this.iBMId);
       },
       getPgSearchList(iBMId) {
-//        console.log("0-0-0-0000000000000000000000000");
+        console.log("75757575757**********************************");
 //        console.log(this.queryParam.function_id);
         this.columns = [];
         if (iBMId!=null && iBMId>0){
@@ -377,8 +397,8 @@
           // this.queryParam.s_create_name = this.queryParam.s_create_name.toString();
           // this.queryParam.d_create_time = this.queryParam.d_create_time.toString();
           postAction(url, {modelId:  this.iBMId, pageNo:this.pagination.current,pageSize:this.pagination.pageSize,map: this.queryParam}).then((res) => {
-//          console.log("000000000000000运维-数据列表000000000000000");
-//          console.log(res);
+          console.log("000000000000000运维-数据列表000000000000000");
+          console.log(res);
             this.isClick=false;
             // JSON.parse(res.message);----------------表头列表-----------
             this.searchColumns = res.result.colList
@@ -392,7 +412,7 @@
 
             this.dataSource = this.searchList.records;
             this.columns.push({
-              title: '顺序号',
+              title: '序号',
               // dataIndex: 'mm',
               align: "center",
               customRender: (text,row,index) => {
@@ -400,7 +420,7 @@
               }
             });
 
-            for (let i = 1; i < this.searchColumns.length; i++) {
+            for (let i = 0; i < this.searchColumns.length; i++) {
               // this.columns.push({
               //   title: this.searchColumns[i].s_column_name,
               //   dataIndex: this.searchColumns[i].s_table_column,
@@ -423,7 +443,15 @@
                       }
                     }
                   });
-                }else{
+                } else if (this.searchColumns[i].s_table_column == 's_title') {
+                  this.columns.push({
+                    title: this.searchColumns[i].s_column_name,
+                    dataIndex: this.searchColumns[i].s_table_column,
+                    width: 600 ,
+                    align: "left"
+                  });
+                } else{
+
                   this.columns.push({
                     title: this.searchColumns[i].s_column_name,
                     dataIndex: this.searchColumns[i].s_table_column,
@@ -447,6 +475,9 @@
               // }
             }
 
+            console.log("biao--------------------")
+
+            console.log(this.columns)
             this.columns.push({
               title: '操作',
               dataIndex: 'action',
