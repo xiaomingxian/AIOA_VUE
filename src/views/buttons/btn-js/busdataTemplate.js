@@ -412,7 +412,8 @@ export const busdataTemplate = {
         if (this.backData.s_right_parameter == undefined) {
           this.backData.s_right_parameter = ""
         }
-        let fileName = this.backData.s_left_parameter + this.backData.s_middle_parameter + this.backData.s_right_parameter + '_' + new Date().getTime() + '.zip';
+        // let fileName = this.backData.s_left_parameter + this.backData.s_middle_parameter + this.backData.s_right_parameter + '_' + new Date().getTime() + '.zip';
+        let fileName = this.backData.s_title + '_' + new Date().getTime() + '.zip';
         // console.log(fileName)
         // let contentDisposition ="attachment;filename=Desktop1574646488783.zip"
         // let fileName = contentDisposition.substring(contentDisposition.indexOf('=') + 1);
