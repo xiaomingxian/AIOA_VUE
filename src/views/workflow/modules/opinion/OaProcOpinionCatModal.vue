@@ -244,7 +244,7 @@
       handleEdit1:function () {
         this.$refs.OaProcOpinionNewModal.editlvjian(this.model,this.TaskLinkId);
         // this.$refs.OaProcOpinionNewModal.loadData(record.iid)
-        this.$refs.OaProcOpinionNewModal.title = "编辑";
+        this.$refs.OaProcOpinionNewModal.title = "新建";
         this.$refs.OaProcOpinionNewModal.disableSubmit = false;
       },
 
