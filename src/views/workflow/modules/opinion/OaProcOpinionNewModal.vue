@@ -132,12 +132,12 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <a-input-number maxLength="10" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框名称：</span>
-                  <a-input style="width: 180px" @change="onitaskOpinionName" v-model="itaskOpinionName" />
+                  <a-input maxLength="50" style="width: 180px" @change="onitaskOpinionName" v-model="itaskOpinionName" />
                   <span v-show="showName" style="margin-left: 10px;color: red">序号为{{itaskOpinionOrder}}的意见框名字必须为"{{opinionName}}"。</span>
                 </a-form-item>
 

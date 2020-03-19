@@ -1,7 +1,7 @@
 <template>
 
 
-  <div style="min-height: 0px; padding-bottom: 0.7%;">
+  <div class="sendFileStyle" style="min-height: 0px; padding-bottom: 0.7%;">
     <!--<a-button  @click="showPic">图</a-button>-->
     <!--<a-button  @click="reCall">撤回</a-button>-->
     <!--<a-button  @click="showBack">回退</a-button>-->
@@ -19,7 +19,7 @@
       </a>
     </div>-->
     <!--<div  v-show="setIndexShow==1">-->
-    <div>
+    <div class="btnStyle">
       <div class="btndefindbox">
         <a-button v-for="(item,index) in defindBtns" @click="method_router(item,index)" ref="isDefendBtn" :id="item.id"
                   icon="save" size="middle" style="background: #b2daff;margin-left: 3px;">{{item.sbtnName}}
@@ -194,34 +194,7 @@
 </script>
 <style lang="less" scoped>
 
-  .optionTip{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 88%;
-    margin: 0 auto;
-  }
-  .btndefindbox {
-    display: flex;
-    width: 88%;
-    margin: 0 auto;
-    margin-top: 10px;
-  }
+  @import "../../assets/less/detailsBaseStyle";
 
-  .btnnotdefindbox {
-    width: 88%;
-    margin: 0 auto;
-    display: flex;
-    /*align-items:center;*/
-    /*justify-content: space-around;*/
-    flex-wrap: wrap;
-  }
 
-  .btnnotdefindbox > button {
-    color: rgba(0, 0, 0, 0.65) !important;
-    font-weight: bolder !important;
-    /*border-radius: 14%;*/
-    background-color: #8cc8ff !important;
-    border-color: transparent !important;
-  }
 </style>

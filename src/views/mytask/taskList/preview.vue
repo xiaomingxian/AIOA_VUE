@@ -1,7 +1,7 @@
 <template>
   <center>
 
-    <div width="100%" border="0" style="border:#F0F5FC;">
+    <div border="0" class="sendFileStyle" style="border:#F0F5FC;" width="100%">
       <!--<tr >-->
       <!--<td class="title" width="15%">-->
       <!--标题-->
@@ -356,36 +356,38 @@
   }
 </script>
 <style lang="less" scoped>
-  input.ant-input{
-    height: 48px;
-  }
+  @import "../../../assets/less/detailsBaseStyle";
 
-  textarea.ant-input{
-    height: 48px;
-  }
+  /*input.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  /deep/ .ant-select-selection--single{
-    height: 48px;
-    padding: 8px 0;
-  }
+  /*textarea.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  /deep/ .ant-calendar-picker-input{
-    height: 48px;
-  }
+  /*/deep/ .ant-select-selection--single{*/
+  /*height: 48px;*/
+  /*padding: 8px 0;*/
+  /*}*/
+
+  /*/deep/ .ant-calendar-picker-input{*/
+  /*height: 48px;*/
+  /*}*/
 </style>
 
 <style>
-  .hoverred:hover {
-    color: red;
-    cursor: pointer;
-  }
+  /*.hoverred:hover {*/
+  /*color: red;*/
+  /*cursor: pointer;*/
+  /*}*/
 
-  .title {
-    background: #f8f8f8;
-    text-align: center;
-  }
+  /*.title {*/
+  /*background: #f8f8f8;*/
+  /*text-align: center;*/
+  /*}*/
 
-  .text {
-    padding: 10px;
-  }
+  /*.text {*/
+  /*padding: 10px;*/
+  /*}*/
 </style>

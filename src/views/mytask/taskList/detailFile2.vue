@@ -32,7 +32,7 @@
           </tr>-->
           <tr v-show="previewFlag">
             <td style="padding: 1% 0% 0%" align="center" colspan="2" height="50" valign="bottom">
-              <h1 style="color: red; font-weight: 800; font-size: 28px;margin-top: 10px;">
+              <h1 class="bigTitle" style="margin-top: 10px;">
                 <span>{{backData.s_left_parameter}}</span>
                 <span>{{backData.s_unit_name}}</span>
                 <span>{{backData.s_dept_name}}</span>
@@ -201,7 +201,6 @@
   import taskBtn from '../../buttons/taskBtn'
   import taskOpt from '../../buttons/taskOpt'
   import JEditor from '@/components/jeecg/JEditor'
-  import {ntkoBrowser} from '../../buttons/btn-js/ntkobackground.min.js'
   import ReleaseScope from "@/views/oaBus/pageModels/releaseScope";
   //业务页面
   import shareFile from '@/views/mytask/taskList/shareFile'
@@ -1155,6 +1154,9 @@
   }
 </script>
 <style lang="less" scoped>
+
+
+  @import "../../../assets/less/detailsBaseStyle.less";
 
   ::-webkit-scrollbar {
     display: none;

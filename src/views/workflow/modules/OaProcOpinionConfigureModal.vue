@@ -256,7 +256,7 @@
       handleCat: function (record) {
         this.$refs.OaProcOpinionCatModal.add(record,this.TaskLinkId);
 //        this.$refs.OaProcOpinionCatModal.loadData();
-        this.$refs.OaProcOpinionCatModal.title = "查看";
+        this.$refs.OaProcOpinionCatModal.title = "意见配置";
         this.$refs.OaProcOpinionCatModal.disableSubmit = false;
 
       },
