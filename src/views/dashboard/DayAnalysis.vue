@@ -206,7 +206,7 @@
                       <p>
                         <i></i>
                         <span :title="item.title+'   '+item.createTime+item.name">
-                                <span>{{item.title|filterText1}}
+                                <span :style="iisFontSize">{{item.title|filterText1}}
                                   <div v-if="item.important==1">
                                        <img src="../../assets/zhong.png" alt="" >
                                   </div>
@@ -214,14 +214,14 @@
 
                               </span>
                       </p>
-                      <span >{{item.createTime|timeText}}</span>
+                      <span :style="iisFontSize">{{item.createTime|timeText}}</span>
                     </template>
 
                     <template v-else>
                       <p>
                               <span :title="item.s_title+'   '+item.d_create_time">
                                <i></i>
-                              <span>  {{item.s_title|filterText1}}
+                              <span :style="iisFontSize">  {{item.s_title|filterText1}}
                                 <div v-if="item.important==1">
                                    <img src="../../assets/zhong.png" alt="" >
                                 </div>
@@ -230,7 +230,7 @@
 
                              </span>
                       </p>
-                      <span >{{item.d_create_time|timeText}}</span>
+                      <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
                     </template>
 
 
@@ -344,9 +344,13 @@
   export default {
     name: "Dayanalysis",
     data () {
+
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        iisFontSize: {
+          fontSize: '14px'
+        },
         mouseFlag: false,
         data: [],
         fetching: false,
@@ -432,8 +436,8 @@
         }
       },filterText1(text){
         if(text!=undefined){
-          if(text.length>25){
-            return text.substring(0,22)+'...'
+          if (text.length > 22) {
+            return text.substring(0, 16) + '...'
           }else{
             return text
           }
@@ -537,6 +541,22 @@
 
     },
     mounted(){
+
+      //设置字体大小
+      const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      let url = "/testt/sysUserSet/queryByUserId";
+      getAction(url, {userId: userid}).then((res) => {
+        if (res.result.iisFontSize == 1) {
+          this.iisFontSize.fontSize = '18px';
+        } else if (res.result.iisFontSize == 3) {
+          this.iisFontSize.fontSize = '14px';
+        } else {
+          this.iisFontSize.fontSize = '16px';
+        }
+        // document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+      })
+
+
       let height = document.body.clientHeight-145;
       document.querySelector('.topp').style.height = height/2 +'px'
       document.querySelector('.bottom').style.height = height/2 +'px'
@@ -740,10 +760,10 @@
 
       },
       openUrl(e){
-        if(e.includes('www')){
-          window.open('http://' + e)
+        if (!e) {
+          this.$message.warn('此链接为空')
         }else{
-          this.$router.push('/'+e);
+          window.open(e)
         }
         // console.log(e);
         // console.log(this.$refs[e][0].lastChild);

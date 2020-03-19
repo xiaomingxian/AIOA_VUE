@@ -20,7 +20,7 @@
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
-          <img style="position: absolute;left: 0;bottom: -8px;width: 50px;" src="../../assets/bottomleft.png" alt="">
+          <img alt="" src="../../assets/bottomleft.png" style="position: absolute;left: 0;bottom: 5px;width: 50px;">
           <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
         </div>
         <span @click="postMore" class="postMore"
@@ -100,17 +100,21 @@
             <div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openTodoTaskModel(item)"
                  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
               <p class="p">
-                <span :title="item.title+'   '+item.createTime+item.name">
-                  <i></i>
-                  {{item.title|filterText1}}
+                <span :title="item.title+'   '+item.createTime+item.name" style="width: 80%">
+
+                    <section>
+                        <i></i>
+                      <span :style="iisFontSize">{{item.title}}</span>
+                    </section>
+                  <!--{{item.title|filterText1}}-->
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
-                   <div v-if="item.important==1">
+                   <div style="margin-left: -10px" v-if="item.important==1">
                       <img src="../../assets/zhong.png" alt="">
                    </div>
 
 
                 </span>
-                <span>{{item.createTime|timeText}}</span>
+                <span :style="iisFontSize">{{item.createTime|timeText}}</span>
               </p>
               <!--<a @click="doTask(item)">办理</a>-->
             </div>
@@ -127,11 +131,14 @@
           <div class="itemline">
             <p class="each" v-for="(item,index) in model1Lists" :key="index"
                @click="openDetialModel(model1.tableName,item.i_id)">
-                <span :title="item.s_title+'      '+item.d_create_time">
-                  <i></i>
-                  {{item.s_title|filterText}}
+              <section style="display: flex;align-items: center;justify-content: flex-start">
+                <i></i>
+                <span :style="iisFontSize" :title="item.s_title+'      '+item.d_create_time">
+                  {{item.s_title}}
+                  <!--{{item.s_title|filterText}}-->
                 </span>
-              <span>{{item.d_create_time|timeText}}</span>
+              </section>
+              <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
             </p>
           </div>
         </div>
@@ -150,11 +157,14 @@
             <div class="itemline">
               <p class="each" v-for="(item,index) in model2Lists" :key="index"
                  @click="openDetialModel(model2.tableName,item.i_id)">
-                <span :title="item.s_title+'                     '+item.d_create_time">
+                <section style="display: flex;align-items: center;justify-content: flex-start">
                   <i></i>
-                    {{item.s_title|filterText}}
-                </span>
-                <span>{{item.d_create_time|timeText}}</span>
+                  <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
+                      {{item.s_title}}
+                    <!--{{item.s_title|filterText}}-->
+                  </span>
+                </section>
+                <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
               </p>
             </div>
           </div>
@@ -170,11 +180,14 @@
             <div class="itemline">
               <p class="each" v-for="(item,index) in model3Lists" :key="index"
                  @click="openDetialModel(model3.tableName,item.i_id)">
-                 <span :title="item.s_title+'                     '+item.d_create_time">
+                <section style="display: flex;align-items: center;justify-content: flex-start">
                   <i></i>
-                  {{item.s_title|filterText}}
-                </span>
-                <span>{{item.d_create_time|timeText}}</span>
+                  <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
+                    {{item.s_title}}
+                    <!--{{item.s_title|filterText}}-->
+                  </span>
+                </section>
+                <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
               </p>
             </div>
           </div>
@@ -191,11 +204,14 @@
           <div class="itemline">
             <p class="each" v-for="(item,index) in model4Lists" :key="index"
                @click="openDetialModel(model4.tableName,item.i_id)">
-                 <span :title="item.s_title+'                     '+item.d_create_time">
+              <section style="display: flex;align-items: center;justify-content: flex-start">
                   <i></i>
-                  {{item.s_title|filterText}}
-                </span>
-              <span>{{item.d_create_time|timeText}}</span>
+                <span :style="iisFontSize" :title="item.s_title+'                 '+item.d_create_time">
+                  {{item.s_title}}
+                  <!--{{item.s_title|filterText}}-->
+                  </span>
+              </section>
+              <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
             </p>
           </div>
         </div>
@@ -261,6 +277,9 @@
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        iisFontSize: {
+          fontSize: '14px'
+        },
         mouseFlag: false,
         // lastFetchId: 0,
         // fetchUser: debounce(this.fetchUser, 800),
@@ -379,45 +398,40 @@
     },
     mounted() {
 
-      let height = document.body.clientHeight - 145;
-      document.querySelector('.nav').style.height = height * .25 + 'px'
-      document.querySelector('.box').style.height = height * .75 + 'px'
+      //设置字体大小
+      const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      let url = "/testt/sysUserSet/queryByUserId";
+      getAction(url, {userId: userid}).then((res) => {
+        if (res.result.iisFontSize == 1) {
+          this.iisFontSize.fontSize = '18px';
+        } else if (res.result.iisFontSize == 3) {
+          this.iisFontSize.fontSize = '14px';
+        } else {
+          this.iisFontSize.fontSize = '16px';
+        }
+        // document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+      })
 
-      // this.$nextTick(()=>{
+      // let height = document.body.clientHeight - 145;
+      // document.querySelector('.nav').style.height = height * .25 + 'px'
+      // document.querySelector('.box').style.height = height * .75 + 'px'
       //
-      // })
-
-      document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
-      document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
-
-      window.onresize = function () {
-
-        let height = document.body.clientHeight - 145;
-        document.querySelector('.nav').style.height = height * .25 + 'px'
-        document.querySelector('.box').style.height = height * .75 + 'px'
-
-        document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
-        document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
-      }
-
-
-      // setTimeout(()=>{
-
-      //   var mySwiper = new Swiper('.swiper-container',{
-      //     initialSlide:0,
-      //     slidesPerView:4,
-      //     spaceBetween:13,
-      //     lazyLoading:true,
-      //     loop:false,
-      //     obeserver:true,
-      //     obeserverParents:true,
-      //     navigation:{
-      //       nextEl:'.swiper-button-next',
-      //       prevEl:'.swiper-button-prev',
-      //     }
       //
-      //   });
-      // },4000)
+      // document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
+      // document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
+      //
+      // window.onresize = function () {
+      //
+      //   let height = document.body.clientHeight - 145;
+      //   document.querySelector('.nav').style.height = height * .25 + 'px'
+      //   document.querySelector('.box').style.height = height * .75 + 'px'
+      //
+      //   document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
+      //   document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
+      // }
+
+
+
 
       postAction(this.url.LinkLists).then((res) => {
         console.log(res.length);
@@ -539,10 +553,10 @@
         })
       },
       openUrl(e) {
-        if(e.includes('www')){
-          window.open('http://' + e)
+        if (!e) {
+          this.$message.warn('此链接为空')
         }else{
-         this.$router.push('/'+e);
+          window.open(e)
         }
 
 
@@ -672,10 +686,10 @@
           this.model3 = res.model3;
           this.model4 = res.model4;
 
-          this.model1Lists = res.model1.list.splice(0, 5);
-          this.model2Lists = res.model2.list.splice(0, 5);
-          this.model3Lists = res.model3.list.splice(0, 5);
-          this.model4Lists = res.model4.list.splice(0, 5);
+          this.model1Lists = res.model1.list.splice(0, 4);
+          this.model2Lists = res.model2.list.splice(0, 4);
+          this.model3Lists = res.model3.list.splice(0, 4);
+          this.model4Lists = res.model4.list.splice(0, 4);
 
         });
       },
@@ -1134,7 +1148,7 @@
 
           .itemline {
             width: 100%;
-            min-height: 200px;
+            min-height: 185px;
             /*background: #999999;*/
             /*padding: 10px;*/
             padding-top: 0;
@@ -1152,6 +1166,8 @@
               border-left: 5px solid #c7ecff;
               /*margin-left: 10px;*/
 
+
+              /*待办工作    字体设置      ----------------------------------------------------*/
               .p {
                 width: 100%;
                 height: 46px;
@@ -1160,12 +1176,13 @@
                 justify-content: space-between;
                 /*line-height: 40px;*/
                 margin: 0;
-                font-size: 14px;
-                margin-left: 20px;
+
+                /*background: #87e8de;*/
+                /*margin-left: 20px;*/
                 /*margin-top: 19px;*/
 
                 span:first-child {
-                  display: block;
+                  /*display: block;*/
                   /*line-height: 40px;*/
                   // width: 60%;
                   /*height: 20px;*/
@@ -1174,15 +1191,37 @@
                   //   text-overfow:ellipsis;
                   //   -webkit-line-clamp: 1;
                   //   white-space: nowrap;
+                  font-size: 18px;
                   display: flex;
                   align-items: center;
+                  justify-content: flex-start;
 
-                  i {
-                    width: 5px;
-                    height: 5px;
-                    background: #2eabff;
-                    margin-right: 10px;
+                  section {
+                    width: 90%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    i {
+                      width: 5px;
+                      height: 5px;
+                      background: #2eabff;
+                      margin-right: 10px;
+                      margin-left: 5px;
+                    }
+
+                    span {
+                      width: 100%;
+                      height: 27px;
+                      /*background: #dddddd;*/
+                      line-height: 27px;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                    }
+
                   }
+
 
                   img {
                     width: 40px;
@@ -1228,7 +1267,7 @@
           /*overflow: no-content;*/
 
           .itemline {
-            min-height: 200px;
+            min-height: 185px;
 
             /*background: red;*/
             display: flex;
@@ -1244,18 +1283,37 @@
               margin: 0px;
               margin-top: 16px;
 
-              span {
-                display: flex;
-                align-items: center;
-                font-size: 14px;
+              i {
+                display: block;
+                width: 5px;
+                height: 5px;
+                background: #2eabff;
+                margin-right: 5px;
+              }
 
-                i {
-                  display: block;
-                  width: 5px;
-                  height: 5px;
-                  background: #2eabff;
-                  margin-right: 5px;
+              /*待办工作右侧字体大小   以及右下角 字体大小------------------------------------------*/
+
+              section {
+                width: 70%;
+
+                span {
+                  width: 100%;
+                  height: 27px;
+                  /*background: #dddddd;*/
+                  line-height: 27px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
                 }
+              }
+              span {
+
+                /*display: flex;*/
+                /*align-items: center;*/
+                font-size: 18px;
+
+
+
               }
             }
           }
@@ -1265,12 +1323,16 @@
 
       .bottom {
         margin-top: 7px;
+        display: flex;
+        align-items: self-start;
+        justify-content: space-between;
 
         .bottomleft {
           width: 60.3%;
           height: 100%;
+          /*background: #ffffff;*/
           display: flex;
-          align-items: flex-end;
+          align-items: flex-start;
           justify-content: space-between;
 
           .first, .last {
@@ -1329,7 +1391,7 @@
 
             .itemline {
               width: 100%;
-              min-height: 200px;
+              min-height: 185px;
               /*background: #999999;*/
               padding: 10px;
               /*color: #ffffff;*/
@@ -1343,18 +1405,38 @@
                 // padding-bottom: 3px;
                 /*border-bottom: 1px solid #f0f2f5;*/
 
-                span {
-                  display: flex;
-                  align-items: center;
-                  font-size: 14px;
+                i {
+                  display: block;
+                  width: 5px;
+                  height: 5px;
+                  background: #2eabff;
+                  margin-right: 5px;
+                }
 
-                  i {
-                    display: block;
-                    width: 5px;
-                    height: 5px;
-                    background: #2eabff;
-                    margin-right: 5px;
+                /*左下方字体大小控制区域-----------------------------------------------------------*/
+
+                section {
+                  width: 65%;
+
+                  span {
+                    width: 100%;
+                    height: 27px;
+                    /*background: #dddddd;*/
+                    line-height: 27px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                   }
+                }
+
+                span {
+
+                  /*display: flex;*/
+                  /*align-items: center;*/
+                  font-size: 18px;
+
+
+
                 }
               }
 
