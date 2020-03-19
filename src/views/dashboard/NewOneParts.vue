@@ -151,7 +151,7 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span @click="openmore(model2.url,model2.sName)" class="more">MORE 99 <a-icon
+              <span @click="openmore(model2.url,model2.sName)" class="more">MORE<a-icon
                 type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
@@ -412,23 +412,23 @@
         // document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
       })
 
-      // let height = document.body.clientHeight - 145;
-      // document.querySelector('.nav').style.height = height * .25 + 'px'
-      // document.querySelector('.box').style.height = height * .75 + 'px'
-      //
-      //
-      // document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
-      // document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
-      //
-      // window.onresize = function () {
-      //
-      //   let height = document.body.clientHeight - 145;
-      //   document.querySelector('.nav').style.height = height * .25 + 'px'
-      //   document.querySelector('.box').style.height = height * .75 + 'px'
-      //
-      //   document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
-      //   document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
-      // }
+      let height = document.body.clientHeight - 145;
+      document.querySelector('.nav').style.height = height * .25 + 'px'
+      document.querySelector('.box').style.height = height * .75 + 'px'
+
+
+      document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
+      document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
+
+      window.onresize = function () {
+
+        let height = document.body.clientHeight - 145;
+        document.querySelector('.nav').style.height = height * .25 + 'px'
+        document.querySelector('.box').style.height = height * .75 + 'px'
+
+        document.querySelector('.ttop').style.height = (height * .75) / 2 + 'px'
+        document.querySelector('.bbottom').style.height = (height * .75 - 20) / 2 + 'px'
+      }
 
 
 
@@ -556,7 +556,11 @@
         if (!e) {
           this.$message.warn('此链接为空')
         }else{
-          window.open(e)
+          if (e.startsWith('http')) {
+            window.open(e)
+          } else {
+            window.open('http://' + e)
+          }
         }
 
 

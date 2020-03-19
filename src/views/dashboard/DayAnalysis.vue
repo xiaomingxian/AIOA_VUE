@@ -763,7 +763,11 @@
         if (!e) {
           this.$message.warn('此链接为空')
         }else{
-          window.open(e)
+          if (e.startsWith('http')) {
+            window.open(e)
+          } else {
+            window.open('http://' + e)
+          }
         }
         // console.log(e);
         // console.log(this.$refs[e][0].lastChild);

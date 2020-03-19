@@ -5,7 +5,7 @@
       <tr>
         <td class="title" width="15%">
           <!--标题-->
-          <center><h3>{{detailList.s_title}}111</h3></center>
+          <center><h3>{{detailList.s_title}}</h3></center>
         </td>
         <td colspan="3">
           <a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)"
