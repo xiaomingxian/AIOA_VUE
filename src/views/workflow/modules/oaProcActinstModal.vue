@@ -165,7 +165,7 @@
             <a-form-item
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
-              label="选择使用该记录的环节">
+              label="使用该记录的环节">
               <a-select placeholder="请选流程动节点名称" mode="multiple" v-decorator="['recordKeys', {}]">
                 <a-select-option v-for="(item,index) in canUserRecorduser" :key="index"
                                  :value="item.id+'-'+item.assignee">{{item.name}}

@@ -17,7 +17,7 @@
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程名称;5-20字符"
+            placeholder="请输入流程名称;3-20字符"
             v-model="name"
           ></a-input>
         </a-form-item>
@@ -26,7 +26,7 @@
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程key;5-20字符"
+            placeholder="请输入流程key;3-20字符"
             v-model="key"
           ></a-input>
         </a-form-item>
@@ -98,7 +98,7 @@
             this.$message.error('您输入的key长度过长')
             return
           }
-          if ((this.key).length < 5) {
+          if ((this.key).length < 3) {
             this.$message.error('您输入的key长度过短')
             return
           }
@@ -113,7 +113,7 @@
             this.$message.error('您输入的名称长度过长')
             return
           }
-          if ((this.name).length < 5) {
+          if ((this.name).length < 3) {
             this.$message.error('您输入的名称长度过短')
             return
           }
