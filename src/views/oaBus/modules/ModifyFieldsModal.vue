@@ -84,6 +84,39 @@
             <a-select-option v-for="(item,index) in optionMap.s_varchar5_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
+        <!--s_varchar1-->
+        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar1'"
+                     :labelCol="labelCol"
+                     :wrapperCol="wrapperCol"
+                     :label="atom.s_column_name">
+          <a-select @change="changeSelectString($event,atom.s_table_column)"
+                    v-model="model.s_varchar1"
+                    placeholder="请选择">
+            <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
+          </a-select>
+        </a-form-item>
+        <!--s_varchar2-->
+        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar2'"
+                     :labelCol="labelCol"
+                     :wrapperCol="wrapperCol"
+                     :label="atom.s_column_name">
+          <a-select @change="changeSelectString($event,atom.s_table_column)"
+                    v-model="model.s_varchar2"
+                    placeholder="请选择">
+            <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
+          </a-select>
+        </a-form-item>
+        <!--s_varchar3-->
+        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar3'"
+                     :labelCol="labelCol"
+                     :wrapperCol="wrapperCol"
+                     :label="atom.s_column_name">
+          <a-select @change="changeSelectString($event,atom.s_table_column)"
+                    v-model="model.s_varchar3"
+                    placeholder="请选择">
+            <a-select-option v-for="(item,index) in optionMap.s_varchar3_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
+          </a-select>
+        </a-form-item>
         <!--s_varchar6-->
         <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar6'"
                      :labelCol="labelCol"

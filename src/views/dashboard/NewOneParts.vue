@@ -44,7 +44,6 @@
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
               </div>
-
             </div>
             <!--Add Arrows-->
             <div ref="left" style="display: none" class="swiper-button-next"></div>
@@ -145,7 +144,8 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span class="more" @click="openmore(model2.url,model2.sName)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span @click="openmore(model2.url,model2.sName)" class="more">MORE 99 <a-icon
+                type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p class="each" v-for="(item,index) in model2Lists" :key="index"
@@ -312,7 +312,7 @@
     filters: {
       filterText(text) {
         if (text != undefined) {
-          if (text.length > 20) {
+          if (text.length > 16) {
             return text.substring(0, 12) + '...'
           } else {
             return text
@@ -320,8 +320,8 @@
         }
       }, filterText2(text) {
         if (text != undefined) {
-          if (text.length > 22) {
-            return text.substring(0, 17) + '...'
+          if (text.length > 16) {
+            return text.substring(0, 14) + '...'
           } else {
             return text
           }
