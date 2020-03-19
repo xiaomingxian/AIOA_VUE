@@ -346,15 +346,10 @@
       moment,
       //调用参会人员子组件业务数据处理方法
       submit() {
-        // let address = this.address;
-        // let time = this.startTime;
         this.$refs.s_varchar4.sendUser();
       },
 
       getDUS(data,iIsLimits,id) {
-        // console.log('----------------->>><<<<<<', data);
-        // console.log('----------------->>><<<<<<!!!!!', iIsLimits);
-        // console.log('----------------->>><<<<<<!!!!!', id);
         if (id != undefined){
           this.backData.s_varchar7=id.toString();
         }
@@ -389,7 +384,6 @@
           this.s_varchar.push(this.optionMap.checkList[i].stableColumn);
         }
         //业务数据赋值
-        // console.dir(this.backDataRef)
         for (var i in this.backData) {
           this.backData[i] = this.backDataRef[i];
         }
@@ -404,7 +398,7 @@
         this.visible = false;
         this.disableSubmit = false;
         //清除意见与按钮页面数据
-        this.$refs.taskOptRef.clear()
+        this.$refs.taskOptRef.clear();
         //刷新父页面
         this.$emit('reload_todo')
       },

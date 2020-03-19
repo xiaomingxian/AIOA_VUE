@@ -403,9 +403,6 @@
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
                     data: {"filepath": Path1,"orgSchema":orgSchema},
                     success: function (data) {
-                      // var filePath = "/temporaryFiles/";
-                      // var fileName = data.result;
-                      // ntko.OpenFromURL(urlContextPath + filePath + fileName);
                       //插入书签
                       for (var bookMark in bookMarkMap) {
                         var BookmarkName = bookMark;
@@ -571,10 +568,10 @@
       }
     }
 
-    function ntkosavetourl(type,code,html)
-    {
+    // function ntkosavetourl(type,code,html)
+    // {
       //alert("SaveToURL成功回调");
-    }
+    // }
 
     function OnFileCommand(Item,IsCancel){
       var cmd=getQueryString('cmd');
