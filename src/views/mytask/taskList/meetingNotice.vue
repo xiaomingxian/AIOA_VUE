@@ -1,6 +1,6 @@
 <template>
   <center>
-    <table width="100%" borderColor="#F0F5FC" border="1" :submit="submit">
+    <table :submit="submit" border="1" borderColor="#F0F5FC" class="sendFileStyle" width="100%">
       <tr style="height: 50px;">
         <td width="15%" class="title">
           <center><h3>{{detailList.s_create_dept}}</h3></center>
@@ -118,12 +118,12 @@
 
 
 <script>
-  import {getAction} from "../../../api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
   import moment from 'moment'
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import getpersons from "../../oaBus/pageModels/meetingUser"
   import DelTime from "../../buttons/DelTimeModal";
+
   export default {
     name: "meetingNotice",
     mixins: [JeecgListMixin, busdataTemplate],
@@ -412,42 +412,43 @@
   }
 </script>
 <style lang="less" scoped>
-  input.ant-input{
-    height: 48px;
-  }
+  @import "../../../assets/less/detailsBaseStyle";
+  /*input.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  textarea.ant-input{
-    height: 48px;
-  }
+  /*textarea.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  /deep/ .ant-select-selection--single{
-    height: 48px;
-    padding: 8px 0;
-  }
+  /*/deep/ .ant-select-selection--single{*/
+  /*height: 48px;*/
+  /*padding: 8px 0;*/
+  /*}*/
 
-  /deep/ .ant-calendar-picker-input{
-    height: 48px;
-  }
+  /*/deep/ .ant-calendar-picker-input{*/
+  /*height: 48px;*/
+  /*}*/
 </style>
 
 <style>
-  .hoverred:hover {
-    color: red;
-    cursor: pointer;
-  }
-  .title{
-    background-color: #e9ecf2 !important;
-    padding: 0.7% !important;
-    text-align: center !important;
-  }
-  .text {
-    padding: 10px;
-  }
-  .title  h3 {
-    font-weight: bolder !important;
-  }
-  .ant-btn-default{
-    font-weight: bolder !important;
-    background: rgb(178, 218, 255) !important;
-  }
+  /*.hoverred:hover {*/
+  /*color: red;*/
+  /*cursor: pointer;*/
+  /*}*/
+  /*.title{*/
+  /*background-color: #e9ecf2 !important;*/
+  /*padding: 0.7% !important;*/
+  /*text-align: center !important;*/
+  /*}*/
+  /*.text {*/
+  /*padding: 10px;*/
+  /*}*/
+  /*.title  h3 {*/
+  /*font-weight: bolder !important;*/
+  /*}*/
+  /*.ant-btn-default{*/
+  /*font-weight: bolder !important;*/
+  /*background: rgb(178, 218, 255) !important;*/
+  /*}*/
 </style>

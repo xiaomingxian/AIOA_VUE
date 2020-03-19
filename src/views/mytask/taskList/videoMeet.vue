@@ -3,7 +3,7 @@
   <form>
     <center>
       <!--part3-->
-      <table width="100%" border="1" borderColor="#F0F5FC">
+      <table border="1" borderColor="#F0F5FC" class="sendFileStyle" width="100%">
         <tr>
           <td width="15%" class="title">
             <!--需求部门：-->
@@ -247,7 +247,7 @@
 
 
 <script>
-  import {getAction, postAction} from "../../../api/manage";
+  import {getAction} from "../../../api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import SelDepartName from "../../oaBus/pageModels/selDepartName";
@@ -562,42 +562,43 @@
   }
 </script>
 <style lang="less" scoped>
-  input.ant-input{
-    height: 48px;
-  }
+  @import "../../../assets/less/detailsBaseStyle";
+  /*input.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  textarea.ant-input{
-    height: 48px;
-  }
+  /*textarea.ant-input{*/
+  /*height: 48px;*/
+  /*}*/
 
-  /deep/ .ant-select-selection--single{
-    height: 48px;
-    padding: 8px 0;
-  }
+  /*/deep/ .ant-select-selection--single{*/
+  /*height: 48px;*/
+  /*padding: 8px 0;*/
+  /*}*/
 
-  /deep/ .ant-calendar-picker-input{
-    height: 48px;
-  }
+  /*/deep/ .ant-calendar-picker-input{*/
+  /*height: 48px;*/
+  /*}*/
 </style>
 
 <style>
-  .hoverred:hover {
-    color: red;
-    cursor: pointer;
-  }
+  /*.hoverred:hover {*/
+  /*color: red;*/
+  /*cursor: pointer;*/
+  /*}*/
 
-  .title  h3 {
-    font-weight: bolder !important;
-  }
+  /*.title  h3 {*/
+  /*font-weight: bolder !important;*/
+  /*}*/
 
-  .ant-btn-default{
-    font-weight: bolder !important;
-    background: rgb(178, 218, 255) !important;
-  }
+  /*.ant-btn-default{*/
+  /*font-weight: bolder !important;*/
+  /*background: rgb(178, 218, 255) !important;*/
+  /*}*/
 
-  .title{
-    background-color: #e9ecf2 !important;
-    padding: 0.7% !important;
-    text-align: center !important;
-  }
+  /*.title{*/
+  /*background-color: #e9ecf2 !important;*/
+  /*padding: 0.7% !important;*/
+  /*text-align: center !important;*/
+  /*}*/
 </style>
