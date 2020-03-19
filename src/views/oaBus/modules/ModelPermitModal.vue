@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer"  :width="1200" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer"  :title="title" :width="1200" @ok="handleOk" @cancel="handleCancle">
 
   <a-card :bordered="false">
    <!-- &lt;!&ndash; 查询区域 &ndash;&gt;
@@ -83,7 +83,8 @@
         :pagination="ipagination"
         :loading="loading"
         :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
-        @change="handleTableChange">
+        @change="handleTableChange"
+      >
 
         <span slot="action" slot-scope="text, record">
           <a @click="edit(record)">编辑</a>
@@ -135,13 +136,23 @@
         visibleDel:false,
         selectedRowKeys:[],// 批量删除数组
         ibusmodelId: '',
+        title:'新增',
         sname: '',
         data:[
 
 
         ],
-        ipagination:{
-
+        ipagination: {
+          current: 1,
+          pageSize: 10,
+          pageSizeOptions: ['10', '20', '30'],
+          showTotal: (total, range) => {
+            return range[0] + '-' + range[1] + ' 共' + total + '条'
+          },
+          showQuickJumper: true,
+          showSizeChanger: true,
+          total: 0,
+          current:''
         },
         param: {
           sDisplay: '',
@@ -322,6 +333,7 @@
         this.showFunPer = true;
         this.ibusModelId = record.iid
         this.sname = record.sname
+        this.title = "权限配置"
         getAction(this.url.list,{ibusmodelId:this.ibusModelId}).then((res)=>{
           this.data=res.result.records;
         })

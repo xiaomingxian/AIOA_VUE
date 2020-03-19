@@ -19,11 +19,15 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="权限类型">
+          label="权限类型"
+          validate-status="error"
+          help="必须选择一个类型"
+        >
           <a-select v-model="typeModel"
                     @change="getTypeVal"
                     placeholder="权限类型"
                     :disabled="disableSubmit"
+
            >
 
             <a-select-option   v-for="(item,index) in isno" :value="item.value">{{item.typename}}</a-select-option>
