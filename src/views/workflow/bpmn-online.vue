@@ -8,7 +8,7 @@
           <span>流程名称：</span>
 
           <a-input
-            placeholder="以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于5小于等于20"
+            placeholder="以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于3小于等于20"
             size="large"
             type="text"
             v-model="bpmn.name"
@@ -21,7 +21,7 @@
 
           <a-input
             autocomplete="false"
-            placeholder="以字母开头,只能包含字母,数字,下划线;长度大于等于5小于等于20"
+            placeholder="以字母开头,只能包含字母,数字,下划线;长度大于等于3小于等于20"
             size="large"
             type="key"
             v-model="bpmn.key"
@@ -174,7 +174,7 @@
             this.$message.error('您输入的key长度过长')
             return
           }
-          if ((this.bpmn.key).length < 5) {
+          if ((this.bpmn.key).length < 3) {
             this.$message.error('您输入的key长度过短')
             return
           }
@@ -188,7 +188,7 @@
             this.$message.error('您输入的名称长度过长')
             return
           }
-          if ((this.bpmn.name).length < 5) {
+          if ((this.bpmn.name).length < 3) {
             this.$message.error('您输入的名称长度过短')
             return
           }
@@ -226,6 +226,8 @@
     padding: 20px;
 
     .titleBox {
+      font-size: 20px;
+      font-weight: bold;
       width: 100%;
       height: 45px;
       /*background: #2f54eb;*/

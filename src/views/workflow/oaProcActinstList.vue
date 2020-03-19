@@ -240,9 +240,11 @@
         this.visible = false;
       },
       handleAddMy() {
+        this.$refs.modalForm.title='新增'
         this.$refs.modalForm.handleAddMy(this.record)
       },
       handleEditMy(recoder) {
+        this.$refs.modalForm.title='编辑'
         this.$refs.modalForm.handleEditMy(recoder)
       }
 

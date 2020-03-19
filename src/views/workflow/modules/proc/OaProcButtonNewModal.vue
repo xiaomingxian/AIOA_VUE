@@ -134,7 +134,7 @@
                 </a-form-item>
                 <a-form-item style=" display: flex;align-items: center;justify-content: flex-start;width: 200px;margin-left: 60px;">
                   <span class="configOption">顺序号：</span>
-                  <a-input-number style="margin-left: 10px" @change="oniorder" v-model="iorder" />
+                  <a-input-number maxLength="10" style="margin-left: 10px" @change="oniorder" v-model="iorder" />
                 </a-form-item>
               </div>
 

@@ -26,12 +26,12 @@
           <!--<template v-if="toggleSearchStatus">-->
           <a-col :md="8" :sm="6">
             <a-form-item label="任务环节">
-              <a-input placeholder="请输入任务环节名称" v-model="name"></a-input>
+              <a-input maxLength="40" placeholder="请输入任务环节名称" v-model="name"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="6">
             <a-form-item label="按钮名称">
-              <a-input  placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
+              <a-input maxLength="50" placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
             </a-form-item>
           </a-col>
           <!--</template>-->
@@ -50,7 +50,7 @@
       </a-form>
     </div>
 
-    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
+    <a-spin tip="Loading..." :spinning="confirmLoading" style="height: 360px;overflow: auto">
       <a-form :form="form">
         <a-button  type="primary"  icon="plus" style="margin-bottom: 5px" @click="handleEdit1()">新建</a-button>
         <a-divider type="vertical"/>
@@ -358,6 +358,7 @@
         })
       },
       add (record,TaskLinkId,procDefKey) {
+        this.confirmLoading=true;
 //        清除查询条件
         this.buttonId=[];
         this.taskDefKey=[];
@@ -395,7 +396,7 @@
       handleEditDone:function (record) {
         this.$refs.modalForm.editBefore(this.model,this.TaskLinkId,record);
         this.$refs.modalForm.loadData(this.model.iid)
-        this.$refs.modalForm.title = "新编辑";
+        this.$refs.modalForm.title = "编辑";
         this.$refs.modalForm.disableSubmit = false;
       },
       close () {
@@ -416,6 +417,7 @@
         this.loadData();
       },
       searchQueryCha(){
+        this.confirmLoading=true;
         const promise1 = new Promise(resolve => {
         if(this.sbtnName!=null && this.sbtnName.trim()!=""){
           getAction("/oabutton/oaButton/queryBySbtnName",{sbtnName:this.sbtnName}).then(res=>{
@@ -460,13 +462,7 @@
 //             console.log("1111111111111-----------");
              this.taskDefKey = null;
            }
-           postAction("/oabuttonset/oaButtonSet/findByIf",{id:this.model.iid,buttonId:this.buttonId,taskDefKey:this.taskDefKey,
-             pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then(res=>{
-//          console.log("22222222222222222222222-----------");
-             // console.log(res);
-             this.data = res.result.records;
-             this.ipagination.total = res.result.total;
-           })
+           this.loadData();
          },3200)
         })
 
@@ -489,6 +485,7 @@
          // console.log(res);
           this.data = res.result.records;
           this.ipagination.total = res.result.total;
+          this.confirmLoading=false;
         })
       },
       clearData(){
