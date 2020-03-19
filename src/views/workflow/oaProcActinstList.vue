@@ -167,10 +167,22 @@
               }
             }
           },
+          // {
+          //   title: '是否填写完意见就完成任务',
+          //   align: "center",
+          //   dataIndex: 'completeTask',
+          //   customRender: function (value) {
+          //     if (!value) {
+          //       return "否";
+          //     } else {
+          //       return '是';
+          //     }
+          //   }
+          // },
           {
-            title: '是否填写完意见就完成任务',
+            title: '是否记录当前用户',
             align: "center",
-            dataIndex: 'completeTask',
+            dataIndex: 'recordCurrentuser',
             customRender: function (value) {
               if (!value) {
                 return "否";
