@@ -138,7 +138,7 @@
           this.buttonInfo = res.result;
           this.selectButton=this.buttonInfo.sbtnName;
         });
-
+        this.getButtonList();
         //------------------------------
         this.visible = true;
         this.$nextTick(() => {

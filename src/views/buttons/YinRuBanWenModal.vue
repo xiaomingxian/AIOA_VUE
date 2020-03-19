@@ -306,10 +306,15 @@
                   }
                 }
               }
-              console.log(vm.fileList)
+              // console.log(vm.fileList)
             } else {
+              for (let i in formData){
+                vm.handleRemove(formData[i]);
+              }
+              vm.uploadRate= 0;
               vm.uploadStyle.width = '0.00%';
-              vm.$message.error("上传失败！")
+              vm.isShowProgress= false;
+              vm.$message.error("上传失败，请重新上传！")
 
             }
           })
