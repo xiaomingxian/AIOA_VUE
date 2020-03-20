@@ -307,8 +307,8 @@
           iid: record.iid,
           s_create_by: record.screateBy
         }).then((data) => {
-          if (!data) {
-            this.$message.warning("文件下载失败")
+          if (data.type === "application/json") {
+            this.$message.error("暂无数据！")
             return
           }
           let url = window.URL.createObjectURL(new Blob([data]))
