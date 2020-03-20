@@ -875,7 +875,17 @@
                 return true
               },
               align: "center",
-              dataIndex: 'name'
+              // dataIndex: 'name'
+              customRender: function (t, r, index) {
+                console.log('--', t, r, index)
+                var name = t.name
+                if (name.indexOf(',') < 0) {
+                  return name
+                } else {
+                  var sz = name.split(',')
+                  return sz[sz.length - 1]
+                }
+              }
             },
             {
               title: '文号',
