@@ -95,6 +95,8 @@
         styles: [],
         title: '流程查看',
         confirmLoading: false,
+        isEnd: false,//流程是否已经结束
+        endTime:'',
         visible: false,
         trace: false,
         showPic: true,
@@ -223,7 +225,7 @@
         } else {
           let table = this.record.table + '_opinion'
 
-          url = 'wf/task/backRecordQuery?procInstId=' + procInstId + '&table=' + table
+          url = 'wf/task/backRecordQuery?procInstId=' + procInstId + '&table=' + table+'&endTime='+this.endTime
         }
 
 
@@ -258,9 +260,9 @@
         //   + processDefinitionId + '&resourceType=image'
 
         this.picurl = '/wf/task/queryProPlan?ProcessInstanceId='
-          + procInstId
-        this.locationUrl = '/wf/task/pointLocationQuery?processId=' + procInstId + '&taskId=' + taskDefinitionKey
-          + "&processDefinitionId=" + processDefinitionId
+          + procInstId+'&endTime='+this.endTime
+        // this.locationUrl = '/wf/task/pointLocationQuery?processId=' + procInstId + '&taskId=' + taskDefinitionKey
+        //   + "&processDefinitionId=" + processDefinitionId
 
 
         picUrl(this.picurl).then(res => {
@@ -298,7 +300,8 @@
 
 
         getAction(url, {
-          proInstId: this.record.processInstanceId
+          proInstId: this.record.processInstanceId,
+          endTime:this.endTime
 
         }).then(res => {
           if (res.success) {
