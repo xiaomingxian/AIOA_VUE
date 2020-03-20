@@ -151,8 +151,9 @@
             dataIndex: 'procDefKey'
           },
           {
-            title: '流程意见配置名称（概要说明此套配置特点）',
+            title: '意见组合名称',
             align: "center",
+            width: "45%",
             dataIndex: 'sprocOpinionName'
           },
           {
