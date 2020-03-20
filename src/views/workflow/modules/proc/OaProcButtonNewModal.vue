@@ -351,15 +351,15 @@
         this.model.iButtonId=this.iButtonId;
         let url="oabuttonset/oaButtonSet/queryByTaskDefKeyAndBtnId";
         httpAction(url,{iProcButtonId:this.model.iid,procDefKey:this.model.procDefKey,taskDefKey:this.taskDefKey,iButtonId:this.iButtonId},'post').then(res=>{
-          console.log('...............................');
-          console.log(res.result);
+//          console.log('...............................');
+//          console.log(res.result);
           if (res.success) {
             this.btnSetModel = res.result;
             this.toggleSearchStatusSet=true;
             this.iorder=this.btnSetModel.iorder;
-            // if (this.model!=null&&this.btnSetModel.sRoles!=null){
+             if (this.model!=null&&this.btnSetModel.sRoles!=null){
               this.sRoles=this.btnSetModel.sroles.split(',');
-            // }
+             }
             this.ipermitType=this.btnSetModel.ipermitType;
             this.iisCreater=this.btnSetModel.iisCreater;//拟稿人
             this.iisReader=this.btnSetModel.iisReader; //读者
@@ -367,7 +367,7 @@
             this.iisTransactors=this.btnSetModel.iisTransactors;//处理人
             this.iisDefault=this.btnSetModel.iisDefault;//默认按钮配置
           }else {
-            console.log('111111111111111111111111111111111');
+//            console.log('111111111111111111111111111111111');
             this.toggleSearchStatusSet=false;
             this.btnSetModel.iid = null;
             this.btnSetModel.sroles='';
