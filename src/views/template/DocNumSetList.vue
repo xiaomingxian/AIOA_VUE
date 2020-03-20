@@ -6,16 +6,6 @@
       <a-form layout="inline">
         <a-row :gutter="24">
 
-          <a-col :md="6" :sm="8">
-          <a-form-item label="业务分类">
-            <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
-            <a-select v-model="queryParam.iBusModelId" @change="getModelValue">
-              <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-        </a-col>
-
           <a-col :md="8" :sm="6">
             <a-form-item label="所属机构">
               <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
@@ -27,6 +17,16 @@
           </a-col>
 
           <a-col :md="6" :sm="8">
+          <a-form-item label="业务分类">
+            <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
+            <a-select v-model="queryParam.iBusModelId" @change="getModelValue">
+              <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+
+          <a-col :md="6" :sm="8">
             <a-form-item label="业务名称">
               <!--<a-input placeholder="" v-model="queryParam.iBusFunctionId"></a-input>-->
               <a-select v-model="queryParam.iBusFunctionId" @change="getFunctionId">
@@ -36,22 +36,22 @@
               <!--<a-input v-else placeholder="暂无匹配业务"></a-input>-->
             </a-form-item>
           </a-col>
-
-          <template v-if="toggleSearchStatus">
           <a-col :md="6" :sm="8">
             <a-form-item label="文号名称">
               <a-input placeholder="" v-model="queryParam.sName"></a-input>
             </a-form-item>
           </a-col>
+          <template v-if="toggleSearchStatus">
+
           </template>
           <a-col :md="6" :sm="8">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-              <a @click="handleToggleSearch" style="margin-left: 8px">
-                {{ toggleSearchStatus ? '收起' : '展开' }}
-                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-              </a>
+<!--              <a @click="handleToggleSearch" style="margin-left: 8px">-->
+<!--                {{ toggleSearchStatus ? '收起' : '展开' }}-->
+<!--                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>-->
+<!--              </a>-->
             </span>
           </a-col>
 
@@ -62,11 +62,11 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('文号配置')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl"
-                @change="handleImportExcel">
-        <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
+<!--      <a-button type="primary" icon="download" @click="handleExportXls('文号配置')">导出</a-button>-->
+<!--      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl"-->
+<!--                @change="handleImportExcel">-->
+<!--        <a-button type="primary" icon="import">导入</a-button>-->
+<!--      </a-upload>-->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel">
@@ -285,7 +285,9 @@
       searchReset() {
         this.queryParam.iBusModelId = "";
         this.queryParam.iBusFunctionId = "";
-        this.queryParam.iBusUnitId = this.unitData[0].id;
+        // this.queryParam.iBusUnitId = this.unitData[0].id;
+        this.queryParam.iBusUnitId = "";
+        this.functionList=[];
         this.queryParam.sName = "";
         this.loadData(1);
       },
