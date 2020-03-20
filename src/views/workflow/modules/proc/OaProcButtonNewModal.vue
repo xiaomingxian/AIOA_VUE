@@ -134,7 +134,7 @@
                 </a-form-item>
                 <a-form-item style=" display: flex;align-items: center;justify-content: flex-start;width: 200px;margin-left: 60px;">
                   <span class="configOption">顺序号：</span>
-                  <a-input-number maxLength="10" style="margin-left: 10px" @change="oniorder" v-model="iorder" />
+                  <a-input-number max="9999" style="margin-left: 10px" @change="oniorder" v-model="iorder" />
                 </a-form-item>
               </div>
 
@@ -461,8 +461,8 @@
         this.btnSetModel.iisDefault=this.iisDefault;
       },
       onChange2 (value) {
-        console.log("55555555555555555555555");
-        console.log(value.toString());
+//        console.log("55555555555555555555555");
+//        console.log(value.toString());
         this.btnSetModel.sroles=value.toString();
       },
       // loadData(iid) {

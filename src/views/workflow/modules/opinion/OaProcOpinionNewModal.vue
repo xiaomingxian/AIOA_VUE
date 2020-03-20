@@ -132,7 +132,7 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number maxLength="10" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <a-input-number max="9999" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
@@ -410,9 +410,12 @@
               this.toggleSearchStatus=false;
               this.toggleSearchStatusSet=false;
 //              this.opinionSetModal.type=''//意见框类型
+              that.$emit('ok');
+              that.close();
             } else {
               that.$message.warning(res.message);
             }
+
           });
         }
       },
