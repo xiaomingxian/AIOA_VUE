@@ -20,7 +20,7 @@
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
-          <img alt="" src="../../assets/bottomleft.png" style="position: absolute;left: 0;bottom: 5px;width: 50px;">
+          <img alt="" src="../../assets/bottomleft.png" style="position: absolute;left: 0;bottom: -10px;width: 50px;">
           <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
         </div>
         <span @click="postMore" class="postMore"
@@ -151,7 +151,7 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span @click="openmore(model2.url,model2.sName)" class="more">MORE<a-icon
+              <span :style="iisFontSize" @click="openmore(model2.url,model2.sName)" class="more">MORE<a-icon
                 type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
@@ -175,7 +175,8 @@
                  <span>{{model3.sName}}</span>
                 <!--<span>{{model3}}</span>-->
               </span>
-              <span class="more" @click="openmore(model3.url,model3.sName)">MORE  <a-icon type="plus"></a-icon> </span>
+              <span :style="iisFontSize" @click="openmore(model3.url,model3.sName)" class="more">MORE  <a-icon
+                type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
               <p class="each" v-for="(item,index) in model3Lists" :key="index"
