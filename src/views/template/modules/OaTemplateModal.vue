@@ -13,8 +13,8 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="模版名称">
-          <a-input placeholder="" v-decorator="['sname', {}]"/>
+          label="模板名称">
+          <a-input placeholder="" v-decorator="['sname',{ rules: [{ required: true, message: '请填写模板名称！' }] }]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -27,7 +27,7 @@
           <!--</a-select>-->
 
           <a-select
-            v-decorator="[ 'ititleRuleId', {}]">
+            v-decorator="[ 'ititleRuleId', { rules: [{ required: true, message: '请选择红头类别！' }] }]">
             <a-select-option v-for="(item,index) in selectData" :key="index" :value="item.iid">{{item.stitleName}}
             </a-select-option>
 
@@ -37,9 +37,9 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="模版类型">
+          label="模板类型">
           <!--<a-input placeholder="" v-decorator="['itype', {}]" />-->
-          <a-radio-group v-model="fileType" v-decorator="['itype', {}]">
+          <a-radio-group v-model="fileType" v-decorator="['itype', { rules: [{ required: true, message: '请选择模板类型！' }] }]">
             <a-radio :value="1">上报</a-radio>
             <a-radio :value="2">下发</a-radio>
             <a-radio :value="3">办文单</a-radio>
@@ -286,7 +286,7 @@
         })
       },
       handleOk() {
-        if (this.fileData.sfilePath === '') {
+        if (this.fileList.length >0) {
           this.handleUpload();
         } else {
           this.setFormData();

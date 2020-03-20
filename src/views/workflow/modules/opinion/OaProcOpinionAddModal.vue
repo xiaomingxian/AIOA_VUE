@@ -27,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="意见组合名称">
-          <a-input placeholder="请输入新的意见组合名称" v-model="sprocOpinionName" />
+          <a-input  placeholder="请输入新的意见组合名称" v-model="sprocOpinionName" />
         </a-form-item>
 		
       </a-form>
@@ -78,8 +78,8 @@
       edit (record) {
         this.form.resetFields();
         this.model = Object.assign({}, record);
-        console.log("20191215===================");
-        console.log(this.model);
+//        console.log("20191215===================");
+//        console.log(this.model);
         this.sprocOpinionName=this.model.sprocOpinionName;
         this.visible = true;
         this.$nextTick(() => {

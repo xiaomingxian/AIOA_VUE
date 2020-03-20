@@ -232,7 +232,7 @@
             }
           },
           {
-            title: '不控制',
+            title: '控制',
             align: "center",
             dataIndex: 'ipermitType',
             customRender:(text,row,index)=>{
@@ -389,17 +389,20 @@
       },
       handleEdit1:function () {
         this.$refs.modalForm.edit(this.model,this.TaskLinkId);
-        this.$refs.modalForm.loadData(this.model.iid)
-        this.$refs.modalForm.title = "新编辑";
+        this.$refs.modalForm.loadData(this.model.iid);
+        this.$refs.modalForm.confirmLoading=false;
+        this.$refs.modalForm.title = "操作";
         this.$refs.modalForm.disableSubmit = false;
       },
       handleEditDone:function (record) {
         this.$refs.modalForm.editBefore(this.model,this.TaskLinkId,record);
-        this.$refs.modalForm.loadData(this.model.iid)
-        this.$refs.modalForm.title = "编辑";
+        this.$refs.modalForm.loadData(this.model.iid);
+        this.$refs.modalForm.confirmLoading=false;
+        this.$refs.modalForm.title = "操作";
         this.$refs.modalForm.disableSubmit = false;
       },
       close () {
+        this.confirmLoading=false;
         this.$emit('close');
         this.visible = false;
       },
@@ -418,6 +421,8 @@
       },
       searchQueryCha(){
         this.confirmLoading=true;
+        this.ipagination.current = 1;//每次点击查询默认第一页
+//        this.ipagination.pageSize = 10;
         const promise1 = new Promise(resolve => {
         if(this.sbtnName!=null && this.sbtnName.trim()!=""){
           getAction("/oabutton/oaButton/queryBySbtnName",{sbtnName:this.sbtnName}).then(res=>{

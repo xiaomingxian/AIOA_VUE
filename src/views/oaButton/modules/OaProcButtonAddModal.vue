@@ -27,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="按钮组合名称">
-          <a-input placeholder="请输入按钮组合名称" v-model="sbuttonSetName" />
+          <a-input maxLength="60" placeholder="请输入按钮组合名称" v-model="sbuttonSetName" />
         </a-form-item>
 		
       </a-form>

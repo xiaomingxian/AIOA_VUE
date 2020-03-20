@@ -157,6 +157,7 @@
           {
             title: '按钮组合名称',
             align: "center",
+            width: "45%",
             dataIndex: 'sbuttonSetName'
           },
           {

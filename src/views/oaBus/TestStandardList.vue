@@ -48,9 +48,10 @@
         <a-row :gutter="24">
           <a-col :md="8" :sm="24" style="margin-left:385px;">
               <a-select
+                ref="isSearchWords"
                 mode="combobox"
                 labelInValue
-                placeholder="公文检索"
+                placeholder="全文检索"
                 style="width: 100%"
                 @search="fetchUser"
                 @change="handleChange"
@@ -143,7 +144,7 @@
             sname:'附件检索'
           }
         ],
-        search: '',
+        search: '全文检索',
         textData:[],
         attachmentData:[],
         dataSource: [],
@@ -176,6 +177,9 @@
     },
     created() {
       if(this.$route.query.searchWords){
+        this.$nextTick(function(){
+          this.$refs.isSearchWords.placeholder = this.$route.query.searchWords;
+        },500)
         this.FilterAllFiles(this.$route.query.searchWords);
       }else {
         return;
