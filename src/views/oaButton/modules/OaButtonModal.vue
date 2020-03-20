@@ -27,13 +27,13 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="按钮名称">
-          <a-input placeholder="请输入页面按钮name" v-decorator="['sbtnName', {}]" />
+          <a-input maxLength="50" placeholder="请输入页面按钮name" v-decorator="['sbtnName', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="方法名value">
-          <a-input placeholder="请输入方法名或value" v-decorator="['sbtnValue', {}]" />
+          <a-input maxLength="20" placeholder="请输入方法名或value" v-decorator="['sbtnValue', {}]" />
         </a-form-item>
         <!--<a-form-item-->
           <!--:labelCol="labelCol"-->
@@ -52,7 +52,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="字段（状态）匹配">
-          <a-input placeholder="请输入匹配字段（状态）" v-decorator="['sexcfield', {}]" />
+          <a-input maxLength="50" placeholder="请输入匹配字段（状态）" v-decorator="['sexcfield', {}]" />
         </a-form-item>
 
 

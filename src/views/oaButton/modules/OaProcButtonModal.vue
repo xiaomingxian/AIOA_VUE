@@ -351,7 +351,7 @@
         this.$refs.setCatModalForm.disableSubmit = false;
 
       },handleAdd: function () {
-        console.log("7777777777777777777777777777")
+//        console.log("7777777777777777777777777777")
         this.$refs.modalForm.add(this.iid);
         this.$refs.modalForm.title = "添加";
         this.$refs.modalForm.disableSubmit = false;

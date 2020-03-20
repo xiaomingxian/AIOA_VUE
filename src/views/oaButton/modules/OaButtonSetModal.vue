@@ -48,7 +48,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="顺序号">
-          <a-input-number v-decorator="[ 'iorder', {}]" />
+          <a-input-number maxLength="9" v-decorator="[ 'iorder', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
