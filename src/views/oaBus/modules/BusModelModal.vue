@@ -14,19 +14,19 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <a-input-number v-decorator="[ 'iorder', {}]" />
+          <a-input-number  v-decorator="[ 'iorder', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务菜单名称">
-          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{validator: dealLenth }]}]" />
+          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务路径名称">
-          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{validator: dealLenth }]}]" />
+          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
