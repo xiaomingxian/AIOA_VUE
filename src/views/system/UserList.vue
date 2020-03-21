@@ -167,9 +167,9 @@
                 </a-popconfirm>
               </a-menu-item>
 
-              <a-menu-item>
+              <!--<a-menu-item>
                 <a href="javascript:;" @click="handleAgentSettings(record.username)">代理人</a>
-              </a-menu-item>
+              </a-menu-item>-->
 
               <a-menu-item>
                 <a href="javascript:;" @click="handleAgentConfig(record.username)">分管部门管理</a>
