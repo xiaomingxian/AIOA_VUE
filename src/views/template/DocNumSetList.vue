@@ -258,7 +258,7 @@
         let url ='/sys/sysDepart/query';
         getAction(url,{orgType:'1'}).then(res=>{
           this.unitData = res.result;
-          this.queryParam.iBusUnitId = this.unitData[0].id
+          // this.queryParam.iBusUnitId = this.unitData[0].id
         })
       },
       //所属业务
