@@ -15,7 +15,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="稿纸头">
-          <a-input placeholder="" v-decorator="['stitleName', {}]" />
+          <a-input placeholder="" v-decorator="['stitleName', validatorRules.stitleName]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -41,25 +41,25 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="前缀">
-          <a-input placeholder="" v-decorator="['sleftParameter', {}]" />
+          <a-input placeholder="" v-decorator="['sleftParameter', validatorRules.sleftParameter]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="中部">
-          <a-input placeholder="" v-decorator="['smddleParameter', {}]" />
+          <a-input placeholder="" v-decorator="['smddleParameter', validatorRules.smddleParameter]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="后缀">
-          <a-input placeholder="" v-decorator="['srightParameter', {}]" />
+          <a-input placeholder="" v-decorator="['srightParameter', validatorRules.srightParameter]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="固定参数">
-          <a-input placeholder="" v-decorator="['sotherParameter', {}]" />
+          <a-input placeholder="" v-decorator="['sotherParameter', validatorRules.sotherParameter]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -102,6 +102,22 @@
         form: this.$form.createForm(this),
         validatorRules:{
         // iId:{rules: [{ required: true, message: '请输入主键id!' }]},
+          stitleName:{rules: [
+              { required: true, message: '请输入红头名称！' },
+              { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur'}
+            ]},
+          sleftParameter:{rules: [
+              { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur'}
+            ]},
+          smddleParameter:{rules: [
+              { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur'}
+            ]},
+          srightParameter:{rules: [
+              { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur'}
+            ]},
+          sotherParameter:{rules: [
+              { min: 2, max: 255, message: '长度在 2 到 255 个字符', trigger: 'blur'}
+            ]},
         },
         url: {
           add: "/papertitle/paperTitleSetting/add",
@@ -113,7 +129,11 @@
     },
     methods: {
       add () {
-        this.edit({});
+        let  record = {}
+        record.iisUnit = 0
+        record.iisDept = 0
+        record.iisDefault =0
+        this.edit(record);
       },
       edit (record) {
         this.form.resetFields();
