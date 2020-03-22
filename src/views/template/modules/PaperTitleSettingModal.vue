@@ -59,7 +59,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="固定参数">
-          <a-input placeholder="" v-decorator="['sotherParameter', validatorRules.sotherParameter]" />
+          <a-textarea rows="3" placeholder="" v-decorator="['sotherParameter', validatorRules.sotherParameter]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -81,9 +81,11 @@
   import { httpAction } from '@/api/manage'
   import pick from 'lodash.pick'
   import moment from "moment"
+  import ATextarea from "ant-design-vue/es/input/TextArea";
 
   export default {
     name: "PaperTitleSettingModal",
+    components: {ATextarea},
     data () {
       return {
         title:"操作",
