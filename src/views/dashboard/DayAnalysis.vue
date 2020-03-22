@@ -146,8 +146,10 @@
                     <!--</a-popover>-->
                   </div>
                 </template>
-                <img style="position: absolute;left: 10px;bottom: 0px;width: 50px;" src="../../assets/bottomleft.png" alt="">
-                <img style="position: absolute;top: 42px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
+                <img alt="" src="../../assets/bottomleft.png"
+                     style="position: absolute;left: 10px;bottom: 10px;width: 50px;">
+                <img alt="" src="../../assets/topright.png"
+                     style="position: absolute;top: 38px;right: 10px;width: 100px;">
                 <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
 
               </div>
@@ -206,13 +208,13 @@
                       <p>
                         <i></i>
                         <span :title="item.title+'   '+item.createTime+item.name">
-                                <span :style="iisFontSize">{{item.title|filterText1}}
-                                  <div v-if="item.important==1">
-                                       <img src="../../assets/zhong.png" alt="" >
-                                  </div>
-                                </span>
+                            <span :style="iisFontSize">{{item.title|filterText1}}
+                              <div v-if="item.important==1">
+                                   <img alt="" src="../../assets/zhong.png">
+                              </div>
+                            </span>
 
-                              </span>
+                            </span>
                       </p>
                       <span :style="iisFontSize">{{item.createTime|timeText}}</span>
                     </template>
@@ -457,7 +459,8 @@
         let Y = oneTime.getFullYear();
         let M = oneTime.getMonth()+1;
         let D = oneTime.getDate();
-        return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
+        // return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
+        return (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D);
 
       },
     },
