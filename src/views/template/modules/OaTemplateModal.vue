@@ -14,7 +14,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="模板名称">
-          <a-input placeholder="" v-decorator="['sname',{ rules: [{ required: true, message: '请填写模板名称！' }] }]"/>
+          <a-input placeholder="" v-decorator="['sname',validatorRules.sname]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -27,7 +27,7 @@
           <!--</a-select>-->
 
           <a-select
-            v-decorator="[ 'ititleRuleId', { rules: [{ required: true, message: '请选择红头类别！' }] }]">
+            v-decorator="[ 'ititleRuleId',validatorRules.ititleRuleId ]">
             <a-select-option v-for="(item,index) in selectData" :key="index" :value="item.iid">{{item.stitleName}}
             </a-select-option>
 
@@ -39,7 +39,8 @@
           :wrapperCol="wrapperCol"
           label="模板类型">
           <!--<a-input placeholder="" v-decorator="['itype', {}]" />-->
-          <a-radio-group v-model="fileType" v-decorator="['itype', { rules: [{ required: true, message: '请选择模板类型！' }] }]">
+          <a-radio-group v-model="fileType"
+                         v-decorator="['itype',validatorRules.itype]">
             <a-radio :value="1">上报</a-radio>
             <a-radio :value="2">下发</a-radio>
             <a-radio :value="3">办文单</a-radio>
@@ -49,7 +50,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="备注">
-          <a-input placeholder="" v-decorator="['sremarks', {}]"/>
+          <a-textarea placeholder="" v-decorator="['sremarks', validatorRules.sremarks]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -105,10 +106,11 @@
   import AFormItem from "ant-design-vue/es/form/FormItem";
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import DelTime from "../../buttons/DelTimeModal";
+  import ATextarea from "ant-design-vue/es/input/TextArea";
 
   export default {
     name: "OaTemplateModal",
-    components: {AFormItem},
+    components: {ATextarea, AFormItem},
     mixins: [busdataTemplate],
     data() {
       return {
@@ -144,6 +146,28 @@
         form: this.$form.createForm(this),
         validatorRules: {
           // iId:{rules: [{ required: true, message: '请输入主键id!' }]},
+          sname: {
+            rules: [
+              {required: true, message: '请填写模板名称！'},
+              {min: 2, max: 30, message: '长度在 2 到 50 个字符', trigger: 'blur'}
+            ]
+          },
+          ititleRuleId: {
+            rules: [
+              {required: true, message: '请选择红头类别！'}
+            ]
+          },
+          itype: {
+            rules: [
+              {required: true, message: '请选择模板类别！'}
+            ]
+          },
+          sremarks: {
+            rules: [
+              {min: 2, max: 30, message: '长度在 2 到 50 个字符', trigger: 'blur'}
+            ]
+          },
+
         },
         url: {
           add: "/papertitle/oaTemplate/add",
@@ -286,7 +310,7 @@
         })
       },
       handleOk() {
-        if (this.fileList.length >0) {
+        if (this.fileList.length > 0) {
           this.handleUpload();
         } else {
           this.setFormData();
