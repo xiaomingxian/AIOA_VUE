@@ -1173,8 +1173,11 @@
         return {
           on: {
             click: (event) => {
-              //TODO 区分待办 已办
               this.taskRecord = record
+              if (this.loginInfo.username == 'admin') {
+                window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&navisshow=false')
+                return
+              }
 
               if (record.id.indexOf(",") >= 0) {
                 let keys = record.taskDefinitionKey.split(",")

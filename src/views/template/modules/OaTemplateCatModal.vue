@@ -46,7 +46,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="备注">
-          <a-input placeholder="" v-decorator="['sremarks', {}]" />
+          <a-textarea placeholder="" v-decorator="['sremarks', {}]" />
         </a-form-item>
 
         <a-form-item
@@ -73,8 +73,10 @@
   import axios from 'axios'
   import {ACCESS_TOKEN} from "../../../store/mutation-types";
   import { deleteAction, getAction,downFile } from '@/api/manage'
+  import ATextarea from "ant-design-vue/es/input/TextArea";
   export default {
     name: "OaTemplateModal",
+    components: {ATextarea},
     data () {
       return {
         title:"操作",

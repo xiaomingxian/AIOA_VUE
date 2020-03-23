@@ -23,7 +23,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="所属机构">
-          <a-select  v-model="selectedUnit" @change="getUnitVal">
+          <a-select v-model="selectedUnit" @change="getUnitVal">
             <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
             </a-select-option>
           </a-select>
@@ -44,26 +44,27 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <a-input-number v-decorator="[ 'iorder', {}]"/>
+          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>
+          <!--          <a-input-number v-decorator="[ 'iorder', validatorRules.iorder]"/>-->
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="文号名称">
-          <a-input placeholder="" v-decorator="['sname', {}]"/>
+          <a-input placeholder="" v-decorator="['sname', validatorRules.sname]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="文号规则">
-          <a-input placeholder="" v-decorator="['sdocRule', {}]"/>
+          <a-input placeholder="" v-decorator="['sdocRule', validatorRules.sdocRule]"/>
         </a-form-item>
-<!--        <a-form-item-->
-<!--          :labelCol="labelCol"-->
-<!--          :wrapperCol="wrapperCol"-->
-<!--          label="当前文号">-->
-<!--          <a-input-number placeholder="" v-decorator="['idocNum', {}]"/>-->
-<!--        </a-form-item>-->
+        <!--        <a-form-item-->
+        <!--          :labelCol="labelCol"-->
+        <!--          :wrapperCol="wrapperCol"-->
+        <!--          label="当前文号">-->
+        <!--          <a-input-number placeholder="" v-decorator="['idocNum', {}]"/>-->
+        <!--        </a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -95,7 +96,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="备注">
-          <a-textarea placeholder="" v-decorator="['sremarks',{}]"/>
+          <a-textarea placeholder="" v-decorator="['sremarks',validatorRules.sremarks]"/>
         </a-form-item>
         <!--部门分配-->
         <a-form-item label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
@@ -127,10 +128,12 @@
   import {duplicateCheck} from '@/api/api'
   import SelectDepartWindow from "../../system/modules/SelectDepartWindow";
   import {postAction} from '@/api/manage'
+  import SplitPanel from "../../jeecg/SplitPanel";
 
   export default {
     name: "DocNumSetModal",
     components: {
+      SplitPanel,
       SelectDepartWindow
     },
     data() {
@@ -149,7 +152,40 @@
         },
         confirmLoading: false,
         form: this.$form.createForm(this),
-        validatorRules: {},
+        validatorRules: {
+          // ibusFunctionId:{rules: [{ required: true, message: '请输入主键id!' }]},
+          // ibusModelId:{rules: [
+          //     { required: true, message: '请选择业务分类！' },
+          //   ]},
+          // ibusUnitId:{rules: [
+          //     { required: true, message: '请输入所属机构！' },
+          //   ]},
+          // ibusFunctionId:{rules: [
+          //     { required: true, message: '请输入业务名称！' },
+          //   ]},
+          sname: {
+            rules: [
+              {required: true, message: '请输入文号名称！'},
+              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+            ]
+          },
+          iorder: {
+            rules: [
+              {required: false, pattern: new RegExp(/^[1-9]\d*$/, "g"), message: '请输入数字！'},
+              {min: 1, max: 11, message: '长度在 1 到 11 个字符'}
+            ]
+          },
+          sdocRule: {
+            rules: [
+              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+            ]
+          },
+          sremarks: {
+            rules: [
+              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+            ]
+          },
+        },
         url: {
           add: "/papertitle/docNumSet/add",
           edit: "/papertitle/docNumSet/edit",
@@ -157,7 +193,7 @@
           userId: "/sys/user/generateUserId"
         },
         selectedModel: null,
-        selectedUnit:null,
+        selectedUnit: null,
         selectedFunction: null,
         allowClear: false,
         modelData: [],
@@ -166,7 +202,7 @@
         upData: [],
         downData: [],
         officeData: [],
-        unitData:[],
+        unitData: [],
         //部门控件
         departDisabled: false, //是否是我的部门调用该页面
         roleDisabled: false, //是否是角色维护调用该页面
@@ -189,7 +225,7 @@
       // this.headers = {"X-Access-Token": token}
     },
     methods: {
-      initData(){
+      initData() {
         this.getBusModelList();
         this.getUnitList();
         this.getTemplateUp();
@@ -206,13 +242,13 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model, 'iid', 'ibusModelId', 'ibusUnitId','ibusFunctionId', 'iorder', 'sname', 'sdocRule', 'idocNum', 'iutemplateId', 'idtemplateId', 'iatemplateId', 'sremarks', 'screateBy', 'supdateBy'))
+          this.form.setFieldsValue(pick(this.model, 'iid', 'ibusModelId', 'ibusUnitId', 'ibusFunctionId', 'iorder', 'sname', 'sdocRule', 'idocNum', 'iutemplateId', 'idtemplateId', 'iatemplateId', 'sremarks', 'screateBy', 'supdateBy'))
         });
         this.selectedModel = record.ibusModelId;
-        if (Object.keys(record).length !== 0){
+        if (Object.keys(record).length !== 0) {
           this.selectedUnit = record.ibusUnitId;
           //选中所选业务
-          this.initFunctionList(this.selectedModel,this.selectedUnit);
+          this.initFunctionList(this.selectedModel, this.selectedUnit);
           this.selectedFunction = record.ibusFunctionId;
         }
         // 调用查询用户对应的部门信息的方法
@@ -220,17 +256,17 @@
         this.loadCheckDeparts();
       },
       //初始化业务
-      initFunctionList(model,unit){
+      initFunctionList(model, unit) {
         let url = "/papertitle/docNumSet/busFunctionList";
-        getAction(url,{iBusModelId:model,iBusUnitId:unit}).then((res) => {
+        getAction(url, {iBusModelId: model, iBusUnitId: unit}).then((res) => {
           this.functionList = res.result;
         })
       },
       //查询机构
-      getUnitList(){
-        let url ='/sys/sysDepart/query';
-        getAction(url,{orgType:'1'}).then(res=>{
-            this.unitData = res.result;
+      getUnitList() {
+        let url = '/sys/sysDepart/query';
+        getAction(url, {orgType: '1'}).then(res => {
+          this.unitData = res.result;
         })
       },
       //下拉选列表-所属模块
@@ -243,9 +279,13 @@
       },
       //选择模块--》更新查业务
       getModalVal(model) {
+        this.model.ibusModelId = model;
+        this.$nextTick(() => {
+          this.form.setFieldsValue(pick(this.model, 'ibusModelId'))
+        });
         // console.log(value);
         let url = "/papertitle/docNumSet/busFunctionList";
-        getAction(url,{iBusModelId:model,iBusUnitId:this.selectedUnit}).then((res) => {
+        getAction(url, {iBusModelId: model, iBusUnitId: this.selectedUnit}).then((res) => {
           this.functionList = res.result;
           this.selectedFunction = null;
           this.form.setFieldsValue({
@@ -254,9 +294,9 @@
         })
       },
       //选择模块--》更新查业务
-      getUnitVal(unit){
+      getUnitVal(unit) {
         let url = "/papertitle/docNumSet/busFunctionList";
-        getAction(url,{iBusModelId:this.selectedModel,iBusUnitId:unit}).then((res) => {
+        getAction(url, {iBusModelId: this.selectedModel, iBusUnitId: unit}).then((res) => {
           this.functionList = res.result;
           this.selectedFunction = null;
           this.form.setFieldsValue({
@@ -340,6 +380,7 @@
         this.checkedDepartNameString = '';
         this.checkedDepartKeys = [];
         this.selectedDepartKeys = [];
+        this.functionList = [];
       },
       handleOk() {
         const that = this;
