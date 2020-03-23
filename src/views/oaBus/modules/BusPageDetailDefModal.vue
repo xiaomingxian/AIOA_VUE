@@ -37,13 +37,13 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="字段名">
-            <a-input style="width: 50%" placeholder="请输入字段名" v-model="stableColumn"  v-decorator="['stableColumn', {rules:[{required:true,message: '字段名不能为空'},{validator: dealLenth }]}]"/>
+            <a-input style="width: 50%" placeholder="请输入字段名" v-model="stableColumn"  v-decorator="['stableColumn', {rules:[{required:true,message: '字段名不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="列名">
-            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true,message: '列名不能为空'},{validator: dealLenth }]}]"/>
+            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true,message: '列名不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -133,13 +133,13 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="java校验">
-            <a-input  style="width: 50%" placeholder="请输入java校验规则，正则表达式" v-decorator="['scheckExpjava', {rules:[{validator: dealLenthJava }]}]"/>
+            <a-input  style="width: 50%" placeholder="请输入java校验规则，正则表达式" v-decorator="['scheckExpjava', {rules:[{ min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="sql校验">
-            <a-input  style="width: 50%" placeholder="请输入数据校验sql" v-decorator="['scheckExpsql', {rules:[{validator: dealLenthJava }]}]"/>
+            <a-input  style="width: 50%" placeholder="请输入数据校验sql" v-decorator="['scheckExpsql', {rules:[{ min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -156,13 +156,13 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="提示信息">
-            <a-input  style="width: 50%" placeholder="请输入校验提示信息" v-decorator="['scheckShowmsg', {rules:[{validator: dealLenth }]}]"/>
+            <a-input  style="width: 50%" placeholder="请输入校验提示信息" v-decorator="['scheckShowmsg', {rules:[{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="公文传输字段">
-            <a-input  style="width: 50%"  placeholder="请输入对应公文传输字段" v-decorator="['ssendKey', {rules:[{validator: dealLenth }]}]"/>
+            <a-input  style="width: 50%"  placeholder="请输入对应公文传输字段" v-decorator="['ssendKey', {rules:[{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
               <a-button type="primary" @click="updateDetail('ssendKey')"  style="width: 180px">修改全部【本业务类别】</a-button>
             </span>
@@ -171,7 +171,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="档案系统字段">
-            <a-input  style="width: 50%"  placeholder="请输入档案系统对应字段" v-decorator="['sarchivesKey', {rules:[{validator: dealLenth }]}]"/>
+            <a-input  style="width: 50%"  placeholder="请输入档案系统对应字段" v-decorator="['sarchivesKey', {rules:[{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
               <a-button type="primary" @click="updateDetail('sarchivesKey')"  style="width: 180px">修改全部【本业务类别】</a-button>
             </span>
@@ -180,7 +180,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="书签字段">
-            <a-input  style="width: 50%"  placeholder="书签字段" v-decorator="['smarkKey', {rules:[{validator: dealLenth }]}]"/>
+            <a-input  style="width: 50%"  placeholder="书签字段" v-decorator="['smarkKey', {rules:[{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]"/>
             <span style="display: inline-block;width:200px;float: right;overflow: hidden;">
               <a-button type="primary" @click="updateDetail('smarkKey')"  style="width: 180px">修改全部【本业务类别】</a-button>
             </span>
@@ -189,7 +189,8 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="备注">
-            <a-input  style="width: 50%" placeholder="请输入业务数据列备注" v-decorator="['scolumnRemarks', {rules:[{validator: dealLenth }]}]"/>
+            <a-input  style="width: 50%" placeholder="请输入业务数据列备注" v-decorator="['scolumnRemarks',
+            {rules:[{ min: 0, max: 40, message: '长度在 0 到 40 个字符', trigger: 'blur' }]}]"/>
           </a-form-item>
 
         </a-form>
@@ -358,6 +359,7 @@
         const that = this;
         // 触发表单验证
         this.form.validateFields((err, values) => {
+          console.log("AAAA",err)
           if (!err) {
             that.confirmLoading = true;
             let httpurl = this.url.editOrAdd;

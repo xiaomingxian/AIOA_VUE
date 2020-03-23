@@ -875,7 +875,17 @@
                 return true
               },
               align: "center",
-              dataIndex: 'name'
+              // dataIndex: 'name'
+              customRender: function (t, r, index) {
+                console.log('--', t, r, index)
+                var name = t.name
+                if (name.indexOf(',') < 0) {
+                  return name
+                } else {
+                  var sz = name.split(',')
+                  return sz[sz.length - 1]
+                }
+              }
             },
             {
               title: '文号',
@@ -1163,8 +1173,11 @@
         return {
           on: {
             click: (event) => {
-              //TODO 区分待办 已办
               this.taskRecord = record
+              if (this.loginInfo.username == 'admin') {
+                window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + record.table + '&busdataId=' + record.tableId + '&navisshow=false')
+                return
+              }
 
               if (record.id.indexOf(",") >= 0) {
                 let keys = record.taskDefinitionKey.split(",")

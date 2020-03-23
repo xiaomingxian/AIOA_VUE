@@ -65,6 +65,7 @@ export const taskBth = {
         insertDataAndStartPro: '/oaBus/newTask/insertDataAndStartPro',//保存业务同时开启流程
         nextUsers: '/oaBus/taskInAct/nextUserQuery',
         nextUsersChoice: '/oaBus/taskInAct/nextUsersChoice',
+        afterDoTask: '/oaBus/taskInAct/afterDoTask',
         nextUsersEnd: '/oaBus/taskInAct/nextUserQueryEnd',
         endProUrl: '/wf/task/endProcess',
         showBackAct: '/wf/task/showBackAct',//展示回退/跳转 节点
@@ -390,7 +391,7 @@ export const taskBth = {
 
     //TODO(仅标识)***************************************************** 工作流相关 START *********************************
     isEnd() {//如果结束了 将信息持久化到磁盘 再删除流程中相关的信息
-
+      this.doGet(this.url.afterDoTask + '?table=' + this.backData.table + '&id=' + this.backData.i_id)
     },
     //追加办理人
     addUserOrDepart() {
@@ -1000,6 +1001,7 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
+          this.isEnd()
           //this.sendMesToUser(data.assignee);
           //this.saveBusData()
           setTimeout(res => {
@@ -1085,6 +1087,9 @@ export const taskBth = {
           this.$message.success('办理成功')
           this.havaOtherProc = false
           this.nextConfirm = true
+          //如果结束 生成相关文件
+          this.isEnd()
+
           //this.sendMesToUser(data.assignee);
           //this.saveBusData()
           setTimeout(res => {
@@ -1127,6 +1132,7 @@ export const taskBth = {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
+          this.isEnd()
           setTimeout(res => {
             this.refreshIndexClose()
           }, 500)
@@ -1458,7 +1464,7 @@ export const taskBth = {
         getAction(this.url.endProUrl, {processId: this.taskMsg.processInstanceId}).then(res => {
           if (res.success) {
             this.$message.success(res.message)
-
+            this.isEnd()
             setTimeout(res => {
               this.refreshIndexClose()
             }, 500)
@@ -1584,8 +1590,12 @@ export const taskBth = {
       if (typeof (this.taskMsg) == 'string') {
         this.taskMsg = JSON.parse(this.taskMsg)
       }
-
-      if (this.taskMsg.processInstanceId == null) {
+      let endTime= this.backData.s_varchar9
+      var flag=true
+      if (endTime!=undefined && endTime.length>1){
+        flag=false
+      }
+      if (this.taskMsg.processInstanceId == null && flag) {
         getAction(this.url.lastVersionProc + '?key=' + key).then(res => {
           if (res.success) {
             this.$refs.picModalNoTask.show(res.result.id)
@@ -1595,7 +1605,11 @@ export const taskBth = {
           }
         })
       } else {
+        if (!flag){
+          this.$refs.picModal.endTime=endTime
+        }
         this.$refs.picModal.show(this.taskMsg)
+
       }
     }
     ,
@@ -1904,7 +1918,7 @@ export const taskBth = {
             if (ntkoed) {
               if (this.os != 'Win7' && this.os != 'Win10') {
                 if (this.brower == "chrome") {
-                  if (tthis.browerNum <= 42) {
+                  if (this.browerNum <= 42) {
                     window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                       "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                       this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +

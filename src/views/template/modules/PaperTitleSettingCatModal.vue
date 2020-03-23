@@ -23,8 +23,8 @@
           label="单位名称">
           <!--<a-input placeholder="" v-decorator="['iisUnit', {}]" />-->
           <a-radio-group  v-decorator="['iisUnit', {}]" >
-            <a-radio :value="0">是</a-radio>
-            <a-radio :value="1">否</a-radio>
+            <a-radio :value="1">是</a-radio>
+            <a-radio :value="0">否</a-radio>
           </a-radio-group>
         </a-form-item>
         <a-form-item
@@ -33,8 +33,8 @@
           label="部门">
           <!--<a-input placeholder="" v-decorator="['iisDept', {}]" />-->
           <a-radio-group  v-decorator="['iisDept', {}]" >
-            <a-radio :value="0">是</a-radio>
-            <a-radio :value="1">否</a-radio>
+            <a-radio :value="1">是</a-radio>
+            <a-radio :value="0">否</a-radio>
           </a-radio-group>
         </a-form-item>
         <a-form-item
@@ -67,8 +67,8 @@
           label="默认稿纸头">
           <!--<a-input placeholder="" v-decorator="['iisDefault', {}]" />-->
           <a-radio-group  v-decorator="['iisDefault', {}]" >
-            <a-radio :value="0">是</a-radio>
-            <a-radio :value="1">否</a-radio>
+            <a-radio :value="1">是</a-radio>
+            <a-radio :value="0">否</a-radio>
           </a-radio-group>
           <!--<a-switch checkedChildren="是" unCheckedChildren="否" v-decorator="['iisDefaultb', {}]"/>-->
         </a-form-item>

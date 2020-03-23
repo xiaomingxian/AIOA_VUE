@@ -15,7 +15,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="文号名称">
-          <a-input placeholder="" v-decorator="['sname', {}]" />
+          <a-input placeholder="" v-decorator="['sname', validatorRules.sname]" />
         </a-form-item>
 
       </a-form>
@@ -48,6 +48,10 @@
         form: this.$form.createForm(this),
         validatorRules:{
           // ibusFunctionId:{rules: [{ required: true, message: '请输入主键id!' }]},
+          sname:{rules: [
+              { required: true, message: '请输入文号名称！' },
+              {min: 1, max:  50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+            ]},
         },
         url: {
           add: "/papertitle/docNumSet/addDocNum"
