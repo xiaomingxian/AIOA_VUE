@@ -74,7 +74,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="数据列排序">
-            <a-input-number style="width: 50%" v-decorator="[ 'iorder', {}]" />
+            <a-input-number style="width: 50%" v-decorator="[ 'iorder', {rules:[{ min: 0, max: 4, message: '长度在 0 到 4 个字符', trigger: 'blur' }]}]" />
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
