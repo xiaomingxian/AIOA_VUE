@@ -265,7 +265,7 @@
       },
       //初始换数据渲染
       edit1(record,isedit) {
-        this.title=record.sname;
+        console.log(record)
         if(isedit){
           this.isno= [
             {typename:'所有人',value:'0'},
@@ -275,9 +275,8 @@
           ]
         }
         this.isadd = false;
-        console.log(record);
         this.spermitType = record.spermitType;
-        this.title=record.sname;
+        this.title=record.busFunctionName;
         this.form.resetFields();
         this.model = Object.assign({}, record);
         this.visible = true;
