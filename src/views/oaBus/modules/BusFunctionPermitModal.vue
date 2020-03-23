@@ -24,7 +24,7 @@
         label="权限类型"
       >
         <a-select style="width: 200px;" v-model="typeModel"
-                  v-decorator="[ 'itypeId', {rules:[{required:true,message:'业务分类不能为空'}]}]"
+                  v-decorator="[ 'itypeId', {rules:[{required:true,message:'权限类型不能为空'}]}]"
                   @change="getTypeVal"
                   placeholder="权限类型"
                   :disabled="disableSubmit"
