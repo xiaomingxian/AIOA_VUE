@@ -22,10 +22,9 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
         label="权限类型"
-        validate-status="error"
-        help="必须选择一个类型"
       >
         <a-select style="width: 200px;" v-model="typeModel"
+                  v-decorator="[ 'typeModel', {rules:[{required:true,message:'业务分类不能为空'}]}]"
                   @change="getTypeVal"
                   placeholder="权限类型"
                   :disabled="disableSubmit"
@@ -266,7 +265,7 @@
       },
       //初始换数据渲染
       edit1(record,isedit) {
-
+        this.title=record.sname;
         if(isedit){
           this.isno= [
             {typename:'所有人',value:'0'},
