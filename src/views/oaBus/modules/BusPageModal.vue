@@ -115,6 +115,7 @@
                       :fileList="fileList"
                       :beforeUpload="beforeUpload"
                       :showUploadList="false"
+                      accept=".jpg,.png,.gif"
                       :multiple="false"
                       @preview="handlePreview"
                       :headers="headers" @change="handleChange">
@@ -308,6 +309,9 @@
         }
       },
       beforeUpload: function (file, fileList) {
+        /*let ss = file.name.split(".")
+        console.log(ss[ss.length-1]) ;*/
+
         this.upFailId = 1;
         this.upFileName = file.name;
         this.uploading = true;
