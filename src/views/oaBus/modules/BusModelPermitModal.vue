@@ -20,10 +20,9 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="权限类型"
-          validate-status="error"
-          help="必须选择一个类型"
         >
           <a-select v-model="typeModel"
+                    v-decorator="[ 'itypeId', {rules:[{required:true,message:'权限类型不能为空'}]}]"
                     @change="getTypeVal"
                     placeholder="权限类型"
                     :disabled="disableSubmit"
@@ -258,7 +257,7 @@
       },
       //初始换数据渲染
       update (record,isedit) {
-
+        console.log(record)
         if(isedit){
           this.isno= [
             {typename:'所有人',value:'0'},
@@ -270,7 +269,7 @@
         this.isadd = false;
 
         this.spermitType = record.spermitType;
-        this.title=record.sname;
+        this.title=record.busModelName;
         this.form.resetFields();
         this.model = Object.assign({}, record);
         this.visible = true;
