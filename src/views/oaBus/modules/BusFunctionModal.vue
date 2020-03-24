@@ -224,7 +224,7 @@
 
     </div>
     <!--数据查看权限的modal-->
-    <j-select-depart-modal ref="innerDepartSelectModal" @ok="checkUnitOk"/>
+    <j-select-depart-modal ref="innerDepartSelectModal" :multi="true" @ok="checkUnitOk"/>
     <bus-function-view-modal ref="refBusFunctionViewModal" @ok="busFunctionViewModalOk"/>
     <bus-function-proc-button-modal ref="refBusFunctionProcButtonModal" @ok="busFunProcButOpin"/>
     <bus-page-list-select ref="selectPageModel" @selectFinished="selectPageOk"></bus-page-list-select>
@@ -490,6 +490,7 @@
       checkUnit() {
         //console.log("业务机构选择");
         this.$refs.innerDepartSelectModal.show()
+        // this.$refs.selectDepModel.show()
       },
       /*选择业务机构成功后返回后执行的函数*/
       checkUnitOk(rows, idstr) {
