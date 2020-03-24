@@ -107,17 +107,17 @@
            <!--<a @click="handleCat(record)">查看</a>-->
           <!--<a-divider type="vertical" />-->
           <a @click="handleEdit(record)">编辑</a>
-          <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+          <!--<a-divider type="vertical" />-->
+          <!--<a-dropdown>-->
+            <!--<a class="ant-dropdown-link">更多 <a-icon type="down" /></a>-->
+            <!--<a-menu slot="overlay">-->
+              <!--<a-menu-item>-->
+                <!--<a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">-->
+                  <!--<a>删除</a>-->
+                <!--</a-popconfirm>-->
+              <!--</a-menu-item>-->
+            <!--</a-menu>-->
+          <!--</a-dropdown>-->
         </span>
 
       </a-table>
@@ -173,13 +173,13 @@
 		   {
             title: '按钮名称',
             align:"center",
-            width:300,
+            width:500,
             dataIndex: 'sbtnName'
            },
 		   {
             title: '方法名value',
             align:"center",
-            width:150,
+            width:300,
             dataIndex: 'sbtnValue'
            },
 		   // {
@@ -295,6 +295,7 @@
             title: '操作栏',
             dataIndex: 'action',
             align:"center",
+            width:150,
             scopedSlots: { customRender: 'action' },
           }
         ],

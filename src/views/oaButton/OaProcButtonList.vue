@@ -90,14 +90,13 @@
           <a-divider type="vertical"/>
           <a @click="handleCopy(record)">复制配置</a>
           <a-divider type="vertical"/>
-          <a @click="handleEdit1(record)">编辑</a>
+          <a @click="handleEdit1(record)">按钮维护</a>
           <a-divider type="vertical"/>
           <!--<a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">-->
             <!--<a>删除</a>-->
            <!--</a-popconfirm>-->
            <a @click="beforeConfirm(record.iid)">删除</a>
         </span>
-
       </a-table>
     </div>
     <!-- table区域-end -->
@@ -247,7 +246,7 @@
       handleEdit1:function (record) {
         this.$refs.modalForm.edit(record);
         this.$refs.modalForm.loadData();
-        this.$refs.modalForm.title = "编辑";
+        this.$refs.modalForm.title = "按钮维护";
         this.$refs.modalForm.disableSubmit = false;
       }
       ,
