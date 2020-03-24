@@ -11,7 +11,7 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" v-if="searchColumns" v-for="(atom,index) in searchColumns" :key="index">
        <!--输入框-->
-        <a-form-item v-if="atom.i_column_type==1"   v-show="atom.s_table_column!='i_id'"
+        <a-form-item v-if="atom.i_column_type==1 && atom.s_table_column!='d_sealdate'"   v-show="atom.s_table_column!='i_id'"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
         :label="atom.s_column_name">
@@ -165,14 +165,14 @@
         <!--下拉列表-------------------end---------------->
 
         <!--文本框-->
-        <a-form-item v-if="atom.i_column_type==3" v-show="atom.s_table_column!='i_id'"
+        <a-form-item v-if="atom.i_column_type==3 && atom.s_table_column!='d_sealdate'" v-show="atom.s_table_column!='i_id'"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
           <a-textarea placeholder="请输入正确格式" v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
         <!--日期框-->
-        <a-form-item v-if="atom.i_column_type==4||atom.i_column_type==5" v-show="atom.s_table_column!='i_id'"
+        <a-form-item v-if="atom.i_column_type==4||atom.i_column_type==5||atom.s_table_column=='d_sealdate'" v-show="atom.s_table_column!='i_id'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           :label="atom.s_column_name">

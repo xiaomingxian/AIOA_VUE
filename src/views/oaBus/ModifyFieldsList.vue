@@ -319,6 +319,7 @@
         formData.d_datetime6 !=null?formData.d_datetime6.format('YYYY-MM-DD HH:mm:ss'):null;
         formData.d_date1 !=null?formData.d_date1.format('YYYY-MM-DD'):null;
         formData.d_date2 !=null?formData.d_date2.format('YYYY-MM-DD'):null;
+        formData.d_sealdate !=null?formData.d_sealdate.format('YYYY-MM-DD'):null;
       },
 
       //添加逻辑
