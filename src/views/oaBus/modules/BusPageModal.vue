@@ -206,6 +206,7 @@
         validatorRules: {
           iId: {rules: [{required: true, message: '请输入主键id!'}]},
           spagePath: {rules: [{required: true, message: '请输入路径!'}]},
+          spageName: {rules:[{required:true,message: '页面名称不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]},
         },
         url: {
           list: "/oaBus/busPagd/list",
