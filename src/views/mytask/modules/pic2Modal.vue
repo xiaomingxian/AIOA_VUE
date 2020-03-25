@@ -1,13 +1,16 @@
 <template>
   <a-modal
     title="流程查看"
-    :width="1000"
+    :width="scrWidth"
+
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleCancel"
     @cancel="handleCancel"
     destroyOnClose
-    cancelText="关闭">
+    cancelText="关闭"
+
+  >
     <div class="bingpai">
       <a-button @click="showPict" block>流程图查看</a-button>
       <a-button @click="traceP" block>流程跟踪表</a-button>
@@ -83,14 +86,16 @@
 
 <script>
 
-  import {getAction, postAction, picUrl} from '@/api/manage'
+  import {getAction, picUrl, postAction} from '@/api/manage'
 
 
   export default {
     name: "pic2Modal",
     data() {
       return {
+        scrWidth: window.innerWidth - 100,
         scrHeight: window.innerHeight - 320 + 'px',
+        // scrHeight: window.innerHeight + 'px',
         // scrHeight: 500 + 'px',
         styles: [],
         title: '流程查看',
