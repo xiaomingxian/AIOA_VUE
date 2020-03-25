@@ -232,6 +232,18 @@
             }
           },*/
           {
+            title: '用户账号',
+            align: "center",
+            dataIndex: 'username',
+            width: 200
+          },
+          {
+            title: '真实姓名',
+            align: "center",
+            width: 200,
+            dataIndex: 'realname',
+          },
+          {
             title: '部门',
             align: "center",
             dataIndex: 'departName',
@@ -250,16 +262,24 @@
             }
           },
           {
-            title: '用户账号',
-            align: "center",
-            dataIndex: 'username',
-            width: 200
-          },
-          {
-            title: '真实姓名',
+            title: '状态',
             align: "center",
             width: 200,
-            dataIndex: 'realname',
+            dataIndex: 'status',
+            customRender:function (text,record,index) {
+              // console.log(record)
+              if(record.status == 1){
+                return "正常";
+              }else{
+                return "冻结";
+              }
+            }
+          },
+          {
+            title: '邮箱',
+            align: "center",
+            width: 200,
+            dataIndex: 'email'
           },
           /*{
             title: '性别',
@@ -289,27 +309,8 @@
             width: 100,
             dataIndex: 'phone'
           },*/
-          {
-            title: '邮箱',
-            align: "center",
-            width: 200,
-            dataIndex: 'email'
-          },
-          {
-            title: '状态',
-            align: "center",
-            width: 200,
-            dataIndex: 'status',
-            customRender:function (text,record,index) {
-              // console.log(record)
-              if(record.status == 1){
-                return "正常";
-              }else{
-                return "冻结";
-              }
-            }
-            // dataIndex: 'status_dictText'
-          },
+
+
          /* {
             title: '创建时间',
             align: "center",
