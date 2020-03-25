@@ -7,17 +7,29 @@
         <a-row :gutter="24">
 
           <a-col :md="6" :sm="12">
+            <a-form-item label="账号">
+              <a-input placeholder="请输入账号查询" v-model="queryParam.username"></a-input>
+            </a-form-item>
+          </a-col>
+
+          <a-col :md="6" :sm="8">
+            <a-form-item label="状态">
+              <a-select v-model="queryParam.status" placeholder="请选择用户状态查询">
+                <a-select-option value="">请选择用户状态</a-select-option>
+                <a-select-option value="1">正常</a-select-option>
+                <a-select-option value="2">冻结</a-select-option>
+              </a-select>
+            </a-form-item>
+          </a-col>
+
+          <a-col :md="6" :sm="12">
             <a-form-item label="部门">
               <a-input placeholder="请输入部门查询" v-model="queryParam.departName"></a-input>
             </a-form-item>
           </a-col>
 
 
-          <a-col :md="6" :sm="12">
-            <a-form-item label="账号">
-              <a-input placeholder="请输入账号查询" v-model="queryParam.username"></a-input>
-            </a-form-item>
-          </a-col>
+
 
         <!--  <a-col :md="6" :sm="8">
             <a-form-item label="性别">
@@ -31,11 +43,11 @@
 
 
           <template v-if="toggleSearchStatus">
-            <a-col :md="6" :sm="8">
+            <!--<a-col :md="6" :sm="8">
               <a-form-item label="邮箱">
                 <a-input placeholder="请输入邮箱查询" v-model="queryParam.email"></a-input>
               </a-form-item>
-            </a-col>
+            </a-col>-->
 
             <!--<a-col :md="6" :sm="8">
               <a-form-item label="手机号码">
@@ -45,25 +57,17 @@
 
 
 
-            <a-col :md="6" :sm="8">
-              <a-form-item label="状态">
-                <a-select v-model="queryParam.status" placeholder="请选择用户状态查询">
-                  <a-select-option value="">请选择用户状态</a-select-option>
-                  <a-select-option value="1">正常</a-select-option>
-                  <a-select-option value="2">解冻</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
+
           </template>
 
           <a-col :md="6" :sm="8">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-              <a @click="handleToggleSearch" style="margin-left: 8px">
+              <!--<a @click="handleToggleSearch" style="margin-left: 8px">
                 {{ toggleSearchStatus ? '收起' : '展开' }}
                 <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-              </a>
+              </a>-->
             </span>
           </a-col>
 
@@ -295,7 +299,16 @@
             title: '状态',
             align: "center",
             width: 200,
-            dataIndex: 'status_dictText'
+            dataIndex: 'status',
+            customRender:function (text,record,index) {
+              // console.log(record)
+              if(record.status == 1){
+                return "正常";
+              }else{
+                return "冻结";
+              }
+            }
+            // dataIndex: 'status_dictText'
           },
          /* {
             title: '创建时间',
