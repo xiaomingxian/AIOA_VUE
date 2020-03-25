@@ -227,9 +227,8 @@
   <script type="text/javascript">
     var ntko = document.getElementById("TANGER_OCX");
     /*
-        谷歌浏览器事件接管
-        */
-
+    谷歌浏览器事件接管
+    */
     function ntkoondocumentopened() {
       var ntko = document.getElementById("TANGER_OCX");
       var urlContextPath = getQueryString("url");
@@ -276,8 +275,7 @@
                   success: function (data) {
                     var filePath="/temporaryFiles/";
                     var fileName1 = data.result;
-                    ntko.Activedocument.Application.Selection.Goto(-1, 0, 0, "zw1");//光标移动到书签
-                    ntko.addtemplatefromurl(urlContextPath + filePath + fileName1);//在光标位置插入内容文档
+                    insertFromUrl(urlContextPath + filePath + fileName1);
                     // 插入书签
                     for (var bookMark in bookMarkMap) {
                       var BookmarkName = bookMark;
@@ -295,7 +293,7 @@
                   dataType: "json",
                   url: urlContextPath + "/ntko/filentko/singleCopyFile",
                   data: {"filepath": Path1,"orgSchema":orgSchema},
-                  success: function (data) {
+                  success: function () {
                     for (var bookMark in bookMarkMap) {
                       var BookmarkName = bookMark;
                       var value = bookMarkMap[bookMark];
@@ -407,7 +405,7 @@
                     dataType: "json",
                     url: urlContextPath + "/ntko/filentko/singleCopyFile",
                     data: {"filepath": Path1,"orgSchema":orgSchema},
-                    success: function (data) {
+                    success: function () {
                       //插入书签
                       for (var bookMark in bookMarkMap) {
                         var BookmarkName = bookMark;
@@ -426,7 +424,6 @@
           }
         }
       }
-
       //Saved属性用来判断文档是否被修改过,文档打开的时候设置成ture,当文档被修改,自动被设置为false,该属性由office提供.
       ntko.activeDocument.Saved = true;
       //按钮权限
@@ -451,68 +448,50 @@
           var isNoCopy = data.result.iisCopy; //是否禁止拷贝
           // 是否允许打印
           if (filePrint == 1) {
-            // setFilePrint(true);
             ntko.fileprint=true;
           } else if(filePrint == 0){
             ntko.fileprint=false;
           }
           // 是否允许打印预览
           if (filePrintPreview == 1) {
-            // setFilePrintPreview(true)
             ntko.FilePrintPreview = true;
           } else if (filePrintPreview == 0) {
-            // setFilePrintPreview(false)
             ntko.FilePrintPreview = false;
           }
           //是否允许另存
           if (fileSaveAs == 1) {
-            // setFileSaveAs(true);
             ntko.FileSaveAs = true
           } else if (fileSaveAs == 0) {
-            // setFileSaveAs(false);
             ntko.FileSaveAs = false
           }
           //是否允许保存
           if (fileSave == 1) {
-            // setFileSave(true);
             ntko.FileSave = true;
           } else if (fileSave == 0) {
-            // setFileSave(false);
             ntko.FileSave = false;
           }
           //是否允许新建
           if (fileNew == 1) {
-            // setFileNew(true);
             ntko.FileNew = true;
           } else if (fileNew == 0) {
-            // setFileNew(false);
             ntko.FileNew = false;
           }
           //是否允许文件菜单的关闭项
           if (fileClose == 1) {
-            // setFileClose(true);
             ntko.FileClose = true;
           } else if (fileClose == 0) {
-            // setFileClose(false);
             ntko.FileClose = false;
           }
           //是否允许文件菜单的打开项
           if (fileOpen == 1) {
-            // setFileOpen(true);
             ntko.FileOpen = true;
           } else if (fileOpen == 0) {
-            // ntko.SetReadOnly(true,3);
-            // setFileOpen(false);
             ntko.FileOpen = false;
           }
           //是否允许编辑,可编辑显示留痕
           if (fileEdit == 1) {
-            // setReadOnly(false);
-            // setShowRevisions(true);
             ntko.SetReadOnly(false, "", 3);
           } else if (fileEdit == 0) {
-            // setReadOnly(true);
-            // setShowRevisions(false);
             ntko.SetReadOnly(true, "", 3);
             if (cmd == 3 || cmd == 5 || cmd == 9 || cmd ==12) {
               //是否显示工具栏
@@ -523,19 +502,15 @@
           }
           //是否禁止拷贝
           if (isNoCopy == 1) {
-            // setIsNoCopy(false);
             ntko.IsStrictNoCopy = true
 
           } else if (isNoCopy == 0) {
-            // setIsNoCopy(true);
             ntko.IsStrictNoCopy = false;
           }
           // 设置是否保留痕迹状态
           if (reviewMode == 1) {
-            // setReviewMode(true);
             ntko.TrackRevisions(true)
           } else if (reviewMode == 0) {
-            // setReviewMode(false);
             ntko.TrackRevisions(false)
           }
           //显示保留痕迹状态
@@ -572,11 +547,6 @@
         }
       }
     }
-
-    // function ntkosavetourl(type,code,html)
-    // {
-      //alert("SaveToURL成功回调");
-    // }
 
     function OnFileCommand(Item,IsCancel){
       var cmd=getQueryString('cmd');
@@ -620,7 +590,6 @@
         // 必须取消只读，才能隐藏痕迹，否则会报错
         setReadOnly(false);
         setShowRevisions(false);
-        // setReviewMode(false);
         ntko.RemoveCustomButtonOnMenu(7);
         ntko.AddCustomButtonOnMenu(6, "显示修订", true, 6);
         // 原来是只读的，需要重新设置为只读
@@ -955,7 +924,6 @@
       }
       return num;
     }
-
   </script>
 
   <script type="text/javascript">
@@ -967,7 +935,5 @@
 
 </head>
 <body>
-
 </body>
-
 </html>
