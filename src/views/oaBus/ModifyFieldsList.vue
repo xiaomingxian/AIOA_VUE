@@ -102,7 +102,7 @@
           </template>
         </a-row>
 
-
+<a-spin tip="Loading..."  :spinning="confirmLoading">
         <a-table
           ref="table"
           size="default"
@@ -128,7 +128,7 @@
             <a @click="replaceFile(record)">替换文件</a>
           </span>
         </a-table>
-
+</a-spin>
         <modify-fields-model ref="modalForm" @ok="modalFormOk"></modify-fields-model>
         <modify-replace-file-modal ref="modalFormFile" @ok="modalFormOk"></modify-replace-file-modal>
       </a-form>
@@ -153,10 +153,12 @@
   //业务页面
   import cutFile from '../mytask/taskList/sendFile'
   import ARadioGroup from "ant-design-vue/es/radio/Group";
+  import ASpin from "ant-design-vue/es/spin/Spin";
 
   export default {
     name: "ModifyFieldsList",
     components: {
+      ASpin,
       ModifyFieldsModel,
       ModifyReplaceFileModal,
       ARadioGroup,
@@ -178,6 +180,7 @@
         selectList: [],
         timeList:[],
         iBMId: '',
+        confirmLoading:false,
         searchColumns: [],
         searchList: [],
         model: {pageDetailList: [{}]},
@@ -316,6 +319,7 @@
         formData.d_datetime6 !=null?formData.d_datetime6.format('YYYY-MM-DD HH:mm:ss'):null;
         formData.d_date1 !=null?formData.d_date1.format('YYYY-MM-DD'):null;
         formData.d_date2 !=null?formData.d_date2.format('YYYY-MM-DD'):null;
+        formData.d_sealdate !=null?formData.d_sealdate.format('YYYY-MM-DD'):null;
       },
 
       //添加逻辑
@@ -389,6 +393,7 @@
         }
 
         if(this.isClick==false){
+          this.confirmLoading=true;
           this.isClick=true;
           // let url = "oaBus/oaBusdata/queryByModelId";
           let url = "modify/fields/queryOaBusdataList";
@@ -474,10 +479,8 @@
               //   }
               // }
             }
-
-            console.log("biao--------------------")
-
-            console.log(this.columns)
+//            console.log("biao--------------------")
+//            console.log(this.columns)
             this.columns.push({
               title: '操作',
               dataIndex: 'action',
@@ -485,6 +488,7 @@
               width:"150px",
               scopedSlots: {customRender: 'action'},
             });
+            this.confirmLoading=false;
           });
         }else {
 

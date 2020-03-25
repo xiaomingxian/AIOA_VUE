@@ -207,8 +207,8 @@
                     <template v-if="willdoindex==0">
                       <p>
                         <i></i>
-                        <span :title="item.title+'   '+item.createTime+item.name">
-                            <span :style="iisFontSize">{{item.title|filterText1}}
+                        <span :title="item.stitle+'   '+item.dCreateTime">
+                            <span :style="iisFontSize">{{item.stitle|filterText1}}
                               <div v-if="item.important==1">
                                    <img alt="" src="../../assets/zhong.png">
                               </div>
@@ -216,7 +216,7 @@
 
                             </span>
                       </p>
-                      <span :style="iisFontSize">{{item.createTime|timeText}}</span>
+                      <span :style="iisFontSize">{{item.dCreateTime|timeText}}</span>
                     </template>
 
                     <template v-else>
@@ -382,9 +382,9 @@
         url:{
           findByLeader:'/oaBus/Calendar/oaCalendar/findByLeader',
           MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
-          // findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
+          findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
           findById:'/oaBus/Calendar/oaCalendar/queryById',
-          findwaiturl:'/wf/task/queryTask',
+         // findwaiturl:'/wf/task/queryTask',
           queryPageList:'/oaBus/Calendar/oaCalendar/queryPageList',
           list:'/oaBus/Calendar/oaCalendar/list',
           HomeList:'/oaBus/homeAnalysis/HomeList',
@@ -807,7 +807,7 @@
           // 代办日程
           // alert(e)
           this.willdoindex = 0;
-          this.findwaitLists('task_todo');
+          this.findwaitLists();
         }else{
 
           // alert(e)
@@ -1101,23 +1101,15 @@
         });
       },
       //待办 已办   日程  .replace(0,3);
-      findwaitLists(operstatus='task_todo'){
+      findwaitLists(){
 
-        getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
+        postAction(this.url.findwaiturl,{}).then((res) => {
           console.log(res.result.records);
           console.log(Array.isArray(res.result.records));
 
           this.findwaitdataLists =res.result.records.splice(0,5)
           console.log(this.findwaitdataLists);
-
-
-          if(operstatus=='task_todo'){
             this.total = res.result.total;
-          }else{
-            // this.total1 = res.result.total;
-          }
-
-
         });
       },
       //  数据初始化  收文  发文数据

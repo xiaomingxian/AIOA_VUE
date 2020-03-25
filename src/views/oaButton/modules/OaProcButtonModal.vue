@@ -353,7 +353,7 @@
       },handleAdd: function () {
 //        console.log("7777777777777777777777777777")
         this.$refs.modalForm.add(this.iid);
-        this.$refs.modalForm.title = "添加";
+        this.$refs.modalForm.title = "新增";
         this.$refs.modalForm.disableSubmit = false;
 
       },

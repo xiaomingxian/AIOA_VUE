@@ -48,7 +48,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="顺序号">
-          <a-input-number maxLength="9" v-decorator="[ 'iorder', {}]" />
+          <a-input-number min="1" max="99999999" v-decorator="[ 'iorder', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -108,7 +108,7 @@
         buttonInfo:'',
         selectButton:'',
         iprocButtonId:'',
-        ipermitType:0,
+        ipermitType:1,
         iisCreater:0,
         iisReader:0,
         // sbtnName:'',
@@ -142,6 +142,15 @@
       edit (record) {
         this.form.resetFields();
         this.model = Object.assign({}, record);
+        if(!this.model.ipermitType){
+          this.model.ipermitType = 0
+        }
+        if(!this.model.iisCreater){
+          this.model.iisCreater = 0
+        }
+        if(!this.model.iisReader){
+          this.model.iisReader = 0
+        }
         //---------------根据按钮ID 请求名字--------------
         getAction(this.url.queryById,{id:this.model.ibuttonId}).then(res=>{
           this.buttonInfo = res.result;
@@ -161,8 +170,9 @@
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model,'iid','procdefKey','taskdefKey','iprocButtonId','ibuttonId','iorder','ipermitType','iisCreater','iisReader','iisLastsender','iisTransactors','iisDefault','itaskDefKey','smanagerRoleId'))
 		  //时间格式化
-        });
 
+
+        });
       },
       getButtonList(){
         getAction(this.url.buttonList,{}).then(res=>{
@@ -206,6 +216,7 @@
               }else{
                 that.$message.warning(res.message);
               }
+              this.selectButton='';
             }).finally(() => {
               that.confirmLoading = false;
               that.close();
