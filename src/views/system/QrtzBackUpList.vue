@@ -122,11 +122,12 @@
 <script>
   // import QrtzBackUpModal from './modules/QrtzBackUpModal'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin2'
-  import { getAction } from '@/api/manage'
+  import {getAction} from '@/api/manage'
 
   export default {
     name: "QrtzBackUpList",
     mixins: [JeecgListMixin],
+    inject: ['reload'],
     components: {
       // QrtzBackUpModal
     },
@@ -234,6 +235,9 @@
           }
           document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
         })
+      },
+      searchReset() {
+        this.reload()
       },
       //----------------时间变化检测---------------
       selectTime(e) {
