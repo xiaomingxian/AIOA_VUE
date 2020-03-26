@@ -5,28 +5,30 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
-          <a-col :md="6" :sm="8">
-            <a-form-item label="标题">
-              <a-input placeholder="标题" v-model="queryParam.dataTitle"></a-input>
+          <a-col :md="8" :sm="8">
+            <a-form-item label="文件标题">
+              <a-input placeholder="文件标题" v-model="queryParam.dataTitle"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="8">
+          <a-col :md="8" :sm="8">
             <a-form-item label="文件字号">
               <a-input placeholder="文件字号" v-model="queryParam.fileNum"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="拟稿人">
-              <a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>
-            </a-form-item>
-          </a-col>
+
 
 
           <template v-if="toggleSearchStatus">
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
+              <a-form-item label="拟稿用户">
+                <a-input placeholder="拟稿用户" v-model="queryParam.createName"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="8">
 
+              <!--style="width: 150px"-->
               <a-form-item label="任务类型">
-                <a-select style="width: 150px" @change="taskTypeChange" v-model="taskType">
+                <a-select  @change="taskTypeChange" v-model="taskType">
                   <a-select-option value="全部">全部</a-select-option>
                   <a-select-option value="传阅">传阅</a-select-option>
                   <a-select-option value="主办">主办</a-select-option>
@@ -34,22 +36,23 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="8">
-              <a-form-item label="主办部门">
-                <a-input placeholder="主办部门" v-model="queryParam.mainDept"></a-input>
-              </a-form-item>
-            </a-col>
+
 
             <a-col :md="8" :sm="8">
               <a-form-item label="开始时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间"
+                <a-date-picker style="width: 230px" showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" size="40px"
                                v-model='startTimeFake' @change="startTime"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="8">
               <a-form-item label="结束时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间"
+                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 230px"
                                v-model='endTimeFake' @change="endTime"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="8">
+              <a-form-item label="主办部门">
+                <a-input placeholder="主办部门" v-model="queryParam.mainDept"></a-input>
               </a-form-item>
             </a-col>
 

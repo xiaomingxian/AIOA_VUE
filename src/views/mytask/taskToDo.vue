@@ -94,35 +94,37 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
-          <a-col :md="5" :sm="8">
-            <a-form-item label="标题">
-              <a-input style="width: 150px" placeholder="标题" v-model="queryParam.dataTitle"></a-input>
+          <a-col :md="8" :sm="8">
+            <!--style="width: 150px"-->
+            <a-form-item label="文件标题">
+              <a-input  placeholder="文件标题" v-model="queryParam.dataTitle"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="8">
+          <a-col :md="8" :sm="8">
             <a-form-item label="文件字号">
-              <a-input style="width: 150px" placeholder="文件字号" v-model="queryParam.fileNum"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :md="7" :sm="8">
-            <a-form-item label="是否领导关注">
-              <a-select style="width: 150px" v-model="queryParam.iImport">
-                <a-select-option value="1">是</a-select-option>
-                <a-select-option value="0">否</a-select-option>
-              </a-select>
+              <a-input placeholder="文件字号" v-model="queryParam.fileNum"></a-input>
             </a-form-item>
           </a-col>
 
+
           <template v-if="toggleSearchStatus">
+            <a-col :md="8" :sm="8">
+              <a-form-item label="领导关注">
+                <a-select v-model="queryParam.iImport">
+                  <a-select-option value="1">是</a-select-option>
+                  <a-select-option value="0">否</a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
             <!--<a-col :md="6" :sm="8">-->
             <!--<a-form-item label="拟稿人">-->
             <!--<a-input placeholder="拟稿人" v-model="queryParam.createName"></a-input>-->
             <!--</a-form-item>-->
             <!--</a-col>-->
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
 
               <a-form-item label="任务类型">
-                <a-select style="width: 150px" @change="taskTypeChange" v-model="queryParam.taskType">
+                <a-select  @change="taskTypeChange" v-model="queryParam.taskType">
                   <a-select-option value="全部">全部</a-select-option>
                   <a-select-option value="传阅">传阅</a-select-option>
                   <a-select-option value="主办">主办</a-select-option>
@@ -130,21 +132,21 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="主办部门">
                 <a-input placeholder="主办部门" v-model="queryParam.mainDept"></a-input>
               </a-form-item>
             </a-col>
 
-            <a-col :md="7" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="开始时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间"
+                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 230px"
                                v-model='queryParam.startTimeFake' @change="startTime"/>
               </a-form-item>
             </a-col>
-            <a-col :md="7" :sm="8">
+            <a-col :md="8" :sm="8">
               <a-form-item label="结束时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间"
+                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间"  style="width: 230px"
                                v-model='queryParam.endTimeFake' @change="endTime"/>
               </a-form-item>
             </a-col>
@@ -169,29 +171,28 @@
     </div>
 
 
-
     <!-- table区域-begin -->
 
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
-        <a-menu slot="overlay">
-          <!--<a-menu-item key="1" @click="batchEnd">-->
-          <!--<a-icon type="delete"/>-->
-          <!--批量办结-->
-          <!--</a-menu-item>-->
-          <!--v-if="selectedRowKeys.length > 0"-->
-          <!--v-if="(this.queryParam.deptType=='传阅')"-->
-          <a-menu-item  v-if="selectedRowKeys.length > 0 && (this.queryParam.deptType=='传阅')"
-                       key="1" @click="batchPiYue">
-            <a-icon />
-            批量批阅
-          </a-menu-item>
-        </a-menu>
+      <a-menu slot="overlay">
+        <!--<a-menu-item key="1" @click="batchEnd">-->
+        <!--<a-icon type="delete"/>-->
+        <!--批量办结-->
+        <!--</a-menu-item>-->
+        <!--v-if="selectedRowKeys.length > 0"-->
+        <!--v-if="(this.queryParam.deptType=='传阅')"-->
+        <a-menu-item v-if="selectedRowKeys.length > 0 && (this.queryParam.deptType=='传阅')"
+                     key="1" @click="batchPiYue">
+          <a-icon/>
+          批量批阅
+        </a-menu-item>
+      </a-menu>
 
-        <!--<a-button style="margin-left: 8px"> 批量操作-->
-          <!--<a-icon type="down"/>-->
-        <!--</a-button>-->
+      <!--<a-button style="margin-left: 8px"> 批量操作-->
+      <!--<a-icon type="down"/>-->
+      <!--</a-button>-->
       <!--</a-dropdown>-->
 
     </div>
@@ -239,23 +240,23 @@
     <div v-if="iisFold == 1">
       <!-- 操作按钮区域 -->
       <!--<div class="table-operator">-->
-        <!--<a-dropdown>-->
-          <!--<a-menu slot="overlay">-->
-            <!--&lt;!&ndash;<a-menu-item key="1" @click="batchEnd">&ndash;&gt;-->
-            <!--&lt;!&ndash;<a-icon type="delete"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;批量办结&ndash;&gt;-->
-            <!--&lt;!&ndash;</a-menu-item>&ndash;&gt;-->
-            <!--<a-menu-item v-if="(this.queryParam.deptType=='传阅')"-->
-                         <!--key="1" @click="batchPiYue">-->
-              <!--<a-icon type="delete"/>-->
-              <!--批量批阅-->
-            <!--</a-menu-item>-->
-          <!--</a-menu>-->
+      <!--<a-dropdown>-->
+      <!--<a-menu slot="overlay">-->
+      <!--&lt;!&ndash;<a-menu-item key="1" @click="batchEnd">&ndash;&gt;-->
+      <!--&lt;!&ndash;<a-icon type="delete"/>&ndash;&gt;-->
+      <!--&lt;!&ndash;批量办结&ndash;&gt;-->
+      <!--&lt;!&ndash;</a-menu-item>&ndash;&gt;-->
+      <!--<a-menu-item v-if="(this.queryParam.deptType=='传阅')"-->
+      <!--key="1" @click="batchPiYue">-->
+      <!--<a-icon type="delete"/>-->
+      <!--批量批阅-->
+      <!--</a-menu-item>-->
+      <!--</a-menu>-->
 
-          <!--<a-button style="margin-left: 8px"> 批量操作-->
-            <!--<a-icon type="down"/>-->
-          <!--</a-button>-->
-        <!--</a-dropdown>-->
+      <!--<a-button style="margin-left: 8px"> 批量操作-->
+      <!--<a-icon type="down"/>-->
+      <!--</a-button>-->
+      <!--</a-dropdown>-->
 
       <!--</div>-->
 
@@ -498,18 +499,18 @@
       }
     },
     methods: {
-      setFontSize(){
-        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+      setFontSize() {
+        const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         let url = "/testt/sysUserSet/queryByUserId";
-        getAction(url,{userId:userid}).then((res) => {
-          if(res.result.iisFontSize == 1){
+        getAction(url, {userId: userid}).then((res) => {
+          if (res.result.iisFontSize == 1) {
             this.iisFontSize = '18px';
-          }else if(res.result.iisFontSize == 3){
+          } else if (res.result.iisFontSize == 3) {
             this.iisFontSize = '14px';
-          }else{
+          } else {
             this.iisFontSize = '16px';
           }
-          for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+          for (let i = 0; i < document.getElementsByClassName('ant-table').length; i++) {
             document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
           }
         })
@@ -569,7 +570,7 @@
           this.queryParam.isDept = false
         }
         this.queryParam.deptType = type
-        if (type=='传阅'){
+        if (type == '传阅') {
           await this.collapseListOrNot()
         }
       },
@@ -600,11 +601,11 @@
       // },
       searchResetMy: async function () {
         this.queryParam.tableOrder = false
-        if(this.iisFold == 1){
+        if (this.iisFold == 1) {
 
           await this.getPgFirstList();
 
-        }else {
+        } else {
 
           this.searchReset();
 
@@ -887,7 +888,7 @@
           this.columnes.push({
             dataIndex: 'wenHao',
           });
-        this.getData(0,res.result.length,res.result)
+          this.getData(0, res.result.length, res.result)
 //          for (let i = 0; i < res.result.length; i++) {
 //            this.taskKey.push(res.result[i].value);
 //            let url = "urgency/degree/queryTask";
@@ -922,7 +923,7 @@
         }
 
       },
-      getData(i,length,data){
+      getData(i, length, data) {
 //        console.log(data)
         this.taskKey.push(data[i].value);
         let url = "urgency/degree/queryTask";
@@ -934,8 +935,8 @@
               wenHao: Urgency[i].text,
             });
           }
-          if(++i<length){
-            this.getData(i,length,data)
+          if (++i < length) {
+            this.getData(i, length, data)
           }
         })
       },
@@ -973,107 +974,109 @@
           endTimeFake: this.queryParam.endTimeFake
         }).then((res) => {
 
-          // this.searchColumns = JSON.parse(res.records);
+            // this.searchColumns = JSON.parse(res.records);
 
-          //   for (let i = 1; i < this.searchColumns.length; i++) {
-          //     this.columnes.push({
-          //       title: this.searchColumns[i].s_column_name,
-          //       dataIndex: this.searchColumns[i].s_table_column,
-          //       align: "center",
-          //     });
-          //   }
-          this.columns.push({
-              title: '序号',
-              dataIndex: '',
-              key: 'rowIndex',
-              width: 60,
-              align: "center",
-              customRender: function (t, r, index) {
-                return parseInt(index) + 1;
-              }
-            },
-            {
-              title: '文号',
-              width: 100,
-              sorter: (i, ii, type) => {
-
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByWenHao')
-
-                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-                return true
+            //   for (let i = 1; i < this.searchColumns.length; i++) {
+            //     this.columnes.push({
+            //       title: this.searchColumns[i].s_column_name,
+            //       dataIndex: this.searchColumns[i].s_table_column,
+            //       align: "center",
+            //     });
+            //   }
+            this.columns.push({
+                title: '序号',
+                dataIndex: '',
+                key: 'rowIndex',
+                width: 60,
+                align: "center",
+                customRender: function (t, r, index) {
+                  return parseInt(index) + 1;
+                }
               },
-              align: "center",
-              dataIndex: 'wenHao'
-            },
-            {
-              title: '标题',
-              width: 350,
-              sorter: (i, ii, type) => {
-                //descend倒叙
-                //ascend正序
+              {
+                title: '文号',
+                width: 100,
+                sorter: (i, ii, type) => {
 
-                this.queryParam.tableOrder = true
-                //置空其他环节
-                this.nullOther('orederByTile')
-                this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
-                return true
+                  this.queryParam.tableOrder = true
+                  this.nullOther('orederByWenHao')
+
+                  this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+                  return true
+                },
+                align: "center",
+                dataIndex: 'wenHao'
               },
-              align: "left",
-              dataIndex: 'title'
-            },
-            {
-              title: '当前环节',
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByHuanJie')
+              {
+                title: '标题',
+                width: 350,
+                sorter: (i, ii, type) => {
+                  //descend倒叙
+                  //ascend正序
 
-                this.queryParam.orederByHuanJie = type == 'descend' ? -1 : 1
-                return true
+                  this.queryParam.tableOrder = true
+                  //置空其他环节
+                  this.nullOther('orederByTile')
+                  this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+                  return true
+                },
+                align: "left",
+                dataIndex: 'title'
               },
-              align: "center",
-              dataIndex: 'name'
-            },
-            {
-              title: '拟稿人',
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByDrafter')
+              {
+                title: '当前环节',
+                sorter: (i, ii, type) => {
+                  this.queryParam.tableOrder = true
+                  this.nullOther('orederByHuanJie')
 
-                this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
-                return true
+                  this.queryParam.orederByHuanJie = type == 'descend' ? -1 : 1
+                  return true
+                },
+                align: "center",
+                dataIndex: 'name'
               },
-              align: "center",
-              dataIndex: 'drafter'
-            },
-            {
-              title: '转发时间',
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByTime')
+              {
+                title: '拟稿人',
+                sorter: (i, ii, type) => {
+                  this.queryParam.tableOrder = true
+                  this.nullOther('orederByDrafter')
 
-                this.queryParam.orederByTime = type == 'descend' ? -1 : 1;
-                return true
+                  this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
+                  return true
+                },
+                align: "center",
+                dataIndex: 'drafter'
               },
-              align: "center",
-              dataIndex: 'createTime'
-            },
-            {
-              title: '操作',
-              dataIndex: 'action',
-              align: "center",
-              scopedSlots: {customRender: 'action'},
-            });
+              {
+                title: '转发时间',
+                sorter: (i, ii, type) => {
+                  this.queryParam.tableOrder = true
+                  this.nullOther('orederByTime')
 
-          // this.dataSources = res.result.dataList;
+                  this.queryParam.orederByTime = type == 'descend' ? -1 : 1;
+                  return true
+                },
+                align: "center",
+                dataIndex: 'createTime'
+              },
+              {
+                title: '操作',
+                dataIndex: 'action',
+                align: "center",
+                scopedSlots: {customRender: 'action'},
+              });
+
+            // this.dataSources = res.result.dataList;
 
 
-          this.dataSource007 = res.result.records;
-          for (let i = 0; i < this.dataSource007.length; i++) {
-            this.dataSource007[i].key = this.dataSource007[i].id;
+            this.dataSource007 = res.result.records;
+            for (let i = 0; i < this.dataSource007.length; i++) {
+              this.dataSource007[i].key = this.dataSource007[i].id;
+            }
+
           }
-
-        });
+        )
+        ;
         this.setFontSize();
       },
       getSearchList() {
@@ -1095,7 +1098,8 @@
             this.dataSource007[i].key = this.dataSource007[i].id;
           }
         })
-      },
+      }
+      ,
       getPgSearchList() {
         this.columns = [];
         this.dataSource = [];
@@ -1147,6 +1151,29 @@
               return parseInt(index) + 1;
             }
           },
+          // {
+          //   align: "center",
+          //   width: 60,
+          //   title: '缓急',
+          //   dataIndex: 'huanJi',
+          //   customRender: function (t, r, index) {
+          //     console.log('--[[[[[', t, r, index)
+          //     var huanJi = t.huanJi
+          //     if (huanJi === 1) {
+          //       return '特急'
+          //     } else if (huanJi == 2) {
+          //       return '紧急'
+          //     } else if (huanJi == 3) {
+          //       return '加急'
+          //     } else if (huanJi == 4) {
+          //       return '普通'
+          //     } else {
+          //       console.log('~~~~~~~~~~~~~~~~~~~~~~')
+          //       return ''
+          //     }
+          //   }
+          //
+          // },
           {
             title: '文号',
             width: 100,
@@ -1227,7 +1254,8 @@
 
         // });
         this.setFontSize();
-      },
+      }
+      ,
       // changeInput(event, obj) {
       //   this.queryParam[obj] = event.currentTarget.value;
       // console.log('----------------------------------------------------------');
@@ -1265,9 +1293,6 @@
         this.taskRecord.id = this.selectedRows2[0].id
 
 
-
-
-
         getAction('/wf/task/taskStatus?taskid=' + this.taskRecord.id).then(res => {
           if (res.success) {
             if (res.message == 'todo') {
@@ -1285,18 +1310,17 @@
         })
 
 
-
-
-
-
-      },
+      }
+      ,
       cancel2() {
         this.haveMore = false
-      },
+      }
+      ,
       onSelectChangeMy2(rowKeys, rows) {
         this.selectedRowKeys2 = rowKeys
         this.selectedRows2 = rows
-      },
+      }
+      ,
       // customRowMy(res) {
       //   return {
       //     on: {
@@ -1359,7 +1383,7 @@
                   this.taskRecord.id = record2.id
 
 
-                  getAction('/wf/task/taskStatus?taskid=' +  this.taskRecord.id).then(res => {
+                  getAction('/wf/task/taskStatus?taskid=' + this.taskRecord.id).then(res => {
                     if (res.success) {
                       if (res.message == 'todo') {
 
@@ -1407,7 +1431,8 @@
         }
 
 
-      },
+      }
+      ,
       // chooseSearch() {
       //   if (this.queryParam.selType == 0) {
       //     this.queryParam.s_create_name = '';
@@ -1423,28 +1448,29 @@
         this.dataSource = [];
         this.dataSource007 = [];
         this.dataSources = [];
-      },
+      }
+      ,
       // resetPgConditionList() {
       //   this.queryParam = Object.assign({}, this.resetConditionList);
       //   for (let i = 0; i < this.$refs.inputs.length; i++) {
       //     this.$refs.inputs[i].stateValue = '';
       //   }
       // },
-    //   collapseListOrNot() {
-    //     const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-    //     getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
-    //       this.iisFold = res.result.iisFold;
-    //       if (this.iisFold == 1) {
-    //         this.getPgFirstList();
-    //       } else {
-    //         this.getPgSearchList();
-    //       }
-    //     })
-    //   }
-    // },
-    collapseListOrNot: async function () {
+      //   collapseListOrNot() {
+      //     const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+      //     getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+      //       this.iisFold = res.result.iisFold;
+      //       if (this.iisFold == 1) {
+      //         this.getPgFirstList();
+      //       } else {
+      //         this.getPgSearchList();
+      //       }
+      //     })
+      //   }
+      // },
+      collapseListOrNot: async function () {
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-        await  getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+        await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
           this.iisFold = res.result.iisFold;
           if (this.iisFold == 1) {
             this.getPgFirstList();
