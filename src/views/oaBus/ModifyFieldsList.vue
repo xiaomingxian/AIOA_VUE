@@ -13,7 +13,7 @@
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'left', overflow: 'hidden' } || {} ">
               <a @click="toggleAdvanced" >
-                {{ advanced ? '隐藏' : '显示' }}
+                {{ advanced ?'收起' : '展开' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
@@ -65,7 +65,8 @@
             </a-col>
 
             <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item label="标    题">
+              <a-form-item :label="label.title" >
+                <!--<label slot="label">标&nbsp;&nbsp;&nbsp;&nbsp;题</label>-->
                 <a-input v-model="queryParam.s_title"></a-input>
               </a-form-item>
             </a-col>
@@ -94,9 +95,10 @@
             </a-col>
 
 
-            <a-col :md="3" :sm="24" style="text-align: center;">
+            <a-col :md="4" :sm="24" style="text-align: center;">
             <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
                <a-button type="primary" icon="search" @click="getPgSearchList">查询</a-button>
+               <a-button type="primary" @click="chongZ" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>
             </a-col>
           </template>
@@ -170,6 +172,9 @@
     },
     data() {
       return {
+        label:{
+          title:"标"+ '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' +"题",
+        },
         description: '这是运维工具查询列表页面',
         iisFontSize: '16px',
         visibleCreateModal: false,
@@ -249,6 +254,16 @@
       this.setFontSize();
     },
     methods: {
+      chongZ(){
+//        this.queryParam.function_id= '';
+        this.queryParam.i_is_state= '';
+        this.queryParam.selType= 1;
+        this.queryParam.d_create_time='';
+        this.queryParam.s_title='';
+        this.queryParam.s_receive_num= '';
+        this.queryParam.s_file_num= '';
+        this.getPgSearchList();
+      },
       // loadData (arg){
       //   if(arg===1){
       //     this.ipagination.current = 1;

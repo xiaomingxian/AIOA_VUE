@@ -15,7 +15,7 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
         :label="atom.s_column_name">
-        <a-input placeholder="请输入正确格式" v-decorator="[ atom.s_table_column, {}]"/>
+        <a-input maxLength="20" :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
         <!--下拉列表-------------------start---------------->
         <!--密级-->
@@ -25,7 +25,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectNum($event,atom.s_table_column)"
                     v-model="model.i_safetylevel"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.i_safetylevel_option" :key="item.value" :value="item.value*1">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -36,7 +36,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectNum($event,atom.s_table_column)"
                     v-model="model.i_urgency"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.i_urgency_option" :key="item.value" :value="item.value*1">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -47,7 +47,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar4"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in xxgkList" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -57,8 +57,8 @@
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
-                    v-model="model.s_varchar5"
-                    placeholder="请选择">
+                     v-decorator="['model.s_varchar5', {rules: [{ required: model.s_varchar4=='bgk'?true:false, message: '请选择不公开理由' }]}]"
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in bgklyList" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -69,7 +69,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar4"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar4_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -80,7 +80,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar5"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar5_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -91,7 +91,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar1"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -102,7 +102,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar2"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -113,7 +113,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar3"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar3_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -124,7 +124,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar6"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar6_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -135,7 +135,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar7"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar7_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -146,7 +146,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar8"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar8_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -157,7 +157,7 @@
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
                     v-model="model.s_varchar9"
-                    placeholder="请选择">
+                    :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in optionMap.s_varchar9_option" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
         </a-form-item>
@@ -169,14 +169,20 @@
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
-          <a-textarea placeholder="请输入正确格式" v-decorator="[ atom.s_table_column, {}]"/>
+          <a-textarea  maxLength="50"  :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
         <!--日期框-->
-        <a-form-item v-if="atom.i_column_type==4||atom.i_column_type==5||atom.s_table_column=='d_sealdate'" v-show="atom.s_table_column!='i_id'"
+        <a-form-item v-if="atom.i_column_type==4||atom.i_column_type==5" v-show="atom.s_table_column!='i_id'"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           :label="atom.s_column_name">
           <a-date-picker showTime="true" format="YYYY-MM-DD HH:mm:ss"  v-decorator="[ atom.s_table_column, {}]"/>
+        </a-form-item>
+        <a-form-item v-if="atom.s_table_column=='d_sealdate'" v-show="atom.s_table_column!='i_id'"
+                     :labelCol="labelCol"
+                     :wrapperCol="wrapperCol"
+                     :label="atom.s_column_name">
+          <a-date-picker showTime="true" format="YYYY-MM-DD"  v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
         <!--单选框-->
         <a-form-item v-if="atom.i_column_type==6" v-show="atom.s_table_column!='i_id'"
@@ -347,7 +353,7 @@
 //            console.log(formData)
             formData.d_create_time = formData.d_create_time?formData.d_create_time.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_update_time = formData.d_update_time?formData.d_update_time.format('YYYY-MM-DD HH:mm:ss'):null;
-            formData.d_sealdate = formData.d_sealdate?formData.d_sealdate.format('YYYY-MM-DD'):null;
+            formData.d_sealdate !=null?formData.d_sealdate.format('YYYY-MM-DD'):null;
             formData.d_datetime1 = formData.d_datetime1?formData.d_datetime1.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_datetime2 = formData.d_datetime2?formData.d_datetime2.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_datetime3 = formData.d_datetime3?formData.d_datetime3.format('YYYY-MM-DD HH:mm:ss'):null;
