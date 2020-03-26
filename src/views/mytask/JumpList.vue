@@ -73,26 +73,26 @@
     </div>
 
     <!-- 操作按钮区域 -->
-    <div class="table-operator">
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <!--<a-menu-item key="1" @click="batchEnd">-->
-          <!--<a-icon type="delete"/>-->
-          <!--批量办结-->
+    <!--<div class="table-operator">-->
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--&lt;!&ndash;<a-menu-item key="1" @click="batchEnd">&ndash;&gt;-->
+          <!--&lt;!&ndash;<a-icon type="delete"/>&ndash;&gt;-->
+          <!--&lt;!&ndash;批量办结&ndash;&gt;-->
+          <!--&lt;!&ndash;</a-menu-item>&ndash;&gt;-->
+          <!--<a-menu-item v-if="(url.list=='/wf/task/queryTask?operstatus=my_chuanyue') "-->
+                       <!--key="1" @click="batchPiYue">-->
+            <!--<a-icon type="delete"/>-->
+            <!--批量批阅-->
           <!--</a-menu-item>-->
-          <a-menu-item v-if="(url.list=='/wf/task/queryTask?operstatus=my_chuanyue') "
-                       key="1" @click="batchPiYue">
-            <a-icon type="delete"/>
-            批量批阅
-          </a-menu-item>
-        </a-menu>
+        <!--</a-menu>-->
 
-        <a-button style="margin-left: 8px"> 批量操作
-          <a-icon type="down"/>
-        </a-button>
-      </a-dropdown>
+        <!--<a-button style="margin-left: 8px"> 批量操作-->
+          <!--<a-icon type="down"/>-->
+        <!--</a-button>-->
+      <!--</a-dropdown>-->
 
-    </div>
+    <!--</div>-->
 
     <!-- table区域-begin -->
     <div>
