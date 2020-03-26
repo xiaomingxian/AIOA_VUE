@@ -146,8 +146,10 @@
                     <!--</a-popover>-->
                   </div>
                 </template>
-                <img style="position: absolute;left: 10px;bottom: 0px;width: 50px;" src="../../assets/bottomleft.png" alt="">
-                <img style="position: absolute;top: 42px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
+                <img alt="" src="../../assets/bottomleft.png"
+                     style="position: absolute;left: 10px;bottom: 10px;width: 50px;">
+                <img alt="" src="../../assets/topright.png"
+                     style="position: absolute;top: 38px;right: 10px;width: 100px;">
                 <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
 
               </div>
@@ -205,16 +207,16 @@
                     <template v-if="willdoindex==0">
                       <p>
                         <i></i>
-                        <span :title="item.title+'   '+item.createTime+item.name">
-                                <span :style="iisFontSize">{{item.title|filterText1}}
-                                  <div v-if="item.important==1">
-                                       <img src="../../assets/zhong.png" alt="" >
-                                  </div>
-                                </span>
+                        <span :title="item.stitle+'   '+item.dCreateTime">
+                            <span :style="iisFontSize">{{item.stitle|filterText1}}
+                              <div v-if="item.important==1">
+                                   <img alt="" src="../../assets/zhong.png">
+                              </div>
+                            </span>
 
-                              </span>
+                            </span>
                       </p>
-                      <span :style="iisFontSize">{{item.createTime|timeText}}</span>
+                      <span :style="iisFontSize">{{item.dCreateTime|timeText}}</span>
                     </template>
 
                     <template v-else>
@@ -380,9 +382,9 @@
         url:{
           findByLeader:'/oaBus/Calendar/oaCalendar/findByLeader',
           MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
-          // findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
+          findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
           findById:'/oaBus/Calendar/oaCalendar/queryById',
-          findwaiturl:'/wf/task/queryTask',
+         // findwaiturl:'/wf/task/queryTask',
           queryPageList:'/oaBus/Calendar/oaCalendar/queryPageList',
           list:'/oaBus/Calendar/oaCalendar/list',
           HomeList:'/oaBus/homeAnalysis/HomeList',
@@ -457,7 +459,8 @@
         let Y = oneTime.getFullYear();
         let M = oneTime.getMonth()+1;
         let D = oneTime.getDate();
-        return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
+        // return  Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
+        return (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D);
 
       },
     },
@@ -804,7 +807,7 @@
           // 代办日程
           // alert(e)
           this.willdoindex = 0;
-          this.findwaitLists('task_todo');
+          this.findwaitLists();
         }else{
 
           // alert(e)
@@ -1098,23 +1101,15 @@
         });
       },
       //待办 已办   日程  .replace(0,3);
-      findwaitLists(operstatus='task_todo'){
+      findwaitLists(){
 
-        getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
+        postAction(this.url.findwaiturl,{}).then((res) => {
           console.log(res.result.records);
           console.log(Array.isArray(res.result.records));
 
           this.findwaitdataLists =res.result.records.splice(0,5)
           console.log(this.findwaitdataLists);
-
-
-          if(operstatus=='task_todo'){
             this.total = res.result.total;
-          }else{
-            // this.total1 = res.result.total;
-          }
-
-
         });
       },
       //  数据初始化  收文  发文数据

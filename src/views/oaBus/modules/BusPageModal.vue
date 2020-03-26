@@ -115,6 +115,7 @@
                       :fileList="fileList"
                       :beforeUpload="beforeUpload"
                       :showUploadList="false"
+                      accept=".jpg,.png,.gif"
                       :multiple="false"
                       @preview="handlePreview"
                       :headers="headers" @change="handleChange">
@@ -205,6 +206,7 @@
         validatorRules: {
           iId: {rules: [{required: true, message: '请输入主键id!'}]},
           spagePath: {rules: [{required: true, message: '请输入路径!'}]},
+          spageName: {rules:[{required:true,message: '页面名称不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]},
         },
         url: {
           list: "/oaBus/busPagd/list",
@@ -308,6 +310,9 @@
         }
       },
       beforeUpload: function (file, fileList) {
+        /*let ss = file.name.split(".")
+        console.log(ss[ss.length-1]) ;*/
+
         this.upFailId = 1;
         this.upFileName = file.name;
         this.uploading = true;

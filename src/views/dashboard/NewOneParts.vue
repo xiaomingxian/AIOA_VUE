@@ -15,7 +15,7 @@
             <div class="left">
               <i></i>
               <p class="tongzhi">[{{item.s_varchar5}}]</p>
-              <span :title="item.s_title">{{item.s_title|filterText2}}</span>
+              <span :title="item.s_title">{{item.s_title}}</span>
               <!--<i></i>-->
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
@@ -370,7 +370,9 @@
         let Y = oneTime.getFullYear();
         let M = oneTime.getMonth() + 1;
         let D = oneTime.getDate();
-        return Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D);
+        // return Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D);
+        //修改为永州需求  只显示月日
+        return (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D);
 
       },
     },
@@ -895,9 +897,10 @@
         /*background-position: bottom right;*/
         display: flex;
         align-items: flex-start;
+        justify-content: space-between;
 
         .title {
-          width: 120px;
+          width: 100px;
           /*height: 198px;*/
           background: transparent !important;
           margin-left: 10px;
@@ -925,7 +928,7 @@
 
         .listsBox {
           /*margin-left: 20px;*/
-          width: 100%;
+          width: 86%;
           height: 80%;
           min-height: 163.5px;
           display: flex;
@@ -944,7 +947,7 @@
             margin-top: 10px;
 
             .left {
-              width: 75%;
+              width: 80%;
               display: flex;
               align-items: center;
 
@@ -961,7 +964,7 @@
               }
 
               span {
-                width: 75%;
+                width: 85%;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;

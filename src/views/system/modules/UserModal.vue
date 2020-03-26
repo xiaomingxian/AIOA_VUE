@@ -23,16 +23,16 @@
       <a-form :form="form">
 
         <a-form-item label="用户账号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入用户账号" v-decorator="[ 'username', validatorRules.username]" :readOnly="!!model.id"/>
+          <a-input placeholder="请输入用户账号" autoComplete="off" v-decorator="[ 'username', validatorRules.username]" :readOnly="!!model.id"/>
         </a-form-item>
 
         <template v-if="!model.id">
-          <a-form-item label="登陆密码" :labelCol="labelCol" :wrapperCol="wrapperCol" >
-            <a-input type="password" placeholder="请输入登陆密码" v-decorator="[ 'password', validatorRules.password]" />
+          <a-form-item label="登陆密码" :labelCol="labelCol" :wrapperCol="wrapperCol" has-feedback>
+            <a-input type="password" v-bind="formItemLayout"  placeholder="请输入登陆密码" v-decorator="[ 'password', validatorRules.password]" />
           </a-form-item>
 
-          <a-form-item label="确认密码" :labelCol="labelCol" :wrapperCol="wrapperCol" >
-            <a-input type="password" @blur="handleConfirmBlur" placeholder="请重新输入登陆密码" v-decorator="[ 'confirmpassword', validatorRules.confirmpassword]"/>
+          <a-form-item label="确认密码" :labelCol="labelCol" :wrapperCol="wrapperCol" has-feedback >
+            <a-input type="password" autoComplete="off" v-bind="formItemLayout" @blur="handleConfirmBlur" placeholder="请重新输入登陆密码" v-decorator="[ 'confirmpassword', validatorRules.confirmpassword]"/>
           </a-form-item>
         </template>
 
@@ -162,6 +162,16 @@
         disableSubmit:false,
         userDepartModel:{userId:'',departIdList:[]}, // 保存SysUserDepart的用户部门中间表数据需要的对象
         dateFormat:"YYYY-MM-DD",
+        formItemLayout: {
+          labelCol: {
+            xs: { span: 24 },
+            sm: { span: 8 },
+          },
+          wrapperCol: {
+            xs: { span: 24 },
+            sm: { span: 16 },
+          },
+        },
         validatorRules:{
           username:{
             rules: [{
@@ -175,7 +185,7 @@
               validator: this.validateshowOrder}
             ]},
           password:{
-            initialValue:'123456',
+            // initialValue:'123456',
             rules: [{
               required: true,
               //pattern:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>?,./]).{8,}$/,
@@ -187,7 +197,7 @@
             }],
           },
           confirmpassword:{
-            initialValue:'123456',
+            // initialValue:'123456',
             rules: [{
               required: true, message: '请重新输入登陆密码!',
             }, {
@@ -401,6 +411,7 @@
           form.validateFields(['confirm'], { force: true })
         }
         callback();
+
       },
       compareToFirstPassword  (rule, value, callback) {
         const form = this.form;
@@ -409,6 +420,7 @@
         } else {
           callback()
         }
+
       },
       validatePhone(rule, value, callback){
         if(!value){
@@ -473,8 +485,14 @@
       })
       },
       handleConfirmBlur  (e) {
+        // const value = e.target.value;
+        // console.log("--------------------------")
+        // console.log(value)
+        // console.log(this.confirmDirty)
+        // this.confirmDirty = this.confirmDirty || !!value
+
         const value = e.target.value;
-        this.confirmDirty = this.confirmDirty || !!value
+        this.confirmDirty = this.confirmDirty || !!value;
       },
 
       normFile  (e) {

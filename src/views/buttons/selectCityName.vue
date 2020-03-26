@@ -188,17 +188,19 @@
           this.$message.error("请选择地市")
           return;
         }
+        this.clickTotal++;
+        if (this.clickTotal > 1) {
+          this.$message.error("系统正在处理您的请求,请耐心等待")
+          return;
+        }
         let param = {};
         // param.cityUrl = obj;  //地市url
         param.busData = data; //业务数据
-        // alert(JSON.stringify(obj))
         if (this.clientType == 1) {
           for (let i in obj){
             param.cityUrl = obj[i];  //地市url
             postAction('oaBus/dynamic/provinceToCity', param).then(res => {
-              // alert(JSON.stringify(res))
               if (res.success === true && res.code === 200) {
-                this.close();
                 //组装参数--传输日志记录
                 let oaOutLog = {};
                 oaOutLog.i_bus_model_id = busdata.i_bus_model_id;
@@ -210,12 +212,15 @@
                 this.insertOaOutLog(oaOutLog, 4);  //记录传输日志；
                 // this.$message.success("地市传输成功！");
                 if (i == obj.length-1){
+                  this.close();
                   this.$message.success(res.message);
                 }
                 // setTimeout(function () {
                 //   this.close()
                 // }, 500)
+                this.clickTotal = 0;
               } else {
+                this.clickTotal = 0;
                 this.$message.error(obj[i].text+res.message)
               }
             })
@@ -237,12 +242,14 @@
                 oaOutLog.s_rec_unitid = obj[i].id;
                 this.insertOaOutLog(oaOutLog, 5);  //记录传输日志；
                 if (i == obj.length-1){
+                  this.close()
                   this.$message.success(res.message);
                 }
-                this.close()
+                this.clickTotal = 0;
                 // setTimeout(function () {
                 // }, 500)
               } else {
+                this.clickTotal = 0;
                 this.$message.error(obj[i].text + res.message)
               }
             })

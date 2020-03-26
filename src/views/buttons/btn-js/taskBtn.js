@@ -756,6 +756,7 @@ export const taskBth = {
     upSendConfirm() {
       this.clickTotal++;
       if (this.clickTotal > 1) {
+        this.$message.error('系统正在处理您的请求,请耐心等待')
         return;
       }
       this.busData = this.backData;
@@ -783,6 +784,7 @@ export const taskBth = {
           receiveData.table = res.result.tableName
           receiveData.i_id = res.result.busdataId
           receiveData.s_create_by = "";
+          receiveData.i_is_display = '0';
           for (let j = 0; j < this.usersData.length; j++) {
             receiveData.s_create_by += this.usersData[j].userId + ","; //创建人
           }
@@ -813,6 +815,7 @@ export const taskBth = {
                           flag = true;
                           this.$message.success("上报成功！")
                           this.closeModal();
+                          this.clickTotal = 0;
                           //组装参数--传输日志记录
                           let oaOutLog = {};
                           oaOutLog.i_bus_model_id = this.backData.i_bus_model_id;
@@ -823,22 +826,27 @@ export const taskBth = {
                           oaOutLog.s_rec_unitid = unitId;
                           this.insertOaOutLog(oaOutLog, 1);  //记录传输日志；
                         } else {
+                          this.clickTotal = 0;
                           this.$message.error("附件复制失败！")
                         }
                       })
                     } else {
+                      this.clickTotal = 0;
                       this.$message.error("用户权限写入失败！")
                     }
                   })
                 } else {
+                  this.clickTotal = 0;
                   this.$message.error("开启流程失败！")
                 }
               })
             } else {
+              this.clickTotal = 0;
               this.$message.error("业务数据更新失败！")
             }
           })
         } else {
+          this.clickTotal = 0;
           this.$message.error("新建任务失败！")
         }
       });
@@ -1918,7 +1926,7 @@ export const taskBth = {
             if (ntkoed) {
               if (this.os != 'Win7' && this.os != 'Win10') {
                 if (this.brower == "chrome") {
-                  if (tthis.browerNum <= 42) {
+                  if (this.browerNum <= 42) {
                     window.open("/ntko/xpeditindex.html?cmd=" + cmd +
                       "&stable=" + this.backData.table + "&tableid=" + this.backData.i_id + "&sbtnid=" +
                       this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +

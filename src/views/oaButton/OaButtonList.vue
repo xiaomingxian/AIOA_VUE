@@ -51,7 +51,7 @@
           <a-col :md="6" :sm="8" >
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
-              <!--<a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>-->
+              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
              <!-- <a @click="handleToggleSearch" style="margin-left: 8px">
                 {{ toggleSearchStatus ? '收起' : '展开' }}
                 <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
@@ -66,10 +66,10 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('按钮管理')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
-        <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
+      <!--<a-button type="primary" icon="download" @click="handleExportXls('按钮管理')">导出</a-button>-->
+      <!--<a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">-->
+        <!--<a-button type="primary" icon="import">导入</a-button>-->
+      <!--</a-upload>-->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
@@ -107,17 +107,17 @@
            <!--<a @click="handleCat(record)">查看</a>-->
           <!--<a-divider type="vertical" />-->
           <a @click="handleEdit(record)">编辑</a>
-          <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+          <!--<a-divider type="vertical" />-->
+          <!--<a-dropdown>-->
+            <!--<a class="ant-dropdown-link">更多 <a-icon type="down" /></a>-->
+            <!--<a-menu slot="overlay">-->
+              <!--<a-menu-item>-->
+                <!--<a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">-->
+                  <!--<a>删除</a>-->
+                <!--</a-popconfirm>-->
+              <!--</a-menu-item>-->
+            <!--</a-menu>-->
+          <!--</a-dropdown>-->
         </span>
 
       </a-table>
@@ -173,11 +173,13 @@
 		   {
             title: '按钮名称',
             align:"center",
+            width:500,
             dataIndex: 'sbtnName'
            },
 		   {
-            title: 'value',
+            title: '方法名value',
             align:"center",
+            width:300,
             dataIndex: 'sbtnValue'
            },
 		   // {
@@ -293,6 +295,7 @@
             title: '操作栏',
             dataIndex: 'action',
             align:"center",
+            width:150,
             scopedSlots: { customRender: 'action' },
           }
         ],

@@ -137,6 +137,11 @@
           this.$message.error("请选择下发县行")
           return;
         }
+        this.clickTotal++;
+        if (this.clickTotal > 1) {
+          this.$message.error("系统正在处理您的请求,请耐心等待")
+          return;
+        }
         //组装县行id
         for (let i in obj) {
           departs.push(obj[i].id)
@@ -148,7 +153,7 @@
         postAction(this.url.downSendFile, map).then((res) => {
           if (res.success) {
             let unitData = res.result["unitTables"];
-            if (!unitData) {
+            if (unitData.length<1) {
               this.$message.error("请完善相关配置！")
               return;
             }
@@ -187,6 +192,7 @@
                   receiveData.table = res.result.tableName
                   receiveData.i_id = res.result.busdataId
                   receiveData.s_create_by = "";
+                  receiveData.i_is_display = '0';
                   let user = this.userData[unitId];
                   for (let j = 0; j < user.length; j++) {
                     receiveData.s_create_by += user[j].userId + ","; //创建人
@@ -228,35 +234,41 @@
                                       this.insertOaOutLog(oaOutLog, 2);  //记录传输日志；
                                       if (i == unitData.length - 1) {
                                         flag = true;
+                                        this.close()
                                         this.$message.success("下发成功！")
                                       }
                                     } else {
+                                      this.clickTotal = 0;
                                       this.$message.error("附件复制失败！")
                                     }
                                   })
                                 } else {
+                                  this.clickTotal = 0;
                                   this.$message.error("用户权限写入失败！")
                                 }
                               })
                             }
                           }
                         } else {
+                          this.clickTotal = 0;
                           this.$message.error("开启流程失败！")
                         }
                       })
 
                     } else {
+                      this.clickTotal = 0;
                       this.$message.error("业务数据更新失败！")
                     }
 
                   })
                 } else {
+                  this.clickTotal = 0;
                   this.$message.error("新建任务失败！")
                 }
               })
             }
-            this.close()
           } else {
+            this.clickTotal = 0;
             this.$message.error("查询角色管理员失败！")
           }
         })
@@ -268,6 +280,7 @@
         this.selectedRowKeys = [];
         this.busData = [];
         this.oaOutLogList =[];
+        this.clickTotal = 0;
       },
 
       handleCancel() {

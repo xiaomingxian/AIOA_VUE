@@ -27,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="按钮组合名称">
-          <a-input maxLength="60" placeholder="请输入按钮组合名称" v-model="sbuttonSetName" />
+          <a-input maxLength="60" placeholder="请输入按钮组合名称" v-decorator="['sbuttonSetName', {rules: [{ required: true, message: '请输入新的按钮组合名称' }]}]" />
         </a-form-item>
 		
       </a-form>
@@ -115,6 +115,7 @@
               }else{
                 that.$message.warning(res.message);
               }
+              this.sbuttonSetName='';
             }).finally(() => {
               that.confirmLoading = false;
               that.close();
