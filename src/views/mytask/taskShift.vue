@@ -407,6 +407,7 @@
         this.selectedRowKeys = []
       },
       searchResetMy() {
+        this.selectedDepUsers=[]
         this.queryParam.tableOrder = false
         this.queryParam.shiftUsers = undefined
         this.checkUserIds = ''
