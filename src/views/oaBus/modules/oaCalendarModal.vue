@@ -99,7 +99,7 @@
 
 <script>
 
-  import { httpAction,getAction,putAction,postAction } from '@/api/manage'
+  import {getAction, httpAction, postAction, putAction} from '@/api/manage'
   import pick from 'lodash.pick'
   import moment from "moment"
   import JSelectUserByDep from '@/components/jeecgbiz/JSelectUserByDep'
@@ -155,6 +155,7 @@
       // alert(userinfo)
       this.defaultUser = {
         username:userinfo.realname,
+        usernameadmin: userinfo.username,
         id:userinfo.id
       }
 
@@ -297,7 +298,8 @@
                 formData.dEndTime =this.timer(this.model.dEndTime)  ;
                 formData.dendTime =this.timer(this.model.dEndTime)  ;
               }
-              formData.suserNames = this.model.suserNames?this.model.suserNames:this.userRealName;
+              // formData.suserNames = this.model.suserNames?this.model.suserNames:this.userRealName;
+              formData.suserNames = this.model.suserNames ? this.model.suserNames : this.defaultUser.usernameadmin;
               let ds = Object.keys(formData);
               putAction(httpurl,formData,method).then((res)=>{
                 if(res.success){
