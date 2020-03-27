@@ -195,7 +195,7 @@
                        <b style="color: #ffffff;font-weight: 400"  v-if="total1"> {{total1}}</b>
                        </span>
                 </div>
-                <span class="more" style="width: 100px;" @click="openmore1(willdoindex)">MORE  <a-icon type="plus"></a-icon> </span>
+                <span class="more" style="width: 100px;" @click="openmore1(willdoindex)"> 更多  <a-icon type="plus"></a-icon> </span>
               </div>
 
 
@@ -1619,7 +1619,7 @@
 
             .shuline{
               width: 5px;
-              height: 45.8px;
+              height: 20px;
               background: #f5f5f5;
 
               padding: 0;
