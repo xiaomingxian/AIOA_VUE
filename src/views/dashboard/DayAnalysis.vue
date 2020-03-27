@@ -146,11 +146,7 @@
                     <!--</a-popover>-->
                   </div>
                 </template>
-                <img alt="" src="../../assets/bottomleft.png"
-                     style="position: absolute;left: 10px;bottom: 10px;width: 50px;">
-                <img alt="" src="../../assets/topright.png"
-                     style="position: absolute;top: 38px;right: 10px;width: 100px;">
-                <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+             <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
 
               </div>
               <div class="searchBox" style="height: 50%;">

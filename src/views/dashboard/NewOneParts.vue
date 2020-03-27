@@ -20,9 +20,7 @@
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
-          <img alt="" src="../../assets/bottomleft.png" style="position: absolute;left: 0;bottom: -10px;width: 50px;">
-          <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
-        </div>
+      </div>
         <span @click="postMore" class="postMore"
               style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon
           style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
