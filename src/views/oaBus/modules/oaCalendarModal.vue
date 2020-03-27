@@ -53,7 +53,8 @@
           label="消息提醒">
           <a-select style="width: 200px;"
                     placeholder="消息提醒"
-                    v-decorator="['iremindType', {}]">
+                    v-decorator="[ 'iremindType', {rules:[{required:true,message:'消息提示不能为空'}]}]"
+          >
             <a-select-option :value="0">不提示</a-select-option>
             <a-select-option :value="1">10分钟前</a-select-option>
             <a-select-option :value="2">30分钟前</a-select-option>
@@ -67,7 +68,8 @@
           label="公开类型">
           <a-select style="width: 200px;"
                     placeholder="公开类型"
-                    v-decorator="['iopenType', {}]">
+                    v-decorator="[ 'iopenType', {rules:[{required:true,message:'公开类型不能为空'}]}]"
+          >
             <a-select-option :value="0">自己查看</a-select-option>
             <a-select-option :value="1">全行</a-select-option>
             <a-select-option :value="2">分管</a-select-option>
@@ -78,13 +80,17 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="开始时间">
-          <a-date-picker  @ok="getStartTime" showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'dStartTime', {}]" />
+          <a-date-picker  @ok="getStartTime" showTime format='YYYY-MM-DD HH:mm:ss'
+                          v-decorator="[ 'dStartTime', {rules:[{required:true,message:'开始时间不能为空'}]}]"
+          />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="结束时间">
-          <a-date-picker  @ok="getEndTime"  showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'dEndTime', {}]" />
+          <a-date-picker  @ok="getEndTime"  showTime format='YYYY-MM-DD HH:mm:ss'
+                          v-decorator="[ 'dEndTime', {rules:[{required:true,message:'结束时间不能为空'}]}]"
+          />
         </a-form-item>
       </a-form>
     </a-spin>
