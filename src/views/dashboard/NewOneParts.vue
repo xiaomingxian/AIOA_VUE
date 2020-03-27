@@ -1120,7 +1120,7 @@
               .shuline {
                 width: 5px;
                 height: 40px;
-                background: #1174b9;
+                background: #f5f5f5;
                 padding: 0;
                 margin-right: 10px;
               }
@@ -1384,7 +1384,7 @@
                 .shuline {
                   width: 5px;
                   height: 40px;
-                  background: #1174b9;
+                  background: #f5f5f5;
                   padding: 0;
                   margin-right: 10px;
                 }
