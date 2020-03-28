@@ -55,6 +55,7 @@
                 style="width: 100%"
                 @search="fetchUser"
                 @change="handleChange"
+                @inputKeydown="getPgSearchList"
                 :showArrow="false"
                 :allowClear="true"
                 :defaultActiveFirstOption="false"
