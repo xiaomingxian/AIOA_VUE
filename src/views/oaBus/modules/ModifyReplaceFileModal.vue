@@ -35,32 +35,32 @@
 
 
         <!-- 操作按钮区域 -->
-        <div class="table-operator" style="margin-bottom: 20px;" >
-          <a-button style="margin-left: 10px;" type="primary" icon="download" @click="handleExportXls('发布类按钮描述')">导出</a-button>
-          <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader"
-                    @change="handleImportExcel">
-            <a-button style="margin-left: 10px;"  type="primary" icon="import">导入</a-button>
-          </a-upload>
-          <a-dropdown v-if="selectedRowKeys.length > 0">
-            <a-menu slot="overlay">
-              <a-menu-item key="1" @click="batchDel">
-                <a-icon type="delete"/>
-                删除
-              </a-menu-item>
-            </a-menu>
-            <a-button style="margin-left: 8px"> 批量操作
-              <a-icon type="down"/>
-            </a-button>
-          </a-dropdown>
-        </div>
+        <!--<div class="table-operator" style="margin-bottom: 20px;" >-->
+          <!--<a-button style="margin-left: 10px;" type="primary" icon="download" @click="handleExportXls('运维工具描述')">导出</a-button>-->
+          <!--<a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader"-->
+                    <!--@change="handleImportExcel">-->
+            <!--&lt;!&ndash;<a-button style="margin-left: 10px;"  type="primary" icon="import">导入</a-button>&ndash;&gt;-->
+          <!--</a-upload>-->
+          <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+            <!--<a-menu slot="overlay">-->
+              <!--<a-menu-item key="1" @click="batchDel">-->
+                <!--<a-icon type="delete"/>-->
+                <!--删除-->
+              <!--</a-menu-item>-->
+            <!--</a-menu>-->
+            <!--<a-button style="margin-left: 8px"> 批量操作-->
+              <!--<a-icon type="down"/>-->
+            <!--</a-button>-->
+          <!--</a-dropdown>-->
+        <!--</div>-->
 
         <!-- table区域-begin -->
         <div>
-          <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-            <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-            selectedRowKeys.length }}</a>项
-            <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-          </div>
+          <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+            <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+            <!--selectedRowKeys.length }}</a>项-->
+            <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+          <!--</div>-->
 
           <a-table
             ref="table"
@@ -71,9 +71,8 @@
             :dataSource="data"
             :pagination="ipagination"
             :loading="loading"
-            :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
             @change="handleTableChange">
-
+            <!--:rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
        <span slot="action" slot-scope="text, record">
          <a-form-item
            :labelCol="labelCol"
@@ -246,13 +245,13 @@
     methods: {
       getIid(res){
         this.iid=res.iid;
-        console.log(this.iid);
+//        console.log(this.iid);
 
-          console.log('+++++++++++++++++++++++++');
+//          console.log('+++++++++++++++++++++++++');
         let url="modify/fields/getFileSuffixName";
         getAction(url, {iid:this.iid }).then(res => {
-          console.log('mmmmmmmmmmmmmmmmmmmmm');
-          console.log(res.result);
+//          console.log('mmmmmmmmmmmmmmmmmmmmm');
+//          console.log(res.result);
           this.suffixName ="";
           this.suffixName = res.result;
         })
@@ -299,7 +298,7 @@
 //          console.log('((((((((((((((((((((((');
 //          console.log(res);
           if (res.success) {
-            this.$message.success(res.message);
+            this.$message.success('替换（'+res.message+'）成功');
             this.$emit('ok');
           } else {
             this.$message.warning(res.message);

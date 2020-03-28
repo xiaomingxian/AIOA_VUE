@@ -7,7 +7,7 @@
         <a-row :gutter="24">
              <a-col :md="6" :sm="8">
             <a-form-item label="选择日程">
-              <a-select v-model="serchSubData.richengName" style="width: 170px" @change="getSearchType">
+              <a-select v-model="serchSubData.richengName" @change="getSearchType">
                 <a-select-option value="0">全部日程</a-select-option>
                 <a-select-option value="1">我的日程</a-select-option>
                 <a-select-option value="2">领导日程</a-select-option>

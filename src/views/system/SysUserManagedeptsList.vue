@@ -292,8 +292,9 @@
         this.dataSource = [];
       },
       loadData1() {
-        console.log("0000000000000000")
-        this.clearDate();
+        this.clearDate(this.ipagination.current);
+        this.clearDate(this.ipagination.pageSize);
+
         getAction(this.url.list, {username: this.username,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then((res) => {
           console.log(res.result);
           this.dataSource = [];

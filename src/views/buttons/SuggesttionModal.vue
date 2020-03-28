@@ -4,7 +4,6 @@
     width="50%"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    okText="提交意见"
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭">

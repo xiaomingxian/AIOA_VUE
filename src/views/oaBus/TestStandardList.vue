@@ -89,7 +89,7 @@
       >
         <a-tab-pane :tab="titleItem.sname" v-for="(titleItem,titleIndex) in getPageList" :key="titleIndex">
           <a-list v-if="defaultActivityKey.toString()==0" size="large" :pagination="pagination" >
-            <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].i_id,dataSource[index].table_name)">
+            <a-list-item :key="index" v-for="(item, index) in searchOut" @click="openDetial(dataSource[index].i_id,dataSource[index].table_name)">
 
               <a-list-item-meta>
                 <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].s_title"></a>
@@ -101,7 +101,7 @@
 
           <a-list v-else size="large" :pagination="pagination" >
 
-            <a-list-item :key="index" v-for="(item, index) in searchOut" @dblclick="openDetial(dataSource[index].tableId,dataSource[index].tableName)">
+            <a-list-item :key="index" v-for="(item, index) in searchOut" @click="openDetial(dataSource[index].tableId,dataSource[index].tableName)">
 
               <a-list-item-meta>
               <a slot="title" style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;" v-html="dataSource[index].sTitle"></a>

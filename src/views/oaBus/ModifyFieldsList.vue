@@ -13,7 +13,7 @@
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'left', overflow: 'hidden' } || {} ">
               <a @click="toggleAdvanced" >
-                {{ advanced ? '隐藏' : '显示' }}
+                {{ advanced ?'收起' : '展开' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
@@ -65,7 +65,8 @@
             </a-col>
 
             <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item label="标    题">
+              <a-form-item :label="label.title" >
+                <!--<label slot="label">标&nbsp;&nbsp;&nbsp;&nbsp;题</label>-->
                 <a-input v-model="queryParam.s_title"></a-input>
               </a-form-item>
             </a-col>
@@ -94,15 +95,16 @@
             </a-col>
 
 
-            <a-col :md="3" :sm="24" style="text-align: center;">
+            <a-col :md="4" :sm="24" style="text-align: center;">
             <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
                <a-button type="primary" icon="search" @click="getPgSearchList">查询</a-button>
+               <a-button type="primary" @click="chongZ" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>
             </a-col>
           </template>
         </a-row>
 
-
+<a-spin tip="Loading..."  :spinning="confirmLoading">
         <a-table
           ref="table"
           size="default"
@@ -128,7 +130,7 @@
             <a @click="replaceFile(record)">替换文件</a>
           </span>
         </a-table>
-
+</a-spin>
         <modify-fields-model ref="modalForm" @ok="modalFormOk"></modify-fields-model>
         <modify-replace-file-modal ref="modalFormFile" @ok="modalFormOk"></modify-replace-file-modal>
       </a-form>
@@ -153,10 +155,12 @@
   //业务页面
   import cutFile from '../mytask/taskList/sendFile'
   import ARadioGroup from "ant-design-vue/es/radio/Group";
+  import ASpin from "ant-design-vue/es/spin/Spin";
 
   export default {
     name: "ModifyFieldsList",
     components: {
+      ASpin,
       ModifyFieldsModel,
       ModifyReplaceFileModal,
       ARadioGroup,
@@ -168,6 +172,9 @@
     },
     data() {
       return {
+        label:{
+          title:"标"+ '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' +"题",
+        },
         description: '这是运维工具查询列表页面',
         iisFontSize: '16px',
         visibleCreateModal: false,
@@ -178,6 +185,7 @@
         selectList: [],
         timeList:[],
         iBMId: '',
+        confirmLoading:false,
         searchColumns: [],
         searchList: [],
         model: {pageDetailList: [{}]},
@@ -246,6 +254,16 @@
       this.setFontSize();
     },
     methods: {
+      chongZ(){
+//        this.queryParam.function_id= '';
+        this.queryParam.i_is_state= '';
+        this.queryParam.selType= 1;
+        this.queryParam.d_create_time='';
+        this.queryParam.s_title='';
+        this.queryParam.s_receive_num= '';
+        this.queryParam.s_file_num= '';
+        this.getPgSearchList();
+      },
       // loadData (arg){
       //   if(arg===1){
       //     this.ipagination.current = 1;
@@ -316,6 +334,7 @@
         formData.d_datetime6 !=null?formData.d_datetime6.format('YYYY-MM-DD HH:mm:ss'):null;
         formData.d_date1 !=null?formData.d_date1.format('YYYY-MM-DD'):null;
         formData.d_date2 !=null?formData.d_date2.format('YYYY-MM-DD'):null;
+        formData.d_sealdate !=null?formData.d_sealdate.format('YYYY-MM-DD'):null;
       },
 
       //添加逻辑
@@ -389,6 +408,7 @@
         }
 
         if(this.isClick==false){
+          this.confirmLoading=true;
           this.isClick=true;
           // let url = "oaBus/oaBusdata/queryByModelId";
           let url = "modify/fields/queryOaBusdataList";
@@ -474,10 +494,8 @@
               //   }
               // }
             }
-
-            console.log("biao--------------------")
-
-            console.log(this.columns)
+//            console.log("biao--------------------")
+//            console.log(this.columns)
             this.columns.push({
               title: '操作',
               dataIndex: 'action',
@@ -485,6 +503,7 @@
               width:"150px",
               scopedSlots: {customRender: 'action'},
             });
+            this.confirmLoading=false;
           });
         }else {
 

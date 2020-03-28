@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="1000"
+    :width="scrWidth"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleCancel"
@@ -23,7 +23,7 @@
 
 <script>
 
-  import {httpAction, getAction, picUrl} from '@/api/manage'
+  import {getAction, httpAction, picUrl} from '@/api/manage'
   import Vue from 'vue'
   import {ACCESS_TOKEN} from "../../../store/mutation-types";
 
@@ -35,6 +35,7 @@
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         visible: false,
         picurl: '',
+        scrWidth: window.innerWidth - 100,
         scrHeight: window.innerHeight - 250 + 'px'
         // scrHeight: 500+ 'px'
       }

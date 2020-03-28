@@ -146,11 +146,7 @@
                     <!--</a-popover>-->
                   </div>
                 </template>
-                <img alt="" src="../../assets/bottomleft.png"
-                     style="position: absolute;left: 10px;bottom: 10px;width: 50px;">
-                <img alt="" src="../../assets/topright.png"
-                     style="position: absolute;top: 38px;right: 10px;width: 100px;">
-                <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+             <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
 
               </div>
               <div class="searchBox" style="height: 50%;">
@@ -195,7 +191,7 @@
                        <b style="color: #ffffff;font-weight: 400"  v-if="total1"> {{total1}}</b>
                        </span>
                 </div>
-                <span class="more" style="width: 100px;" @click="openmore1(willdoindex)">MORE  <a-icon type="plus"></a-icon> </span>
+                <span class="more" style="width: 100px;" @click="openmore1(willdoindex)"> 更多  <a-icon type="plus"></a-icon> </span>
               </div>
 
 
@@ -207,8 +203,8 @@
                     <template v-if="willdoindex==0">
                       <p>
                         <i></i>
-                        <span :title="item.title+'   '+item.createTime+item.name">
-                            <span :style="iisFontSize">{{item.title|filterText1}}
+                        <span :title="item.stitle+'   '+item.dCreateTime">
+                            <span :style="iisFontSize">{{item.stitle|filterText1}}
                               <div v-if="item.important==1">
                                    <img alt="" src="../../assets/zhong.png">
                               </div>
@@ -216,7 +212,7 @@
 
                             </span>
                       </p>
-                      <span :style="iisFontSize">{{item.createTime|timeText}}</span>
+                      <span :style="iisFontSize">{{item.dCreateTime|timeText}}</span>
                     </template>
 
                     <template v-else>
@@ -382,9 +378,9 @@
         url:{
           findByLeader:'/oaBus/Calendar/oaCalendar/findByLeader',
           MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
-          // findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
+          findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
           findById:'/oaBus/Calendar/oaCalendar/queryById',
-          findwaiturl:'/wf/task/queryTask',
+         // findwaiturl:'/wf/task/queryTask',
           queryPageList:'/oaBus/Calendar/oaCalendar/queryPageList',
           list:'/oaBus/Calendar/oaCalendar/list',
           HomeList:'/oaBus/homeAnalysis/HomeList',
@@ -807,7 +803,7 @@
           // 代办日程
           // alert(e)
           this.willdoindex = 0;
-          this.findwaitLists('task_todo');
+          this.findwaitLists();
         }else{
 
           // alert(e)
@@ -1101,23 +1097,15 @@
         });
       },
       //待办 已办   日程  .replace(0,3);
-      findwaitLists(operstatus='task_todo'){
+      findwaitLists(){
 
-        getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
+        postAction(this.url.findwaiturl,{}).then((res) => {
           console.log(res.result.records);
           console.log(Array.isArray(res.result.records));
 
           this.findwaitdataLists =res.result.records.splice(0,5)
           console.log(this.findwaitdataLists);
-
-
-          if(operstatus=='task_todo'){
             this.total = res.result.total;
-          }else{
-            // this.total1 = res.result.total;
-          }
-
-
         });
       },
       //  数据初始化  收文  发文数据
@@ -1627,8 +1615,8 @@
 
             .shuline{
               width: 5px;
-              height: 45.8px;
-              background: #1174b9;
+              height: 20px;
+              background: #f5f5f5;
 
               padding: 0;
               margin-right: 10px;

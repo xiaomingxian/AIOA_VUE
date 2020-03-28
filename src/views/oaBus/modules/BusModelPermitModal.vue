@@ -22,7 +22,7 @@
           label="权限类型"
         >
           <a-select v-model="typeModel"
-                    v-decorator="[ 'itypeId', {rules:[{required:true,message:'权限类型不能为空'}]}]"
+
                     @change="getTypeVal"
                     placeholder="权限类型"
                     :disabled="disableSubmit"
@@ -83,15 +83,12 @@
 </template>
 
 <script>
-  import { httpAction } from '@/api/manage'
-  import {getAction } from '@/api/manage'
-  import pick from 'lodash.pick'
+  import {getAction, httpAction} from '@/api/manage'
   // 引入搜索部门弹出框的组件
   import departWindow from '../../system/modules/DepartWindow'
   import {ACCESS_TOKEN} from "@/store/mutation-types"
-  import {addUser, editUser, queryUserRole, queryall} from '@/api/api'
+  import {addUser, duplicateCheck, editUser, queryall, queryUserRole} from '@/api/api'
   import {disabledAuthFilter} from "@/utils/authFilter"
-  import {duplicateCheck} from '@/api/api'
   import JSelectUserByDep from '@/components/jeecgbiz/JSelectUserByDep'
 
   import Vue from 'vue'
@@ -230,6 +227,7 @@
 
         this.visible = true
         this.title=sname;
+
         this.form.resetFields();
         //this.model = Object.assign({}, record2);
       },
