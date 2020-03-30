@@ -1378,7 +1378,7 @@
                 margin: 0px !important;
                 padding: 0px !important;
                 /*background: #000c17;*/
-                text-align: center;
+                text-align: left;
                 line-height: 20px;
               }
               div:last-child{
