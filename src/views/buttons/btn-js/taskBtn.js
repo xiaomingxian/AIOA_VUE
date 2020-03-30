@@ -392,7 +392,7 @@ export const taskBth = {
 
     //TODO(仅标识)***************************************************** 工作流相关 START *********************************
     isEnd() {//如果结束了 将信息持久化到磁盘 再删除流程中相关的信息
-       this.doGet(this.url.afterDoTask + '?table=' + this.backData.table + '&id=' + this.backData.i_id)
+      this.doGet(this.url.afterDoTask + '?table=' + this.backData.table + '&id=' + this.backData.i_id)
     },
     //追加办理人
     addUserOrDepart() {
@@ -1024,7 +1024,7 @@ export const taskBth = {
           //this.saveBusData()
           // setTimeout(res => {
           //   // this.close()
-          this.refreshIndexClose()
+          // this.refreshIndexClose()
           // }, 500)
           // this.reload()
         } else {
@@ -1042,7 +1042,7 @@ export const taskBth = {
             }, 500)
           }, 500)
         }
-      }, 500)
+      }, 100)
 
     },
     //完成任务
@@ -1126,8 +1126,8 @@ export const taskBth = {
           //this.sendMesToUser(data.assignee);
           //this.saveBusData()
           // setTimeout(res => {
-            // this.close()
-            this.refreshIndexClose()
+          // this.close()
+          // this.refreshIndexClose()
           // }, 500)
           // this.reload()
         } else {
@@ -1146,7 +1146,7 @@ export const taskBth = {
             }, 500)
           }, 500)
         }
-      }, 500)
+      }, 100)
     },
     //通过ids查询用户，查看是否设置了代办消息发送
     sendMesToUser(ids) {
@@ -2206,6 +2206,7 @@ export const taskBth = {
   },
 
 }
+
 
 function getOS() {
   var sUserAgent = navigator.userAgent;
