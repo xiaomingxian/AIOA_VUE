@@ -20,9 +20,7 @@
             </div>
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
-          <img alt="" src="../../assets/bottomleft.png" style="position: absolute;left: 0;bottom: -10px;width: 50px;">
-          <img style="position: absolute;top: 10px;right: 10px;width: 100px;" src="../../assets/topright.png" alt="">
-        </div>
+      </div>
         <span @click="postMore" class="postMore"
               style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon
           style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
@@ -93,7 +91,7 @@
                <span>待办工作</span>
                <b style="color: #ffffff;font-weight: 400" v-if="total"> {{total}}</b>
             </span>
-            <span class="more" @click="DaiBanMore(0)">MORE  <a-icon type="plus"></a-icon> </span>
+            <span class="more" @click="DaiBanMore(0)">更多  <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <!--<div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openDetialModel(item.table,item.tableId)" :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">-->
@@ -126,7 +124,7 @@
                <span class="shuline"></span>
               <span>{{model1.sName}}</span>
             </span>
-            <span class="more" @click="openmore(model1.url,model1.sName)">MORE <a-icon type="plus"></a-icon> </span>
+            <span class="more" @click="openmore(model1.url,model1.sName)">更多 <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p class="each" v-for="(item,index) in model1Lists" :key="index"
@@ -151,7 +149,7 @@
                  <span class="shuline"></span>
                  <span>{{model2.sName}}</span>
               </span>
-              <span :style="iisFontSize" @click="openmore(model2.url,model2.sName)" class="more">MORE<a-icon
+              <span :style="iisFontSize" @click="openmore(model2.url,model2.sName)" class="more">更多<a-icon
                 type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
@@ -175,7 +173,7 @@
                  <span>{{model3.sName}}</span>
                 <!--<span>{{model3}}</span>-->
               </span>
-              <span :style="iisFontSize" @click="openmore(model3.url,model3.sName)" class="more">MORE  <a-icon
+              <span :style="iisFontSize" @click="openmore(model3.url,model3.sName)" class="more">更多  <a-icon
                 type="plus"></a-icon> </span>
             </p>
             <div class="itemline">
@@ -200,7 +198,7 @@
                  <span>{{model4.sName}}</span>
                 <!--<span>{{model4}}</span>-->
               </span>
-            <span class="more" @click="openmore(model4.url,model4.sName)">MORE <a-icon type="plus"></a-icon> </span>
+            <span class="more" @click="openmore(model4.url,model4.sName)">更多 <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p class="each" v-for="(item,index) in model4Lists" :key="index"
@@ -1119,8 +1117,8 @@
 
               .shuline {
                 width: 5px;
-                height: 40px;
-                background: #1174b9;
+                height: 20px;
+                background: #f5f5f5;
                 padding: 0;
                 margin-right: 10px;
               }
@@ -1355,7 +1353,7 @@
               width: 100%;
               height: 40px;
               background: #f4f4f4;
-              border-bottom: 2px solid #0074b9;
+              border-bottom: 2px solid #009dee;
               margin: 0px;
               /*background: #f2dede;*/
               display: flex;
@@ -1383,8 +1381,8 @@
 
                 .shuline {
                   width: 5px;
-                  height: 40px;
-                  background: #1174b9;
+                  height: 20px;
+                  background: #f5f5f5;
                   padding: 0;
                   margin-right: 10px;
                 }

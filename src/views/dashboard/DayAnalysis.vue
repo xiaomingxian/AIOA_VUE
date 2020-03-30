@@ -146,11 +146,7 @@
                     <!--</a-popover>-->
                   </div>
                 </template>
-                <img alt="" src="../../assets/bottomleft.png"
-                     style="position: absolute;left: 10px;bottom: 10px;width: 50px;">
-                <img alt="" src="../../assets/topright.png"
-                     style="position: absolute;top: 38px;right: 10px;width: 100px;">
-                <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+             <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
 
               </div>
               <div class="searchBox" style="height: 50%;">
@@ -195,7 +191,7 @@
                        <b style="color: #ffffff;font-weight: 400"  v-if="total1"> {{total1}}</b>
                        </span>
                 </div>
-                <span class="more" style="width: 100px;" @click="openmore1(willdoindex)">MORE  <a-icon type="plus"></a-icon> </span>
+                <span class="more" style="width: 100px;" @click="openmore1(willdoindex)"> 更多  <a-icon type="plus"></a-icon> </span>
               </div>
 
 
@@ -1619,8 +1615,8 @@
 
             .shuline{
               width: 5px;
-              height: 45.8px;
-              background: #1174b9;
+              height: 20px;
+              background: #f5f5f5;
 
               padding: 0;
               margin-right: 10px;
