@@ -78,7 +78,8 @@
                       <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
                       <!--</p>-->
                       <div class="contentbox" >
-                        <p class="content"  :title="myitem.stitle+'('+myitem.suserNames+')'" style="font-size: 12px;color: #333333">{{myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
+                        <p :title="myitem.stitle+'('+myitem.suserNames+')'" class="content"
+                           style="font-size: 12px;color: #333333">{{myitem.stitle+"("+ myitem.suserNames+")"}}</p>
                         <div >
                           <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
                           <img style="width: 22px;" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
@@ -1369,9 +1370,16 @@
               justify-content: space-between;
 
               .content{
+                width: 60%;
+                height: 20px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 margin: 0px !important;
                 padding: 0px !important;
                 /*background: #000c17;*/
+                text-align: center;
+                line-height: 20px;
               }
               div:last-child{
                 margin-right: 20px;
