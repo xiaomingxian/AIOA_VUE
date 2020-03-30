@@ -21,7 +21,7 @@
                 :labelCol="labelCol"
                 :wrapperCol="wrapperCol"
                 label="步骤序号">
-                <a-input style="width: 350px" :placeholder="findMax" ref="indexStep" v-decorator="['iorder', {}]" />
+                <a-input style="width: 350px" :placeholder="findMax" ref="indexStep" v-decorator="['iorder', {rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 15, message: '长度在 0 到 15 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]}]" />
               </a-form-item>
             </div>
 
@@ -60,7 +60,7 @@
                 :labelCol="labelCol"
                 :wrapperCol="wrapperCol"
                 label="业务描述">
-                <a-input style="width: 350px"  placeholder="请输入描述" v-decorator="['description', {}]" />
+                <a-input style="width: 350px"  placeholder="请输入描述" v-decorator="['description', {rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
               </a-form-item>
             </div>
           </div>
@@ -102,6 +102,14 @@
           // iteamworkId:'',
           // steamworkName:'',
           // iversion:'',
+        },
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 5 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 16 },
         },
         confirmLoading: false,
         form: this.$form.createForm(this),
