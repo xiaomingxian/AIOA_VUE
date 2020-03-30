@@ -11,11 +11,19 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" v-if="searchColumns" v-for="(atom,index) in searchColumns" :key="index">
        <!--输入框-->
-        <a-form-item v-if="atom.i_column_type==1 && atom.s_table_column!='d_sealdate'"   v-show="atom.s_table_column!='i_id'"
+        <a-form-item v-if="atom.i_column_type==1 && atom.s_table_column!='d_sealdate'&& atom.s_table_column!='i_phone'"   v-show="atom.s_table_column!='i_id'"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
         :label="atom.s_column_name">
         <a-input maxLength="20" :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
+        </a-form-item>
+
+        <a-form-item v-if="atom.i_column_type==1 && atom.s_table_column=='i_phone'"   v-show="atom.s_table_column!='i_id'"
+                     :labelCol="labelCol"
+                     :wrapperCol="wrapperCol"
+                     prop="phone"
+                     :label="atom.s_column_name">
+          <a-input maxLength="11" placeholder="请输入正确的手机号格式" v-decorator="[ atom.s_table_column, {rules:[{required:true,pattern:/^1(3|4|5|6|7|8)\\d{9}$/,message:'请输入正确的手机号格式'}]}]"/>
         </a-form-item>
         <!--下拉列表-------------------start---------------->
         <!--密级-->
@@ -267,6 +275,15 @@
 
     methods: {
 //      moment,
+      changeKey(rule, value, callback){
+        //手机号正则校验
+        if (!/^1(3|4|5|6|7|8)\d{9}$/.test(value)) {
+          callback()
+        }else{
+          callback('请填写正确的手机号')
+        }
+      },
+
       changeSelectString(event, obj) {
         this.model[obj] = event.toString();
         console.log('----------------------------------------------------------');
@@ -353,7 +370,7 @@
 //            console.log(formData)
             formData.d_create_time = formData.d_create_time?formData.d_create_time.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_update_time = formData.d_update_time?formData.d_update_time.format('YYYY-MM-DD HH:mm:ss'):null;
-            formData.d_sealdate !=null?formData.d_sealdate.format('YYYY-MM-DD'):null;
+            formData.d_sealdate =formData.d_sealdate?formData.d_sealdate.format('YYYY-MM-DD'):null;
             formData.d_datetime1 = formData.d_datetime1?formData.d_datetime1.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_datetime2 = formData.d_datetime2?formData.d_datetime2.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_datetime3 = formData.d_datetime3?formData.d_datetime3.format('YYYY-MM-DD HH:mm:ss'):null;
