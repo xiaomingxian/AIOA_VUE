@@ -687,7 +687,7 @@
             // this.$message.success(res.message)
             this.$message.success('流程重置成功')
             setTimeout(function () {
-              window.close()
+              window.location.href=window.location.href;
             }, 500)
 
           } else {

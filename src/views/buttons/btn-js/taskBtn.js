@@ -337,6 +337,7 @@ export const taskBth = {
         }
       })
 
+
     },
     //展示按钮
     showBtn(btn) {
@@ -391,7 +392,7 @@ export const taskBth = {
 
     //TODO(仅标识)***************************************************** 工作流相关 START *********************************
     isEnd() {//如果结束了 将信息持久化到磁盘 再删除流程中相关的信息
-      this.doGet(this.url.afterDoTask + '?table=' + this.backData.table + '&id=' + this.backData.i_id)
+       this.doGet(this.url.afterDoTask + '?table=' + this.backData.table + '&id=' + this.backData.i_id)
     },
     //追加办理人
     addUserOrDepart() {
@@ -936,6 +937,14 @@ export const taskBth = {
       localStorage.removeItem('缓急:' + this.backData.table + this.backData.i_id)
       localStorage.removeItem('密级:' + this.backData.table + this.backData.i_id)
     },
+    updateTaskStatus(taskId){
+      console.log('-------------------',taskId)
+      if (taskId==undefined || taskId==null ||taskId==''){
+
+      }else {
+        getAction('/wf/task/updateTaskStatus?taskId='+taskId)
+      }
+    },
     //选择下一办理人的同时办理任务
     confirmNextUsers(ids, activity, endTime, depts) {
       //传后台的参数
@@ -945,6 +954,7 @@ export const taskBth = {
         taskId = undefined
       }
       data['taskId'] = taskId
+      this.updateTaskStatus(taskId);
       //业务数据权限表（流转过程中逐步维护该表数据、收回删除人员权限）
       data['assignee'] = ids
       data['functionId'] = this.backData.i_bus_function_id
@@ -1004,23 +1014,36 @@ export const taskBth = {
 
       //this.sendMesToUser(data.assignee);
       //参数构造完毕***********************
+      var flag = true
       postAction(this.url.doTask, data).then(res => {
         if (res.success) {
-          this.$message.success(res.message)
+          // this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          this.isEnd()
           //this.sendMesToUser(data.assignee);
           //this.saveBusData()
-          setTimeout(res => {
-            // this.close()
-            this.refreshIndexClose()
-          }, 500)
+          // setTimeout(res => {
+          //   // this.close()
+          this.refreshIndexClose()
+          // }, 500)
           // this.reload()
         } else {
+          flag = false
           this.$message.error(res.message)
         }
       })
+
+      setTimeout(res => {
+        if (flag) {
+          setTimeout(res => {
+            this.$message.success('任务办理成功')
+            setTimeout(res => {
+              this.refreshIndexClose()
+            }, 500)
+          }, 500)
+        }
+      }, 500)
+
     },
     //完成任务
     confirmNextUsersEnd(ids, activity, endTime, depts) {
@@ -1031,6 +1054,7 @@ export const taskBth = {
         taskId = undefined
       }
       data['taskId'] = taskId
+      this.updateTaskStatus(taskId);
       //业务数据权限表（流转过程中逐步维护该表数据、收回删除人员权限）
       data['assignee'] = ids
       data['functionId'] = this.backData.i_bus_function_id
@@ -1090,25 +1114,39 @@ export const taskBth = {
 
       //this.sendMesToUser(data.assignee);
       //参数构造完毕***********************
+
+      var flag = true
       postAction(this.url.doTask, data).then(res => {
         if (res.success) {
-          this.$message.success('办理成功')
+          // this.$message.success('办理成功')
           this.havaOtherProc = false
           this.nextConfirm = true
           //如果结束 生成相关文件
-          this.isEnd()
 
           //this.sendMesToUser(data.assignee);
           //this.saveBusData()
-          setTimeout(res => {
+          // setTimeout(res => {
             // this.close()
             this.refreshIndexClose()
-          }, 500)
+          // }, 500)
           // this.reload()
         } else {
+          flag = false
           this.$message.error(res.message)
         }
       })
+
+
+      setTimeout(res => {
+        if (flag) {
+          setTimeout(res => {
+            this.$message.success('办理成功')
+            setTimeout(res => {
+              this.refreshIndexClose()
+            }, 500)
+          }, 500)
+        }
+      }, 500)
     },
     //通过ids查询用户，查看是否设置了代办消息发送
     sendMesToUser(ids) {
@@ -1134,20 +1172,33 @@ export const taskBth = {
       }
       let taskInfoVoList = {list: datas}
 
+      this.updateTaskStatus( datas[0].taskId)
       //请求后台
+      var flag = true
       postAction(this.url.doTaskMore, taskInfoVoList).then(res => {
         if (res.success) {
           this.$message.success(res.message)
           this.havaOtherProc = false
           this.nextConfirm = true
-          this.isEnd()
-          setTimeout(res => {
-            this.refreshIndexClose()
-          }, 500)
+          // setTimeout(res => {
+          //   this.refreshIndexClose()
+          // }, 500)
         } else {
+          flag = false
           this.$message.error(res.message)
         }
       })
+
+      setTimeout(res => {
+        if (flag) {
+          setTimeout(res => {
+            this.$message.success('任务办理成功')
+            setTimeout(res => {
+              this.refreshIndexClose()
+            }, 500)
+          }, 500)
+        }
+      }, 500)
     },
     //追加用户
     confirmAddUserSingle(ids, activity, endTime, depts) {
@@ -1598,10 +1649,10 @@ export const taskBth = {
       if (typeof (this.taskMsg) == 'string') {
         this.taskMsg = JSON.parse(this.taskMsg)
       }
-      let endTime= this.backData.s_varchar9
-      var flag=true
-      if (endTime!=undefined && endTime.length>1){
-        flag=false
+      let endTime = this.backData.s_varchar9
+      var flag = true
+      if (endTime != undefined && endTime.length > 1) {
+        flag = false
       }
       if (this.taskMsg.processInstanceId == null && flag) {
         getAction(this.url.lastVersionProc + '?key=' + key).then(res => {
@@ -1613,8 +1664,8 @@ export const taskBth = {
           }
         })
       } else {
-        if (!flag){
-          this.$refs.picModal.endTime=endTime
+        if (!flag) {
+          this.$refs.picModal.endTime = endTime
         }
         this.$refs.picModal.show(this.taskMsg)
 
