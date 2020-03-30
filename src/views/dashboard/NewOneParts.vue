@@ -1092,7 +1092,7 @@
             width: 100%;
             height: 40px;
             background: #f4f4f4;
-            border-bottom: 2px solid #009dee;
+            border-bottom: 2px solid #e8e8e8;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1353,7 +1353,7 @@
               width: 100%;
               height: 40px;
               background: #f4f4f4;
-              border-bottom: 2px solid #009dee;
+              border-bottom: 2px solid #e8e8e8;
               margin: 0px;
               /*background: #f2dede;*/
               display: flex;

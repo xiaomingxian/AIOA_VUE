@@ -1204,7 +1204,7 @@
       min-height: 327px;
       background: #ffffff;
       .part1{
-        border-top: 2px solid #00c6ff;
+        border-top: 2px solid #e8e8e8;
         /*width: 300px;*/
         height: 100%;
         width: 100%;
@@ -1288,7 +1288,7 @@
       }
 
       .part2{
-        border-top: 2px solid #00c6ff;
+        border-top: 2px solid #e8e8e8;
         .title{
           width: 100%;
           height: 50px;
@@ -1600,7 +1600,7 @@
           /*height: 40px;*/
           height: 45.8px;
           background: #f4f4f4;
-          border-bottom: 2px solid #009dee;
+          border-bottom: 2px solid #e8e8e8;
           display: flex;
           align-items: center;
           justify-content: space-between;
