@@ -16,12 +16,12 @@
         <a-form layout="inline">
           <a-row :gutter="24">
 
-            <a-col :span="10">
+            <a-col :span="6">
               <a-form-item label="姓名">
                 <a-input placeholder="请输入姓名" v-model="queryParam.username"></a-input>
               </a-form-item>
             </a-col>
-            <a-col :span="10">
+            <a-col :span="6">
               <a-form-item label="部门">
                 <a-input placeholder="请输入部门" v-model="queryParam.departName"></a-input>
               </a-form-item>

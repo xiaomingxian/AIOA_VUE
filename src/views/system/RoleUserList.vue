@@ -7,7 +7,7 @@
           <!-- 搜索区域 -->
           <a-form layout="inline">
             <a-row :gutter="24">
-              <a-col :md="6" :sm="8">
+              <a-col :md="12" :sm="12">
                 <a-form-item label="角色名称" :labelCol="{span: 5}" :wrapperCol="{span: 18, offset: 1}">
                   <a-input placeholder="" v-model="queryParam.role"></a-input>
                 </a-form-item>
@@ -100,7 +100,8 @@
           </a-form>
         </div>
         <!-- 操作按钮区域 -->
-        <div class="table-operator" :md="24" :sm="24" style="margin: -25px 0px 10px 2px">
+        <!--<div class="table-operator" :md="24" :sm="24" style="margin: -25px 0px 10px 2px">-->
+        <div class="table-operator" :md="24" :sm="24">
           <a-button @click="handleAdd2" type="primary" icon="plus" style="margin-top: 16px">用户录入</a-button>
           <!--<a-button @click="handleEdit2" type="primary" icon="edit" style="margin-top: 16px">用户编辑</a-button>-->
           <a-button @click="handleAddUserRole" type="primary" icon="plus" style="margin-top: 16px">添加已有用户</a-button>
@@ -307,6 +308,7 @@
       rightColMd() {
         return this.selectedRowKeys1.length === 0 ? 0 : 12
       }
+
     },
     created(){
       this.setFontSize();
@@ -341,6 +343,11 @@
         this.selectionRows1 = []
       },
       onSelectChange1(selectedRowKeys, selectionRows) {
+
+        this.leftColMd = 24
+        this.rightColMd = 0
+
+
         this.selectedRowKeys1 = selectedRowKeys
         this.selectionRows1 = selectionRows
         this.model1 = Object.assign({}, selectionRows[0])
@@ -500,6 +507,8 @@
         }
       },
       handleOpen(record) {
+        this.leftColMd = 12
+        this.rightColMd = 12
         this.selectedRowKeys1 = [record.id]
         this.model1 = Object.assign({}, record)
         this.currentRoleId = record.id

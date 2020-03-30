@@ -209,7 +209,7 @@
     computed:{
       validatorRules:function() {
         return {
-          name:{rules: [{ required: true, message: '请输入菜单标题!' }]},
+          name:{rules: [{ required: true, message: '请输入菜单名称' }]},
           component:{rules: [{ required: this.show, message: '请输入前端组件!' }]},
           url:{rules: [{ required: this.show, message: '请输入菜单路径!' }]},
           permsType:{rules: [{ required: true, message: '请输入授权策略!' }]},

@@ -117,7 +117,7 @@
       dataIndex: 'perms',
       key: 'permissionCode',
     },*/{
-      title: 'icon',
+      title: '菜单图标',
       dataIndex: 'icon',
       key: 'icon',
       align: "center"

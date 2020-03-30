@@ -98,7 +98,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input-number v-decorator="[ 'departOrder',{'initialValue':0}]" @change="orderChange"/>
+            <a-input v-decorator="[ 'departOrder',{'initialValue':0}]" @change="orderChange"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -186,8 +186,8 @@
     data() {
       return {
         checkable: false,//开启   关闭  属性图 树形  是否可以多选
-        depName:'',
-        departOrder:'',
+        depNamecha:'',
+        departOrdercha:'',
         iExpandedKeys: [],
         loading: false,
         autoExpandParent: true,
@@ -242,12 +242,10 @@
     },
     methods: {
       departNameChange(e){
-        this.depName = e;
-        console.log("-------------------")
-        console.log(this.depName);
+        this.depNamecha = e;
       },
       orderChange(e){
-        this.departOrder = e;
+        this.departOrdercha = e;
         // if (e>1000){
         //   this.$message.error("哈哈哈");
         // }
@@ -415,10 +413,12 @@
         this.currSelected.receiptTriggerType = value
       },
       submitCurrForm() {
-        if (this.departOrder > 1000 ){
+        if (this.departOrdercha > 1000 ){
           this.$message.warning("排序的数值不能超过1000")
-        } else if (this.depName.data.length >30) {
-          this.$message.warning("机构名称不得超过30个汉字")
+        } else if (this.depNamecha != '') {
+          if (this.depNamecha.data.length >30){
+            this.$message.warning("机构名称不得超过30个汉字")
+          }
         } else {
           this.form.validateFields((err, values) => {
             if (!err) {
@@ -443,7 +443,10 @@
 
       },
       emptyCurrForm() {
-        this.form.resetFields()
+        console.log("11111")
+        console.log(this.mobile);
+
+        // this.form.resetFields()
       },
       nodeSettingFormSubmit() {
         this.form.validateFields((err, values) => {

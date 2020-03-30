@@ -7,7 +7,7 @@
     :closable="true"
     @close="handleCancel"
     :visible="visible"
-    style="height: calc(100% - 55px);overflow: auto;padding-bottom: 53px;">
+    style="height: calc(100% - 55px);overflow: auto;padding-bottom: 60px;">
 
     <template slot="title">
       <div style="width: 100%;">
@@ -23,12 +23,12 @@
       <a-form :form="form">
 
         <a-form-item label="用户账号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入用户账号" autoComplete="off" v-decorator="[ 'username', validatorRules.username]" :readOnly="!!model.id"/>
+          <a-input placeholder="请输入用户账号" autoComplete="off" maxLength="5" v-decorator="[ 'username', validatorRules.username]" :readOnly="!!model.id"  @blur="userNameChange"/>
         </a-form-item>
 
         <template v-if="!model.id">
-          <a-form-item label="登陆密码" :labelCol="labelCol" :wrapperCol="wrapperCol" has-feedback>
-            <a-input type="password" v-bind="formItemLayout"  placeholder="请输入登陆密码" v-decorator="[ 'password', validatorRules.password]" />
+          <a-form-item label="登录密码" :labelCol="labelCol" :wrapperCol="wrapperCol" has-feedback>
+            <a-input type="password" v-bind="formItemLayout"  placeholder="请输入登录密码" v-decorator="[ 'password', validatorRules.password]" />
           </a-form-item>
 
           <a-form-item label="确认密码" :labelCol="labelCol" :wrapperCol="wrapperCol" has-feedback >
@@ -37,7 +37,7 @@
         </template>
 
         <a-form-item label="用户名字" :labelCol="labelCol" :wrapperCol="wrapperCol" >
-          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', validatorRules.realname]" />
+          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', validatorRules.realname]"  @blur="realNameChange"/>
         </a-form-item>
 
         <a-form-item label="角色分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!roleDisabled" >
@@ -83,9 +83,8 @@
         </a-form-item>-->
 
         <a-form-item label="顺序号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input type="number" placeholder="请输入顺序" v-decorator="[ 'showOrder', validatorRules.showOrder]" />
+          <a-input-number placeholder="请输入顺序" max="10000" v-decorator="[ 'show_order', validatorRules.show_order]"  @blur="showOrderChange" />
         </a-form-item>
-
        <!-- <a-form-item label="生日" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-date-picker
             style="width: 100%"
@@ -101,7 +100,7 @@
         </a-form-item>-->
 
         <a-form-item label="IP地址" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入IP地址" v-decorator="[ 'avatar', validatorRules.avatar]" />
+          <a-input placeholder="请输入IP地址" v-decorator="[ 'avatar', validatorRules.avatar]" @blur="ipChange"/>
         </a-form-item>
 
         <a-form-item label="邮箱" :labelCol="labelCol" :wrapperCol="wrapperCol">
@@ -148,6 +147,10 @@
     },
     data () {
       return {
+        ipcha:'',
+        showOrdercha:'',
+        realNamecha:'',
+        userNamecha:'',
         departDisabled: false, //是否是我的部门调用该页面
         roleDisabled: false, //是否是角色维护调用该页面
         modalWidth:800,
@@ -180,10 +183,13 @@
               validator: this.validateUsername,
             }]
           },
-          showOrder:{
+          show_order:{
             rules: [{
-              validator: this.validateshowOrder}
-            ]},
+              required: true, message: '请输入顺序号!'
+            },{
+              validator: this.numEslipes,
+            }]
+          },
           password:{
             // initialValue:'123456',
             rules: [{
@@ -205,6 +211,8 @@
             }],
           },
           realname:{rules: [{ required: true, message: '请输入用户名称!' }]},
+
+          showOrder:{rules: [{ required: true }]},
 
           phone:{rules: [{validator: this.validatePhone}]},
           email:{
@@ -252,12 +260,25 @@
       this.headers = {"X-Access-Token":token}
 
     },
+
     computed:{
       uploadAction:function () {
         return this.url.fileUpload;
       }
     },
     methods: {
+      ipChange(e){
+        this.ipcha = e.target.value;
+      },
+      showOrderChange(e){
+        this.showOrdercha= e.target.value;
+      },
+      realNameChange(e){
+        this.realNamecha = e.target.value;
+      },
+      userNameChange(e){
+        this.userNamecha = e.target.value;
+      },
       isDisabledAuth(code){
         return disabledAuthFilter(code);
       },
@@ -301,6 +322,8 @@
         this.edit({activitiSync:'1'});
       },
       edit (record) {
+
+        console.log(record);
         this.resetScreenSize(); // 调用此方法,根据屏幕宽度自适应调整抽屉的宽度
         let that = this;
         that.initialRoleList();
@@ -314,7 +337,7 @@
         that.visible = true;
         that.model = Object.assign({}, record);
         that.$nextTick(() => {
-          that.form.setFieldsValue(pick(this.model,'username','sex','realname','email','phone','avatar','activitiSync'))
+          that.form.setFieldsValue(pick(this.model,'username','sex','show_order','realname','email','phone','avatar','activitiSync'))
         });
         // 调用查询用户对应的部门信息的方法
         that.checkedDepartKeys = [];
@@ -351,51 +374,62 @@
       },
       moment,
       handleSubmit () {
-
-        const that = this;
-        console.log("-----------------------------")
-        console.log(that)
-        console.log("-----------------------------")
-        // 触发表单验证
-        this.form.validateFields((err, values) => {
-          if (!err) {
-            that.confirmLoading = true;
-            // let avatar = that.model.avatar;
-            if(!values.birthday){
-              values.birthday = '';
-            }else{
-              values.birthday = values.birthday.format(this.dateFormat);
-            }
-            let formData = Object.assign(this.model, values);
-            // formData.avatar = avatar;
-            formData.selectedroles = this.selectedRole.length>0?this.selectedRole.join(","):'';
-            formData.selecteddeparts = this.userDepartModel.departIdList.length>0?this.userDepartModel.departIdList.join(","):'';
-
-            // that.addDepartsToUser(that,formData); // 调用根据当前用户添加部门信息的方法
-            let obj;
-            if(!this.model.id){
-              formData.id = this.userId;
-              obj=addUser(formData);
-            }else{
-              obj=editUser(formData);
-            }
-            obj.then((res)=>{
-              if(res.success){
-                that.$message.success(res.message);
-                that.$emit('ok');
-              }else{
-                that.$message.warning(res.message);
+        console.log("11111111111111")
+        console.log(this.userNamecha);
+        console.log(this.realNamecha);
+        console.log(this.showOrdercha);
+        console.log(this.ipcha);
+        if (this.userNamecha.length > 10) {
+          this.$message.warning("用户账号只允许填写数字");
+        } else if (this.realNamecha.length > 15) {
+          this.$message.warning("用户名字不得超过15个汉字");
+        } else if (this.showOrdercha.length > 10) {
+          this.$message.warning("顺序号不得超过10个汉字");
+        } else if (this.ipcha.length > 15 ){
+          this.$message.warning("IP地址不得超过15个字");
+        } else {
+          const that = this;
+          // 触发表单验证
+          this.form.validateFields((err, values) => {
+            if (!err) {
+              that.confirmLoading = true;
+              // let avatar = that.model.avatar;
+              if (!values.birthday) {
+                values.birthday = '';
+              } else {
+                values.birthday = values.birthday.format(this.dateFormat);
               }
-            }).finally(() => {
-              that.confirmLoading = false;
-              that.checkedDepartNames = [];
-              that.userDepartModel.departIdList = {userId:'',departIdList:[]};
+              let formData = Object.assign(this.model, values);
+              // formData.avatar = avatar;
+              formData.selectedroles = this.selectedRole.length > 0 ? this.selectedRole.join(",") : '';
+              formData.selecteddeparts = this.userDepartModel.departIdList.length > 0 ? this.userDepartModel.departIdList.join(",") : '';
 
-              that.close();
-            })
+              // that.addDepartsToUser(that,formData); // 调用根据当前用户添加部门信息的方法
+              let obj;
+              if (!this.model.id) {
+                formData.id = this.userId;
+                obj = addUser(formData);
+              } else {
+                obj = editUser(formData);
+              }
+              obj.then((res) => {
+                if (res.success) {
+                  that.$message.success(res.message);
+                  that.$emit('ok');
+                } else {
+                  that.$message.warning(res.message);
+                }
+              }).finally(() => {
+                that.confirmLoading = false;
+                that.checkedDepartNames = [];
+                that.userDepartModel.departIdList = {userId: '', departIdList: []};
 
-          }
-        })
+                that.close();
+              })
+
+            }
+          })
+        }
       },
       handleCancel () {
         this.close()
@@ -476,6 +510,8 @@
           fieldVal: value,
           dataId: this.userId
         };
+        console.log(params);
+
         duplicateCheck(params).then((res) => {
           if (res.success) {
           callback()
@@ -483,6 +519,18 @@
           callback("用户名已存在!")
         }
       })
+      },
+      numEslipes(rule, value, callback){
+        if(!value){
+          callback()
+        }else{
+          if(value.include('.')){
+            callback('不要小数点')
+
+          }else{
+            callback("请输入正确格式的邮箱!")
+          }
+        }
       },
       handleConfirmBlur  (e) {
         // const value = e.target.value;
@@ -594,5 +642,14 @@
     left: 0;
     background: #fff;
     border-radius: 0 0 2px 2px;
+  }
+</style>
+
+<style>
+  .ant-drawer-title{
+    font-weight: bolder;
+  }
+  .ant-drawer-body{
+    padding: 24px 0 41px 0;
   }
 </style>

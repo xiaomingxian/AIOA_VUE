@@ -132,8 +132,8 @@
 
           <div style="height: 41px;display: flex;margin-left: 96px;">
             <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;">实例1：XX省综合办公服务平台&XX市中心支行。登陆页系统名：XX省综合办公服务平台；系统内系统名：XX市中心支行<br/>
-                                            实例2：XX省综合办公服务平台。登陆页系统名：XX省综合办公服务平台；系统内系统名：XX省综合办公服务平台
+              <span style="color: #d60303;">实例1：XX省综合办公服务平台&XX市中心支行。登录页系统名：XX省综合办公服务平台；系统内系统名：XX市中心支行<br/>
+                                            实例2：XX省综合办公服务平台。登录页系统名：XX省综合办公服务平台；系统内系统名：XX省综合办公服务平台
               </span>
             </div>
           </div>

@@ -22,7 +22,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="字典编码">
-          <a-input placeholder="请输入字典编码" v-decorator="[ 'dictCode', validatorRules.dictCode]"/>
+          <a-input placeholder="请输入字典编码" v-decorator="[ 'dictCode', validatorRules.dictCode]" />
         </a-form-item>
 
         <a-form-item
