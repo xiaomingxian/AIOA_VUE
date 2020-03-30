@@ -17,25 +17,24 @@
           label="主键id">
           <a-input placeholder="请输入主键id" v-decorator="['iid', validatorRules.iid ]" />
         </a-form-item>-->
-        <a-form-item
+       <!-- <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="用户id">
           <a-input placeholder="请输入用户id" v-decorator="['suserId', {}]" />
-        </a-form-item>
+        </a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <a-input-number v-decorator="[ 'iorder', {}]" />
+          <a-input-number  v-decorator="['iorder', {rules:[{required:true,message:'序号必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="意见内容">
-          <a-input placeholder="请输入意见内容" v-decorator="['scontent', {}]" />
+          <a-input placeholder="请输入意见内容" v-decorator="['scontent', {rules:[{required:true,message:'意见内容必须输入！！！'},{ min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
-		
       </a-form>
     </a-spin>
   </a-modal>

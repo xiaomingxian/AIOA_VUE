@@ -32,7 +32,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="步骤序号">
-          <a-select  v-decorator="[ 'iorder', {}]"  >
+          <a-select  v-decorator="['iorder', {rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 15, message: '长度在 0 到 15 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]}]">
             <a-select-option v-for="(item,index) in teamworkSetList" :key="index" :value="item.iid">{{item.iorder}}
             </a-select-option>
           </a-select>
@@ -41,7 +41,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务模块">
-          <a-select  v-decorator="[ 'ibusModelId', {}]" @change="getModelVal">
+          <a-select  v-decorator="[ 'ibusModelId',{rules:[{required:true,message:'业务模块必须选择！！！'}]}]" @change="getModelVal">
             <a-select-option v-for="(item,index) in modelList" :key="index" :value="item.modelid">{{item.modelSName}}
             </a-select-option>
           </a-select>
@@ -50,7 +50,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务功能">
-          <a-select v-decorator="[ 'ibusFunctionId', {}]">
+          <a-select v-decorator="[ 'ibusFunctionId', {rules:[{required:true,message:'业务功能必须选择！！！'}]}]">
             <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.functionid">{{item.functionSName}}
             </a-select-option>
           </a-select>

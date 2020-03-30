@@ -10,17 +10,20 @@
     
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="协同业务名称">
-          <a-input placeholder="请输入协同业务名称" v-decorator="['steamworkName', {}]" />
+          <a-input placeholder="请输入协同业务名称" v-decorator="['steamworkName', {rules:[{required:true,message:'协同业务名称必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-input placeholder="请输入描述" v-decorator="['description', {}]" />
+          <a-input placeholder="请输入描述" v-decorator="['description', {rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+
         </a-form-item>
      <!--   <a-form-item
           :labelCol="labelCol"
