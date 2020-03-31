@@ -3,9 +3,9 @@
     <div class="topp">
       <template>
 
-        <a-row type="flex" style="height: 100%">
-          <a-col :span="6" style="height: 100%;background: #FBF2DC">
-            <div class="part1">
+        <a-row class="row0" type="flex">
+          <a-col class="col0" :span="6">
+            <div class="part0">
               <div >
                 <!--<div style="width: 100%;background: #ffffff;display: flex">-->
                 <!--<div class="timeCard" style="width: 88%">-->
@@ -24,21 +24,21 @@
 
                 <template>
                   <div class="rilibox">
-                    <a-calendar style="width:100%" :showToday="true"  :fullscreeb = "false" @select="getdateVal" />
+                    <a-calendar class="calendar" :showToday="true"  :fullscreeb = "false" @select="getdateVal" />
                   </div>
                 </template>
               </div>
             </div>
           </a-col>
-          <a-col :span="18" style="background: #ffffff;height: 100%">
-            <a-row type="flex" style="height: 100%">
+          <a-col class="col1" :span="18">
+            <a-row class="row1" type="flex">
               <a-col :span="8">
                 <div class="part2">
                   <div class="title" >
-                    <div style="width: 95%;margin: 0 auto;  display: flex;align-items: center;justify-content: space-between;">
-                      <div style="width: 90%;height:auto;line-height:0px;padding:0px 0px;display: flex;align-items: center;justify-content: space-between;border-bottom: 2px solid  #ffbc90;margin: 0 auto">
-                        <p style="margin: 0;padding: 13px 0px;border-bottom: 2px solid  #ff816c;font-size: 14px;font-weight: 600;color: #7d0900">领导日程</p>
-                        <span><a-icon @click="openMore(2)"type="right" style="color: #ff816c;font-weight: 600"/></span>
+                    <div class="div0">
+                      <div class="div1">
+                        <p class="p0">领导日程</p>
+                        <span><a-icon class="icon0" @click="openMore(2)"type="right"/></span>
                       </div>
                     </div>
                   </div>
@@ -51,23 +51,23 @@
                       <!--&lt;!&ndash;<span style="font-size: 12px;color: #666666">{{item.dCreateTime}}</span>&ndash;&gt;-->
                       <!--</p>-->
                       <div class="contentbox" >
-                        <p class="content" :title="item.stitle+'('+item.suserNames+')'" style="font-size: 12px;color: #333333">{{item.stitle +"("+ item.suserNames+")"|filterText}}</p>
-                        <div style="visibility: hidden">
-                          <img style="width: 22px;" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
+                        <p class="content" :title="item.stitle+'('+item.suserNames+')'">{{item.stitle +"("+ item.suserNames+")"|filterText}}</p>
+                        <div class="div2">
+                          <img class="img0" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
                         </div>
                       </div>
                     </div>
                   </div>
                   <!--暂无日程显示-->
-                  <div v-else style=" width: 98%;   min-height: 200px;margin: 0 auto;  margin-top: 10px; padding: 0 20px;  border-right: 1px solid #9b9b9b; color: #dddddd;display: flex;align-items: center;justify-content: center">暂无日程</div>
+                  <div class="itembox0" v-else>暂无日程</div>
                 </div>
               </a-col>
               <a-col :span="8">
                 <div class="part2">
-                  <div class="title" style="display: flex;align-items: center;justify-content: center">
-                    <div style="width:85%;height:auto;line-height:0px;padding:0px 0px;display: flex;align-items: center;justify-content: space-between;border-bottom: 2px solid  #ffbc90;margin: 0 auto">
-                      <p style="margin: 0;padding: 13px 0px;border-bottom: 2px solid  #ff816c;font-size: 14px;  font-weight: 600;color: #001843">我的日程</p>
-                      <span><a-icon @click="openMore(1)"type="right" style="color: #ff816c;font-weight: 600"/></span>
+                  <div class="title">
+                    <div class="div3">
+                      <p class="p1">我的日程</p>
+                      <span><a-icon class="icon1" @click="openMore(1)"type="right"/></span>
                     </div>
                   </div>
                   <!--mytitleLists-->
@@ -78,41 +78,40 @@
                       <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
                       <!--</p>-->
                       <div class="contentbox" >
-                        <p :title="myitem.stitle+'('+myitem.suserNames+')'" class="content"
-                           style="font-size: 12px;color: #333333">{{myitem.stitle+"("+ myitem.suserNames+")"}}</p>
+                        <p class="content"  :title="myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
                         <div >
                           <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                          <img style="width: 22px;" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
-                          <img style="width: 22px;" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
+                          <img class="img1" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
+                          <img class="img1" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
                         </div>
                       </div>
                     </div>
                   </div>
                   <!--暂无日程显示-->
-                  <div v-else style=" width: 98%;   min-height: 200px;margin: 0 auto;  margin-top: 10px; padding: 0 20px;  border-right: 1px solid #9b9b9b; color: #dddddd;display: flex;align-items: center;justify-content: center;">暂无日程</div>
+                  <div class="itembox1" v-else style="">暂无日程</div>
                 </div>
               </a-col>
               <a-col :span="8">
                 <div class="part2">
                   <div class="title">
-                    <div style="width:90%;height:auto;line-height:0px;padding:0px 0px;display: flex;align-items: center;justify-content: space-between;border-bottom: 2px solid  #ffbc90;margin: 0 auto">
-                      <p style="margin: 0;padding: 13px 0px;border-bottom: 2px solid  #ff816c;font-size: 14px;  font-weight: 600;color: #24005f">共享日程</p>
-                      <span><a-icon @click="openMore(3)"type="right" style="color: #ff816c;font-weight: 600"/></span>
+                    <div class="div4">
+                      <p class="p2">共享日程</p>
+                      <span><a-icon class="icon2" @click="openMore(3)"type="right"/></span>
                     </div>
                     <!--<span>共享日程<a-icon @click="openMore(2)" type="right"/></span>-->
                   </div>
-                  <div class="itembox"   v-if="publictitleLists!=''" style="border: none" >
+                  <div class="itemboxx"   v-if="publictitleLists!=''">
                     <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click="chakan(publicitem.iid)">
                       <div class="contentbox">
-                        <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'" style="font-size: 12px;color: #333333">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
-                        <div style="visibility: hidden">
-                          <img style="width: 22px;" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
+                        <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
+                        <div class="div5">
+                          <img class="img2" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
                         </div>
                       </div>
                     </div>
                   </div>
                   <!--暂无日程显示-->
-                  <div v-else style=" width: 98%;   min-height: 200px;margin: 0 auto;  margin-top: 10px; padding: 0 20px;color: #dddddd;display: flex;align-items: center;justify-content: center;">暂无日程</div>
+                  <div class="itembox2" v-else>暂无日程</div>
                 </div>
               </a-col>
             </a-row>
@@ -123,10 +122,10 @@
 
     <div class="bottom">
       <template>
-        <a-row type="flex" style="height: 100%;" justify="space-between">
-          <a-col :span="12" >
+        <a-row class="row2" type="flex" justify="space-between">
+          <a-col class="col2" :span="12" >
             <div class="part1">
-              <div class="listsBox" style="position: relative;height: 50%">
+              <div class="listsBox">
                 <div class="title">
                   <!--<img src="" alt="">-->
                   <div class="imgzhanwei">
@@ -147,19 +146,19 @@
                     <!--</a-popover>-->
                   </div>
                 </template>
-             <span @click="postMore"  class="postMore" style="position: absolute;bottom: 1px;right: -10px;width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+             <span @click="postMore"  class="postMore">查看更多  <a-icon class="icon3" type="double-right"></a-icon></span>
 
               </div>
-              <div class="searchBox" style="height: 50%;">
-                <div style="display: flex;align-items: center">
-                  <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png" alt="">
+              <div class="searchBox">
+                <div class="div6">
+                  <img class="img3" @click="leftclick" src="../../assets/left.png" alt="">
                   <div class="swiper-container swiper-no-swiping bottomm">
                     <div class="swiper-wrapper">
                       <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index"
                            @click="openUrl(atom.s_varchar4)">
-                        <div style="display:flex;align-items: center;justify-content: center">
+                        <div class="div7">
 
-                          <img v-if="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='" style="width:60px;height: 60px;"
+                          <img class="img4" v-if="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='"
                                src="../../assets/2.png"
                                :title="atom.s_title" alt="">
                           <img v-else :src="atom.picUrl1"  :title="atom.s_title" alt="">
@@ -169,35 +168,35 @@
 
                     </div>
                     <!--Add Arrows-->
-                    <div ref="left" style="display: none" class="swiper-button-next"></div>
-                    <div ref="right" style="display: none" class="swiper-button-prev"></div>
+                    <div ref="left" class="swiper-button-next arrow"></div>
+                    <div ref="right" class="swiper-button-prev arrow"></div>
                   </div>
-                  <img @click="rightclick" style="width: 20px;height: 30px;margin-right: 20px;"  src="../../assets/right.png" alt="">
+                  <img class="img5" @click="rightclick"  src="../../assets/right.png" alt="">
                 </div>
               </div>
             </div>
           </a-col>
           <a-col :span="12" >
-            <div class="daiban" style="height: 100%;">
-              <div class="titlebox" style="display: flex;align-items: center;justify-content: space-between">
-                <div style="width: 100%; height: 45.8px;   margin: 0;padding: 0;  display: flex;align-items: center;justify-content: flex-start">
+            <div class="daiban">
+              <div class="titlebox">
+                <div class="div8">
                       <span @click="doWill(0)" class="firstspan"  :style="willdoindex==0?'color:#333333':' color:#999999 !important'">
                        <span class="shuline"></span>
                        <span>待办工作</span>
-                       <b style="color: #ffffff;font-weight: 400"  v-if="total"> {{total}}</b>
+                       <b v-if="total"> {{total}}</b>
                       </span>
                   <span v-if="this.model1">|</span>
                   <span @click="doWill(1)"  class="secondspan" :style="willdoindex==1?'color:#333333':'color: #999999;!important'" >
                        <span>{{this.model1}}</span>
-                       <b style="color: #ffffff;font-weight: 400"  v-if="total1"> {{total1}}</b>
+                       <b style=""  v-if="total1"> {{total1}}</b>
                        </span>
                 </div>
-                <span class="more" style="width: 100px;" @click="openmore1(willdoindex)"> 更多  <a-icon type="plus"></a-icon> </span>
+                <span class="more" @click="openmore1(willdoindex)"> 更多  <a-icon type="plus"></a-icon> </span>
               </div>
 
 
 
-              <div class="itemline" style="height: 62%;">
+              <div class="itemline">
                 <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index" @click="openDetialModelTaskToDo(item)"  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
                   <div class="p">
 
@@ -241,20 +240,21 @@
               </div>
               <hr>
 
-              <div class="top" style="width: 90%;height: 38%;display: flex;align-items: center; border-top: 1px solid #999999;  margin: 0 auto">
+              <div class="top"
+                   @keyup.13="openSearch">
                 <!--<a-input placeholder="请输入关键字">-->
                 <!--<a-icon slot="prefix" type="search"></a-icon>-->
                 <!--</a-input>-->
-                <span class="table-page-search-submitButtons" style="position: relative;left: -4px;top: -1px;cursor: pointer;">
+                <span class="table-page-search-submitButtons">
                     <!--<a-button type="primary" icon="search"></a-button>-->
                       <a-icon type="search"  @click="openSearch"></a-icon>
                     </span>
                 <!--<a-icon type="search"></a-icon>-->
                 <a-select
+                  class="select"
                   mode="combobox"
                   labelInValue
                   placeholder="公文检索"
-                  style="width: 100%"
                   @search="fetchUser"
                   @change="handleChange"
                   :showArrow="false"
@@ -1142,655 +1142,5 @@
 
 
 <style scoped lang="less">
-  .anticon:hover{
-    cursor: pointer;
-    color: #2eabff;
-  }
-
-  .itembox:hover{
-    cursor: pointer;
-    /*color: #2eabff;*/
-  }
-  .postMore:hover{
-    cursor: pointer;
-  }
-
-
-  /deep/ .ant-input{
-    border-color: #054c9c !important;
-  }
-
-  /deep/.ant-fullcalendar-full{
-    /*height: 900px;*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  /*此处style 无效  alt单机class 在GlobalLayout中设置*/
-  /deep/.ant-layout-footer{
-    background: red;
-  }
-  .wrap{
-    /*日期组件部分隐藏  年月切换   否则页面布局会乱掉*/
-    /deep/.ant-fullcalendar-fullscreen .ant-fullcalendar-header .ant-radio-group{
-      /*visibility: hidden; rgb(255, 188, 144)*/
-      display: none;
-    }
-
-    /*/deep/.ant-fullcalendar-fullscreen .ant-fullcalendar-selected-day .ant-fullcalendar-date{*/
-    /*background:  rgb(255, 188, 144);*/
-    /*}*/
-    /*/deep/ .ant-fullcalendar-fullscreen .ant-fullcalendar-today .ant-fullcalendar-date{*/
-    /*border-top-color: rgb(255, 129, 108);*/
-    /*}*/
-    /deep/.ant-fullcalendar-header{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /deep/.ant-select-selection{
-      /*border: none;*/
-      font-weight: bold;
-    }
-
-
-
-
-    .topp{
-      width: 100%;
-      min-height: 327px;
-      background: #ffffff;
-      .part1{
-        border-top: 2px solid #e8e8e8;
-        /*width: 300px;*/
-        height: 100%;
-        width: 100%;
-        /*background: red !important ;*/
-        .timeCard{
-          width: 100%;
-          /*height: 80px;*/
-
-          /*margin:  0 auto;*/
-          background-image: url('../../assets/bgTime.png') ;
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-          padding-top: 1px;
-
-
-          .month{
-            width: 100%;
-            font-weight: 600;
-            color: #ffffff;
-            margin-left: 10px;
-            margin-top: 5px;
-            margin-bottom: 0;
-          }
-          .day{
-            width: 100%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            font-size: 40px;
-            color: #ffffff;
-            margin: 0;
-            font-weight: 600;
-            margin-top: -10px;
-          }
-          .weekday{
-            color: #ffffff;
-            width: 100%;
-            text-align: center;
-          }
-        }
-        .rilibox{
-          /deep/.ant-fullcalendar {
-            height: auto !important;
-          }
-          /deep/.ant-fullcalendar-full{
-            height: auto !important;
-          }
-          /deep/.ant-fullcalendar-fullscreen{
-            height: auto !important;
-
-          }
-          /deep/.ant-fullcalendar-header{
-            padding: 11px 16px 0 0;
-          }
-          /deep/ .ant-fullcalendar-calendar-body{
-            padding: 12px 12px;
-          }
-          /deep/.ant-fullcalendar-calendar-body{
-            /*padding-bottom: 30px;*/
-
-
-          }
-          /*height: 100%;*/
-          /*width: auto !important;*/
-          /*border: none !important;*/
-          margin: 0 auto;
-          /*background: #ffffff;*/
-          /deep/.ant-fullcalendar-calendar-body{
-            /*background: #e4e6ff;*/
-            background: #FBF2DC;
-            margin-top: 20px;
-          }
-          /deep/.ant-fullcalendar-date{
-            height: auto;
-          }
-          /deep/.ant-fullcalendar-content{
-            height: 0;
-          }
-
-        }
-      }
-
-      .part2{
-        border-top: 2px solid #e8e8e8;
-        .title{
-          width: 100%;
-          height: 50px;
-          line-height: 50px;
-          background: #f4f4f4 !important;
-          background: transparent !important;
-          text-align: left;
-          display: flex;
-          align-items: center;
-          span{
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          }
-        }
-
-        .itembox{
-
-          width: 98%;
-          /*min-height: 350px;*/
-          display: flex;
-          flex-direction: column;
-          margin: 0 auto;
-          margin-top: 10px;
-          padding: 0 20px;
-          border-right: 1px solid #9b9b9b;
-
-          .itemline{
-            width:98%;
-            /*height: 52px;*/
-            height: 38px;
-            /*height: auto;*/
-            /*padding: 20px;*/
-            background: #FBF2DC;
-            /*background: red;*/
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-            padding: 5px;
-            /*margin: 10px auto;*/
-            margin: 6px auto;
-            border-left: 3px solid #FFBC90;
-
-            /*padding-bottom: 20px;*/
-            .time{
-              width: 100%;
-              display: flex;
-              align-items: center;
-              /*margin: 0;*/
-              /*margin-bottom: 3px;*/
-              i{
-                width: 5px;
-                height: 5px;
-                background: red;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-                margin-left: 5px;
-
-              }
-              span{
-                margin-left: 10px;
-                font-size: 12px;
-              }
-
-            }
-
-            .contentbox{
-              width: 100%;
-              /*background: #00ff80;*/
-
-              margin-left: 8px;
-              font-size: 12px;
-              margin-top: 3px;
-              line-height: 8px;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-
-              .content{
-                width: 60%;
-                height: 20px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                margin: 0px !important;
-                padding: 0px !important;
-                /*background: #000c17;*/
-                text-align: left;
-                line-height: 20px;
-              }
-              div:last-child{
-                margin-right: 20px;
-                font-size: 14px;
-
-                img{
-                  margin-left: 10px;
-                }
-                img:hover{
-                  cursor: pointer;
-                }
-              }
-            }
-          }
-
-        }
-      }
-
-    }
-
-    .bottom{
-
-      margin-top: 12px;
-      min-height: 327px;
-      height: 100%;
-      background: 100%;
-
-      .part1{
-        background: #ffffff;
-        /*padding-top: 10px;*/
-        padding-bottom: 10px;
-        /*height: 300px;*/
-        height: 100%;
-        .listsBox{
-          padding-top: 0px !important;
-          width: 100%;
-          min-height: 180px;
-
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content:flex-start;
-          /*padding: 15px;*/
-          background-image: url("../../assets/postBg.png");
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-position: bottom right;
-          margin: 0 auto;
-
-          /*padding-bottom: 8px;*/
-          .title{
-            width: 120px;
-            background: transparent !important;
-            margin-left: 10px;
-            margin-top: 10px;
-            /*margin-bottom: 10px;*/
-
-            display: flex;
-            align-items: center;
-            .imgzhanwei{
-              width: 40px;
-              height: 40px;
-              /*background: #2eabff;*/
-              margin-right: 10px;
-              img{
-                width: 100%;
-
-              }
-
-            }
-            span{
-              font-size: 16px;
-              font-weight: 800;
-            }
-          }
-          /*margin-left: 20px;*/
-
-
-          .lineitem{
-            width: 90%;
-            /*height: 50px;*/
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 0 auto;
-            margin-top: 8px;
-
-            /*background: darkcyan;*/
-
-            .left{
-              width: 65%;
-              display: flex;
-              align-items: center;
-              /*justify-content: space-between;*/
-              margin: 0;
-              .tongzhi{
-                min-width: 90px;
-                /*width: auto;*/
-                background: #f8ffbb;
-                font-weight: 600;
-                margin: 0;
-                margin-left: 6px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-              span{
-                width: 75%;
-                overflow: hidden;
-                text-overflow:ellipsis;
-                white-space: nowrap;
-                margin: 0 10px;
-              }
-              i{
-                width: 5px;
-                height: 5px;
-                background: #da251c;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-              }
-              i:first-child{
-                background: #2eabff;
-              }
-            }
-
-          }
-
-          .lineitem:hover{
-            cursor: pointer;
-          }
-
-        }
-        .searchBox{
-          /*width: 40%;*/
-
-          min-height: 147px;
-          padding: 10px;
-          width: 100%;
-          /*display: flex;*/
-          /*align-items: center;*/
-          /*justify-content: center;*/
-          /*margin-top:50px;*/
-          /*background: darkcyan;*/
-          /deep/img:hover{
-            cursor: pointer;
-          }
-          /*.top{*/
-          /*width: 95%;*/
-          /*margin: 0 auto;*/
-          /*margin-top: 10px;*/
-          /*}*/
-          .bottomm{
-            width: 100%;
-            /*height: 145px;*/
-            /*height: 80px;*/
-            /*background: red;*/
-            min-height: 147px;
-            margin: 0px auto;
-            /*margin-top: 30px;*/
-
-            display: flex;
-            align-items: center;
-            /deep/.swiper-wrapper{
-
-              width: 100%;
-              margin: 0 auto;
-
-              /*margin-left: 20px;*/
-              .swiper-slide{
-                /*width: 100px;*/
-                height: 100%;
-                /*background: red;*/
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-around;
-                /*margin-right: 0px !important;*/
-                /*margin-left: 5px !important;*/
-                div{
-                  width: 60px;
-                  height: 60px;
-                  border-radius: 50%;
-                  /*background: #2eabff;*/
-                  img{
-                    width: 100%;
-                  }
-                  img:hover{
-                    cursor: pointer;
-                  }
-                }
-                span{
-                  font-size: 14px;
-                  color: #333333;
-                }
-              }
-            }
-
-          }
-        }
-
-      }
-
-
-      .daiban{
-        /*width: 60%;*/
-        /*height: 100%;*/
-        /*padding: 10px;*/
-        background: #ffffff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        margin-left: 12px;
-
-        .titlebox{
-          width: 100%;
-          /*height: 40px;*/
-          height: 45.8px;
-          background: #f4f4f4;
-          border-bottom: 2px solid #e8e8e8;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin: 0;
-
-          span:hover{
-            cursor: pointer;
-          }
-          .firstspan{
-            min-width: 100px;
-            height: 40px;
-            padding: 0 8px;
-            padding-left: 0;
-            /*background: #009dee;*/
-            font-size: 16px;
-            font-weight: bold;
-            /*color: #ffffff;*/
-            display: flex;
-            align-items: center;
-
-            .shuline{
-              width: 5px;
-              height: 20px;
-              background: #f5f5f5;
-
-              padding: 0;
-              margin-right: 10px;
-            }
-            b{
-              min-width: 15px;
-              height: 15px;
-              border-radius: 10px;
-              background: #f02d13;
-              margin-left: 10px;
-              margin-bottom: 12px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding-bottom: 3px;
-              padding-right: .5px;
-              font-size: 12px;
-
-            }
-          }
-          .secondspan{
-            min-width: 100px;
-            height: 40px;
-            padding: 0 10px;
-            padding-left: 10px;
-            /*background: #7fbbff;*/
-            font-size: 16px;
-            font-weight: bold;
-            color: #333333;
-            display: flex;
-            align-items: center;
-
-            b{
-              min-width: 15px;
-              height: 15px;
-              border-radius: 10px;
-              background: #f02d13;
-              margin-left: 10px;
-              margin-bottom: 12px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding-bottom: 3px;
-              padding-right: .5px;
-              font-size: 12px;
-
-            }
-          }
-
-        }
-
-        .itemline{
-          width: 100%;
-          /*min-height:230px;*/
-          /*background: #999999;*/
-          /*padding: 10px;*/
-          padding-top: 0;
-          display: flex;
-          flex-direction: column;
-          margin: 0;
-
-
-
-          .each{
-            width: 100%;
-            /*background: red;*/
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            /*line-height: 40px;*/
-            /*padding-bottom: 20px;*/
-            /*border-bottom: 1px solid #f0f2f5;*/
-            border-left: 5px solid #c7ecff;
-            /*margin-left: 10px;*/
-
-
-
-            .p{
-              width:95%;
-
-              height: 46px;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              /*line-height: 40px;*/
-              margin: 0 auto;
-              font-size: 14px;
-              // margin-left: 20px;
-              /*margin-top: 19px;*/
-
-
-
-              p{
-                /*display: block;*/
-                /*line-height: 40px;*/
-                width: 65%;
-
-                height: 80% !important;
-                /*height: 20px;*/
-                /*background: #dddddd;*/
-                margin: 0 !important;
-                padding: 0 !important;
-
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-
-                i{
-                  /*display: block;*/
-                  width: 5px;
-                  height: 5px;
-                  background: #2eabff;
-                  margin-right: 10px;
-                  /*margin-left: 10px;*/
-                }
-
-
-                span{
-                  width: 95%;
-                  /*width: 200px;*/
-
-                  height: 100%;
-
-
-                  display: flex;
-                  align-items: center;
-
-                  /*padding-right:10px*/
-                  span{
-                    width: 95%;
-                    height: 100%;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                  }
-
-                }
-
-                img{
-                  width: 40px;
-                  margin-bottom: 18px;
-                  margin-left: 5px;
-                }
-
-
-              }
-              /*span:last-child{*/
-              /*display: block;*/
-              /*line-height: 40px;*/
-              /*margin-right: 20px;*/
-              /*}*/
-            }
-            a{
-
-              margin-top: 5px;
-
-            }
-          }
-        }
-
-        .itemline:hover{
-          cursor: pointer;
-        }
-      }
-
-
-    }
-  }
+ @import "../../assets/less/indexStyle0.less";
 </style>

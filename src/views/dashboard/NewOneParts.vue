@@ -1,7 +1,7 @@
 <template>
   <div @mouseleave="mouseLeave" @mouseover="mouseOver" class="wrap">
     <div class="nav">
-      <div class="postList" style="position: relative">
+      <div class="postList">
         <div class="title">
           <!--<img src="" alt="">-->
           <div class="imgzhanwei">
@@ -9,7 +9,7 @@
           </div>
           <span>公告</span>
         </div>
-        <div class="listsBox" style="position: relative">
+        <div class="listsBox">
           <div class="lineitem" v-for="(item,index) in postLists" :key="index"
                @click="openDetialModel('oa_busdata30',item.i_id)">
             <div class="left">
@@ -21,52 +21,46 @@
             <span class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
       </div>
-        <span @click="postMore" class="postMore"
-              style="position: absolute;bottom: 3px;right: -10px; width: 100px; font-size: 14px;color: #009cff ">查看更多  <a-icon
-          style="font-size: 12px;color: #009cff " type="double-right"></a-icon></span>
+        <span @click="postMore" class="postMore">查看更多  <a-icon class="icon0" type="double-right"></a-icon></span>
       </div>
       <div class="searchBox">
-        <div style="display: flex;align-items: center;min-height: 90px;">
-          <img @click="leftclick" style="width: 20px;height: 30px;margin-left: 20px;" src="../../assets/left.png"
-               alt="">
+        <div class="div0">
+          <img class="img0" @click="leftclick" src="../../assets/left.png" alt="">
           <div class="swiper-container swiper-no-swiping bottom">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(atom,index) in LinkList" :key="index"
                    @click="openUrl(atom.s_varchar4)">
-                <div style="display:flex;align-items: center;justify-content: center">
-
-                  <img v-if="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='" style="width:60px;height: 60px;"
-                       src="../../assets/2.png"
-                       :title="atom.s_title" alt="">
-                  <img v-else :src="atom.picUrl1"  :title="atom.s_title" alt="">
+                <div class="div1">
+                  <img class="img1" v-if="atom.picUrl1=='data:image/png;base64,dHJ1ZQ=='"
+                       src="../../assets/2.png" :title="atom.s_title" alt="">
+                  <img v-else :src="atom.picUrl1" :title="atom.s_title" alt="">
                   <span v-show="false" :ref="(index+1)+'item'" v-html="atom.url"></span>
                 </div>
               </div>
             </div>
             <!--Add Arrows-->
-            <div ref="left" style="display: none" class="swiper-button-next"></div>
-            <div ref="right" style="display: none" class="swiper-button-prev"></div>
+            <div ref="left" class="swiper-button-next arrow"></div>
+            <div ref="right" class="swiper-button-prev arrow"></div>
           </div>
-          <img @click="rightclick" alt="" src="../../assets/right.png"
-               style="width: 20px;height: 30px;margin-right: 20px;">
+          <img class="img2" @click="rightclick" alt="" src="../../assets/right.png">
         </div>
 
 
-        <div class="top">
+        <div class="top"
+             @keyup.13="openSearch">
           <!--<a-input placeholder="请输入关键字">-->
           <!---->
           <!--</a-input>-->
-          <span class="table-page-search-submitButtons"
-                style="position: relative;left: -20px;top: 27px;cursor: pointer;">
+          <span class="table-page-search-submitButtons">
               <!--<a-button type="primary" icon="search"></a-button>-->
             <a-icon type="search" @click="openSearch"></a-icon>
             </span>
           <!--<a-icon type="search"></a-icon>-->
           <a-select
+            class="select"
             mode="combobox"
             labelInValue
             placeholder="公文检索"
-            style="width: 100%"
             @search="fetchUser"
             @change="handleChange"
             :showArrow="false"
@@ -89,7 +83,7 @@
             <span>
                <span class="shuline"></span>
                <span>待办工作</span>
-               <b style="color: #ffffff;font-weight: 400" v-if="total"> {{total}}</b>
+               <b v-if="total"> {{total}}</b>
             </span>
             <span class="more" @click="DaiBanMore(0)">更多  <a-icon type="plus"></a-icon> </span>
           </p>
@@ -98,7 +92,7 @@
             <div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openTodoTaskModel(item)"
                  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
               <p class="p">
-                <span :title="item.title+'   '+item.createTime+item.name" style="width: 80%">
+                <span :title="item.title+'   '+item.createTime+item.name">
 
                     <section>
                         <i></i>
@@ -106,7 +100,7 @@
                     </section>
                   <!--{{item.title|filterText1}}-->
                   <!--等待修改   字段返回1,2,3，4   receiveFile.vue   中有缓急设置-->
-                   <div style="margin-left: -10px" v-if="item.important==1">
+                   <div class="div2" v-if="item.important==1">
                       <img src="../../assets/zhong.png" alt="">
                    </div>
 
@@ -129,7 +123,7 @@
           <div class="itemline">
             <p class="each" v-for="(item,index) in model1Lists" :key="index"
                @click="openDetialModel(model1.tableName,item.i_id)">
-              <section style="display: flex;align-items: center;justify-content: flex-start">
+              <section>
                 <i></i>
                 <span :style="iisFontSize" :title="item.s_title+'      '+item.d_create_time">
                   {{item.s_title}}
@@ -155,7 +149,7 @@
             <div class="itemline">
               <p class="each" v-for="(item,index) in model2Lists" :key="index"
                  @click="openDetialModel(model2.tableName,item.i_id)">
-                <section style="display: flex;align-items: center;justify-content: flex-start">
+                <section>
                   <i></i>
                   <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
                       {{item.s_title}}
@@ -179,7 +173,7 @@
             <div class="itemline">
               <p class="each" v-for="(item,index) in model3Lists" :key="index"
                  @click="openDetialModel(model3.tableName,item.i_id)">
-                <section style="display: flex;align-items: center;justify-content: flex-start">
+                <section>
                   <i></i>
                   <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
                     {{item.s_title}}
@@ -203,7 +197,7 @@
           <div class="itemline">
             <p class="each" v-for="(item,index) in model4Lists" :key="index"
                @click="openDetialModel(model4.tableName,item.i_id)">
-              <section style="display: flex;align-items: center;justify-content: flex-start">
+              <section>
                   <i></i>
                 <span :style="iisFontSize" :title="item.s_title+'                 '+item.d_create_time">
                   {{item.s_title}}
@@ -858,606 +852,5 @@
   }
 </script>
 <style lang="less" scoped>
-  /deep/ .ant-input {
-    border-color: #054c9c !important;
-  }
-
-  .more:hover {
-    cursor: pointer;
-  }
-
-  .postMore:hover {
-    cursor: pointer;
-  }
-
-  .wrap {
-    width: 100%;
-
-    .nav {
-      width: 100%;
-      /*height: 138px;*/
-      min-height: 183.5px;
-      overflow: hidden;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      /*margin-top: 100px;*/
-
-      .postList {
-        width: 60%;
-        /*height: 198px;*/
-        height: 100%;
-        min-height: 183.5px;
-        background: #ffffff;
-        background-image: url("../../assets/postBg.png");
-        background-repeat: no-repeat;
-        background-size: cover;
-        /*background-position: bottom right;*/
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-
-        .title {
-          width: 100px;
-          /*height: 198px;*/
-          background: transparent !important;
-          margin-left: 10px;
-          margin-top: 10px;
-          display: flex;
-          align-items: center;
-
-          .imgzhanwei {
-            width: 50px;
-            height: 50px;
-            /*background: #2eabff;*/
-            margin-right: 10px;
-
-            img {
-              width: 100%;
-
-            }
-          }
-
-          span {
-            font-size: 16px;
-            font-weight: 800;
-          }
-        }
-
-        .listsBox {
-          /*margin-left: 20px;*/
-          width: 86%;
-          height: 80%;
-          min-height: 163.5px;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: flex-start;
-          padding: 15px;
-          padding-bottom: 20px;
-
-
-          .lineitem {
-            width: 98%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-
-            .left {
-              width: 80%;
-              display: flex;
-              align-items: center;
-
-              .tongzhi {
-                min-width: 90px;
-                /*width: auto;*/
-                background: #f8ffbb;
-                font-weight: 600;
-                margin: 0;
-                margin-left: 6px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-
-              span {
-                width: 85%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                margin: 0 10px;
-              }
-
-              i {
-                width: 5px;
-                height: 5px;
-                background: firebrick;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-              }
-
-              i:first-child {
-                background: #2eabff;
-              }
-            }
-
-          }
-
-          .lineitem:hover {
-            /*background: #2eabff;*/
-            /*color: #ffffff;*/
-            cursor: pointer;
-          }
-
-        }
-      }
-
-      .searchBox {
-        width: 40%;
-        /*height: 198px;*/
-        /*background: firebrick;*/
-        padding: 10px;
-
-        /deep/ img:hover {
-          cursor: pointer;
-        }
-
-        .top {
-          width: 75%;
-          margin: 0 auto;
-          /*margin-top: 10px;*/
-        }
-
-        .bottom {
-          width: 75%;
-          /*height: 145px;*/
-          /*height: 130px;*/
-          /*background: darkcyan;*/
-          margin: 0px auto;
-
-
-          /deep/ .swiper-wrapper {
-            width: 60%;
-            /*margin-left: 20px;*/
-
-            .swiper-slide {
-              /*width: 100px;*/
-              /*height: 100%;*/
-              /*background: red;*/
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: space-around;
-              /*margin-right: 0px !important;*/
-              /*margin-left: 5px !important;*/
-
-              div {
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                /*background: #2eabff;*/
-
-                img {
-                  width: 100%;
-                }
-              }
-
-              span {
-                font-size: 14px;
-                color: #333333;
-              }
-            }
-          }
-
-        }
-      }
-
-    }
-
-
-    .box {
-      width: 100%;
-      height: auto;
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .top, .bottom {
-        width: 100%;
-        // min-height: 245px;
-        min-height: 235px;
-
-        /*min-height: 260px;*/
-
-        /*background: #dddddd;*/
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .left, .right {
-          width: 60.3%;
-          height: 100%;
-          /*padding: 10px;*/
-          background: #ffffff;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-          overflow: hidden !important;
-
-          .titlebox {
-            width: 100%;
-            height: 40px;
-            background: #f4f4f4;
-            border-bottom: 2px solid #e8e8e8;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            margin: 0;
-
-            span:first-child {
-              width: auto;
-              height: 40px;
-              padding: 0 8px;
-              padding-left: 0;
-              /*background: #009dee;*/
-              font-size: 16px;
-              font-weight: bold;
-              color: #333333;
-              display: flex;
-              align-items: center;
-
-              span {
-                /*color: #ffffff;*/
-              }
-
-              .shuline {
-                width: 5px;
-                height: 20px;
-                background: #f5f5f5;
-                padding: 0;
-                margin-right: 10px;
-              }
-
-              span:nth-child(2) {
-                min-width: 50px;
-              }
-
-              b {
-                min-width: 15px;
-                height: 15px;
-                border-radius: 10px;
-                background: #f02d13;
-                margin-left: 10px;
-                margin-bottom: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding-bottom: 3px;
-                padding-right: .5px;
-                font-size: 12px;
-              }
-            }
-
-            span:last-child {
-              /*background: none;*/
-              color: #333333;
-              margin-right: 20px;
-              font-weight: 600;
-            }
-
-          }
-
-          .itemline {
-            width: 100%;
-            min-height: 185px;
-            /*background: #999999;*/
-            /*padding: 10px;*/
-            padding-top: 0;
-            display: flex;
-            flex-direction: column;
-            /*margin: 0;*/
-
-            .each {
-              width: 100%;
-              /*background: red;*/
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-
-              border-left: 5px solid #c7ecff;
-              /*margin-left: 10px;*/
-
-
-              /*待办工作    字体设置      ----------------------------------------------------*/
-              .p {
-                width: 100%;
-                height: 46px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                /*line-height: 40px;*/
-                margin: 0;
-
-                /*background: #87e8de;*/
-                /*margin-left: 20px;*/
-                /*margin-top: 19px;*/
-
-                span:first-child {
-                  /*display: block;*/
-                  /*line-height: 40px;*/
-                  // width: 60%;
-                  /*height: 20px;*/
-                  //  overflow:hidden;
-                  //   white-space:no-wrap;
-                  //   text-overfow:ellipsis;
-                  //   -webkit-line-clamp: 1;
-                  //   white-space: nowrap;
-                  font-size: 18px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: flex-start;
-
-                  section {
-                    width: 90%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-
-                    i {
-                      width: 5px;
-                      height: 5px;
-                      background: #2eabff;
-                      margin-right: 10px;
-                      margin-left: 5px;
-                    }
-
-                    span {
-                      width: 100%;
-                      height: 27px;
-                      /*background: #dddddd;*/
-                      line-height: 27px;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      white-space: nowrap;
-                    }
-
-                  }
-
-
-                  img {
-                    width: 40px;
-                    margin-bottom: 18px;
-                    margin-left: 5px;
-                  }
-
-
-                }
-
-                span:last-child {
-                  display: block;
-                  line-height: 40px;
-                  margin-right: 20px;
-                }
-              }
-
-              a {
-
-                margin-top: 5px;
-
-              }
-            }
-
-            .each:hover {
-              /*background: rgb(226, 241, 246);*/
-              cursor: pointer;
-              color: #333333;
-            }
-          }
-        }
-
-
-        .right {
-          width: 39%;
-          height: 100%;
-          /*padding: 10px;*/
-          /*background: #dddddd;*/
-          /*display: flex;*/
-          /*flex-direction: column;*/
-          /*align-items: center;*/
-          /*justify-content: flex-start;*/
-          /*overflow: no-content;*/
-
-          .itemline {
-            min-height: 185px;
-
-            /*background: red;*/
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-
-
-            .each {
-              width: 95%;
-              border-left: none;
-              /*padding-bottom: 5px;*/
-              margin: 0px;
-              margin-top: 16px;
-
-              i {
-                display: block;
-                width: 5px;
-                height: 5px;
-                background: #2eabff;
-                margin-right: 5px;
-              }
-
-              /*待办工作右侧字体大小   以及右下角 字体大小------------------------------------------*/
-
-              section {
-                width: 70%;
-
-                span {
-                  width: 100%;
-                  height: 27px;
-                  /*background: #dddddd;*/
-                  line-height: 27px;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                }
-              }
-              span {
-
-                /*display: flex;*/
-                /*align-items: center;*/
-                font-size: 18px;
-
-
-
-              }
-            }
-          }
-
-        }
-      }
-
-      .bottom {
-        margin-top: 7px;
-        display: flex;
-        align-items: self-start;
-        justify-content: space-between;
-
-        .bottomleft {
-          width: 60.3%;
-          height: 100%;
-          /*background: #ffffff;*/
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-
-          .first, .last {
-            width: 49.4%;
-            height: 100%;
-            /*background: firebrick;*/
-            background: #ffffff;
-
-            /*padding: 10px;*/
-
-            .titlebox {
-              width: 100%;
-              height: 40px;
-              background: #f4f4f4;
-              border-bottom: 2px solid #e8e8e8;
-              margin: 0px;
-              /*background: #f2dede;*/
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-
-              span {
-                width: auto;
-                height: 40px;
-                padding: 0 8px;
-                padding-left: 0;
-                /*background: #009dee;*/
-                font-size: 14px;
-                font-weight: bold;
-                color: #333333 !important;
-                display: flex;
-                align-items: center;
-
-                span:nth-child(2) {
-                  min-width: 75px;
-                  /*color: #ffffff !important;*/
-                  font-size: 16px !important;
-                  font-weight: bold;
-                }
-
-                .shuline {
-                  width: 5px;
-                  height: 20px;
-                  background: #f5f5f5;
-                  padding: 0;
-                  margin-right: 10px;
-                }
-              }
-
-              span:last-child {
-                background: none;
-                color: #333333;
-              }
-
-            }
-
-            .itemline {
-              width: 100%;
-              min-height: 185px;
-              /*background: #999999;*/
-              padding: 10px;
-              /*color: #ffffff;*/
-              overflow: hidden;
-
-              p {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                // padding-bottom: 3px;
-                /*border-bottom: 1px solid #f0f2f5;*/
-
-                i {
-                  display: block;
-                  width: 5px;
-                  height: 5px;
-                  background: #2eabff;
-                  margin-right: 5px;
-                }
-
-                /*左下方字体大小控制区域-----------------------------------------------------------*/
-
-                section {
-                  width: 65%;
-
-                  span {
-                    width: 100%;
-                    height: 27px;
-                    /*background: #dddddd;*/
-                    line-height: 27px;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                  }
-                }
-
-                span {
-
-                  /*display: flex;*/
-                  /*align-items: center;*/
-                  font-size: 18px;
-
-
-
-                }
-              }
-
-              p:hover {
-                /*background: rgb(226, 241, 246);*/
-                cursor: pointer;
-                color: #333333;
-              }
-            }
-
-
-          }
-
-        }
-      }
-    }
-  }
+  @import "../../assets/less/indexStyle1.less";
 </style>
