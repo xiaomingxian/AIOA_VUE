@@ -66,9 +66,9 @@
                 <div class="part2">
                   <div class="title">
                     <div class="div3">
-                      <p class="p1">我的日程</p>
+                      <p class="p1">我的日程  <a-icon class="icon1" @click="add"type="plus"/></p>
                       <span>
-                      <a-icon class="icon1" @click="add"type="plus"/>
+
                       <a-icon class="icon1" @click="openMore(1)"type="right"/>
                       </span>
                     </div>
