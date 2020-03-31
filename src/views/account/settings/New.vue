@@ -91,7 +91,7 @@
           :wrapperCol="wrapperCol"
           label="列表办公(二行右侧)\日程办公">
           <a-select v-model="ibus1Id" style="width: 210px;">
-            <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+            <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{"["+item.busModelName+"]"+item.sname}}
             </a-select-option>
           </a-select>
         </a-form-item>
@@ -100,7 +100,7 @@
           :wrapperCol="wrapperCol"
           label="列表办公(三行左侧)">
           <a-select v-model="ibus2Id" style="width: 210px;">
-            <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+            <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{"["+item.busModelName+"]"+item.sname}}
             </a-select-option>
           </a-select>
         </a-form-item>
@@ -111,7 +111,7 @@
            :wrapperCol="wrapperCol"
            label="列表办公(三行中侧)">
            <a-select  v-model="ibus3Id" style="width: 210px;">
-             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{"["+item.busModelName+"]"+item.sname}}
              </a-select-option>
            </a-select>
          </a-form-item>
@@ -120,7 +120,7 @@
            :wrapperCol="wrapperCol"
            label="列表办公(三行右侧)">
            <a-select  v-model="ibus4Id" style="width: 210px;">
-             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
+             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{"["+item.busModelName+"]"+item.sname}}
              </a-select-option>
            </a-select>
          </a-form-item>

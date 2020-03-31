@@ -45,10 +45,10 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button style="margin-left: 10px;" type="primary" icon="download" @click="handleExportXls('日程管理表')">导出</a-button>
+     <!-- <a-button style="margin-left: 10px;" type="primary" icon="download" @click="handleExportXls('日程管理表')">导出</a-button>
       <a-upload style="margin-left: 10px;" name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
+      </a-upload>-->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
@@ -155,11 +155,23 @@
         iids:'',//创建者id拼接
         userNames:[],//  创建者数组
         username:'',// 用户名称  登录者名称
-        pagination:{
+       /* pagination:{
           total:'',
           showTotal:total=>`共计${total}条`,
           showSizeChanger:false,
           showQuickJumper:false
+        },*/
+        pagination: {
+          current: 1,
+          pageSize: 10,
+          pageSizeOptions: ['10', '20', '30'],
+          showTotal: (total, range) => {
+            return range[0] + '-' + range[1] + ' 共' + total + '条'
+          },
+          showQuickJumper: true,
+          showSizeChanger: true,
+          total: 0,
+          current:''
         },
         dataSource11:[],
         // 表头
