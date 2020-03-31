@@ -794,7 +794,8 @@
 
   .dark-row{
     /*background:linear-gradient(to bottom,rgb(221,221,255),rgb(167,196,255)) repeat scroll 0% 0%;*/
-    background-color: #c2d9f8;
+    /*background-color: #c2d9f8;*/
+    background-color: #fff;
   }
 
   .dark-row:hover{
