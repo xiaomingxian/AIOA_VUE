@@ -23,8 +23,9 @@
                      :wrapperCol="wrapperCol"
                      prop="phone"
                      :label="atom.s_column_name">
-          <a-input maxLength="11" placeholder="请输入正确的手机号格式" v-decorator="[ atom.s_table_column, {rules:[{required:true,pattern:/^1(3|4|5|6|7|8)\\d{9}$/,message:'请输入正确的手机号格式'}]}]"/>
+          <a-input maxLength="11" placeholder="请输入正确的手机号格式" v-decorator="[ atom.s_table_column, {rules:[{required:true,pattern:/^1(3|4|5|6|7|8)\d{9}$/,message:'请输入正确的手机号格式'}]}]"/>
         </a-form-item>
+
         <!--下拉列表-------------------start---------------->
         <!--密级-->
         <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='i_safetylevel'"
