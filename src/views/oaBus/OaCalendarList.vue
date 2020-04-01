@@ -323,6 +323,11 @@
 
       // 重置
       searchReset1(){
+        //console.log( this.serchSubData.sTitle)
+        /*this.serchSubData.sTitle = "";
+        this.serchSubData.startTime = '';
+        this.serchSubData.endTime ='';*/
+        this.reload();
         this.searchQuery(this.serchSubData.richengName==1)
       },
       handleEdit1(record){

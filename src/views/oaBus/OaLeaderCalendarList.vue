@@ -307,6 +307,7 @@
       },
       // 重置
       searchReset(){
+        this.reload();
         this.searchQuery(this.serchSubData.richengName = 2);
       },
         handleEdit1(record){

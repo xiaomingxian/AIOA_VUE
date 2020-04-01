@@ -302,6 +302,7 @@
         console.log(e);
       },
       searchReset(){
+          this.reload();
           this.searchQuery(this.serchSubData.richengName = 3);
       },
       handleEdit1(record){
