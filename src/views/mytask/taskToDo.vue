@@ -611,8 +611,8 @@
 
         }
         this.queryParam.taskType = null
-        this.queryParam.startTimeFake = null
-        this.queryParam.endTimeFake = null
+        // this.queryParam.startTimeFake = null
+        // this.queryParam.endTimeFake = null
         this.queryParam.isDept = false
         this.selectionRows = []
         this.selectedRowKeys = []

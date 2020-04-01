@@ -413,8 +413,8 @@
         this.checkUserIds = ''
 
         this.searchReset()
-        this.startTimeFake = null
-        this.endTimeFake = null
+        // this.startTimeFake = null
+        // this.endTimeFake = null
         this.taskType = null
         this.queryParam.isDept = false
         this.selectionRows = []
