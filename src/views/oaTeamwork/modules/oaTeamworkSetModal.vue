@@ -21,7 +21,7 @@
                 :labelCol="labelCol"
                 :wrapperCol="wrapperCol"
                 label="步骤序号">
-                <a-input style="width: 350px" :placeholder="findMax" ref="indexStep" v-decorator="['iorder', {rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 15, message: '长度在 0 到 15 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]}]" />
+                <a-input style="width: 350px" :placeholder="findMax" ref="indexStep" v-decorator="['iorder', validatorRules.iorder]" />
               </a-form-item>
             </div>
 
@@ -60,7 +60,7 @@
                 :labelCol="labelCol"
                 :wrapperCol="wrapperCol"
                 label="业务描述">
-                <a-input style="width: 350px"  placeholder="请输入描述" v-decorator="['description', {rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+                <a-input style="width: 350px"  placeholder="请输入描述" v-decorator="['description', validatorRules.description]" />
               </a-form-item>
             </div>
           </div>
@@ -115,6 +115,8 @@
         form: this.$form.createForm(this),
         validatorRules:{
         iId:{rules: [{ required: true, message: '请输入主键id!' }]},
+        iorder:{rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 15, message: '长度在 0 到 15 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]},
+        description:{rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]},
         },
         url: {
           add: "/oateamwork/oaTeamworkSet/add",
@@ -131,6 +133,7 @@
       }
     },
     created() {
+
        this.getBusModelSelectList();
     },
     methods: {
@@ -142,21 +145,22 @@
         this.title = steamworkName;
         this.form.resetFields();
         //this.model = Object.assign({}, record2);
-        getAction(this.url.findMax,{TeamworkId:iteamworkId}).then((res)=>{
-          this.num = res.result+1;
-          if(res.result != null) {
-            this.findMax = "不要小于" + (res.result) + "这个数.建议您填写:" + (res.result + 1);
-          }else{
-            //alert( res.result)
-            this.findMax = "请输入序号";
-          }
-
-          console.log(this.findMax)
-        })
+        this.findmax(iteamworkId);
       },
       add () {
         this.edit({});
       },
+      findmax(iteamworkId)
+      {
+        getAction(this.url.findMax,{TeamworkId: iteamworkId}).then((res)=>{
+          this.num = res.result+1;
+          if(res.result != null) {
+            this.findMax = "不要小于" + (res.result) + "这个数.建议您填写:" + (res.result + 1);
+          }
+
+
+        })
+      } ,
       edit1 (record) {
         console.log(record);
 
@@ -224,10 +228,10 @@
       },
       handleOk () {
         const that = this;
-        if(this.$refs.indexStep.value<this.num){
-          this.$message.warning(this.findMax);
-          return ;
-        }
+        // if(this.$refs.indexStep.value<this.num){
+        //   this.$message.warning(this.findMax);
+        //   return ;
+        // }
         // 触发表单验证
         this.form.validateFields((err, values) => {
           if (!err) {

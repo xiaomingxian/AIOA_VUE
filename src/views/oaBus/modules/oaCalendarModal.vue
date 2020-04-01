@@ -14,7 +14,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="日程内容">
-          <a-input placeholder="请输入日程内容" v-decorator="['stitle', {rules:[{required:true,message:'标题不能为空'}]}]" />
+          <a-input placeholder="请输入日程内容" v-decorator="['stitle', {rules:[{required:true,message:'日程内容不能为空'},{ min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -27,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="日程地点">
-          <a-input placeholder="请输入日程地点" v-decorator="['saddress', {}]" />
+          <a-input placeholder="请输入日程地点" v-decorator="['saddress', {rules:[{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"

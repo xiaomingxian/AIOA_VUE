@@ -501,8 +501,10 @@
           this.searchReset();
 
         }
-        this.queryParam.startTimeFake = null
-        this.queryParam.endTimeFake = null
+        // this.queryParam.startQueryTime=null
+        // this.queryParam.endQueryTime=null
+        // this.queryParam.startTimeFake = null
+        // this.queryParam.endTimeFake = null
         this.queryParam.isDept = false
         this.selectionRows = []
         this.selectedRowKeys = []
@@ -511,6 +513,7 @@
         this.queryParam.endQueryTime = time
       },
       startTime(a, time) {
+        console.log('--------------',a,time)
         this.queryParam.startQueryTime = time
       },
       reload() {

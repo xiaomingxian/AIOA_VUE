@@ -778,10 +778,10 @@
   /*}*/
 
   .ant-table-thead > tr > th{
-    color: #fff !important;
-    background-color: #006db9 !important;
+    color: #000000 !important;
+    background-color: #FAFAFA !important;
     /*border: none !important;*/
-    border-right:1px solid #779ecb !important;
+    border-right:1px solid #E9E9E9 !important;
   }
 
   /*.ant-table-tbody{*/

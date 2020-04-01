@@ -66,8 +66,11 @@
                 <div class="part2">
                   <div class="title">
                     <div class="div3">
-                      <p class="p1">我的日程</p>
-                      <span><a-icon class="icon1" @click="openMore(1)"type="right"/></span>
+                      <p class="p1">我的日程  <a-icon class="icon1" @click="add"type="plus"/></p>
+                      <span>
+
+                      <a-icon class="icon1" @click="openMore(1)"type="right"/>
+                      </span>
                     </div>
                   </div>
                   <!--mytitleLists-->
@@ -78,7 +81,7 @@
                       <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
                       <!--</p>-->
                       <div class="contentbox" >
-                        <p class="content"  :title="myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
+                        <p class="content"  :title="myitem.stateName+myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stateName+myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
                         <div >
                           <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
                           <img class="img1" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
@@ -203,8 +206,8 @@
                     <template v-if="willdoindex==0">
                       <p>
                         <i></i>
-                        <span :title="item.stitle+'   '+item.dCreateTime">
-                            <span :style="iisFontSize">{{item.stitle|filterText1}}
+                        <span :title="item.title+'   '+item.createTime">
+                            <span :style="iisFontSize">{{item.title|filterText1}}
                               <div v-if="item.important==1">
                                    <img alt="" src="../../assets/zhong.png">
                               </div>
@@ -212,7 +215,7 @@
 
                             </span>
                       </p>
-                      <span :style="iisFontSize">{{item.dCreateTime|timeText}}</span>
+                      <span :style="iisFontSize">{{item.createTime|timeText}}</span>
                     </template>
 
                     <template v-else>
@@ -379,9 +382,9 @@
         url:{
           findByLeader:'/oaBus/Calendar/oaCalendar/findByLeader',
           MostUserLink:'/oaBus/Calendar/oaCalendar/MostUserLink',
-          findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
+          //findwaiturl:'/oaBus/Calendar/oaCalendar/findwait ',
           findById:'/oaBus/Calendar/oaCalendar/queryById',
-         // findwaiturl:'/wf/task/queryTask',
+          findwaiturl:'/wf/task/queryTask',
           queryPageList:'/oaBus/Calendar/oaCalendar/queryPageList',
           list:'/oaBus/Calendar/oaCalendar/list',
           HomeList:'/oaBus/homeAnalysis/HomeList',
@@ -804,7 +807,7 @@
           // 代办日程
           // alert(e)
           this.willdoindex = 0;
-          this.findwaitLists();
+          this.findwaitLists('task_todo');
         }else{
 
           // alert(e)
@@ -1055,8 +1058,17 @@
       //查看日程
       chakan(iid){
         getAction(this.url.findById,{id:iid }).then((res) => {
-          this.$refs.modalCatForm.dayAnnalysis1(res.result);
+          if(res.result.stateName != "" ){
+            let params = {tableName: res.result.tableName, busdataId: res.result.ifunDataId};
+            this.$store.commit('pushNewDetial', params)
+            console.log(this.$store.state.postDetialLists);
 
+            // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
+            window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
+
+          }else{
+            this.$refs.modalCatForm.dayAnnalysis1(res.result);
+          }
         });
 
       },
@@ -1098,9 +1110,9 @@
         });
       },
       //待办 已办   日程  .replace(0,3);
-      findwaitLists(){
+      findwaitLists(operstatus='task_todo'){
 
-        postAction(this.url.findwaiturl,{}).then((res) => {
+        getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
           console.log(res.result.records);
           console.log(Array.isArray(res.result.records));
 

@@ -310,6 +310,9 @@ export const busdataTemplate = {
     save(data) {
       let flag = this.nullText();
       if (flag) {
+        // this.$store.commit('saveError')
+        // alert(this.$store.state.saveErrorState)
+
         return;
       }
       //校验发布范围
@@ -557,6 +560,9 @@ export const busdataTemplate = {
                   if (checkList[i].icheckExpjs == regulars[j].value) {
                     let reg = regulars[j].text;   //取得js的正则表达式
                     console.log(reg)
+                    if(reg == null || reg == ''|| reg == undefined){
+                      break ;
+                    }
                     if (!eval(reg).test(this.$refs[this.s_varchar[i]].value)) {     //判断
                       this.$refs[this.s_varchar[i]].$el.style.borderColor = 'red';
                       //message = checkList[i].scheckShowmsg;

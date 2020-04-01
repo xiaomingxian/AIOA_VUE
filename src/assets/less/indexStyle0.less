@@ -355,7 +355,104 @@
 
           }
           .itemboxx{
+
+            width: 98%;
+            /*min-height: 350px;*/
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            margin-top: 10px;
+            padding: 0 20px;
+            border-right: 1px solid #9b9b9b;
             border: none;
+
+            .itemline{
+              width:98%;
+              /*height: 52px;*/
+              height: 38px;
+              /*height: auto;*/
+              /*padding: 20px;*/
+              background: #FBF2DC;
+              /*background: red;*/
+              border-top-right-radius: 5px;
+              border-bottom-right-radius: 5px;
+              padding: 5px;
+              /*margin: 10px auto;*/
+              margin: 6px auto;
+              border-left: 3px solid #FFBC90;
+
+              /*padding-bottom: 20px;*/
+              .time{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                /*margin: 0;*/
+                /*margin-bottom: 3px;*/
+                i{
+                  width: 5px;
+                  height: 5px;
+                  background: red;
+                  -webkit-border-radius: 5px;
+                  -moz-border-radius: 5px;
+                  border-radius: 5px;
+                  margin-left: 5px;
+
+                }
+                span{
+                  margin-left: 10px;
+                  font-size: 12px;
+                }
+
+              }
+
+              .contentbox{
+                width: 100%;
+                /*background: #00ff80;*/
+
+                margin-left: 8px;
+                font-size: 12px;
+                margin-top: 3px;
+                line-height: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .content{
+                  margin: 0px !important;
+                  padding: 0px !important;
+                  /*background: #000c17;*/
+                  font-size: 12px;
+                  color: #333333;
+                  .div2{
+                    visibility: hidden;
+                    .img0{
+                      width: 22px;
+                    }
+                  }
+                  .img1{
+                    width: 22px;
+                  }
+                  .div5{
+                    visibility: hidden;
+                    .img2{
+                      width: 22px;
+                    }
+                  }
+                }
+                div:last-child{
+                  margin-right: 20px;
+                  font-size: 14px;
+
+                  img{
+                    margin-left: 10px;
+                  }
+                  img:hover{
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+
           }
           .itembox0{
             width: 98%;
@@ -652,7 +749,7 @@
         /*height: 40px;*/
         height: 45.8px;
         background: #f4f4f4;
-        border-bottom: 2px solid #009dee;
+        border-bottom: 2px solid #E8E8E8;
         display: flex;
         align-items: center;
         justify-content: space-between;

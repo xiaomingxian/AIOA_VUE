@@ -176,14 +176,14 @@
 
     </div>
 
-    <!-- table区域-begin -->
+    <!-- table区域-begin         :pagination="pagination"
+-->
     <div v-if="iisFold == 0">
       <a-table
         ref="table"
         size="middle"
         :columns="columns"
         :dataSource="dataSource"
-        :pagination="pagination"
         :loading="loading"
         :showAlertInfo="false"
         bordered
@@ -533,8 +533,8 @@
 
         }
         this.queryParam.taskType = null
-        this.queryParam.startTimeFake = null
-        this.queryParam.endTimeFake = null
+        // this.queryParam.startTimeFake = null
+        // this.queryParam.endTimeFake = null
         this.queryParam.isDept = false
         this.selectionRows = []
         this.selectedRowKeys = []

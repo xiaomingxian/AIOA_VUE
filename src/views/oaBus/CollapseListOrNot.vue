@@ -136,10 +136,11 @@
 
               <a-col :md="7" :sm="24">
                 <a-form-item>
-                  <a-select v-model="queryParam.s_create_name">
+                  <!--<a-select v-model="queryParam.s_create_name">-->
+                  <a-select v-model="queryParam.selType">
                     <a-select-option value="" disabled selected hidden>拟稿人</a-select-option>
-                    <a-select-option value="0">全部数据</a-select-option>
-                    <a-select-option value="1">由我创建</a-select-option>
+                    <a-select-option value="1">全部数据</a-select-option>
+                    <a-select-option value="0">由我创建</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -162,7 +163,7 @@
 
                   <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
                       <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
-                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList1">重置</a-button>
                   </span >
 
                 </a-form-item>
@@ -316,10 +317,11 @@
 
                 <a-col :md="7" :sm="24">
                   <a-form-item>
-                    <a-select v-model="queryParam.s_create_name">
+                    <!--<a-select v-model="queryParam.s_create_name">-->
+                    <a-select v-model="queryParam.selType">
                       <a-select-option value="" disabled selected hidden>拟稿人</a-select-option>
-                      <a-select-option value="0">全部数据</a-select-option>
-                      <a-select-option value="1">由我创建</a-select-option>
+                      <a-select-option value="1">全部数据</a-select-option>
+                      <a-select-option value="0">由我创建</a-select-option>
                     </a-select>
                   </a-form-item>
                 </a-col>
@@ -343,7 +345,7 @@
 
                     <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
                       <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
-                      <a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList1">重置</a-button>
                     </span >
                   </a-form-item>
                 </a-col>
@@ -516,7 +518,7 @@
         queryParam: {
           function_id: '',
           i_is_state: '',
-          // selType: 1,
+          selType: '',
           s_create_name: '',
           d_create_time: '',
           orderFlag: '',    //排序字段
@@ -697,7 +699,7 @@
         this.queryParam = {
           function_id: '',
             i_is_state: '',
-            // selType: 1,
+            selType: '',
             s_create_name: '',
           d_create_time: '',
           orderFlag: '',    //排序字段
@@ -1189,7 +1191,7 @@
         this.queryParam = {
           function_id: '',
           i_is_state: '',
-          // selType: 1,
+          selType: '',
           s_create_name: '',
           d_create_time: '',
           orderFlag: '',    //排序字段
@@ -1210,6 +1212,19 @@
           }
         }
         this.queryParam.orderFlag = '';
+
+      },
+      resetPgConditionList1() {
+        this.queryParam = Object.assign({}, this.resetConditionList);
+        console.log(this.$refs.inputs);
+        if (this.$refs.inputs != undefined) {
+          for (let i = 0; i < this.$refs.inputs.length; i++) {
+            this.$refs.inputs[i].stateValue = '';
+          }
+        }
+        this.queryParam.orderFlag = '';
+        console.log("AAA")
+        this.collapseListOrNot();
       },
       // collapseListOrNot() {
       //
