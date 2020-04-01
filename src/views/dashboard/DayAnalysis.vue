@@ -1058,8 +1058,17 @@
       //查看日程
       chakan(iid){
         getAction(this.url.findById,{id:iid }).then((res) => {
-          this.$refs.modalCatForm.dayAnnalysis1(res.result);
+          if(res.result.stateName != "" ){
+            let params = {tableName: res.result.tableName, busdataId: res.result.ifunDataId};
+            this.$store.commit('pushNewDetial', params)
+            console.log(this.$store.state.postDetialLists);
 
+            // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
+            window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
+
+          }else{
+            this.$refs.modalCatForm.dayAnnalysis1(res.result);
+          }
         });
 
       },
