@@ -62,7 +62,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="机构名称">
-            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入排序号！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur'  }] }]"/>
+            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入排序号！'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur'  }] }]"/>
           </a-form-item>
           <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="上级部门">
             <a-tree-select
@@ -98,7 +98,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
+            <a-input v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -116,7 +116,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="备注">
-            <a-textarea placeholder="请输入备注" v-decorator="['memo', {'initialValue':''}]"/>
+            <a-textarea placeholder="请输入备注" v-decorator="['memo', {rules:[{required:false ,message:'请输入备注!'},{ min: 0, max: 500, message: '长度在 0 到 500 个字符', trigger: 'blur'  }] }]"/>
           </a-form-item>
         </a-form>
         <div class="anty-form-btn">
@@ -186,8 +186,6 @@
     data() {
       return {
         checkable: false,//开启   关闭  属性图 树形  是否可以多选
-        depNamecha:'',
-        departOrdercha:'',
         iExpandedKeys: [],
         loading: false,
         autoExpandParent: true,
@@ -426,10 +424,10 @@
 
       },
       emptyCurrForm() {
-        console.log("11111")
-        console.log(this.mobile);
+        // console.log("11111")
+        // console.log(this.mobile);
 
-        // this.form.resetFields()
+        this.form.resetFields()
       },
       nodeSettingFormSubmit() {
         this.form.validateFields((err, values) => {

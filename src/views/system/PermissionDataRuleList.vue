@@ -21,13 +21,13 @@
                 <a-input placeholder="请输入规则名称" v-model="queryParam.ruleName"></a-input>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="8">
+            <a-col :md="8" :sm="8" style="margin-left: -14px;">
               <a-form-item label="规则值" :labelCol="{span: 8}" :wrapperCol="{span: 14, offset: 1}">
                 <a-input placeholder="请输入规则值" v-model="queryParam.ruleValue"></a-input>
               </a-form-item>
             </a-col>
             <a-col :md="7" :sm="8">
-              <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <span style="float: left;overflow: hidden;margin:3px 0 0 27px;" class="table-page-search-submitButtons">
                 <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
                 <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
               </span>
@@ -181,5 +181,16 @@
   .data-rule-invalid{
     background: #f4f4f4;
     color: #bababa;
+  }
+</style>
+
+<style scoped>
+  /deep/.ant-form-item-label{
+    width:41.33333333%;
+  }
+
+  /deep/.ant-form-item-control-wrapper{
+    padding-left: 5px;
+    width:61.333333%;
   }
 </style>

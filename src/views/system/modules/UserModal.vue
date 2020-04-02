@@ -23,7 +23,7 @@
       <a-form :form="form">
 
         <a-form-item label="用户账号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入用户账号" autoComplete="off" maxLength="5" v-decorator="[ 'username', {rules:[{required:true ,message:'请输入用户账号!'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur'  }] }]" :readOnly="!!model.id" />
+          <a-input placeholder="请输入用户账号" autoComplete="off" maxLength="5" v-decorator="[ 'username', {rules:[{required:true ,message:'请输入用户账号!'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur'  }] }]" :readOnly="!!model.id" />
         </a-form-item>
 
         <template v-if="!model.id">
@@ -37,7 +37,7 @@
         </template>
 
         <a-form-item label="用户名字" :labelCol="labelCol" :wrapperCol="wrapperCol" >
-          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', {rules:[{required:true ,message:'请输入排序号!'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur'}] }]"  />
+          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', {rules:[{required:true ,message:'请输入排序号!'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur'}] }]"  />
         </a-form-item>
 
         <a-form-item label="角色分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!roleDisabled" >
@@ -83,7 +83,7 @@
         </a-form-item>-->
 
         <a-form-item label="顺序号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入顺序" v-decorator="[ 'show_order', {rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 6, message: '长度在 0 到 6 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />
+          <a-input placeholder="请输入顺序" v-decorator="[ 'show_order', {rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />
         </a-form-item>
        <!-- <a-form-item label="生日" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-date-picker
