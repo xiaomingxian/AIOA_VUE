@@ -15,21 +15,24 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="字典名称">
-          <a-input placeholder="请输入字典名称" v-decorator="[ 'dictName', validatorRules.dictName]"/>
+          <!--<a-input placeholder="请输入字典名称" v-decorator="[ 'dictName', {rules: [{ required: true, message: '请输入字典名称!'},{min:0, max:20, message: '长度在0到20个字符', tarigger:'blur'}] ] @blur="dictNameChange"/>  /^[0-9a-zA-Z]*$/g   -->
+          <a-input placeholder="请输入字典名称" v-decorator="['dictName', {rules:[{required:true,message:'请输入字典名称！！！'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur' },]}]" />
         </a-form-item>
+
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="字典编码">
-          <a-input placeholder="请输入字典编码" v-decorator="[ 'dictCode', validatorRules.dictCode]" />
+          <!--<a-input placeholder="请输入字典编码" v-decorator="[ 'dictCode', validatorRules.dictCode]" @blur="dictCodeChange" ,{pattern: new RegExp(/^[A-Za-z0-9_]\d*$/), message: '请输入数字或字母或_！'} />-->
+          <a-input placeholder="请输入字典编码" v-decorator="['dictCode', {rules:[{required:true,message:'请输入字典编码！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-input v-decorator="[ 'description']"/>
+          <a-input v-decorator="[ 'description', {rules:[{required:true,message:'请输入描述！！！'},{ min: 0, max: 40, message: '长度在 0 到 40 个字符', trigger: 'blur'  }] }]" />
         </a-form-item>
 
       </a-form>
@@ -46,6 +49,9 @@
     name: 'DictModal',
     data() {
       return {
+        dictNamecha:'',
+        dictCodecha:'',
+        descriptioncha:'',
         value: 1,
         title: '操作',
         visible: false,
@@ -61,7 +67,7 @@
         confirmLoading: false,
         form: this.$form.createForm(this),
         validatorRules: {
-          dictName: { rules: [{ required: true, message: '请输入字典名称!' }] },
+          // dictName: { rules: [{ required: true, message: '请输入字典名称!'},{min:0, max:20, message: '长度在0到20个字符', tarigger:'blur'}] },
           dictCode: {
             rules: [{ required: true, message: '请输入字典编码!' },
               { validator: this.validateDictCode }]
@@ -73,7 +79,15 @@
       this.initialUserList();
     },
     methods: {
-
+      dictNameChange(e){
+        this.dictNamecha = e.target.value;
+      },
+      dictCodeChange(e){
+        this.dictCodecha = e.target.value;
+      },
+      descriptionChange(e){
+        this.descriptioncha = e.target.value;
+      },
       validateDictCode(rule, value, callback) {
         // 重复校验
         var params = {
@@ -111,6 +125,37 @@
       },
       // 确定
       handleOk() {
+
+        console.log("111111")
+        console.log(this.dictNamecha.length);
+        console.log(this.dictCodecha.length);
+        console.log(this.descriptioncha.length);
+
+
+        /*if (this.dictNamecha != null){
+          if (this.dictNamecha.length >5){
+            this.$message.warning("字典名称长度不得超过40");
+          }
+        }
+        if (this.dictCodecha != null){
+
+          var re = new RegExp("[\\u4E00-\\u9FFF]+","g");
+          if(re.test(this.dictCodecha)){
+            this.$message.warning("含有汉字");
+          }else {
+            this.$message.warning("不含有汉字");
+          }
+
+          if (this.dictCodecha.length > 30){
+            this.$message.warning("字典编码长度不得超过30");
+          }
+        }
+        if (this.descriptioncha != null){
+          if (this.descriptioncha.length > 100){
+            this.$message.warning("描述长度不得超过100");
+          }
+        }*/
+
         const that = this
         // 触发表单验证
         this.form.validateFields((err, values) => {
@@ -140,6 +185,7 @@
             })
           }
         })
+
       },
       // 关闭
       handleCancel() {

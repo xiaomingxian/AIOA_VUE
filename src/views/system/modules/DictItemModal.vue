@@ -15,28 +15,30 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="名称">
-          <a-input placeholder="请输入名称" v-decorator="['itemText', validatorRules.itemText]"/>
+          <!--<a-input placeholder="请输入名称" v-decorator="['itemText', {rules:[{required:true,message:'请输入字典编码！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />-->
+          <a-input placeholder="请输入名称" v-decorator="['itemText',  {rules:[{required:true,message:'请输入名称！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="数据值">
-          <a-input placeholder="请输入数据值" v-decorator="['itemValue', validatorRules.itemValue]"/>
+          <!--<a-input placeholder="请输入数据值" v-decorator="['itemValue', validatorRules.itemValue]"/>-->
+          <a-input placeholder="请输入数据值" v-decorator="['itemValue', {rules:[{required:true,message:'请输入数据值！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' },,{pattern: new RegExp(/^[0-9_]\d*$/), message: '请输入数字'}]}]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-input v-decorator="['description']"/>
+          <a-input v-decorator="['description', {rules:[{required:true,message:'请输入描述！！！'},{ min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="排序值">
-          <a-input-number :min="1" v-decorator="['sortOrder',{'initialValue':1}]"/>
+          <a-input-number :min="1" v-decorator="['sortOrder',{rules:[{required:true,message:'请输入排序值！！！'},{ min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur' }]}]" />
           值越小越靠前，支持小数
         </a-form-item>
 
