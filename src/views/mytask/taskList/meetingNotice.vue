@@ -2,13 +2,13 @@
   <center>
     <table :submit="submit" border="1" borderColor="#F0F5FC" class="sendFileStyle" width="100%">
       <tr style="height: 50px;">
-        <td width="15%" class="title">
+        <td width="15%"class="title">
           <center><h3>{{detailList.s_create_dept}}</h3></center>
         </td>
         <td  width="35%">
           <div style="padding-left: 10px;">{{backData.s_create_dept}}</div>
         </td>
-        <td width="15%" class="title">
+        <td width="15%"class="title">
           <!--登记人员-->
           <centezr><h3>{{detailList.s_create_name}}</h3></centezr>
         </td>
@@ -16,38 +16,59 @@
           <div style="padding-left: 10px">{{backData.s_create_name}}</div>
         </td>
       </tr>
-      <!--会议室申请-->
-      <!--<tr style="height: 50px;">-->
-        <!--<td colspan="1" class="title">-->
-          <!--<center><h3>{{detailList.s_varchar1}}</h3></center>-->
-        <!--</td>-->
-        <!--<td colspan="7">-->
-          <!--<center>-->
-            <!--<a-select style="width: 100%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1"-->
-                      <!--@change="changeMeetingRoom">-->
-              <!--<a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text"-->
-                               <!--:value="item.value">{{item.text}}-->
-              <!--</a-select-option>-->
-            <!--</a-select>-->
-          <!--</center>-->
-        <!--</td>-->
-      <!--</tr>-->
-      <!--申请时间-->
-      <!--<tr style="height: 50px;">-->
-        <!--<td colspan="1" class="title">-->
-          <!--<center><h3>{{detailList.d_datetime1}}</h3></center>-->
-        <!--</td>-->
-        <!--<td colspan="7">-->
-          <!--<center>-->
-            <!--<a-select style="width: 100%" v-model="backData.d_datetime1" multiple placeholder="请选择会议时间" ref="d_datetime1"  v-on:blur="blurText($event,$refs.d_datetime1)" @focus="dasdasfdsfs"  @change="changeTime">-->
-              <!--<a-select-option v-for="(item,index) in meetingTime" :key="index" :value="item.dDatetime1">-->
-                <!--{{item.dDatetime1}}-->
-              <!--</a-select-option>-->
-            <!--</a-select>-->
-          <!--</center>-->
-        <!--</td>-->
-      <!--</tr>-->
-      <!--会议内容-->
+      <tr style="height: 50px;">
+        <td width="15%" class="title">
+          <center><h3>{{detailList.s_varchar1}}</h3></center>
+        </td>
+        <td width="35%">
+          <center>
+            <a-select style="width: 100%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1"
+                      @change="changeMeetingRoom">
+              <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text"
+                               :value="item.value">{{item.text}}
+              </a-select-option>
+            </a-select>
+          </center>
+        </td>
+
+        <td width="15%" class="title">
+          <center><h3>{{detailList.d_datetime1}}</h3></center>
+        </td>
+        <td width="35%">
+          <left>
+            <template v-if="backData.d_datetime1 == null && backData.d_datetime2 ==null">
+              <a-range-picker
+                ref="s_varchar4"
+                v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
+                style="width: 95%"
+                showTime
+                :disabledDate="disabledDate"
+                :disabledTime="disabledRangeTime"
+                :showTime="{ defaultValue: moment('00:00:00', 'HH:mm:ss') }"
+                format="YYYY-MM-DD HH:mm"
+                :placeholder="['开始时间','结束时间']"
+                @change="selectTime" @ok="confirmTime"
+              />
+            </template>
+
+            <template v-else>
+              <a-range-picker
+                ref="s_varchar4"
+                v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
+                style="width: 95%"
+                :showTime="{format}"
+                :disabledDate="disabledDate"
+                :disabledTime="disabledRangeTime"
+
+                format="YYYY-MM-DD HH:mm:ss"
+                :placeholder="['开始时间','结束时间']"
+                @change="selectTime" @ok="confirmTime"
+                :defaultValue="[moment(backData.d_datetime1),moment(backData.d_datetime2)]"
+              />
+            </template>
+          </left>
+        </td>
+      </tr>
       <tr>
         <td colspan="1" class="title">
           <center><h3>{{detailList.s_title}}</h3></center>
@@ -63,7 +84,7 @@
       </tr>
       <!--参会人员-->
       <tr style="height: 50px;">
-        <td width="10%" class="title">
+        <td width="15%"class="title">
           <center><h3>{{detailList.s_varchar4}}</h3></center>
         </td>
         <td colspan="3">
@@ -73,7 +94,7 @@
       </tr>
       <!--附件-->
       <tr style="height: 50px;">
-        <td width="10%" class="title">
+        <td width="15%"class="title">
           <center><h3>{{detailList.s_varchar3}}</h3></center>
         </td>
         <td colspan="3">
@@ -93,7 +114,7 @@
       <!--创建时间-->
       <template v-if="this.backData.d_create_time != timeStrings">
         <tr style="height: 50px;">
-          <td width="10%" class="title">
+          <td width="15%"class="title">
             <center><h3>{{detailList.d_create_time}}</h3></center>
           </td>
           <td colspan="3">
@@ -103,7 +124,7 @@
       </template>
       <template v-else>
         <tr style="height: 50px;">
-          <td width="10%" class="title">
+          <td width="15%"class="title">
             <center><h3>{{detailList.d_create_time}}</h3></center>
           </td>
           <td colspan="3">
@@ -408,20 +429,20 @@
 <style lang="less" scoped>
   @import "../../../assets/less/detailsBaseStyle";
   /*input.ant-input{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*}*/
 
   /*textarea.ant-input{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*}*/
 
   /*/deep/ .ant-select-selection--single{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*padding: 8px 0;*/
   /*}*/
 
   /*/deep/ .ant-calendar-picker-input{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*}*/
 </style>
 
