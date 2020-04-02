@@ -36,7 +36,7 @@
                 :labelCol="labelCol"
                 :wrapperCol="wrapperCol"
                 label="业务模块">
-                <a-select style="width: 350px"   v-decorator="['ibusModelId', {}]"   @change="getModelVal" placeholder="请选业务模块">
+                <a-select style="width: 350px"   v-decorator="['ibusModelId', validatorRules.ibusModelId]"   @change="getModelVal" placeholder="请选业务模块">
                   <a-select-option v-for="(item,index) in modelList" :key="index" :value="item.modelid">{{item.modelSName}}
                   </a-select-option>
                 </a-select>
@@ -51,7 +51,7 @@
                     <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.functionSName}}
                     </a-select-option>
                   </a-select> -->
-                <a-select style="width: 350px"  v-decorator="[ 'ibusFunctionId', {}]"   @change="selectTaskDetail" placeholder="请选业务详情">
+                <a-select style="width: 350px"  v-decorator="[ 'ibusFunctionId', validatorRules.ibusFunctionId]"   @change="selectTaskDetail" placeholder="请选业务详情">
                   <a-select-option v-for="item2 in selectList" :value="item2.functionid">{{item2.functionSName}}</a-select-option>
                 </a-select>
               </a-form-item>
@@ -115,6 +115,8 @@
         form: this.$form.createForm(this),
         validatorRules:{
         iId:{rules: [{ required: true, message: '请输入主键id!' }]},
+        ibusModelId:{rules: [{ required: true, message: '必须选择业务模块!' }]},
+        ibusFunctionId:{rules: [{ required: true, message: '必须选择业务功能!' }]},
         iorder:{rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 15, message: '长度在 0 到 15 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]},
         description:{rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]},
         },
@@ -263,15 +265,13 @@
       }
       }).finally(() => {
       that.confirmLoading = false;
+      this.form.validate();
+      //this.selectList=[];
       that.close();
       })
-
-
-
       }
       })
-        this.form.resetFields();
-        this.selectList=[];
+
       },
       handleCancel () {
         this.close()

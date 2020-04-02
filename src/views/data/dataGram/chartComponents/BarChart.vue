@@ -28,7 +28,7 @@
         if(val%1===0){
           return  val;
         }else{
-          return (val).toFixed(2);
+          return  parseFloat(val).toFixed(2);
         }
         // return val*100
       }
@@ -131,7 +131,7 @@
         getData1(data){
           console.log(data);
           // alert(JSON.stringify(data))
-          this.currtenreta = data[0].reta*100;
+          this.currtenreta = parseFloat(data[0].reta*100).toFixed(2);
           this.currtentYear = data[1].year;
         },
         getData2(data){
@@ -143,7 +143,7 @@
           if(data[0]==null){
             this.PeerNum = '0'
           }else{
-            this.PeerNum = data[0].reta*100;
+            this.PeerNum = parseFloat(data[0].reta*100).toFixed(2);
           }
 
 
@@ -155,7 +155,7 @@
           if(data[0]==null){
             this.banJie =0
           }else{
-            this.banJie =data[0].reta*100;
+            this.banJie =parseFloat(data[0].reta*100).toFixed(2);
           }
 
         },

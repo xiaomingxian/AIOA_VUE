@@ -181,7 +181,7 @@
 
 
 
-          let url2 = '/data/dataAnalysis/HandlingRate'; //办理率
+          let url2 = '/data/dataAnalysis/Rate'; //办理率
           getAction(url2,data).then((res)=>{
             console.log(res);
             this.$refs.bar.getData1(res);
@@ -216,7 +216,7 @@
             this.$refs.deparpie.getData3(res);
             this.$refs.deparline.getData3(res);
           })
-          let url5 = "/data/dataAnalysis/Rate";   // 办结率
+          let url5 = "/data/dataAnalysis/HandlingRate";   // 办结率
           getAction(url5,data).then((res) => {
 
             this.$refs.bar.getData4(res);
