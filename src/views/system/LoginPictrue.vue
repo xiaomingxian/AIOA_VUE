@@ -122,7 +122,7 @@
           <div style="display: flex;margin: 41px 0 0 96px;">
             <div style=" background: #fff;display: flex;align-items: center;justify-content: flex-start;">
               <span style="width: 71px;">系统名称：</span>
-              <a-input style="width: 371px;" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
+              <a-input style="width: 371px;" maxlength="35" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
             </div>
 
             <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
