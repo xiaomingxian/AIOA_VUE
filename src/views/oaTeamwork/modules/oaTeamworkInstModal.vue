@@ -32,7 +32,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="步骤序号">
-          <a-select  v-decorator="['iorder', {rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 15, message: '长度在 0 到 15 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]}]">
+          <a-select  v-decorator="['iorder', {rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]}]">
             <a-select-option v-for="(item,index) in teamworkSetList" :key="index" :value="item.iid">{{item.iorder}}
             </a-select-option>
           </a-select>

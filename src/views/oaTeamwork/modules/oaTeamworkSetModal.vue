@@ -117,8 +117,8 @@
         iId:{rules: [{ required: true, message: '请输入主键id!' }]},
         ibusModelId:{rules: [{ required: true, message: '必须选择业务模块!' }]},
         ibusFunctionId:{rules: [{ required: true, message: '必须选择业务功能!' }]},
-        iorder:{rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 15, message: '长度在 0 到 15 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]},
-        description:{rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]},
+        iorder:{rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]},
+        description:{rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 255, message: '长度在 0 到 255 个字符', trigger: 'blur' }]},
         },
         url: {
           add: "/oateamwork/oaTeamworkSet/add",
