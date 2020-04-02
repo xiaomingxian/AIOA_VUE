@@ -31,14 +31,14 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-input v-decorator="['description', {rules:[{required:true,message:'请输入描述！！！'},{ min: 0, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur' }]}]" />
+          <a-input v-decorator="['description', {rules:[{required:true,message:'请输入描述！！！'},{ min: 0, max: 200, message: '长度在 0 到 200 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="排序值">
-          <a-input-number :min="1" v-decorator="['sortOrder',{rules:[{required:true,message:'请输入排序值！！！'},{ min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur' }]}]" />
+          <a-input-number :min="1" v-decorator="['sortOrder',{}]" />
           值越小越靠前，支持小数
         </a-form-item>
 
