@@ -7,7 +7,7 @@
      </div>
      <div class="discribion" style="width: 35%;height: 300px;">
        <h3>分析报告</h3>
-       <p style="line-height: 36px;">{{currtentYear}}年，您一共办理公文{{fenSum}}件，占同类公文的{{PeerNum}}%,其中{{thanAverageValue}}份办理公文数量超过平均值,是您最忙的时候,您所办理的公文办结率达到{{currtenreta}}%，占行内同类公文办结数量的{{Number(series[0])}}%</p>
+       <p style="line-height: 36px;">{{currtentYear}}年，您一共办理公文{{fenSum}}件，占同类公文的{{PeerNum}}%,其中{{thanAverageValue}}份办理公文数量超过平均值,是您最忙的时候,您所办理的公文办结率达到{{Number(series[0])}}%，占行内同类公文办结数量的{{currtenreta}}%</p>
      </div>
    </template>
      <template v-else>
@@ -60,7 +60,6 @@
         let url = "/data/dataAnalysis/Rate";
         getAction(url,data).then((res) => {
           console.log(res);
-
           if(res[0]){
             this.series = [];
             if((res[0].reta)%1===0){
@@ -78,9 +77,10 @@
         let url2 = '/data/dataAnalysis/HandlingRate'; //办理率
         getAction(url2,data).then((res)=>{
           console.log(res);
-
-          this.currtenreta = res[0].reta*100;
+          this.currtenreta = parseFloat(res[0].reta*100).toFixed(2);
           this.currtentYear = res[1].year;
+
+
 
         })
 
@@ -97,7 +97,7 @@
           if(res[0]==null){
             this.PeerNum =0
           }else{
-            this.PeerNum = res[0].reta*100;
+            this.PeerNum = parseFloat(res[0].reta*100).toFixed(2);
           }
 
         })

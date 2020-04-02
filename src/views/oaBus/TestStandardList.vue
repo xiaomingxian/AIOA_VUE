@@ -46,7 +46,7 @@
     <a-card :bordered=false>
       <a-form layout="inline" style="text-align: center; margin-top: 20px">
         <a-row :gutter="24">
-          <a-col :md="8" :sm="24" style="margin-left:385px;">
+          <a-col :md="8" :sm="24" style="margin-left:249px;" @keyup.13="getPgSearchList">
               <a-select
                 ref="isSearchWords"
                 mode="combobox"
@@ -55,7 +55,6 @@
                 style="width: 100%"
                 @search="fetchUser"
                 @change="handleChange"
-                @inputKeydown="getPgSearchList"
                 :showArrow="false"
                 :allowClear="true"
                 :defaultActiveFirstOption="false"
@@ -68,7 +67,9 @@
 
           <a-col :md="1" :sm="24" >
             <span class="table-page-search-submitButtons">
-              <a-button type="primary" icon="search" @click="getPgSearchList">查询</a-button>
+              <a-button type="primary" icon="search" @click="getPgSearchList">查询全部</a-button>
+              <a-button type="primary" icon="file-search" @click="getPgSearchList">文件检索</a-button>
+              <a-button type="primary" icon="solution" @click="getPgSearchList">公文检索</a-button>
             </span>
           </a-col>
         </a-row>
@@ -177,14 +178,17 @@
       }
     },
     created() {
-      if(this.$route.query.searchWords){
-        this.$nextTick(function(){
-          this.$refs.isSearchWords.placeholder = this.$route.query.searchWords;
-        },500)
-        this.FilterAllFiles(this.$route.query.searchWords);
-      }else {
-        return;
-      }
+      // if(this.$route.query.searchWords){
+      //   this.$nextTick(function(){
+      //     console.log('00000000000000000000000000000000000')
+      //     console.log(this.$refs.isSearchWords)
+      //
+      //     this.$refs.isSearchWords.$el.childNodes[0].innerText = this.$route.query.searchWords;
+      //   },500)
+      //   this.FilterAllFiles(this.$route.query.searchWords);
+      // }else {
+      //   return;
+      // }
     },
     destroyed(){
       this.dataDestroy();
@@ -197,10 +201,10 @@
         this.dataSource = [];
         this.searchOut = [];
         this.defaultActivityKey = e.toString();
-        let reg = new RegExp("^[0-9]*$");
+        // let reg = new RegExp("^[0-9]*$");
         //点击查询按钮检测  检测是否填写
-        // if(this.search) {
-          if(!reg.test(this.search)) {
+        if(this.search) {
+          // if(!reg.test(this.search)) {
             //若用户已填写 判断此时Tab 是全文检索0   附件检索1
             if (e == '0') {
               //全文检索
@@ -210,14 +214,14 @@
               this.FuJianFiles(this.search);
             }
 
-          } else {
+          // } else {
 
             // this.$message.error('请输入搜索内容')
-            return;
+          //   return;
+          //
+          // }
 
-          }
-
-        // }
+        }
 
       },
       //---切换分页-----
@@ -231,8 +235,8 @@
         this.data = [];
         this.fetching = true;
         let url = "/oaEs/oaelasticsearch/getsearch";
-        let reg = new RegExp("^[0-9]*$");
-        if(!reg.test(value)) {
+        // let reg = new RegExp("^[0-9]*$");
+        // if(!reg.test(value)) {
             postAction(url, {keyWord: value}).then((res) => {
               if (fetchId !== this.lastFetchId) {
                 // for fetch callback order
@@ -247,15 +251,18 @@
               this.fetching = false;
             });
 
-          } else {
+          // } else {
 
             // this.$message.error('请输入搜索内容')
-            return;
-
-          }
+          //   return;
+          //
+          // }
 
       },
       handleChange(obj) {
+
+        console.log('000000000t34t636000000000')
+        console.log(this.$refs.isSearchWords)
 
         //判断  全文检索搜索框是否输入    检测输入变化则赋值  否则清空变量
         if(obj){
@@ -277,8 +284,8 @@
 
         //点击查询按钮检测  检测是否填写
         if(this.search){
-          let reg = new RegExp("^[0-9]*$");
-          if(!reg.test(this.search)) {
+          // let reg = new RegExp("^[0-9]*$");
+          // if(!reg.test(this.search)) {
             //若用户已填写 判断此时Tab 是全文检索0   附件检索1
             if(defaultActivityKey=='0'){
               //全文检索
@@ -288,9 +295,9 @@
               this.FuJianFiles(this.search);
             }
 
-            }else{
-              return;
-            }
+            // }else{
+            //   return;
+            // }
           }else{
 
           htis.$message.error('请输入搜索内容')
@@ -398,6 +405,7 @@
 <style lang="scss" scoped>
   .table-page-search-submitButtons .ant-btn{
     background:linear-gradient(180deg,rgba(115,128,255,1),rgba(47,86,255,1)) repeat scroll 0% 0%;
+    margin-right:10px;
   }
 
   .table-page-search-submitButtons .ant-btn svg{

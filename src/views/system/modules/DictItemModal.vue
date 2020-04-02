@@ -16,7 +16,7 @@
           :wrapperCol="wrapperCol"
           label="名称">
           <!--<a-input placeholder="请输入名称" v-decorator="['itemText', {rules:[{required:true,message:'请输入字典编码！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />-->
-          <a-input placeholder="请输入名称" v-decorator="['itemText',  {rules:[{required:true,message:'请输入名称！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入名称" v-decorator="['itemText',  {rules:[{required:true,message:'请输入名称！！！'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
 
         <a-form-item
@@ -24,7 +24,7 @@
           :wrapperCol="wrapperCol"
           label="数据值">
           <!--<a-input placeholder="请输入数据值" v-decorator="['itemValue', validatorRules.itemValue]"/>-->
-          <a-input placeholder="请输入数据值" v-decorator="['itemValue', {rules:[{required:true,message:'请输入数据值！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' },,{pattern: new RegExp(/^[0-9_]\d*$/), message: '请输入数字'}]}]" />
+          <a-input placeholder="请输入数据值" v-decorator="['itemValue', {rules:[{required:true,message:'请输入数据值！！！'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur' },,{pattern: new RegExp(/^[0-9_]\d*$/), message: '请输入数字'}]}]" />
         </a-form-item>
 
         <a-form-item

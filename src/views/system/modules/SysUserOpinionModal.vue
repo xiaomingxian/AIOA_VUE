@@ -27,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <a-input-number  v-decorator="['iorder', {rules:[{required:true,message:'序号必须输入！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+          <a-input style="width: 100px" v-decorator="['iorder', {rules:[{required:true,message:'序号必须输入！！！'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'}]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"

@@ -62,7 +62,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="机构名称">
-            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', validatorRules.departName ]" @change="departNameChange"/>
+            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入排序号！'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur'  }] }]"/>
           </a-form-item>
           <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="上级部门">
             <a-tree-select
@@ -98,13 +98,13 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input v-decorator="[ 'departOrder',{'initialValue':0}]" @change="orderChange"/>
+            <a-input v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="手机号">
-            <a-input placeholder="请输入手机号" v-decorator="['mobile', {'initialValue':''}]"/>
+            <a-input placeholder="请输入手机号" v-decorator="['mobile', {rules:[{required:false ,message:'请输入手机号!'},{pattern: new RegExp(/^1[3|4|5|7|8][0-9]\d{8}$/), message: '请输入正确格式的手机号'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -116,7 +116,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="备注">
-            <a-textarea placeholder="请输入备注" v-decorator="['memo', {'initialValue':''}]"/>
+            <a-textarea placeholder="请输入备注" v-decorator="['memo', {rules:[{required:false ,message:'请输入备注!'},{ min: 0, max: 500, message: '长度在 0 到 500 个字符', trigger: 'blur'  }] }]"/>
           </a-form-item>
         </a-form>
         <div class="anty-form-btn">
@@ -186,8 +186,6 @@
     data() {
       return {
         checkable: false,//开启   关闭  属性图 树形  是否可以多选
-        depNamecha:'',
-        departOrdercha:'',
         iExpandedKeys: [],
         loading: false,
         autoExpandParent: true,
@@ -241,15 +239,6 @@
       }
     },
     methods: {
-      departNameChange(e){
-        this.depNamecha = e;
-      },
-      orderChange(e){
-        this.departOrdercha = e;
-        // if (e>1000){
-        //   this.$message.error("哈哈哈");
-        // }
-      },
       loadData() {
         this.refresh();
       },
@@ -413,40 +402,32 @@
         this.currSelected.receiptTriggerType = value
       },
       submitCurrForm() {
-        if (this.departOrdercha > 1000 ){
-          this.$message.warning("排序的数值不能超过1000")
-        } else if (this.depNamecha != '') {
-          if (this.depNamecha.data.length >30){
-            this.$message.warning("机构名称不得超过30个汉字")
-          }
-        } else {
-          this.form.validateFields((err, values) => {
-            if (!err) {
-              if (!this.currSelected.id) {
-                this.$message.warning('请点击选择要修改部门!')
-                return
-              }
-
-              let formData = Object.assign(this.currSelected, values)
-              console.log('Received values of form: ', formData)
-              httpAction(this.url.edit, formData, 'put').then((res) => {
-                if (res.success) {
-                  this.$message.success('保存成功!')
-                  this.loadTree()
-                } else {
-                  this.$message.error(res.message)
-                }
-              })
+        this.form.validateFields((err, values) => {
+          if (!err) {
+            if (!this.currSelected.id) {
+              this.$message.warning('请点击选择要修改部门!')
+              return
             }
-          })
-        }
+
+            let formData = Object.assign(this.currSelected, values)
+            console.log('Received values of form: ', formData)
+            httpAction(this.url.edit, formData, 'put').then((res) => {
+              if (res.success) {
+                this.$message.success('保存成功!')
+                this.loadTree()
+              } else {
+                this.$message.error(res.message)
+              }
+            })
+          }
+        })
 
       },
       emptyCurrForm() {
-        console.log("11111")
-        console.log(this.mobile);
+        // console.log("11111")
+        // console.log(this.mobile);
 
-        // this.form.resetFields()
+        this.form.resetFields()
       },
       nodeSettingFormSubmit() {
         this.form.validateFields((err, values) => {

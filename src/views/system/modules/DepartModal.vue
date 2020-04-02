@@ -18,7 +18,7 @@
           label="名称"
           :hidden="false"
           hasFeedback>
-          <a-input id="departName" placeholder="请输入机构/部门名称" v-decorator="['departName', validatorRules.departName ]" @change="departNameChange"/>
+          <a-input id="departName" placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'},{ min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur'  }]}]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -125,9 +125,6 @@
     created() {
     },
     methods: {
-      departNameChange(e){
-        this.depName = e;
-      },
       loadTreeData() {
         var that = this;
         queryIdTree().then((res) => {
@@ -165,34 +162,30 @@
         this.visible = false;
       },
       handleOk() {
-        if (this.depName.data.length > 30){
-          this.$message.warning("名称不得超过30个汉字");
-        }else {
-          const that = this;
-          // 触发表单验证
-          this.form.validateFields((err, values) => {
-            console.log('~~~~~~~~~~~~~~~::::' + JSON.stringify(values))
-            if (!err) {
-              that.confirmLoading = true;
-              let formData = Object.assign(this.model, values);
-              //时间格式化
-              console.log(formData)
-              httpAction(this.url.add, formData, "post").then((res) => {
-                if (res.success) {
-                  that.$message.success(res.message);
-                  that.loadTreeData();
-                  that.$emit('ok');
-                } else {
-                  that.$message.warning(res.message);
-                }
-              }).finally(() => {
-                that.confirmLoading = false;
-                that.close();
-              })
+        const that = this;
+        // 触发表单验证
+        this.form.validateFields((err, values) => {
+          console.log('~~~~~~~~~~~~~~~::::' + JSON.stringify(values))
+          if (!err) {
+            that.confirmLoading = true;
+            let formData = Object.assign(this.model, values);
+            //时间格式化
+            console.log(formData)
+            httpAction(this.url.add, formData, "post").then((res) => {
+              if (res.success) {
+                that.$message.success(res.message);
+                that.loadTreeData();
+                that.$emit('ok');
+              } else {
+                that.$message.warning(res.message);
+              }
+            }).finally(() => {
+              that.confirmLoading = false;
+              that.close();
+            })
 
-            }
-          })
-        }
+          }
+        })
       },
       handleCancel() {
         this.close()
