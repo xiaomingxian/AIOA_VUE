@@ -373,14 +373,14 @@
       // this.getPostLists();
 
       postAction(this.url.Posturl, {modelId: 49, condition: {function_id: 64, selType: 1}}).then((res) => {
-        console.log(res.result.records);
+        // console.log(res.result.records);
         this.postLists = res.result.records.splice(0, 4);
       });
 
 
       //獲取用戶基本信息
       const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-      console.log(userid);
+      // console.log(userid);
       this.userid = userid;
 
 
@@ -429,7 +429,7 @@
 
 
       postAction(this.url.LinkLists).then((res) => {
-        console.log(res.length);
+        // console.log(res.length);
         this.LinkList = res;
        if( this.LinkList.length==1){
          this.show(this.LinkList[0].i_id, 0)
@@ -501,7 +501,7 @@
 
           });
         }, 1000)
-        console.log(this.LinkList.length)
+        // console.log(this.LinkList.length)
 
 
       });
@@ -532,10 +532,10 @@
             'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
           }
         }).then(res => {
-          console.log(res)
+          // console.log(res)
           if (res) {
             this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa(new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
-            console.log(this.LinkList)
+            // console.log(this.LinkList)
           }
           // if(res.data.byteLength>4){
           //   this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
@@ -646,7 +646,7 @@
         this.$router.push('/' + 'mytask/taskToDo');
       },
       LinkMore(e) { //常用链接的跳转
-        console.log(e)
+        // console.log(e)
 
         this.$router.push('/' + e);
 
@@ -661,7 +661,7 @@
         let params = {tableName: tableName, busdataId: i_id};
 
         this.$store.commit('pushNewDetial', params)
-        console.log(this.$store.state.postDetialLists);
+        // console.log(this.$store.state.postDetialLists);
 
         // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
         window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + i_id + '&navisshow=false')
@@ -694,7 +694,7 @@
       },
       waiteDoWith() {
         getAction(this.url.list).then((res) => {
-          console.log(res);
+          // console.log(res);
           //  过长截取  显示数组前五
           this.waitDoData = res.result.records.splice(0, 4);
           this.total = res.result.total;
@@ -844,7 +844,7 @@
       // 公告
       getPostLists() {
         postAction(this.url.Posturl, {modelId: 49, condition: {function_id: 64, selType: 1}}).then((res) => {
-          console.log(res.result.records);
+          // console.log(res.result.records);
           this.postLists = res.result.records;
         });
       }
