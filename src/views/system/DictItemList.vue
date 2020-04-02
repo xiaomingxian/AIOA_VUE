@@ -36,7 +36,7 @@
               </a-col>
               <a-col :md="7" :sm="24">
               <span style="float: left;" class="table-page-search-submitButtons">
-                <a-button type="primary" @click="searchQuery">搜索</a-button>
+                <a-button type="primary" @click="searchQuery">查询</a-button>
                 <a-button type="primary" @click="searchReset" style="margin-left: 8px">重置</a-button>
               </span>
               </a-col>

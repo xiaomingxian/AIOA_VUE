@@ -132,7 +132,7 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number max="9999" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <a-input-number max="9999" min="1" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
@@ -314,7 +314,6 @@
 //        console.log(this.type);
         let url="/oaopinionset/oaOpinionSet/queryByTaskDefKey";
         postAction(url, {type:this.type,taskDefKey: this.taskDefKey,iProcOpinionId: this.model.iid,procDefKey: this.procDefKey}).then(res => {
-
           this.model.taskDefKey=this.taskDefKey;
           if (res.success) {
             this.toggleSearchStatusSet=true;
@@ -346,7 +345,7 @@
       jiaoYanXuh(){//改变时赋值并校验
         let url="/oaopinionset/oaOpinionSet/queryByOrderAndKey";
         httpAction(url, {itaskOpinionOrder:this.itaskOpinionOrder,
-          procDefKey: this.model.procDefKey,iid:this.opinionSetModal.iid,}, 'post').then((res) => {
+          procDefKey: this.model.procDefKey,iid:this.opinionSetModal.iid,iProcOpinionId:this.model.iid}, 'post').then((res) => {
           if (res.success) {
             // console.log("ffffffffffffffffffffffffffff");
             // console.log(res);

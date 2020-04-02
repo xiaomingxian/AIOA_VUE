@@ -15,14 +15,14 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="规则名称">
-          <a-input placeholder="请输入规则名称" v-decorator="['ruleName', validatorRules.ruleName]"/>
+          <a-input placeholder="请输入规则名称" v-decorator="['ruleName', {rules:[{required:true,message:'请输入规则名称！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur'  }] }]"/>
         </a-form-item>
         <a-form-item
           v-show="showRuleColumn"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="规则字段">
-          <a-input placeholder="请输入规则字段" v-decorator="['ruleColumn', validatorRules.ruleColumn]"/>
+          <a-input placeholder="请输入规则字段" v-decorator="['ruleColumn', {rules:[{required:true,message:'请输入规则字段！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur'  }] }]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -34,7 +34,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="规则值">
-          <a-input placeholder="请输入规则值" v-decorator="['ruleValue', validatorRules.ruleValue]"/>
+          <a-input placeholder="请输入规则值" v-decorator="['ruleValue', {rules:[{required:true,message:'请输入规则值！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }] }]"/>
         </a-form-item>
 
         <a-form-item

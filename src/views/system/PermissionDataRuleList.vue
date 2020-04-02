@@ -35,7 +35,7 @@
           </a-row>
           <a-row>
             <a-col :md="24" :sm="24">
-              <a-button style="margin-bottom: 10px" @click="addPermissionRule" type="primary" icon="plus">添加</a-button>
+              <a-button style="margin-bottom: 10px" @click="addPermissionRule" type="primary" icon="plus">新增</a-button>
             </a-col>
           </a-row>
         </a-form>
