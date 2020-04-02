@@ -132,7 +132,7 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number max="9999" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <a-input-number max="9999" min="1" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
