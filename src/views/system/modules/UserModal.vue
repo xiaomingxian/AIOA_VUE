@@ -83,7 +83,7 @@
         </a-form-item>-->
 
         <a-form-item label="顺序号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入顺序" v-decorator="[ 'show_order', {rules:[{required:true ,message:'请输入排序号!'},{ min: 0, max: 6, message: '长度在 0 到 6 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />
+          <a-input placeholder="请输入顺序" v-decorator="[ 'show_order', {rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 6, message: '长度在 0 到 6 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />
         </a-form-item>
        <!-- <a-form-item label="生日" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-date-picker
@@ -100,7 +100,7 @@
         </a-form-item>-->
 
         <a-form-item label="IP地址" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入IP地址" v-decorator="[ 'avatar', {rules:[{required:true ,message:'请输入IP地址!'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur'  }] }]"/>
+          <a-input placeholder="请输入IP地址" v-decorator="[ 'avatar', {rules:[{required:false ,message:'请输入IP地址!'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur'  }] }]"/>
         </a-form-item>
 
         <a-form-item label="邮箱" :labelCol="labelCol" :wrapperCol="wrapperCol">
@@ -370,62 +370,48 @@
       },
       moment,
       handleSubmit () {
-        console.log("11111111111111")
-        console.log(this.userNamecha);
-        console.log(this.realNamecha);
-        console.log(this.showOrdercha);
-        console.log(this.ipcha);
-        if (this.userNamecha.length > 10) {
-          this.$message.warning("用户账号只允许填写数字");
-        } else if (this.realNamecha.length > 15) {
-          this.$message.warning("用户名字不得超过15个汉字");
-        } else if (this.showOrdercha.length > 10) {
-          this.$message.warning("顺序号不得超过10个汉字");
-        } else if (this.ipcha.length > 15 ){
-          this.$message.warning("IP地址不得超过15个字");
-        } else {
-          const that = this;
-          // 触发表单验证
-          this.form.validateFields((err, values) => {
-            if (!err) {
-              that.confirmLoading = true;
-              // let avatar = that.model.avatar;
-              if (!values.birthday) {
-                values.birthday = '';
-              } else {
-                values.birthday = values.birthday.format(this.dateFormat);
-              }
-              let formData = Object.assign(this.model, values);
-              // formData.avatar = avatar;
-              formData.selectedroles = this.selectedRole.length > 0 ? this.selectedRole.join(",") : '';
-              formData.selecteddeparts = this.userDepartModel.departIdList.length > 0 ? this.userDepartModel.departIdList.join(",") : '';
-
-              // that.addDepartsToUser(that,formData); // 调用根据当前用户添加部门信息的方法
-              let obj;
-              if (!this.model.id) {
-                formData.id = this.userId;
-                obj = addUser(formData);
-              } else {
-                obj = editUser(formData);
-              }
-              obj.then((res) => {
-                if (res.success) {
-                  that.$message.success(res.message);
-                  that.$emit('ok');
-                } else {
-                  that.$message.warning(res.message);
-                }
-              }).finally(() => {
-                that.confirmLoading = false;
-                that.checkedDepartNames = [];
-                that.userDepartModel.departIdList = {userId: '', departIdList: []};
-
-                that.close();
-              })
-
+        const that = this;
+        // 触发表单验证
+        this.form.validateFields((err, values) => {
+          if (!err) {
+            that.confirmLoading = true;
+            // let avatar = that.model.avatar;
+            if (!values.birthday) {
+              values.birthday = '';
+            } else {
+              values.birthday = values.birthday.format(this.dateFormat);
             }
-          })
-        }
+            let formData = Object.assign(this.model, values);
+            // formData.avatar = avatar;
+            formData.selectedroles = this.selectedRole.length > 0 ? this.selectedRole.join(",") : '';
+            formData.selecteddeparts = this.userDepartModel.departIdList.length > 0 ? this.userDepartModel.departIdList.join(",") : '';
+
+            // that.addDepartsToUser(that,formData); // 调用根据当前用户添加部门信息的方法
+            let obj;
+            if (!this.model.id) {
+              formData.id = this.userId;
+              obj = addUser(formData);
+            } else {
+              obj = editUser(formData);
+            }
+            obj.then((res) => {
+              if (res.success) {
+                that.$message.success(res.message);
+                that.$emit('ok');
+              } else {
+                that.$message.warning(res.message);
+              }
+            }).finally(() => {
+              that.confirmLoading = false;
+              that.checkedDepartNames = [];
+              that.userDepartModel.departIdList = {userId: '', departIdList: []};
+
+              that.close();
+            })
+
+          }
+        })
+
       },
       handleCancel () {
         this.close()

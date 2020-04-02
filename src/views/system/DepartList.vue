@@ -98,13 +98,13 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input v-decorator="[ 'departOrder',{rules:[{required:true ,message:'请输入排序号!'},{ min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
+            <a-input v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="手机号">
-            <a-input placeholder="请输入手机号" v-decorator="['mobile', {rules:[{required:true ,message:'请输入手机号!'},{pattern: new RegExp(/^1[3|4|5|7|8][0-9]\d{8}$/), message: '请输入正确格式的手机号'}] }]"/>
+            <a-input placeholder="请输入手机号" v-decorator="['mobile', {rules:[{required:false ,message:'请输入手机号!'},{pattern: new RegExp(/^1[3|4|5|7|8][0-9]\d{8}$/), message: '请输入正确格式的手机号'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
