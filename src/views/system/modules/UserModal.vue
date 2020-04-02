@@ -23,7 +23,7 @@
       <a-form :form="form">
 
         <a-form-item label="用户账号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入用户账号" autoComplete="off" maxLength="5" v-decorator="[ 'username', validatorRules.username]" :readOnly="!!model.id"  @blur="userNameChange"/>
+          <a-input placeholder="请输入用户账号" autoComplete="off" maxLength="5" v-decorator="[ 'username', {rules:[{required:true ,message:'请输入用户账号!'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur'  }] }]" :readOnly="!!model.id" />
         </a-form-item>
 
         <template v-if="!model.id">
@@ -37,7 +37,7 @@
         </template>
 
         <a-form-item label="用户名字" :labelCol="labelCol" :wrapperCol="wrapperCol" >
-          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', validatorRules.realname]"  @blur="realNameChange"/>
+          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', {rules:[{required:true ,message:'请输入排序号!'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur'}] }]"  />
         </a-form-item>
 
         <a-form-item label="角色分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!roleDisabled" >
@@ -83,7 +83,7 @@
         </a-form-item>-->
 
         <a-form-item label="顺序号" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input-number placeholder="请输入顺序" max="10000" v-decorator="[ 'show_order', validatorRules.show_order]"  @blur="showOrderChange" />
+          <a-input placeholder="请输入顺序" v-decorator="[ 'show_order', {rules:[{required:true ,message:'请输入排序号!'},{ min: 0, max: 6, message: '长度在 0 到 6 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />
         </a-form-item>
        <!-- <a-form-item label="生日" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-date-picker
@@ -94,13 +94,13 @@
 
         <a-form-item label="性别" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-select v-decorator="[ 'sex', {}]" placeholder="请选择性别">
-            <a-select-option :value="1">男</a-select-option>
+            <a-select-option :value="1">男</a-select-option>  ((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))
             <a-select-option :value="2">女</a-select-option>
           </a-select>
         </a-form-item>-->
 
         <a-form-item label="IP地址" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入IP地址" v-decorator="[ 'avatar', validatorRules.avatar]" @blur="ipChange"/>
+          <a-input placeholder="请输入IP地址" v-decorator="[ 'avatar', {rules:[{required:true ,message:'请输入IP地址!'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur'  }] }]"/>
         </a-form-item>
 
         <a-form-item label="邮箱" :labelCol="labelCol" :wrapperCol="wrapperCol">
@@ -147,10 +147,6 @@
     },
     data () {
       return {
-        ipcha:'',
-        showOrdercha:'',
-        realNamecha:'',
-        userNamecha:'',
         departDisabled: false, //是否是我的部门调用该页面
         roleDisabled: false, //是否是角色维护调用该页面
         modalWidth:800,
@@ -267,7 +263,7 @@
       }
     },
     methods: {
-      ipChange(e){
+      /*ipChange(e){
         this.ipcha = e.target.value;
       },
       showOrderChange(e){
@@ -278,7 +274,7 @@
       },
       userNameChange(e){
         this.userNamecha = e.target.value;
-      },
+      },*/
       isDisabledAuth(code){
         return disabledAuthFilter(code);
       },
@@ -475,7 +471,7 @@
               }
             })
           }else{
-            callback("请输入正确格式的联系方式!");
+            callback("请输入正确格式的手机号!");
           }
         }
       },
