@@ -12,7 +12,7 @@
 
     <div id="pic" style="overflow: auto;" :style="{height: scrHeight}">
 
-      <img :src="picurl" style="width:100%" v-if="visible"/>
+      <img :src="picurl" style="width:100%" v-if="visible"  @click='showPicFull'/>
 
 
     </div>
@@ -45,6 +45,14 @@
 
     },
     methods: {
+      showPicFull(){
+        const img = new Image();
+        img.src = this.picurl;
+        const newWin = window.open("", "_blank");
+        newWin.document.write(img.outerHTML);
+        newWin.document.title = this.title
+        newWin.document.close();
+      },
 
       show(processDefinitionId) {
 

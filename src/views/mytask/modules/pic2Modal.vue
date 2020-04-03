@@ -25,7 +25,7 @@
 
         <div v-for="item in styles" class="div" :style='item'></div>
 
-        <img :src="picurl" v-show="visible"/>
+        <img :src="picurl" v-show="visible"  @click='showPicFull'/>
 
       </div>
       <div v-if="trace" style="width: 98%;margin: 1%;">
@@ -103,6 +103,7 @@
         isEnd: false,//流程是否已经结束
         endTime:'',
         visible: false,
+        full:false,
         trace: false,
         showPic: true,
         picurl: '',
@@ -218,6 +219,14 @@
           }
         }
       },
+      showPicFull(){
+        const img = new Image();
+        img.src = this.picurl;
+        const newWin = window.open("", "_blank");
+        newWin.document.write(img.outerHTML);
+        newWin.document.title = "流程图"
+        newWin.document.close();
+      },
       backRecordClick() {
         var procInstId = this.record.processInstanceId
 
@@ -266,6 +275,7 @@
 
         this.picurl = '/wf/task/queryProPlan?ProcessInstanceId='
           + procInstId+'&endTime='+this.endTime
+        this.oldPic=this.picurl
         // this.locationUrl = '/wf/task/pointLocationQuery?processId=' + procInstId + '&taskId=' + taskDefinitionKey
         //   + "&processDefinitionId=" + processDefinitionId
 
