@@ -20,6 +20,48 @@
                 </td>
 
               </tr>
+              <!--申请时间-->
+              <tr style="height: 50px;">
+                <td colspan="1" class="title">
+                  <center><h3>{{detailList.s_varchar4}}</h3></center>
+                </td>
+                <td colspan="7">
+                  <left>
+                    <template v-if="backData.d_datetime1 == null && backData.d_datetime2 ==null">
+                      <a-range-picker
+                        ref="s_varchar4"
+                        v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
+                        style="width: 95%"
+                        showTime
+                        :disabledDate="disabledDate"
+                        :disabledTime="disabledRangeTime"
+                        :showTime="{ defaultValue: moment('00:00:00', 'HH:mm:ss') }"
+                        format="YYYY-MM-DD HH:mm"
+                        :placeholder="['开始时间','结束时间']"
+                        @change="selectTime" @ok="confirmTime"
+                      />
+                    </template>
+
+                    <template v-else>
+                      <a-range-picker
+                        ref="s_varchar4"
+                        v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
+                        style="width: 95%"
+                        :showTime="{format}"
+                        :disabledDate="disabledDate"
+                        :disabledTime="disabledRangeTime"
+
+                        format="YYYY-MM-DD HH:mm:ss"
+                        :placeholder="['开始时间','结束时间']"
+                        @change="selectTime" @ok="confirmTime"
+                        :defaultValue="[moment(backData.d_datetime1),moment(backData.d_datetime2)]"
+                      />
+                    </template>
+                  </left>
+                </td>
+              </tr>
+
+
               <!--会议室申请-->
               <tr style="height: 50px;">
                 <td colspan="1" class="title">
@@ -36,46 +78,7 @@
                 </td>
 
               </tr>
-              <!--申请时间-->
-              <tr style="height: 50px;">
-                <td colspan="1" class="title">
-                  <center><h3>{{detailList.s_varchar4}}</h3></center>
-                </td>
-                <td colspan="7">
-                  <left>
-                    <template v-if="backData.d_datetime1 == null && backData.d_datetime2 ==null">
-                      <a-range-picker
-                        ref="s_varchar4"
-                        v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
-                        style="width: 95%"
-                        showTime
-                       :disabledDate="disabledDate"
-                       :disabledTime="disabledRangeTime"
-                       :showTime="{ defaultValue: moment('00:00:00', 'HH:mm:ss') }"
-                        format="YYYY-MM-DD HH:mm"
-                        :placeholder="['开始时间','结束时间']"
-                        @change="selectTime" @ok="confirmTime"
-                      />
-                    </template>
 
-                    <template v-else>
-                      <a-range-picker
-                        ref="s_varchar4"
-                        v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
-                        style="width: 95%"
-                        :showTime="{format}"
-                        :disabledDate="disabledDate"
-                       :disabledTime="disabledRangeTime"
-                      
-                        format="YYYY-MM-DD HH:mm:ss"
-                        :placeholder="['开始时间','结束时间']"
-                        @change="selectTime" @ok="confirmTime"
-                        :defaultValue="[moment(backData.d_datetime1),moment(backData.d_datetime2)]"
-                      />
-                    </template>
-                  </left>
-                </td>
-              </tr>
               <!--会议内容-->
               <tr>
                 <td colspan="1" class="title">
@@ -350,14 +353,19 @@
 
       //会议室使用情况
       showMeeting(){
-        if (this.backData.s_varchar1 == null){
-          this.$message.error("请选择会议室");
+        if (this.backData.d_datetime1 == null && this.backData.d_datetime2 == null){
+          this.$message.error("请先选择会议时间");
         } else {
-          let meetingRoom=this.backData.s_varchar1;
-          this.$refs.showMeeting.showMeetingCase(meetingRoom);
+          if (this.backData.s_varchar1 == null){
+            this.$message.error("请选择会议室");
+          } else {
+            let meetingRoom=this.backData.s_varchar4;
+            let startTime=this.backData.d_datetime1;
+            let endTime=this.backData.d_datetime2;
+            this.$refs.showMeeting.showMeetingCase(meetingRoom,startTime,endTime);
+          }
         }
       },
-
 
       close() {
         this.visible = false;
