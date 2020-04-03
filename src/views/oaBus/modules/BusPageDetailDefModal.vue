@@ -293,7 +293,15 @@
         if(str == "s_title"){
           if(param == 0 || param == "0"){
             this.model.iisListtitle = 1 ;
-            this.$message.error("标题必须显示！！！");
+            this.$message.error("标题必须为显示列！！！");
+            this.$nextTick(() => {
+              this.form.setFieldsValue(pick(this.model, 'iisListtitle'))
+            });
+          }
+        }else if(str == "d_create_time"){
+          if(param == 0 || param == "0"){
+            this.model.iisListtitle = 1 ;
+            this.$message.error("创建时间必须为显示列！！！");
             this.$nextTick(() => {
               this.form.setFieldsValue(pick(this.model, 'iisListtitle'))
             });
@@ -341,6 +349,8 @@
         this.model.ibusFunctionId = ibusFunctionId;
         this.model.sbusdataTable = sbusdataTable;
         if(this.model.stableColumn == 's_title'){
+          this.model.iisListtitle = 1;
+        }else if(this.model.stableColumn == 'd_create_time'){
           this.model.iisListtitle = 1;
         }
         this.visible = true;
