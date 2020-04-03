@@ -132,7 +132,7 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number max="9999" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <a-input-number max="9999" min="0" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
@@ -512,7 +512,7 @@
             }
             let formData = Object.assign(this.opinionSetModal, values);
             if (this.showName==false){//校验没问题时才能提交
-              if(this.itaskOpinionOrder>=0){
+              if(this.itaskOpinionOrder>=0 && this.itaskOpinionOrder!=null){
                 //时间格式化
                 httpAction(httpurl, formData, method).then((res) => {
                   if (res.success) {
