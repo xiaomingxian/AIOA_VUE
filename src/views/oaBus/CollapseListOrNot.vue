@@ -104,7 +104,7 @@
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a @click="toggleAdvanced" style="position: absolute;bottom: 58%;right: 7%;">
-                {{ advanced ? '隐藏' : '显示' }}
+                {{ advanced ? '收起' : '展开' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
@@ -277,7 +277,7 @@
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a @click="toggleAdvanced" style="position: absolute;bottom: 58%;right: 7%;">
-                {{ advanced ? '隐藏' : '显示' }}
+                {{ advanced ? '收起' : '展开' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>

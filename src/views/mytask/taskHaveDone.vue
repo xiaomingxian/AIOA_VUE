@@ -133,24 +133,25 @@
                 </a-select>
               </a-form-item>
             </a-col>
+
+            <a-col :md="8" :sm="8">
+              <a-form-item label="开始时间">
+                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 320px"
+                               v-model='queryParam.startTimeFake' @change="startTime"/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="8">
+              <a-form-item label="结束时间">
+                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 320px"
+                               v-model='queryParam.endTimeFake' @change="endTime"/>
+              </a-form-item>
+            </a-col>
             <a-col :md="8" :sm="8">
               <a-form-item label="主办部门">
                 <a-input placeholder="主办部门" v-model="queryParam.mainDept"></a-input>
               </a-form-item>
             </a-col>
 
-            <a-col :md="8" :sm="8">
-              <a-form-item label="开始时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 230px"
-                               v-model='queryParam.startTimeFake' @change="startTime"/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="8">
-              <a-form-item label="结束时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 230px"
-                               v-model='queryParam.endTimeFake' @change="endTime"/>
-              </a-form-item>
-            </a-col>
 
           </template>
 
