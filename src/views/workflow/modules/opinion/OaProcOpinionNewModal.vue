@@ -132,7 +132,7 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number max="9999" min="1" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <a-input-number max="9999" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
@@ -512,21 +512,27 @@
             }
             let formData = Object.assign(this.opinionSetModal, values);
             if (this.showName==false){//校验没问题时才能提交
-              //时间格式化
-              httpAction(httpurl, formData, method).then((res) => {
-                if (res.success) {
-                  that.$message.success(res.message);
-                  that.$emit('ok');
-                } else {
-                   that.$message.warning(res.message);
-                }
-              }).finally(() => {
+              if(this.itaskOpinionOrder>=0){
+                //时间格式化
+                httpAction(httpurl, formData, method).then((res) => {
+                  if (res.success) {
+                    that.$message.success(res.message);
+                    that.$emit('ok');
+                  } else {
+                    that.$message.warning(res.message);
+                  }
+                }).finally(() => {
+                  that.confirmLoading = false;
+                  that.close();
+                })
+              }else {
+                that.$message.warning("序号最小值为0");
                 that.confirmLoading = false;
-                that.close();
-              })
+              }
             }else {
               that.$message.warning("相同序号，意见名称必须相同");
-              that.close();
+              that.confirmLoading = false;
+//              that.close();
             }
 
           }
