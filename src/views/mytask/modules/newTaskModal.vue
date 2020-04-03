@@ -49,8 +49,8 @@
             <a-list-item class="eachitem" :style="childIndex==index?' background: #dae8f5;':''"
                          v-for="(item,index) in childData" @dblclick="confirm"
                          @click="selectTaskDetail(item.functionid,index)">{{item.functionSName}}
-              <img style="position: absolute;right: 14px;" src="../../../assets/saved.png"/>
-              <!--<img v-else style="position: absolute;right: 14px;" src="../../../assets/dissave.png"/>-->
+              <img v-if="item.status == 1" style="position: absolute;right: 14px;" src="../../../assets/saved.png"/>
+              <img v-else style="position: absolute;right: 14px;" src="../../../assets/dissave.png"/>
             </a-list-item>
           </a-list>
         </div>
