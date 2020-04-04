@@ -61,49 +61,12 @@
       </a>
       </span>
 
-      <a-menu v-if="saveData != ''" slot="overlay" class="user-dropdown-menu-wrapper">
+      <a-menu v-if="saveData != ''" slot="overlay" class="user-dropdown-menu-wrapper" style="background: #d6ebff;padding-bottom: 40px;">
 
-        <a-card style="width: 650px;" title="我的收藏">
-          <a-card-grid v-for="(atom,index) in saveData" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="search"></a-icon><p>{{atom}}</p></a-card-grid>
+       <a-card style="width: 650px;" title="我的收藏" :headStyle="{background:'#d6ebff',fontWeight:'bolder'}">
+          <a-card-grid v-for="(atom,index) in saveData" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="search"></a-icon><p style="padding-top: 14px;">{{atom}}</p></a-card-grid>
         </a-card>
 
-
-        <!--<a-menu-item key="0">
-          <router-link :to="{ name: 'account-center' }">
-            <a-icon type="user"/>
-            <span>个人中心</span>
-          </router-link>
-        </a-menu-item>-->
-        <!--<a-menu-item key="1">-->
-          <!--<router-link :to="{ name: 'account-settings-new' }">-->
-            <!--<a-icon type="setting"/>-->
-            <!--<span>账户设置</span>-->
-          <!--</router-link>-->
-        <!--</a-menu-item>-->
-        <!--<a-menu-item key="3"  @click="systemSetting">-->
-           <!--<a-icon type="tool"/>-->
-           <!--<span>系统设置</span>-->
-        <!--</a-menu-item>-->
-        <!--<a-menu-item key="4" @click="updatePassword">-->
-          <!--<a-icon type="setting"/>-->
-          <!--<span>密码修改</span>-->
-        <!--</a-menu-item>-->
-        <!--<a-menu-item key="5" @click="updateCurrentDepart">-->
-          <!--<a-icon type="cluster"/>-->
-          <!--<span>切换部门</span>-->
-        <!--</a-menu-item>-->
-
-        <!-- <a-menu-item key="2" disabled>
-           <a-icon type="setting"/>
-           <span>测试</span>
-         </a-menu-item>
-         <a-menu-divider/>
-         <a-menu-item key="3">
-           <a href="javascript:;" @click="handleLogout">
-             <a-icon type="logout"/>
-             <span>退出登录</span>
-           </a>
-         </a-menu-item>-->
       </a-menu>
     </a-dropdown>
 
@@ -217,5 +180,12 @@
   .logout_title {
     color: #fff;
     text-decoration: none;
+  }
+
+  /deep/.ant-card-head-title{
+     border-left: 4px solid #00c6ff;
+     line-height: 0;
+     padding-left: 10px;
+     margin-top: 7px;
   }
 </style>
