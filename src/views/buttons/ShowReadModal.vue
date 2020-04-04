@@ -138,8 +138,6 @@
 
            }
          }
-
-
          let opinionData = JSON.parse(JSON.stringify(map));
 
               for (var i in  opinionData){
@@ -151,7 +149,6 @@
           }
 
           for (let i = 0; i < this.dataSources.length;i += this.length[i]) {
-
             this.dataSource.push(opinionData[this.dataSources[i].deptName]);
             this.deptName.push(this.dataSources[i].deptName);
           }
