@@ -317,7 +317,8 @@
         })
       },
       clearData(){
-        this.dataSource= []
+        this.dataSource= [];
+        this.ipagination.current =1;
       },
       modalFormOkProc(procDefKey){
         this.loading = true;
