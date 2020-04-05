@@ -50,8 +50,8 @@
                          v-for="(item,index) in childData" @dblclick="confirm"
                          @click="selectTaskDetail(item.functionid,index)">
 
-              <img v-show="item.status == 1" style="position: absolute;right: 14px;" @click="dissaved(item)" src="../../../assets/saved.png"/>
-              <img v-show="item.status == 0" style="position: absolute;right: 14px;" @click="saved(item)" src="../../../assets/dissaved.png"/>
+              <img v-if="item.status == 1" style="position: absolute;right: 14px;" @click="dissaved(item)" src="../../../assets/saved.png"/>
+              <img v-else style="position: absolute;right: 14px;" @click="saved(item)" src="../../../assets/dissaved.png"/>
 
             </a-list-item>
           </a-list>
