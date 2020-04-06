@@ -21,6 +21,11 @@
       rowKey="iid"
       size="middle"
 
+      :rowClassName="(record,index) => {
+              let className  = 'light-row';
+              if (index % 2 === 1) className = 'dark-row';
+              return className;
+      }"
     >
 
 
