@@ -21,6 +21,11 @@
       rowKey="iid"
       size="middle"
 
+      :rowClassName="(record,index) => {
+              let className  = 'light-row';
+              if (index % 2 === 1) className = 'dark-row';
+              return className;
+      }"
     >
 
 
@@ -51,6 +56,7 @@
             title: '序号',
             dataIndex: '',
             key: 'rowIndex',
+            width: 60,
             align: "center",
             customRender: function (t, r, index) {
               return parseInt(index) + 1;
@@ -89,7 +95,7 @@
               if (conflict == '1') {
                 return "时间冲突";
               } else if (conflict == '0') {
-                return "无冲突";
+                return "";
               }
             }
           },

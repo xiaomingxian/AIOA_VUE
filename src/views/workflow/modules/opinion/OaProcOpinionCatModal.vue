@@ -290,7 +290,9 @@
         })
       },
       clearData(){
-        this.opinionCatData= []
+        this.opinionCatData= [];
+        this.ipagination.current =1;
+
       }
     }
   }

@@ -40,7 +40,7 @@
           </div>
         </div>-->
 
-       <!-- <div :style="{ marginBottom: '24px' }">
+       <div :style="{ marginBottom: '24px' }">
           <h3 class="setting-drawer-index-title">主题色</h3>
 
           <div style="height: 20px">
@@ -54,8 +54,8 @@
             </a-tooltip>
 
           </div>
-        </div>-->
-        <!--<a-divider />-->
+        </div>
+        <a-divider />
 
         <div :style="{ marginBottom: '24px' }">
          <h3 class="setting-drawer-index-title">导航模式</h3>

@@ -49,8 +49,10 @@
             <a-list-item class="eachitem" :style="childIndex==index?' background: #dae8f5;':''"
                          v-for="(item,index) in childData" @dblclick="confirm"
                          @click="selectTaskDetail(item.functionid,index)">{{item.functionSName}}
-              <img style="position: absolute;right: 14px;" src="../../../assets/saved.png"/>
-              <!--<img v-else style="position: absolute;right: 14px;" src="../../../assets/dissave.png"/>-->
+
+              <img v-if="item.status == 1" style="position: absolute;right: 14px;" @click="dissaved(item)" src="../../../assets/saved.png"/>
+              <img v-else style="position: absolute;right: 14px;" @click="saved(item)" src="../../../assets/dissaved.png"/>
+
             </a-list-item>
           </a-list>
         </div>
@@ -93,7 +95,7 @@
     inject: ['reload'],
     data() {
       return {
-        userId: '',
+        userId: "",
         loading: false,// 加载状态
         parentIndex: '',
         childIndex: '',
@@ -137,14 +139,44 @@
         this.parentsData = res.result;
         //初始化 ModelId   FunctionId
         this.ModelId = res.result[0].modelid;
-
+        // 初始化任务详情
+        this.getTaskData(this.ModelId);
 
       })
     },
     methods: {
+      saved(event){
+        // console.log("---------------------cccc"+JSON.stringify(event.status))
+        // console.log("---------------------cccc"+JSON.stringify(event))
+        // console.log("---------------------cccc"+JSON.stringify(this.userId))
+        postAction("/sys/user/addUserFun?userId="+this.userId+"&modelId="+event.modelId+"&functionId="+event.functionid+"&status="+event.status).then(res => {
+          if (res.success){
+            this.$message.success("添加收藏成功")
+          } else {
+            this.$message.warning("添加收藏失败")
+          }
+        });
+        event.status = 1;
+      },
+      dissaved(event){
+        // console.log("---------------------xxx"+JSON.stringify(event.status))
+        // console.log("---------------------xxx"+JSON.stringify(event))
+        // console.log("---------------------xxx"+JSON.stringify(this.userId))
+        postAction("/sys/user/addUserFun?userId="+this.userId+"&modelId="+event.modelId+"&functionId="+event.functionid+"&status="+event.status).then(res => {
+          if (res.success){
+            this.$message.warning("取消收藏失败")
+          } else {
+            this.$message.success("取消收藏成功")
+
+          }
+        })
+        event.status = 0;
+
+      },
       show(e) {
-        // console.log('------------------------<<<' + e);
-        this.userId = e;
+        // console.log('------------------------<<<' + 1);
+        // console.log('------------------------<<<' + JSON.stringify(e));
+        this.userId=e;
         this.selectInit = '请选任务类型';
         this.selectInit2 = '请选任务详情';
 
@@ -152,13 +184,10 @@
         getAction(this.url.selectTaskType).then(res => {
           if (res.success) {
             this.tasks = res.result
-            console.log("---------------------"+JSON.stringify(res.result))
           }
         })
         this.visible = true
 
-        // 初始化任务详情
-        this.getTaskData(this.ModelId,this.userId);
       },
 
       selectTaskType(e, index) {
@@ -184,7 +213,6 @@
             this.loading = false;
             this.childData = res.result;
             //初始化 ModelId   FunctionId
-            console.log("==================="+JSON.stringify(res.result))
             this.FunctionId = res.result[0].functionid;
             // getAction("/sys/user/showUserFunStatus",{userId:this.userId}).then(res =>{
             //   console.log(JSON.stringify(res.result))
@@ -257,16 +285,17 @@
       //确定:打开具体的任务页面
       confirm() {
         // window.open('http://localhost:4000/mytask/taskList/detailFile');
-        //校验数据
-        let param = {
-          modelId: this.ModelId,
-          functionId: this.FunctionId,
-        }
         // if(this.tasksDetialsLists.length<=0){
         //   this.$message.warning("没有对应的业务功能");
         //   return ;
         //   this.visible = true;
         // }
+        //校验数据
+        let param = {
+          modelId: this.ModelId,
+          functionId: this.FunctionId,
+        }
+
 
         postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
           if (res.success) {

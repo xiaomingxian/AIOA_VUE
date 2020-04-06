@@ -494,7 +494,8 @@
         })
       },
       clearData(){
-        this.data= []
+        this.data= [];
+        this.ipagination.current =1;
       }
 
     }

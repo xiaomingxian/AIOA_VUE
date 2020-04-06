@@ -31,14 +31,14 @@
               />
             </a-form-item>
           </a-col>
-          <a-col :md="5" :sm="8" v-if="tabKey === '2'">
-            <a-form-item label="操作类型" style="left: 10px">
+          <a-col :md="6" :sm="8" v-if="tabKey === '2'">
+            <a-form-item label="操作类型" style="left: 15%">
               <j-dict-select-tag v-model="queryParam.operateType" placeholder="请选择操作类型" dictCode="operate_type"/>
             </a-form-item>
           </a-col>
 
-          <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
-            <a-col :md="6" :sm="24" >
+          <span style="float: left;overflow: hidden; padding-left: 2%" class="table-page-search-submitButtons">
+            <a-col :md="8" :sm="24" >
                 <a-button type="primary"  style="left: 10px" @click="searchQuery" icon="search">查询</a-button>
                 <a-button type="primary"  @click="searchReset" icon="reload" style="margin-left: 8px;left: 10px">重置</a-button>
             </a-col>
@@ -105,7 +105,7 @@
         // 表头
         columns: [
           {
-            title: '#',
+            title: '序号',
             dataIndex: '',
             key:'rowIndex',
             align:"center",
@@ -222,7 +222,7 @@
       },
       // 日志类型
       callback(key){
-
+        this.searchReset();
         // 动态添加操作类型列
         if (key == 2) {
           this.tabKey = '2';

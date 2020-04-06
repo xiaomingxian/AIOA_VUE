@@ -329,7 +329,7 @@
 
 <script>
 
-  import {deleteAction, getAction, httpAction, postAction} from '@/api/manage'
+  import {deleteAction, getAction, httpAction, postAction,putAction} from '@/api/manage'
   import debounce from 'lodash/debounce';
   import oaCalendarCatModal from '../oaBus//modules/oaCalendarCatModal'
   import oaCalendarModal from '../oaBus/modules/oaCalendarModal'
@@ -392,6 +392,7 @@
           Posturl:'/oaBus/oaBusdata/queryByModelId',
           busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
           LinkLists:'/oaBus/Calendar/oaCalendar/LinkList',
+          edit:"/oaBus/Calendar/oaCalendar/edit",
         },
         total:'',//代办数量
         total1:'',//模块的数量
@@ -1059,13 +1060,44 @@
       chakan(iid){
         getAction(this.url.findById,{id:iid }).then((res) => {
           if(res.result.stateName != "" ){
+            let subdata = {
+              dStartTime: res.result.dStartTime,
+              dEndTime: res.result.dEndTime,
+              dCreateTime: res.result.dCreateTime,
+              dcreateTime: res.result.dcreateTime,
+              screateBy: res.result.screateBy,
+              ibusFunctionId: res.result.ibusFunctionId,
+              ibusModelId: res.result.ibusModelId,
+              suserNames: res.result.suserNames,
+              iopenType: res.result.iopenType,
+              dstartTime: res.result.dstartTime,
+              iisTop: res.result.iisTop,
+              iisLeader: res.result.iisLeader,
+              stitle: res.result.stitle,
+              ifunDataId: res.result.ifunDataId,
+              dendTime: res.result.dendTime,
+              iremindType: res.result.iremindType,
+              iid:res.result.iid,
+              taskId: res.result.taskId,
+              taskUserId: res.result.taskUserId,
+              ibusModelId: res.result.ibusModelId,
+              ibusFunctionId: res.result.ibusFunctionId,
+              saddress: res.result.saddress,
+              state:4,
+            }
+
             let params = {tableName: res.result.tableName, busdataId: res.result.ifunDataId};
             this.$store.commit('pushNewDetial', params)
             console.log(this.$store.state.postDetialLists);
 
             // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
             window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
+            if(res.result.stateName == "【未阅】"){
+              putAction(this.url.edit,subdata).then((res) => {
+                this.$message.success(res.message);
 
+              })
+            }
           }else{
             this.$refs.modalCatForm.dayAnnalysis1(res.result);
           }
