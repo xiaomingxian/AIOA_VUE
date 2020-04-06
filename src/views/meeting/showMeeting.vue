@@ -95,7 +95,7 @@
               if (conflict == '1') {
                 return "时间冲突";
               } else if (conflict == '0') {
-                return "无冲突";
+                return "";
               }
             }
           },

@@ -64,7 +64,7 @@
       <a-menu v-if="saveData != ''" slot="overlay" class="user-dropdown-menu-wrapper" style="background: #d6ebff;padding-bottom: 40px;">
 
        <a-card style="width: 650px;" title="我的收藏" :headStyle="{background:'#d6ebff',fontWeight:'bolder'}">
-          <a-card-grid v-for="(atom,index) in saveData" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="search"></a-icon><p style="padding-top: 14px;">{{atom}}</p></a-card-grid>
+          <a-card-grid v-for="(atom,index) in saveData" @click="jumpX(atom)" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="search"></a-icon><p style="padding-top: 14px;">{{atom.s_name}}</p></a-card-grid>
         </a-card>
 
       </a-menu>
@@ -94,7 +94,7 @@
   import { mapActions, mapGetters } from 'vuex'
   import { mixinDevice } from '@/utils/mixin.js'
   import newTaskModal from '@/views/mytask/modules/newTaskModal'
-  import {getAction} from "../../api/manage";
+  import {getAction, postAction} from "../../api/manage";
 
 
   export default {
@@ -117,7 +117,7 @@
     },
     data() {
       return {
-       saveData: []
+       saveData: [],
       }
     },
     methods: {
@@ -126,6 +126,19 @@
       getAvatar(){
         // console.log('url = '+ window._CONFIG['imgDomainURL']+"/"+this.avatar())
         return window._CONFIG['imgDomainURL']+"/"+this.avatar()
+      },
+      jumpX(atom){
+        let param = {
+          modelId: atom.i_bus_model_id,
+          functionId: atom.i_bus_function_id,
+        }
+        postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
+          if (res.success) {
+            window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&status=newtask&navisshow=false')
+          } else {
+            this.$message.error(res.message)
+          }
+        });
       },
       handleLogout() {
         const that = this
@@ -154,15 +167,14 @@
       },
       showUserFun(){
         getAction("/sys/user/showUserFun",{userId:this.userInfo().id}).then(res =>{
-          // console.log(JSON.stringify(res.result))
           this.saveData = res.result;
         })
       },
       //新建任务
       showNewTaskPage() {
-        let userId=this.userInfo().id;
-        // console.log(JSON.stringify(userId));
-        this.$refs.newTask.show(userId);
+        // let userId=this.userInfo().id;
+        // console.log("------------------222223333"+JSON.stringify(userId));
+        this.$refs.newTask.show(this.userInfo().id);
         this.$refs.newTask.title = '新建任务'
       },//详情收藏展示
 
