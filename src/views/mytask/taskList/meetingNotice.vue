@@ -377,6 +377,10 @@
         this.backData.s_varchar4 = data;
         this.backData.s_varchar5 = iIsLimits;
       },
+      disabledDate(current) {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+      },
       //选择会议室查对应时间
       // changeMeetingRoom(e, d) {
       //   this.backData.d_datetime1 = '';
