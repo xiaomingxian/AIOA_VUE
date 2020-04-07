@@ -286,7 +286,8 @@
         this.$refs.OaProcOpinionCopyModal.disableSubmit = false;
       },
       clearData(){
-        this.dataSource= []
+        this.dataSource= [];
+        this.ipagination.current =1;
       },
       //根据流程定义KEY 和 id查询数据
       show1(iid,procDefKey){

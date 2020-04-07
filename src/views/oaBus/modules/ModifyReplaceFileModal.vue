@@ -185,6 +185,7 @@
 //          {
 //            title: '序号',
 //            align: "center",
+//            width: 60,
 //            dataIndex: 'iorder'
 //          },
           {

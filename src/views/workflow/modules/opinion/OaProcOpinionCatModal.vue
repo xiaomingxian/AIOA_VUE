@@ -244,13 +244,13 @@
       handleEdit1:function () {
         this.$refs.OaProcOpinionNewModal.editlvjian(this.model,this.TaskLinkId);
         // this.$refs.OaProcOpinionNewModal.loadData(record.iid)
-        this.$refs.OaProcOpinionNewModal.title = "操作";
+        this.$refs.OaProcOpinionNewModal.title = "新建";
         this.$refs.OaProcOpinionNewModal.disableSubmit = false;
       },
 
       handleEditDone:function (record) {
         this.$refs.OaProcOpinionNewModal.editBeforelvjian(this.model,this.TaskLinkId,record);
-        this.$refs.OaProcOpinionNewModal.title = "操作";
+        this.$refs.OaProcOpinionNewModal.title = "编辑";
         this.$refs.OaProcOpinionNewModal.disableSubmit = false;
       },
       handleCat: function (record) {
@@ -290,7 +290,9 @@
         })
       },
       clearData(){
-        this.opinionCatData= []
+        this.opinionCatData= [];
+        this.ipagination.current =1;
+
       }
     }
   }

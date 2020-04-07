@@ -128,7 +128,8 @@
         this.visible = false;
       },
       handleOk () {
-        const that = this;
+        this.close();
+      /*  const that = this;
         if(this.$refs.indexStep.value<this.num){
           this.$message.warning(this.findMax);
           return ;
@@ -149,9 +150,9 @@
             }
             let formData = Object.assign(this.model, values);
             //时间格式化
-            /*formData.dCreateTime = formData.dCreateTime?formData.dCreateTime.format('YYYY-MM-DD HH:mm:ss'):null;
+            /!*formData.dCreateTime = formData.dCreateTime?formData.dCreateTime.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.dUpdateTime = formData.dUpdateTime?formData.dUpdateTime.format('YYYY-MM-DD HH:mm:ss'):null;
-            */
+            *!/
 
     console.log(formData)
     httpAction(httpurl,formData,method).then((res)=>{
@@ -170,7 +171,7 @@
 
 
   }
-})
+})*/
 },
 handleCancel () {
 this.close()

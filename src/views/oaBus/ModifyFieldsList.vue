@@ -434,6 +434,7 @@
             this.columns.push({
               title: '序号',
               // dataIndex: 'mm',
+              width: 100,
               align: "center",
               customRender: (text,row,index) => {
                 return index+1;

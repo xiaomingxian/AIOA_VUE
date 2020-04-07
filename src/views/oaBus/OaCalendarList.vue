@@ -311,7 +311,7 @@
         console.log(e);
       },
       //  我的日程  or 全部日程    全部日程与我的日程区分   全部日程不穿username
-      myListsFuc(){
+      /*myListsFuc(){
 
         getAction(this.url.list,{more:1}).then((res) => {
           console.log(res);
@@ -319,7 +319,7 @@
           this.pagination.total = res.result.total
 
         });
-      },
+      },*/
 
       // 重置
       searchReset1(){
@@ -389,7 +389,7 @@
 
         }else if(this.serchSubData.richengName==1){
           //  我的日程
-          getAction(this.url.list,{username:this.username,pageNo:1,pageSize:10,more:1,sTitle:this.serchSubData.sTitle,Strdate: this.serchSubData.startTime, Enddate :this.serchSubData.endTime}).then((res) => {
+          getAction(this.url.list,{sCreateBy:this.username,pageNo:1,pageSize:10,more:1,sTitle:this.serchSubData.sTitle,Strdate: this.serchSubData.startTime, Enddate :this.serchSubData.endTime}).then((res) => {
             console.log(res);
             this.dataSource = res.result.records;
             this.pagination.total = res.result.total
@@ -417,7 +417,8 @@
         deleteAction(this.url.delete, {id: e,sCreateBy:n}).then((res) => {
           if (res.success) {
             this.$message.success(res.message);
-            this.myListsFuc();
+
+            this.searchQuery(this.serchSubData.richengName);
           } else {
             this.$message.warning(res.message);
           }
@@ -463,7 +464,9 @@
             deleteAction(this.url.deleteBatch, {ids:this.iids.toString() }).then((res) => {
               if (res.success) {
                 this.$message.success(res.message);
-                this.myListsFuc();
+
+                //this.myListsFuc();
+                this.searchQuery( this.serchSubData.richengName);
                 this.selectedRowKeys = []
               } else {
                 this.$message.warning(res.message);
@@ -491,7 +494,7 @@
           });
         }else if(this.serchSubData.richengName==1){
           //  我的日程
-          getAction(this.url.list,{username:this.username,pageNo:this.pagination.current,pageSize:10,more:1}).then((res) => {
+          getAction(this.url.list,{sCreateBy:this.username,pageNo:this.pagination.current,pageSize:10,more:1}).then((res) => {
             console.log(res);
             this.dataSource = res.result.records;
             this.pagination.total = res.result.total
