@@ -4,7 +4,7 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleOk"
+    @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
 
@@ -132,7 +132,7 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number max="9999" min="1" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <a-input-number max="9999" min="0" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
@@ -190,6 +190,7 @@
         visible: false,
         show:false,//意见类型--显示控制
         procDefKey:'',
+        newCreate:true,//是否为新建
         showName:false,//是否显示提示
         opinionName:'',//后台产生的名字
         typeList:[],
@@ -485,7 +486,17 @@
         this.$emit('close');
         this.visible = false;
       },
-
+      handleOkIsCreate(){
+        if(this.newCreate==true && this.opinionSetModal.iid==null){
+          this.handleOk();
+        }else if(this.newCreate==false && this.opinionSetModal.iid!=null ){
+          this.handleOk();
+        }else if(this.newCreate==false && this.opinionSetModal.iid==null){
+          this.$message.warning("编辑时无法新增数据，请前往新建中操作");
+        }else{
+          this.$message.warning("当前环节下意见已存在，无法重复添加");
+        }
+      },
       handleOk() {
         // this.opinionSetModal.iProcSetId=this.iProcSetId;
 //        console.log('-=-=-=',JSON.stringify(this.opinionSetModal));
@@ -512,27 +523,40 @@
             }
             let formData = Object.assign(this.opinionSetModal, values);
             if (this.showName==false){//校验没问题时才能提交
-              //时间格式化
-              httpAction(httpurl, formData, method).then((res) => {
-                if (res.success) {
-                  that.$message.success(res.message);
-                  that.$emit('ok');
-                } else {
-                   that.$message.warning(res.message);
-                }
-              }).finally(() => {
+              if(this.itaskOpinionOrder>=0 && this.itaskOpinionOrder!=null){
+                //时间格式化
+                httpAction(httpurl, formData, method).then((res) => {
+                  if (res.success) {
+                    that.$message.success(res.message);
+                    that.$emit('ok');
+                  } else {
+                    that.$message.warning(res.message);
+                  }
+                }).finally(() => {
+                  that.confirmLoading = false;
+                  that.close();
+                })
+              }else {
+                that.$message.warning("序号最小值为0");
                 that.confirmLoading = false;
-                that.close();
-              })
+              }
             }else {
               that.$message.warning("相同序号，意见名称必须相同");
-              that.close();
+              that.confirmLoading = false;
+//              that.close();
             }
 
           }
+          clearData();
         })
       },
+      clearData(){
+//        this.data=[];
+        this.type=null;
+        this.taskDefKey=null;
+      },
       handleCancel() {
+        this.clearData();
         this.close()
       }
 

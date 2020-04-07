@@ -2,13 +2,13 @@
   <center>
     <table :submit="submit" border="1" borderColor="#F0F5FC" class="sendFileStyle" width="100%">
       <tr style="height: 50px;">
-        <td width="15%" class="title">
+        <td width="15%"class="title">
           <center><h3>{{detailList.s_create_dept}}</h3></center>
         </td>
         <td  width="35%">
           <div style="padding-left: 10px;">{{backData.s_create_dept}}</div>
         </td>
-        <td width="15%" class="title">
+        <td width="15%"class="title">
           <!--登记人员-->
           <centezr><h3>{{detailList.s_create_name}}</h3></centezr>
         </td>
@@ -16,38 +16,97 @@
           <div style="padding-left: 10px">{{backData.s_create_name}}</div>
         </td>
       </tr>
-      <!--会议室申请-->
-      <!--<tr style="height: 50px;">-->
-        <!--<td colspan="1" class="title">-->
-          <!--<center><h3>{{detailList.s_varchar1}}</h3></center>-->
-        <!--</td>-->
-        <!--<td colspan="7">-->
-          <!--<center>-->
-            <!--<a-select style="width: 100%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1"-->
-                      <!--@change="changeMeetingRoom">-->
-              <!--<a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text"-->
-                               <!--:value="item.value">{{item.text}}-->
-              <!--</a-select-option>-->
-            <!--</a-select>-->
-          <!--</center>-->
-        <!--</td>-->
-      <!--</tr>-->
-      <!--申请时间-->
-      <!--<tr style="height: 50px;">-->
-        <!--<td colspan="1" class="title">-->
+      <tr style="height: 50px;">
+        <td width="15%" class="title">
+          <center><h3>{{detailList.s_varchar1}}</h3></center>
+        </td>
+        <td width="35%">
+          <center>
+            <a-select style="width: 100%" placeholder="请选择会议室" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)" v-model="backData.s_varchar6"
+                      @change="changeMeetingRoom">
+              <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text"
+                               :value="item.value">{{item.text}}
+              </a-select-option>
+            </a-select>
+          </center>
+        </td>
+
+        <!--<td width="15%" class="title">-->
           <!--<center><h3>{{detailList.d_datetime1}}</h3></center>-->
         <!--</td>-->
-        <!--<td colspan="7">-->
-          <!--<center>-->
-            <!--<a-select style="width: 100%" v-model="backData.d_datetime1" multiple placeholder="请选择会议时间" ref="d_datetime1"  v-on:blur="blurText($event,$refs.d_datetime1)" @focus="dasdasfdsfs"  @change="changeTime">-->
-              <!--<a-select-option v-for="(item,index) in meetingTime" :key="index" :value="item.dDatetime1">-->
-                <!--{{item.dDatetime1}}-->
-              <!--</a-select-option>-->
-            <!--</a-select>-->
-          <!--</center>-->
+        <!--<td width="35%">-->
+          <!--<left>-->
+            <!--<template v-if="backData.d_datetime3 == null && backData.d_datetime4 ==null">-->
+              <!--<a-range-picker-->
+                <!--ref="s_varchar4"-->
+                <!--v-on:blur="blurText([backData.d_datetime3,backData.d_datetime4],$refs.s_varchar4)"-->
+                <!--style="width: 95%"-->
+                <!--showTime-->
+                <!--:disabledDate="disabledDate"-->
+                <!--:disabledTime="disabledRangeTime"-->
+                <!--:showTime="{ defaultValue: moment('00:00:00', 'HH:mm:ss') }"-->
+                <!--format="YYYY-MM-DD HH:mm"-->
+                <!--:placeholder="['开始时间','结束时间']"-->
+                <!--@change="selectTime" @ok="confirmTime"-->
+              <!--/>-->
+            <!--</template>-->
+
+            <!--<template v-else>-->
+              <!--<a-range-picker-->
+                <!--ref="s_varchar4"-->
+                <!--v-on:blur="blurText([backData.d_datetime3,backData.d_datetime4],$refs.s_varchar4)"-->
+                <!--style="width: 95%"-->
+                <!--:showTime="{format}"-->
+                <!--:disabledDate="disabledDate"-->
+                <!--:disabledTime="disabledRangeTime"-->
+
+                <!--format="YYYY-MM-DD HH:mm:ss"-->
+                <!--:placeholder="['开始时间','结束时间']"-->
+                <!--@change="selectTime" @ok="confirmTime"-->
+                <!--:defaultValue="[moment(backData.d_datetime1),moment(backData.d_datetime2)]"-->
+              <!--/>-->
+            <!--</template>-->
+          <!--</left>-->
         <!--</td>-->
-      <!--</tr>-->
-      <!--会议内容-->
+
+        <td colspan="1" class="title">
+          <center><h3>{{detailList.d_datetime1}}</h3></center>
+        </td>
+        <td colspan="7">
+          <left>
+            <template v-if="backData.d_datetime3 == null && backData.d_datetime4 ==null">
+              <a-range-picker
+                ref="s_varchar4"
+                v-on:blur="blurText([backData.d_datetime3,backData.d_datetime4],$refs.s_varchar4)"
+                style="width: 95%"
+                showTime
+                :disabledDate="disabledDate"
+                :disabledTime="disabledRangeTime"
+                :showTime="{ defaultValue: moment('00:00:00', 'HH:mm:ss') }"
+                format="YYYY-MM-DD HH:mm"
+                :placeholder="['开始时间','结束时间']"
+                @change="selectTime" @ok="confirmTime"
+              />
+            </template>
+
+            <template v-else>
+              <a-range-picker
+                ref="s_varchar4"
+                v-on:blur="blurText([backData.d_datetime3,backData.d_datetime4],$refs.s_varchar4)"
+                style="width: 95%"
+                :showTime="{format}"
+                :disabledDate="disabledDate"
+                :disabledTime="disabledRangeTime"
+
+                format="YYYY-MM-DD HH:mm:ss"
+                :placeholder="['开始时间','结束时间']"
+                @change="selectTime" @ok="confirmTime"
+                :defaultValue="[moment(backData.d_datetime3),moment(backData.d_datetime4)]"
+              />
+            </template>
+          </left>
+        </td>
+      </tr>
       <tr>
         <td colspan="1" class="title">
           <center><h3>{{detailList.s_title}}</h3></center>
@@ -55,7 +114,7 @@
         <td colspan="9" height="100px">
           <center>
             <template>
-              <a-textarea placeholder="请输入会议内容..." ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px"
+              <a-textarea placeholder="请输入会议内容..." ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px"
                           :rows="true"></a-textarea>
             </template>
           </center>
@@ -63,7 +122,7 @@
       </tr>
       <!--参会人员-->
       <tr style="height: 50px;">
-        <td width="10%" class="title">
+        <td width="15%"class="title">
           <center><h3>{{detailList.s_varchar4}}</h3></center>
         </td>
         <td colspan="3">
@@ -73,7 +132,7 @@
       </tr>
       <!--附件-->
       <tr style="height: 50px;">
-        <td width="10%" class="title">
+        <td width="15%"class="title">
           <center><h3>{{detailList.s_varchar3}}</h3></center>
         </td>
         <td colspan="3">
@@ -93,7 +152,7 @@
       <!--创建时间-->
       <template v-if="this.backData.d_create_time != timeStrings">
         <tr style="height: 50px;">
-          <td width="10%" class="title">
+          <td width="15%"class="title">
             <center><h3>{{detailList.d_create_time}}</h3></center>
           </td>
           <td colspan="3">
@@ -103,7 +162,7 @@
       </template>
       <template v-else>
         <tr style="height: 50px;">
-          <td width="10%" class="title">
+          <td width="15%"class="title">
             <center><h3>{{detailList.d_create_time}}</h3></center>
           </td>
           <td colspan="3">
@@ -297,22 +356,24 @@
           s_varchar1: 0,
           //会议内容--标题
           // s_varchar2: '',
-          //附件
-          s_varchar3: '',
+
           //参会人员---参会人员id
           s_varchar4: '',
           //全行，部门，用户标示
           s_varchar5: '',
-          //会议室名
+          //会议室名--------------!!!
           s_varchar6: '',
           //参会选择id
           s_varchar7: '',
-          //录入时间---日程开始时间
-          d_create_time: '',
-          //开始时间---日程结束时间
-          d_datetime1: '',
+          //附件
+          s_varchar8: '',
+          //开始时间---日程结束时间 -----------------!!!
+          d_datetime3: '',
           //截至时间
-          d_datetime2: '',
+          d_datetime4: '',
+          //录入时间---日程开始时间
+          d_datetime5: '',
+
           s_cur_proc_name: '',
           //当前任务名称
           s_cur_task_name: '',
@@ -356,25 +417,39 @@
         this.backData.s_varchar4 = data;
         this.backData.s_varchar5 = iIsLimits;
       },
-      //选择会议室查对应时间
-      // changeMeetingRoom(e, d) {
-      //   this.backData.d_datetime1 = '';
-      //   this.backData.s_varchar1 = e;
-      //   this.backData.s_varchar6 = d.data.attrs.text;
-      //   getAction(this.url.queryMeetingTime, {
-      //     meetingRoom: this.backData.s_varchar1,
-      //     tableName: this.backData.table
-      //   }).then((res) => {
-      //     this.meetingTime = res.result
-      //   });
-      // },
-      //选择会议时间
+      disabledDate(current) {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+      },
+      // 选择会议室查对应时间
+      changeMeetingRoom(e, d) {
+        // this.backData.d_datetime1 = '';
+        this.backData.s_varchar1 = e;
+        this.backData.s_varchar6 = d.data.attrs.text;
+      },
+      // 选择会议时间
       // changeTime(e) {
-      //   // if (backData.s_varchar1 == null || backData.s_varchar1 == undefined){
-      //   //   this.$message.error("请选择会议室");
-      //   // }
-      //   this.backData.d_datetime1 = e;
+        // if (backData.s_varchar1 == null || backData.s_varchar1 == undefined){
+        //   this.$message.error("请选择会议室");
+        // }
+        // this.backData.d_datetime1 = e;
       // },
+      //----------------确定时间---------------
+      confirmTime(e) {
+        let startTime = e[0]._d;
+        let endTime = e[1]._d;
+
+        this.backData.d_datetime3 = this.dataTime(startTime);
+        this.backData.d_datetime4 = this.dataTime(endTime);
+      },
+
+      dataTime(time) {
+        let oneTime = new Date(time);
+        let Y = oneTime.getFullYear();
+        let M = oneTime.getMonth() + 1;
+        let D = oneTime.getDate();
+        return Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D) + " " + oneTime.toTimeString().substr(0, 8);
+      },
 
       close() {
         this.visible = false;
@@ -408,20 +483,20 @@
 <style lang="less" scoped>
   @import "../../../assets/less/detailsBaseStyle";
   /*input.ant-input{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*}*/
 
   /*textarea.ant-input{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*}*/
 
   /*/deep/ .ant-select-selection--single{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*padding: 8px 0;*/
   /*}*/
 
   /*/deep/ .ant-calendar-picker-input{*/
-  /*height: 48px;*/
+  /*height: 40px;*/
   /*}*/
 </style>
 

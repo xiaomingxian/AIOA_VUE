@@ -11,7 +11,7 @@
        <!-- <a-avatar class="avatar" size="small" :src="getAvatar()"/>-->
         <span v-if="isDesktop()" style="color: #fff;">欢迎您，{{ nickname() }}</span>
       </span>
-      <span>新建任务</span>
+      <!--<span>新建任务</span>-->
       <a-menu slot="overlay" class="user-dropdown-menu-wrapper">
         <!--<a-menu-item key="0">
           <router-link :to="{ name: 'account-center' }">
@@ -52,10 +52,24 @@
       </a-menu>
     </a-dropdown>
     <span class="action">
-      <a class="logout_title" href="javascript:;" @click="showNewTaskPage">
+
+      <a-dropdown>
+      <span class="action action-full ant-dropdown-link user-dropdown-menu">
+       <a class="logout_title" href="javascript:" @click="showNewTaskPage" @mouseover="showUserFun">
         <a-icon type="code"/>
         <span v-if="isDesktop()">&nbsp;新建任务</span>
       </a>
+      </span>
+
+      <a-menu v-if="saveData != ''" slot="overlay" class="user-dropdown-menu-wrapper" style="background: #d6ebff;padding-bottom: 40px;">
+
+       <a-card style="width: 650px;" title="我的收藏" :headStyle="{background:'#d6ebff',fontWeight:'bolder'}">
+          <a-card-grid v-for="(atom,index) in saveData" @click="jumpX(atom)" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="search"></a-icon><p style="padding-top: 14px;">{{atom.s_name}}</p></a-card-grid>
+        </a-card>
+
+      </a-menu>
+    </a-dropdown>
+
     </span>
     <span class="action">
       <a class="logout_title" href="javascript:;" @click="handleLogout">
@@ -80,6 +94,7 @@
   import { mapActions, mapGetters } from 'vuex'
   import { mixinDevice } from '@/utils/mixin.js'
   import newTaskModal from '@/views/mytask/modules/newTaskModal'
+  import {getAction, postAction} from "../../api/manage";
 
 
   export default {
@@ -100,12 +115,30 @@
         default: 'dark'
       }
     },
+    data() {
+      return {
+       saveData: [],
+      }
+    },
     methods: {
       ...mapActions(["Logout"]),
       ...mapGetters(["nickname", "avatar","userInfo"]),
       getAvatar(){
-        console.log('url = '+ window._CONFIG['imgDomainURL']+"/"+this.avatar())
+        // console.log('url = '+ window._CONFIG['imgDomainURL']+"/"+this.avatar())
         return window._CONFIG['imgDomainURL']+"/"+this.avatar()
+      },
+      jumpX(atom){
+        let param = {
+          modelId: atom.i_bus_model_id,
+          functionId: atom.i_bus_function_id,
+        }
+        postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
+          if (res.success) {
+            window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&status=newtask&navisshow=false')
+          } else {
+            this.$message.error(res.message)
+          }
+        });
       },
       handleLogout() {
         const that = this
@@ -129,14 +162,22 @@
         });
       },
       updatePassword(){
-        let username = this.userInfo().username
+        let username = this.userInfo().username;
         this.$refs.userPassword.show(username)
+      },
+      showUserFun(){
+        getAction("/sys/user/showUserFun",{userId:this.userInfo().id}).then(res =>{
+          this.saveData = res.result;
+        })
       },
       //新建任务
       showNewTaskPage() {
-        this.$refs.newTask.show();
+        // let userId=this.userInfo().id;
+        // console.log("------------------222223333"+JSON.stringify(userId));
+        this.$refs.newTask.show(this.userInfo().id);
         this.$refs.newTask.title = '新建任务'
-      },
+      },//详情收藏展示
+
       updateCurrentDepart(){
         this.$refs.departSelect.show()
       },
@@ -151,5 +192,12 @@
   .logout_title {
     color: #fff;
     text-decoration: none;
+  }
+
+  /deep/.ant-card-head-title{
+     border-left: 4px solid #00c6ff;
+     line-height: 0;
+     padding-left: 10px;
+     margin-top: 7px;
   }
 </style>

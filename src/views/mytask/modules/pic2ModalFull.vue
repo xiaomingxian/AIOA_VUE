@@ -1,79 +1,63 @@
 <template>
-  <a-modal
-    title="流程查看"
-    :width="scrWidth"
+  <div>
+    <div class="bingpai">
+      <a-button @click="showPict" block>流程图查看</a-button>
+      <a-button @click="traceP" block>流程跟踪表</a-button>
+      <a-button @click="backRecordClick" block>撤回/回退记录</a-button>
+    </div>
+    <div style="overflow: auto; position: relative;background-color: #f6f6f6;border: 1px solid #e0e0e0;"
+         :style="{height: scrHeight}">
 
-    :visible="visible"
-    :confirmLoading="confirmLoading"
-    @ok="handleCancel"
-    @cancel="handleCancel"
-    destroyOnClose
-    cancelText="关闭"
 
-  >
-    <div id="full">
-      <div class="bingpai">
-        <a-button @click="showPict" block>流程图查看</a-button>
-        <a-button @click="traceP" block>流程跟踪表</a-button>
-        <a-button @click="backRecordClick" block>撤回/回退记录</a-button>
+      <div style="width:100%" v-if="showPic">
+
+
+        <div v-for="item in styles" class="div" :style='item'></div>
+
+        <img :src="picurl" v-show="visible" @click='showPicFull'/>
+
       </div>
-      <div id="content" style="overflow: auto; position: relative;background-color: #f6f6f6;border: 1px solid #e0e0e0;"
-           :style="{height: scrHeight}">
-        <!--requestMethod? scrHeight:-->
+      <div v-if="trace" style="width: 98%;margin: 1%;">
 
-
-        <div style="width:100%" v-if="showPic">
-
-
-          <div v-for="item in styles" class="div" :style='item'></div>
-
-          <img :src="picurl" v-show="visible" @click='showPicFull'/>
-
-        </div>
-        <div v-if="trace" style="width: 98%;margin: 1%;">
-
-          <a-table
-            ref="table"
-            size="middle"
-            rowKey="taskKey"
-            :columns="columns"
-            :dataSource="dataSource"
-            :pagination="false"
-            :rowClassName="(record,index) => {
+        <a-table
+          ref="table"
+          size="middle"
+          rowKey="taskKey"
+          :columns="columns"
+          :dataSource="dataSource"
+          :pagination="false"
+          :rowClassName="(record,index) => {
               let className  = 'light-row';
               if (index % 2 === 1) className = 'dark-row';
               return className;
           }"
-          >
+        >
 
-          </a-table>
-        </div>
+        </a-table>
+      </div>
 
-        <div v-if="backRecord" style="width: 98%;margin: 1%;">
+      <div v-if="backRecord" style="width: 98%;margin: 1%;">
 
-          <!--  :customRow="rowClick"-->
-          <a-table
-            ref="table"
-            size="middle"
-            rowKey="taskKey"
-            :columns="columns2"
-            :dataSource="dataSource"
-            :rowClassName="(record,index) => {
+        <!--  :customRow="rowClick"-->
+        <a-table
+          ref="table"
+          size="middle"
+          rowKey="taskKey"
+          :columns="columns2"
+          :dataSource="dataSource"
+          :rowClassName="(record,index) => {
               let className  = 'light-row';
               if (index % 2 === 1) className = 'dark-row';
               return className;
           }"
-          >
+        >
 
-          </a-table>
-        </div>
-
+        </a-table>
       </div>
 
     </div>
+  </div>
 
-
-  </a-modal>
 </template>
 <style type="text/css">
   .div {
@@ -92,13 +76,12 @@
 
   import {getAction, picUrl, postAction} from '@/api/manage'
 
+
   export default {
-    name: "pic2Modal",
+    name: "pic2ModalFull",
+    inject: ['reload'],
     data() {
       return {
-        num:0,
-        fullHeight: window.screen.height,
-
         scrWidth: window.innerWidth - 100,
         scrHeight: window.innerHeight - 320 + 'px',
         // scrHeight: window.innerHeight + 'px',
@@ -108,7 +91,7 @@
         confirmLoading: false,
         isEnd: false,//流程是否已经结束
         endTime: '',
-        visible: false,
+        // visible: false,
         full: false,
         trace: false,
         showPic: true,
@@ -171,33 +154,10 @@
       }
     },
     created() {
-      document.addEventListener('keydown', this.quit)
-      document.addEventListener('mousedown', this.quit)
-      document.addEventListener('fullscreenchange', this.quit)
-    },
-    beforeDestory() {
-      document.removeEventListener('keydown', this.quit)
-      document.removeEventListener('mousedown', this.quit)
-      document.removeEventListener('fullscreenchange', this.quit)
+      this.show(newVal);
+
     },
     methods: {
-      quit(e) {
-
-
-        let flag = document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen
-
-
-        if (!flag) {
-          console.log('------------------------------->>.')
-          this.scrHeight = window.innerHeight - 320 + 'px'
-        }
-        // document.getElementById("content").click()
-        if (this.num == 0) {
-          this.num=1
-          this.quit()
-        }
-
-      },
       rowClick(res) {
         return {
           on: {
@@ -248,32 +208,7 @@
           }
         }
       },
-
-      requestFullScreen(element) {
-        var requestMethod = element.requestFullScreen || //W3C
-          element.webkitRequestFullScreen ||    //Chrome等
-          element.mozRequestFullScreen || //FireFox
-          element.msRequestFullScreen; //IE11
-        if (requestMethod) {
-          requestMethod.call(element);
-        } else if (typeof window.ActiveXObject !== "undefined") {//for Internet Explorer
-          var wscript = new ActiveXObject("WScript.Shell");
-          if (wscript !== null) {
-            wscript.SendKeys("{F11}");
-          }
-        }
-      },
       showPicFull() {
-
-        this.full = true
-        let el1 = document.getElementById('full')
-        let el2 = el1
-        this.scrHeight = window.screen.height + 'px';
-        // el2.childNodes[1].style.height = window.screen.height + 'px';
-
-
-        this.requestFullScreen(el2);
-
         // const img = new Image();
         // img.src = this.picurl;
         // const newWin = window.open("", "_blank");
@@ -390,8 +325,7 @@
       }, onSelectChange() {
       }
 
-
-    }
+    },
   }
 </script>
 
