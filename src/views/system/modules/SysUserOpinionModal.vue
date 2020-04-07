@@ -84,6 +84,7 @@
         this.visible = true;
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model,'iid','suserId','iorder','scontent'))
+          this.form.setFieldsValue({iorder:String(this.model.iorder)})
 		  //时间格式化
         });
 

@@ -11,7 +11,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
               label="协同业务">
-              <a-select      v-decorator="[ 'iteamworkId', {}]" @change="getTeamwork" placeholder="请选择协同业务">
+              <a-select       v-model="queryParam.iteamworkId" @change="getTeamwork" placeholder="请选择协同业务">
                 <a-select-option v-for="(item,index) in teamworkList" :key="index" :value="item.iid">{{item.steamworkName}}
                 </a-select-option>
               </a-select>
@@ -29,21 +29,21 @@
     </div>
 
     <!-- 操作按钮区域 -->
-    <div class="table-operator">
+   <!-- <div class="table-operator">
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
         </a-menu>
         <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
       </a-dropdown>
-    </div>
+    </div>-->
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+    <!--  <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      </div>-->
 
       <a-table
         ref="table"
@@ -261,7 +261,13 @@
         });
       },
       searchReset1(){
-        this.reload();
+       this.queryParam.iteamworkId="";
+       this.iteamworkId="";
+        getAction(this.url.list, {iTeamworkId: this.iteamworkId}).then((res) => {
+          this.dataSource=res.result.records;
+          this.ipagination.total =  res.result.total;
+        });
+
       },
       previewModal(record){
         this.$refs.previewModal.open(record);
