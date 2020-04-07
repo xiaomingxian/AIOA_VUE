@@ -136,13 +136,13 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="用户IP地址：">
+          label="绑定IP地址：">
           <!--<a-input style="width: 480px;" placeholder="用户IP地址" v-model="ip" />-->
-          <a-input style="width: 210px;" placeholder="用戶IP地址" v-model="ip" />
+          <a-input style="width: 210px;" placeholder="绑定IP地址" v-model="ip" />
         </a-form-item>
       </div>
 
-      <a-button icon="save" @click="handleOk" style="background: #b4d7ff">保存</a-button>
+      <a-button icon="save" @click="handleOk" >保存</a-button>
       <!--<a-button icon="close-circle" @click="handleCeal" style="background: #b4d7ff;margin-left: 20px">取消</a-button>-->
     </a-form>
     </a-spin>
