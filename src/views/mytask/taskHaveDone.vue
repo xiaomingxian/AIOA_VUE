@@ -185,6 +185,7 @@
         size="middle"
         :columns="columns"
         :dataSource="dataSource"
+        :pagination="ipagination"
         :loading="loading"
         :showAlertInfo="false"
         bordered
