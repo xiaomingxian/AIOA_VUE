@@ -93,6 +93,7 @@
         visible: false,
         modelList: [],
         selectList: [],
+        modeid:[],
         busModelId:'',
         modelId:'',
         findMax:'',
@@ -169,30 +170,39 @@
 
         //业务模块
         this.getBusModelSelectList();
-        //业务功能
+        console.log(this.modelList);
+        for(var i=0;i<this.modelList.length;i++){
+          this.modeid.push(this.modelList[i].modelid);
+        }
+        console.log(this.modeid)
+        console.log(record.ibusModelId)
+        console.log(this.modeid.includes(record.ibusModelId.toString()))
+        if(this.modeid.includes(record.ibusModelId.toString())){
+          //业务功能
+          getAction(this.url.selectTaskDetail,{modelId:record.ibusModelId}).then((res)=>{
+            this.selectList = res.result;
 
-        getAction(this.url.selectTaskDetail,{modelId:record.ibusModelId}).then((res)=>{
-          this.selectList = res.result;
-
-        }).then(()=>{
-          this.isadd = false;
-          this.form.resetFields();
-          this.model = Object.assign({}, record);
-          this.visible = true;
-          this.$nextTick(()=>{
-            this.form.setFieldsValue(pick(this.model,'description','ibusModelId','ibusFunctionId','iorder'))
-            this.form.setFieldsValue({ibusModelId:String(this.model.ibusModelId),ibusFunctionId:String(this.model.ibusFunctionId)})
+          }).then(()=>{
+            this.isadd = false;
+            this.form.resetFields();
+            this.model = Object.assign({}, record);
+            this.visible = true;
+            this.$nextTick(()=>{
+              this.form.setFieldsValue(pick(this.model,'description','ibusModelId','ibusFunctionId','iorder'))
+              this.form.setFieldsValue({ibusModelId:String(this.model.ibusModelId),ibusFunctionId:String(this.model.ibusFunctionId),iorder:String(this.model.iorder)})
+            })
           })
-        })
+        }else{
+          this.$message.warning("您配置的这个业务功能已没有权限或已不存在，请保证业务功能的权限");
+        }
+
 
 
 
 
 
       },
-      selectTaskDetail(){
-
-      },
+      selectTaskDetail(){},
 
       //获取选值    所属模块value   此value值时所属业务的方法的基本参数
       getModelVal(e){
@@ -206,6 +216,7 @@
       },
       getBusModelSelectList(){
         getAction(this.url.selectTaskType, {}).then((res) => {
+
           this.modelList=res.result;
         });
       },
@@ -236,6 +247,7 @@
         // }
         // 触发表单验证
         this.form.validateFields((err, values) => {
+
           if (!err) {
             that.confirmLoading = true;
             console.log(this.isadd)
@@ -249,12 +261,12 @@
                method = 'put';
             }
             let formData = Object.assign(this.model, values);
+
+
             //时间格式化
             /*formData.dCreateTime = formData.dCreateTime?formData.dCreateTime.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.dUpdateTime = formData.dUpdateTime?formData.dUpdateTime.format('YYYY-MM-DD HH:mm:ss'):null;
             */
-
-      console.log(formData)
       httpAction(httpurl,formData,method).then((res)=>{
       if(res.success){
         that.$message.success(res.message);

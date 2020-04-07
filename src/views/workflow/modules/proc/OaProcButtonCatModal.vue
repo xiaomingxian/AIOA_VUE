@@ -105,7 +105,7 @@
           </a-table>
         </div>
         <!-- table区域-end -->
-        <oa-proc-button-new-modal ref="modalForm" @ok="modalFormOk()"></oa-proc-button-new-modal>
+        <oa-proc-button-new-modal ref="OaProcButtonNewModal" @ok="modalFormOk()"></oa-proc-button-new-modal>
 
       </a-form>
     </a-spin>
@@ -364,7 +364,6 @@
         this.taskDefKey=[];
 //        ------
         this.procDefKey=procDefKey;
-
 //        console.log(record);
         this.TaskLinkId=TaskLinkId;
         //---------------任务环节列表---------------
@@ -385,21 +384,23 @@
           this.form.setFieldsValue(pick(this.model,'iid','procdefKey','sbuttonSetName'))
 		  //时间格式化
         });
-
       },
       handleEdit1:function () {
-        this.$refs.modalForm.edit(this.model,this.TaskLinkId);
-        this.$refs.modalForm.loadData(this.model.iid);
-        this.$refs.modalForm.confirmLoading=false;
-        this.$refs.modalForm.title = "操作";
-        this.$refs.modalForm.disableSubmit = false;
+        this.$refs.OaProcButtonNewModal.title = "新建";
+        this.$refs.OaProcButtonNewModal.newCreate = true;//是否为新建
+        this.$refs.OaProcButtonNewModal.edit(this.model,this.TaskLinkId);
+        this.$refs.OaProcButtonNewModal.loadData(this.model.iid);
+        this.$refs.OaProcButtonNewModal.confirmLoading=false;
+
+        this.$refs.OaProcButtonNewModal.disableSubmit = false;
       },
       handleEditDone:function (record) {
-        this.$refs.modalForm.editBefore(this.model,this.TaskLinkId,record);
-        this.$refs.modalForm.loadData(this.model.iid);
-        this.$refs.modalForm.confirmLoading=false;
-        this.$refs.modalForm.title = "操作";
-        this.$refs.modalForm.disableSubmit = false;
+        this.$refs.OaProcButtonNewModal.title = "编辑";
+        this.$refs.OaProcButtonNewModal.newCreate = false;
+        this.$refs.OaProcButtonNewModal.editBefore(this.model,this.TaskLinkId,record);
+        this.$refs.OaProcButtonNewModal.loadData(this.model.iid);
+        this.$refs.OaProcButtonNewModal.confirmLoading = false;
+        this.$refs.OaProcButtonNewModal.disableSubmit = false;
       },
       close () {
         this.confirmLoading=false;

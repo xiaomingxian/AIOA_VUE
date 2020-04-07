@@ -1011,7 +1011,7 @@
       myrichenClose(e){
         console.log(e);
         if(e){
-          getAction(this.url.list,{username:this.userinfo.username}).then((res) => {
+          getAction(this.url.list,{sCreateBy:this.userinfo.username}).then((res) => {
             console.log(res);
             this.mytitleLists = res.result.records;
 
@@ -1038,7 +1038,7 @@
           console.log(res);
           if(res.success){
             this.visible = false;
-            getAction(this.url.list,{username:this.userinfo.username}).then((res) => {
+            getAction(this.url.list,{sCreateBy:this.userinfo.username}).then((res) => {
               console.log(res);
               this.mytitleLists = res.result.records;
 
@@ -1127,7 +1127,7 @@
       },
       //  我的日程
       myDayLists(timestamp){
-        getAction(this.url.list,{username:this.userinfo.username,date:timestamp}).then((res) => {
+        getAction(this.url.list,{sCreateBy:this.userinfo.username,date:timestamp}).then((res) => {
           console.log(res);
           this.mytitleLists = res.result.records.splice(0,5);
         });
