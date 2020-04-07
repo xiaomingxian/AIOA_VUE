@@ -536,9 +536,16 @@
             }
 
           }
+          clearData();
         })
       },
+      clearData(){
+//        this.data=[];
+        this.type=null;
+        this.taskDefKey=null;
+      },
       handleCancel() {
+        this.clearData();
         this.close()
       }
 

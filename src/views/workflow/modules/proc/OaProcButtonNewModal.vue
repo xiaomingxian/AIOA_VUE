@@ -4,7 +4,7 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleOk"
+    @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
 
@@ -221,7 +221,8 @@
       return {
         sRoles: [],
         iisDefendLink:[],
-        title: "操作",
+        title: "",
+        newCreate:true,//是否为新建
         visible: false,
         data: [],
         model: {},
@@ -516,6 +517,17 @@
         this.$emit('close');
         this.visible = false;
       },
+      handleOkIsCreate(){
+//        console.log("12111111111111111111111999999999999999999999999999");
+//        console.log(this.newCreate);
+        if(this.newCreate==true && this.btnSetModel.iid==null){
+          this.handleOk();
+        }else if(this.newCreate==false && this.btnSetModel.iid!=null){
+          this.handleOk();
+        }else {
+          this.$message.warning("当前环节下按钮已存在，无法重复添加");
+        }
+      },
       handleOk() {
         // console.log('')
         const that = this;
@@ -551,7 +563,7 @@
                 that.$message.success(res.message);
                 that.$emit('ok');
               } else {
-                // that.$message.warning(res.message);
+                 that.$message.warning(res.message);
               }
             }).finally(() => {
               this.clearData();
@@ -562,7 +574,9 @@
         })
       },
       clearData(){
-          this.data=[]
+          this.data=[];
+        this.iButtonId=null;
+        this.taskDefKey=null;
       },
       handleCancel() {
         this.clearData();
