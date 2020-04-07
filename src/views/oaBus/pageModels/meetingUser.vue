@@ -161,22 +161,23 @@
       },
 
       sendUser() {
+
         let json = {
           iIsLimits: this.iIsLimits,
           meetingUserId: this.meetingUserId.toString(),
-          // userRealName: this.userRealName,
+          userRealName: this.userRealName,
           departId: this.departId,
           tableName: this.backData.table,
           busdataId: this.backData.i_id,
           functionId: this.backData.i_bus_function_id,
-          sTittle: this.backData.s_varchar2,
+          sTittle: this.backData.s_title,
           sAddress: this.backData.s_varchar6,
           // sAddress : address,
-          dStartTime: this.backData.d_create_time,
+          dStartTime: this.backData.d_datetime3,
           // dEndTime:time,
-          dEndTime: this.backData.d_datetime1,
+          dEndTime: this.backData.d_datetime4,
           // sCreateBy :this.backData.s_create_name,
-          dCreateTime: this.backData.d_create_time,
+          // dCreateTime: this.backData.d_datetime5,
           iBusModelId: this.backData.i_bus_model_id,
         };
         postAction(this.url.sendMeetingInform, json).then((res) => {

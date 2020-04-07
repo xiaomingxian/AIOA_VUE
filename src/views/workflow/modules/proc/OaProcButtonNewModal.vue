@@ -518,13 +518,13 @@
         this.visible = false;
       },
       handleOkIsCreate(){
-//        console.log("12111111111111111111111999999999999999999999999999");
-//        console.log(this.newCreate);
         if(this.newCreate==true && this.btnSetModel.iid==null){
           this.handleOk();
-        }else if(this.newCreate==false && this.btnSetModel.iid!=null){
+        }else if(this.newCreate==false && this.btnSetModel.iid!=null ){
           this.handleOk();
-        }else {
+        }else if(this.newCreate==false && this.btnSetModel.iid==null){
+          this.$message.warning("编辑时无法新增数据，请前往新建中操作");
+        }else{
           this.$message.warning("当前环节下按钮已存在，无法重复添加");
         }
       },
