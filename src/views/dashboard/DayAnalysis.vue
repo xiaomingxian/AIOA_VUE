@@ -488,7 +488,6 @@
 
       //获取用户基本信息
       const  userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
-      console.log(userinfo);
       this.userinfo = userinfo;
       this.userid = userinfo.id;
 
@@ -613,7 +612,6 @@
 
 
       postAction(this.url.LinkLists).then((res) => {
-        console.log(res.length);
         this.LinkList = res;
         if( this.LinkList.length==1){
           this.show(this.LinkList[0].i_id, 0)
@@ -685,7 +683,6 @@
 
           });
         }, 1000)
-        console.log(this.LinkList.length)
 
 
       });
@@ -694,14 +691,12 @@
 
 
       mouseOver() {
-        //console.log(this.mouseFlag)
         if (!this.mouseFlag) {
           this.mouseFlag = true;
           this.findwaitLists();
         }
       },
       mouseLeave() {
-        //console.log(this.mouseFlag)
         this.mouseFlag = false;
       },
 
@@ -714,18 +709,14 @@
             'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)
           }
         }).then(res => {
-          console.log(res)
           if(res!='true'){
             this.LinkList[index].picUrl1 = 'data:image/png;base64,' + btoa( new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
-            console.log(this.LinkList)
-
           }else{
             this.LinkList[index].picUrl1 = '../../assets/1.png'
           }
         })
       },
       fetchUser(value) {
-        // console.log('fetching user', value);
         this.lastFetchId += 1;
         const fetchId = this.lastFetchId;
         this.data = [];
@@ -759,7 +750,6 @@
 
         //判断  全文检索搜索框是否输入    检测输入变化则赋值  否则清空变量
         if(obj){
-          // console.log(obj);
           this.search = obj.key;
         }else{
           this.search = '';
@@ -814,7 +804,6 @@
         this.$router.push('/'+'publicMessage/electronicFile');
       },
       doWill(e){
-        console.log(e);
         this.willdoindex = e;
         if(e==0){
           // 代办日程
@@ -837,11 +826,8 @@
         }else{
           this.$router.push('/mytask/taskToDo');
         }
-
       },
       openmore1(e){  //待办/模块的跳转
-
-        console.log(e);
         if(e=='1'){ //是0就跳待办
           let url = this.path
           this.$router.push('/'+url+"?moduleName="+this.model1);
@@ -988,7 +974,6 @@
       },
       //修改日期
       getdateVal(e){
-        console.log(e);
         // let timestamp = e.valueOf();
         let currtentTime = new Date(e);
         let Y = currtentTime.getFullYear();
@@ -996,7 +981,6 @@
         let D = currtentTime.getDate();
         // let newTime = Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D)+" "+currtentTime.toTimeString().substr(0,8);
         let newTime = Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
-        console.log(newTime);
         this.localTime = Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D);
 
         //  领导日程
@@ -1018,10 +1002,8 @@
 
       //我的日程编辑成功模态框关闭，刷新父级列表
       myrichenClose(e){
-        console.log(e);
         if(e){
           getAction(this.url.list,{sCreateBy:this.userinfo.username}).then((res) => {
-            console.log(res);
             this.mytitleLists = res.result.records;
 
           });
@@ -1030,7 +1012,6 @@
       //查看更多
       openMore(type){
         /* this.$refs.moremodel.showTableDetail(type,this.newTime);*/
-        console.log(type);
         if(type == 1){//我的日程
           this.$router.push('/ioaBus/oaCalendar');
         }else if(type ==2){//领导日程 /ioaBus/oaLeaderCalendar
@@ -1044,11 +1025,9 @@
       },
       handleOk(){
         deleteAction(this.url.delete,{id:this.mystitltid,sCreateBy:this.userinfo.username}).then((res) => {
-          console.log(res);
           if(res.success){
             this.visible = false;
             getAction(this.url.list,{sCreateBy:this.userinfo.username}).then((res) => {
-              console.log(res);
               this.mytitleLists = res.result.records;
 
             });
@@ -1062,7 +1041,6 @@
       },
       //编辑我的日程
       editstitle(e,d){
-        console.log(e);
         this.$refs.modalForm.update(e,d);
       },
       editstitle1(e,d){
@@ -1108,8 +1086,6 @@
 
             let params = {tableName: res.result.tableName, busdataId: res.result.ifunDataId};
             this.$store.commit('pushNewDetial', params)
-            console.log(this.$store.state.postDetialLists);
-
             // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
             window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
             if(res.result.stateName == "【未阅】"){
@@ -1138,7 +1114,6 @@
       //  领导日程 &userId="+this.userid;
       leaderList(timestamp){
         getAction(this.url.findByLeader,{date:timestamp}).then((res) => {
-          console.log(res);
           let stitleLists = res.result.records.splice(0,4);
           this.stitleLists = stitleLists;
 
@@ -1148,14 +1123,13 @@
       //  我的日程
       myDayLists(timestamp){
         getAction(this.url.list,{sCreateBy:this.userinfo.username,date:timestamp}).then((res) => {
-          console.log(res);
           this.mytitleLists = res.result.records.splice(0,5);
         });
       },
       //共享日程
       publicLists(timestamp){
         getAction(this.url.queryPageList,{date:timestamp}).then((res) => {
-          console.log(res);
+
           // alert( res.result.records.length)
           this.publictitleLists = res.result.records.splice(0,5);
 
@@ -1165,18 +1139,13 @@
       findwaitLists(operstatus='task_todo'){
 
         getAction(this.url.findwaiturl,{operstatus:operstatus}).then((res) => {
-          console.log(res.result.records);
-          console.log(Array.isArray(res.result.records));
-
           this.findwaitdataLists =res.result.records.splice(0,5)
-          console.log(this.findwaitdataLists);
             this.total = res.result.total;
         });
       },
       //  数据初始化  收文  发文数据
       homeLists(userid,createtime=''){
         getAction(this.url.HomeList,{userId:userid,createTime:createtime}).then((res) => {
-          console.log(res);
           this.model1 = res.model1.sName;
           this.path = res.model1.url
           this.model2 = res.model2.sName;
@@ -1194,8 +1163,6 @@
       // 公告
       getPostLists(){
         postAction(this.url.Posturl,{modelId:49,condition:{function_id:64,selType:1}}).then((res) => {
-          console.log(res.result.records);
-
           this.postLists = res.result.records.splice(0,3);
           // alert( JSON.stringify(this.postLists ))
         });
