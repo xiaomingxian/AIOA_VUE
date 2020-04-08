@@ -82,11 +82,22 @@
                       <!--</p>-->
                       <div class="contentbox" >
                         <p class="content"  :title="myitem.stateName+myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stateName+myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
-                        <div >
-                          <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                          <img class="img1" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
-                          <img class="img1" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
+                        <div v-if="myitem.stateName != ''">
+                          <div >
+                            <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
+                            <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle1(mytitleLists[index])">
+
+                            <img class="img1 addSize" src="../../assets/del.png"  :title="删除" @click.stop="delstitle1(myitem.iid)">
+                          </div>
                         </div>
+                        <div v-else>
+                          <div >
+                            <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
+                            <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
+                            <img class="img1 addSize" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
+                          </div>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -108,7 +119,7 @@
                       <div class="contentbox">
                         <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
                         <div class="div5">
-                          <img class="img2" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
+                          <img class="img2 addSize" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
                         </div>
                       </div>
                     </div>
@@ -287,7 +298,7 @@
     <!--编辑  新增-->
     <!-- 表单区域 -->
     <oaCalendar-modal ref="modalForm" @myrichenClose="myrichenClose" ></oaCalendar-modal>
-    <oa-calendar-cat-modal ref="modalCatForm"  @ok="modalFormOk"></oa-calendar-cat-modal>
+    <oa-calendar-cat-modal ref="modalCatForm" ></oa-calendar-cat-modal>
     <!--详情列表-->
     <detail-file ref="detailFile"></detail-file>
     <detail-model ref="moremodel"></detail-model>
@@ -681,6 +692,7 @@
     },
     methods:{
 
+
       mouseOver() {
         //console.log(this.mouseFlag)
         if (!this.mouseFlag) {
@@ -1003,10 +1015,7 @@
 
 
       },
-      delstitle(e){
-        this.mystitltid = e;
-        this.visible = true;
-      },
+
       //我的日程编辑成功模态框关闭，刷新父级列表
       myrichenClose(e){
         console.log(e);
@@ -1055,6 +1064,17 @@
       editstitle(e,d){
         console.log(e);
         this.$refs.modalForm.update(e,d);
+      },
+      editstitle1(e,d){
+        this.$message.warning("转进来的业务不能进行修改操作");
+      },
+      //删除我的日程
+      delstitle(e){
+        this.mystitltid = e;
+        this.visible = true;
+      },
+      delstitle1(e){
+        this.$message.warning("转进来的业务不能进行删除操作");
       },
       //查看日程
       chakan(iid){
