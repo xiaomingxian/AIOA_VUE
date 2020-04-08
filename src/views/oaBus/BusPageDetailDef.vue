@@ -124,7 +124,7 @@
             dataIndex: 'scolumnName'
           },
           {
-            title: '数据列',
+            title: '数据标题列',
             align: "center",
             dataIndex: 'iisListtitle',
             customRender: (text) => {
