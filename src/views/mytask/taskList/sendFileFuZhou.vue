@@ -210,19 +210,19 @@
           </td>
           <!--打字 -->
           <td width="15%" class="title">
-            <center><h3>{{detailList.s_varchar2}}</h3></center>
+            <center><h3>{{detailList.i_bigint5}}</h3></center>
           </td>
           <td>
-            <div style="padding-left: 10px;">{{backData.s_varchar2}}</div>
+            <div style="padding-left: 10px;">{{backData.i_bigint5}}</div>
           </td>
         </tr>
         <tr>
           <td width="15%" class="title">
-            <!--发文总号-->
-            <center><h3>{{detailList.s_varchar9}}</h3></center>
+            <!--发文总号--!!!!!!-->
+            <center><h3>{{detailList.s_varchar2}}</h3></center>
           </td>
           <td colspan="1">
-            <a-input v-model="backData.s_varchar9"></a-input>
+            <a-input v-model="backData.s_varchar2"></a-input>
           </td>
           <td width="15%" class="title">
             <!--备注-->

@@ -53,7 +53,7 @@
                       <div class="contentbox" >
                         <p class="content" :title="item.stitle+'('+item.suserNames+')'">{{item.stitle +"("+ item.suserNames+")"|filterText}}</p>
                         <div class="div2">
-                          <img class="img0" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
+                          <img class="img0 addSize" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
                         </div>
                       </div>
                     </div>
