@@ -49,6 +49,13 @@
             <send-file v-if="pageRef == 'sendFile'" ref="sendFile" :backDataRef="backData" :isShowFile="isShowFile"
                        @getBackData="getBackData"
                        :optionMap="optionMap" :detailList="detailList" :taskParent="task"></send-file>
+
+            <!--用印申请-->
+            <seal-file v-if="pageRef == 'sealFile'" ref="sealFile" :backDataRef="backData" :isShowFile="isShowFile"
+                       @getBackData="getBackData"
+                       :optionMap="optionMap" :detailList="detailList" :taskParent="task"></seal-file>
+
+
             <!--共享文件-->
             <share-file v-if="pageRef == 'shareFile'" ref="shareFile" :backDataRef="backData" :isShowFile="isShowFile"
                        @getBackData="getBackData"
@@ -58,7 +65,6 @@
             <send-file-fu-zhou v-if="pageRef == 'sendFileFuZhou'" ref="sendFileFuZhou" :backDataRef="backData"
                                @getBackData="getBackData" :isShowFile="isShowFile"
                                :optionMap="optionMap" :detailList="detailList" :taskParent="task"></send-file-fu-zhou>
-
 
             <!--电教室使用需求-->
             <electric-room v-if="pageRef == 'electricRoom'" ref="electricRoom" :backDataRef="backData"
@@ -204,6 +210,7 @@
   import ReleaseScope from "@/views/oaBus/pageModels/releaseScope";
   //业务页面
   import shareFile from '@/views/mytask/taskList/shareFile'
+  import sealFile from '@/views/mytask/taskList/sealFile'
   import sendFile from '@/views/mytask/taskList/sendFile'
   import receiveFile from '@/views/mytask/taskList/receiveFile'
   import MeetingRoomFile from "@/views/mytask/taskList/meetingRoomFile";
@@ -229,6 +236,7 @@
     inject: ['reload'],
     mixins: [JeecgListMixin],
     components: {
+      sealFile,
       lanAccess,
       electricEquipment,
       electricRoom,
