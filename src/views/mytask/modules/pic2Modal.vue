@@ -71,7 +71,7 @@
       </div>
 
     </div>
-
+<pic-full ref="picFull"></pic-full>
 
   </a-modal>
 </template>
@@ -91,9 +91,13 @@
 <script>
 
   import {getAction, picUrl, postAction} from '@/api/manage'
+  import picFull from './pic2ModalFull'
 
   export default {
     name: "pic2Modal",
+    components: {
+      picFull
+    },
     data() {
       return {
         num:0,
@@ -188,13 +192,7 @@
 
 
         if (!flag) {
-          console.log('------------------------------->>.')
           this.scrHeight = window.innerHeight - 320 + 'px'
-        }
-        // document.getElementById("content").click()
-        if (this.num == 0) {
-          this.num=1
-          this.quit()
         }
 
       },
@@ -264,22 +262,19 @@
         }
       },
       showPicFull() {
+        //
+        // this.full = true
+        // let el1 = document.getElementById('full')
+        // let el2 = el1
+        // this.scrHeight = window.screen.height + 'px';
+        // // el2.childNodes[1].style.height = window.screen.height + 'px';
+        //
+        //
+        // this.requestFullScreen(el2);
 
-        this.full = true
-        let el1 = document.getElementById('full')
-        let el2 = el1
-        this.scrHeight = window.screen.height + 'px';
-        // el2.childNodes[1].style.height = window.screen.height + 'px';
+        this.$refs.picFull.record= this.record
+        this.$refs.picFull.showDrawer()
 
-
-        this.requestFullScreen(el2);
-
-        // const img = new Image();
-        // img.src = this.picurl;
-        // const newWin = window.open("", "_blank");
-        // newWin.document.write(img.outerHTML);
-        // newWin.document.title = "流程图"
-        // newWin.document.close();
       },
       backRecordClick() {
         var procInstId = this.record.processInstanceId
