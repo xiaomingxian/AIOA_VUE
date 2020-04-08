@@ -136,13 +136,13 @@
 
             <a-col :md="8" :sm="8">
               <a-form-item label="开始时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 320px"
+                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 100%;padding: 0;box-sizing: border-box;"
                                v-model='queryParam.startTimeFake' @change="startTime"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="8">
               <a-form-item label="结束时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 320px"
+                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 100%;padding: 0;box-sizing: border-box;"
                                v-model='queryParam.endTimeFake' @change="endTime"/>
               </a-form-item>
             </a-col>
@@ -187,13 +187,12 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
+        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         :showAlertInfo="false"
         bordered
-        rowKey="id"
+        rowKey="processInstanceId"
         :customRow="doTask"
-        @change="(page,pageSize) => {
-               handleTableChange(page)
-          }"
+        @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
               if (index % 2 === 1) className = 'dark-row';
@@ -400,7 +399,7 @@
           doTask: "/wf/process/processDel",
           currentUnDo: '/wf/task/queryTaskUnDoCurrent'
         },
-        // loading: false,
+        loading: false,
         // toggleSearchStatus: false,
         //任务环节选择
         taskRecord: null,
