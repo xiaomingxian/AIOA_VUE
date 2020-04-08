@@ -64,7 +64,7 @@
       <a-menu v-if="saveData != ''" slot="overlay" class="user-dropdown-menu-wrapper" style="background: #d6ebff;padding-bottom: 40px;">
 
        <a-card style="width: 650px;" title="我的收藏" :headStyle="{background:'#d6ebff',fontWeight:'bolder'}">
-          <a-card-grid v-for="(atom,index) in saveData" @click="jumpX(atom)" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="search"></a-icon><p style="padding-top: 14px;">{{atom.s_name}}</p></a-card-grid>
+          <a-card-grid v-for="(atom,index) in saveData" @click="jumpX(atom)" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="form"></a-icon><p style="padding-top: 14px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{atom.s_name}}</p></a-card-grid>
         </a-card>
 
       </a-menu>

@@ -210,8 +210,6 @@
           i_bigint1: '',   //份数
           i_bigint2: '',   //页数
           s_receive_type: '',     //来文文种
-          s_varchar3: '',//"办文依据"
-          d_datetime1: '',//"成文日期"
           //*******
           //模块
           i_bus_model_id: '',
@@ -332,20 +330,17 @@
         }
         return result;
       },
-
       disabledDate(current) {
         // Can not select days before today and today
         return current && current < moment().endOf('day');
-       
-
       },
-      disabledDateTime() {
-        return {
-          disabledHours: () => this.range(0, 24).splice(4, 20),
-          disabledMinutes: () => this.range(30, 60),
-          disabledSeconds: () => [55, 56],
-        };
-      },
+      // disabledDateTime() {
+      //   return {
+      //     disabledHours: () => this.range(0, 24).splice(4, 20),
+      //     disabledMinutes: () => this.range(30, 60),
+      //     disabledSeconds: () => [55, 56],
+      //   };
+      // },
       changeHuanJi(e,d) {
         this.backData.s_varchar1 = d.data.attrs.text;
         // this.backData.s_varchar1 = e;
@@ -382,7 +377,6 @@
 
         this.backData.d_datetime1 = this.dataTime(startTime);
         this.backData.d_datetime2 = this.dataTime(endTime);
-
       },
       dataTime(time) {
         let oneTime = new Date(time);

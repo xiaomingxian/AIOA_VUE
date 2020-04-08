@@ -63,7 +63,8 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="排序">
-          <a-input-number v-decorator="[ 'departOrder',{'initialValue':0}]"/>
+          <!--<a-input-number v-decorator="[ 'departOrder',{'initialValue':0}]"/>-->
+          <a-input placeholder="请输入顺序" v-decorator="[ 'departOrder', {rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"

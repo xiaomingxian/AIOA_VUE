@@ -264,7 +264,6 @@
       show(record) {
         this.record = record
 
-        this.visible = true
         this.showPict();
 
       },

@@ -4,7 +4,7 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleOk"
+    @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
 
@@ -190,6 +190,7 @@
         visible: false,
         show:false,//意见类型--显示控制
         procDefKey:'',
+        newCreate:true,//是否为新建
         showName:false,//是否显示提示
         opinionName:'',//后台产生的名字
         typeList:[],
@@ -485,7 +486,17 @@
         this.$emit('close');
         this.visible = false;
       },
-
+      handleOkIsCreate(){
+        if(this.newCreate==true && this.opinionSetModal.iid==null){
+          this.handleOk();
+        }else if(this.newCreate==false && this.opinionSetModal.iid!=null ){
+          this.handleOk();
+        }else if(this.newCreate==false && this.opinionSetModal.iid==null){
+          this.$message.warning("编辑时无法新增数据，请前往新建中操作");
+        }else{
+          this.$message.warning("当前环节下意见已存在，无法重复添加");
+        }
+      },
       handleOk() {
         // this.opinionSetModal.iProcSetId=this.iProcSetId;
 //        console.log('-=-=-=',JSON.stringify(this.opinionSetModal));
@@ -536,9 +547,16 @@
             }
 
           }
+          clearData();
         })
       },
+      clearData(){
+//        this.data=[];
+        this.type=null;
+        this.taskDefKey=null;
+      },
       handleCancel() {
+        this.clearData();
         this.close()
       }
 

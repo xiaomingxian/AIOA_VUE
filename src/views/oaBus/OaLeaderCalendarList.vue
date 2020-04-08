@@ -364,7 +364,7 @@
           });
         }else if(this.serchSubData.richengName==1){
           //  我的日程
-          getAction(this.url.list,{username:this.username,pageNo:1,pageSize:10,more:1,sTitle:this.serchSubData.sTitle,Strdate: this.serchSubData.startTime, Enddate :this.serchSubData.endTime}).then((res) => {
+          getAction(this.url.list,{sCreateBy:this.username,pageNo:1,pageSize:10,more:1,sTitle:this.serchSubData.sTitle,Strdate: this.serchSubData.startTime, Enddate :this.serchSubData.endTime}).then((res) => {
             console.log(res);
             this.dataSource = res.result.records;
             this.pagination.total = res.result.total

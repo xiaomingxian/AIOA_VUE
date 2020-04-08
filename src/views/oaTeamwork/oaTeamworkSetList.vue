@@ -118,7 +118,7 @@
             dataIndex: 'iteamworkId'
            },*/
 		   {
-            title: '协同顺序',
+            title: '协同顺序111',
             align:"center",
             dataIndex: 'iorder'
            },
@@ -245,6 +245,8 @@
         this.$refs.modalForm.add1(this.iteamworkId,this.steamworkName,this.iversion);
       },
       edit(record) {
+        console.log(record)
+        console.log(typeof(record.iorder)  );
         this.$refs.modalForm.edit1(record);
       },
       handleOk() {

@@ -197,6 +197,7 @@
         departTree: [],
         rightClickSelectedKey: '',
         hiding: true,
+        record: [],
         model: {},
         dropTrigger: '',
         depart: {},
@@ -367,13 +368,13 @@
       onSelect(selectedKeys, e) {
         console.log('selected', selectedKeys, e)
         this.hiding = false
-        let record = e.node.dataRef
-        console.log('onSelect-record', record)
-        this.currSelected = Object.assign({}, record)
+        this.record = e.node.dataRef
+        console.log('onSelect-record', this.record)
+        this.currSelected = Object.assign({}, this.record)
         this.model = this.currSelected
-        this.selectedKeys = [record.key]
-        this.model.parentId = record.parentId
-        this.setValuesToForm(record)
+        this.selectedKeys = [this.record.key]
+        this.model.parentId = this.record.parentId
+        this.setValuesToForm(this.record)
 
 
       },
@@ -428,6 +429,7 @@
         // console.log(this.mobile);
 
         this.form.resetFields()
+        this.setValuesToForm(this.record)
       },
       nodeSettingFormSubmit() {
         this.form.validateFields((err, values) => {
