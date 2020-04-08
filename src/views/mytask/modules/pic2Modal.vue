@@ -188,13 +188,7 @@
 
 
         if (!flag) {
-          console.log('------------------------------->>.')
           this.scrHeight = window.innerHeight - 320 + 'px'
-        }
-        // document.getElementById("content").click()
-        if (this.num == 0) {
-          this.num=1
-          this.quit()
         }
 
       },

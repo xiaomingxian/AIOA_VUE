@@ -44,8 +44,8 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>
-          <!--          <a-input-number v-decorator="[ 'iorder', validatorRules.iorder]"/>-->
+          <!--          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>-->
+          <a-input-number v-model="iorder" :min="1" :max="100"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -141,6 +141,7 @@
         ids: '',
         title: "操作",
         visible: false,
+        iorder: 0,
         model: {},
         labelCol: {
           xs: {span: 24},
@@ -239,6 +240,7 @@
       edit(record) {
         this.form.resetFields();
         this.userId = record.iid;
+        this.iorder = record.iorder
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
@@ -401,6 +403,7 @@
             formData.ibusModelId = this.selectedModel;
             formData.ibusFunctionId = this.selectedFunction;
             formData.ibusUnitId = this.selectedUnit;
+            formData.iorder = this.iorder;
             formData.selecteddeparts = this.userDepartModel.departIdList.length > 0 ? this.userDepartModel.departIdList.join(",") : '';
             httpAction(httpurl, formData, method).then((res) => {
               if (res.success) {
