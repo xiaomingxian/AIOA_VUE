@@ -276,7 +276,7 @@
         //初始换日程对象列表
         this. initialUserList();
         const  userinfo =JSON.parse( localStorage.getItem('userdata')).userInfo;
-        console.log(userinfo);
+        // console.log(userinfo);
         this.userinfo = userinfo;
       },
       methods: {
@@ -302,7 +302,7 @@
           this.$refs.modalForm.dayAnnalysis(data);
         },
         delstitle(e){
-          console.log(e);
+          // console.log(e);
           this.mystitltid = e.iid;
           this.visibleDel = true;
         },
@@ -314,20 +314,20 @@
         initialUserList() {
           let url = "/oaBus/busFunctionPermit/userList";
           getAction(url).then((res) => {
-            console.log(res.result);
+            // console.log(res.result);
             this.userList = res.result;
           })
         },
         //获取所选人员列表
         getSelectUserLists(userlists){
-          console.log(userlists.toString());
+          // console.log(userlists.toString());
           this.userlistid = userlists.toString();
         },
         //父页面点击查看更多时  调用此方法
         showTableDetail(type,newTime){
 
-          console.log(type);
-          console.log(newTime);
+          // console.log(type);
+          // console.log(newTime);
           this.ListsType = type;
           this.visible = true;
 
@@ -435,7 +435,7 @@
                 dataIndex: 'screateBy'
               },
             ];
-            console.log('=========================================',this.columns);
+            // console.log('=========================================',this.columns);
 
             this.title = '领导日程详情';
           }else if(this.ListsType==1){
@@ -668,13 +668,13 @@
         },
         handleModelOk(){
           deleteAction(this.url.delete,{id:this.mystitltid,sCreateBy:this.userinfo.username}).then((res) => {
-            console.log(res+"/////////////////");
+            // console.log(res+"/////////////////");
             if(res.success){
               this.visible = true;
               this.visibleDel = false;
 
               getAction(this.url.list,{username:this.userinfo.username}).then((res) => {
-                console.log(res);
+                // console.log(res);
                 this.dataSource = res.result.records;
                 this.pagination.total = res.result.total;
 
@@ -697,7 +697,7 @@
           this.visible = false;
         },
         getSearchType(e){
-          console.log(e);
+          // console.log(e);
           this.searchTypeVal = e;
           switch (e) {
             case 0:
@@ -723,8 +723,8 @@
         },
         //----------------时间变化检测---------------
         selectTime(e,t){
-          console.log(e);
-          console.log(t);
+          // console.log(e);
+          // console.log(t);
           // //此处确定时间为  单项选择开始、单项结束时间、双向时间段选择提供服务   判断 this.searchTypeVal  确定是那种状态
           // if(this.searchTypeVal===2||this.searchTypeVal===3){
           //   console.log(e._d);
@@ -754,7 +754,7 @@
         },
       //  -------------开始查询-------------
         subSearch(){
-          console.log(this.searchTypeVal);
+          // console.log(this.searchTypeVal);
 
           //----------------判断列表类型  领导日程 我的日程  共享日程---------------
           if(this.ListsType==0){
@@ -1031,9 +1031,9 @@
         },
         //  领导日程
         findLeaderFuc(subData={more:1}){
-            console.log(subData);
+            // console.log(subData);
           getAction(this.url.findByLeader,subData).then((res) => {
-            console.log(res);
+            // console.log(res);
             this.dataSource = res.result.records;
             this.pagination.total = res.result.total
 
@@ -1041,10 +1041,10 @@
         },
         //  我的日程
         myListsFuc(subData={username:this.userinfo.username,more:1}){
-          console.log(subData);
+          // console.log(subData);
           getAction(this.url.list,subData).then((res) => {
 
-            console.log(res);
+            // console.log(res);
             this.dataSource = res.result.records;
             this.pagination.total = res.result.total
 
@@ -1053,25 +1053,25 @@
       //  共享日程
         pulicListsFuc(subData={more:1}){
           getAction(this.url.queryPageList,subData).then((res) => {
-            console.log(res);
+            // console.log(res);
             this.dataSource = res.result.records;
             this.pagination.total = res.result.total
-            console.log(this.total);
+            // console.log(this.total);
           });
         },
 
         //分页切换
         handleTableChange(pagination){
           // alert(e.current)
-          console.log(pagination);
+          // console.log(pagination);
           const pager = {...this.pagination};
           pager.current = pagination.current;
           this.pagination = pager;
-          console.log(pager);
+          // console.log(pager);
           if(this.ListsType==0){
             //领导日程
             getAction(this.url.findByLeader,{pageNo:this.pagination.current,pageSize:10,more:1}).then((res) => {
-              console.log(res);
+              // console.log(res);
               this.dataSource = res.result.records;
               this.pagination.total = res.result.total
 
@@ -1079,17 +1079,17 @@
           }else if(this.ListsType==1){
             //  我的日程
             getAction(this.url.list,{username:this.userinfo.username,pageNo:this.pagination.current,pageSize:10,more:1}).then((res) => {
-              console.log(res);
+              // console.log(res);
               this.dataSource = res.result.records;
               this.pagination.total = res.result.total
 
             });
           }else{
             getAction(this.url.queryPageList,{pageNo:this.pagination.current,pageSize:10,more:1}).then((res) => {
-              console.log(res);
+              // console.log(res);
               this.dataSource = res.result.records;
               this.pagination.total = res.result.total
-              console.log(this.total);
+              // console.log(this.total);
             });
           }
         }
