@@ -18,7 +18,7 @@
           label="名称"
           :hidden="false"
           hasFeedback>
-          <a-input id="departName" placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'},{ min: 0, max: 10, message: '长度在 0 到 10 个字符', trigger: 'blur'  }]}]"/>
+          <a-input id="departName" maxLength="100" placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'}]}]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -57,19 +57,20 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="地址">
-          <a-input placeholder="请输入地址" v-decorator="['address', {}]"/>
+          <a-input placeholder="请输入地址" maxLength="100" v-decorator="['address', {}]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="排序">
-          <a-input-number v-decorator="[ 'departOrder',{'initialValue':0}]"/>
+          <!--<a-input-number v-decorator="[ 'departOrder',{'initialValue':0}]"/>-->
+          <a-input placeholder="请输入顺序" maxLength="10" v-decorator="[ 'departOrder', {rules:[{required:false ,message:'请输入排序号!'},{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="备注">
-          <a-textarea placeholder="请输入备注" v-decorator="['memo', {}]"/>
+          <a-textarea placeholder="请输入备注" maxLength="500" v-decorator="['memo', {}]"/>
         </a-form-item>
 
       </a-form>

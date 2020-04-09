@@ -135,7 +135,7 @@
       this.loading = true;
       // 初始化任务类型
       getAction(this.url.selectTaskType).then(res => {
-        console.log(res.result);
+        // console.log(res.result);
         this.parentsData = res.result;
         //初始化 ModelId   FunctionId
         this.ModelId = res.result[0].modelid;
@@ -191,16 +191,16 @@
       },
 
       selectTaskType(e, index) {
-        console.log(e);
+        // console.log(e);
         this.ModelId = e;
-        console.log(index);
+        // console.log(index);
         this.parentIndex = index;
         this.getTaskData(e);
         this.loading = true;
 
       },
       selectTaskDetail(e, index) {
-        console.log(e);
+        // console.log(e);
         this.FunctionId = e;
         this.childIndex = index;
 

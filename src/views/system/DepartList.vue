@@ -98,25 +98,25 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序号!'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur'  },{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
+            <a-input placeholder="请输入排序" maxLength="10" v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序号!'},{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="手机号">
-            <a-input placeholder="请输入手机号" v-decorator="['mobile', {rules:[{required:false ,message:'请输入手机号!'},{pattern: new RegExp(/^1[3|4|5|7|8][0-9]\d{8}$/), message: '请输入正确格式的手机号'}] }]"/>
+            <a-input placeholder="请输入手机号" maxLength="32" v-decorator="['mobile', {rules:[{required:false ,message:'请输入手机号!'},{pattern: new RegExp(/^1[3|4|5|7|8][0-9]\d{8}$/), message: '请输入正确格式的手机号'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="地址">
-            <a-input placeholder="请输入地址" v-decorator="['address', {'initialValue':''}]"/>
+            <a-input placeholder="请输入地址" maxLength="100" v-decorator="['address', {'initialValue':''}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="备注">
-            <a-textarea placeholder="请输入备注" v-decorator="['memo', {rules:[{required:false ,message:'请输入备注!'},{ min: 0, max: 500, message: '长度在 0 到 500 个字符', trigger: 'blur'  }] }]"/>
+            <a-textarea placeholder="请输入备注" maxLength="500" v-decorator="['memo', {rules:[{required:false ,message:'请输入备注!'}] }]"/>
           </a-form-item>
         </a-form>
         <div class="anty-form-btn">
@@ -197,6 +197,7 @@
         departTree: [],
         rightClickSelectedKey: '',
         hiding: true,
+        record: [],
         model: {},
         dropTrigger: '',
         depart: {},
@@ -367,13 +368,13 @@
       onSelect(selectedKeys, e) {
         console.log('selected', selectedKeys, e)
         this.hiding = false
-        let record = e.node.dataRef
-        console.log('onSelect-record', record)
-        this.currSelected = Object.assign({}, record)
+        this.record = e.node.dataRef
+        console.log('onSelect-record', this.record)
+        this.currSelected = Object.assign({}, this.record)
         this.model = this.currSelected
-        this.selectedKeys = [record.key]
-        this.model.parentId = record.parentId
-        this.setValuesToForm(record)
+        this.selectedKeys = [this.record.key]
+        this.model.parentId = this.record.parentId
+        this.setValuesToForm(this.record)
 
 
       },
@@ -428,6 +429,7 @@
         // console.log(this.mobile);
 
         this.form.resetFields()
+        this.setValuesToForm(this.record)
       },
       nodeSettingFormSubmit() {
         this.form.validateFields((err, values) => {

@@ -121,6 +121,12 @@
                              :isShowFile="isShowFile"
                              :detailList="detailList" :busFunction="busFunction" :optionMap="optionMap"
                              @isPublish="isPublish" :publishData="publishData" @validDate="validDate"></electronic-file>
+
+            <!--视频管理-->
+           <video-manage-file  v-if="pageRef == 'videoManageFile'" ref="videoManageFile" :backDataRef="backData"
+                               :isShowFile="isShowFile"
+                               :detailList="detailList" :busFunction="busFunction" :optionMap="optionMap"
+                               @isPublish="isPublish" :publishData="publishData" @validDate="validDate"></video-manage-file>
             <!-- 请假申请-->
             <synthesize-file v-if="pageRef == 'synthesizeFile'" ref="synthesizeFile" :backDataRef="backData"
                              @getBackData="getBackData" :optionMap="optionMap"
@@ -229,6 +235,7 @@
   import videoMeet from "./videoMeet";
   import passportHand from "./passportHand";
   import lanAccess from "./lanAccess";
+  import VideoManageFile from "./videoManageFile";
 
 
   export default {
@@ -237,6 +244,7 @@
     mixins: [JeecgListMixin],
     components: {
       sealFile,
+      VideoManageFile,
       lanAccess,
       electricEquipment,
       electricRoom,
@@ -1133,6 +1141,8 @@
       getOaFileList(tableName, busDataId) {
         this.$refs[this.pageRef].getOaFiles(tableName, busDataId);
         this.$refs[this.pageRef].getBanWenFiles(tableName, busDataId);
+        this.$refs[this.pageRef].getVideoFiles(tableName, busDataId);
+
       },
       downFiles() {
         this.$refs[this.pageRef].downAllFiles();
@@ -1174,6 +1184,15 @@
     /deep/ .ant-card-body {
       padding: 0 !important;
     }
+  }
+
+  /deep/.hoverred{
+    /*display: inline-block;*/
+    max-width: 450px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 25.9999px;
   }
 
   .hoverred:hover {

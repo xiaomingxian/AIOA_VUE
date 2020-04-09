@@ -159,8 +159,8 @@
         id:userinfo.id
       }
 
-      console.log(userinfo)
-      console.log(this.defaultUser)
+      // console.log(userinfo)
+      // console.log(this.defaultUser)
       this.username = userinfo.username;
       this.userRealName =  userinfo.realname;
 
@@ -219,14 +219,14 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          console.log(this.model.suserNames)
+          // console.log(this.model.suserNames)
 
           this.form.setFieldsValue(pick(this.model,'stitle','iid','suserId','suserNames','saddress','iisTop','iisLeader','iremindType','iopenType','dStartTime','dEndTime','screateBy','ibusModelId','ibusFunctionId','ifunDataId'))
           //时间格式化
           this.form.setFieldsValue({dStartTime:this.model.dStartTime?moment(this.model.dStartTime):null})
           this.form.setFieldsValue({dEndTime:this.model.dEndTime?moment(this.model.dEndTime):null})
           this.form.setFieldsValue({suserNames:this.model.suserNames})
-          console.log(this.model.suserNames)
+          // console.log(this.model.suserNames)
           // this.form.setFieldsValue({suserNames:this.model.suserNames.substring(0,this.model.suserNames.lastIndexOf(',')).split(',')})
         //  this.form.setFieldsValue({suserNames:this.model.suserNames})
         });
@@ -234,16 +234,16 @@
       },
       //获取开始时间
       getStartTime(a){
-        console.log(a._d);
+        // console.log(a._d);
 
         let startTimeStemp = new Date(a._d).getTime();
-        console.log(startTimeStemp)
+        // console.log(startTimeStemp)
         this.startTimeStemp = startTimeStemp;
         this.model.dStartTime = a._d;;
       },
       //获取结束时间
       getEndTime(a){
-        console.log(a._d);
+        // console.log(a._d);
 
         let endTimeStemp = new Date(a._d).getTime();
         this.endTimeStemp = endTimeStemp;
@@ -331,7 +331,7 @@
         let M = date1.getMonth()+1;
         let D = date1.getDate();
         let newTime = Y+'-'+(M<10? "0"+M :M)+"-"+(D<10? "0"+D:D)+" "+date1.toTimeString().substr(0,8);
-        console.log(newTime);
+        // console.log(newTime);
         return newTime;
       }
 

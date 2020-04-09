@@ -65,17 +65,17 @@
           roleName:{
             rules: [
               { required: true, message: '请输入角色名称!' },
-              { min: 2, max: 30, message: '长度在 2 到 30 个字符', trigger: 'blur' }
+              { min: 2, max: 200, message: '长度在 2 到 200 个字符', trigger: 'blur' }
             ]},
           roleCode:{
             rules: [
               { required: true, message: '请输入角色编码!'},
-              { min: 0, max: 64, message: '长度不超过 64 个字符', trigger: 'blur' },
+              { min: 0, max: 100, message: '长度不超过 100 个字符', trigger: 'blur' },
               { validator: this.validateRoleCode}
             ]},
           description:{
             rules: [
-              { min: 0, max: 126, message: '长度不超过 126 个字符', trigger: 'blur' }
+              { min: 0, max:255, message: '长度不超过 255 个字符', trigger: 'blur' }
             ]}
         },
       }
