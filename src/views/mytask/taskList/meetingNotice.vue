@@ -254,7 +254,6 @@
           s_dept_name: "",
           s_taskdef_key: ""
         },
-        oaFileList: [],    //  文档数据   字段含义
         //表中的数据相关值
         jeditShow: false,   //富文本编辑器的内容的value值
         jeditor: {

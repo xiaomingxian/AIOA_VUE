@@ -585,7 +585,6 @@ export const busdataTemplate = {
 
       let checkList = this.optionMap.checkList;
       let regulars = this.optionMap.regulars;
-      console.log(regulars)
       let flag = false;
       //let message = "红色区域为必填业务，请录入！";
       if (checkList != undefined && checkList.length > 0) {
