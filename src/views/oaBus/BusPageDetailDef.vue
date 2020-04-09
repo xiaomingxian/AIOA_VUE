@@ -34,15 +34,16 @@
         <div style="padding-left:20px;" class="table-operator">
           <h3>自定义列名</h3>
         </div>
+        <!--:pagination="ipagination1"-->
         <a-table
           ref="table"
           size="middle"
           bordered
-
+          :pagination=false
           rowKey="index"
           :columns="columns1"
           :dataSource="dataSource1"
-          :pagination="ipagination1"
+
           :loading="loading"
           @change="handleTableChange">
         <span slot="action" slot-scope="text, record">
@@ -72,7 +73,7 @@
             rowKey="index"
             :columns="columns"
             :dataSource="dataSource2"
-            :pagination="ipagination2"
+            :pagination=false
             :loading="loading">
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
@@ -180,14 +181,14 @@
         dataSource2: [],
         dataSource1: [],
         ipagination1: {
-          current: 1,
           pageSize: 100,
+          /*current: 1,
           showTotal: (total, range) => {
             return range[0] + "-" + range[1] + " 共" + total + "条"
           },
           showQuickJumper: true,
           showSizeChanger: true,
-          total: 0
+          total: 0*/
         },
         ipagination2: {
           current: 1,
