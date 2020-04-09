@@ -87,6 +87,16 @@ export const busdataTemplate = {
           this.deleteFile(param, type);
         }
       }
+      if (type == 8) {
+        if (this.videoList.length == 1) {
+          this.deleteFile(param, type);
+          //是否有附件状态修改 1 是 0 否
+          postAction('/oaBus/dynamic/updateData', isFile).then(res => {
+          })
+        } else {
+          this.deleteFile(param, type);
+        }
+      }
     },
     //附件-向上
     topFile(item, index, type) {
@@ -109,6 +119,16 @@ export const busdataTemplate = {
           param.iorder2 = this.banWenFileList[index - 1].iorder;
           postAction("/oaBus/oaFile/sortFile", param).then(res => {
             this.getBanWenFiles(this.backData.table, this.backData.i_id);
+          })
+        }
+        if (type == 8) {
+          let param = {};
+          param.id1 = item.iid;
+          param.iorder1 = item.iorder;
+          param.id2 = this.videoList[index - 1].iid;
+          param.iorder2 = this.videoList[index - 1].iorder;
+          postAction("/oaBus/oaFile/sortFile", param).then(res => {
+            this.getVideoFiles(this.backData.table, this.backData.i_id);
           })
         }
 
@@ -142,12 +162,25 @@ export const busdataTemplate = {
         }
       }
 
+      if (type == 8) {
+        let param = {};
+        param.id1 = item.iid;
+        param.iorder1 = item.iorder;
+        param.id2 = this.videoList[index + 1].iid;
+        param.iorder2 = this.videoList[index + 1].iorder;
+        postAction("/oaBus/oaFile/sortFile", param).then(res => {
+          this.getVideoFiles(this.backData.table, this.backData.i_id);
+        })
+      }
+
     },
 
     //刷新附件列表
     reloadAfterUpdate() {
       this.getOaFiles(this.backData.table, this.backData.i_id);
-      this.getBanWenFiles(this.backData.table, this.backData.i_id)
+      this.getBanWenFiles(this.backData.table, this.backData.i_id);
+      this.getVideoFiles(this.backData.table, this.backData.i_id);
+
     },
 
     //公共调用-删除附件
@@ -159,6 +192,9 @@ export const busdataTemplate = {
         }
         if (type == 6) {
           this.getBanWenFiles(this.backData.table, this.backData.i_id);
+        }
+        if (type == 8) {
+          this.getVideoFiles(this.backData.table, this.backData.i_id);
         }
       })
     },
@@ -395,6 +431,13 @@ export const busdataTemplate = {
         this.banWenFileList = res.result;
       })
     },
+    //获取视频文件列表
+    getVideoFiles(tableName, busDataId) {
+      getAction(this.url.queryBanWenList,
+        {tableName: tableName, busDataId: busDataId, sFileType: 8}).then(res => {
+        this.videoList = res.result;
+      })
+    },
     //下载所有附件
     downAllFiles() {
       let config = {
@@ -542,7 +585,6 @@ export const busdataTemplate = {
 
       let checkList = this.optionMap.checkList;
       let regulars = this.optionMap.regulars;
-      console.log(regulars)
       let flag = false;
       //let message = "红色区域为必填业务，请录入！";
       if (checkList != undefined && checkList.length > 0) {

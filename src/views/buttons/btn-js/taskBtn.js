@@ -2171,6 +2171,13 @@ export const taskBth = {
         this.$message.error("该业务暂不支持预览！")
       }
     },
+
+    //视频上传
+    videoUpload:function(){
+      this.$refs.videoModalForm.show(this.backData);
+      this.$refs.videoModalForm.title = "视频上传";
+      this.$refs.videoModalForm.disableSubmit = false;
+    },
 //日期格式化
     dateFormat(date) {
       let date1 = new Date(date);

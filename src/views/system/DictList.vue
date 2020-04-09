@@ -47,6 +47,13 @@
               return className;
           }"
       >
+
+        <template slot="description" slot-scope="text, record">
+
+          <span style="display: inline-block;text-overflow: ellipsis;overflow: hidden !important;white-space: nowrap;width:250px;">{{ record.description }}</span>
+
+        </template>
+
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">
             <a-icon type="edit"/>
@@ -114,6 +121,8 @@
             title: '描述',
             align: "center",
             dataIndex: 'description',
+            width: '30%',
+            scopedSlots: {customRender: 'description'},
           },
           {
             title: '操作',
@@ -196,4 +205,12 @@
 </script>
 <style scoped>
   @import '~@assets/less/common.less'
+
+  .col-sql{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 </style>

@@ -181,6 +181,11 @@
           iBusModelId: this.backData.i_bus_model_id,
         };
         postAction(this.url.sendMeetingInform, json).then((res) => {
+          if (res.success){
+            this.$message.success("发送通知成功")
+          } else {
+            this.$message.warning("发送通知失败")
+          }
         });
       },
     }

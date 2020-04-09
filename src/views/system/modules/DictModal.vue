@@ -16,7 +16,7 @@
           :wrapperCol="wrapperCol"
           label="字典名称">
           <!--<a-input placeholder="请输入字典名称" v-decorator="[ 'dictName', {rules: [{ required: true, message: '请输入字典名称!'},{min:0, max:20, message: '长度在0到20个字符', tarigger:'blur'}] ] @blur="dictNameChange"/>  /^[0-9a-zA-Z]*$/g   -->
-          <a-input placeholder="请输入字典名称" v-decorator="['dictName', {rules:[{required:true,message:'请输入字典名称！！！'},{ min: 0, max: 20, message: '长度在 0 到 20 个字符', trigger: 'blur' },]}]" />
+          <a-input maxLength="100" placeholder="请输入字典名称" v-decorator="['dictName', {rules:[{required:true,message:'请输入字典名称！！！'}]}]" />
         </a-form-item>
 
 
@@ -25,14 +25,15 @@
           :wrapperCol="wrapperCol"
           label="字典编码">
           <!--<a-input placeholder="请输入字典编码" v-decorator="[ 'dictCode', validatorRules.dictCode]" @blur="dictCodeChange" ,{pattern: new RegExp(/^[A-Za-z0-9_]\d*$/), message: '请输入数字或字母或_！'} />-->
-          <a-input placeholder="请输入字典编码" v-decorator="['dictCode', {rules:[{required:true,message:'请输入字典编码！！！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+          <a-input maxLength="100" placeholder="请输入字典编码" v-decorator="['dictCode', {rules:[{required:true,message:'请输入字典编码！！！'}]}]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-input v-decorator="[ 'description', {rules:[{required:true,message:'请输入描述！！！'},{ min: 0, max: 40, message: '长度在 0 到 40 个字符', trigger: 'blur'  }] }]" />
+          <a-textarea placeholder="请输入备注" maxLength="255" v-decorator="['description', {rules:[{required:false ,message:'请输入备注!'}] }]"/>
+          <!--<a-input maxLength="255" v-decorator="[ 'description', {rules:[{required:true,message:'请输入描述！！！'}] }]" />-->
         </a-form-item>
 
       </a-form>
