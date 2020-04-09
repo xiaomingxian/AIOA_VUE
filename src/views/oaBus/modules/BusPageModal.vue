@@ -4,6 +4,7 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
+    destroyOnClose="true"
     @ok="handleUpload"
     @cancel="handleCancel"
     cancelText="关闭">
@@ -46,7 +47,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="管理视频文件">
-            <a-radio-group  :defaultValue="0" v-decorator="['iisVideo', {}]">
+            <a-radio-group :defaultValue="0"  v-decorator="['iisVideo', {}]">
               <a-radio :value="1">是</a-radio>
               <a-radio :value="0">否</a-radio>
             </a-radio-group>

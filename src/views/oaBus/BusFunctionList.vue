@@ -16,7 +16,22 @@
               </a-select>
             </a-form-item>
           </a-col>
-          <template v-if="toggleSearchStatus">
+          <a-col :md="6" :sm="8">
+            <a-form-item label="业务名称">
+              <a-input placeholder="请输入业务名称" v-model="queryParam.sName"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :md="7" :sm="8">
+            <a-form-item label="业务所属机构">
+              <!--<a-input placeholder="请输入业务类别" v-model="queryParam.iId" v-decorator="[ 'ibusModelId', {}]"></a-input>-->
+              <a-select v-model="queryParam.unitId">
+                <a-select-option v-for="(item,index) in unitList" :key="index" :value="item.id">
+                  {{item.departName}}
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+          </a-col>
+         <!-- <template v-if="toggleSearchStatus">
             <a-col :md="6" :sm="8">
               <a-form-item label="业务名称">
                 <a-input placeholder="请输入业务名称" v-model="queryParam.sName"></a-input>
@@ -24,7 +39,7 @@
             </a-col>
             <a-col :md="7" :sm="8">
               <a-form-item label="业务所属机构">
-                <!--<a-input placeholder="请输入业务类别" v-model="queryParam.iId" v-decorator="[ 'ibusModelId', {}]"></a-input>-->
+                &lt;!&ndash;<a-input placeholder="请输入业务类别" v-model="queryParam.iId" v-decorator="[ 'ibusModelId', {}]"></a-input>&ndash;&gt;
                 <a-select v-model="queryParam.unitId">
                   <a-select-option v-for="(item,index) in unitList" :key="index" :value="item.id">
                     {{item.departName}}
@@ -42,7 +57,7 @@
                 <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
               </a>
             </span>
-          </a-col>
+          </a-col>-->
 
         </a-row>
       </a-form>
@@ -56,22 +71,23 @@
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
         selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
-
+      </div>-->
+      <!--
+        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+      -->
       <a-table
         ref="table"
         size="middle"
         bordered
-        rowKey="iid"
         :columns="columns"
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -91,8 +107,10 @@
           <a-divider type="vertical"/>
           <a @click="handleUnit(record)">数据查看权限</a>
           <a-divider type="vertical"/>-->
-
-          <a-dropdown>
+          <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
+                  <a>删除</a>
+          </a-popconfirm>
+          <!--<a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down"/></a>
             <a-menu slot="overlay">
               <a-menu-item>
@@ -101,7 +119,7 @@
                 </a-popconfirm>
               </a-menu-item>
             </a-menu>
-          </a-dropdown>
+          </a-dropdown>-->
         </span>
 
       </a-table>
@@ -181,6 +199,7 @@
             title: '左侧参数',
             align: "center",
             dataIndex: 'sbusLeftParameter',
+            //ellipsis: true,
 
           },
           {
