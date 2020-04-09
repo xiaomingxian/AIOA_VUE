@@ -168,7 +168,7 @@
 
 
 
-        let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{4,19})$/
+        let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
         if (!keyReg.test(this.bpmn.key)) {
           if ((this.bpmn.key).length > 20) {
             this.$message.error('您输入的key长度过长')
@@ -181,7 +181,7 @@
           this.$message.error('您输入的key不合法请检查')
           return
         }
-        let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{4,19})$/
+        let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{2,19})$/
         if (!nameReg.test(this.bpmn.name)) {
 
           if ((this.bpmn.name).length > 20) {
