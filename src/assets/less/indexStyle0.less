@@ -768,6 +768,9 @@
           display: flex;
           align-items: center;
           justify-content: flex-start;
+          /deep/.ant-tabs-bar{
+            margin-bottom: 10px !important;
+          }
         }
 
         .more{
@@ -962,11 +965,13 @@
 
     .top{
       width: 90%;
-      height: 38%;
+      height: 14%;
       display: flex;
       align-items: center;
       border-top: 1px solid #999999;
       margin: 0 auto;
+      position: absolute;
+      top: 87%;
       span{
         position: relative;
         left: -4px;

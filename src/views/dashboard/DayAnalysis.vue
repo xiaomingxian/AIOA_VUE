@@ -194,62 +194,76 @@
             <div class="daiban">
               <div class="titlebox">
                 <div class="div8">
-                      <span @click="doWill(0)" class="firstspan"  :style="willdoindex==0?'color:#333333':' color:#999999 !important'">
-                       <span class="shuline"></span>
-                       <span>待办工作</span>
-                       <b v-if="total"> {{total}}</b>
-                      </span>
-                  <span v-if="this.model1">|</span>
-                  <span @click="doWill(1)"  class="secondspan" :style="willdoindex==1?'color:#333333':'color: #999999;!important'" >
-                       <span>{{this.model1}}</span>
-                       <b style=""  v-if="total1"> {{total1}}</b>
-                       </span>
-                </div>
-                <span class="more" @click="openmore1(willdoindex)"> 更多  <a-icon type="plus"></a-icon> </span>
-              </div>
+                  <template>
+                    <a-tabs defaultActiveKey="1" style="width: 95%;  position: absolute;top: -7px;">
+                      <a-tab-pane key="1">
+                        <span slot="tab" @click="doWill(0)">
 
+                          <span class="shuline"></span>
+                          待办任务
+                          <b v-if="total"> {{total}}</b>
+                        </span>
+                        <div class="itemline">
+                          <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index"
+                               @click="openDetialModelTaskToDo(item)"
+                               :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
+                            <div class="p">
+                              <template v-if="willdoindex==0">
+                                <p>
+                                  <i></i>
+                                  <span :title="item.title+'   '+item.createTime">
+                <span :style="iisFontSize">{{item.title|filterText1}}
+                  <div v-if="item.important==1">
+                       <img alt="" src="../../assets/zhong.png">
+                  </div>
+                </span>
 
+                </span>
+                                </p>
+                                <span :style="iisFontSize">{{item.createTime|timeText}}</span>
+                              </template>
+                            </div>
+                          </div>
+                          <div v-else>
+                            暂无待办工作
+                          </div>
+                        </div>
+                      </a-tab-pane>
+                      <a-tab-pane key="2">
 
-              <div class="itemline">
-                <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index" @click="openDetialModelTaskToDo(item)"  :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
-                  <div class="p">
-
-                    <template v-if="willdoindex==0">
-                      <p>
-                        <i></i>
-                        <span :title="item.title+'   '+item.createTime">
-                            <span :style="iisFontSize">{{item.title|filterText1}}
-                              <div v-if="item.important==1">
-                                   <img alt="" src="../../assets/zhong.png">
-                              </div>
-                            </span>
-
-                            </span>
-                      </p>
-                      <span :style="iisFontSize">{{item.createTime|timeText}}</span>
-                    </template>
-
-                    <template v-else>
-                      <p>
+                        <span slot="tab" @click="doWill(1)">
+                          <span>{{this.model1}}</span>
+                               <b style="color: #ffffff;font-weight: 400" v-if="total1"> {{total1}}</b>
+                          </span>
+                        <div class="itemline">
+                          <div class="each" v-if="ModelList" v-for="(item,index) in ModelList" :key="index"
+                               @click="openDetial(tableName,item.i_id)"
+                               :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
+                            <div class="p">
+                              <template v-if="willdoindex==1">
+                                <p>
                               <span :title="item.s_title+'   '+item.d_create_time">
                                <i></i>
-                              <span :style="iisFontSize">  {{item.s_title|filterText1}}
+                              <span>  {{item.s_title|filterText1}}
                                 <div v-if="item.important==1">
-                                   <img src="../../assets/zhong.png" alt="" >
+                                   <img src="../../assets/zhong.png" alt="">
                                 </div>
                               </span>
-
-
                              </span>
-                      </p>
-                      <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
-                    </template>
-
-
-                  </div>
-                </div>
-                <div v-else>
-                  暂无待办工作
+                                </p>
+                                <span>{{item.d_create_time|timeText}}</span>
+                              </template>
+                            </div>
+                          </div>
+                          <div v-else>
+                            暂无工作
+                          </div>
+                        </div>
+                      </a-tab-pane>
+                      <a-button type="primary" @click="openmore1(willdoindex)"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>
+                      <!--<span class="more" @click="openmore1(willdoindex)"> 更多53  <a-icon type="plus"></a-icon> </span>-->
+                    </a-tabs>
+                  </template>
                 </div>
               </div>
               <hr>
@@ -281,6 +295,7 @@
                 </a-select>
               </div>
             </div>
+
           </a-col>
         </a-row>
       </template>
@@ -379,11 +394,13 @@
         newTime:'',
         model1:'',
         model2:'',
+        tableName:'',
         path:'',
         stitleLists:[],//领导日程列表
         mytitleLists:[],//我的日程列表
         publictitleLists:[],//共享日程列表
         findwaitdataLists:[],//待办日程列表
+        ModelList:[],//待办右边模块的列表
         LinkList:[],//常用链接
         userid:'',
         userinfo:'',
@@ -910,6 +927,21 @@
 
 
       },
+      openDetial(tableName, i_id) {
+
+        // alert(taskDetail
+        // this.$refs.detailFile.show(taskDetail)
+
+        let params = {tableName: tableName, busdataId: i_id};
+
+        this.$store.commit('pushNewDetial', params)
+        // console.log(this.$store.state.postDetialLists);
+
+        // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
+        window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + i_id + '&navisshow=false')
+        // this.$router.push({path:'/mytask/taskList/Test-detailFile',query:params})
+
+      },
       //动态模块儿  业务详情
       openDetialModel(tableName,i_id){
 
@@ -1149,8 +1181,9 @@
           this.model1 = res.model1.sName;
           this.path = res.model1.url
           this.model2 = res.model2.sName;
+          this.tableName=res.model2.sName;
           this.total1 = res.model1.list.length
-          this.findwaitdataLists = res.model1.list.splice(0,5);
+          this.ModelList = res.model1.list.splice(0,5);
           this.model2Lists = res.model2.list;
 
           if(this.willdoindex == 0){//如果是待办任务才会调用此方法
