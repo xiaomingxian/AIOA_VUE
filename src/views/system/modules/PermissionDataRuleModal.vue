@@ -15,26 +15,26 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="规则名称">
-          <a-input placeholder="请输入规则名称" v-decorator="['ruleName', {rules:[{required:true,message:'请输入规则名称！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur'  }] }]"/>
+          <a-input placeholder="请输入规则名称" maxlength="50" v-decorator="['ruleName', {rules:[{required:true,message:'请输入规则名称！'}] }]"/>
         </a-form-item>
         <a-form-item
           v-show="showRuleColumn"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="规则字段">
-          <a-input placeholder="请输入规则字段" v-decorator="['ruleColumn', {rules:[{required:true,message:'请输入规则字段！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur'  }] }]"/>
+          <a-input placeholder="请输入规则字段" maxlength="50" v-decorator="['ruleColumn', {rules:[{required:true,message:'请输入规则字段！'}] }]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="条件规则">
-          <j-dict-select-tag @change="handleChangeRuleCondition" v-decorator="['ruleConditions', validatorRules.ruleConditions]" placeholder="请输入条件规则" :triggerChange="true" dictCode="rule_conditions"/>
+          <j-dict-select-tag @change="handleChangeRuleCondition" maxlength="50" v-decorator="['ruleConditions', validatorRules.ruleConditions]" placeholder="请输入条件规则" :triggerChange="true" dictCode="rule_conditions"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="规则值">
-          <a-input placeholder="请输入规则值" v-decorator="['ruleValue', {rules:[{required:true,message:'请输入规则值！'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }] }]"/>
+          <a-input placeholder="请输入规则值" maxlength="300" v-decorator="['ruleValue', {rules:[{required:true,message:'请输入规则值！'}] }]"/>
         </a-form-item>
 
         <a-form-item
