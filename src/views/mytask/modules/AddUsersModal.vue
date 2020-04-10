@@ -10,7 +10,7 @@
     destroyOnClose
     :okText="okText"
     cancelText="取消">
-    <div id="pic" style="overflow: auto;" :style="{height: scrHeight}">
+    <div id="pic"  :style="{overflow: 'auto',height: scrHeight}">
 
       <a-layout id="components-layout-demo-top-side-2">
         <a-layout>

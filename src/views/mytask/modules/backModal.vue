@@ -10,7 +10,7 @@
     okText="确定"
     cancelText="取消">
 
-    <div style="overflow: auto; position: relative" :style="{height: scrHeight}">
+    <div  :style="{overflow: 'auto',position: 'relative',height: scrHeight}">
 
 
       <a-layout id="components-layout-demo-top-side-2">

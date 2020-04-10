@@ -57,16 +57,19 @@
           <a @click="handleEditMy(record)">编辑</a>
 
           <a-divider type="vertical"/>
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down"/></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
                 <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
                   <a>删除</a>
                 </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+          <!--<a-dropdown>-->
+          <!--<a class="ant-dropdown-link">更多 <a-icon type="down"/></a>-->
+          <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item>-->
+          <!--<a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">-->
+          <!--<a>删除</a>-->
+          <!--</a-popconfirm>-->
+          <!--</a-menu-item>-->
+          <!--</a-menu>-->
+          <!--</a-dropdown>-->
         </span>
 
         </a-table>
@@ -240,11 +243,11 @@
         this.visible = false;
       },
       handleAddMy() {
-        this.$refs.modalForm.title='新增'
+        this.$refs.modalForm.title = '新增'
         this.$refs.modalForm.handleAddMy(this.record)
       },
       handleEditMy(recoder) {
-        this.$refs.modalForm.title='编辑'
+        this.$refs.modalForm.title = '编辑'
         this.$refs.modalForm.handleEditMy(recoder)
       }
 

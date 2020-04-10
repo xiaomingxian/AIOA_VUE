@@ -10,7 +10,7 @@
     okText="关闭">
 
 
-    <div id="pic" style="overflow: auto;" :style="{height: scrHeight}">
+    <div id="pic"  :style="{overflow: 'auto',height: scrHeight}">
 
       <img :src="picurl" style="width:100%" v-if="visible"  @click='showPicFull'/>
 
