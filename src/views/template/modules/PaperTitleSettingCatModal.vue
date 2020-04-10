@@ -2,6 +2,7 @@
   <a-modal
     :title="title"
     :width="800"
+    @cancel="handleCancel"
     :visible="visible">
     <template slot="footer">
       <a-button type="primary" @click.stop="close()">关闭</a-button>

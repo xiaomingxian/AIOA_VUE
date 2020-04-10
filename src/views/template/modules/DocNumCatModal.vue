@@ -3,9 +3,11 @@
     :title="title"
     :width="800"
     :visible="visible"
+    @cancel="handleCancel"
     >
-    <template slot="footer">
-      <a-button type="primary" @click.stop="close()">关闭</a-button>
+  <!--style="margin-right: 10%"-->
+    <template slot="footer" >
+      <a-button  type="primary" @click.stop="close()" >关闭</a-button>
     </template>
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
