@@ -201,7 +201,7 @@
 
                           <span class="shuline"></span>
                           待办任务
-                          <b v-if="total"> {{total}}</b>
+                          <b v-if="total">({{total}})</b>
                         </span>
                         <div class="itemline">
                           <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index"
@@ -233,7 +233,7 @@
 
                         <span slot="tab" @click="doWill(1)">
                           <span>{{this.model1}}</span>
-                               <b style="color: #ffffff;font-weight: 400" v-if="total1"> {{total1}}</b>
+                               <b  v-if="total1">({{total1}})</b>
                           </span>
                         <div class="itemline">
                           <div class="each" v-if="ModelList" v-for="(item,index) in ModelList" :key="index"
