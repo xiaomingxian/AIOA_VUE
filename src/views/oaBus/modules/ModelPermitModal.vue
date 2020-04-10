@@ -112,6 +112,8 @@
     <busModelPermit-modal ref="modalForm"  @submit="getissubmit($event)" @ok="modalFormOk" ></busModelPermit-modal>
     <!--查看-->
     <bus-model-cat-modal ref="catModalFrom"></bus-model-cat-modal>
+
+    <new-task-modal ref="newTaskModel" @ok="modalFormOk"></new-task-modal>
   </a-card>
   </a-modal>
 </template>
@@ -121,6 +123,7 @@
   import BusModelPermitModal from './BusModelPermitModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import { getAction,deleteAction,putAction} from '@/api/manage'
+  import newTaskModal  from '../../mytask/modules/newTaskModal'
 
 
   export default {
@@ -128,7 +131,8 @@
     mixins:[JeecgListMixin],
     components: {
       BusModelPermitModal,
-      BusModelCatModal
+      BusModelCatModal,
+      newTaskModal
     },
     data () {
       return {
@@ -339,6 +343,7 @@
         })
       },
       handleOk(){
+        this.$refs.newTaskModel.Refresh();
         this.showFunPer = false ;
 
       },

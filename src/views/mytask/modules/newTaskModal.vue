@@ -206,6 +206,9 @@
 
         this.$emit('close');
       },
+      Refresh(){
+        this.reload()
+      },
       getTaskData(e,u) {
         //选择任务类型
         getAction(this.url.selectTaskDetail, {modelId: e,userId:u}).then(res => {
@@ -213,7 +216,9 @@
             this.loading = false;
             this.childData = res.result;
             //初始化 ModelId   FunctionId
-            this.FunctionId = res.result[0].functionid;
+            if(res.result.length!=0){
+              this.FunctionId = res.result[0].functionid;
+            }
             // getAction("/sys/user/showUserFunStatus",{userId:this.userId}).then(res =>{
             //   console.log(JSON.stringify(res.result))
             //   this.saveData = res.result;
