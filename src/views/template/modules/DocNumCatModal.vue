@@ -3,12 +3,10 @@
     :title="title"
     :width="800"
     :visible="visible"
-    @ok="handleOk"
-    okText=""
-    :confirmLoading="confirmLoading"
-    @cancel="handleCancel"
-    cancelText="关闭">
-
+    >
+    <template slot="footer">
+      <a-button type="primary" @click.stop="close()">关闭</a-button>
+    </template>
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
         <a-form-item

@@ -2,12 +2,10 @@
   <a-modal
     :title="title"
     :width="800"
-    :visible="visible"
-    :confirmLoading="confirmLoading"
-    @ok="handleOk"
-    @cancel="handleCancel"
-    cancelText="关闭">
-    
+    :visible="visible">
+    <template slot="footer">
+      <a-button type="primary" @click.stop="close()">关闭</a-button>
+    </template>
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
 
