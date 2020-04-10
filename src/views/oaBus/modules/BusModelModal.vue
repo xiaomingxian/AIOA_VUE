@@ -16,7 +16,10 @@
           :wrapperCol="wrapperCol"
           label="序号">
           <!--<a-input-number  :min="0" :max="10000" v-decorator="[ 'iorder', {}]" />-->
-          <a-input  v-decorator="[ 'iorder', {rules:[{ pattern: '^[1-9]\\d{0,3}$', message: '输入0到4位的正整数' }]}]" />
+          <a-input  v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '输入0到4位的非零正整数' }]}]" />
+<!--
+          <a-input  v-decorator="[ 'iorder', {rules:[{validator:validateNum}]}]" />
+-->
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -94,6 +97,21 @@
     created () {
     },
     methods: {
+      validateNum(rule, value, callback){
+        // console.log(typeof(parseInt(value)));
+        // console.log(value);
+        //var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+        var regPos = /^\d{0,4}$/; //非负浮点数
+
+        console.log(regPos.test(value));
+        console.log(String(value).length);
+
+          if(regPos.test(value)&&String(value).length<=4){
+            callback();
+          }else{
+          callback('请输入整数并小于四位数');
+          }
+      },
       //长度校验
       dealLenth(rule, value, callback){
         if (value.length <= 30 ) {
