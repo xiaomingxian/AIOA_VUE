@@ -109,16 +109,16 @@
               { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
             ]},
           sleftParameter:{rules: [
-              { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              { min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
             ]},
           smddleParameter:{rules: [
-              { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              { min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
             ]},
           srightParameter:{rules: [
-              { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              { min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
             ]},
           sotherParameter:{rules: [
-              { min: 1, max: 255, message: '长度在 1 到 255 个字符', trigger: 'blur'}
+              { min: 1, max: 255, message: '长度在 0 到 255 个字符', trigger: 'blur'}
             ]},
         },
         url: {
