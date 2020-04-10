@@ -126,15 +126,15 @@
 
 
         <!--<a-form-item-->
-          <!--:labelCol="labelCol"-->
-          <!--:wrapperCol="wrapperCol"-->
-          <!--label="是否填写完意见就完成任务">-->
-          <!--<a-radio-group buttonStyle="solid" defaultValue="false"-->
-                         <!--v-decorator="['completeTask', {} ]"-->
-                         <!--size="small">-->
-            <!--<a-radio-button value="false">否</a-radio-button>-->
-            <!--<a-radio-button value="true">是</a-radio-button>-->
-          <!--</a-radio-group>-->
+        <!--:labelCol="labelCol"-->
+        <!--:wrapperCol="wrapperCol"-->
+        <!--label="是否填写完意见就完成任务">-->
+        <!--<a-radio-group buttonStyle="solid" defaultValue="false"-->
+        <!--v-decorator="['completeTask', {} ]"-->
+        <!--size="small">-->
+        <!--<a-radio-button value="false">否</a-radio-button>-->
+        <!--<a-radio-button value="true">是</a-radio-button>-->
+        <!--</a-radio-group>-->
         <!--</a-form-item>-->
 
         <div v-show="canRecord">
@@ -150,14 +150,14 @@
           </a-form-item>
 
           <!--<a-form-item-->
-            <!--:labelCol="labelCol"-->
-            <!--:wrapperCol="wrapperCol"-->
-            <!--label="是否使用记录的用户">-->
-            <!--<a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['userRecordVal', {} ]"-->
-                           <!--size="small">-->
-              <!--<a-radio-button value="false">不使用</a-radio-button>-->
-              <!--<a-radio-button value="true">使用</a-radio-button>-->
-            <!--</a-radio-group>-->
+          <!--:labelCol="labelCol"-->
+          <!--:wrapperCol="wrapperCol"-->
+          <!--label="是否使用记录的用户">-->
+          <!--<a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['userRecordVal', {} ]"-->
+          <!--size="small">-->
+          <!--<a-radio-button value="false">不使用</a-radio-button>-->
+          <!--<a-radio-button value="true">使用</a-radio-button>-->
+          <!--</a-radio-group>-->
           <!--</a-form-item>-->
 
 
@@ -199,6 +199,7 @@
         dbtable: '',
         dbactName: {},
         roleScope: [],
+        deptTypes: [],
         depts: [],
         role: [],
         isDept: false,
@@ -265,6 +266,11 @@
           //将可使用记录用户的节点提取出来(单实例)
           this.canUserRecorduser = []
           for (let i of res.result) {
+            //记录部门类型
+            let id = i.id
+            if (i.type == 'subProcess') {
+              this.deptTypes.push(id)
+            }
             if (!i.allowMulti && i.assignee != null) {
               this.canUserRecorduser.push(i)
             }
@@ -291,7 +297,7 @@
         record.recordCurrentuser = record.recordCurrentuser ? 'true' : 'false'
         record.completeTask = record.completeTask ? 'true' : 'false'
         record.isCanAdd = record.isCanAdd ? 'true' : 'false'
-        console.log('::::::',record.signer)
+        console.log('::::::', record.signer)
         record.signer = record.signer ? 'true' : 'false'
         record.isDeptFinish = record.isDeptFinish ? 'true' : 'false'
         record.userRecordVal = record.userRecordVal ? 'true' : 'false'
@@ -309,7 +315,7 @@
         this.visible = true;
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model, 'procDefKey', 'actId', 'actName', 'candidates',
-            'multAssignee','signer', 'roleScope', 'completeTask', 'isCanAdd', 'isDeptFinish',
+            'multAssignee', 'signer', 'roleScope', 'completeTask', 'isCanAdd', 'isDeptFinish',
             'userOrRole', 'depts', 'recordCurrentuser', 'recordKeys', 'userRecordVal'))
           //时间格式化
         });
@@ -360,6 +366,12 @@
             if (formData.recordKeys != undefined && formData.recordKeys != null && formData.recordKeys.length > 0) {
               formData.recordKey = formData.recordKeys.join(",")
             }
+            //TODO 校验是否可以配部门
+            let flag = this.check(formData)
+            if (flag) {
+              return
+            }
+
 
             httpAction(httpurl, formData, method).then((res) => {
               if (res.success) {
@@ -375,6 +387,32 @@
 
           }
         })
+      },
+      check(formData) {
+        if (formData.actName == undefined || formData.actName =='') {
+          this.$message.warning('节点名称不能为空');
+          this.confirmLoading = false;
+          return true
+        }
+        if (formData.candidates == undefined || formData.candidates =='') {
+          this.$message.warning('候选人角色不能为空');
+          this.confirmLoading = false;
+          return true
+        }
+        if (formData.roleScope == undefined || formData.roleScope =='') {
+          this.$message.warning('候选人选择范围不能为空');
+          this.confirmLoading = false;
+          return true
+        }
+        console.log('====>>>>>',this.deptTypes)
+        if (formData.userOrRole == 'dept' && formData.actId != undefined && this.deptTypes.indexOf(formData.actId) < 0) {
+          this.$message.warning('当前环节不支持部门类型配置,请修改');
+          this.confirmLoading = false;
+          return true
+        }
+
+
+        return false
       },
       handleCancel() {
         this.close();
