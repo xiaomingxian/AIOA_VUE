@@ -4,6 +4,7 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
+    destroyOnClose="true"
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭">
@@ -14,19 +15,19 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <a-input-number  v-decorator="[ 'iorder', {}]" />
+          <a-input-number  :min="0" :max="10000" v-decorator="[ 'iorder', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务菜单名称">
-          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{ min: 1, max: 50, message: '长度在 1到 50 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务路径名称">
-          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{ min: 0, max: 30, message: '长度在 0 到 30 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{ min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"

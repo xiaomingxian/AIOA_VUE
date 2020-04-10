@@ -61,10 +61,10 @@
       </a>
       </span>
 
-      <a-menu v-if="saveData != ''" slot="overlay" class="user-dropdown-menu-wrapper" style="background: #d6ebff;padding-bottom: 40px;">
+      <a-menu v-if="saveData" slot="overlay" class="user-dropdown-menu-wrapper" style="background: #d6ebff;padding-bottom: 40px;">
 
        <a-card style="width: 650px;" title="我的收藏" :headStyle="{background:'#d6ebff',fontWeight:'bolder'}">
-          <a-card-grid v-for="(atom,index) in saveData" @click="jumpX(atom)" style="width: 25%;text-align: center;cursor: pointer;"><a-icon type="form"></a-icon><p style="padding-top: 14px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{atom.s_name}}</p></a-card-grid>
+          <a-card-grid v-for="(atom,index) in saveData" @click="jumpX(atom)" style="width: 25%;text-align: center;cursor: pointer;"><a-icon :type="atom.icon"></a-icon><p style="padding-top: 14px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{atom.s_name}}</p></a-card-grid>
         </a-card>
 
       </a-menu>
@@ -118,6 +118,12 @@
     data() {
       return {
        saveData: [],
+       iconList: [
+         {icon:'form'},
+         {icon:'pushpin'},
+         {icon:'star'},
+         {icon:'paper-clip'}
+       ]
       }
     },
     methods: {
@@ -168,6 +174,18 @@
       showUserFun(){
         getAction("/sys/user/showUserFun",{userId:this.userInfo().id}).then(res =>{
           this.saveData = res.result;
+          let num = 0;
+          for(let i = 0;i < this.saveData.length;i++){
+
+              this.saveData[i] = Object.assign(this.saveData[i],this.iconList[num]);
+              if(i % 4 == 0 && i > 0){
+                num++;
+                if(i >= this.saveData.length){
+                  num = 0;
+                }
+              }
+
+          }
         })
       },
       //新建任务

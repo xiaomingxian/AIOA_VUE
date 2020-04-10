@@ -32,11 +32,11 @@
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
         selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      </div>-->
 
       <a-table
         ref="table"
@@ -47,7 +47,7 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -60,8 +60,8 @@
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
           <a @click="permitConfig(record)">拟稿权限</a>
+          <!--<a-dropdown>
           <a-divider type="vertical"/>
-          <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down"/></a>
             <a-menu slot="overlay">
               <a-menu-item>
@@ -70,7 +70,7 @@
                 </a-popconfirm>
               </a-menu-item>
             </a-menu>
-          </a-dropdown>
+          </a-dropdown>-->
         </span>
 
       </a-table>
@@ -117,11 +117,13 @@
           {
             title: '业务菜单名称',
             align: "center",
-            dataIndex: 'sname'
+            dataIndex: 'sname',
+            ellipsis: true,
           },{
             title: '业务参数',
             align: "center",
-            dataIndex: 'senName'
+            dataIndex: 'senName',
+            ellipsis: true,
           },{
             title: '业务分类',
             align: "center",

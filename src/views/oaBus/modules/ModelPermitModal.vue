@@ -333,7 +333,7 @@
         this.showFunPer = true;
         this.ibusModelId = record.iid
         this.sname = record.sname
-        this.title = "权限配置"
+        this.title = "拟稿权限"
         getAction(this.url.list,{ibusmodelId:this.ibusModelId}).then((res)=>{
           this.data=res.result.records;
         })
