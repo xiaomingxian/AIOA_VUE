@@ -1,60 +1,7 @@
 <template>
-  <a-modal :visible="showFunPer"  :title="title" :width="1200" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer"  :title="title" :width="1000" @ok="handleOk" @cancel="handleCancle">
 
-  <a-card :bordered="false">
-   <!-- &lt;!&ndash; 查询区域 &ndash;&gt;
-    <div class="table-page-search-wrapper">
-      <a-form layout="inline">
-        <a-row :gutter="24">
-        <template v-if="toggleSearchStatus">
-
-          <a-col :md="6" :sm="8">
-            <a-form-item label="业务模块id">
-              <a-input placeholder="模块id" v-model="ibusModelId" v-decorator="[ 'ibusmodelId', {}]" ></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="是否可见">
-              <a-select
-                @change="change1"
-                v-decorator="[ 'sDisplay', {}]"
-                placeholder="是否可见"
-                :disabled="disableSubmit">
-                <a-select-option value="0">否</a-select-option>
-                <a-select-option value="1">是</a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="范围类型">
-              <a-select
-                @change="change2"
-                v-decorator="[ 'sPermitType', {}]"
-                placeholder="范围类型"
-                :disabled="disableSubmit">
-                <a-select-option value="0">所有人</a-select-option>
-                <a-select-option value="1">角色</a-select-option>
-                <a-select-option value="2">部门</a-select-option>
-                <a-select-option value="3">人员</a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-col>
-          </template>
-          <a-col :md="6" :sm="8" >
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
-              <a-button type="primary" @click="search(record)" icon="search">查询</a-button>
-              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-              <a @click="handleToggleSearch" style="margin-left: 8px">
-                {{ toggleSearchStatus ? '收起' : '展开' }}
-                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-              </a>
-            </span>
-          </a-col>
-
-        </a-row>
-      </a-form>
-    </div>-->
-
+  <a-card class="findChild" :bordered="false">
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="add"  :disabled="addDisabled" type="primary" icon="plus">新增</a-button>
@@ -360,3 +307,10 @@
     }
   }
 </script>
+<style  lang="less" scoped>
+  .findChild{
+    /deep/.ant-card-body{
+      padding: 0
+    }
+  }
+</style>

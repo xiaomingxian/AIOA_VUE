@@ -1,6 +1,6 @@
 <template>
   <a-modal :visible="showFunPer" :width="1200"  :title="title" @ok="handleOk" @cancel="handleCancle">
-    <a-card :bordered="false">
+    <a-card :bordered="false" class="findChild">
       <div class="table-operator">
         <a-button @click="add"  :disabled="addDisabled" type="primary" icon="plus">新增</a-button>
         <a-dropdown v-if="selectedRowKeys.length > 0">
@@ -328,5 +328,10 @@
     }
   }
 </script>
-<style scoped>
+<style  lang="less" scoped>
+  .findChild{
+    /deep/.ant-card-body{
+      padding: 0
+    }
+  }
 </style>
