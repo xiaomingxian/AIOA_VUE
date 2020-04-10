@@ -294,7 +294,7 @@
       mo(record) {
         this.ibusId = record.iid
         this.sname = record.sname
-        this.title = "权限配置"
+        this.title = "拟稿权限"
         this.showFunPer = true;
         getAction(this.url.list, {ibusId: this.ibusId}).then((res) => {
           this.data = res.result.records;

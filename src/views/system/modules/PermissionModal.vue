@@ -68,7 +68,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="默认跳转地址">
-          <a-input placeholder="请输入路由参数 redirect" maxLength="255" v-decorator="[ 'redirect',{rules:[{required:true,message:'请输入默认跳转地址！'}] }]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入路由参数 redirect" maxLength="255" v-decorator="[ 'redirect',{rules:[{required:false,message:'请输入默认跳转地址！'}] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
