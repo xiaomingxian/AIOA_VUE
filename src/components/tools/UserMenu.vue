@@ -55,7 +55,7 @@
 
       <a-dropdown>
       <span class="action action-full ant-dropdown-link user-dropdown-menu">
-       <a class="logout_title" href="javascript:" @click="showNewTaskPage" @mouseover="showUserFun">
+       <a class="logout_title" href="javascript:" @click="showNewTaskPage" @mouseenter="showUserFun">
         <a-icon type="code"/>
         <span v-if="isDesktop()">&nbsp;新建任务</span>
       </a>
