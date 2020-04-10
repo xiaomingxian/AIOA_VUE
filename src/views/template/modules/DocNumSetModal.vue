@@ -45,7 +45,7 @@
           :wrapperCol="wrapperCol"
           label="序号">
           <!--          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>-->
-          <a-input-number v-model="iorder" :min="1" :max="100"/>
+          <a-input-number v-model="iorder" :min="1" :max="100000"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
