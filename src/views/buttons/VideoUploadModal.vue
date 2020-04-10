@@ -185,12 +185,13 @@
       // 上传完成
       complete() {
         console.log('complete', arguments);
-        setTimeout(()=>{
-          this.isUploadBtn = false
-        },800)
+        // setTimeout(()=>{
+        //   this.isUploadBtn = false
+        // },800)
       },
       // 一个根文件（文件夹）成功上传完成。
       fileComplete() {
+        this.isUploadBtn = true;
         console.log('file complete', arguments)
         var vm = this;
         const file = arguments[0].file;
@@ -208,15 +209,21 @@
           // console.log(response)
           // var path = response.data.result.sfilePath;
           // vm.address = path.slice(path.indexOf("videos\\") + 7);
-          for (let j in vm.fileList) {
-            if (vm.fileList[j].name == response.data.resul.t.sfileName) {
-              vm.fileList[j].sFilePath = response.data.result.sfilePath
-              vm.fileList[j].sFileName = response.data.result.sfileName
-              vm.fileList[j].sTable = vm.fileData.sTable
-              vm.fileList[j].iTableId = vm.fileData.iTableId
-              vm.fileList[j].sFileType = vm.fileData.sFileType
-              console.log(vm.fileList);
+          if(response.data.success){
+            for (let j in vm.fileList) {
+              if (vm.fileList[j].name == response.data.result.sfileName) {
+                vm.fileList[j].sFilePath = response.data.result.sfilePath
+                vm.fileList[j].sFileName = response.data.result.sfileName
+                vm.fileList[j].sTable = vm.fileData.sTable
+                vm.fileList[j].iTableId = vm.fileData.iTableId
+                vm.fileList[j].sFileType = vm.fileData.sFileType
+                console.log(vm.fileList);
+                vm.isUploadBtn = false;
+              }
             }
+          }else{
+            this.$message.error(response.data.message)
+            vm.isUploadBtn = false;
           }
         }).catch(function (error) {
           console.log(error);
