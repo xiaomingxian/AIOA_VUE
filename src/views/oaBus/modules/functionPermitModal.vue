@@ -1,6 +1,6 @@
 <template>
   <a-modal :visible="showFunPer" :width="1200"  :title="title" @ok="handleOk" @cancel="handleCancle">
-    <a-card :bordered="false">
+    <a-card :bordered="false" class="findChild">
       <div class="table-operator">
         <a-button @click="add"  :disabled="addDisabled" type="primary" icon="plus">新增</a-button>
         <a-dropdown v-if="selectedRowKeys.length > 0">
@@ -57,6 +57,7 @@
       </a-modal>
       <busFunctionPermit-modal ref="modalForm" @submit="getissubmit($event)" @ok="modalFormOk"></busFunctionPermit-modal>
       <busFunctionCat-modal ref="catModalForm"></busFunctionCat-modal><!--@ok="modalFormOk"-->
+      <new-task-modal ref="newTaskModel" @ok="modalFormOk"></new-task-modal>
     </a-card>
   </a-modal>
 </template>
@@ -66,13 +67,15 @@
   import BusFunctionCatModal from './BusFunctionCatModal'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import {getAction,deleteAction, putAction} from '@/api/manage'
+  import newTaskModal  from '../../mytask/modules/newTaskModal'
 
   export default {
     name: "functionPermitModal",
     mixins: [JeecgListMixin],
     components: {
       BusFunctionPermitModal,
-      BusFunctionCatModal
+      BusFunctionCatModal,
+      newTaskModal
     },
     data() {
       return {
@@ -252,7 +255,6 @@
 
       },
       handleTableChange(q,w,e,){
-        alert("3222")
         console.log(q.current);
         this.ipagination.current = q.current;
         getAction(this.url.list, {pageNo:q.current,ibusId: this.ibusId}).then((res) => {
@@ -302,6 +304,7 @@
         })
       },
       handleOk() {
+        this.$refs.newTaskModel.Refresh();
         this.showFunPer = false;
       },
       handleCancle() {
@@ -325,5 +328,10 @@
     }
   }
 </script>
-<style scoped>
+<style  lang="less" scoped>
+  .findChild{
+    /deep/.ant-card-body{
+      padding: 0
+    }
+  }
 </style>

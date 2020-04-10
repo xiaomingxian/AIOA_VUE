@@ -44,8 +44,8 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <!--          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>-->
-          <a-input-number v-model="iorder" :min="1" :max="100"/>
+          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>
+          <!--          <a-input-number v-model="iorder" :min="1" :max="100000"/>-->
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -141,7 +141,7 @@
         ids: '',
         title: "操作",
         visible: false,
-        iorder: 0,
+        // iorder: 0,
         model: {},
         labelCol: {
           xs: {span: 24},
@@ -172,18 +172,18 @@
           },
           iorder: {
             rules: [
-              {required: false, pattern: new RegExp(/^[1-9]\d*$/, "g"), message: '请输入数字！'},
-              {min: 1, max: 11, message: '长度在 1 到 11 个字符'}
+              {required: false, pattern: /^[1-9]\d{0,4}$/, message: '请输入0到5位的正整数！'},
+              // {min: 1, max: 11, message: '长度在 1 到 11 个字符'}
             ]
           },
           sdocRule: {
             rules: [
-              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              {min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
             ]
           },
           sremarks: {
             rules: [
-              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              {min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
             ]
           },
         },
@@ -240,7 +240,7 @@
       edit(record) {
         this.form.resetFields();
         this.userId = record.iid;
-        this.iorder = record.iorder
+        // this.iorder = record.iorder
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
@@ -403,7 +403,7 @@
             formData.ibusModelId = this.selectedModel;
             formData.ibusFunctionId = this.selectedFunction;
             formData.ibusUnitId = this.selectedUnit;
-            formData.iorder = this.iorder;
+            // formData.iorder = this.iorder;
             formData.selecteddeparts = this.userDepartModel.departIdList.length > 0 ? this.userDepartModel.departIdList.join(",") : '';
             httpAction(httpurl, formData, method).then((res) => {
               if (res.success) {

@@ -364,13 +364,18 @@
                 //that.handleUpload();
                 that.$message.success(res.message);
                 that.$emit('ok');
+                that.confirmLoading = false;
+                that.close();
               } else {
+                that.confirmLoading = false;
                 that.$message.warning(res.message);
               }
-            }).finally(() => {
+            })
+              /*
+              .finally(() => {
               that.confirmLoading = false;
               that.close();
-            })
+            })*/
 
 
           }
