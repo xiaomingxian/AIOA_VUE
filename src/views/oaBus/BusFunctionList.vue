@@ -31,33 +31,36 @@
               </a-select>
             </a-form-item>
           </a-col>
-         <!-- <template v-if="toggleSearchStatus">
-            <a-col :md="6" :sm="8">
-              <a-form-item label="业务名称">
-                <a-input placeholder="请输入业务名称" v-model="queryParam.sName"></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :md="7" :sm="8">
-              <a-form-item label="业务所属机构">
-                &lt;!&ndash;<a-input placeholder="请输入业务类别" v-model="queryParam.iId" v-decorator="[ 'ibusModelId', {}]"></a-input>&ndash;&gt;
-                <a-select v-model="queryParam.unitId">
-                  <a-select-option v-for="(item,index) in unitList" :key="index" :value="item.id">
-                    {{item.departName}}
-                  </a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-          </template>
-          <a-col :md="5" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
-              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
-              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-              <a @click="handleToggleSearch" style="margin-left: 8px">
-                {{ toggleSearchStatus ? '收起' : '展开' }}
-                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
-              </a>
-            </span>
-          </a-col>-->
+          <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+          <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+
+          <!-- <template v-if="toggleSearchStatus">
+             <a-col :md="6" :sm="8">
+               <a-form-item label="业务名称">
+                 <a-input placeholder="请输入业务名称" v-model="queryParam.sName"></a-input>
+               </a-form-item>
+             </a-col>
+             <a-col :md="7" :sm="8">
+               <a-form-item label="业务所属机构">
+                 &lt;!&ndash;<a-input placeholder="请输入业务类别" v-model="queryParam.iId" v-decorator="[ 'ibusModelId', {}]"></a-input>&ndash;&gt;
+                 <a-select v-model="queryParam.unitId">
+                   <a-select-option v-for="(item,index) in unitList" :key="index" :value="item.id">
+                     {{item.departName}}
+                   </a-select-option>
+                 </a-select>
+               </a-form-item>
+             </a-col>
+           </template>
+           <a-col :md="5" :sm="8">
+             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+               <a @click="handleToggleSearch" style="margin-left: 8px">
+                 {{ toggleSearchStatus ? '收起' : '展开' }}
+                 <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
+               </a>
+             </span>
+           </a-col>-->
 
         </a-row>
       </a-form>
@@ -71,11 +74,11 @@
 
     <!-- table区域-begin -->
     <div>
-      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
         selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>-->
+      </div>
       <!--
         :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
       -->
@@ -83,11 +86,12 @@
         ref="table"
         size="middle"
         bordered
+        rowKey="iid"
         :columns="columns"
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-
+        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
