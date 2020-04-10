@@ -123,7 +123,8 @@
          {icon:'pushpin'},
          {icon:'star'},
          {icon:'paper-clip'}
-       ]
+       ],
+        num: 0
       }
     },
     methods: {
@@ -174,17 +175,14 @@
       showUserFun(){
         getAction("/sys/user/showUserFun",{userId:this.userInfo().id}).then(res =>{
           this.saveData = res.result;
-          let num = 0;
           for(let i = 0;i < this.saveData.length;i++){
-
-              this.saveData[i] = Object.assign(this.saveData[i],this.iconList[num]);
-              if(i % 4 == 0 && i > 0){
-                num++;
-                if(i >= this.saveData.length){
-                  num = 0;
-                }
+            if(i % 4 == 0 && i > 0){
+              this.num++;
+              if(this.num > 3){
+                this.num = 0;
               }
-
+            }
+            this.saveData[i] = Object.assign(this.saveData[i],this.iconList[this.num]);
           }
         })
       },
