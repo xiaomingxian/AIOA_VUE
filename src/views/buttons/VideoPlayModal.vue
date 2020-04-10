@@ -12,7 +12,7 @@
     </template>
     <div>
       <!--      <video id="example_video_1" class="video-js vjs-default-skin" width="140" height="164">-->
-      <video v-if="isPlay" width="70%" height="50%" preload=“none” controls autoplay>
+      <video v-if="isPlay" width="100%" height="30%" preload=“none” controls autoplay>
         <source :src="address" type="video/mp4">
       </video>
     </div>
