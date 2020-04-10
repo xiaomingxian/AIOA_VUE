@@ -404,6 +404,7 @@
       },
       submitCurrForm() {
         this.form.validateFields((err, values) => {
+          this.record = values;
           if (!err) {
             if (!this.currSelected.id) {
               this.$message.warning('请点击选择要修改部门!')
