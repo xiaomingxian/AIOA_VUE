@@ -75,7 +75,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="数据列排序">
-            <a-input-number :min="0"  :max="9999" style="width: 50%" v-decorator="[ 'iorder', {}]" />
+            <a-input style="width: 50%" v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '输入0到4位的非零正整数' }]}]" />
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
