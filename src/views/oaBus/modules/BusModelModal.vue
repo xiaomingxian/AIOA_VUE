@@ -15,7 +15,8 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="序号">
-          <a-input-number  :min="0" :max="10000" v-decorator="[ 'iorder', {}]" />
+          <!--<a-input-number  :min="0" :max="10000" v-decorator="[ 'iorder', {}]" />-->
+          <a-input  v-decorator="[ 'iorder', {rules:[{ pattern: '^[1-9]\\d{0,3}$', message: '输入0到4位的正整数' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
