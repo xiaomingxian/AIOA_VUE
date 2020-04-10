@@ -172,7 +172,7 @@
           },
           iorder: {
             rules: [
-              {required: false, pattern:  '^[1-9]\\d{0,4}$', message: '请输入0到5位的正整数！'},
+              {required: false, pattern: /^[1-9]\d{0,4}$/, message: '请输入0到5位的正整数！'},
               // {min: 1, max: 11, message: '长度在 1 到 11 个字符'}
             ]
           },
