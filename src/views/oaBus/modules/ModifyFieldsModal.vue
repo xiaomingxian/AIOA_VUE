@@ -15,15 +15,16 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
         :label="atom.s_column_name">
-        <a-input maxLength="20" :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
+        <a-input maxLength="50" :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
+
 
         <a-form-item v-if="atom.i_column_type==1 && atom.s_table_column=='i_phone'"   v-show="atom.s_table_column!='i_id'"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      prop="phone"
                      :label="atom.s_column_name">
-          <a-input maxLength="11" placeholder="请输入正确的手机号格式" v-decorator="[ atom.s_table_column, {rules:[{required:true,pattern:/^1(3|4|5|6|7|8)\d{9}$/,message:'请输入正确的手机号格式'}]}]"/>
+          <a-input maxLength="11" placeholder="请输入正确的手机号格式" v-decorator="[ atom.s_table_column, {rules:[{required:false,pattern:/^1(3|4|5|6|7|8)\d{9}$/,message:'请输入正确的手机号格式'}]}]"/>
         </a-form-item>
 
         <!--下拉列表-------------------start---------------->
@@ -66,7 +67,7 @@
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
-                     v-decorator="['model.s_varchar5', {rules: [{ required: model.s_varchar4=='bgk'?true:false, message: '请选择不公开理由' }]}]"
+                     v-decorator="[model.s_varchar5, {rules: [{ required: model.s_varchar4=='bgk'?true:false, message: '请选择不公开理由' }]}]"
                     :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in bgklyList" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
