@@ -144,11 +144,11 @@
                return parseInt(index)+1;
              }
             },*/
-          {
-            title: '序号',
-            align: "center",
-            dataIndex: 'iid'
-          },
+//          {
+//            title: '序号',
+//            align: "center",
+//            dataIndex: 'iid'
+//          },
            {
                  title: '流程定义KEY',
                  align:"center",

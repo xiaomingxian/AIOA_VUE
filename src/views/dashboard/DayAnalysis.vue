@@ -931,7 +931,6 @@
 
         // alert(taskDetail
         // this.$refs.detailFile.show(taskDetail)
-
         let params = {tableName: tableName, busdataId: i_id};
 
         this.$store.commit('pushNewDetial', params)
@@ -1181,7 +1180,7 @@
           this.model1 = res.model1.sName;
           this.path = res.model1.url
           this.model2 = res.model2.sName;
-          this.tableName=res.model2.sName;
+          this.tableName=res.model1.tableName;
           this.total1 = res.model1.list.length
           this.ModelList = res.model1.list.splice(0,5);
           this.model2Lists = res.model2.list;

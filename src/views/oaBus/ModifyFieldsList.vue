@@ -9,15 +9,15 @@
       <a-form layout="inline">
 
         <a-row :gutter="48">
-          <a-col :md="!advanced && 8 || 24" :sm="24">
-            <span class="table-page-search-submitButtons"
-                  :style="advanced && { float: 'left', overflow: 'hidden' } || {} ">
-              <a @click="toggleAdvanced" >
-                {{ advanced ?'收起' : '展开' }}
-                <a-icon :type="advanced ? 'up' : 'down'"/>
-              </a>
-            </span>
-          </a-col>
+          <!--<a-col :md="!advanced && 8 || 24" :sm="24">-->
+            <!--<span class="table-page-search-submitButtons"-->
+                  <!--:style="advanced && { float: 'left', overflow: 'hidden' } || {} ">-->
+              <!--<a @click="toggleAdvanced" >-->
+                <!--{{ advanced ?'收起' : '展开' }}-->
+                <!--<a-icon :type="advanced ? 'up' : 'down'"/>-->
+              <!--</a>-->
+            <!--</span>-->
+          <!--</a-col>-->
           <template v-if="advanced">
             <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
               <a-form-item label="业务分类">

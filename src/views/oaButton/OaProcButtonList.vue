@@ -17,7 +17,7 @@
             <!--</a-form-item>-->
           <!--</a-col>-->
           <!--<template v-if="toggleSearchStatus">-->
-            <a-col :md="12" :sm="8">
+            <a-col :md="6" :sm="8">
               <a-form-item label="按钮组合名称">
                 <a-input placeholder="请输入按钮组合名称" v-model="queryParam.sButtonSetName"></a-input>
               </a-form-item>
@@ -155,7 +155,7 @@
           {
             title: '按钮组合名称',
             align: "center",
-            width:300,
+            width:800,
             dataIndex: 'sbuttonSetName'
           },
           {
