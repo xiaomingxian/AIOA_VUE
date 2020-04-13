@@ -61,7 +61,7 @@
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="机构名称">
+            label="名称">
             <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入排序号！'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur'  }] }]"/>
           </a-form-item>
           <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="上级部门">
@@ -77,7 +77,7 @@
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="机构编码">
+            label="编码">
             <a-input disabled placeholder="请输入机构编码" v-decorator="['orgCode', validatorRules.orgCode ]"/>
           </a-form-item>
           <a-form-item

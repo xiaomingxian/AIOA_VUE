@@ -13,7 +13,7 @@
             <img src="~@/assets/settingTitle@2x.png" style="width: 1672.7px;height: 43px;"/>
           </div>
 
-          <div style="width: 100%;display: flex;background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 96px;">
+          <div style="width: 100%;display: flex;background: #fff;align-items: center;justify-content: flex-start;margin-left: 96px;">
             <span>默认使用背景图 :&nbsp&nbsp</span>
             <a-switch @change="onChange1" checked-children="自定义" v-model="iisCalendar"   un-checked-children="默认"></a-switch>
             <!--<span style="color: #d60303;margin-left: 50px;">只允许上传png、jpg、bmp格式的图片</span>-->
