@@ -38,7 +38,8 @@
           <a-col :md="6" :sm="8">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQueryCha" icon="search">查询</a-button>
-              <!--<a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>-->
+              <a-button type="primary" @click="searchResetOne" icon="reload" style="margin-left: 8px">重置</a-button>
+
               <!--<a @click="handleToggleSearch" style="margin-left: 8px">-->
               <!--{{ toggleSearchStatus ? '收起' : '展开' }}-->
               <!--<a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>-->
@@ -326,6 +327,11 @@
     created () {
     },
     methods: {
+      searchResetOne(){
+        this.clearData();
+        //重置
+        this.loadData();
+      },
       //点击删除按钮 前校验
       beforeConfirm(iid){
         // console.log(this.btnSetModel)
@@ -496,7 +502,11 @@
       },
       clearData(){
         this.data= [];
+        this.buttonId = null;
+        this.taskDefKey = null;
         this.ipagination.current =1;
+        this.ipagination.pageSize=10;
+        this.ipagination.total = 0;
       }
 
     }
