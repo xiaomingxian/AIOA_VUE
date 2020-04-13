@@ -32,7 +32,6 @@
                         ref="s_varchar4"
                         v-on:blur="blurText([backData.d_datetime1,backData.d_datetime2],$refs.s_varchar4)"
                         style="width: 95%"
-                        showTime
                         :disabledDate="disabledDate"
                         :disabledTime="disabledRangeTime"
                         :showTime="{ defaultValue: moment('00:00:00', 'HH:mm:ss') }"
