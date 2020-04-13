@@ -1044,7 +1044,7 @@
           //   dataIndex: 'proDefName'
           // },
           {
-            title: '参与环节',
+            title: '当前环节',
             width: 180,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
