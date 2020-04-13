@@ -32,7 +32,7 @@
           </a-form-item>
 
           <a-form-item label="确认密码" :labelCol="labelCol" :wrapperCol="wrapperCol" has-feedback >
-            <a-input type="password" autoComplete="off" v-bind="formItemLayout" @blur="handleConfirmBlur" placeholder="请重新输入登陆密码" v-decorator="[ 'confirmpassword', validatorRules.confirmpassword]"/>
+            <a-input type="password" autoComplete="off" v-bind="formItemLayout" @blur="handleConfirmBlur" placeholder="请重新输入登录密码" v-decorator="[ 'confirmpassword', validatorRules.confirmpassword]"/>
           </a-form-item>
         </template>
 
