@@ -18,7 +18,7 @@
             </a-form-item>
           </a-col>
 
-          <a-col :md="6" :sm="10" style="padding-left: 49px;padding-right: 0;">
+          <a-col :md="6" :sm="10" style="padding-left: 40px;padding-right: 0;">
             <a-form-item label="创建时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
               <a-range-picker
                 v-model="queryParam.createTimeRange"
@@ -247,5 +247,11 @@
   }
 </script>
 <style scoped>
-  @import '~@assets/less/common.less'
+  /*@import '~@assets/less/common.less'*/
+  .ant-row{
+    margin-right: -34px !important;
+  }
+  /deep/.ant-calendar-picker-icon{
+    padding-left: 2% !important;
+  }
 </style>
