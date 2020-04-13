@@ -22,11 +22,16 @@
     <!--okText="关闭">-->
 
 
-    <div id="pic"  :style="{overflow: 'auto',height: scrHeight}">
+    <div id="pic"  :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
 
-      <!--@click='showPicFull'-->
-      <img :src="picurl" style="width:100%" v-if="visible"  />
-      <a-button style="float: right" @click="handleCancel">关闭</a-button>
+      <div style="width:100%;position: relative">
+        <!--@click='showPicFull'-->
+        <img :src="picurl"  v-if="visible"  />
+        <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+
+        <!--<a-button style="float: right" @click="handleCancel">关闭</a-button>-->
+
+      </div>
 
     </div>
 

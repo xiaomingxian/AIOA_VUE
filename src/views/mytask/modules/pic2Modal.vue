@@ -14,8 +14,7 @@
           <a-button @click="traceP" block>流程跟踪表</a-button>
           <a-button @click="backRecordClick" block>撤回/回退记录</a-button>
         </div>
-        <div
-          :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
+        <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
 
 
           <div style="width:100%;position: relative" v-if="showPic">
@@ -80,6 +79,7 @@
 
 </template>
 <style type="text/css">
+
   .div {
     border: 2px solid red;
     padding: 5px;
@@ -360,6 +360,24 @@
 </script>
 
 <style lang="less" scoped>
+  /deep/.ant-drawer-right{
+    /deep/.ant-drawer-content-wrapper{
+      background: #2eabff !important;
+      /deep/.ant-drawer-content{
+        /deep/.ant-drawer-wrapper-body{
+          background: #2eabff !important;
+        }
+      }
+
+    }
+  }
+  .ant-drawer-wrapper-body{
+
+  }
+
+  /*/deep/.setting-drawer{*/
+    /*background: red !important;*/
+  /*}*/
   .ant-btn {
     border-color: transparent;
   }
