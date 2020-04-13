@@ -144,7 +144,6 @@
                   <a-input maxLength="50" style="width: 180px" @change="onitaskOpinionName" v-model="itaskOpinionName" />
                   <span v-show="showName" style="margin-left: 10px;color: red">序号为{{itaskOpinionOrder}}的意见框名字必须为"{{opinionName}}"。</span>
                 </a-form-item>
-
 <!--<div v-show="show">-->
 <div>
   <!--<a-form-item  style="margin:20px;">-->
@@ -424,6 +423,7 @@
         }
       },
       add() {
+        this.clearData();
         this.edit({});
       },
       editBeforelvjian(record,TaskLinkId,res){
@@ -488,6 +488,7 @@
         //   console.log(this.opinionSetModal.iprocSetId);
       },
       close() {
+        this.clearData();
         this.$emit('close');
         this.visible = false;
       },
@@ -567,6 +568,8 @@
 //        this.data=[];
         this.type=null;
         this.taskDefKey=null;
+        this.opinionSetModal.type=null;
+        this.opinionSetModal.taskDefKey=null;
       },
       handleCancel() {
         this.clearData();
