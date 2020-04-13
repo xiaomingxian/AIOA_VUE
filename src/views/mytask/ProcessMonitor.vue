@@ -302,7 +302,7 @@
 
 
     </a-modal>
-
+    <undo-msg ref="undoMsg"></undo-msg>
   </a-card>
 </template>
 
@@ -329,6 +329,7 @@
   // import backModal from '@/views/mytask/modules/backModal'
 
   import detailFile from './taskList/detailFile'
+  import UndoMsg from './modules/UndoMsg'
 
   export default {
     name: "ProcessMonitor",
@@ -336,7 +337,8 @@
     components: {
       pic2Modal,
       //业务
-      detailFile
+      detailFile,
+      UndoMsg
     },
     data() {
       return {
@@ -472,20 +474,22 @@
           procInstId: procInstId
         }).then(res => {
           if (res.success) {
+            this.$refs.undoMsg.visible=true
+            this.$refs.undoMsg.dataSource2= res.result
 
-            const h = this.$createElement;
-            let content = []
-            for (let i in res.result) {
-              let msg = res.result[i]
-              content.push(h('p', `【${msg.taskDefName}】 ${msg.deptName} ：${msg.userName}`))
-            }
-
-            let content_ = h('div', {}, content)
-
-            const modal = this.$success({
-              title: '未办理信息',
-              content: content_,
-            });
+            // const h = this.$createElement;
+            // let content = []
+            // for (let i in res.result) {
+            //   let msg = res.result[i]
+            //   content.push(h('p', `【${msg.taskDefName}】 ${msg.deptName} ：${msg.userName}`))
+            // }
+            //
+            // let content_ = h('div', {}, content)
+            //
+            // const modal = this.$success({
+            //   title: '未办理信息',
+            //   content: content_,
+            // });
           } else {
             this.$message.error(res.message)
           }

@@ -158,6 +158,29 @@
       <j-select-user-by-dep-single ref="single" @senUserId="senUserId"></j-select-user-by-dep-single>
     </div>
 
+    <!--      @ok="closeUndo"       okText="确定"-->
+    <a-modal
+      title="未办理信息"
+      :width="500"
+      :visible="visible"
+
+      @cancel="closeUndo"
+      destroyOnClose
+
+      cancelText="取消">
+      <template slot="footer">
+        <a-button type="primary" @click.stop="closeUndo()">关闭</a-button>
+        <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
+      </template>
+      <a-table
+        :columns="columns2"
+        :dataSource="dataSource2">
+
+      </a-table>
+
+    </a-modal>
+    <undo-msg ref="undoMsg"></undo-msg>
+
   </a-card>
 </template>
 
@@ -173,6 +196,7 @@
   import taskShiftModal from './modules/taskShiftModal'
   import JSelectUserByDepSingle from "../../components/jeecgbiz/JSelectUserByDepSingle";
   import JSelectUserByDepCheckBox from "../../components/jeecgbiz/JSelectUserByDepCheckBox";
+  import UndoMsg from './modules/UndoMsg'
 
 
   export default {
@@ -185,6 +209,7 @@
       taskShiftModal,
       JSelectUserByDepSingle,
       JSelectUserByDepCheckBox,
+      UndoMsg
     },
     data() {
       return {
@@ -197,7 +222,6 @@
         checkUserIds: [],
         selectedDepUsers: '',
         isBatchShift: false,
-        // 表头
         columns: [
           {
             title: '序号',
@@ -362,19 +386,21 @@
         }).then(res => {
           if (res.success) {
 
-            const h = this.$createElement;
-            let content = []
-            for (let i in res.result) {
-              let msg = res.result[i]
-              content.push(h('p', `【${msg.taskDefName}】 ${msg.deptName} ：${msg.userName}`))
-            }
-
-            let content_ = h('div', {}, content)
-
-            const modal = this.$success({
-              title: '未办理信息',
-              content: content_,
-            });
+            this.$refs.undoMsg.visible=true
+            this.$refs.undoMsg.dataSource2= res.result
+            // const h = this.$createElement;
+            // let content = []
+            // for (let i in res.result) {
+            //   let msg = res.result[i]
+            //   content.push(h('p', `【${msg.taskDefName}】 ${msg.deptName} ：${msg.userName}`))
+            // }
+            //
+            // let content_ = h('div', {}, content)
+            //
+            // const modal = this.$success({
+            //   title: '未办理信息',
+            //   content: content_,
+            // });
           } else {
             this.$message.error(res.message)
           }
