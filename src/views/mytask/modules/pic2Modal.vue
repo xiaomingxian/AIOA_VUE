@@ -278,6 +278,7 @@
       },
       show(record) {
         this.record = record
+        this.title=record.title
 
         this.visible = true
         this.showPict();
