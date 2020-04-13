@@ -90,7 +90,7 @@
                 </a-form-item>
               </a-col>
               <a-col>
-                <a-button style="margin-left: 10px;" v-if="toggleSearchStatusSet"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>
+                <!--<a-button style="margin-left: 10px;" v-if="toggleSearchStatusSet"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>-->
               </a-col>
             </a-row>
           </a-form>
@@ -132,7 +132,11 @@
                 <a-form-item
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框位置：</span>
-                  <a-input-number max="9999" min="0" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" />
+                  <!--v-decorator="['itaskOpinionOrder', {rules: [{ required: true, message: '序号不能为空' }]}]"-->
+                  <!--<a-input-number  max="9999" min="0" @change="onitaskOpinionOrder"-->
+                  <!--v-model="itaskOpinionOrder"/>-->
+                  <!--<a-input maxLength="4" placeholder="请输入顺序" v-decorator="[ 'itaskOpinionOrder', {rules:[{required:true ,message:'请输入排序号!'},{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />-->
+                  <a-input min="0" type="number" style="margin-left: 10px;width: 120px;" @change="onitaskOpinionOrder" v-model="itaskOpinionOrder" oninput="if(value.length>4)value=value.slice(0,4)"/>
                 </a-form-item>
                 <a-form-item
                   style="margin:20px;">
@@ -423,6 +427,7 @@
         this.edit({});
       },
       editBeforelvjian(record,TaskLinkId,res){
+        this.clearData();
         this.showName=false;
         this.type=res.type;
         if (this.type===null||this.type===''){
@@ -487,15 +492,22 @@
         this.visible = false;
       },
       handleOkIsCreate(){
-        if(this.newCreate==true && this.opinionSetModal.iid==null){
-          this.handleOk();
-        }else if(this.newCreate==false && this.opinionSetModal.iid!=null ){
-          this.handleOk();
-        }else if(this.newCreate==false && this.opinionSetModal.iid==null){
-          this.$message.warning("编辑时无法新增数据，请前往新建中操作");
-        }else{
-          this.$message.warning("当前环节下意见已存在，无法重复添加");
+
+        if(this.itaskOpinionOrder==null || this.itaskOpinionOrder.length<1){
+          this.$message.warning("顺序号不能为空");
+        }else {
+          if(this.newCreate==true && this.opinionSetModal.iid==null){
+            this.handleOk();
+          }else if(this.newCreate==false && this.opinionSetModal.iid!=null ){
+            this.handleOk();
+          }else if(this.newCreate==false && this.opinionSetModal.iid==null){
+            this.$message.warning("编辑时无法新增数据，请前往新建中操作");
+          }else{
+            this.$message.warning("当前环节下意见已存在，无法重复添加");
+          }
         }
+
+
       },
       handleOk() {
         // this.opinionSetModal.iProcSetId=this.iProcSetId;
@@ -538,6 +550,7 @@
                 })
               }else {
                 that.$message.warning("序号最小值为0");
+//                alert("111111")
                 that.confirmLoading = false;
               }
             }else {
@@ -547,7 +560,7 @@
             }
 
           }
-          clearData();
+
         })
       },
       clearData(){

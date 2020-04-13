@@ -27,7 +27,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="意见组合名称">
-          <a-input  placeholder="请输入新的意见组合名称" v-model="sprocOpinionName" />
+          <a-input maxLength="60" placeholder="请输入新的意见组合名称" v-model="sprocOpinionName" />
         </a-form-item>
 		
       </a-form>

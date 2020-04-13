@@ -201,7 +201,7 @@
 
                           <span class="shuline"></span>
                           待办任务
-                          <b v-if="total"> {{total}}</b>
+                          <b v-if="total">({{total}})</b>
                         </span>
                         <div class="itemline">
                           <div class="each" v-if="findwaitdataLists" v-for="(item,index) in findwaitdataLists" :key="index"
@@ -233,7 +233,7 @@
 
                         <span slot="tab" @click="doWill(1)">
                           <span>{{this.model1}}</span>
-                               <b style="color: #ffffff;font-weight: 400" v-if="total1"> {{total1}}</b>
+                               <b  v-if="total1">({{total1}})</b>
                           </span>
                         <div class="itemline">
                           <div class="each" v-if="ModelList" v-for="(item,index) in ModelList" :key="index"
@@ -931,7 +931,6 @@
 
         // alert(taskDetail
         // this.$refs.detailFile.show(taskDetail)
-
         let params = {tableName: tableName, busdataId: i_id};
 
         this.$store.commit('pushNewDetial', params)
@@ -1181,7 +1180,7 @@
           this.model1 = res.model1.sName;
           this.path = res.model1.url
           this.model2 = res.model2.sName;
-          this.tableName=res.model2.sName;
+          this.tableName=res.model1.tableName;
           this.total1 = res.model1.list.length
           this.ModelList = res.model1.list.splice(0,5);
           this.model2Lists = res.model2.list;

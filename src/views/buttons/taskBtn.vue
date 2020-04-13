@@ -1,7 +1,7 @@
 <template>
 
 
-  <div class="sendFileStyle" style="min-height: 0px; padding-bottom: 0.7%;">
+  <div class="sendFileStyle" style="min-height: 0px; padding-left: 0.3%;">
     <!--<a-button  @click="showPic">图</a-button>-->
     <!--<a-button  @click="reCall">撤回</a-button>-->
     <!--<a-button  @click="showBack">回退</a-button>-->
