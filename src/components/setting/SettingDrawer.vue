@@ -63,11 +63,11 @@
            <div class="setting-drawer-index-blockChecbox">
               <a-tooltip>
                 <template slot="title">
-                  侧边栏导航
+                  左侧栏导航
                 </template>
                 <div class="setting-drawer-index-item" @click="handleLayout('sidemenu')">
                   <!--<img src="https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg" alt="sidemenu">-->
-                  <a-icon type="layout"/><p style="float: right;">sidemenu</p>
+                  <a-icon type="layout"/><p style="float: right;">左侧栏导航</p>
                   <div class="setting-drawer-index-selectIcon" v-if="layoutMode === 'sidemenu'">
                     <a-icon type="check"/>
                   </div>
@@ -80,7 +80,7 @@
                 </template>
                 <div class="setting-drawer-index-item" @click="handleLayout('topmenu')">
                   <!--<img src="https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg" alt="topmenu">-->
-                  <a-icon type="project"/><p style="float: right;">topmenu</p>
+                  <a-icon type="project"/><p style="float: right;">顶部栏导航</p>
                   <div class="setting-drawer-index-selectIcon" v-if="layoutMode !== 'sidemenu'">
                     <a-icon type="check"/>
                   </div>
@@ -149,8 +149,6 @@
         <div :style="{ marginBottom: '24px' }">
           <a-alert type="warning">
             <span slot="message">
-              配置栏只在开发环境用于预览，生产环境不会展现，请手动修改配置文件
-              <a href="https://github.com/sendya/ant-design-pro-vue/blob/master/src/defaultSettings.js" target="_blank">src/defaultSettings.js</a>
             </span>
           </a-alert>
         </div>

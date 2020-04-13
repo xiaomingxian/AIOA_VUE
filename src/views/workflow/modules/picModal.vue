@@ -1,24 +1,38 @@
 <template>
-  <a-modal
-    :title="title"
-    :width="scrWidth"
-    :visible="visible"
-    :confirmLoading="confirmLoading"
-    @ok="handleCancel"
-    @cancel="handleCancel"
-    cancelText="取消"
-    okText="关闭">
+
+
+  <div class="setting-drawer">
+    <a-drawer
+      :width="scrWidth"
+      placement="right"
+      :closable="visible"
+      @close="handleCancel"
+      :visible="visible"
+      :style="{}"
+    >
+
+  <!--<a-modal-->
+    <!--:title="title"-->
+    <!--:width="scrWidth"-->
+    <!--:visible="visible"-->
+    <!--:confirmLoading="confirmLoading"-->
+    <!--@ok="handleCancel"-->
+    <!--@cancel="handleCancel"-->
+    <!--cancelText="取消"-->
+    <!--okText="关闭">-->
 
 
     <div id="pic"  :style="{overflow: 'auto',height: scrHeight}">
 
-      <img :src="picurl" style="width:100%" v-if="visible"  @click='showPicFull'/>
-
+      <!--@click='showPicFull'-->
+      <img :src="picurl" style="width:100%" v-if="visible"  />
+      <a-button style="float: right" @click="handleCancel">关闭</a-button>
 
     </div>
 
-
-  </a-modal>
+    </a-drawer>
+  </div>
+  <!--</a-modal>-->
 </template>
 
 <script>
@@ -35,14 +49,17 @@
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         visible: false,
         picurl: '',
-        scrWidth: window.innerWidth - 100,
-        scrHeight: window.innerHeight - 250 + 'px'
+        scrWidth: window.innerWidth,
+        scrHeight: window.innerHeight
         // scrHeight: 500+ 'px'
       }
     },
     created() {
 
 
+    },
+    mounted() {
+      window.addEventListener('dblclick', e => this.handleCancel(e))
     },
     methods: {
       showPicFull(){
@@ -64,6 +81,8 @@
           this.picurl = 'data:image/png;base64,' + btoa(new Uint8Array(res).reduce((data, byte) => data + String.fromCharCode(byte), ''));
           this.visible = true;
         })
+
+        this.visible = true
 
       },
       handleCancel() {

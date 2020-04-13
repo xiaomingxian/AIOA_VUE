@@ -7,7 +7,6 @@
     @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
-
     <a-spin tip="Loading..." :spinning="confirmLoading" >
       <a-form :form="form">
         <!--<a-form-item-->
@@ -67,7 +66,7 @@
                     </a-form-item>
                   </a-col>
                 <a-col :md="8" :sm="8">
-                  <a-button v-if="toggleSearchStatusSet"  style="margin-left: 15px;"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>
+                  <!--<a-button v-if="toggleSearchStatusSet"  style="margin-left: 15px;"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>-->
                 </a-col>
                 <!--</template>-->
               </a-row>
@@ -134,7 +133,10 @@
                 </a-form-item>
                 <a-form-item style=" display: flex;align-items: center;justify-content: flex-start;width: 200px;margin-left: 60px;">
                   <span class="configOption">顺序号：</span>
-                  <a-input-number max="9999" style="margin-left: 10px" @change="oniorder" v-model="iorder" />
+                  <!--<a-input-number max="9999" style="margin-left: 10px" @change="oniorder" v-model="iorder" />-->
+                  <!--<a-input maxLength="4" style="margin-left: 10px" @change="oniorder" v-model="iorder" />-->
+                  <!--<a-input type="number" placeholder="请输入顺序" v-decorator="[ 'iorder', {rules:[{required:true ,message:'请输入排序号!'},{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" />-->
+                  <a-input min="0" type="number" style="margin-left: 10px;width: 120px;" v-model="iorder" @change="oniorder" oninput="if(value.length>4)value=value.slice(0,4)"/>
                 </a-form-item>
               </div>
 
@@ -518,15 +520,20 @@
         this.visible = false;
       },
       handleOkIsCreate(){
-        if(this.newCreate==true && this.btnSetModel.iid==null){
-          this.handleOk();
-        }else if(this.newCreate==false && this.btnSetModel.iid!=null ){
-          this.handleOk();
-        }else if(this.newCreate==false && this.btnSetModel.iid==null){
-          this.$message.warning("编辑时无法新增数据，请前往新建中操作");
-        }else{
-          this.$message.warning("当前环节下按钮已存在，无法重复添加");
+        if(this.iorder==null || this.iorder.length<1){
+          this.$message.warning("顺序号不能为空");
+        }else {
+          if(this.newCreate==true && this.btnSetModel.iid==null){
+            this.handleOk();
+          }else if(this.newCreate==false && this.btnSetModel.iid!=null ){
+            this.handleOk();
+          }else if(this.newCreate==false && this.btnSetModel.iid==null){
+            this.$message.warning("编辑时无法新增数据，请前往新建中操作");
+          }else{
+            this.$message.warning("当前环节下按钮已存在，无法重复添加");
+          }
         }
+
       },
       handleOk() {
         // console.log('')
@@ -583,7 +590,8 @@
         this.close()
       }
 
-    }
+    },
+
   }
 </script>
 

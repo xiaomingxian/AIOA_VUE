@@ -11,8 +11,10 @@
         <td colspan="2">
           <!--<a-textarea cols="92" rows="2" v-model="backData.s_create_dept"></a-textarea>-->
           <!--<a-input style="padding-left: 10px" v-model="backData.s_create_dept"></a-input>-->
-          <a-input style="width:85%;" ref="s_create_dept" v-on:blur="blurText(backData.s_create_dept,$refs.s_create_dept)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  v-model="backData.s_create_dept"></a-input>
-          <a-button style="width:15%;" @click="selDepartName" >选择</a-button>
+          <!--<a-input style="width:85%;" ref="s_create_dept" v-on:blur="blurText(backData.s_create_dept,$refs.s_create_dept)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  v-model="backData.s_create_dept"></a-input>-->
+          <!--<a-button style="width:15%;" @click="selDepartName" >选择</a-button>-->
+
+          <div style="padding-left: 10px">{{backData.s_create_dept}}</div>
         </td>
         <td class="title" width="15%">
           <!--拟稿人-->
@@ -101,7 +103,7 @@
           <center><h3>{{detailList.s_file_num}}</h3></center>
         </td>
         <td colspan="2">
-          <a-textarea onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_file_num"></a-textarea>
+          <a-textarea disabled onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_file_num"></a-textarea>
           <!--<a-input cols="92" rows="2" v-model="backData.s_file_num"></a-input>-->
         </td>
         <td class="title" width="15%">
@@ -118,9 +120,16 @@
           <center><h3>附件</h3></center>
         </td>
         <td colspan="6" style="height: 80px">
-          <div  v-for="(item,index) in oaFileList" style="padding-left: 15px">
+          <div v-for="(item,index) in oaFileList" style="padding-left: 15px">
             <!--<div @click="openFile(9,item.sfileName)"><span class="hoverred">{{index}}、{{item.sfileName}}</span>-->
-            <div @click="qiCao1(9,item.sfilePath)"><span class="hoverred">{{index}}、{{item.sfileName}}</span>
+            <div class="qiCao"><span class="hoverred" @click="qiCao1(9,item)">{{index+1}}、{{item.sfileName}}</span>
+              <span class="delCss" v-show="isShowFile">
+                <img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>
+                <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>
+                <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,4)" src="../../../../src/assets/delete.png"/>
+                <img :title="fileBtnName(4)" v-show="oaFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,4)" src="../../../../src/assets/top.png"/>
+                <img :title="fileBtnName(5)" v-show="oaFileList.length > 1 && index < oaFileList.length-1" class="pices" @click.stop="lowFile(item,index,4)" src="../../../../src/assets/bottom.png"/>
+              </span>
             </div>
           </div>
           <!--<a-input :value="backData.s_remarks"></a-input>-->
@@ -260,13 +269,13 @@
           //流程key
           key: '',
           //文号
-          // act_show: '',
+           act_show: '',
           //page ref
           page_ref: '',
           //业务配置表id-用于查询按钮/意见权限
           iprocSetId: '',
           //对应的业务数据表
-          table: 'oa_busdata70',
+          table: 'oa_busdata11',
           //---------------------------------- 以下为表存储字段
 
           i_id:'',
@@ -443,16 +452,16 @@
       // },
 
       witeDepart(param){
-        this.backData.s_create_dept = param.str1;
-        this.backData.s_main_unit_names = param.str2;
+        this.backData.s_main_unit_names = param.str1;
+//        this.backData.s_inside_deptnames = param.str2;
         this.backData.s_inside_deptnames = param.str3;
       },
     //选择主送单位
     selDepartName(){
       //this.$refs.selDepartNameRef.show() ;
       let param = {
-        str1:this.backData.s_create_dept,
-        str2:this.backData.s_main_unit_names,
+        str1:this.backData.s_main_unit_names,
+//        str2:this.backData.s_inside_deptnames,
         str3:this.backData.s_inside_deptnames
       }
       this.$refs.selDepartNameRef.show(param);
@@ -475,20 +484,20 @@
       },
       moment,  //时间
       //打开附件
-      qiCao1(index, fileName) {
-        let name = fileName.split('\\')
-        var name1 = name[name.length - 1]
-        alert(name1)
-        this.$refs.taskRef.showFujianFile2(index, name1);
-      },
-      dateFormat(date) {
-        let date1 = new Date(date);
-        let Y = date1.getFullYear();
-        let M = date1.getMonth() + 1;
-        let D = date1.getDate();
-        let newTime = Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D) + " " + date1.toTimeString().substr(0, 8);
-        return newTime;
-      },
+//      qiCao1(index, fileName) {
+//        let name = fileName.split('\\')
+//        var name1 = name[name.length - 1]
+//        alert(name1)
+//        this.$refs.taskRef.showFujianFile2(index, name1);
+//      },
+//      dateFormat(date) {
+//        let date1 = new Date(date);
+//        let Y = date1.getFullYear();
+//        let M = date1.getMonth() + 1;
+//        let D = date1.getDate();
+//        let newTime = Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D) + " " + date1.toTimeString().substr(0, 8);
+//        return newTime;
+//      },
       change(e) {
         this.backData.i_safetylevel = e
       }, changeHuanJi(e) {

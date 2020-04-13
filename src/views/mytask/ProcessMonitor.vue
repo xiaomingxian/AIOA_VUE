@@ -265,7 +265,7 @@
 
     <!-- 表单区域 -->
     <pic2-modal ref="pic2Modal" @ok="modalFormOk"></pic2-modal>
-    <new-task-modal ref="newTask"></new-task-modal>
+    <!--<new-task-modal ref="newTask"></new-task-modal>-->
 
 
     <!--业务页面-->
@@ -302,7 +302,7 @@
 
 
     </a-modal>
-
+    <undo-msg ref="undoMsg"></undo-msg>
   </a-card>
 </template>
 
@@ -329,6 +329,7 @@
   // import backModal from '@/views/mytask/modules/backModal'
 
   import detailFile from './taskList/detailFile'
+  import undoMsg from './modules/undoMsg'
 
   export default {
     name: "ProcessMonitor",
@@ -336,7 +337,8 @@
     components: {
       pic2Modal,
       //业务
-      detailFile
+      detailFile,
+      undoMsg
     },
     data() {
       return {
@@ -472,20 +474,22 @@
           procInstId: procInstId
         }).then(res => {
           if (res.success) {
+            this.$refs.undoMsg.visible=true
+            this.$refs.undoMsg.dataSource2= res.result
 
-            const h = this.$createElement;
-            let content = []
-            for (let i in res.result) {
-              let msg = res.result[i]
-              content.push(h('p', `【${msg.taskDefName}】 ${msg.deptName} ：${msg.userName}`))
-            }
-
-            let content_ = h('div', {}, content)
-
-            const modal = this.$success({
-              title: '未办理信息',
-              content: content_,
-            });
+            // const h = this.$createElement;
+            // let content = []
+            // for (let i in res.result) {
+            //   let msg = res.result[i]
+            //   content.push(h('p', `【${msg.taskDefName}】 ${msg.deptName} ：${msg.userName}`))
+            // }
+            //
+            // let content_ = h('div', {}, content)
+            //
+            // const modal = this.$success({
+            //   title: '未办理信息',
+            //   content: content_,
+            // });
           } else {
             this.$message.error(res.message)
           }
@@ -866,7 +870,7 @@
             //   dataIndex: 'proDefName'
             // },
             {
-              title: '参与环节',
+              title: '当前环节',
               width: 180,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
@@ -878,7 +882,6 @@
               align: "center",
               // dataIndex: 'name'
               customRender: function (t, r, index) {
-                console.log('--', t, r, index)
                 var name = t.name
                 if (name.indexOf(',') < 0) {
                   return name
