@@ -295,26 +295,6 @@
       >
       </a-table>
     </a-modal>
-    <a-modal
-      title="未办理信息"
-      :width="500"
-      :visible="visible"
-
-      @cancel="closeUndo"
-      destroyOnClose
-
-      cancelText="取消">
-      <template slot="footer">
-        <a-button type="primary" @click.stop="closeUndo()">关闭</a-button>
-        <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
-      </template>
-      <a-table
-        :columns="columns2"
-        :dataSource="dataSource2">
-
-      </a-table>
-
-    </a-modal>
 
     <undo-msg ref="undoMsg"></undo-msg>
 
@@ -344,7 +324,7 @@
   // import backModal from '@/views/mytask/modules/backModal'
 
   import detailFile from './taskList/detailFile'
-  import UndoMsg from './modules/UndoMsg'
+  import undoMsg from './modules/undoMsg'
 
   export default {
     name: "taskHaveDone",
@@ -353,7 +333,7 @@
       pic2Modal,
       //业务
       detailFile,
-      UndoMsg
+      undoMsg
     },
     data() {
       return {

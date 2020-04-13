@@ -29,7 +29,7 @@
 
   export default {
     name: "undoMSg",
-    mixins: [JeecgListMixin],
+    mixins: [],
     data() {
       return {
         visible:false,

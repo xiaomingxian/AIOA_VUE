@@ -158,27 +158,6 @@
       <j-select-user-by-dep-single ref="single" @senUserId="senUserId"></j-select-user-by-dep-single>
     </div>
 
-    <!--      @ok="closeUndo"       okText="确定"-->
-    <a-modal
-      title="未办理信息"
-      :width="500"
-      :visible="visible"
-
-      @cancel="closeUndo"
-      destroyOnClose
-
-      cancelText="取消">
-      <template slot="footer">
-        <a-button type="primary" @click.stop="closeUndo()">关闭</a-button>
-        <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
-      </template>
-      <a-table
-        :columns="columns2"
-        :dataSource="dataSource2">
-
-      </a-table>
-
-    </a-modal>
     <undo-msg ref="undoMsg"></undo-msg>
 
   </a-card>
@@ -196,7 +175,7 @@
   import taskShiftModal from './modules/taskShiftModal'
   import JSelectUserByDepSingle from "../../components/jeecgbiz/JSelectUserByDepSingle";
   import JSelectUserByDepCheckBox from "../../components/jeecgbiz/JSelectUserByDepCheckBox";
-  import UndoMsg from './modules/UndoMsg'
+  import undoMsg from './modules/undoMsg'
 
 
   export default {
@@ -209,7 +188,7 @@
       taskShiftModal,
       JSelectUserByDepSingle,
       JSelectUserByDepCheckBox,
-      UndoMsg
+      undoMsg
     },
     data() {
       return {

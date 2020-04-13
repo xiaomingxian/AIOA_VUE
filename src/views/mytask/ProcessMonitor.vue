@@ -265,7 +265,7 @@
 
     <!-- 表单区域 -->
     <pic2-modal ref="pic2Modal" @ok="modalFormOk"></pic2-modal>
-    <new-task-modal ref="newTask"></new-task-modal>
+    <!--<new-task-modal ref="newTask"></new-task-modal>-->
 
 
     <!--业务页面-->
@@ -329,7 +329,7 @@
   // import backModal from '@/views/mytask/modules/backModal'
 
   import detailFile from './taskList/detailFile'
-  import UndoMsg from './modules/UndoMsg'
+  import undoMsg from './modules/undoMsg'
 
   export default {
     name: "ProcessMonitor",
@@ -338,7 +338,7 @@
       pic2Modal,
       //业务
       detailFile,
-      UndoMsg
+      undoMsg
     },
     data() {
       return {
@@ -870,7 +870,7 @@
             //   dataIndex: 'proDefName'
             // },
             {
-              title: '参与环节',
+              title: '当前环节',
               width: 180,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
@@ -882,7 +882,6 @@
               align: "center",
               // dataIndex: 'name'
               customRender: function (t, r, index) {
-                console.log('--', t, r, index)
                 var name = t.name
                 if (name.indexOf(',') < 0) {
                   return name
