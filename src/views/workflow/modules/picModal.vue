@@ -31,7 +31,7 @@
         <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
         <!--<a-button style="float: right" @click="handleCancel">关闭</a-button>-->
-        <a-button style="position: fixed;bottom:5px;right:5px" type="primary"  @click="handleCancel">关闭</a-button>
+        <a-button style="position: fixed;bottom:5px;right:22px" type="primary"  @click="handleCancel">关闭</a-button>
 
 
       </div>
@@ -58,7 +58,7 @@
         visible: false,
         picurl: '',
         scrWidth: window.innerWidth,
-        scrHeight: window.innerHeight-95+'px'
+        scrHeight: window.innerHeight-118+'px'
         // scrHeight: 500+ 'px'
       }
     },

@@ -71,7 +71,7 @@
 
           </div>
           <!--position:fixed;-->
-          <a-button style="position: fixed;bottom:5px;right:3px" type="primary" @click="handleCancel">关闭</a-button>
+          <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="handleCancel">关闭</a-button>
 
 
         </div>
@@ -105,7 +105,7 @@
     data() {
       return {
         scrWidth: window.innerWidth,
-        scrHeight: window.innerHeight-125 + 'px',//- 320
+        scrHeight: window.innerHeight-150 + 'px',//- 320
         // scrHeight: window.innerHeight + 'px',
         // scrHeight: 500 + 'px',
         styles: [],
