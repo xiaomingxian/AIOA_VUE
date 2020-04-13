@@ -1,12 +1,12 @@
 <template>
   <div class="setting-drawer">
     <a-drawer
+      :title="title"
       :width="scrWidth"
       placement="right"
       :closable="visible"
       @close="handleCancel"
       :visible="visible"
-      :style="{}"
     >
       <div>
         <div class="bingpai" >
@@ -24,7 +24,7 @@
 
             <img :src="picurl" v-show="visible"/>
             <!--position:fixed; bottom:0;right:0px-->
-            <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+            <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
 
           </div>
@@ -45,7 +45,7 @@
             >
 
             </a-table>
-            <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+            <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
 
           </div>
@@ -67,10 +67,12 @@
             >
 
             </a-table>
-            <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+            <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
           </div>
           <!--position:fixed;-->
+          <a-button style="position: fixed;bottom:5px;right:3px" type="primary" @click="handleCancel">关闭</a-button>
+
 
         </div>
       </div>
@@ -103,7 +105,7 @@
     data() {
       return {
         scrWidth: window.innerWidth,
-        scrHeight: window.innerHeight + 'px',//- 320
+        scrHeight: window.innerHeight-125 + 'px',//- 320
         // scrHeight: window.innerHeight + 'px',
         // scrHeight: 500 + 'px',
         styles: [],

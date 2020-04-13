@@ -3,6 +3,7 @@
 
   <div class="setting-drawer">
     <a-drawer
+      :title="title"
       :width="scrWidth"
       placement="right"
       :closable="visible"
@@ -27,9 +28,11 @@
       <div style="width:100%;position: relative">
         <!--@click='showPicFull'-->
         <img :src="picurl"  v-if="visible"  />
-        <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+        <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
         <!--<a-button style="float: right" @click="handleCancel">关闭</a-button>-->
+        <a-button style="position: fixed;bottom:5px;right:5px" type="primary"  @click="handleCancel">关闭</a-button>
+
 
       </div>
 
@@ -55,7 +58,7 @@
         visible: false,
         picurl: '',
         scrWidth: window.innerWidth,
-        scrHeight: window.innerHeight
+        scrHeight: window.innerHeight-95+'px'
         // scrHeight: 500+ 'px'
       }
     },
