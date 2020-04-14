@@ -19,6 +19,7 @@
           <a-input placeholder="请输入名称" maxLength="100" v-decorator="['itemText',  {rules:[{required:true,message:'请输入名称！！！'}]}]" />
         </a-form-item>
 
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
