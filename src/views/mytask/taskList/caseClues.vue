@@ -61,7 +61,7 @@
             <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
+            <a-input maxLength="50" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
           </td>
         </tr>
 
@@ -95,7 +95,7 @@
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
           <td colspan="3" style="height: 280px">
-            <a-textarea style="height: 100%" v-model="backData.s_remarks"></a-textarea>
+            <a-textarea maxLength="500" style="height: 100%" v-model="backData.s_remarks"></a-textarea>
           </td>
         </tr>
 
