@@ -491,7 +491,7 @@
 
         //每次打开页面初始化值
        this.iorder=0;//顺序号
-        this.ipermitType=0;
+//        this.ipermitType=0;
         this.iisCreater=0;
         this.iisReader=0;
         this.iisLastsender=0;
