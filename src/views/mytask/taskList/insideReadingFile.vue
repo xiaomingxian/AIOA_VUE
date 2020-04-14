@@ -8,7 +8,7 @@
           <center><h3>{{detailList.s_title}}</h3></center>
         </td>
         <td colspan="5">
-          <a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-textarea>
+          <a-textarea maxLength="300" cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-textarea>
         </td>
       </tr>
       <tr>
@@ -17,7 +17,7 @@
           <center><h3>{{detailList.s_main_unit_names}}</h3></center>
         </td>
         <td colspan="5">
-          <a-textarea cols="92" rows="2" ref="s_main_unit_names" v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)" v-model="backData.s_main_unit_names"></a-textarea>
+          <a-textarea maxLength="500" cols="92" rows="2" ref="s_main_unit_names" v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)" v-model="backData.s_main_unit_names"></a-textarea>
         </td>
       </tr>
 
@@ -27,14 +27,14 @@
           <center><h3>{{detailList.s_signer}}</h3></center>
         </td>
         <td colspan="3">
-          <a-input style="width:100%;" ref="s_signer" v-on:blur="blurText(backData.s_signer,$refs.s_signer)" v-model="backData.s_signer"></a-input>
+          <a-input maxLength="50" style="width:100%;" ref="s_signer" v-on:blur="blurText(backData.s_signer,$refs.s_signer)" v-model="backData.s_signer"></a-input>
         </td>
         <td class="title" width="15%">
           <!--文件字号-->
           <center><h3>{{detailList.s_file_num}}</h3></center>
         </td>
         <td colspan="3">
-          <a-input style="width:100%;" ref="s_file_num" v-on:blur="blurText(backData.s_file_num,$refs.s_file_num)" v-model="backData.s_file_num"></a-input>
+          <a-input maxLength="32" style="width:100%;" ref="s_file_num" v-on:blur="blurText(backData.s_file_num,$refs.s_file_num)" v-model="backData.s_file_num"></a-input>
         </td>
       </tr>
 
@@ -45,7 +45,7 @@
           <center><h3>{{detailList.s_varchar7}}</h3></center>
         </td>
         <td colspan="3">
-          <a-input style="width:100%;" ref="s_varchar7" v-on:blur="blurText(backData.s_varchar7,$refs.s_varchar7)" v-model="backData.s_varchar7"></a-input>
+          <a-input maxLength="50" style="width:100%;" ref="s_varchar7" v-on:blur="blurText(backData.s_varchar7,$refs.s_varchar7)" v-model="backData.s_varchar7"></a-input>
           <!--<a-textarea cols="92" rows="2" v-model="backData.s_varchar1"></a-textarea>-->
         </td>
         <td class="title" width="8%">
@@ -53,7 +53,7 @@
           <center><h3>{{detailList.d_sealdate}}</h3></center>
         </td>
         <td colspan="3">
-          <a-input style="width:100%;" ref="d_sealdate" v-on:blur="blurText(backData.d_sealdate,$refs.d_sealdate)" v-model="backData.d_sealdate"></a-input>
+          <a-input  style="width:100%;" ref="d_sealdate" v-on:blur="blurText(backData.d_sealdate,$refs.d_sealdate)" v-model="backData.d_sealdate"></a-input>
           <!--<a-textarea cols="92" rows="2" v-model="backData.s_varchar1"></a-textarea>-->
         </td>
       </tr>
@@ -65,7 +65,7 @@
         </td>
         <td colspan="3">
           <div style="padding-left: 10px">{{backData.s_create_name}}</div>
-          <!--          <a-input style="width:100%;" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)" v-model="backData.s_varchar5"></a-input>-->
+          <!--          <a-input maxLength="50" style="width:100%;" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)" v-model="backData.s_varchar5"></a-input>-->
         </td>
         <td class="title" width="15%">
           <!--部门-->
@@ -73,7 +73,7 @@
         </td>
         <td colspan="3">
           <div style="padding-left: 10px">{{backData.s_create_dept}}</div>
-          <!--          <a-input style="width:100%;" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)" v-model="backData.s_varchar6"></a-input>-->
+          <!--          <a-input maxLength="50" style="width:100%;" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)" v-model="backData.s_varchar6"></a-input>-->
         </td>
       </tr>
 

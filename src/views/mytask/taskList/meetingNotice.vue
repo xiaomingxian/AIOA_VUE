@@ -113,7 +113,7 @@
         <td colspan="9" height="100px">
           <center>
             <template>
-              <a-textarea placeholder="请输入会议内容..." ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px"
+              <a-textarea maxLength="300" placeholder="请输入会议内容..." ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px"
                           :rows="true"></a-textarea>
             </template>
           </center>
@@ -125,7 +125,7 @@
           <center><h3>{{detailList.s_varchar4}}</h3></center>
         </td>
         <td colspan="3">
-          <getpersons v-model="backData.s_varchar4"  ref="s_varchar4" :backData="backData" @saveInform="submit"
+          <getpersons maxLength="50" v-model="backData.s_varchar4"  ref="s_varchar4" :backData="backData" @saveInform="submit"
                       @getDUS="getDUS"/>
         </td>
       </tr>

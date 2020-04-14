@@ -34,7 +34,7 @@
             <center><h3>{{detailList.i_phone}}</h3></center>
           </td>
           <td>
-            <a-input ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
+            <a-input  maxLength="18"  ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
           </td>
         </tr>
 
@@ -44,7 +44,7 @@
             <center><h3>{{detailList.s_title}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
+            <a-input  maxLength="300"  ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
           </td>
         </tr>
 
@@ -138,7 +138,7 @@
             <center><h3>{{detailList.s_varchar1}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input v-model="backData.s_varchar1"></a-input>
+            <a-input  maxLength="50"  v-model="backData.s_varchar1"></a-input>
           </td>
 
         </tr>
@@ -149,7 +149,7 @@
             <center><h3>{{detailList.s_varchar2}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input v-model="backData.s_varchar2"></a-input>
+            <a-input  maxLength="50"  v-model="backData.s_varchar2"></a-input>
           </td>
         </tr>
 
@@ -184,7 +184,7 @@
             <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input v-model="backData.s_varchar3"></a-input>
+            <a-input  maxLength="50"  v-model="backData.s_varchar3"></a-input>
           </td>
 
         </tr>
@@ -195,7 +195,7 @@
             <center><h3>{{detailList.s_varchar4}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input v-model="backData.s_varchar4"></a-input>
+            <a-input  maxLength="50"  v-model="backData.s_varchar4"></a-input>
           </td>
         </tr>
 
@@ -205,10 +205,9 @@
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input v-model="backData.s_remarks"></a-input>
+            <a-input  maxLength="500"  v-model="backData.s_remarks"></a-input>
           </td>
         </tr>
-
         <!--<tr>-->
         <!--<td width="10%" class="title">-->
         <!--<center><h3>附件</h3></center>-->

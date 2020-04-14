@@ -50,6 +50,11 @@
                        @getBackData="getBackData"
                        :optionMap="optionMap" :detailList="detailList" :taskParent="task"></send-file>
 
+            <!--简报-->
+            <bulletin-file v-if="pageRef == 'bulletinFile'" ref="bulletinFile" :backDataRef="backData" :isShowFile="isShowFile"
+                       @getBackData="getBackData"
+                       :optionMap="optionMap" :detailList="detailList" :taskParent="task"></bulletin-file>
+
             <!--用印申请-->
             <seal-file v-if="pageRef == 'sealFile'" ref="sealFile" :backDataRef="backData" :isShowFile="isShowFile"
                        @getBackData="getBackData"
@@ -215,6 +220,7 @@
   import JEditor from '@/components/jeecg/JEditor'
   import ReleaseScope from "@/views/oaBus/pageModels/releaseScope";
   //业务页面
+  import bulletinFile from '@/views/mytask/taskList/bulletinFile'
   import shareFile from '@/views/mytask/taskList/shareFile'
   import sealFile from '@/views/mytask/taskList/sealFile'
   import sendFile from '@/views/mytask/taskList/sendFile'
@@ -243,6 +249,7 @@
     inject: ['reload'],
     mixins: [JeecgListMixin],
     components: {
+      bulletinFile,//简报
       sealFile,
       VideoManageFile,
       lanAccess,
