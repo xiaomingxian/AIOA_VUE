@@ -12,7 +12,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol">
-          <h3 style="padding: 4px 0 0 9px;font-weight: bolder;">功能样式配置</h3>
+          <h3 style="padding: 4px 0 0 9px;font-weight: bolder;">功能配置</h3>
         </a-form-item>
       </div>
 
@@ -20,7 +20,7 @@
       :labelCol="labelCol"
       :wrapperCol="wrapperCol">
       <span >AI语音 :&nbsp&nbsp</span><a-switch @change="onChange1" v-model="iisAi" checked-children="是" un-checked-children="否"></a-switch>
-      <span style="margin-left: 20px">待办工作即时消息提醒 :&nbsp&nbsp</span><a-switch @change="onChange2" v-model="iisMessages" checked-children="是" un-checked-children="否"></a-switch>
+      <span style="margin-left: 20px">待办消息提醒 :&nbsp&nbsp</span><a-switch @change="onChange2" v-model="iisMessages" checked-children="是" un-checked-children="否"></a-switch>
       <span style="margin-left: 20px">折叠展示数据 :&nbsp&nbsp</span><a-switch @change="onChange3" v-model="iisFold"  checked-children="是" un-checked-children="否"></a-switch>
       <span style="margin-left: 10px">默认首页风格 :&nbsp&nbsp</span><a-switch @change="onChange4" checked-children="日程办公" v-model="iisCalendar"   un-checked-children="传统首页"></a-switch>
     </a-form-item>
@@ -81,7 +81,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol">
-          <h3 style="padding: 4px 0 0 9px;font-weight: bolder;">首页模块配置</h3>
+          <h3 style="padding: 4px 0 0 9px;font-weight: bolder;">首页业务配置</h3>
         </a-form-item>
       </div>
 
@@ -129,8 +129,8 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="时限待办纳入日程天数：">
-          <a-input style="width: 210px;" placeholder="时限待办纳入日程天数" v-model="icalendarDay" />
+          label="限时待办纳入日程天数：">
+          <a-input style="width: 210px;" placeholder="限时待办纳入日程天数" v-model="icalendarDay" />
         </a-form-item>
 
         <a-form-item
