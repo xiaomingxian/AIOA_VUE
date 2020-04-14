@@ -12,17 +12,15 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
-
           <a-col :md="6" :sm="8">
             <a-form-item label="搜索日志">
               <a-input placeholder="请输入搜索关键词" v-model="queryParam.keyWord"></a-input>
             </a-form-item>
           </a-col>
 
-          <a-col :md="6" :sm="10">
+          <a-col :md="6" :sm="10" style="padding-left: 40px;padding-right: 0;">
             <a-form-item label="创建时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
               <a-range-picker
-                style="width: 210px"
                 v-model="queryParam.createTimeRange"
                 format="YYYY-MM-DD"
                 :placeholder="['开始时间', '结束时间']"
@@ -37,7 +35,7 @@
             </a-form-item>
           </a-col>
 
-          <span style="float: left;overflow: hidden; padding-left: 2%" class="table-page-search-submitButtons">
+          <span style="float: left;overflow: hidden; padding-left: 5%" class="table-page-search-submitButtons">
             <a-col :md="8" :sm="24" >
                 <a-button type="primary"  style="left: 10px" @click="searchQuery" icon="search">查询</a-button>
                 <a-button type="primary"  @click="searchReset" icon="reload" style="margin-left: 8px;left: 10px">重置</a-button>
@@ -249,5 +247,11 @@
   }
 </script>
 <style scoped>
-  @import '~@assets/less/common.less'
+  /*@import '~@assets/less/common.less'*/
+  .ant-row{
+    margin-right: -34px !important;
+  }
+  /deep/.ant-calendar-picker-icon{
+    padding-left: 2% !important;
+  }
 </style>

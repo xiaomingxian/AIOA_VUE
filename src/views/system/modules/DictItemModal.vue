@@ -19,12 +19,13 @@
           <a-input placeholder="请输入名称" maxLength="100" v-decorator="['itemText',  {rules:[{required:true,message:'请输入名称！！！'}]}]" />
         </a-form-item>
 
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="数据值">
           <!--<a-input placeholder="请输入数据值" v-decorator="['itemValue', validatorRules.itemValue]"/>-->
-          <a-input placeholder="请输入数据值" maxLength="100" v-decorator="['itemValue', {rules:[{required:true,message:'请输入数据值！！！'},{pattern: new RegExp(/^[0-9_]\d*$/), message: '请输入数字'}]}]" />
+          <a-input placeholder="请输入数据值" maxLength="100" v-decorator="['itemValue', {rules:[{required:true,message:'请输入数据值！！！'}]}]" />
         </a-form-item>
 
         <a-form-item

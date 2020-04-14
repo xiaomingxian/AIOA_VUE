@@ -534,7 +534,7 @@
       },
       showPic(record) {
         this.$refs.pic2Modal.show(record)
-        this.$refs.pic2Modal.title = '当前环节'
+        // this.$refs.pic2Modal.title = '当前环节'
       },
       //批量办结
       batchEnd() {

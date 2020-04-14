@@ -1,12 +1,12 @@
 <template>
   <div class="setting-drawer">
     <a-drawer
+      :title="title"
       :width="scrWidth"
       placement="right"
       :closable="visible"
       @close="handleCancel"
       :visible="visible"
-      :style="{}"
     >
       <div>
         <div class="bingpai" >
@@ -14,8 +14,7 @@
           <a-button @click="traceP" block>流程跟踪表</a-button>
           <a-button @click="backRecordClick" block>撤回/回退记录</a-button>
         </div>
-        <div
-          :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
+        <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
 
 
           <div style="width:100%;position: relative" v-if="showPic">
@@ -25,7 +24,7 @@
 
             <img :src="picurl" v-show="visible"/>
             <!--position:fixed; bottom:0;right:0px-->
-            <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+            <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
 
           </div>
@@ -46,7 +45,7 @@
             >
 
             </a-table>
-            <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+            <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
 
           </div>
@@ -68,10 +67,12 @@
             >
 
             </a-table>
-            <a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>
+            <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
           </div>
           <!--position:fixed;-->
+          <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="handleCancel">关闭</a-button>
+
 
         </div>
       </div>
@@ -80,6 +81,7 @@
 
 </template>
 <style type="text/css">
+
   .div {
     border: 2px solid red;
     padding: 5px;
@@ -103,7 +105,7 @@
     data() {
       return {
         scrWidth: window.innerWidth,
-        scrHeight: window.innerHeight + 'px',//- 320
+        scrHeight: window.innerHeight-150 + 'px',//- 320
         // scrHeight: window.innerHeight + 'px',
         // scrHeight: 500 + 'px',
         styles: [],
@@ -276,6 +278,7 @@
       },
       show(record) {
         this.record = record
+        this.title=record.title
 
         this.visible = true
         this.showPict();
@@ -360,6 +363,24 @@
 </script>
 
 <style lang="less" scoped>
+  /deep/.ant-drawer-right{
+    /deep/.ant-drawer-content-wrapper{
+      background: #2eabff !important;
+      /deep/.ant-drawer-content{
+        /deep/.ant-drawer-wrapper-body{
+          background: #2eabff !important;
+        }
+      }
+
+    }
+  }
+  .ant-drawer-wrapper-body{
+
+  }
+
+  /*/deep/.setting-drawer{*/
+    /*background: red !important;*/
+  /*}*/
   .ant-btn {
     border-color: transparent;
   }
