@@ -72,36 +72,17 @@
         },
         columns: [
           {
-            title: '用户账号',
+            title: '用户名',
             align: 'center',
             dataIndex: 'username'
           },
           {
-            title: '真实姓名',
+            title: '姓名',
             align: 'center',
             dataIndex: 'realname'
           },
           {
-            title: '角色名称',
-            align: 'center',
-            dataIndex: 'roleName'
-          },
-          {
-            title: '性别',
-            align: 'center',
-            dataIndex: 'sex',
-            customRender: function(text) {
-              if (text === 1) {
-                return '男'
-              } else if (text === 2) {
-                return '女'
-              } else {
-                return text
-              }
-            }
-          },
-          {
-            title: '手机号码',
+            title: '联系方式',
             align: 'center',
             dataIndex: 'phone'
           },
