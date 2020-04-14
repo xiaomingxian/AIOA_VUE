@@ -311,6 +311,11 @@ export const constantRouterMap = [
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register')
       },
       {
+        path: 'dept_register',
+        name: 'dept_register',
+        component: () => import(/* webpackChunkName: "user" */ '@/views/user/JiGouRegister')
+      },
+      {
         path: 'register-result',
         name: 'registerResult',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/RegisterResult')

@@ -12,6 +12,7 @@
         :activeKey="customActiveKey"
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="handleTabClick">
+        <!--<a-tab-pane key="register" tab="用户注册"></a-tab-pane>-->
         <a-tab-pane key="tab1" tab="用户登录">
           <a-form-item v-show="orgSchemaFlag">
             <a-select size="large"  placeholder="请选择机构" v-decorator="[ 'orgSchema', {}]">
@@ -318,6 +319,28 @@
         callback()
       },
       handleTabClick (key) {
+        if (key == 'register') {
+
+          getAction('/registerNoShiro/insertData?enName=registermanage').then(res => {
+            if (res.success) {
+              let id=res.result.busdataId
+              let table=res.result.tableName
+              if (id==undefined||id==''||id==null){
+                this.$message.error('临时数据返回有误,i_id不存在')
+                return
+              }
+              if (table==undefined||table==''||table==null){
+                this.$message.error('临时数据返回有误,表名不存在')
+                return
+              }
+              // window.open(window.location.origin + '/mytask/taskList/detailFileNoShiro?tableName='+table+'&busdataId='+id+'&navisshow=false')
+              window.open(window.location.origin + '/user/dept_register?tableName='+table+'&busdataId='+id+'&navisshow=false')
+            } else {
+              this.$message.error(res.message)
+            }
+          })
+          return
+        }
         this.customActiveKey = key
         // this.form.resetFields()
       },
@@ -392,8 +415,8 @@
 
               const hide = this.$message.loading('验证码发送中..', 0);
               let smsParams = {};
-                  smsParams.mobile=values.mobile;
-                  smsParams.smsmode="0";
+              smsParams.mobile=values.mobile;
+              smsParams.smsmode="0";
               postAction("/sys/sms",smsParams)
                 .then(res => {
                   if(!res.success){
@@ -524,7 +547,7 @@
           this.validate_status='error'
           return false
         }
-       let obj = {
+        let obj = {
           orgCode:this.departSelected,
           username:this.form.getFieldValue("username")
         }
@@ -555,24 +578,24 @@
         this.validate_status='success'
         this.departSelected = value
       },
-    getRouterData(){
-      this.$nextTick(() => {
-        this.form.setFieldsValue({
-        'username': this.$route.params.username
-      });
-    })
-    },
-    //获取密码加密规则
-    getEncrypte(){
-      var encryptedString = Vue.ls.get(ENCRYPTED_STRING);
-      if(encryptedString == null){
-        getEncryptedString().then((data) => {
-          this.encryptedString = data
-        });
-      }else{
-        this.encryptedString = encryptedString;
-      }
-    },
+      getRouterData(){
+        this.$nextTick(() => {
+          this.form.setFieldsValue({
+            'username': this.$route.params.username
+          });
+        })
+      },
+      //获取密码加密规则
+      getEncrypte(){
+        var encryptedString = Vue.ls.get(ENCRYPTED_STRING);
+        if(encryptedString == null){
+          getEncryptedString().then((data) => {
+            this.encryptedString = data
+          });
+        }else{
+          this.encryptedString = encryptedString;
+        }
+      },
     }
   }
 </script>
@@ -629,8 +652,8 @@
 <style>
 
   /*.user-layout-wrapper .container .header .title{*/
-    /*font-size: 26px !important;*/
-    /*background-color: transparent !important;*/
+  /*font-size: 26px !important;*/
+  /*background-color: transparent !important;*/
   /*}*/
 
   .user-layout-login  .ant-tabs-nav {
