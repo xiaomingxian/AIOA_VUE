@@ -251,4 +251,8 @@
 /deep/ .ant-modal-wrap /deep/  .ant-modal-footer /deep/ .ant-btn-primary{
   display: none !important;
 }
+  /** 主表单行间距 */
+  .ant-form .ant-form-item {
+    margin-bottom: 8px;
+  }
 </style>

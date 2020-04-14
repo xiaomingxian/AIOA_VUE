@@ -15,7 +15,7 @@
     <div class="contentBox" >
       <div class="topBox">
           <div class="origionData">
-            <h1 class="title">待选主送抄送单位</h1>
+            <h1 class="title">待选单位</h1>
             <div class="left">
               <a-table
                 ref="table"
@@ -76,7 +76,7 @@
 
       <div class="bottomBox">
           <div class="neibuFasong">
-            <h1 class="title">待选内部发送单位</h1>
+            <h1 class="title">内部发送</h1>
             <a-table
               ref="table"
               size="small"

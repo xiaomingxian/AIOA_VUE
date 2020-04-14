@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <!--<a-input-search-->
       <!--style="height: 100px;"-->
       <!--v-model="selectedDepUsers"-->
@@ -9,7 +9,7 @@
       <!--<a-button slot="enterButton" :disabled="disabled">选择用户</a-button>-->
     <!--</a-input-search>-->
     <textarea
-      style=" width: 100%; height: 100px;background: #fff;border-color: #d9d9d9;border-radius: 5px;"
+      style=" width: 100%; height: 60px;background: #fff;border-color: #d9d9d9;border-radius: 5px;"
       v-model="selectedDepUsers"
       placeholder="请先选择用户"
       disabled
