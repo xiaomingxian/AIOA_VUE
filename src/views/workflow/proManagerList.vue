@@ -379,7 +379,7 @@
       },
       editPro(record) {
         this.$refs.editPro.editPro(record.id, record.name)
-        this.$refs.editPro.title = '编辑'
+        this.$refs.editPro.title = '流程源码'
         this.reload()
       },
       buttonPermission(record) {
