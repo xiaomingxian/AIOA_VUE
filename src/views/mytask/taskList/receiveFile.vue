@@ -10,7 +10,7 @@
             <center><h3>{{detailList.s_title}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-textarea>
+            <a-textarea maxLength="300" cols="92" rows="2" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-textarea>
           </td>
         </tr>
        <!-- <tr>
@@ -52,7 +52,7 @@
             <center><h3>{{detailList.s_file_num}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input :value="backData.s_file_num"></a-input>
+            <a-input  :value="backData.s_file_num"></a-input>
           </td>
         </tr>
         <tr>
@@ -74,7 +74,7 @@
             <center><h3>{{detailList.s_receive_num}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_receive_num" v-model="backData.s_receive_num"  v-on:blur="blurText(backData.s_receive_num,$refs.s_receive_num)"></a-input>
+            <a-input maxLength="50" ref="s_receive_num" v-model="backData.s_receive_num"  v-on:blur="blurText(backData.s_receive_num,$refs.s_receive_num)"></a-input>
           </td>
         </tr>
         <tr>
@@ -83,7 +83,7 @@
             <center><h3>{{detailList.s_varchar5}}</h3></center>
           </td>
           <td >
-            <a-select placeholder="请选择来文机关" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)"
+            <a-select maxLength="50" placeholder="请选择来文机关" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)"
                       v-model="backData.s_varchar5">
               <a-select-option v-for="(item,index) in recFileOrgList" :key="index" :value="item.value">
                 {{item.text}}
@@ -95,9 +95,9 @@
             <center><h3>数量</h3></center>
           </td>
           <td>
-            <a-input style="width: 42%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" v-model="backData.i_bigint1"></a-input>
+            <a-input  maxLength="20"  style="width: 42%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" v-model="backData.i_bigint1"></a-input>
             份
-            <a-input style="width: 42%" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
+            <a-input  maxLength="20"  style="width: 42%" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
             页
           </td>
         </tr>
@@ -150,7 +150,7 @@
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input v-model="backData.s_remarks"></a-input>
+            <a-input  maxLength="500"  v-model="backData.s_remarks"></a-input>
           </td>
         </tr>
 

@@ -45,7 +45,7 @@
             <center><h3>{{detailList.i_bigint1}}</h3></center>
           </td>
           <td>
-            <a-input type="number" style="padding-left: 10px" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_bigint1"></a-input>
+            <a-input maxLength="300" type="number" style="padding-left: 10px" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_bigint1"></a-input>
             <!--<a-input style="padding-left: 10px" v-model="backData.i_bigint1"></a-input>-->
           </td>
           <td class="title" width="15%">
@@ -84,7 +84,7 @@
             <center><h3>{{detailList.s_varchar1}}</h3></center>
           </td>
           <td>
-            <a-select placeholder="请选择需办理事项" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
+            <a-select maxLength="50" placeholder="请选择需办理事项" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                       v-model="backData.s_varchar1" @change="varOneSelectType">
               <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
@@ -96,7 +96,7 @@
             <center><h3>{{detailList.s_varchar2}}</h3></center>
           </td>
           <td>
-            <a-select placeholder="请选择办理说明" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
+            <a-select maxLength="50" placeholder="请选择办理说明" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                       v-model="backData.s_varchar2" @change="varTwoSelectType">
               <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
@@ -110,14 +110,14 @@
             <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
+            <a-input maxLength="50" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
           </td>
           <!--所在地区-->
           <td width="10%" class="title">
             <center><h3>{{detailList.s_varchar4}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar4" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4"></a-input>
+            <a-input maxLength="50" ref="s_varchar4" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4"></a-input>
           </td>
         </tr>
 
@@ -127,7 +127,7 @@
             <center><h3>{{detailList.s_title}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
+            <a-input maxLength="50" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
           </td>
         </tr>
 
@@ -138,7 +138,7 @@
             <center><h3>{{detailList.s_varchar5}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea v-model="backData.s_varchar5"></a-textarea>
+            <a-textarea maxLength="50" v-model="backData.s_varchar5"></a-textarea>
           </td>
         </tr>
 
@@ -148,7 +148,7 @@
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea v-model="backData.s_remarks"></a-textarea>
+            <a-textarea maxLength="500" v-model="backData.s_remarks"></a-textarea>
           </td>
         </tr>
 

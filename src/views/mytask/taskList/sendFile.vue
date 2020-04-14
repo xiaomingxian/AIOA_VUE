@@ -34,7 +34,7 @@
             <center><h3>{{detailList.i_phone}}</h3></center>
           </td>
           <td>
-            <a-input ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
+            <a-input  maxLength="18"  ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
           </td>
         </tr>
 
@@ -71,7 +71,7 @@
             <center><h3>{{detailList.s_title}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
+            <a-input  maxLength="300"  ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
           </td>
         </tr>
         <tr>
@@ -80,7 +80,7 @@
           </td>
           <!--主送单位-->
           <td colspan="3">
-            <a-textarea style="width:85%;" ref="s_main_unit_names" v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)" v-model="backData.s_main_unit_names"></a-textarea>
+            <a-textarea  maxLength="1000"  style="width:85%;" ref="s_main_unit_names" v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)" v-model="backData.s_main_unit_names"></a-textarea>
             <a-button style="width:15%;" @click="selDepartName">选择</a-button>
           </td>
         </tr>
@@ -90,7 +90,7 @@
             <center><h3>{{detailList.s_cc_unit_names}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea style="width:85%;"  ref="s_cc_unit_names" v-on:blur="blurText(backData.s_cc_unit_names,$refs.s_cc_unit_names)" v-model="backData.s_cc_unit_names"></a-textarea>
+            <a-textarea  maxLength="1000"  style="width:85%;"  ref="s_cc_unit_names" v-on:blur="blurText(backData.s_cc_unit_names,$refs.s_cc_unit_names)" v-model="backData.s_cc_unit_names"></a-textarea>
             <a-button style="width:15%;" @click="selDepartName">选择</a-button>
           </td>
         </tr>
@@ -100,7 +100,7 @@
             <center><h3>{{detailList.s_inside_deptnames}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea style="width:85%;" ref="s_inside_deptnames" v-on:blur="blurText(backData.s_inside_deptnames,$refs.s_inside_deptnames)" v-model="backData.s_inside_deptnames"></a-textarea>
+            <a-textarea  maxLength="1000"  style="width:85%;" ref="s_inside_deptnames" v-on:blur="blurText(backData.s_inside_deptnames,$refs.s_inside_deptnames)" v-model="backData.s_inside_deptnames"></a-textarea>
             <a-button style="width:15%;" @click="selDepartName">选择</a-button>
           </td>
         </tr>
@@ -113,7 +113,7 @@
             <center><h3>{{detailList.i_bigint1}}</h3></center>
           </td>
           <td>
-            <a-input style="width: 94%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)"
+            <a-input  maxLength="20"  style="width: 94%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)"
                      v-model="backData.i_bigint1"></a-input>
             &nbsp份
           </td>
@@ -140,7 +140,7 @@
             <center><h3>{{detailList.i_bigint2}}</h3></center>
           </td>
           <td>
-            <a-input ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
+            <a-input  maxLength="20"  ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
           </td>
         </tr>
 
@@ -166,7 +166,7 @@
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea style="width:100%;" v-model="backData.s_remarks"></a-textarea>
+            <a-textarea  maxLength="500"  style="width:100%;" v-model="backData.s_remarks"></a-textarea>
           </td>
         </tr>
 

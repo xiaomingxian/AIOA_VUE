@@ -22,7 +22,7 @@
         </td>
         <td colspan="2">
           <!--<a-textarea cols="92" rows="2" v-model="backData.s_create_name"></a-textarea>-->
-          <a-input style="padding-left: 10px" ref="s_create_name" v-on:blur="blurText(backData.s_create_name,$refs.s_create_name)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_name"></a-input>
+          <a-input  maxLength="32"  style="padding-left: 10px" ref="s_create_name" v-on:blur="blurText(backData.s_create_name,$refs.s_create_name)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_name"></a-input>
         </td>
       </tr>
       <tr>
@@ -35,8 +35,8 @@
           <!--:value="value"-->
           <!--@change="changeIphone"-->
           <!--@blur="blurIphone"-->
-          <a-input
-            type="number" min="1"
+          <a-input  maxLength="18"
+                    type="number" min="1"
             style="padding-left: 10px" ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_phone"></a-input>
         </td>
         <td class="title" width="15%">
@@ -55,7 +55,7 @@
           <center><h3>{{detailList.s_title}}</h3></center>
         </td>
         <td colspan="7">
-          <a-textarea cols="92" rows="4" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title"></a-textarea>
+          <a-textarea  maxLength="300"  cols="92" rows="4" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title"></a-textarea>
         </td>
       </tr>
       <tr>
@@ -72,7 +72,7 @@
             <!--</a-select-option>-->
           <!--</a-select>-->
 
-          <a-input style="width:85%;" ref="s_main_unit_names" v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  v-model="backData.s_main_unit_names"></a-input>
+          <a-input  maxLength="1000"  style="width:85%;" ref="s_main_unit_names" v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  v-model="backData.s_main_unit_names"></a-input>
           <a-button style="width:15%;" @click="selDepartName" >选择</a-button>
         </td>
 
@@ -91,7 +91,7 @@
             <!--</a-select-option>-->
           <!--</a-select>-->
 
-          <a-input style="width:85%;" ref="s_inside_deptnames" v-on:blur="blurText(backData.s_inside_deptnames,$refs.s_inside_deptnames)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  v-model="backData.s_inside_deptnames"></a-input>
+          <a-input  maxLength="1000"  style="width:85%;" ref="s_inside_deptnames" v-on:blur="blurText(backData.s_inside_deptnames,$refs.s_inside_deptnames)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  v-model="backData.s_inside_deptnames"></a-input>
           <a-button style="width:15%;" @click="selDepartName" >选择</a-button>
         </td>
       </tr>
@@ -111,7 +111,7 @@
           <center><h3>{{detailList.s_remarks}}</h3></center>
         </td>
         <td colspan="2">
-          <a-textarea onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_remarks"></a-textarea>
+          <a-textarea  maxLength="500"  onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_remarks"></a-textarea>
           <!--<a-input cols="92" rows="2" v-model="backData.s_remarks"></a-input>-->
         </td>
       </tr>
@@ -141,7 +141,7 @@
           <center><h3>{{detailList.s_varchar3}}</h3></center>
         </td>
         <td colspan="7">
-          <a-input ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar3"></a-input>
+          <a-input  maxLength="50"  ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar3"></a-input>
         </td>
       </tr>
       <tr>
@@ -150,7 +150,7 @@
           <center><h3>{{detailList.i_bigint1}}</h3></center>
         </td>
         <td colspan="2">
-          <a-input type="number" min="1" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" style="padding-left: 10px" v-model="backData.i_bigint1"></a-input>
+          <a-input  maxLength="20"  type="number" min="1" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" style="padding-left: 10px" v-model="backData.i_bigint1"></a-input>
           <!--<a-textarea cols="92" rows="5" v-model="backData.s_varchar4"></a-textarea>-->
         </td>
         <!--- 正文页数-->
@@ -158,7 +158,7 @@
           <center><h3>{{detailList.i_bigint2}}</h3></center>
         </td>
         <td colspan="2">
-          <a-input type="number" min="1" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_bigint2"></a-input>
+          <a-input  maxLength="20"  type="number" min="1" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.i_bigint2"></a-input>
         </td>
       </tr>
 
@@ -168,14 +168,14 @@
           <center><h3>{{detailList.s_varchar1}}</h3></center>
         </td>
         <td colspan="2">
-          <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar1"></a-input>
+          <a-input  maxLength="50"  onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar1"></a-input>
         </td>
         <!--打字 -->
         <td class="title" width="15%">
           <center><h3>{{detailList.s_varchar2}}</h3></center>
         </td>
         <td colspan="2">
-          <a-input onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar2"></a-input>
+          <a-input  maxLength="50"  onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar2"></a-input>
         </td>
       </tr>
 
