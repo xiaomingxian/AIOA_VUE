@@ -118,7 +118,7 @@
             dataIndex: 'iteamworkId'
            },*/
 		   {
-            title: '协同顺序111',
+            title: '协同顺序',
             align:"center",
             dataIndex: 'iorder'
            },
