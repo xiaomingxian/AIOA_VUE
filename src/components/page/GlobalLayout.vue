@@ -779,7 +779,7 @@
 
   .ant-table-thead > tr > th{
     color: #000000 !important;
-    background-color: #E9ECF2 !important;
+    background-color: #EEF1F3 !important;
     /*border: none !important;*/
     border:1px solid #f9f9f9 !important;
   }
