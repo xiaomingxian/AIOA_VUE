@@ -120,15 +120,15 @@
         </td>
       </tr>
       <!--参会人员-->
-      <tr style="height: 50px;">
-        <td width="15%"class="title">
-          <center><h3>{{detailList.s_varchar4}}</h3></center>
-        </td>
-        <td colspan="3">
-          <getpersons maxLength="50" v-model="backData.s_varchar4"  ref="s_varchar4" :backData="backData" @saveInform="submit"
-                      @getDUS="getDUS"/>
-        </td>
-      </tr>
+      <!--<tr style="height: 50px;">-->
+        <!--<td width="15%"class="title">-->
+          <!--<center><h3>{{detailList.s_varchar4}}</h3></center>-->
+        <!--</td>-->
+        <!--<td colspan="3">-->
+          <!--<getpersons maxLength="50" v-model="backData.s_varchar4"  ref="s_varchar4" :backData="backData" @saveInform="submit"-->
+                      <!--@getDUS="getDUS"/>-->
+        <!--</td>-->
+      <!--</tr>-->
       <!--附件-->
       <tr style="height: 50px;">
         <td width="15%"class="title">

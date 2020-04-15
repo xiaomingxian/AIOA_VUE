@@ -52,7 +52,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="菜单路径">
-          <a-input placeholder="请输入菜单路径" maxLength="255" v-decorator="[ 'url', {rules:[{required:true,message:'请输入菜单路径！'}] }]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入菜单路径" maxLength="255" readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
