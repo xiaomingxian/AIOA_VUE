@@ -779,9 +779,9 @@
 
   .ant-table-thead > tr > th{
     color: #000000 !important;
-    background-color: #FAFAFA !important;
+    background-color: #E9ECF2 !important;
     /*border: none !important;*/
-    border-right:1px solid #E9E9E9 !important;
+    border:1px solid #f9f9f9 !important;
   }
 
   /*.ant-table-tbody{*/
