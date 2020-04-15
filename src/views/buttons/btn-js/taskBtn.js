@@ -1520,7 +1520,9 @@ export const taskBth = {
       var res = window.confirm("是否强制办结");
       if (res) {
         // this.doGet(this.url.endProUrl, {processId: this.taskMsg.processInstanceId})
-        getAction(this.url.endProUrl, {processId: this.taskMsg.processInstanceId}).then(res => {
+       let table= this.taskMsg.table
+       let tableId= this.taskMsg.tableId
+        getAction(this.url.endProUrl, {processId: this.taskMsg.processInstanceId,table:table,busDataId:tableId}).then(res => {
           if (res.success) {
             this.$message.success(res.message)
             this.isEnd()
