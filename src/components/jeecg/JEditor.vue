@@ -141,4 +141,7 @@
 
 </script>
 <style scoped>
+  /deep/.tox-toolbar{
+    float: left;
+  }
 </style>
