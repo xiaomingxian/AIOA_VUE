@@ -68,7 +68,7 @@
                 </td>
                 <td colspan="7">
                   <left>
-                    <a-select style="width:80%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
+                    <a-select maxLength="50" style="width:80%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
                               v-model="backData.s_varchar4" @change="changeHuanJi">
                       <a-select-option  v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text" :value="item.value" >{{item.text}}</a-select-option>
                     </a-select>
@@ -86,7 +86,7 @@
                 <td colspan="7" height="100px">
                   <left>
                     <template>
-                      <a-textarea  ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px;width: 95%"
+                      <a-textarea maxLength="50"  ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px;width: 95%"
                                   :rows="true"></a-textarea>
                     </template>
                   </left>

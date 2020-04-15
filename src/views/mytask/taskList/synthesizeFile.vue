@@ -7,7 +7,7 @@
           <center><h3>{{detailList.s_create_name}}</h3></center>
         </td>
         <td width="35%">
-          <a-input style="padding-left: 10px" ref="s_create_name" v-on:blur="blurText(backData.s_create_name,$refs.s_create_name)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_name" disabled></a-input>
+          <a-input  maxLength="32"  style="padding-left: 10px" ref="s_create_name" v-on:blur="blurText(backData.s_create_name,$refs.s_create_name)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_name" disabled></a-input>
           <!--<a-input style="padding-left: 10px" v-model="backData.s_create_name" disabled></a-input>-->
         </td>
         <td class="title" width="15%">
@@ -16,7 +16,7 @@
         </td>
         <td width="35%">
           <!--<a-textarea cols="92" rows="2" v-model="backData.s_dept_name"></a-textarea>-->
-          <a-input style="padding-left: 10px" ref="s_create_dept" v-on:blur="blurText(backData.s_create_dept,$refs.s_create_dept)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_dept" disabled></a-input>
+          <a-input  maxLength="50"  style="padding-left: 10px" ref="s_create_dept" v-on:blur="blurText(backData.s_create_dept,$refs.s_create_dept)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_create_dept" disabled></a-input>
         </td>
       </tr>
       <tr>
@@ -33,7 +33,7 @@
           <center><h3>{{detailList.s_varchar1}}</h3></center>
         </td>
         <td width="35%">
-          <a-input style="padding-left: 10px" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar1"></a-input>
+          <a-input  maxLength="50"  style="padding-left: 10px" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar1"></a-input>
         </td>
       </tr>
       <tr>
@@ -51,7 +51,7 @@
           <center><h3>{{detailList.s_varchar2}}</h3></center>
         </td>
         <td width="35%">
-          <a-input style="padding-left: 10px" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar2"></a-input>
+          <a-input  maxLength="50"  style="padding-left: 10px" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar2"></a-input>
         </td>
       </tr>
       <tr>
@@ -121,7 +121,7 @@
           <center><h3>{{detailList.s_title}}</h3></center>
         </td>
         <td colspan="6">
-          <a-textarea cols="92" rows="4" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title"></a-textarea>
+          <a-textarea  maxLength="300"  cols="92" rows="4" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title"></a-textarea>
           <!--<a-input v-model="backData.s_varchar4"></a-input>-->
         </td>
       </tr>
@@ -151,7 +151,7 @@
           <center><h3>{{detailList.s_remarks}}</h3></center>
         </td>
         <td colspan="6">
-          <a-textarea cols="92" rows="4" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_remarks"></a-textarea>
+          <a-textarea  maxLength="500"  cols="92" rows="4" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_remarks"></a-textarea>
           <!--<a-input cols="92" rows="2" v-model="backData.s_remarks"></a-input>-->
         </td>
       </tr>

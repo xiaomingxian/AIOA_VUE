@@ -11,7 +11,7 @@
             <center><h3>{{detailList.s_varchar8}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea v-model="backData.s_varchar8"></a-textarea>
+            <a-textarea maxLength="50" v-model="backData.s_varchar8"></a-textarea>
           </td>
         </tr>
 
@@ -45,7 +45,7 @@
             <center><h3>{{detailList.i_phone}}</h3></center>
           </td>
           <td>
-            <a-input ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
+            <a-input maxLength="50" ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
           </td>
         </tr>
 
@@ -55,7 +55,7 @@
             <center><h3>{{detailList.s_title}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
+            <a-input maxLength="50" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)" v-model="backData.s_title"></a-input>
           </td>
         </tr>
 
@@ -86,7 +86,7 @@
             <center><h3>{{detailList.s_varchar1}}</h3></center>
           </td>
           <td>
-            <a-select placeholder="请选择网络需求" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
+            <a-select maxLength="50" placeholder="请选择网络需求" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                       v-model="backData.s_varchar1" @change="varOneSelectType">
               <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
@@ -98,7 +98,7 @@
             <center><h3>{{detailList.s_varchar2}}</h3></center>
           </td>
           <td>
-            <a-select placeholder="是否有非人行人员参加" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
+            <a-select maxLength="50" placeholder="是否有非人行人员参加" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                       v-model="backData.s_varchar2" @change="varTwoSelectType">
               <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
@@ -112,7 +112,7 @@
             <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
+            <a-input maxLength="50" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3"></a-input>
           </td>
           <!--电话号码-->
           <td width="10%" class="title">
@@ -147,7 +147,7 @@
             <center><h3>{{detailList.s_varchar7}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea  style="height: 140px"  ref="s_varchar7" v-on:blur="blurText(backData.s_varchar7,$refs.s_varchar7)" v-model="backData.s_varchar7"></a-textarea>
+            <a-textarea maxLength="50"  style="height: 140px"  ref="s_varchar7" v-on:blur="blurText(backData.s_varchar7,$refs.s_varchar7)" v-model="backData.s_varchar7"></a-textarea>
           </td>
         </tr>
 
@@ -157,7 +157,7 @@
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea style="height: 140px" v-model="backData.s_remarks"></a-textarea>
+            <a-textarea maxLength="300" style="height: 140px" v-model="backData.s_remarks"></a-textarea>
           </td>
         </tr>
 

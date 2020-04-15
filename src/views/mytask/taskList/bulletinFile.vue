@@ -6,14 +6,14 @@
       <table border="1" borderColor="#F0F5FC" class="sendFileStyle" width="100%">
         <tr>
           <td width="15%" class="title">
-            <!--部门：：-->
+            <!--主办部门：-->
             <center><h3>{{detailList.s_create_dept}}</h3></center>
           </td>
           <td width="35%">
             <div style="padding-left: 10px">{{backData.s_create_dept}}</div>
           </td>
           <td width="15%" class="title">
-            <!--拟稿人：：-->
+            <!--拟稿人：-->
             <center><h3>{{detailList.s_create_name}}</h3></center>
           </td>
           <td>
@@ -23,103 +23,47 @@
 
         <tr>
           <td width="15%" class="title">
+            <!--电话：：-->
+            <center><h3>{{detailList.i_phone}}</h3></center>
+          </td>
+          <td>
+            <a-input  maxLength="18"  ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
+          </td>
+          <td width="15%" class="title">
             <!--拟稿时间：-->
             <center><h3>{{detailList.d_create_time}}</h3></center>
           </td>
           <td width="35%">
             <div style="padding-left: 10px;">{{backData.d_create_time}}</div>
           </td>
-          <td width="15%" class="title">
-            <!--电话：：-->
-            <center><h3>{{detailList.i_phone}}</h3></center>
-          </td>
-          <td>
-            <a-input  type="number" min="1"  ref="i_phone" v-on:blur="blurText(backData.i_phone,$refs.i_phone)" v-model="backData.i_phone"></a-input>
-          </td>
         </tr>
 
 
-        <tr>
-          <td width="15%" class="title">
-            <!--信息公开：-->
-            <center><h3>{{detailList.s_varchar4}}</h3></center>
-          </td>
-          <td>
-            <a-select ref="s_varchar4" @change="infoOut" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4" placeholder="请选择信息是否公开">
-              <a-select-option v-for="(item,index) in xxgkList" :key="index" :text="item.text"
-                               :value="item.value">{{item.text}}
-              </a-select-option>
-            </a-select>
-          </td>
-          <td width="15%" class="title">
-            <!--不公开理由：-->
-            <center><h3>{{detailList.s_varchar5}}</h3></center>
-          </td>
-          <td>
-            <a-select :disabled="disabled"  ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)" v-model="backData.s_varchar5" placeholder="请选择理由">
-              <a-select-option v-for="(item,index) in bgklyList" :key="index" :text="item.text"
-                               :value="item.value">{{item.text}}
-              </a-select-option>
-            </a-select>
-          </td>
-        </tr>
-        <!--新增------------开始------------------------------------------------------------>
-        <tr>
-          <td width="15%" class="title">
-            <!--运转过程紧急程度：-->
-            <center><h3>{{detailList.s_varchar6}}</h3></center>
-          </td>
-          <td>
-            <a-select placeholder="请选择紧急程度" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)"
-                      v-model="backData.s_varchar6" @change="varSixSelectType">
-              <a-select-option v-for="(item,index) in optionMap.s_varchar6_option" :key="index" :value="item.value">{{item.text}}
-              </a-select-option>
-            </a-select>
-          </td>
-          <td width="15%" class="title">
-            <!--运转过程涉密程度：-->
-            <center><h3>{{detailList.s_varchar7}}</h3></center>
-          </td>
-          <td>
-            <a-select placeholder="请选择涉密程度" ref="s_varchar7" v-on:blur="blurText(backData.s_varchar7,$refs.s_varchar7)"
-                      v-model="backData.s_varchar7" @change="varSevenSelectType">
-              <a-select-option v-for="(item,index) in optionMap.s_varchar7_option" :key="index" :value="item.value">{{item.text}}
-              </a-select-option>
-            </a-select>
-          </td>
-        </tr>
-
-        <tr>
-          <td width="15%" class="title">
-            <!--规范性文件：-->
-            <center><h3>{{detailList.s_varchar8}}</h3></center>
-          </td>
-          <td>
-            <a-select placeholder="请选择规范性文件" ref="s_varchar8" v-on:blur="blurText(backData.s_varchar8,$refs.s_varchar8)"
-                        v-model="backData.s_varchar8" @change="varEightSelectType">
-            <a-select-option v-for="(item,index) in optionMap.s_varchar8_option" :key="index" :value="item.value">{{item.text}}
-            </a-select-option>
-          </a-select>
-          </td>
-          <!--- 工作机密年限-->
-          <td width="15%" class="title">
-            <center><h3>{{detailList.i_bigint3}}</h3></center>
-          </td>
-          <td>
-            <a-input type="number" min="1" ref="i_bigint3" v-on:blur="blurText(backData.i_bigint3,$refs.i_bigint3)" v-model="backData.i_bigint3"></a-input>
-          </td>
-        </tr>
         <!--<tr>-->
-          <!--&lt;!&ndash;发文总号&ndash;&gt;-->
-          <!--<td width="10%" class="title">-->
-            <!--<center><h3>{{detailList.s_varchar9}}</h3></center>-->
+          <!--<td width="15%" class="title">-->
+            <!--&lt;!&ndash;信息公开：&ndash;&gt;-->
+            <!--<center><h3>{{detailList.s_varchar4}}</h3></center>-->
           <!--</td>-->
-          <!--<td colspan="3">-->
-            <!--<a-input ref="s_varchar9" v-on:blur="blurText(backData.s_varchar9,$refs.s_varchar9)" v-model="backData.s_varchar9"></a-input>-->
+          <!--<td>-->
+            <!--<a-select ref="s_varchar4" @change="infoOut" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar4)" v-model="backData.s_varchar4" placeholder="请选择信息是否公开">-->
+              <!--<a-select-option v-for="(item,index) in xxgkList" :key="index" :text="item.text"-->
+                               <!--:value="item.value">{{item.text}}-->
+              <!--</a-select-option>-->
+            <!--</a-select>-->
+          <!--</td>-->
+          <!--<td width="15%" class="title">-->
+            <!--&lt;!&ndash;不公开理由：&ndash;&gt;-->
+            <!--<center><h3>{{detailList.s_varchar5}}</h3></center>-->
+          <!--</td>-->
+          <!--<td>-->
+            <!--<a-select  :disabled="disabled" ref="s_varchar5"  v-model="backData.s_varchar5" placeholder="请选择不公开理由">-->
+              <!--<a-select-option v-for="(item,index) in bgklyList" :key="index" :text="item.text"-->
+                               <!--:value="item.value">{{item.text}}-->
+              <!--</a-select-option>-->
+            <!--</a-select>-->
           <!--</td>-->
         <!--</tr>-->
 
-        <!--新增----------------结束---------------------------------------------------------------->
 
         <tr>
           <!--标题-->
@@ -140,16 +84,16 @@
             <a-button style="width:15%;" @click="selDepartName">选择</a-button>
           </td>
         </tr>
-        <tr>
-          <!--抄送单位-->
-          <td width="10%" class="title">
-            <center><h3>{{detailList.s_cc_unit_names}}</h3></center>
-          </td>
-          <td colspan="3">
-            <a-textarea  maxLength="1000"  style="width:85%;" ref="s_cc_unit_names" v-on:blur="blurText(backData.s_cc_unit_names,$refs.s_cc_unit_names)" v-model="backData.s_cc_unit_names"></a-textarea>
-            <a-button style="width:15%;" @click="selDepartName">选择</a-button>
-          </td>
-        </tr>
+        <!--<tr>-->
+          <!--&lt;!&ndash;抄送单位&ndash;&gt;-->
+          <!--<td width="10%" class="title">-->
+            <!--<center><h3>{{detailList.s_cc_unit_names}}</h3></center>-->
+          <!--</td>-->
+          <!--<td colspan="3">-->
+            <!--<a-textarea  maxLength="1000"  style="width:85%;"  ref="s_cc_unit_names" v-on:blur="blurText(backData.s_cc_unit_names,$refs.s_cc_unit_names)" v-model="backData.s_cc_unit_names"></a-textarea>-->
+            <!--<a-button style="width:15%;" @click="selDepartName">选择</a-button>-->
+          <!--</td>-->
+        <!--</tr>-->
         <tr>
           <!--内部发送-->
           <td width="10%" class="title">
@@ -161,80 +105,62 @@
           </td>
         </tr>
 
-        <!--印发分数   分发日期   文件字号  正文页数等-->
-
+        <tr >
+          <td class="title" width="15%">
+            <!--起始时间-->
+            <center><h3>{{detailList.d_datetime4}}</h3></center>
+          </td>
+          <td colspan="6">
+            <a-date-picker v-if="backData.d_datetime4" ref="d_datetime4" v-on:blur="blurText([backData.d_datetime4],$refs.d_datetime4)"  :defaultValue="moment(backData.d_datetime4,'YYYY-MM-DD HH:mm:ss')"  showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+            <a-date-picker  v-else @change="getDateTime4" ref="d_datetime4" v-on:blur="blurText([backData.d_datetime4],$refs.d_datetime4)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+          </td>
+        </tr>
         <tr>
-          <!---印发份数-->
-          <td width="15%" class="title">
-            <center><h3>{{detailList.i_bigint1}}</h3></center>
+          <td class="title" width="15%">
+            <!--结束时间-->
+            <center><h3>{{detailList.d_datetime5}}</h3></center>
           </td>
-          <td>
-            <a-input  maxLength="20"  type="number" min="1" style="width: 94%" ref="i_bigint1" v-on:blur="blurText(backData.i_bigint1,$refs.i_bigint1)"
-                     v-model="backData.i_bigint1"></a-input>
-            &nbsp份
-          </td>
-          <!---封发日期-->
-          <td width="15%" class="title">
-            <center><h3>{{detailList.d_sealdate}}</h3></center>
-          </td>
-          <td>
-            <div style="padding-left: 10px;">{{backData.d_sealdate}}</div>
+          <td colspan="6">
+            <a-date-picker v-if="backData.d_datetime5" ref="d_datetime5" v-on:blur="blurText([backData.d_datetime5],$refs.d_datetime5)" :defaultValue="moment(backData.d_datetime5,'YYYY-MM-DD HH:mm:ss')"  showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+            <a-date-picker v-else @change="getDateTime5" ref="d_datetime5" v-on:blur="blurText([backData.d_datetime5],$refs.d_datetime5)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
           </td>
         </tr>
 
         <tr>
-          <!---文件字号-->
-          <td width="15%" class="title">
-            <center><h3>{{detailList.s_file_num}}</h3></center>
+          <!--签发人-->
+          <td width="10%" class="title">
+            <center><h3>{{detailList.s_signer}}</h3></center>
           </td>
           <td>
-            <div style="padding-left: 10px;">{{backData.s_file_num}}</div>
-            <!--<a-input v-model="backData.s_file_num"></a-input>-->
+            <a-input maxLength="50" ref="s_signer" v-on:blur="blurText(backData.s_signer,$refs.s_signer)" v-model="backData.s_signer"></a-input>
           </td>
-          <!--- 正文页数-->
-          <td width="15%" class="title">
-            <center><h3>{{detailList.i_bigint2}}</h3></center>
+          <td class="title" width="15%">
+            <!--简报类别-->
+            <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
-          <td>
-            <a-input  type="number" min="1" ref="i_bigint2" v-on:blur="blurText(backData.i_bigint2,$refs.i_bigint2)" v-model="backData.i_bigint2"></a-input>
+          <td width="35%">
+            <a-select placeholder="请选择简报类别" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" v-model="backData.s_varchar3" @change="selectType">
+              <a-select-option v-for="(item,index) in optionMap.s_varchar3_option" :key="index" :value="item.value">{{item.text}}
+              </a-select-option>
+            </a-select>
+
+            <!--<a-input style="padding-left: 10px" v-model="backData.s_varchar3"></a-input>-->
           </td>
+
         </tr>
 
         <tr>
-          <!--校对 -->
-          <td width="15%" class="title">
-            <center><h3>{{detailList.s_varchar1}}</h3></center>
-          </td>
-          <td>
-            <div style="padding-left: 10px;">{{backData.s_varchar1}}</div>
-          </td>
-          <!--打字 -->
-          <td width="15%" class="title">
-            <center><h3>{{detailList.i_bigint5}}</h3></center>
-          </td>
-          <td>
-            <div style="padding-left: 10px;">{{backData.i_bigint5}}</div>
-          </td>
-        </tr>
-        <tr>
-          <td width="15%" class="title">
-            <!--发文总号--!!!!!!-->
-            <center><h3>{{detailList.s_varchar2}}</h3></center>
-          </td>
-          <td colspan="1">
-            <a-input  maxLength="50"  v-model="backData.s_varchar2"></a-input>
-          </td>
           <td width="15%" class="title">
             <!--备注-->
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
-          <td colspan="1">
-            <a-input  maxLength="500"  v-model="backData.s_remarks"></a-input>
+          <td colspan="3">
+            <a-textarea  maxLength="500"  style="width:100%;" v-model="backData.s_remarks"></a-textarea>
           </td>
         </tr>
 
         <tr>
-          <td class="title" width="10%">
+          <td width="10%" class="title">
             <center><h3>附件</h3></center>
           </td>
           <td colspan="3">
@@ -254,25 +180,35 @@
           </td>
         </tr>
 
+        <!--<tr>-->
+          <!--<td width="10%" class="title">-->
+            <!--&lt;!&ndash;""办文依据""&ndash;&gt;-->
+            <!--<center><h3>{{detailList.s_varchar3}}</h3></center>-->
+          <!--</td>-->
+          <!--<td colspan="3">-->
+            <!--<div  v-for="(item,index) in banWenFileList" style="padding-left: 15px">-->
+              <!--&lt;!&ndash;<div @click="openFile(9,item.sfileName)"><span class="hoverred">{{index}}、{{item.sfileName}}</span>&ndash;&gt;-->
+              <!--<div  class="qiCao"><span class="hoverred" @click="qiCao1(9,item)">{{index+1}}、{{item.sfileName}}</span>-->
+                <!--<span class="delCss" v-show="isShowFile">-->
+                <!--<img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>-->
+                <!--<img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>-->
+                <!--<img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,6)" src="../../../../src/assets/delete.png"/>-->
+                <!--<img :title="fileBtnName(4)" v-show="banWenFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,6)" src="../../../../src/assets/top.png"/>-->
+                <!--<img :title="fileBtnName(5)" v-show="banWenFileList.length > 1 && index < banWenFileList.length-1" class="pices" @click.stop="lowFile(item,index,6)" src="../../../../src/assets/bottom.png"/>-->
+              <!--</span>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<a-input :value="backData.s_remarks"></a-input>&ndash;&gt;-->
+          <!--</td>-->
+        <!--</tr>-->
+
         <tr>
-          <td width="10%" class="title">
-            <!--""办文依据""-->
-            <center><h3>{{detailList.s_varchar3}}</h3></center>
+          <!---期号-->
+          <td width="15%" class="title">
+            <center><h3>{{detailList.d_sealdate}}</h3></center>
           </td>
           <td colspan="3">
-            <div  v-for="(item,index) in banWenFileList" style="padding-left: 15px">
-              <!--<div @click="openFile(9,item.sfileName)"><span class="hoverred">{{index}}、{{item.sfileName}}</span>-->
-              <div  class="qiCao"><span class="hoverred" @click="qiCao1(9,item)">{{index+1}}、{{item.sfileName}}</span>
-                <span class="delCss" v-show="isShowFile">
-                <img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>
-                <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>
-                <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,6)" src="../../../../src/assets/delete.png"/>
-                <img :title="fileBtnName(4)" v-show="banWenFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,6)" src="../../../../src/assets/top.png"/>
-                <img :title="fileBtnName(5)" v-show="banWenFileList.length > 1 && index < banWenFileList.length-1" class="pices" @click.stop="lowFile(item,index,6)" src="../../../../src/assets/bottom.png"/>
-              </span>
-              </div>
-            </div>
-            <!--<a-input v-model="backData.s_varchar3"></a-input>-->
+            <a-input disabled v-model="backData.d_sealdate"></a-input>
           </td>
         </tr>
       </table>
@@ -294,7 +230,7 @@
   import ATextarea from "ant-design-vue/es/input/TextArea";
 
   export default {
-    name: "sendFileFuZhou",
+    name: "bulletinFile",
     mixins: [JeecgListMixin, busdataTemplate],
     components: {ATextarea, DelTime, UpdatePaperTitle, SelDepartName},
     props: {
@@ -318,9 +254,8 @@
     data() {
       return {
         disabled:true,
-        banWenFileList:[],
         visible: false,
-        title: '新发文',
+        title: '简报',
         confirmLoading: false,
         s_varchar: [],
         userData: '',
@@ -330,6 +265,7 @@
         taskDone: '',
         //detailList: null,    //  文档数据   字段含义
         oaFileList: [],    //  文档数据   字段含义
+        banWenFileList: [],
         xxgkList: [],     //  信息公开
         bgklyList: [],    //  不公开理由
         backData: {
@@ -430,23 +366,15 @@
           s_cur_task_name: '',
           d_sealdate: '',
           //模板id
-          s_varchar20: '',
+          s_varchar8: '',
           //信息公开
           s_varchar4: '',
           //不公开理由
           s_varchar5: '',
-          //运转过程紧急程度
-          s_varchar6: '',
-          //运转过程涉密程度
-          s_varchar7: '',
-          //规范性文件
-          s_varchar8: '',
-          //工作密级年限
-          i_bigint3: '',
-          //发文总号
-          s_varchar9:'',
           s_varchar20: '',
           s_cur_proc_name: '',
+          s_varchar1: '',
+          s_varchar2: '',
           //当前任务名称
           s_cur_task_name: '',
           //是否重要
@@ -471,35 +399,30 @@
       })*/
       this.show();
     },
+
     destroyed() {
       this.backData = {};
       this.backData = {};
     },
     methods: {
+      //选择简报类别
+      selectType(e,d) {
+        this.backData.s_varchar3=e;
+      },
       infoOut(e){
         console.log("^^^^^^^^^^^^^^^^^^^^^^^^^");
-        console.log(e);
         console.log(this.$refs.s_varchar5);
         if (e=="gk"){
-          this.disabled=true;
-          // this.$refs.s_varchar5.disabled=true;
+         this.disabled=true;
+          //this.$refs.s_varchar5.disabled=true;
         }else {
           this.disabled=false;
-          // this.$refs.s_varchar5.disabled=false;
+          //this.$refs.s_varchar5.disabled=false;
         }
-      },
-      varSixSelectType(e){
-        this.backData.s_varchar6=e;
-      },
-      varSevenSelectType(e){
-        this.backData.s_varchar7=e;
-      },
-      varEightSelectType(e){
-        this.backData.s_varchar8=e;
       },
       witeDepart(param) {
         this.backData.s_main_unit_names = param.str1;
-        this.backData.s_cc_unit_names = param.str2;
+//        this.backData.s_cc_unit_names = param.str2;
         this.backData.s_inside_deptnames = param.str3;
       },
       //选择主送单位
@@ -507,11 +430,12 @@
         //this.$refs.selDepartNameRef.show() ;
         let param = {
           str1: this.backData.s_main_unit_names,
-          str2: this.backData.s_cc_unit_names,
+//          str2: this.backData.s_cc_unit_names,
           str3: this.backData.s_inside_deptnames
-        };
+        }
         this.$refs.selDepartNameRef.show(param);
       },
+
       optsGet(opts) {
         this.opts = opts
       },
@@ -525,7 +449,6 @@
 
       //页面初始化调用方法，初始化渲染页面
       show(taskDetail) {
-
         /*console.log("页面数据---：" + JSON.stringify(this.detailList))
         console.log("基础数据---：" + JSON.stringify(this.backDataRef))*/
         //查询出优先级
@@ -541,11 +464,12 @@
         }
         //参数为3：查询对应的不公开理由
         postAction("/oaBus/oaBusdata/querySysDictData",{param:3}).then((res) => {
-          this.regularsList = res.result.regulars
+          this.regularsList = res.result.regulars;
           this.xxgkList = res.result.xxgk;
           this.bgklyList = res.result.bgkly;
         })
-       /* if (this.optionMap.xxgk != undefined) {
+
+        /*if (this.optionMap.xxgk != undefined) {
           this.xxgkList = this.optionMap.xxgk;
         }
         if (this.optionMap.bgkly != undefined) {
@@ -558,17 +482,84 @@
 
         //************************************* 查询字段名称start ************************************
         this.getOaFiles(this.backData.table, this.backData.i_id)
-        console.log(this.optionMap)
+        this.getBanWenFiles(this.backData.table, this.backData.i_id);
+//        console.log(this.optionMap)
         //************************************* 查询字段名称end ************************************
         for (let i = 0; i < this.optionMap.checkList.length; i++) {
-          console.log(this.s_varchar)
+//          console.log(this.s_varchar)
           this.s_varchar.push(this.optionMap.checkList[i].stableColumn);
         }
 
-        // this.infoOut();
       },
+      //----------------时间变化检测---------------
+      selectTime(e) {
+//        console.log(e);
+      },
+      //----------------确定时间---------------
+      confirmTime(e) {
+        // console.log(e);
+        let startTime = e[0]._d;
+        let endTime = e[1]._d;
+        this.backData.d_datetime4 = this.dataTime(startTime);
+        this.backData.d_datetime5 = this.dataTime(endTime);
+      },
+      //监测开始时间变化
+      getDateTime4(e,datetime4){
+        // alert(datetime4)
+//        console.log("111111111111111")
+        this.backData.d_datetime4 = datetime4;
+        /*if (this.backData.d_datetime5 != undefined){
+          var time4 = Date.parse(datetime4);
+          var time5  = Date.parse(this.backData.d_datetime5);
+          console.log(time4 + "  :  " + time5);
+          if (time4 > time5){
+            this.backData.d_datetime4 = '';
+            this.$message.error("请假终止时间必须大于请假起始时间");
+            return ;
+          }else{
+            this.backData.d_datetime4 = datetime4;
+          }
+        }else {
+          this.backData.d_datetime4 = datetime4;
+        }*/
 
-
+        /*if (this.backData.d_datetime5 != undefined){
+          console.log("22222222222222")
+          var time5 = Date.parse(this.backData.d_datetime5)
+          var time4  = Date.parse(this.backData.d_datetime4);
+          if (time4 > time5){
+            this.$message.error("请假终止时间必须大于请假起始时间");
+          }
+        }*/
+      },
+      //监测结束时间变化
+      getDateTime5(e,datetime5){
+        // alert(datetime4)
+//        console.log("-=-=-=-=-=-=--=-=-")
+        this.backData.d_datetime5 = datetime5;
+        /* if (this.backData.d_datetime4 != undefined){
+           var time5 = Date.parse(datetime5);
+           var time4  = Date.parse(this.backData.d_datetime4);
+           console.log(time4 + "  :  " + time5);
+           if (time4 > time5){
+             this.backData.d_datetime5 = '';
+             this.$message.error("请假终止时间必须大于请假起始时间");
+             return ;
+           }else{
+             this.backData.d_datetime5 = datetime5;
+           }
+         }else {
+           this.backData.d_datetime5 = datetime5;
+         }*/
+      },
+      dateFormat(date) {
+        let date1 = new Date(date);
+        let Y = date1.getFullYear();
+        let M = date1.getMonth() + 1;
+        let D = date1.getDate();
+        let newTime = Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D) + " " + date1.toTimeString().substr(0, 8);
+        return newTime;
+      },
       handleCancel() {
         this.$emit('close');
         this.visible = false;
@@ -589,6 +580,8 @@
 </script>
 <style lang="less" scoped>
   @import "../../../assets/less/detailsBaseStyle";
-
 </style>
 
+<style>
+
+</style>

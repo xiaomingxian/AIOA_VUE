@@ -11,7 +11,7 @@
             <center><h3>{{detailList.s_varchar8}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea v-model="backData.s_varchar8"></a-textarea>
+            <a-textarea maxLength="50" v-model="backData.s_varchar8"></a-textarea>
           </td>
         </tr>
 
@@ -56,7 +56,7 @@
             <center><h3>{{detailList.s_title}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)"
+            <a-input maxLength="300" ref="s_title" v-on:blur="blurText(backData.s_title,$refs.s_title,detailList.s_title)"
                      v-model="backData.s_title"></a-input>
           </td>
         </tr>
@@ -68,7 +68,7 @@
             <center><h3>{{detailList.s_varchar1}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
+            <a-input maxLength="50" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                      v-model="backData.s_varchar1"></a-input>
           </td>
         </tr>
@@ -80,7 +80,7 @@
             <center><h3>{{detailList.s_varchar2}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
+            <a-input maxLength="50" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                      v-model="backData.s_varchar2"></a-input>
           </td>
         </tr>
@@ -92,7 +92,7 @@
             <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)"
+            <a-input maxLength="50" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)"
                      v-model="backData.s_varchar3"></a-input>
           </td>
         </tr>
@@ -115,7 +115,7 @@
             <center><h3>{{detailList.s_varchar5}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)"
+            <a-input maxLength="50" ref="s_varchar5" v-on:blur="blurText(backData.s_varchar5,$refs.s_varchar5)"
                      v-model="backData.s_varchar5"></a-input>
           </td>
           <!--UPS电源节点号-->
@@ -123,7 +123,7 @@
             <center><h3>{{detailList.s_varchar6}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)"
+            <a-input maxLength="50" ref="s_varchar6" v-on:blur="blurText(backData.s_varchar6,$refs.s_varchar6)"
                      v-model="backData.s_varchar6"></a-input>
           </td>
         </tr>
@@ -135,7 +135,7 @@
             <center><h3>{{detailList.s_varchar7}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea style="height: 140px" ref="s_varchar7"
+            <a-textarea maxLength="50" style="height: 140px" ref="s_varchar7"
                         v-on:blur="blurText(backData.s_varchar7,$refs.s_varchar7)"
                         v-model="backData.s_varchar7"></a-textarea>
           </td>
@@ -147,7 +147,7 @@
             <center><h3>{{detailList.s_remarks}}</h3></center>
           </td>
           <td colspan="3">
-            <a-textarea style="height: 140px" v-model="backData.s_remarks"></a-textarea>
+            <a-textarea maxLength="500" style="height: 140px" v-model="backData.s_remarks"></a-textarea>
           </td>
         </tr>
 
