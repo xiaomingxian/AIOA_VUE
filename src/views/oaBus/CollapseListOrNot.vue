@@ -88,17 +88,17 @@
     <a-card v-if="i_is_radio == 0" :bordered="ture">
       <a-form layout="inline">
 
-        <a-row :gutter="48" style="margin-left: 0px;">
-          <a-row :gutter="48" style="margin: 0 3px 27px -23px;border-bottom: 1px solid #e8e8e8;">
-            <a-col :md="7" :sm="24">
-              <a-form-item  style="width: 85.3%;">
-                <a-select @change="changFunId1" v-model="queryParam.function_id">
-                  <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}
-                  </a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-          </a-row>
+        <!--<a-row :gutter="48" style="margin-left: 0px;">-->
+          <!--<a-row :gutter="48" style="margin: 0 3px 27px -23px;border-bottom: 1px solid #e8e8e8;">-->
+            <!--<a-col :md="7" :sm="24">-->
+              <!--<a-form-item  style="width: 85.3%;">-->
+                <!--<a-select @change="changFunId1" v-model="queryParam.function_id">-->
+                  <!--<a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}-->
+                  <!--</a-select-option>-->
+                <!--</a-select>-->
+              <!--</a-form-item>-->
+            <!--</a-col>-->
+          <!--</a-row>-->
 
           <a-col :md="!advanced && 24 || 24" :sm="24">
             <span class="table-page-search-submitButtons"
@@ -111,6 +111,14 @@
           </a-col>
           <template v-if="advanced">
             <a-row :gutter="48" style="width: 88.3%;">
+              <a-col :md="7" :sm="24">
+              <a-form-item>
+              <a-select @change="changFunId1" v-model="queryParam.function_id">
+              <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}
+              </a-select-option>
+              </a-select>
+              </a-form-item>
+              </a-col>
 
               <a-col :md="7" :sm="24">
                 <a-form-item>
@@ -142,6 +150,12 @@
                     <a-select-option value="1">全部数据</a-select-option>
                     <a-select-option value="0">由我创建</a-select-option>
                   </a-select>
+
+                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
+                      <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
+                      <a-button type="primary" icon="reload" @click="resetPgConditionList1">重置</a-button>
+                  </span >
+
                 </a-form-item>
               </a-col>
 
@@ -161,16 +175,14 @@
                   <!--<a-button type="primary" icon="search" @click="collapseListOrNot">查询</a-button>-->
                   <!--</span>-->
 
-                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
-                      <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
-                      <a-button type="primary" icon="reload" @click="resetPgConditionList1">重置</a-button>
-                  </span >
+                  <!--<span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">-->
+                      <!--<a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>-->
+                      <!--<a-button type="primary" icon="reload" @click="resetPgConditionList1">重置</a-button>-->
+                  <!--</span >-->
 
                 </a-form-item>
               </a-col>
-            </a-row>
 
-            <a-row :gutter="48" style="width: 88.3%;">
               <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">
                 <a-form-item>
                   <a-select v-if="atom.i_column_type == 2" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
@@ -189,8 +201,29 @@
                 </a-form-item>
 
               </a-col>
-
             </a-row>
+
+            <!--<a-row :gutter="48" style="width: 88.3%;">-->
+              <!--<a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">-->
+                <!--<a-form-item>-->
+                  <!--<a-select v-if="atom.i_column_type == 2" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">-->
+                    <!--<a-select-option v-for="(item,index) in selectList" :key="item.i_id" :value="item.i_id">{{item.s_name}}</a-select-option>-->
+                  <!--</a-select>-->
+                  <!--<a-input v-else class="input" ref="inputs" @input="changeInput($event,atom.s_table_column)" :placeholder="atom.s_column_name"/>-->
+                  <!--&lt;!&ndash;<span v-if="conditionList.length == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 352.4%;">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</span >&ndash;&gt;-->
+                  <!--&lt;!&ndash;<span v-else-if="conditionList.length == 2 && index == 1" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 239.7%;">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</span >&ndash;&gt;-->
+                  <!--&lt;!&ndash;<span v-else-if="index == 2" class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 127%;">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a-button type="primary" icon="reload" @click="resetPgConditionList">重置</a-button>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</span >&ndash;&gt;-->
+                <!--</a-form-item>-->
+
+              <!--</a-col>-->
+
+            <!--</a-row>-->
 
             <!--<a-row :gutter="48">-->
             <!--<a-col :md="!advanced && 7 || 24" :sm="24" style="text-align: center;padding-right:172px;">-->
@@ -201,7 +234,6 @@
             <!--</a-col>-->
             <!--</a-row>-->
           </template>
-        </a-row>
 
       </a-form>
 
