@@ -2,42 +2,49 @@
   <div class="main user-layout-register">
     <h3><span>用户注册</span></h3>
     <a-form ref="formRegister" :autoFormCreate="(form)=>{this.form = form}" id="formRegister">
-      <a-form-item
-        fieldDecoratorId="username"
-        :fieldDecoratorOptions="{rules: [{ required: true, message: '用户名不能为空'}, { validator: this.checkUsername }], validateTrigger: ['change', 'blur']}">
-        <a-input size="large" type="text" autocomplete="false" placeholder="请输入用户名"></a-input>
-      </a-form-item>
-
-      <a-popover placement="rightTop" trigger="click" :visible="state.passwordLevelChecked">
-        <template slot="content">
-          <div :style="{ width: '240px' }">
-            <div :class="['user-register', passwordLevelClass]">强度：<span>{{ passwordLevelName }}</span></div>
-            <a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor "/>
-            <div style="margin-top: 10px;">
-              <span>请至少输入 8 个字符。请不要使用容易被猜到的密码。</span>
-            </div>
-          </div>
-        </template>
-        <a-form-item
-          fieldDecoratorId="password"
-          :fieldDecoratorOptions="{rules: [{ required: false}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}">
-          <a-input size="large" type="password" @click="handlePasswordInputClick" autocomplete="false" placeholder="至少8位密码，区分大小写"></a-input>
-        </a-form-item>
-      </a-popover>
 
       <a-form-item
-        fieldDecoratorId="password2"
-        :fieldDecoratorOptions="{rules: [{ required: true, message: '至少8位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}">
+        fieldDecoratorId="s_create_name"
+        :fieldDecoratorOptions="{rules: [{ required: true, message: '申请人不能为空'}, { validator: this.checkUsername }], validateTrigger: ['change', 'blur']}">
+        <a-input size="large" type="text" autocomplete="false" placeholder="请输入申请人名称"></a-input>
+      </a-form-item>
 
-        <a-input size="large" type="password" autocomplete="false" placeholder="确认密码"></a-input>
-      </a-form-item>
       <a-form-item
-        fieldDecoratorId="email"
-        :fieldDecoratorOptions="{rules: [{ required: true, type: 'email', message: '请输入正确的邮箱地址' }, { validator: this.handleEmailCheck }], validateTrigger: ['change', 'blur']}">
-        <a-input size="large" type="text" placeholder="邮箱"></a-input>
+        fieldDecoratorId="s_dept_name"
+        :fieldDecoratorOptions="{rules: [{ required: true, message: '申请人部门不能为空'}, { validator: this.nullValueCheck }], validateTrigger: ['change', 'blur']}">
+        <a-input size="large" type="text" autocomplete="false" placeholder="请输入申请人部门"></a-input>
       </a-form-item>
+
+      <!--<a-popover placement="rightTop" trigger="click" :visible="state.passwordLevelChecked">-->
+      <!--<template slot="content">-->
+      <!--<div :style="{ width: '240px' }">-->
+      <!--<div :class="['user-register', passwordLevelClass]">强度：<span>{{ passwordLevelName }}</span></div>-->
+      <!--<a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor "/>-->
+      <!--<div style="margin-top: 10px;">-->
+      <!--<span>请至少输入 8 个字符。请不要使用容易被猜到的密码。</span>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</template>-->
+      <!--<a-form-item-->
+      <!--fieldDecoratorId="password"-->
+      <!--:fieldDecoratorOptions="{rules: [{ required: false}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}">-->
+      <!--<a-input size="large" type="password" @click="handlePasswordInputClick" autocomplete="false" placeholder="至少8位密码，区分大小写"></a-input>-->
+      <!--</a-form-item>-->
+      <!--</a-popover>-->
+
+      <!--<a-form-item-->
+      <!--fieldDecoratorId="password2"-->
+      <!--:fieldDecoratorOptions="{rules: [{ required: true, message: '至少8位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}">-->
+
+      <!--<a-input size="large" type="password" autocomplete="false" placeholder="确认密码"></a-input>-->
+      <!--</a-form-item>-->
+      <!--<a-form-item-->
+      <!--fieldDecoratorId="email"-->
+      <!--:fieldDecoratorOptions="{rules: [{ required: true, type: 'email', message: '请输入正确的邮箱地址' }, { validator: this.handleEmailCheck }], validateTrigger: ['change', 'blur']}">-->
+      <!--<a-input size="large" type="text" placeholder="邮箱"></a-input>-->
+      <!--</a-form-item>-->
       <a-form-item
-        fieldDecoratorId="mobile"
+        fieldDecoratorId="i_phone"
         :fieldDecoratorOptions="{rules: [{ required: true, pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号' }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }">
         <a-input size="large" placeholder="11 位手机号">
           <a-select slot="addonBefore" size="large" defaultValue="+86">
@@ -46,6 +53,52 @@
           </a-select>
         </a-input>
       </a-form-item>
+
+      <a-form-item
+        fieldDecoratorId="s_varchar9"
+        :fieldDecoratorOptions="{rules: [{ required: true, message: '申请理由不能为空'}, { validator: this.nullValueCheck }], validateTrigger: ['change', 'blur']}">
+        <a-input size="large" type="text" autocomplete="false" placeholder="请输入申请理由"></a-input>
+      </a-form-item>
+
+      <a-form-item
+        fieldDecoratorId="d_create_time">
+        <a-input :value="now" disabled size="large" type="text" autocomplete="false" :defaultValue="now"
+                 placeholder="申请时间"></a-input>
+
+        <!--<a-input size="large" type="text" autocomplete="false" placeholder="请输入申请理由"></a-input>-->
+      </a-form-item>
+
+
+      <a-form-item
+        fieldDecoratorId="s_title"
+        :fieldDecoratorOptions="{rules: [{ required: true, message: '机构名称不能为空'}, { validator: this.nullValueCheck }], validateTrigger: ['change', 'blur']}">
+        <a-input size="large" type="text" autocomplete="false" placeholder="请输入机构名称"></a-input>
+      </a-form-item>
+
+
+      <a-form-item
+        fieldDecoratorId="s_varchar3"
+        :fieldDecoratorOptions="{rules: [{ required: true, message: '机构代码不能为空'}, { validator: this.nullValueCheck }], validateTrigger: ['change', 'blur']}">
+        <a-input size="large" type="text" autocomplete="false" placeholder="请输入机构代码"></a-input>
+      </a-form-item>
+
+
+      <a-form-item
+      fieldDecoratorId="i_bigint1">
+      <!--:fieldDecoratorOptions="{rules: [{ required: true, message: '机构类型英文码不能为空'}, { validator: this.nullValueCheckEn }], validateTrigger: ['change', 'blur']}">-->
+      <!--<a-input size="large" type="text" autocomplete="false" placeholder="请输入机构类型英文码"></a-input>-->
+
+        <a-input :value="id" disabled size="large" type="text" autocomplete="false" :defaultValue="id"
+                 placeholder="申请时间"></a-input>
+      </a-form-item>
+
+      <a-form-item
+        fieldDecoratorId="s_varchar1"
+        :fieldDecoratorOptions="{rules: [{ required: true, message: '机构类型不能为空'}, { validator: this.nullValueCheck }], validateTrigger: ['change', 'blur']}">
+        <a-input size="large" type="text" autocomplete="false" placeholder="请输入机构类型"></a-input>
+      </a-form-item>
+
+
       <!--<a-input-group size="large" compact>
             <a-select style="width: 20%" size="large" defaultValue="+86">
               <a-select-option value="+86">+86</a-select-option>
@@ -54,25 +107,25 @@
             <a-input style="width: 80%" size="large" placeholder="11 位手机号"></a-input>
           </a-input-group>-->
 
-      <a-row :gutter="16">
-        <a-col class="gutter-row" :span="16">
-          <a-form-item
-            fieldDecoratorId="captcha"
-            :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}">
-            <a-input size="large" type="text" placeholder="验证码">
-              <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
-        </a-col>
-        <a-col class="gutter-row" :span="8">
-          <a-button
-            class="getCaptcha"
-            size="large"
-            :disabled="state.smsSendBtn"
-            @click.stop.prevent="getCaptcha"
-            v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"></a-button>
-        </a-col>
-      </a-row>
+      <!--<a-row :gutter="16">-->
+      <!--<a-col class="gutter-row" :span="16">-->
+      <!--<a-form-item-->
+      <!--fieldDecoratorId="captcha"-->
+      <!--:fieldDecoratorOptions="{rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}">-->
+      <!--<a-input size="large" type="text" placeholder="验证码">-->
+      <!--<a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>-->
+      <!--</a-input>-->
+      <!--</a-form-item>-->
+      <!--</a-col>-->
+      <!--<a-col class="gutter-row" :span="8">-->
+      <!--<a-button-->
+      <!--class="getCaptcha"-->
+      <!--size="large"-->
+      <!--:disabled="state.smsSendBtn"-->
+      <!--@click.stop.prevent="getCaptcha"-->
+      <!--v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"></a-button>-->
+      <!--</a-col>-->
+      <!--</a-row>-->
 
       <a-form-item>
         <a-button
@@ -84,10 +137,13 @@
           @click.stop.prevent="handleSubmit"
           :disabled="registerBtn">注册
         </a-button>
-        <router-link class="login" :to="{ name: 'login' }">使用已有账户登录</router-link>
+        <!-- @click="searchResetMy"  margin-left: 20px  -->
+        <a-button type="primary" size="large" icon="reload" class="reload-button" style="float:right;">重置</a-button>
+        <!--<router-link class="login" :to="{ name: 'login' }">重置</router-link>-->
       </a-form-item>
 
     </a-form>
+    <register-result ref="registerResult" v-show="false"></register-result>
   </div>
 </template>
 
@@ -96,6 +152,7 @@
   import {getSmsCaptcha} from '@/api/login'
   import {getAction, postAction} from '@/api/manage'
   import {checkOnlyUser} from '@/api/api'
+  import RegisterResult from './RegisterResult'
 
   const levelNames = {
     0: '低',
@@ -117,12 +174,16 @@
   }
   export default {
     name: "Register",
-    components: {},
+    components: {RegisterResult},
     mixins: [mixinDevice],
     data() {
       return {
         form: null,
+        now: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + "-" + new Date().getDate()
+          + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
 
+        table: null,
+        id: null,
         state: {
           time: 60,
           smsSendBtn: false,
@@ -145,7 +206,25 @@
         return levelColor[this.state.passwordLevel]
       }
     },
+    created() {
+      let param = this.$route.query;
+      this.table = param.tableName
+      this.id = param.busdataId
+    },
     methods: {
+      // nullValueCheckEn(rule, value, callback){
+      //   var re=/^[a-zA-Z]+$/;
+      //   if(!re.test(value)){
+      //     callback('请输入英文机构码')
+      //   }
+      //   callback()
+      // },
+      nullValueCheck(rule, value, callback) {
+        if (value == undefined || value == null || value == '') {
+          callback()
+        }
+        callback()
+      },
       checkUsername(rule, value, callback) {
         var params = {
           username: value,
@@ -241,18 +320,15 @@
 
       handleSubmit() {
         this.form.validateFields((err, values) => {
+
           if (!err) {
-            var register = {
-              username: values.username,
-              password: values.password,
-              email: values.email,
-              phone: values.mobile,
-              smscode: values.captcha
-            };
-            postAction("/sys/user/register", register).then((res) => {
+            values.table=this.table
+            values.i_id=this.id
+            postAction("/registerNoShiro/updata", values).then((res) => {
               if (!res.success) {
                 this.registerFailed(res.message)
               } else {
+                values.username=values.s_create_name
                 this.$router.push({name: 'registerResult', params: {...values}})
               }
             })
@@ -349,6 +425,7 @@
     & > h3 {
       font-size: 16px;
       margin-bottom: 20px;
+      /*margin-top: 0px;*/
     }
 
     .getCaptcha {
@@ -359,6 +436,10 @@
 
     .register-button {
       width: 50%;
+    }
+
+    .reload-button {
+      width: 40%;
     }
 
     .login {

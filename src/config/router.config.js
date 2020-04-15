@@ -1,4 +1,4 @@
-import { UserLayout, TabLayout, RouteView, BlankLayout, PageView } from '@/components/layouts'
+import { UserLayout, TabLayout, RouteView, BlankLayout, PageView ,UserLayoutOverFlow} from '@/components/layouts'
 import ntko from '@/views/file/Ntko'
 /**
  * 走菜单，走权限控制
@@ -311,11 +311,6 @@ export const constantRouterMap = [
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register')
       },
       {
-        path: 'dept_register',
-        name: 'dept_register',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/JiGouRegister')
-      },
-      {
         path: 'register-result',
         name: 'registerResult',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/RegisterResult')
@@ -324,6 +319,19 @@ export const constantRouterMap = [
         path: 'alteration',
         name: 'alteration',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/Alteration')
+      },
+    ]
+  },
+  {
+    path: '/user2',
+    component: UserLayoutOverFlow,
+    redirect: '/user2/dept_register',
+    hidden: true,
+    children: [
+      {
+        path: 'dept_register',
+        name: 'dept_register',
+        component: () => import(/* webpackChunkName: "user" */ '@/views/user/JiGouRegister')
       },
     ]
   },

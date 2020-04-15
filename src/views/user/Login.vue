@@ -11,9 +11,11 @@
         class="login"
         :activeKey="customActiveKey"
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
-        @change="handleTabClick">
-        <!--<a-tab-pane key="register" tab="用户注册"></a-tab-pane>-->
-        <a-tab-pane key="tab1" tab="用户登录">
+        @change="handleTabClick"
+
+      >
+        <a-tab-pane key="register" tab="用户注册"></a-tab-pane>
+        <a-tab-pane key="tab1" tab="用户登录" style="margin-right: 300px">
           <a-form-item v-show="orgSchemaFlag">
             <a-select size="large"  placeholder="请选择机构" v-decorator="[ 'orgSchema', {}]">
               <a-select-option v-for="(item,index) in orgSchemaList" :key="index" :value="item.value">
@@ -258,6 +260,8 @@
       }
     },
     created () {
+
+
       this.getOrgSchemaList();
       this.show();
       Vue.ls.remove(ACCESS_TOKEN)
@@ -265,6 +269,9 @@
       // update-begin- --- author:scott ------ date:20190805 ---- for:密码加密逻辑暂时注释掉，有点问题
       //this.getEncrypte();
       // update-end- --- author:scott ------ date:20190805 ---- for:密码加密逻辑暂时注释掉，有点问题
+    },
+    mounted(){
+      document.querySelector('.ant-tabs-nav').style.position = 'static'
     },
     methods: {
       downLoadFile() {
@@ -334,7 +341,7 @@
                 return
               }
               // window.open(window.location.origin + '/mytask/taskList/detailFileNoShiro?tableName='+table+'&busdataId='+id+'&navisshow=false')
-              window.open(window.location.origin + '/user/dept_register?tableName='+table+'&busdataId='+id+'&navisshow=false')
+              window.open(window.location.origin + '/user2/dept_register?tableName='+table+'&busdataId='+id+'&navisshow=false')
             } else {
               this.$message.error(res.message)
             }
