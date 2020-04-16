@@ -79,6 +79,7 @@
                           <span class="shuline"></span>
                           我的日程
                           <b v-if="total2">({{total2}})</b>
+                          <a-icon class="icon1" @click="add"type="plus"/>
                         </span>
                               <!--mytitleLists-->
                               <div class="itembox"  v-if="mytitleLists!=''">
@@ -135,8 +136,8 @@
                               <!--暂无日程显示-->
                               <div class="itembox2" v-else>暂无日程</div>
                           </a-tab-pane>
-                          <a-button type="primary" @click="openMore"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>
-                          <!--<span class="more" @click="openMore(willdoindex)"> 更多53  <a-icon type="plus"></a-icon> </span>-->
+                          <a-icon class="icon1" @click="openMore" type="right" slot="tabBarExtraContent"/>
+                          <!--<a-button type="primary" @click="openMore"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>-->
                         </a-tabs>
                       </template>
                     </div>
