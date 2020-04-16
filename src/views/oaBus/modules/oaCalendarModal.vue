@@ -341,5 +341,8 @@
 </script>
 
 <style lang="less" scoped>
-
+  /** 主表单行间距 */
+  .ant-form .ant-form-item {
+    margin-bottom: 8px;
+  }
 </style>
