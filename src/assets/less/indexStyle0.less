@@ -113,6 +113,7 @@
         }
       }
       .rilibox{
+        vertical-align: center;
         /deep/.ant-fullcalendar {
           height: auto !important;
         }
@@ -126,23 +127,17 @@
         /deep/.ant-fullcalendar-header{
           padding: 11px 16px 0 0;
         }
-        /deep/ .ant-fullcalendar-calendar-body{
-          padding: 12px 12px;
-        }
-        /deep/.ant-fullcalendar-calendar-body{
-          /*padding-bottom: 30px;*/
-
-
-        }
         /*height: 100%;*/
         /*width: auto !important;*/
         /*border: none !important;*/
         margin: 0 auto;
         /*background: #ffffff;*/
         /deep/.ant-fullcalendar-calendar-body{
+          width: 100%;
           /*background: #e4e6ff;*/
           background: #FBF2DC;
           margin-top: 20px;
+          padding: 12px 12px;
         }
         /deep/.ant-fullcalendar-date{
           height: auto;
@@ -678,10 +673,12 @@
 
           display: flex;
           align-items: center;
+          vertical-align: middle;
           /deep/.swiper-wrapper{
 
             width: 100%;
             margin: 0 auto;
+            vertical-align: middle;
 
             /*margin-left: 20px;*/
             .swiper-slide{
@@ -694,6 +691,7 @@
               justify-content: space-around;
               /*margin-right: 0px !important;*/
               /*margin-left: 5px !important;*/
+              vertical-align: middle;
 
               .div7{
                 display: flex;
@@ -972,6 +970,7 @@
       margin: 0 auto;
       position: absolute;
       top: 87%;
+      right:5%;
       span{
         position: relative;
         left: -4px;

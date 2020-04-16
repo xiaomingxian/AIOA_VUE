@@ -181,7 +181,7 @@
 
 
 
-          let url2 = '/data/dataAnalysis/Rate'; //办理率
+         /* let url2 = '/data/dataAnalysis/Rate'; //办理率
           getAction(url2,data).then((res)=>{
             console.log(res);
             this.$refs.bar.getData1(res);
@@ -228,7 +228,7 @@
             this.$refs.deparline.getData4(res);
 
 
-          })
+          })*/
           let url6 = "/data/dataAnalysis/MonthAverage";   // 超过平均值月份
           getAction(url6,data).then((res) => {
             console.log(res);
@@ -236,9 +236,9 @@
             this.$refs.pie.getData5(res);
             this.$refs.line.getData5(res);
 
-            // this.$refs.departbar.getData5(res);
-            // this.$refs.deparpie.getData5(res);
-            // this.$refs.deparline.getData5(res);
+            this.$refs.departbar.getData5(res);
+            this.$refs.deparpie.getData5(res);
+            this.$refs.deparline.getData5(res);
 
           })
 

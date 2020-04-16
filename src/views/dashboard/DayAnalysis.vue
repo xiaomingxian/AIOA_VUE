@@ -44,7 +44,7 @@
                   </div>
                   <!-- v-if="stitleLists!=''"-->
                   <div class="itembox"  v-if="stitleLists!=''">
-                    <div class="itemline"  v-for="(item,index) in stitleLists" :key="index" @click="chakan(item.iid)">
+                    <div class="itemline"  v-for="(item,index) in stitleLists" :key="index" @click.stop="chakan(item.iid)">
 
                       <!--<p class="time">-->
                       <!--<i></i>-->
@@ -53,7 +53,7 @@
                       <div class="contentbox" >
                         <p class="content" :title="item.stitle+'('+item.suserNames+')'">{{item.stitle +"("+ item.suserNames+")"|filterText}}</p>
                         <div class="div2">
-                          <img class="img0 addSize" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
+                          <img class="img0 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">
                         </div>
                       </div>
                     </div>
@@ -75,7 +75,7 @@
                   </div>
                   <!--mytitleLists-->
                   <div class="itembox"  v-if="mytitleLists!=''">
-                    <div class="itemline" v-for="(myitem,index) in mytitleLists" :key="index"  @click="chakan(myitem.iid)">
+                    <div class="itemline" v-for="(myitem,index) in mytitleLists" :key="index"  @click.stop="chakan(myitem.iid)">
                       <!--<p class="time">-->
                       <!--<i></i>-->
                       <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
@@ -115,11 +115,11 @@
                     <!--<span>共享日程<a-icon @click="openMore(2)" type="right"/></span>-->
                   </div>
                   <div class="itemboxx"   v-if="publictitleLists!=''">
-                    <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click="chakan(publicitem.iid)">
+                    <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click.stop="chakan(publicitem.iid)">
                       <div class="contentbox">
                         <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
                         <div class="div5">
-                          <img class="img2 addSize" src="../../assets/check.png" @click="editstitle(publictitleLists[index],1)">
+                          <img class="img2 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">
                         </div>
                       </div>
                     </div>
@@ -195,10 +195,9 @@
               <div class="titlebox">
                 <div class="div8">
                   <template>
-                    <a-tabs defaultActiveKey="1" style="width: 95%;  position: absolute;top: -7px;">
+                    <a-tabs defaultActiveKey="1" @change="doWill" style="width: 95%;  position: absolute;top: -7px;">
                       <a-tab-pane key="1">
-                        <span slot="tab" @click="doWill(0)">
-
+                        <span slot="tab">
                           <span class="shuline"></span>
                           待办任务
                           <b v-if="total">({{total}})</b>
@@ -208,7 +207,7 @@
                                @click="openDetialModelTaskToDo(item)"
                                :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
                             <div class="p">
-                              <template v-if="willdoindex==0">
+                              <template v-if="willdoindex==1">
                                 <p>
                                   <i></i>
                                   <span :title="item.title+'   '+item.createTime">
@@ -229,18 +228,19 @@
                           </div>
                         </div>
                       </a-tab-pane>
-                      <a-tab-pane key="2">
+                      <a-tab-pane key="2" >
 
-                        <span slot="tab" @click="doWill(1)">
-                          <span>{{this.model1}}</span>
+                        <span slot="tab">
+                               <span>{{this.model1}}</span>
                                <b  v-if="total1">({{total1}})</b>
-                          </span>
+                        </span>
+
                         <div class="itemline">
                           <div class="each" v-if="ModelList" v-for="(item,index) in ModelList" :key="index"
                                @click="openDetial(tableName,item.i_id)"
                                :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">
                             <div class="p">
-                              <template v-if="willdoindex==1">
+                              <template v-if="willdoindex==2">
                                 <p>
                               <span :title="item.s_title+'   '+item.d_create_time">
                                <i></i>
@@ -428,7 +428,7 @@
         week:'',
         nongli:'',//农历
         ESM:'',
-        willdoindex:0,   //  待办已办高亮
+        willdoindex:1,   //  待办已办高亮
 
         //---------------------------------环节选择相关
         loading: false,
@@ -821,17 +821,18 @@
         this.$router.push('/'+'publicMessage/electronicFile');
       },
       doWill(e){
+        console.log(e);
         this.willdoindex = e;
-        if(e==0){
+        if(e==1){
           // 代办日程
           // alert(e)
-          this.willdoindex = 0;
+          this.willdoindex = 1;
           this.findwaitLists('task_todo');
         }else{
 
           // alert(e)
           // this.findwaitLists('task_done');
-          this.willdoindex = 1;
+          this.willdoindex = 2;
           this.homeLists(this.userid,)
 
         }
@@ -845,7 +846,7 @@
         }
       },
       openmore1(e){  //待办/模块的跳转
-        if(e=='1'){ //是0就跳待办
+        if(e==2){ //是0就跳待办
           let url = this.path
           this.$router.push('/'+url+"?moduleName="+this.model1);
 
@@ -1058,10 +1059,7 @@
         deleteAction(this.url.delete,{id:this.mystitltid,sCreateBy:this.userinfo.username}).then((res) => {
           if(res.success){
             this.visible = false;
-            getAction(this.url.list,{sCreateBy:this.userinfo.username}).then((res) => {
-              this.mytitleLists = res.result.records;
-
-            });
+            this.myDayLists(this.localTime);
 
           }
 
@@ -1181,7 +1179,7 @@
           this.path = res.model1.url
           this.model2 = res.model2.sName;
           this.tableName=res.model1.tableName;
-          this.total1 = res.model1.list.length
+          this.total1 = res.model1.total
           this.ModelList = res.model1.list.splice(0,5);
           this.model2Lists = res.model2.list;
 

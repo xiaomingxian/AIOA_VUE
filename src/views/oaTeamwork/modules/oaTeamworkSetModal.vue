@@ -118,8 +118,8 @@
         iId:{rules: [{ required: true, message: '请输入主键id!' }]},
         ibusModelId:{rules: [{ required: true, message: '必须选择业务模块!' }]},
         ibusFunctionId:{rules: [{ required: true, message: '必须选择业务功能!' }]},
-        iorder:{rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 0, max: 11, message: '长度在 0 到 11 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]},
-        description:{rules:[{required:true,message:'描述必须输入！！！'},{ min: 0, max: 255, message: '长度在 0 到 255 个字符', trigger: 'blur' }]},
+        iorder:{rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]},
+        description:{rules:[{required:true,message:'描述必须输入！！！'},{ min: 1, max: 255, message: '长度在 1 到 255 个字符', trigger: 'blur' }]},
         },
         url: {
           add: "/oateamwork/oaTeamworkSet/add",
@@ -156,9 +156,11 @@
       findmax(iteamworkId)
       {
         getAction(this.url.findMax,{TeamworkId: iteamworkId}).then((res)=>{
-          this.num = res.result+1;
-          if(res.result != null) {
-            this.findMax = "不要小于" + (res.result) + "这个数.建议您填写:" + (res.result + 1);
+          this.num = res+1;
+          if(res != 0) {
+            this.findMax = "不要小于" + (res) + "这个数.建议您填写:" + (res + 1);
+          }else{
+            this.findMax = "不要小于0这个数.建议您填写1";
           }
 
 
@@ -277,8 +279,6 @@
       }
       }).finally(() => {
       that.confirmLoading = false;
-      this.form.validate();
-      //this.selectList=[];
       that.close();
       })
       }
