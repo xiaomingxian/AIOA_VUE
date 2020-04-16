@@ -55,6 +55,16 @@
                        @getBackData="getBackData"
                        :optionMap="optionMap" :detailList="detailList" :taskParent="task"></bulletin-file>
 
+            <!--督查-->
+            <sup-file v-if="pageRef == 'supFile'" ref="supFile" :backDataRef="backData" :isShowFile="isShowFile"
+                       @getBackData="getBackData"
+                       :optionMap="optionMap" :detailList="detailList" :taskParent="task"></sup-file>
+
+            <!--会议督查-->
+            <sup-meeting v-if="pageRef == 'supMeeting'" ref="supMeeting" :backDataRef="backData" :isShowFile="isShowFile"
+                         @getBackData="getBackData"
+                         :optionMap="optionMap" :detailList="detailList" :taskParent="task"></sup-meeting>
+
             <!--用印申请-->
             <seal-file v-if="pageRef == 'sealFile'" ref="sealFile" :backDataRef="backData" :isShowFile="isShowFile"
                        @getBackData="getBackData"
@@ -221,6 +231,8 @@
   import ReleaseScope from "@/views/oaBus/pageModels/releaseScope";
   //业务页面
   import bulletinFile from '@/views/mytask/taskList/bulletinFile'
+  import supFile from '@/views/mytask/taskList/supFile'
+  import supMeeting from '@/views/mytask/taskList/supMeeting'
   import shareFile from '@/views/mytask/taskList/shareFile'
   import sealFile from '@/views/mytask/taskList/sealFile'
   import sendFile from '@/views/mytask/taskList/sendFile'
@@ -250,6 +262,8 @@
     mixins: [JeecgListMixin],
     components: {
       bulletinFile,//简报
+      supMeeting,
+      supFile,
       sealFile,
       VideoManageFile,
       lanAccess,
