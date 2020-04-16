@@ -220,7 +220,10 @@
       },
       // 日志类型
       callback(key){
-        this.searchReset();
+        this.queryParam = {};
+        this.queryParam.createTime_begin='';
+        this.queryParam.createTime_end='';
+        // this.searchReset();
         // 动态添加操作类型列
         if (key == 2) {
           this.tabKey = '2';
