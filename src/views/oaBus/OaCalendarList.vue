@@ -250,8 +250,7 @@
           }
         ],
         url: {
-          //list:'/oaBus/Calendar/oaCalendar/list',
-          list:'/app/missionCenter/oaCalender/queryList',
+          list:'/oaBus/Calendar/oaCalendar/list',
           findByLeader:'/oaBus/Calendar/oaCalendar/findByLeader',
           findById:'/oaBus/Calendar/oaCalendar/queryById',
           queryPageList:'/oaBus/Calendar/oaCalendar/queryPageList',
