@@ -62,72 +62,89 @@
                   <div class="itembox0" v-else>暂无日程</div>
                 </div>
               </a-col>
-              <a-col :span="8">
-                <div class="part2">
-                  <div class="title">
-                    <div class="div3">
-                      <p class="p1">我的日程  <a-icon class="icon1" @click="add"type="plus"/></p>
-                      <span>
 
-                      <a-icon class="icon1" @click="openMore(1)"type="right"/>
-                      </span>
+
+
+
+
+
+              <a-col :span="16" class="col3">
+                <div class="richeng">
+                  <div class="titlebox">
+                    <div class="div8">
+                      <template>
+                        <a-tabs defaultActiveKey="1" @change="doWill" style="width: 95%;  position: absolute;top: -7px;">
+                          <a-tab-pane key="1">
+                        <span slot="tab">
+                          <span class="shuline"></span>
+                          我的日程
+                          <b v-if="total">({{total}})</b>
+                        </span>
+                              <!--mytitleLists-->
+                              <div class="itembox"  v-if="mytitleLists!=''">
+                                <div class="itemline" v-for="(myitem,index) in mytitleLists" :key="index"  @click.stop="chakan(myitem.iid)">
+                                  <!--<p class="time">-->
+                                  <!--<i></i>-->
+                                  <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
+                                  <!--</p>-->
+                                  <div class="contentbox">
+                                    <p class="content"  :title="myitem.stateName+myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stateName+myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
+                                    <div v-if="myitem.stateName != ''" class="div5">
+                                      <div >
+                                        <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
+                                        <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle1(mytitleLists[index])">
+
+                                        <img class="img1 addSize" src="../../assets/del.png"  :title="删除" @click.stop="delstitle1(myitem.iid)">
+                                      </div>
+                                    </div>
+                                    <div v-else class="div5">
+                                      <div >
+                                        <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
+                                        <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
+                                        <img class="img1 addSize" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+                              <!--暂无日程显示-->
+                              <div class="itembox1" v-else style="">暂无日程</div>
+                          </a-tab-pane>
+                          <a-tab-pane key="2" >
+
+                        <!--<span slot="tab">-->
+                               <!--<span>{{this.model1}}</span>-->
+                               <!--<b  v-if="total1">({{total1}})</b>-->
+                        <!--</span>-->
+                        <span slot="tab">
+                          <span class="shuline"></span>
+                          共享日程
+                          <b v-if="total">({{total}})</b>
+                        </span>
+                              <div class="itemboxx"   v-if="publictitleLists!=''">
+                                <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click.stop="chakan(publicitem.iid)">
+                                  <div class="contentbox">
+                                    <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
+                                    <div class="div5">
+                                      <img class="img2 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!--暂无日程显示-->
+                              <div class="itembox2" v-else>暂无日程</div>
+                          </a-tab-pane>
+                          <a-button type="primary" @click="openmore1(willdoindex)"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>
+                          <!--<span class="more" @click="openmore1(willdoindex)"> 更多53  <a-icon type="plus"></a-icon> </span>-->
+                        </a-tabs>
+                      </template>
                     </div>
                   </div>
-                  <!--mytitleLists-->
-                  <div class="itembox"  v-if="mytitleLists!=''">
-                    <div class="itemline" v-for="(myitem,index) in mytitleLists" :key="index"  @click.stop="chakan(myitem.iid)">
-                      <!--<p class="time">-->
-                      <!--<i></i>-->
-                      <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
-                      <!--</p>-->
-                      <div class="contentbox" >
-                        <p class="content"  :title="myitem.stateName+myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stateName+myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
-                        <div v-if="myitem.stateName != ''">
-                          <div >
-                            <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                            <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle1(mytitleLists[index])">
-
-                            <img class="img1 addSize" src="../../assets/del.png"  :title="删除" @click.stop="delstitle1(myitem.iid)">
-                          </div>
-                        </div>
-                        <div v-else>
-                          <div >
-                            <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                            <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
-                            <img class="img1 addSize" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                  <!--暂无日程显示-->
-                  <div class="itembox1" v-else style="">暂无日程</div>
                 </div>
-              </a-col>
-              <a-col :span="8">
-                <div class="part2">
-                  <div class="title">
-                    <div class="div4">
-                      <p class="p2">共享日程</p>
-                      <span><a-icon class="icon2" @click="openMore(3)"type="right"/></span>
-                    </div>
-                    <!--<span>共享日程<a-icon @click="openMore(2)" type="right"/></span>-->
-                  </div>
-                  <div class="itemboxx"   v-if="publictitleLists!=''">
-                    <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click.stop="chakan(publicitem.iid)">
-                      <div class="contentbox">
-                        <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
-                        <div class="div5">
-                          <img class="img2 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!--暂无日程显示-->
-                  <div class="itembox2" v-else>暂无日程</div>
-                </div>
-              </a-col>
+
+                </a-col>
+
             </a-row>
           </a-col>
         </a-row>
