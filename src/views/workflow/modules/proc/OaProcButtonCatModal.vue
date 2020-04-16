@@ -53,8 +53,8 @@
 
     <a-spin tip="Loading..." :spinning="confirmLoading" style="height: 360px;overflow: auto">
       <a-form :form="form">
-        <a-button  type="primary"  icon="plus" style="margin-bottom: 5px" @click="handleEdit1()">新建</a-button>
-        <a-divider type="vertical"/>
+        <a-button  type="primary"  icon="plus" style="margin-bottom: 10px" @click="handleEdit1()">新建</a-button>
+        <!--<a-divider type="vertical"/>-->
        <!-- <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -328,6 +328,8 @@
     },
     methods: {
       searchResetOne(){
+        this.sbtnName="";
+        this.name="";
         this.clearData();
         //重置
         this.loadData();

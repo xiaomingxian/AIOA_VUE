@@ -70,6 +70,11 @@
                        @getBackData="getBackData"
                        :optionMap="optionMap" :detailList="detailList" :taskParent="task"></seal-file>
 
+            <!--工作动态-->
+            <work-action v-if="pageRef == 'workAction'" ref="workAction" :backDataRef="backData" :isShowFile="isShowFile"
+                       @getBackData="getBackData"
+                       :optionMap="optionMap" :detailList="detailList" :taskParent="task"></work-action>
+
 
             <!--共享文件-->
             <share-file v-if="pageRef == 'shareFile'" ref="shareFile" :backDataRef="backData" :isShowFile="isShowFile"
@@ -230,6 +235,7 @@
   import JEditor from '@/components/jeecg/JEditor'
   import ReleaseScope from "@/views/oaBus/pageModels/releaseScope";
   //业务页面
+  import workAction from '@/views/mytask/taskList/workAction'
   import bulletinFile from '@/views/mytask/taskList/bulletinFile'
   import supFile from '@/views/mytask/taskList/supFile'
   import supMeeting from '@/views/mytask/taskList/supMeeting'
@@ -261,6 +267,7 @@
     inject: ['reload'],
     mixins: [JeecgListMixin],
     components: {
+      workAction,
       bulletinFile,//简报
       supMeeting,
       supFile,
