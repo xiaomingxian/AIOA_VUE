@@ -7,7 +7,8 @@
     destroyOnClose="true"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
-    @cancel="handleCancel">
+    @cancel="handleCancel"
+    cancelText="关闭">
 
     <div style="height: 500px; width:95% ;overflow: auto">
       <a-spin :spinning="confirmLoading">

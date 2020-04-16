@@ -60,12 +60,12 @@
         let url = "/data/dataAnalysis/Rate";
         getAction(url,data).then((res) => {
           console.log(res);
-          if(res[0]){
+          if(res.reta){
             this.series = [];
-            if((res[0].reta)%1===0){
-              this.series.push((res[0].reta)*100);
+            if((res.reta)%1===0){
+              this.series.push((res.reta)*100);
             }else{
-              this.series.push(((res[0].reta)*100).toFixed(2));
+              this.series.push(((res.reta)*100).toFixed(2));
             }
           }else{
             this.banjielvNum = false
