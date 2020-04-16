@@ -78,7 +78,7 @@
                         <span slot="tab">
                           <span class="shuline"></span>
                           我的日程
-                          <b v-if="total">({{total}})</b>
+                          <b v-if="total2">({{total2}})</b>
                         </span>
                               <!--mytitleLists-->
                               <div class="itembox"  v-if="mytitleLists!=''">
@@ -120,7 +120,7 @@
                         <span slot="tab">
                           <span class="shuline"></span>
                           共享日程
-                          <b v-if="total">({{total}})</b>
+                          <b v-if="total3">({{total3}})</b>
                         </span>
                               <div class="itemboxx"   v-if="publictitleLists!=''">
                                 <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click.stop="chakan(publicitem.iid)">
@@ -135,8 +135,8 @@
                               <!--暂无日程显示-->
                               <div class="itembox2" v-else>暂无日程</div>
                           </a-tab-pane>
-                          <a-button type="primary" @click="openmore1(willdoindex)"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>
-                          <!--<span class="more" @click="openmore1(willdoindex)"> 更多53  <a-icon type="plus"></a-icon> </span>-->
+                          <a-button type="primary" @click="openMore"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>
+                          <!--<span class="more" @click="openMore(willdoindex)"> 更多53  <a-icon type="plus"></a-icon> </span>-->
                         </a-tabs>
                       </template>
                     </div>
@@ -441,6 +441,8 @@
         },
         total:'',//代办数量
         total1:'',//模块的数量
+        total2:'',//我的日程数量
+        total3:'',//共享日程数量
         day:'',
         week:'',
         nongli:'',//农历
@@ -1170,6 +1172,7 @@
       myDayLists(timestamp){
         getAction(this.url.list,{sCreateBy:this.userinfo.username,date:timestamp}).then((res) => {
           this.mytitleLists = res.result.records.splice(0,5);
+          this.total2 = res.result.total;
         });
       },
       //共享日程
@@ -1178,6 +1181,7 @@
 
           // alert( res.result.records.length)
           this.publictitleLists = res.result.records.splice(0,5);
+          this.total3 = res.result.total;
 
         });
       },
