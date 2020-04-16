@@ -6,7 +6,7 @@
     @ok="confirm"
     @cancel="handleCancel"
     okText="确定"
-    cancelText="取消">
+    cancelText="关闭">
 
 
     <!--<a-select  style="width: 400px" v-model="selectInit"  @change="selectTaskType" placeholder="请选任务类型">-->
@@ -146,9 +146,6 @@
     },
     methods: {
       saved(event){
-        // console.log("---------------------cccc"+JSON.stringify(event.status))
-        // console.log("---------------------cccc"+JSON.stringify(event))
-        // console.log("---------------------cccc"+JSON.stringify(this.userId))
         postAction("/sys/user/addUserFun?userId="+this.userId+"&modelId="+event.modelId+"&functionId="+event.functionid+"&status="+event.status).then(res => {
           if (res.success){
             this.$message.success("添加收藏成功")
@@ -174,6 +171,17 @@
 
       },
       show(e) {
+        // 初始化任务类型
+        getAction(this.url.selectTaskType).then(res => {
+          // console.log(res.result);
+          this.parentsData = res.result;
+          //初始化 ModelId   FunctionId
+          this.ModelId = res.result[0].modelid;
+          // 初始化任务详情
+          this.getTaskData(this.ModelId);
+
+        })
+
         // console.log('------------------------<<<' + 1);
         // console.log('------------------------<<<' + JSON.stringify(e));
         this.userId=e;
@@ -205,9 +213,6 @@
         this.childIndex = index;
 
         this.$emit('close');
-      },
-      Refresh(){
-        this.reload()
       },
       getTaskData(e,u) {
         //选择任务类型
@@ -323,6 +328,7 @@
         //清空数据
         this.$emit('close');
         // this.tasksDetialsLists = []
+        this.initData()
         this.visible = false
 
 
@@ -330,12 +336,16 @@
       handleCancel() {
         //清空数据
         this.initData()
+
         this.tasksDetialsLists = []
         this.$emit('close');
         this.visible = false;
-      }, initData() {
+      },
+      initData() {
+        this.parentsData = [] ;
         this.tasks = []
         this.task = []
+        this.childData = []
         this.taskDetail = {data: {}, busFunction: {}, detailList: {}}
         this.userName = ''
         this.userdept = ''

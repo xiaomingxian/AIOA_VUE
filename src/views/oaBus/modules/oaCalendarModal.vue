@@ -304,8 +304,8 @@
               putAction(httpurl,formData,method).then((res)=>{
                 if(res.success){
                   that.$message.success(res.message);
-                  // that.$emit('myrichenClose',true);
-                  that.reload()
+                   that.$emit('myrichenClose',true);
+                 // this.$emit()
                 }else{
                   that.$message.warning(res.message);
                 }

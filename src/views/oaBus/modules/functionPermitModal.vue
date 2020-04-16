@@ -304,7 +304,6 @@
         })
       },
       handleOk() {
-        this.$refs.newTaskModel.Refresh();
         this.showFunPer = false;
       },
       handleCancle() {

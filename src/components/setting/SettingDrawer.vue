@@ -177,7 +177,8 @@
     mixins: [mixin, mixinDevice],
     data() {
       return {
-        visible: true,
+        //visible: true,
+        visible: false,
         colorList,
         dataFixSiderbar: false
     }
