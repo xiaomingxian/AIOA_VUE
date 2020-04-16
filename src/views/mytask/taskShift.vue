@@ -33,36 +33,38 @@
                 <a-input placeholder="拟稿用户" v-model="queryParam.createName"></a-input>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="8">
-<!--style="width: 150px"-->
-              <a-form-item label="任务类型">
-                <a-select  @change="taskTypeChange" v-model="taskType">
-                  <a-select-option value="全部">全部</a-select-option>
-                  <a-select-option value="传阅">传阅</a-select-option>
-                  <a-select-option value="主办">主办</a-select-option>
-                  <a-select-option value="辅办">辅办</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
+            <!--<a-col :md="8" :sm="8">-->
+<!--&lt;!&ndash;style="width: 150px"&ndash;&gt;-->
+              <!--<a-form-item label="任务类型">-->
+                <!--<a-select  @change="taskTypeChange" v-model="taskType">-->
+                  <!--<a-select-option value="全部">全部</a-select-option>-->
+                  <!--<a-select-option value="传阅">传阅</a-select-option>-->
+                  <!--<a-select-option value="主办">主办</a-select-option>-->
+                  <!--<a-select-option value="辅办">辅办</a-select-option>-->
+                <!--</a-select>-->
+              <!--</a-form-item>-->
+            <!--</a-col>-->
+
+
 
             <a-col :md="8" :sm="8">
               <a-form-item label="开始时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 100%;padding: 0;box-sizing: border-box;"
-                               v-model='startTimeFake' @change="startTime"/>
+                               v-model='queryParam.startTimeFake' @change="startTime"/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="8">
               <a-form-item label="结束时间">
                 <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 100%;padding: 0;box-sizing: border-box;"
-                               v-model='endTimeFake' @change="endTime"/>
+                               v-model='queryParam.endTimeFake' @change="endTime"/>
               </a-form-item>
             </a-col>
+
             <a-col :md="8" :sm="8">
               <a-form-item label="主办部门">
                 <a-input placeholder="主办部门" v-model="queryParam.mainDept"></a-input>
               </a-form-item>
             </a-col>
-
           </template>
 
 
