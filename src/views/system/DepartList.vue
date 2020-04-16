@@ -98,7 +98,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input placeholder="请输入排序" v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序!'},{pattern: /^[1-9]\d{0,9}$/, message: '排序只能为数字且不能超过10位！'}] }]"/>
+            <a-input placeholder="请输入排序" maxLength="10" v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序!'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
