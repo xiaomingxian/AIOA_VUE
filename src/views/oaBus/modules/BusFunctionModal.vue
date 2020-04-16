@@ -30,7 +30,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="业务名称">
-            <a-input placeholder="请输入业务类型名称" v-decorator="['sname', {rules:[{required:true,message:'业务名称不能为空'},{ min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }]}]"/>
+            <a-input placeholder="请输入业务类型名称" v-decorator="['sname', {rules:[{required:true,message:'业务名称不能为空'},{ min: 1, max: 50, message: '业务名称长度不能超过50位！', trigger: 'blur' }]}]"/>
           </a-form-item>
 
           <!-- <a-form-item

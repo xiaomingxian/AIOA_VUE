@@ -4,7 +4,8 @@
     :width="800"
     :visible="visible"
     @ok="handleOk"
-    @cancel="handleCancel">
+    @cancel="handleCancel"
+    cancelText="关闭">
     <div>
       <img :src="picurl" width="750" alt="">
     </div>
