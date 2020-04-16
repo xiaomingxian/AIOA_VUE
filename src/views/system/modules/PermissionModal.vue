@@ -24,7 +24,7 @@
           :wrapperCol="wrapperCol"
           :label="menuLabel"
           hasFeedback >
-          <a-input placeholder="请输入菜单名称" maxLength="100" v-decorator="[ 'name',  {rules:[{required:true,message:'请输入菜单名称！！！'}] }]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入菜单名称" v-decorator="[ 'name',  {rules:[{required:true,message:'请输入菜单名称！！！'},{ min: 0, max: 100, message: '菜单名称长度不能超过100位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
 
@@ -52,7 +52,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="菜单路径">
-          <a-input placeholder="请输入菜单路径" maxLength="255" readOnly="disableSubmit"/>
+          <a-input placeholder="请输入菜单路径" v-decorator="[ 'url', {rules:[{required:true,message:'请输入菜单路径！'},{ min: 0, max: 255, message: '菜单路径长度不能超过255位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -60,7 +60,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="前端组件">
-          <a-input placeholder="请输入前端组件" maxLength="255" v-decorator="[ 'component', {rules:[{required:true,message:'请输入前端组件！'}] }]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入前端组件" v-decorator="[ 'component', {rules:[{required:true,message:'请输入前端组件！'},{ min: 0, max: 255, message: '菜单路径长度不能超过255位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -68,7 +68,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="默认跳转地址">
-          <a-input placeholder="请输入路由参数 redirect" maxLength="255" v-decorator="[ 'redirect',{rules:[{required:false,message:'请输入默认跳转地址！'}] }]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入路由参数 redirect" v-decorator="[ 'redirect',{rules:[{required:false,message:'请输入默认跳转地址！'},{ min: 0, max: 255, message: '菜单路径长度不能超过255位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -76,7 +76,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="授权标识">
-          <a-input placeholder="多个用逗号分隔, 如: user:list,user:create" maxLength="255" v-decorator="[ 'perms',{rules:[{required:false,message:'请输入授权标识！'}] }]" :readOnly="disableSubmit"/>
+          <a-input placeholder="多个用逗号分隔, 如: user:list,user:create" v-decorator="[ 'perms',{rules:[{required:false,message:'请输入授权标识！'},{ min: 0, max: 255, message: '授权标识长度不能超过255位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -114,7 +114,7 @@
           label="排序">
           <!--<a-input placeholder="请输入菜单排序" maxLength="10" style="width: 200px" v-decorator="[ 'sortNo',{rules:[{required:false,message:'请输入菜单排序！'}] }]"  :readOnly="disableSubmit"/>-->
 
-          <a-input placeholder="请输入菜单排序" maxLength="10" v-decorator="[ 'sortNo',{rules:[{required:false ,message:'请输入菜单排序!'},{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]" :readOnly="disableSubmit" />
+          <a-input placeholder="请输入菜单排序" v-decorator="[ 'sortNo',{rules:[{required:false ,message:'请输入菜单排序!'},{pattern: /^[1-9]\d{0,9}$/, message: '排序只能为数字且不能超过10位！'}] }]" :readOnly="disableSubmit" />
         </a-form-item>
 
         <a-form-item
