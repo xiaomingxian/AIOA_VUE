@@ -217,6 +217,9 @@
             this.upFailId = 1;
             this.uploading = true;
             this.fileData.iid = res.result.iid;
+            if (res.result.sfileName.lastIndexOf("\\") != -1){
+              res.result.sfileName = res.result.sfileName.slice(res.result.sfileName.lastIndexOf("\\")+1)
+            }
             this.fileData.sfileName = res.result.sfileName;
             this.fileData.sfilePath = res.result.sfilePath;
             this.fileData.sfileType = res.result.sfileType;
