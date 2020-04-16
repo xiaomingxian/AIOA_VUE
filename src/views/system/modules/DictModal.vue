@@ -32,7 +32,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-textarea placeholder="请输入备注" maxLength="255" v-decorator="['description', {rules:[{required:false ,message:'请输入备注!'}] }]"/>
+          <a-textarea  rows="6" placeholder="请输入备注" maxLength="255" v-decorator="['description', {rules:[{required:false ,message:'请输入备注!'}] }]"/>
           <!--<a-input maxLength="255" v-decorator="[ 'description', {rules:[{required:true,message:'请输入描述！！！'}] }]" />-->
         </a-form-item>
 
@@ -199,3 +199,9 @@
     }
   }
 </script>
+<style lang="less" scoped>
+  /** 主表单行间距 */
+  .ant-form .ant-form-item {
+    margin-bottom: 8px;
+  }
+</style>

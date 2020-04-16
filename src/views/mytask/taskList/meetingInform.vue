@@ -25,7 +25,7 @@
                 <td colspan="1" class="title">
                   <center><h3>{{detailList.s_varchar4}}</h3></center>
                 </td>
-                <td colspan="7">
+                <td >
                   <left>
                     <template v-if="backData.d_datetime1 == null && backData.d_datetime2 ==null">
                       <a-range-picker
@@ -58,17 +58,16 @@
                     </template>
                   </left>
                 </td>
-              </tr>
 
 
               <!--会议室申请-->
-              <tr style="height: 50px;">
+
                 <td colspan="1" class="title">
                   <center><h3>{{detailList.s_varchar1}}</h3></center>
                 </td>
-                <td colspan="7">
+                <td >
                   <left>
-                    <a-select maxLength="50" style="width:80%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
+                    <a-select maxLength="50" style="width:60%" placeholder="请选择会议室" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar4,$refs.s_varchar1)"
                               v-model="backData.s_varchar4" @change="changeHuanJi">
                       <a-select-option  v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :text="item.text" :value="item.value" >{{item.text}}</a-select-option>
                     </a-select>
@@ -86,7 +85,7 @@
                 <td colspan="7" height="100px">
                   <left>
                     <template>
-                      <a-textarea maxLength="50"  ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px;width: 95%"
+                      <a-textarea maxLength="50"  ref="s_varchar2" v-on:blur="blurText(backData.s_title,$refs.s_title)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_title" style="height: 100px;width: 100%"
                                   :rows="true"></a-textarea>
                     </template>
                   </left>
