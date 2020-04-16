@@ -1,12 +1,17 @@
 <template>
   <div>
-    <a-input-search
-      v-model="selectedDepUsers"
-      placeholder="请先选择用户"
-      disabled
-      @search="onSearchDepUser">
-      <a-button slot="enterButton" :disabled="disabled">选择用户</a-button>
-    </a-input-search>
+    <div style="display: flex">
+      <a-input-search
+        v-model="selectedDepUsers"
+        placeholder="请先选择用户"
+        disabled
+        @search="onSearchDepUser">
+        <!--<a-button slot="enterButton" :disabled="disabled">选择用户</a-button>-->
+      </a-input-search>
+      <a-button slot="enterButton" @click="onSearchDepUser" :disabled="disabled">选择用户</a-button>
+    </div>
+
+
     <j-select-user-by-dep-modal-single
       ref="selectModal"
       @getUserId="getUserId"

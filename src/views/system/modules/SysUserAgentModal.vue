@@ -23,22 +23,19 @@
           label="代理结束时间">
           <a-date-picker showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'endTime', {}]"/>
         </a-form-item>
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="请选择代理人">
-          <!-- <j-select-user-by-dep-single  v-decorator="[ 'agentUserName', {}]"></j-select-user-by-dep-single>-->
-          <j-select-user-by-dep-single v-decorator="[ 'agentUserName', {rules:[{required:true,message:'参与人员不能为空'}]}]"
-                                       @senUserId="senUserId" @senUserName="senUserName" :userIdLists="userIdLists"
-                                       v-model="userRealName" @getUD2="getUD2"></j-select-user-by-dep-single>
-
+          <j-select-user-by-dep-single v-decorator="[ 'agentUserName', {}]"></j-select-user-by-dep-single>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="状态选择">
           <!--:defaultValue-->
-          <a-radio-group buttonStyle="solid" v-decorator="['status', {} ]" size="small"  defaultValue="1">
+          <a-radio-group buttonStyle="solid" v-decorator="['status', {} ]" size="small" defaultValue="1">
             <a-radio-button value="1">有效</a-radio-button>
             <a-radio-button value="0">无效</a-radio-button>
           </a-radio-group>
@@ -96,6 +93,9 @@
     created() {
     },
     methods: {
+      show() {
+        this.$refs.single.show()
+      },
       onSearch() {
         this.$refs.SelectDepartWindow.add(this.checkedDepartKeys, this.userId);
       },
@@ -130,7 +130,7 @@
         // console.log(this.model.status)
         if (this.model.status == undefined) {
           // this.$message.error('状态值不能为空')
-          this.model.status=1
+          this.model.status = 1
           // return true
         }
 
