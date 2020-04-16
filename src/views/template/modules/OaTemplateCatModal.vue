@@ -12,7 +12,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="模版名称">
+          label="模板名称">
           <a-input placeholder="" v-decorator="['sname', {}]" />
         </a-form-item>
         <a-form-item
@@ -33,7 +33,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="模版类型">
+          label="模板类型">
           <!--<a-input placeholder="" v-decorator="['itype', {}]" />-->
           <a-radio-group v-model="value" v-decorator="['itype', {}]" >
             <a-radio :value="1">上报</a-radio>
@@ -139,7 +139,10 @@
         let that=this
         let url = "/papertitle/oaTemplate/getFileNameById";
         getAction(url,{ifileId:id}).then((res)=>{
-          console.log(res.result)
+          // console.log(res.result)
+          if (res.result.sfileName.lastIndexOf("\\") != -1){
+            res.result.sfileName = res.result.sfileName.slice(res.result.sfileName.lastIndexOf("\\")+1)
+          }
           that.upFileName = res.result.sfileName;
           that.downFilePath = res.result.sfilePath;
         })

@@ -346,7 +346,7 @@
       @cancel="cancel2"
       destroyOnClose
       okText="确认"
-      cancelText="取消">
+      cancelText="关闭">
 
 
       <!--      :customRow="customRowMy"-->

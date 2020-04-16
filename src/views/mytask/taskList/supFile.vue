@@ -34,10 +34,15 @@
             <center><h3>{{detailList.s_varchar1}}</h3></center>
           </td>
           <td width="35%">
-            <a-select placeholder="请选择发文单位" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
+           <!-- <a-select placeholder="请选择发文单位" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                       v-model="backData.s_varchar1">
               <a-select-option v-for="(item,index) in recFileTypeList" :key="index" :value="item.value">
                 {{item.text}}
+              </a-select-option>
+            </a-select>-->
+
+            <a-select placeholder="请选择发文单位" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.i_is_important)" v-model="backData.s_varchar1" @change="selectType">
+              <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
             </a-select>
           </td>
@@ -92,9 +97,16 @@
               </a-select-option>
             </a-select>
 -->
-            <a-radio-group ref="i_is_important" v-on:blur="blurText(backData.i_is_important,$refs.i_is_important)" v-model="backData.i_is_important"  @change="selectType" style="padding-left: 14px;">
+            <!--<a-radio-group ref="i_is_important" v-on:blur="blurText(backData.i_is_important,$refs.i_is_important)" v-model="backData.i_is_important"  @change="selectType" style="padding-left: 14px;">
               <a-radio v-for="(item,index) in optionMap.i_is_important_option" :key="index" :value="item.value">{{item.text}}</a-radio>
-              <!--<a-radio :value="1">否</a-radio>-->
+              &lt;!&ndash;<a-radio :value="1">否</a-radio>&ndash;&gt;
+            </a-radio-group>-->
+
+            <a-radio-group :defaultValue="0" ref="i_is_important" v-on:blur="blurText(backData.i_is_important,$refs.i_is_important)" v-model="backData.i_is_important"  @change="selectType" style="padding-left: 14px;">
+              <!--<a-radio v-for="(item,index) in optionMap.i_is_important_option" :key="index" :value="item.value">{{item.text}}</a-radio>-->
+              <a-radio :value="0">否</a-radio>
+              <a-radio :value="1">是</a-radio>
+              <!--<a-radio :value="2">否</a-radio>-->
             </a-radio-group>
           </td>
           <td class="title" width="15%">
@@ -104,9 +116,14 @@
           <td width="35%">
             <a-select placeholder="请选择反馈频率" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                       v-model="backData.s_varchar2">
-              <a-select-option v-for="(item,index) in recFileTypeList" :key="index" :value="item.value">
-                {{item.text}}
-              </a-select-option>
+              <!--<a-select-option v-for="(item,index) in recFileTypeList" :key="index" :value="item.value">-->
+                <!--{{item.text}}-->
+              <!--</a-select-option>-->
+              <a-select-option :value="0">不提示</a-select-option>
+              <a-select-option :value="1">10分钟前</a-select-option>
+              <a-select-option :value="2">30分钟前</a-select-option>
+              <a-select-option :value="3">1小时前</a-select-option>
+              <a-select-option :value="4">2小时前</a-select-option>
             </a-select>
           </td>
         </tr>

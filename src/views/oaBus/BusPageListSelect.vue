@@ -1,5 +1,11 @@
 <template>
-  <a-modal :visible="visible" :width="1200" @ok="handleOk" @cancel="handleCancle">
+  <a-modal
+    :visible="visible"
+    :width="1200"
+    @ok="handleOk"
+    destroyOnClose="true"
+    @cancel="handleCancle"
+    cancelText="关闭">
     <a-card :bordered="false">
 
       <!-- 查询区域 -->
@@ -13,7 +19,7 @@
             </a-col>
             <a-col :md="6" :sm="8">
               <a-form-item label="模板分类">
-                <a-select placeholder="请选择模板分类" v-decorator="['ipapeType', {}]">
+                <a-select placeholder="请选择模板分类" v-model="queryParam.iPapeType" v-decorator="['iPapeType', {}]" >
                   <a-select-option  v-for="(item,index) in dbtable" :key="index" :value="item.value" >{{item.text}}</a-select-option>
                 </a-select>
                 <!--<a-input placeholder="请输入模板分类" v-model="queryParam.iPapeType"></a-input>-->
@@ -254,6 +260,7 @@
       },
       handleCancle (){
         this.visible = false ;
+        this.searchReset() ;
       },
       pageListChange(selectedRowKeys){
         /*if(selectedRowKeys.length > 1){

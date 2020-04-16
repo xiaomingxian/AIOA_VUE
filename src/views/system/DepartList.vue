@@ -62,7 +62,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="名称">
-            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入排序号！'},{ min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur'  }] }]"/>
+            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'},{ min: 0, max: 100, message: '机构/部门名称长度不能超过50位！', trigger: 'blur'  }] }]"/>
           </a-form-item>
           <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="上级部门">
             <a-tree-select
@@ -98,7 +98,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input placeholder="请输入排序" maxLength="10" v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序号!'},{pattern: new RegExp(/^[0-9]\d*$/), message: '请输入数字'}] }]"/>
+            <a-input placeholder="请输入排序" maxLength="10" v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序!'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -110,13 +110,13 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="地址">
-            <a-input placeholder="请输入地址" maxLength="100" v-decorator="['address', {'initialValue':''}]"/>
+            <a-input placeholder="请输入地址" v-decorator="['address', {rules:[{required:false ,message:'请输入地址!'},{ min: 0, max: 100, message: '地址长度不能超过100位！', trigger: 'blur'  }] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="备注">
-            <a-textarea placeholder="请输入备注" maxLength="500" v-decorator="['memo', {rules:[{required:false ,message:'请输入备注!'}] }]"/>
+            <a-textarea placeholder="请输入备注" v-decorator="['memo', {rules:[{required:false ,message:'请输入备注!'},{ min: 0, max: 500, message: '地址长度不能超过500位！', trigger: 'blur'  }] }]"/>
           </a-form-item>
         </a-form>
         <div class="anty-form-btn">

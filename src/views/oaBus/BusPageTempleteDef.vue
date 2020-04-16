@@ -1,5 +1,10 @@
 <template>
-  <a-modal :visible="visible" :title="title" :width="1200" @ok="handleOk" @cancel="handleCancel">
+  <a-modal :visible="visible"
+           :title="title"
+           :width="1200"
+           @ok="handleOk"
+           @cancel="handleCancel"
+           cancelText="关闭">
 
     <!--定义含义页面，保存所有列-->
     <div class="table-page-search-wrapper">
@@ -13,7 +18,7 @@
           </a-col>
           <a-col :md="6" :sm="8">
             <a-form-item label="列的含义：">
-              <a-input placeholder="请输入列的含义" v-model="scolumnName"></a-input>
+              <a-input placeholder="请输入列的含义" v-model="scolumnName" ></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
@@ -124,6 +129,9 @@
           }
         ],
         dataSource2: [],
+        validatorRules: {
+          scolumnName: {rules:[{required:true,message: '列的含义不能为空'},{ min: 1, max: 50, message: '列的含义长度不能超过50位！', trigger: 'blur' }]},
+        },
         ipagination: {
           current: 1,
           pageSize: 100,
@@ -191,11 +199,11 @@
       },
       add() {
         if(this.stableColumn.length > 30){
-          this.$message.error("列名太长！！！");
+          this.$message.error("列名长度不能超过30位！");
           return ;
         }
-        if(this.stableColumn.length > 30){
-          this.$message.error("含义字符太长！！！");
+        if(this.scolumnName.length > 30){
+          this.$message.error("列的含义长度不能超过30位！");
           return ;
         }
         if(this.stableColumn == undefined || this.stableColumn == ''){
@@ -236,6 +244,9 @@
       close() {
         //this.$emit('close');
         this.visible = false;
+        this.stableColumn = "" ;
+        this.scolumnName = "" ;
+        this.icolumnType = "" ;
       },
       handleOk() {
         this.close()

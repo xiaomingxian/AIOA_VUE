@@ -75,8 +75,7 @@
             <!--:rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
        <span slot="action" slot-scope="text, record">
          <a-form-item
-           :labelCol="labelCol"
-           :wrapperCol="wrapperCol"
+           style="margin-top: 20px"
            label="">
           <a-upload
             name="file"

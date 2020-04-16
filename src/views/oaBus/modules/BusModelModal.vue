@@ -16,7 +16,7 @@
           :wrapperCol="wrapperCol"
           label="序号">
           <!--<a-input-number  :min="0" :max="10000" v-decorator="[ 'iorder', {}]" />-->
-          <a-input  v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '输入0到4位的非零正整数' }]}]" />
+          <a-input  v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '输入4位以内的非零正整数' }]}]" />
 <!--
           <a-input  v-decorator="[ 'iorder', {rules:[{validator:validateNum}]}]" />
 -->
@@ -25,13 +25,13 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务菜单名称">
-          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{ min: 1, max: 50, message: '长度在 1到 50 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{ min: 1, max: 50, message: '业务菜单名称长度不能超过50位', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务路径名称">
-          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{ min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{ min: 1, max: 50, message: '业务路径名称不能超过50位', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -48,7 +48,7 @@
           label="是否为页签方式">
           <a-radio-group  :defaultValue="0" v-decorator="['iisRadio', {}]">
             <a-radio :value="1" >是</a-radio>
-            <a-radio :value="0">否</a-radio>
+            <a-radio :value="0" >否</a-radio>
           </a-radio-group>
         </a-form-item>
 		
@@ -113,13 +113,13 @@
           }
       },
       //长度校验
-      dealLenth(rule, value, callback){
+      /*dealLenth(rule, value, callback){
         if (value.length <= 30 ) {
           callback();
         } else {
           callback('长度不可以超过15个汉字或者30个字符！！');
         }
-      },
+      },*/
       add () {
 
         this.edit({});
@@ -144,10 +144,6 @@
         this.visible = false;
       },
 
-      updateOher(){
-        this.busPermit = this.busDataTable + '_permit';
-        this.busOpinion = this.busDataTable + '_opinion';
-      },
       handleOk () {
         const that = this;
         // 触发表单验证
@@ -166,6 +162,9 @@
             let formData = Object.assign(this.model, values);
             //时间格式化
             
+            if(formData.iisRadio == undefined){
+              formData.iisRadio = 0 ;   //如果这个值为空的话，就设置默认值为0
+            }
             console.log(formData)
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){

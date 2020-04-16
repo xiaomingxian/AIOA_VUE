@@ -167,23 +167,23 @@
           sname: {
             rules: [
               {required: true, message: '请输入文号名称！'},
-              {min: 1, max: 50, message: '不能超过50个汉字', trigger: 'blur'}
+              {min: 1, max: 50, message: '文号名称长度不能超过50位！', trigger: 'blur'}
             ]
           },
           iorder: {
             rules: [
-              {required: false, pattern: /^[1-9]\d{0,4}$/, message: '请输入不能超过5位数字！'},
+              {required: false, pattern: /^[1-9]\d{0,4}$/, message: '请输入长度不超过5位的正整数！'},
               // {min: 1, max: 11, message: '长度在 1 到 11 个字符'}
             ]
           },
           sdocRule: {
             rules: [
-              {min: 1, max: 50, message: '不能超过50个汉字', trigger: 'blur'}
+              {min: 1, max: 50, message: '文号规则长度不能超过50位！', trigger: 'blur'}
             ]
           },
           sremarks: {
             rules: [
-              {min: 1, max: 50, message: '不能超过50个汉字', trigger: 'blur'}
+              {min: 1, max: 50, message: '备注长度不能超过50位！', trigger: 'blur'}
             ]
           },
         },

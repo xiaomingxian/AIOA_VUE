@@ -15,14 +15,14 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="协同业务名称">
-          <a-input placeholder="请输入协同业务名称" v-decorator="['steamworkName', {rules:[{required:true,message:'协同业务名称必须输入！！！'},{ min: 1, max: 200, message: '长度在 1 到 200 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入协同业务名称" v-decorator="['steamworkName', {rules:[{required:true,message:'协同业务名称必须输入！！！'},{ min: 1, max: 200, message: '协同业务名称长度不能超过200', trigger: 'blur' }]}]" />
 
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-input placeholder="请输入描述" v-decorator="['description', {rules:[{required:true,message:'描述必须输入！！！'},{ min: 1, max: 255, message: '长度在 1 到 255 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入描述" v-decorator="['description', {rules:[{required:true,message:'描述必须输入！！！'},{ min: 1, max: 255, message: '描述的长度不能超过255', trigger: 'blur' }]}]" />
 
         </a-form-item>
      <!--   <a-form-item

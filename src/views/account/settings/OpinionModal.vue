@@ -26,14 +26,14 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="序号333">
-          <a-input  placeholder="请输入序号" style="width: 100px" v-decorator="['iorder', {rules:[{required:true,message:'序号必须输入！！！'},{ min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'}]}]" />
+          label="序号">
+          <a-input  placeholder="请输入序号" style="width: 100px" v-decorator="['iorder', {rules:[{required:true,message:'序号必须输入！！！'},{ min: 1, max: 10, message: '长度在不超过10位的整数', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'}]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="意见内容">
-          <a-input placeholder="请输入意见内容"  v-decorator="['scontent', {rules:[{required:true,message:'意见内容必须输入！！！'},{ min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }]}]" />
+          <a-input placeholder="请输入意见内容"  v-decorator="['scontent', {rules:[{required:true,message:'意见内容必须输入！！！'},{ min: 1, max: 50, message: '长度不超过50位', trigger: 'blur' }]}]" />
         </a-form-item>
 
       </a-form>

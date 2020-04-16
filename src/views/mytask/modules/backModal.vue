@@ -9,6 +9,10 @@
     destroyOnClose
     okText="确定"
     cancelText="取消">
+    <template slot="footer">
+      <a-button type="primary" @click.stop="handleCancel()">关闭</a-button>
+      <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
+    </template>
 
     <div  :style="{overflow: 'auto',position: 'relative',height: scrHeight}">
 

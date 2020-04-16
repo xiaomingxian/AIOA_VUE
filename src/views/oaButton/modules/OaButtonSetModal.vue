@@ -4,7 +4,7 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleOk"
+    @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
     
@@ -48,7 +48,9 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="顺序号">
-          <a-input-number min="1" max="99999999" v-decorator="[ 'iorder', {}]" />
+          <!--<a-input-number min="1" max="99999999" v-decorator="[ 'iorder', {}]" />-->
+          <a-input min="0" type="number" style="margin-left: 5px;width: 120px;" @change="onOrder"  v-model="iorder"  oninput="if(value.length>4)value=value.slice(0,4)"/>
+
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -105,6 +107,7 @@
           sm: { span: 16 },
         },
         data:[],
+        iorder:0,
         buttonInfo:'',
         selectButton:'',
         iprocButtonId:'',
@@ -126,9 +129,12 @@
       }
     },
     created () {
-      this.getButtonList();
+
     },
     methods: {
+      onOrder(){
+        this.model.iorder=this.iorder;
+      },
       add (res) {
         this.iprocButtonId=res;
         this.ipermitType=0;
@@ -140,6 +146,7 @@
         this.edit({});
       },
       edit (record) {
+        this.getButtonList();
         this.form.resetFields();
         this.model = Object.assign({}, record);
         if(!this.model.ipermitType){
@@ -152,10 +159,10 @@
           this.model.iisReader = 0
         }
         //---------------根据按钮ID 请求名字--------------
-        getAction(this.url.queryById,{id:this.model.ibuttonId}).then(res=>{
-          this.buttonInfo = res.result;
-          this.selectButton=this.buttonInfo.sbtnName;
-        });
+//        getAction(this.url.queryById,{id:this.model.ibuttonId}).then(res=>{
+//          this.buttonInfo = res.result;
+//          this.selectButton=this.buttonInfo.iid;
+//        });
 
         this.ipermitType=this.model.ipermitType;
         this.iisCreater=this.model.iisCreater;
@@ -177,6 +184,8 @@
       getButtonList(){
         getAction(this.url.buttonList,{}).then(res=>{
           this.data = res.result;
+          this.model.ibuttonId=this.data[0].iid;
+          this.selectButton=this.data[0].iid;
         });
       },
       getButtonId(){
@@ -185,6 +194,13 @@
       close () {
         this.$emit('close');
         this.visible = false;
+      },
+      handleOkIsCreate(){
+        if(this.iorder==null || this.iorder.length<1){
+          this.$message.warning("顺序号不能为空");
+        }else {
+          this.handleOk ();
+        }
       },
       handleOk () {
         const that = this;
@@ -196,7 +212,7 @@
             let method = '';
             if(!this.model.iid){
               httpurl+=this.url.add;
-              console.log("0000000000000000000000000");
+//              console.log("0000000000000000000000000");
               this.model.iprocButtonId=this.iprocButtonId;
               method = 'post';
             }else{
@@ -216,7 +232,7 @@
               }else{
                 that.$message.warning(res.message);
               }
-              this.selectButton='';
+//              this.selectButton='';
             }).finally(() => {
               that.confirmLoading = false;
               that.close();

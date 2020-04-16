@@ -149,7 +149,7 @@
           sname: {
             rules: [
               {required: true, message: '请填写模板名称！'},
-              {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              {min: 1, max: 50, message: '模板名称长度不能超过50位！', trigger: 'blur'}
             ]
           },
           ititleRuleId: {
@@ -164,7 +164,7 @@
           },
           sremarks: {
             rules: [
-              {min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
+              {min: 1, max: 50, message: '备注长度不能超过50位！', trigger: 'blur'}
             ]
           },
 
@@ -217,6 +217,9 @@
             this.upFailId = 1;
             this.uploading = true;
             this.fileData.iid = res.result.iid;
+            if (res.result.sfileName.lastIndexOf("\\") != -1){
+              res.result.sfileName = res.result.sfileName.slice(res.result.sfileName.lastIndexOf("\\")+1)
+            }
             this.fileData.sfileName = res.result.sfileName;
             this.fileData.sfilePath = res.result.sfilePath;
             this.fileData.sfileType = res.result.sfileType;
