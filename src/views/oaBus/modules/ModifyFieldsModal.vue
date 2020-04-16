@@ -8,14 +8,14 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin :spinning="confirmLoading">
+    <a-spin :spinning="confirmLoading" style="height: 500px;overflow: auto">
       <a-form :form="form" v-if="searchColumns" v-for="(atom,index) in searchColumns" :key="index">
        <!--输入框-->
         <a-form-item v-if="atom.i_column_type==1 && atom.s_table_column!='d_sealdate'&& atom.s_table_column!='i_phone'"   v-show="atom.s_table_column!='i_id'"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
         :label="atom.s_column_name">
-        <a-input maxLength="50" :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
+        <a-input  :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
 
 
@@ -24,9 +24,9 @@
                      :wrapperCol="wrapperCol"
                      prop="phone"
                      :label="atom.s_column_name">
-          <a-input maxLength="11" placeholder="请输入正确的手机号格式" v-decorator="[ atom.s_table_column, {rules:[{required:false,pattern:/^1(3|4|5|6|7|8)\d{9}$/,message:'请输入正确的手机号格式'}]}]"/>
+          <a-input  placeholder="请输入正确的手机号格式" v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
-
+        <!--rules:[{required:false,pattern:/^1(3|4|5|6|7|8)\d{9}$/,message:'请输入正确的手机号格式'}]-->
         <!--下拉列表-------------------start---------------->
         <!--密级-->
         <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='i_safetylevel'"
@@ -62,12 +62,13 @@
           </a-select>
         </a-form-item>
         <!--s_varchar5  不公开理由-->
+        <!--v-decorator="[model.s_varchar5, {rules: [{ required: model.s_varchar4=='bgk'?true:false, message: '请选择不公开理由' }]}]"-->
         <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar5' && functionId==131"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
           <a-select @change="changeSelectString($event,atom.s_table_column)"
-                     v-decorator="[model.s_varchar5, {rules: [{ required: model.s_varchar4=='bgk'?true:false, message: '请选择不公开理由' }]}]"
+                    v-model="model.s_varchar5"
                     :placeholder="'请选择'+atom.s_column_name">
             <a-select-option v-for="(item,index) in bgklyList" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
           </a-select>
@@ -179,7 +180,7 @@
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
-          <a-textarea  maxLength="50"  :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
+          <a-textarea    :placeholder="'请输入正确的'+atom.s_column_name" v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
         <!--日期框-->
         <a-form-item v-if="atom.i_column_type==4||atom.i_column_type==5" v-show="atom.s_table_column!='i_id'"

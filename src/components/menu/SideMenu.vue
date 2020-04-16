@@ -299,7 +299,8 @@
       }
 
       &.ant-menu-item-selected {
-        background-color: #cfecff !important;
+        /*background-color: #cfecff !important;*/
+        background-color: #1877b5 !important;
         & > a{
           color: #2f54eb !important;
         }
@@ -330,9 +331,11 @@
       }
 
       &.ant-menu-item-selected {
-        background-color: #cfecff !important;
+        /*background-color: #cfecff !important;*/
+        background-color: #1877b5 !important;
         & > a{
-          color: #2f54eb !important;
+          /*color: #2f54eb !important;*/
+          color: #fff !important;
         }
         & > a:hover {
           /*color: rgba(255, 255, 255, 1);*/
@@ -389,9 +392,11 @@
         }
 
         &.ant-menu-item-selected {
-          background-color: #cfecff !important;
+          /*background-color: #cfecff !important;*/
+          background-color: #1877b5 !important;
           & > a{
-            color: #2f54eb !important;
+            /*color: #2f54eb !important;*/
+            color: #fff !important;
           }
           & > a:hover {
             /*color: rgba(255, 255, 255, 1);*/
@@ -423,6 +428,7 @@
 
         &.ant-menu-item-selected {
           /*background-color: #cfecff !important;*/
+          /*background-color: #1877b5 !important;*/
           & > div{
             color: #fff !important;
           }
@@ -447,9 +453,11 @@
           }
 
           &.ant-menu-item-selected {
-            background-color: #cfecff !important;
+            /*background-color: #cfecff !important;*/
+            background-color: #1877b5 !important;
             & > a{
-              color: #2f54eb !important;
+              /*color: #2f54eb !important;*/
+              color: #fff !important;
             }
             & > a:hover {
               /*color: rgba(255, 255, 255, 1);*/
@@ -479,10 +487,12 @@
     color:#022570;
   }
   .ant-menu-dark .ant-menu-sub  .ant-menu-item-selected{
-    background-color: #cfecff  !important;
+    /*background-color: #cfecff  !important;*/
+    background-color: #1877b5  !important;
   }
   .ant-menu-dark .ant-menu-sub .ant-menu-item-selected > a{
-    color: #2f54eb;
+    /*color: #2f54eb;*/
+    color: #fff;
   }
 
 
@@ -507,10 +517,12 @@
     background-color: #0095ea !important;
   }
   .ant-menu-dark .ant-menu-submenu .ant-menu-sub .ant-menu-item-selected{
-    background-color: #cfecff;
+    /*background-color: #cfecff;*/
+    background-color: #1877b5;
   }
   .ant-menu-dark .ant-menu-submenu .ant-menu-sub .ant-menu-item-selected > a{
-    color: #2f54eb;
+    /*color: #2f54eb;*/
+    color: #fff;
   }
 </style>
 
