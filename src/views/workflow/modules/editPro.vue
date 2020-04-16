@@ -11,7 +11,7 @@
 
     <div id="pic">
 
-      <textarea v-if="visible" autofocus="autofocus" contenteditable="true" rows="20" cols="140" v-model="xml"></textarea>
+      <textarea  style="width: 100%;padding: 0;box-sizing: border-box;" v-if="visible" autofocus="autofocus" contenteditable="true" rows="20" cols="140" v-model="xml"></textarea>
 
     </div>
 
