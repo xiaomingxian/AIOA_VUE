@@ -432,10 +432,10 @@
       handleChangePassword(username) {
         this.$refs.passwordmodal.show(username);
       },
-      handleAgentSettings(username){
+      /*handleAgentSettings(username){
         this.$refs.sysUserAgentModal.agentSettings(username);
         this.$refs.sysUserAgentModal.title = "用户代理人设置";
-      },
+      },*/
       handleAgentConfig(username){
         this.$refs.SysUserManagedeptsList.config(username);
         this.$refs.SysUserManagedeptsList.title = "分管部门管理";

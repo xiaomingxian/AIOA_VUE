@@ -50,7 +50,7 @@
           // ibusFunctionId:{rules: [{ required: true, message: '请输入主键id!' }]},
           sname:{rules: [
               { required: true, message: '请输入文号名称！' },
-              {min: 1, max:  50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              {min: 1, max:  50, message: '文号名称长度不能超过50位！', trigger: 'blur'}
             ]},
         },
         url: {

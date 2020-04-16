@@ -73,12 +73,13 @@
                   <div class="titlebox">
                     <div class="div8">
                       <template>
-                        <a-tabs defaultActiveKey="1" @change="doWill" style="width: 95%;  position: absolute;top: -7px;">
+                        <a-tabs defaultActiveKey="1" @change="doWill1" style="width: 95%;  position: absolute;top: -7px;">
                           <a-tab-pane key="1">
                         <span slot="tab">
                           <span class="shuline"></span>
                           我的日程
                           <b v-if="total2">({{total2}})</b>
+                          <a-icon class="icon1" @click="add"type="plus"/>
                         </span>
                               <!--mytitleLists-->
                               <div class="itembox"  v-if="mytitleLists!=''">
@@ -135,8 +136,8 @@
                               <!--暂无日程显示-->
                               <div class="itembox2" v-else>暂无日程</div>
                           </a-tab-pane>
-                          <a-button type="primary" @click="openMore"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>
-                          <!--<span class="more" @click="openMore(willdoindex)"> 更多53  <a-icon type="plus"></a-icon> </span>-->
+                          <a-icon class="icon1" @click="openMore(doindex)" type="right" slot="tabBarExtraContent"/>
+                          <!--<a-button type="primary" @click="openMore"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>-->
                         </a-tabs>
                       </template>
                     </div>
@@ -448,6 +449,7 @@
         nongli:'',//农历
         ESM:'',
         willdoindex:1,   //  待办已办高亮
+        doindex:1,//我的日程高亮
 
         //---------------------------------环节选择相关
         loading: false,
@@ -1058,6 +1060,22 @@
             this.mytitleLists = res.result.records;
 
           });
+        }
+      },
+      doWill1(e){
+        console.log(e);
+        this.doindex = e;
+        if(e==1){
+          // 代办日程
+          // alert(e)
+          this.doindex = 1;
+          this.findwaitLists('oaCalendar');
+        }else{
+
+          // alert(e)
+          this.doindex = 3;
+          this.findwaitLists('oaShareCalendar');
+
         }
       },
       //查看更多

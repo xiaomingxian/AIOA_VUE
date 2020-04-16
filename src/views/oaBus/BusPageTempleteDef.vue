@@ -1,5 +1,10 @@
 <template>
-  <a-modal :visible="visible" :title="title" :width="1200" @ok="handleOk" @cancel="handleCancel">
+  <a-modal :visible="visible"
+           :title="title"
+           :width="1200"
+           @ok="handleOk"
+           @cancel="handleCancel"
+           cancelText="关闭">
 
     <!--定义含义页面，保存所有列-->
     <div class="table-page-search-wrapper">

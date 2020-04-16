@@ -106,19 +106,19 @@
         // iId:{rules: [{ required: true, message: '请输入主键id!' }]},
           stitleName:{rules: [
               { required: true, message: '请输入红头名称！' },
-              { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+              { min: 1, max: 50, message: '红头名称长度不能超过50位！', trigger: 'blur'}
             ]},
           sleftParameter:{rules: [
-              { min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
+              { min: 1, max: 50, message: '前缀名称长度不能超过50位！', trigger: 'blur'}
             ]},
           smddleParameter:{rules: [
-              { min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
+              { min: 1, max: 50, message: '中部名称长度不能超过50位！', trigger: 'blur'}
             ]},
           srightParameter:{rules: [
-              { min: 1, max: 50, message: '长度在 0 到 50 个字符', trigger: 'blur'}
+              { min: 1, max: 50, message: '后缀名称长度不能超过50位！', trigger: 'blur'}
             ]},
           sotherParameter:{rules: [
-              { min: 1, max: 255, message: '长度在 0 到 255 个字符', trigger: 'blur'}
+              { min: 1, max: 255, message: '固定参数长度不能超过255位！', trigger: 'blur'}
             ]},
         },
         url: {
