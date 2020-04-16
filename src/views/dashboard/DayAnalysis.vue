@@ -73,7 +73,7 @@
                   <div class="titlebox">
                     <div class="div8">
                       <template>
-                        <a-tabs defaultActiveKey="1" @change="doWill" style="width: 95%;  position: absolute;top: -7px;">
+                        <a-tabs defaultActiveKey="1" @change="doWill1" style="width: 95%;  position: absolute;top: -7px;">
                           <a-tab-pane key="1">
                         <span slot="tab">
                           <span class="shuline"></span>
@@ -136,7 +136,7 @@
                               <!--暂无日程显示-->
                               <div class="itembox2" v-else>暂无日程</div>
                           </a-tab-pane>
-                          <a-icon class="icon1" @click="openMore" type="right" slot="tabBarExtraContent"/>
+                          <a-icon class="icon1" @click="openMore(doindex)" type="right" slot="tabBarExtraContent"/>
                           <!--<a-button type="primary" @click="openMore"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>-->
                         </a-tabs>
                       </template>
@@ -449,6 +449,7 @@
         nongli:'',//农历
         ESM:'',
         willdoindex:1,   //  待办已办高亮
+        doindex:1,//我的日程高亮
 
         //---------------------------------环节选择相关
         loading: false,
@@ -1059,6 +1060,22 @@
             this.mytitleLists = res.result.records;
 
           });
+        }
+      },
+      doWill1(e){
+        console.log(e);
+        this.doindex = e;
+        if(e==1){
+          // 代办日程
+          // alert(e)
+          this.doindex = 1;
+          this.findwaitLists('oaCalendar');
+        }else{
+
+          // alert(e)
+          this.doindex = 3;
+          this.findwaitLists('oaShareCalendar');
+
         }
       },
       //查看更多
