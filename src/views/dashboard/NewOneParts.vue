@@ -7,21 +7,20 @@
           <div class="imgzhanwei">
             <img src="../../assets/post.png" alt="">
           </div>
-          <span>公告</span>
         </div>
         <div class="listsBox">
           <div class="lineitem" v-for="(item,index) in postLists" :key="index"
                @click="openDetialModel('oa_busdata30',item.i_id)">
             <div class="left">
               <i></i>
-              <p class="tongzhi">[{{item.s_varchar5}}]</p>
-              <span :title="item.s_title">{{item.s_title}}</span>
+              <p :style="iisFontSize" class="tongzhi">[{{item.s_varchar5}}]</p>
+              <span :style="iisFontSize" :title="item.s_title">{{item.s_title}}</span>
               <!--<i></i>-->
             </div>
-            <span class="time">{{item.d_create_time|timeStrings}}</span>
+            <span :style="iisFontSize" class="time">{{item.d_create_time|timeStrings}}</span>
           </div>
       </div>
-        <span @click="postMore" class="postMore">查看更多  <a-icon class="icon0" type="double-right"></a-icon></span>
+        <span :style="iisFontSize" @click="postMore" class="postMore">查看更多  <a-icon class="icon0" type="double-right"></a-icon></span>
       </div>
       <div class="searchBox">
         <div class="div0">
@@ -85,7 +84,7 @@
                <span>待办工作</span>
                <b v-if="total"> {{total}}</b>
             </span>
-            <span class="more" @click="DaiBanMore(0)">更多  <a-icon type="plus"></a-icon> </span>
+            <span :style="iisFontSize" class="more" @click="DaiBanMore(0)">更多  <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <!--<div class="each" v-for="(item,index) in waitDoData" :key="index" @click="openDetialModel(item.table,item.tableId)" :style="index%2==0? '':'background: #e2f1f6; border-left: 5px solid  #95d9fd;'">-->
@@ -118,7 +117,7 @@
                <span class="shuline"></span>
               <span>{{model1.sName}}</span>
             </span>
-            <span class="more" @click="openmore(model1.url,model1.sName)">更多 <a-icon type="plus"></a-icon> </span>
+            <span :style="iisFontSize" class="more" @click="openmore(model1.url,model1.sName)">更多 <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p class="each" v-for="(item,index) in model1Lists" :key="index"
@@ -258,7 +257,7 @@
                  <span>{{model4.sName}}</span>
                 <!--<span>{{model4}}</span>-->
               </span>
-            <span class="more" @click="openmore(model4.url,model4.sName)">更多 <a-icon type="plus"></a-icon> </span>
+            <span :style="iisFontSize" class="more" @click="openmore(model4.url,model4.sName)">更多 <a-icon type="plus"></a-icon> </span>
           </p>
           <div class="itemline">
             <p class="each" v-for="(item,index) in model4Lists" :key="index"
