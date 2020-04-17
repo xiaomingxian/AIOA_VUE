@@ -480,11 +480,12 @@
       nextCheckDataFun() {
         this.$refs[this.pageRef].nullText();
       },
-      //----------------webSocket的处理
+      /*//----------------webSocket的处理
       initWebSocket: function (userId) {
         // 将busdataId作为路径，传到服务器中
         // WebSocket与普通的请求所用协议有所不同，ws等同于http，wss等同于https
-        var url = window._CONFIG['domianURL'].replace("https://", "ws://").replace("http://", "ws://") + "/websocket/" + userId;
+        var url = window._CONFIG['domi
+        anURL'].replace("https://", "ws://").replace("http://", "ws://") + "/websocket/" + userId;
         //alert(url)
         this.websock = new WebSocket(url);
         this.websock.onopen = this.websocketonopen;
@@ -523,7 +524,7 @@
       },
       websocketclose: function (e) {
         console.log("connection closed (" + e.code + ")");
-      },
+      },*/
       //----------------webSocket的处理end
       getbackDataNew(ref) {
         console.log('++++==============', ref)
