@@ -360,7 +360,7 @@
             this.btnSetModel = res.result;
             this.toggleSearchStatusSet=true;
             this.iorder=this.btnSetModel.iorder;
-             if (this.model!=null&&this.btnSetModel.sRoles!=null){
+             if (this.model!=null&&this.btnSetModel.sroles!=null){
               this.sRoles=this.btnSetModel.sroles.split(',');
              }
             this.ipermitType=this.btnSetModel.ipermitType;
