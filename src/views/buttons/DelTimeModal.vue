@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import {httpAction} from '@/api/manage'
-  import {getAction, postAction} from '@/api/manage'
+  // import {httpAction} from '@/api/manage'
+  import {postAction} from '@/api/manage'
 
   export default {
     name: "DelTime",
@@ -57,7 +57,6 @@
     },
     methods: {
       show(file) {
-
         this.fileData.i_id = file.iid;
         this.fileData.s_file_name = file.sfileName.slice(0, file.sfileName.lastIndexOf('.'));
         this.fileData.s_file_path = file.sfilePath;
