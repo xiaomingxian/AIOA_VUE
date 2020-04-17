@@ -224,7 +224,7 @@
 <script>
   import {getAction, postAction} from "../../../api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
-  import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
+  import {busdataTemplate} from "../..//buttons/btn-js/busdataTemplate";
   import SelDepartName from "../../oaBus/pageModels/selDepartName";
   import UpdatePaperTitle from "../../buttons/UpdatePaperTitleModal";
   import DelTime from "../../buttons/DelTimeModal";
@@ -373,11 +373,8 @@
           //不公开理由
           s_varchar5: '',
           s_varchar20: '',
-          s_cur_proc_name: '',
           s_varchar1: '',
           s_varchar2: '',
-          //当前任务名称
-          s_cur_task_name: '',
           //是否重要
           i_is_important: ''
         },
@@ -466,12 +463,7 @@
           this.bgklyList = res.result.bgkly;
         })
 
-        /*if (this.optionMap.xxgk != undefined) {
-          this.xxgkList = this.optionMap.xxgk;
-        }
-        if (this.optionMap.bgkly != undefined) {
-          this.bgklyList = this.optionMap.bgkly;
-        }*/
+
         //业务数据赋值
         for (var i in this.backData) {
           this.backData[i] = this.backDataRef[i]

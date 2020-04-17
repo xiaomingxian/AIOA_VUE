@@ -233,7 +233,7 @@
 
 
 <script>
-  import {getAction, postAction} from "../../../api/manage";
+  import {getAction} from "../../../api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import SelDepartName from "../../oaBus/pageModels/selDepartName";

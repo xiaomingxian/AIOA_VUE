@@ -101,7 +101,7 @@
 </template>
 
 <script>
-  import {getAction, postAction} from "@/api/manage";
+  // import {getAction, postAction} from "@/api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
   import ATextarea from "ant-design-vue/es/input/TextArea";
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";

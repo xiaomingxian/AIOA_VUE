@@ -2,9 +2,9 @@
  * 业务页面公共模板js
  */
 //import {filterObj} from '@/utils/util';
-import {deleteAction, downFile, getAction, postAction} from '@/api/manage'
-import {ACCESS_TOKEN} from "@/store/mutation-types"
-import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+import { downFile, getAction, postAction} from '@/api/manage'
+/*import {ACCESS_TOKEN} from "@/store/mutation-types"
+import {JeecgListMixin} from '@/mixins/JeecgListMixin'*/
 import {ntkoBrowser} from './ntkobackground.min.js'
 import {systemTool} from './systemTools.js'
 
