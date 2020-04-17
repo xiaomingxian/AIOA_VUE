@@ -10,9 +10,9 @@
     destroyOnClose
     :okText="okText"
     cancelText="取消">
-    <div id="pic"  :style="{overflow: 'auto',height: scrHeight}">
+    <div id="pic" :style="{overflow: 'auto',height: scrHeight}">
 
-      <a-layout  id="components-layout-demo-top-side-2">
+      <a-layout id="components-layout-demo-top-side-2">
         <a-layout>
           <div v-if="endType">
             <center><h3 style="color: red; font-weight: 600; font-size: 20px">下一节点为结束节点</h3></center>
@@ -321,8 +321,9 @@
           this.nextsActs = nextsActs
           //统计数量
           for (let i of nextsActs) {
-            let inclusiveGateway = i.actMsg.inclusiveGateway
-            let parallelGateway = i.actMsg.parallelGateway
+            let inclusiveGateway = i.actMsg.inclusiveGateway || i.actMsg.inclusiveGatewayParent
+            let parallelGateway = i.actMsg.parallelGateway || i.actMsg.parallelGatewayParent
+
             if (inclusiveGateway) {
               this.typeCount.inclusive.push(i)
             } else if (parallelGateway) {
@@ -333,6 +334,7 @@
             //记录节点
             this.showPreClick(i, false, false, true)
           }
+
           //---------默认选择 下一任下第一个环节----------
           this.defaultSelectedKeys.push(this.nextsActs[0].oaProcActinst.actId)
           this.clickAct(this.nextsActs[0]);
@@ -479,8 +481,8 @@
 
         //判断是否是已经记录过
         let haveRecord = false
-        let isParallel = item.actMsg.parallelGateway
-        let isInclusive = item.actMsg.inclusiveGateway
+        let isParallel = item.actMsg.parallelGateway || item.actMsg.parallelGatewayParent
+        let isInclusive = item.actMsg.inclusiveGateway || item.actMsg.inclusiveGatewayParent
 
         //如果不是并行/包容就 不是普通性质
         if (isParallel || isInclusive) isNormal = false
@@ -771,12 +773,11 @@
       },
       moreThanOneUserCheck() {
 
-
         for (let i in this.selectedRowKeys2) {
           let act = this.selectedRows2[i]
           let id = act.id
-          let inclusiveGateway = act.inclusiveGateway
-          let parallelGateway = act.parallelGateway
+          let inclusiveGateway = act.inclusiveGateway || act.inclusiveGatewayParent
+          let parallelGateway = act.parallelGateway || act.parallelGatewayParent
 
           let currentAct = null
           if (inclusiveGateway) {
@@ -819,27 +820,93 @@
             }
           }
         }
+        //包容网关下的排他网关-只允许选一个
+        let f1=this.moreCheckExclusive(this.gateWayTypeSelect.parallel, false)
+        let f2=this.moreCheckExclusive(this.gateWayTypeSelect.inclusive, true)
+        if (f1||f2){
+          return
+        }
+
         //构造参数
         // keys
         this.constructorParams(this.selectedRowKeys2, this.gateWayTypeSelect.parallel)
         this.constructorParams(this.selectedRowKeys2, this.gateWayTypeSelect.inclusive)
         this.constructorParams(this.selectedRowKeys2, this.gateWayTypeSelect.normal)
 
-        // console.log('~~~~~~~~~~~~~~~~~~', JSON.stringify(this.gateWayTypeSelect))
+        console.log('============:::::::::::',this.gateWayTypeSelect)
 
         return true
       },
-      constructorParams(keys, tasks) {
-        //console.log('-----------keys:::', JSON.stringify(keys))
-        for (let k in tasks) {
-          if (keys.indexOf(k) < 0) {
-            //改变完成条件
-            let conditionContext = tasks[k].activity.actMsg.conditionContext
-            if (conditionContext != undefined && conditionContext != null) {
-              for (let i in conditionContext) {
-                conditionContext[i] = 'no-' + conditionContext[i]
+      //校验并行/包容网关 下的排他网关环节
+      moreCheckExclusive(selects, isInclusive) {
+
+        let map = {}
+        for (let i in selects) {
+         let act= selects[i].activity.actMsg
+          if (isInclusive) {
+            let p =isInclusive? selects[i].activity.actMsg.inclusiveGatewayParent:selects[i].activity.actMsg.parallelGatewayParent
+            let s = isInclusive?selects[i].activity.actMsg.inclusiveGateway:selects[i].activity.actMsg.parallelGateway
+            let pId = selects[i].activity.actMsg.parentActId
+            let id = selects[i].activity.actMsg.id
+
+            let index= this.selectedRowKeys2.indexOf(id)
+            if (p && !s && (index>=0)) {//并行网关下的排他网关
+              let v = map[pId]
+              if (v == undefined) {
+                map[pId]=[]
+                map[pId].push(act)
+              }else {
+                map[pId].push(act)
               }
             }
+          }
+        }
+
+        for (let k in map){
+         let acts= map[k]
+          if (acts.length>1){
+            let ks=[]
+            for (let ki in acts){
+             let id= acts[ki].id
+             let name= acts[ki].name
+             let index= this.selectedRowKeys2.indexOf(id)
+              if (index>=0){
+                ks.push(name)
+              }
+            }
+            let names=ks.join(',')
+            this.$message.error(names+' 环节只能选择一个 ')
+            return true
+          }
+
+        }
+
+        return false
+
+      },
+      constructorParams(keys, tasks) {
+        //console.log('-----------keys:::', JSON.stringify(keys))
+
+        let map={}
+        //如果有包容网关下的 排他网关 有满足条件的就不 no-
+        for (let k in tasks) {
+          let conditionContext = tasks[k].activity.actMsg.conditionContext
+          if (keys.indexOf(k) < 0) {
+            //改变完成条件
+            if (conditionContext != undefined && conditionContext != null) {
+              for (let i in conditionContext) {
+                if (map[i]==undefined){
+                  conditionContext[i] = 'no-' + conditionContext[i]
+                }
+              }
+            }
+          }else {
+            if (conditionContext != undefined && conditionContext != null) {
+              for (let i in conditionContext) {
+                map[i]='ok'
+              }
+            }
+
           }
         }
 
@@ -1165,14 +1232,16 @@
 
 <style scoped lang="less">
 
-  /deep/.ant-table-bordered.ant-table-empty .ant-table-placeholder{
-    border:none !important;
+  /deep/ .ant-table-bordered.ant-table-empty .ant-table-placeholder {
+    border: none !important;
   }
-  /deep/.ant-table-content>.ant-table-body>table{
+
+  /deep/ .ant-table-content > .ant-table-body > table {
     border: none;
   }
+
   /*.ant-table-bordered .ant-table-header > table, .ant-table-bordered .ant-table-body > table, .ant-table-bordered .ant-table-fixed-left table, .ant-table-bordered .ant-table-fixed-right table{*/
-    /*border: none;*/
+  /*border: none;*/
   /*}*/
   .box {
     width: 100%;

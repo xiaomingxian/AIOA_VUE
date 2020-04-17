@@ -1056,7 +1056,7 @@
           // },
           {
             title: '已办环节',
-            width: 180,
+            // width: 180,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByHuanJie')
@@ -1069,7 +1069,7 @@
           },
           {
             title: '拟稿人',
-            width: 100,
+            // width: 100,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByDrafter')
@@ -1082,7 +1082,7 @@
           },
           {
             title: '办理时间',
-            width: 160,
+            // width: 160,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByTime')
@@ -1095,7 +1095,7 @@
           },
           {
             title: '操作',
-            width: 115,
+            // width: 115,
             dataIndex: 'action',
             align: "center",
             scopedSlots: {customRender: 'action'},

@@ -7,6 +7,10 @@
     @ok="handleCancel"
     @cancel="handleCancel"
     cancelText="关闭">
+    <template slot="footer">
+      <a-button type="primary" @click.stop="handleCancel">关闭</a-button>
+      <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
+    </template>
     <a-card :bordered="false" v-if="visible">
 
 
