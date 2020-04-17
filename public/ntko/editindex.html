@@ -111,13 +111,16 @@
                       var value = bookMarkMap[bookMark];
                       setBookmarkValue(BookmarkName, value);
                     }
+                  },
+                  error: function (data) {
+                    document.getElementById("TANGER_OCX").ShowTipMessage("意见内容异常",data.result.message);
                   }
                 })
               }
             }
           },
           error: function (data) {
-            alert(data.result.message);
+            document.getElementById("TANGER_OCX").ShowTipMessage("控件异常",data.result.message);
           }
         });
       }
@@ -230,7 +233,7 @@
                 }
               },
               error: function (data) {
-                alert(data.result.message);
+                document.getElementById("TANGER_OCX").ShowTipMessage("控件异常",data.result.message);
               }
             });
           } else {
@@ -289,13 +292,15 @@
                         var value = bookMarkMap[bookMark];
                         setBookmarkValue(BookmarkName, value);
                       }
-
+                    },
+                    error: function (data) {
+                      document.getElementById("TANGER_OCX").ShowTipMessage("意见内容异常",data.result.message);
                     }
                   })
                 }
               },
               error: function (data) {
-                alert(data.result.message);
+                document.getElementById("TANGER_OCX").ShowTipMessage("控件异常",data.result.message);
               }
             });
           } else {

@@ -258,8 +258,8 @@ export const taskBth = {
       const userinfo = JSON.parse(localStorage.getItem('userdata')).userInfo;
       let currentUsername = userinfo.realname;
       let dateTimeNow = new Date().valueOf();
-      let param = {currentUsername: currentUsername, dataTimeNow: dateTimeNow}
-      console.log(param)
+      let param = {currentUsername: currentUsername, dataTimeNow: dateTimeNow};
+      // console.log(param)
       this.$store.commit('confimeUser', param)
     },
     //排版登记
@@ -1205,17 +1205,17 @@ export const taskBth = {
       console.log(' 节点属性：：', activity)
       //传后台的参数
       var data = {};
-      var taskId = this.taskMsg.id
+      var taskId = this.taskMsg.id;
       if (this.havaOtherProc) {
         taskId = undefined
       }
-      data['taskId'] = taskId
+      data['taskId'] = taskId;
       //业务数据权限表（流转过程中逐步维护该表数据、收回删除人员权限）
-      data['assignee'] = ids
-      data['functionId'] = this.backData.i_bus_function_id
-      data['busDataId'] = this.backData.i_id
+      data['assignee'] = ids;
+      data['functionId'] = this.backData.i_bus_function_id;
+      data['busDataId'] = this.backData.i_id;
       //下一节点为 结束节点不需要拼接 下一办理用户
-      data['isDept'] = false
+      data['isDept'] = false;
       if (ids.length > 0) {
         //连线信息--决定走向
         var vars = activity.actMsg.conditionContext;
@@ -1859,7 +1859,7 @@ export const taskBth = {
       })
     }
     ,
-//发送会议通知
+    //发送会议通知
     sendMeetingInform: function () {
       this.$emit('submit', this.backData);
     }
@@ -1883,7 +1883,6 @@ export const taskBth = {
           alert("请联系管理员控件缺少empty.doc！")
         }
       })
-
     }
     ,
 //正文排版
@@ -1920,12 +1919,12 @@ export const taskBth = {
 //       this.openFile(5)
 //     }
 
-//保存办文单
+    //保存办文单
     saveBanWen() {
       this.openFile(7)
     }
     ,
-//打印办文单
+    //打印办文单
     printBanWen() {
       this.openFile(8)
     }
@@ -1935,7 +1934,7 @@ export const taskBth = {
       this.openFile(12)
     }
     ,
-//打印公文
+    //打印公文
     printZFile() {
       this.openFile(13)
     }
@@ -1950,7 +1949,7 @@ export const taskBth = {
           this.openFile(9, fileName)
         }
         ,*/
-//对比拟稿
+    //对比拟稿
     compareFile() {
       let URL = '/mytask/taskList/Test-detailFile?tableName=' + this.backData.table + '&busdataId=' + this.backData.i_id;
       window.open(URL);
@@ -2017,8 +2016,8 @@ export const taskBth = {
       });
     }
     ,
-//新公文传输
-//TODO *************************  新公文传输接口 *************************
+    //新公文传输
+    //TODO *************************  新公文传输接口 *************************
     newPublicFileSend() {
       getAction(this.url.newPublicFileSend, {stable: this.backData.table, tableid: this.backData.i_id}).then(res => {
         if (res.success) {
@@ -2029,14 +2028,14 @@ export const taskBth = {
       })
     }
     ,
-//弹框-登记文号
+    //弹框-登记文号
     djDocNum: function () {
       this.backData.sname = this.busFunction.sname;
       this.$refs.docNumForm.dengji(this.backData);
       this.$refs.docNumForm.title = "登记文号";
       this.$refs.docNumForm.disableSubmit = false;
     },
-//保存登记文号
+    //保存登记文号
     saveDocNum(data) {
       this.backData.s_varchar8 = data.id;
       let param = {
@@ -2057,14 +2056,14 @@ export const taskBth = {
 
     }
     ,
-//弹框-引入公文链接
+    //弹框-引入公文链接
     yrOfficeDoc: function () {
       this.$refs.officeForm.yinru();
       this.$refs.officeForm.title = "引入公文链接";
       this.$refs.officeForm.disableSubmit = false;
     }
     ,
-//保存公文链接
+    //保存公文链接
     gongwenData(data) {
       this.$emit("saveGongwenData", data)
     }
@@ -2080,7 +2079,7 @@ export const taskBth = {
       // //console.log('---wentou--',this.backData.s_middle_parameter)
     }
     ,
-//保存封发日期
+    //保存封发日期
     delTime: function () {
       let d_datetime1 = this.dateFormat(new Date());
       let param = {
@@ -2099,7 +2098,7 @@ export const taskBth = {
       })
     }
     ,
-//按钮-发布
+    //按钮-发布
     publishInform: function () {
       //校验是否发布
       let checkParam = {};
@@ -2114,7 +2113,7 @@ export const taskBth = {
       })
     }
     ,
-//按钮-取消发布
+    //按钮-取消发布
     unpublish: function () {
       this.$emit("unpublishBtn")
     }
@@ -2126,14 +2125,14 @@ export const taskBth = {
       this.$refs.watchForm.disableSubmit = false;
     }
     ,
-//弹窗-引入附件
+    //弹窗-引入附件
     banwenModal: function () {
       this.$refs.banwenForm.show(this.backData);
       this.$refs.banwenForm.title = "引入附件";
       this.$refs.banwenForm.disableSubmit = false;
     }
     ,
-//弹窗-引入办文依据
+    //弹窗-引入办文依据
     bwyjModal: function () {
       this.$refs.banwenYiJuForm.show(this.backData);
       this.$refs.banwenYiJuForm.title = "引入办文依据";
@@ -2141,12 +2140,12 @@ export const taskBth = {
     }
     ,
 
-//下载所有附件
+    //下载所有附件
     downAllFiles() {
       this.$emit("downFiles")
     }
     ,
-//协同办公
+    //协同办公
     callaboration() {
       // 子组件获取 父组件的tableid 和 什么id  （标题上）
       this.$emit('callaboration')
@@ -2180,7 +2179,25 @@ export const taskBth = {
       this.$refs.videoModalForm.title = "视频上传";
       this.$refs.videoModalForm.disableSubmit = false;
     },
-//日期格式化
+
+    //办理进度
+    showDetailInst(){
+      console.log("====================>>>1111"+JSON.stringify(this.backData))
+      this.$refs.detailedInst.show(this.backData);
+      // alert(1)
+      // let oaDatadetailedInst={
+      //   iBusFunctionId: 120,
+      //   sTable: "oa_busdata10",
+      //   iTableId: 3276802
+      // }
+      // getAction("/oadata/oaDatadetailedInst/list", oaDatadetailedInst).then(res => {
+      //   alert(1)
+      //   console.log("====================>>>"+JSON.stringify(res))
+      // })
+    },
+
+
+    //日期格式化
     dateFormat(date) {
       let date1 = new Date(date);
       let Y = date1.getFullYear();
@@ -2189,7 +2206,6 @@ export const taskBth = {
       let newTime = Y + '-' + (M < 10 ? "0" + M : M) + "-" + (D < 10 ? "0" + D : D) + " " + date1.toTimeString().substr(0, 8);
       return newTime;
     }
-
   },
 //页面刷新
   shuaX(value) {//传入当前按钮的value值
@@ -2213,32 +2229,4 @@ export const taskBth = {
       that.showBtn(that.butArrLists);
     }
   },
-
-}
-
-
-function getOS() {
-  var sUserAgent = navigator.userAgent;
-  var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");
-  var isMac = (navigator.platform == "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel");
-  if (isMac) return "Mac";
-  var isUnix = (navigator.platform == "X11") && !isWin && !isMac;
-  if (isUnix) return "Unix";
-  var isLinux = (String(navigator.platform).indexOf("Linux") > -1);
-  if (isLinux) return "Linux";
-  if (isWin) {
-    var isWin2K = sUserAgent.indexOf("Windows NT 5.0") > -1 || sUserAgent.indexOf("Windows 2000") > -1;
-    if (isWin2K) return "Win2000";
-    var isWinXP = sUserAgent.indexOf("Windows NT 5.1") > -1 || sUserAgent.indexOf("Windows XP") > -1;
-    if (isWinXP) return "WinXP";
-    var isWin2003 = sUserAgent.indexOf("Windows NT 5.2") > -1 || sUserAgent.indexOf("Windows 2003") > -1;
-    if (isWin2003) return "Win2003";
-    var isWinVista = sUserAgent.indexOf("Windows NT 6.0") > -1 || sUserAgent.indexOf("Windows Vista") > -1;
-    if (isWinVista) return "WinVista";
-    var isWin7 = sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1;
-    if (isWin7) return "Win7";
-    var isWin10 = sUserAgent.indexOf("Windows NT 10") > -1 || sUserAgent.indexOf("Windows 10") > -1;
-    if (isWin10) return "Win10";
-  }
-  return "other";
 }
