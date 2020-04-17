@@ -224,7 +224,7 @@
 <script>
   import {getAction, postAction} from "../../../api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
-  import {busdataTemplate} from "../..//buttons/btn-js/busdataTemplate";
+  import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import SelDepartName from "../../oaBus/pageModels/selDepartName";
   import UpdatePaperTitle from "../../buttons/UpdatePaperTitleModal";
   import DelTime from "../../buttons/DelTimeModal";
@@ -232,8 +232,13 @@
 
   export default {
     name: "sendFile",
-    mixins: [JeecgListMixin, busdataTemplate],
-    components: {ATextarea, DelTime, UpdatePaperTitle, SelDepartName},
+    mixins: [JeecgListMixin],
+    components: {
+      ATextarea,
+      DelTime,
+      UpdatePaperTitle,
+      SelDepartName
+    },
     props: {
       backDataRef: {
         type: Object,

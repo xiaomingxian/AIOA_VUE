@@ -20,7 +20,7 @@
 
   import {getAction, postAction} from "@/api/manage";
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
-  import axios from 'axios'
+  // import axios from 'axios'
 
   export default {
     name: "paiBanDengJi",

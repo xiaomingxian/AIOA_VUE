@@ -22,7 +22,6 @@
                 size="small"
                 bordered
                 rowKey="text"
-                rowSelection
                 :loading="loading"
                 :columns="columns2"
                 :customRow="zhuSongClickCheck"
@@ -82,7 +81,6 @@
               size="small"
               bordered
               rowKey="text"
-              rowSelection
               :loading="loading"
               :columns="columns2"
               :customRow="neiBuClickCheck"
