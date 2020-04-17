@@ -271,8 +271,6 @@
           s_create_deptid: '',
           //创建人机构id
           s_create_unitid: '',
-          //创建时间
-          d_create_time:'',
           //修改时间
           d_update_time: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate(),
           //申请会议室名

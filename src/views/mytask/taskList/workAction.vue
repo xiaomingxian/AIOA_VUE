@@ -391,11 +391,8 @@
           s_varchar6: '',
           s_varchar7: '',
           s_varchar20: '',
-          s_cur_proc_name: '',
           s_varchar1: '',
           s_varchar2: '',
-          //当前任务名称
-          s_cur_task_name: '',
           //是否重要
           i_is_important: ''
         },

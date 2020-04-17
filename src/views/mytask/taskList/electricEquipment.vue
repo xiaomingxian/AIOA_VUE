@@ -300,13 +300,7 @@
           d_create_time: '',
           //修改时间
           d_update_time: '',
-          //当前流程名称
-          s_cur_proc_name: '',
-          //当前任务名称
-          s_cur_task_name: '',
           d_sealdate: '',
-          //模板id
-          s_varchar20: '',
           //信息公开
           s_varchar4: '',
           //不公开理由

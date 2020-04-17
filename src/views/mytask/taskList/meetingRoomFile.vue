@@ -146,7 +146,6 @@
           i_bigint1: '',   //份数
           i_bigint2: '',   //页数
           s_receive_type: '',     //来文文种
-          s_varchar3: '',//"办文依据"
           d_datetime1: '',//"成文日期"
           //*******
           //模块
