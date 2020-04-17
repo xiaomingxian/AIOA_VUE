@@ -9,12 +9,13 @@
     cancelText="关闭">
     <div v-for="(item,index) in dataSource" :key="index">
       <p class="title" @click="Clicks(index)"><span>{{deptName[index]}}</span><a-icon :ref="tables[index].down"  type="down" style="position: absolute;right: 5%;display: none;" /><a-icon :ref="tables[index].up"  type="up" style="position: absolute;right: 5%;display: block;" /></p>
-      <a-table :ref="tables[index].table"
-               size="middle"
-               bordered
-               :columns="columnss"
-               :dataSource="dataSource[index]"
-               :pagination="false"
+      <a-table
+        :ref="tables[index].table"
+        size="middle"
+        bordered
+        :columns="columnss"
+        :dataSource="dataSource[index]"
+        :pagination="false"
       >
       </a-table>
     </div>

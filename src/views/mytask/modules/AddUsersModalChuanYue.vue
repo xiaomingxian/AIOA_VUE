@@ -104,7 +104,6 @@
                     size="small"
                     bordered
                     rowKey="id"
-                    rowSelection
                     :loading="loading"
                     :columns="columns2"
                     :customRow="departClickCheck"
@@ -214,7 +213,6 @@
           size="small"
           bordered
           rowKey="id"
-          rowSelection
           :loading="loading"
           :customRow="customRowMy"
           :columns="columns3"

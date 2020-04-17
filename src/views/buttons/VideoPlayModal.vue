@@ -23,17 +23,19 @@
   // import {httpAction, postAction} from '@/api/manage'
   // import pick from 'lodash.pick'
   import {getAction} from '@/api/manage'
-  import {ACCESS_TOKEN} from '@/store/mutation-types'
-  import Vue from 'vue'
   import InputElement from "ant-design-vue/es/auto-complete/InputElement";
   import ATextarea from "ant-design-vue/es/input/TextArea";
   // import axios from 'axios'
-  import Uploader from "vue-simple-uploader/src/components/uploader";
+  // import Uploader from "vue-simple-uploader/src/components/uploader";
   // import qs from 'qs'
 
   export default {
     name: "VideoPlayModal",
-    components: {Uploader, ATextarea, InputElement},
+    components: {
+      // Uploader,
+      ATextarea,
+      InputElement
+    },
     data() {
       return {
         title: "操作",
