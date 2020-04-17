@@ -224,7 +224,7 @@
 <script>
   import {getAction, postAction} from "../../../api/manage";
   import {JeecgListMixin} from "../../../mixins/JeecgListMixin2";
-  import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
+  import {busdataTemplate} from "../..//buttons/btn-js/busdataTemplate";
   import SelDepartName from "../../oaBus/pageModels/selDepartName";
   import UpdatePaperTitle from "../../buttons/UpdatePaperTitleModal";
   import DelTime from "../../buttons/DelTimeModal";
@@ -375,7 +375,6 @@
           s_varchar20: '',
           s_varchar1: '',
           s_varchar2: '',
-
           //是否重要
           i_is_important: ''
         },

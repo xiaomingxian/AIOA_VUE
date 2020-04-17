@@ -122,7 +122,7 @@
 </template>
 <script>
 
-  import {getAction, postAction} from "../../../api/manage";
+  import {getAction} from "../../../api/manage";
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 
 
