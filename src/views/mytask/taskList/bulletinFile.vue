@@ -317,6 +317,7 @@
           s_inside_deptnames: '',
           //标题
           s_title: '',
+          s_signer: '',
           //左侧参数页面头部
           s_left_parameter: '',
           //机构
