@@ -302,7 +302,7 @@
         /*background-color: #cfecff !important;*/
         background-color: #1877b5 !important;
         & > a{
-          color: #2f54eb !important;
+          color: #ffffff !important;
         }
         & > a:hover {
           /*color: rgba(255, 255, 255, 1);*/
@@ -474,6 +474,7 @@
 </style>
 
 <style>
+
   .ant-menu-dark .ant-menu-sub{
     background-color: #0a3757 !important;
   }
