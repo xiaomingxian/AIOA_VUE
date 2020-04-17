@@ -116,14 +116,14 @@
           <td width="35%">
             <a-select placeholder="请选择反馈频率" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                       v-model="backData.s_varchar2">
-              <!--<a-select-option v-for="(item,index) in recFileTypeList" :key="index" :value="item.value">-->
-                <!--{{item.text}}-->
-              <!--</a-select-option>-->
-              <a-select-option :value="0">不提示</a-select-option>
-              <a-select-option :value="1">10分钟前</a-select-option>
-              <a-select-option :value="2">30分钟前</a-select-option>
-              <a-select-option :value="3">1小时前</a-select-option>
-              <a-select-option :value="4">2小时前</a-select-option>
+              <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="index" :value="item.value">
+                {{item.text}}
+              </a-select-option>
+              <!--<a-select-option :value="0">不提示</a-select-option>-->
+              <!--<a-select-option :value="1">10分钟前</a-select-option>-->
+              <!--<a-select-option :value="2">30分钟前</a-select-option>-->
+              <!--<a-select-option :value="3">1小时前</a-select-option>-->
+              <!--<a-select-option :value="4">2小时前</a-select-option>-->
             </a-select>
           </td>
         </tr>
@@ -278,6 +278,8 @@
           s_receive_type: '',     //来文文种
           s_varchar3: '',//"办文依据"
           d_datetime1: '',//"成文日期"
+          d_datetime2: '',//"成文日期"
+          s_varchar6:'',
           //*******
           //模块
           i_bus_model_id: '',
@@ -345,10 +347,6 @@
           d_create_time: '',
           //修改时间
           d_update_time: '',
-          //当前流程名称
-          s_cur_proc_name: '',
-          //当前任务名称
-          s_cur_task_name: '',
           d_sealdate: '',
           //模板id
           s_varchar8: '',
@@ -391,6 +389,9 @@
     },
     methods: {
       moment,
+      getDateTime1(e,datetime1){
+        this.backData.d_datetime1 = datetime1;
+      },
       confirmTime(e) {
         // console.log(e);
         let startTime = e[0]._d;
