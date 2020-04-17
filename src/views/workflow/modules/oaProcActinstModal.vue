@@ -4,7 +4,7 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleCancel"
+    @ok="handleOk"
     destroyOnClose
     @cancel="handleCancel"
     cancelText="关闭">
@@ -202,6 +202,7 @@
         dbactName: {},
         roleScope: [],
         deptTypes: [],
+        allowMultis:[],
         depts: [],
         role: [],
         isDept: false,
@@ -275,6 +276,9 @@
             }
             if (!i.allowMulti && i.assignee != null) {
               this.canUserRecorduser.push(i)
+            }
+            if (i.allowMulti) {
+              this.allowMultis.push(id)
             }
           }
 
@@ -404,14 +408,18 @@
           this.confirmLoading = false;
           return true
         }
-        console.log('====>>>>>',this.deptTypes)
         if (formData.userOrRole == 'dept' && formData.actId != undefined && this.deptTypes.indexOf(formData.actId) < 0) {
           this.$message.warning('当前环节不支持部门类型配置,请修改');
           this.confirmLoading = false;
           return true
         }
-
-
+        if (formData.multAssignee=='true'){
+          if (this.allowMultis.indexOf(formData.actId)<0) {
+            this.$message.warning('当前环节不支持多实例,请修改');
+            this.confirmLoading = false;
+            return true
+          }
+        }
         return false
       },
       handleCancel() {
