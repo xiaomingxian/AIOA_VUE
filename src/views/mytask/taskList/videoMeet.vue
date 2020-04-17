@@ -382,9 +382,6 @@
           //修改时间
           d_update_time: '',
           //当前流程名称
-          s_cur_proc_name: '',
-          //当前任务名称
-          s_cur_task_name: '',
           d_sealdate: '',
           //模板id
           s_varchar20: '',
@@ -392,7 +389,6 @@
           s_varchar4: '',
           //不公开理由
           s_varchar8: '',
-          s_varchar20: '',
           s_cur_proc_name: '',
           s_varchar1: '',
           s_varchar2: '',
