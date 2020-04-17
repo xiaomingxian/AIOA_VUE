@@ -138,52 +138,118 @@
       <div class="bottom bbottom">
         <div class="bottomleft">
           <div class="first">
-            <p class="titlebox">
-              <span>
-                 <span class="shuline"></span>
-                 <span>{{model2.sName}}</span>
-              </span>
-              <span :style="iisFontSize" @click="openmore(model2.url,model2.sName)" class="more">更多<a-icon
-                type="plus"></a-icon> </span>
-            </p>
-            <div class="itemline">
-              <p class="each" v-for="(item,index) in model2Lists" :key="index"
-                 @click="openDetialModel(model2.tableName,item.i_id)">
-                <section>
-                  <i></i>
-                  <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
+            <div class="titlebox1">
+            <template>
+              <a-tabs  class="tabs" defaultActiveKey="1" @change="doWill2">
+                <a-tab-pane key="1">
+                        <span class="tab" slot="tab">
+                          <!--<span class="shuline"></span>-->
+                          {{model2.sName}}
+                          <b v-if="total">{{total1}}</b>
+                        </span>
+                  <div class="itemline">
+                    <p class="each" v-for="(item,index) in model2Lists" :key="index"
+                       @click="openDetialModel(model2.tableName,item.i_id)">
+                      <section>
+                        <i></i>
+                        <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
                       {{item.s_title}}
-                    <!--{{item.s_title|filterText}}-->
+                          <!--{{item.s_title|filterText}}-->
                   </span>
-                </section>
-                <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
-              </p>
-            </div>
-          </div>
-          <div class="last">
-            <p class="titlebox">
-              <span>
-                 <span class="shuline"></span>
-                 <span>{{model3.sName}}</span>
-                <!--<span>{{model3}}</span>-->
-              </span>
-              <span :style="iisFontSize" @click="openmore(model3.url,model3.sName)" class="more">更多  <a-icon
-                type="plus"></a-icon> </span>
-            </p>
-            <div class="itemline">
-              <p class="each" v-for="(item,index) in model3Lists" :key="index"
-                 @click="openDetialModel(model3.tableName,item.i_id)">
-                <section>
-                  <i></i>
-                  <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
+                      </section>
+                      <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
+                    </p>
+                  </div>
+                </a-tab-pane>
+                <a-tab-pane key="2">
+
+                  <span slot="tab" class="tab">
+                    <!--<span class="shuline"></span>-->
+                    {{model3.sName}}
+                    <b v-if="total">{{total2}}</b>
+                  </span>
+
+                  <div class="itemline">
+                    <p class="each" v-for="(item,index) in model3Lists" :key="index"
+                       @click="openDetialModel(model3.tableName,item.i_id)">
+                      <section>
+                        <i></i>
+                        <span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">
                     {{item.s_title}}
-                    <!--{{item.s_title|filterText}}-->
+                          <!--{{item.s_title|filterText}}-->
                   </span>
-                </section>
-                <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
-              </p>
+                      </section>
+                      <span :style="iisFontSize">{{item.d_create_time|timeText}}</span>
+                    </p>
+                  </div>
+                </a-tab-pane>
+                <span :style="iisFontSize" @click="openMore2(willdoindex)" class="more" slot="tabBarExtraContent">更多<a-icon
+                  type="plus"></a-icon> </span>
+                <!--<a-button type="primary" @click="openmore1(willdoindex)"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>-->
+                <!--<span class="more" @click="openmore1(willdoindex)"> 更多53  <a-icon type="plus"></a-icon> </span>-->
+              </a-tabs>
+            </template>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--<p class="titlebox">-->
+              <!--<span>-->
+                 <!--<span class="shuline"></span>-->
+                 <!--<span>{{model2.sName}}</span>-->
+              <!--</span>-->
+              <!--<span :style="iisFontSize" @click="openmore(model2.url,model2.sName)" class="more">更多<a-icon-->
+                <!--type="plus"></a-icon> </span>-->
+            <!--</p>-->
+            <!--<div class="itemline">-->
+              <!--<p class="each" v-for="(item,index) in model2Lists" :key="index"-->
+                 <!--@click="openDetialModel(model2.tableName,item.i_id)">-->
+                <!--<section>-->
+                  <!--<i></i>-->
+                  <!--<span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">-->
+                      <!--{{item.s_title}}-->
+                    <!--&lt;!&ndash;{{item.s_title|filterText}}&ndash;&gt;-->
+                  <!--</span>-->
+                <!--</section>-->
+                <!--<span :style="iisFontSize">{{item.d_create_time|timeText}}</span>-->
+              <!--</p>-->
+            <!--</div>-->
           </div>
+          <!--<div class="last">-->
+            <!--<p class="titlebox">-->
+              <!--<span>-->
+                 <!--<span class="shuline"></span>-->
+                 <!--<span>{{model3.sName}}</span>-->
+                <!--&lt;!&ndash;<span>{{model3}}</span>&ndash;&gt;-->
+              <!--</span>-->
+              <!--<span :style="iisFontSize" @click="openmore(model3.url,model3.sName)" class="more">更多  <a-icon-->
+                <!--type="plus"></a-icon> </span>-->
+            <!--</p>-->
+            <!--<div class="itemline">-->
+              <!--<p class="each" v-for="(item,index) in model3Lists" :key="index"-->
+                 <!--@click="openDetialModel(model3.tableName,item.i_id)">-->
+                <!--<section>-->
+                  <!--<i></i>-->
+                  <!--<span :style="iisFontSize" :title="item.s_title+'                     '+item.d_create_time">-->
+                    <!--{{item.s_title}}-->
+                    <!--&lt;!&ndash;{{item.s_title|filterText}}&ndash;&gt;-->
+                  <!--</span>-->
+                <!--</section>-->
+                <!--<span :style="iisFontSize">{{item.d_create_time|timeText}}</span>-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
         <div class="right">
           <p class="titlebox">
@@ -223,7 +289,7 @@
       @cancel="cancel2"
       destroyOnClose
       okText="确认"
-      cancelText="取消">
+      cancelText="关闭">
 
 
       <!--      :customRow="customRowMy"-->
@@ -288,6 +354,9 @@
         model3: [],
         model4: [],
         total: '',
+        total1: '',
+        total2: '',
+        willdoindex: 1,
         pic: '',
         picurlLists: [],
         waitDoData: [],
@@ -676,6 +745,25 @@
       rightclick() {
         this.$refs.right.click();
       },
+      doWill2(e){
+        console.log(e);
+        this.willdoindex = e;
+        if(e==1){
+          // 代办日程
+          // alert(e)
+          this.willdoindex = 1;
+        }else{
+          // alert(e)
+          this.willdoindex = 2;
+        }
+      },
+      openMore2(type){
+        if(type == 1){
+          this.openmore(this.model2.url,this.model2.sName)
+        }else {
+          this.openmore(this.model3.url,this.model3.sName)
+        }
+      },
       //  数据初始化  收文  发文数据
       homeLists(userid) {
         getAction(this.url.HomeList, {userId: userid, createTime: ''}).then((res) => {
@@ -689,6 +777,9 @@
           this.model2Lists = res.model2.list.splice(0, 4);
           this.model3Lists = res.model3.list.splice(0, 4);
           this.model4Lists = res.model4.list.splice(0, 4);
+
+          this.total1 = this.model2Lists.length;
+          this.total2 = this.model3Lists.length;
 
         });
       },

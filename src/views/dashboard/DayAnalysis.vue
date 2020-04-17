@@ -53,13 +53,13 @@
                       <div class="contentbox" >
                         <p class="content" :title="item.stitle+'('+item.suserNames+')'">{{item.stitle +"("+ item.suserNames+")"|filterText}}</p>
                         <div class="div2">
-                          <img class="img0 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">
+                          <!--<img class="img0 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">-->
                         </div>
                       </div>
                     </div>
                   </div>
                   <!--暂无日程显示-->
-                  <div class="itembox0" v-else>暂无日程</div>
+                  <div class="itembox0" v-else></div>
                 </div>
               </a-col>
 
@@ -79,7 +79,7 @@
                           <span class="shuline"></span>
                           我的日程
                           <b v-if="total2">({{total2}})</b>
-                          <a-icon class="icon1" @click="add"type="plus"/>
+                           <a-icon class="icon1" @click="add" type="plus"/>
                         </span>
                               <!--mytitleLists-->
                               <div class="itembox"  v-if="mytitleLists!=''">
@@ -110,7 +110,7 @@
                                 </div>
                               </div>
                               <!--暂无日程显示-->
-                              <div class="itembox1" v-else style="">暂无日程</div>
+                              <div class="itembox1" v-else style=""></div>
                           </a-tab-pane>
                           <a-tab-pane key="2" >
 
@@ -134,7 +134,7 @@
                                 </div>
                               </div>
                               <!--暂无日程显示-->
-                              <div class="itembox2" v-else>暂无日程</div>
+                              <div class="itembox2" v-else></div>
                           </a-tab-pane>
                           <a-icon class="icon1" @click="openMore(doindex)" type="right" slot="tabBarExtraContent"/>
                           <!--<a-button type="primary" @click="openMore"  style="margin-top: 8px;"  slot="tabBarExtraContent">查看更多</a-button>-->
@@ -346,7 +346,7 @@
       @cancel="cancel2"
       destroyOnClose
       okText="确认"
-      cancelText="取消">
+      cancelText="关闭">
 
 
       <!--      :customRow="customRowMy"-->

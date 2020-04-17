@@ -59,6 +59,7 @@
     <select-city-name ref="selectCityModel"></select-city-name>
     <pai-ban-deng-ji ref="paiBanDengJi" @confimName="confimName"></pai-ban-deng-ji>
     <video-upload-modal ref="videoModalForm" @watchSub="watchSub"></video-upload-modal>
+    <oa-datadetailed-inst-modal ref="detailedInst"></oa-datadetailed-inst-modal>
     <!--模态框-->
     <a-modal
       title="温馨提示"
@@ -102,11 +103,14 @@
   //传阅特殊化
   import AddUsersModalChuanYue from '../mytask/modules/AddUsersModalChuanYue'
   import VideoUploadModal from "./VideoUploadModal";
+  import oaDatadetailedInstModal  from "../datainst/oaDatadetailedInstModal";
+
 
   export default {
     name: "taskBtn",
     mixins: [taskBth],
     components: {
+      oaDatadetailedInstModal,
       VideoUploadModal,
       YinRuYiJuModal,
       SelectCityName,

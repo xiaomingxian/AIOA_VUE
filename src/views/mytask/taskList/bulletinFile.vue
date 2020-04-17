@@ -130,23 +130,19 @@
             <!--起始时间-->
             <center><h3>{{detailList.d_datetime4}}</h3></center>
           </td>
-          <td colspan="6">
-            <a-date-picker v-if="backData.d_datetime4" ref="d_datetime4" v-on:blur="blurText([backData.d_datetime4],$refs.d_datetime4)"  :defaultValue="moment(backData.d_datetime4,'YYYY-MM-DD HH:mm:ss')"  showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
-            <a-date-picker  v-else @change="getDateTime4" ref="d_datetime4" v-on:blur="blurText([backData.d_datetime4],$refs.d_datetime4)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+          <td width="35%">
+            <a-date-picker v-if="backData.d_datetime4" ref="d_datetime4" v-on:blur="blurText([backData.d_datetime4],$refs.d_datetime4)"  :defaultValue="moment(backData.d_datetime4,'YYYY-MM-DD HH:mm:ss')" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+            <a-date-picker v-else @change="getDateTime4" ref="d_datetime4" v-on:blur="blurText([backData.d_datetime4],$refs.d_datetime4)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
           </td>
-        </tr>
-        <tr>
           <td class="title" width="15%">
             <!--结束时间-->
             <center><h3>{{detailList.d_datetime5}}</h3></center>
           </td>
-          <td colspan="6">
+          <td>
             <a-date-picker v-if="backData.d_datetime5" ref="d_datetime5" v-on:blur="blurText([backData.d_datetime5],$refs.d_datetime5)" :defaultValue="moment(backData.d_datetime5,'YYYY-MM-DD HH:mm:ss')"  showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
             <a-date-picker v-else @change="getDateTime5" ref="d_datetime5" v-on:blur="blurText([backData.d_datetime5],$refs.d_datetime5)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
           </td>
         </tr>
-
-
 
         <tr>
           <td width="15%" class="title">
@@ -158,26 +154,26 @@
           </td>
         </tr>
 
-        <tr>
-          <td width="10%" class="title">
-            <center><h3>附件</h3></center>
-          </td>
-          <td colspan="3">
-            <div v-for="(item,index) in oaFileList" style="padding-left: 15px">
-              <!--<div @click="openFile(9,item.sfileName)"><span class="hoverred">{{index}}、{{item.sfileName}}</span>-->
-              <div class="qiCao"><span class="hoverred" @click="qiCao1(9,item)">{{index+1}}、{{item.sfileName}}</span>
-                <span class="delCss" v-show="isShowFile">
-                <img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>
-                <img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>
-                <img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,4)" src="../../../../src/assets/delete.png"/>
-                <img :title="fileBtnName(4)" v-show="oaFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,4)" src="../../../../src/assets/top.png"/>
-                <img :title="fileBtnName(5)" v-show="oaFileList.length > 1 && index < oaFileList.length-1" class="pices" @click.stop="lowFile(item,index,4)" src="../../../../src/assets/bottom.png"/>
-              </span>
-              </div>
-            </div>
-            <!--<a-input :value="backData.s_remarks"></a-input>-->
-          </td>
-        </tr>
+        <!--<tr>-->
+          <!--<td width="10%" class="title">-->
+            <!--<center><h3>附件</h3></center>-->
+          <!--</td>-->
+          <!--<td colspan="3">-->
+            <!--<div v-for="(item,index) in oaFileList" style="padding-left: 15px">-->
+              <!--&lt;!&ndash;<div @click="openFile(9,item.sfileName)"><span class="hoverred">{{index}}、{{item.sfileName}}</span>&ndash;&gt;-->
+              <!--<div class="qiCao"><span class="hoverred" @click="qiCao1(9,item)">{{index+1}}、{{item.sfileName}}</span>-->
+                <!--<span class="delCss" v-show="isShowFile">-->
+                <!--<img :title="fileBtnName(1)" v-show ="isSuffex(item.sfileName)" class="pices" @click.stop="qiCao2(10,item)" src="../../../../src/assets/set.png"/>-->
+                <!--<img :title="fileBtnName(2)" class="pices" @click.stop="updateFileName(item)" src="../../../../src/assets/setName.png"/>-->
+                <!--<img :title="fileBtnName(3)" class="pices" @click.stop="deleteFilesBtn(item,4)" src="../../../../src/assets/delete.png"/>-->
+                <!--<img :title="fileBtnName(4)" v-show="oaFileList.length > 1 && index > 0" class="pices" @click.stop="topFile(item,index,4)" src="../../../../src/assets/top.png"/>-->
+                <!--<img :title="fileBtnName(5)" v-show="oaFileList.length > 1 && index < oaFileList.length-1" class="pices" @click.stop="lowFile(item,index,4)" src="../../../../src/assets/bottom.png"/>-->
+              <!--</span>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<a-input :value="backData.s_remarks"></a-input>&ndash;&gt;-->
+          <!--</td>-->
+        <!--</tr>-->
 
         <!--<tr>-->
           <!--<td width="10%" class="title">-->
@@ -297,6 +293,8 @@
           //---------------------------------- 以下为表存储字段
           //*******
           i_id: '',
+          d_datetime4:'',
+          d_datetime5:'',
           i_bigint1: '',   //份数
           i_bigint2: '',   //页数
           s_receive_type: '',     //来文文种
@@ -507,7 +505,8 @@
       },
       //----------------确定时间---------------
       confirmTime(e) {
-        // console.log(e);
+        console.log("22222222222222")
+         console.log(e);
         let startTime = e[0]._d;
         let endTime = e[1]._d;
         this.backData.d_datetime4 = this.dataTime(startTime);
@@ -515,52 +514,13 @@
       },
       //监测开始时间变化
       getDateTime4(e,datetime4){
-        // alert(datetime4)
-//        console.log("111111111111111")
+        console.log("1111111111111")
         this.backData.d_datetime4 = datetime4;
-        /*if (this.backData.d_datetime5 != undefined){
-          var time4 = Date.parse(datetime4);
-          var time5  = Date.parse(this.backData.d_datetime5);
-          console.log(time4 + "  :  " + time5);
-          if (time4 > time5){
-            this.backData.d_datetime4 = '';
-            this.$message.error("请假终止时间必须大于请假起始时间");
-            return ;
-          }else{
-            this.backData.d_datetime4 = datetime4;
-          }
-        }else {
-          this.backData.d_datetime4 = datetime4;
-        }*/
-
-        /*if (this.backData.d_datetime5 != undefined){
-          console.log("22222222222222")
-          var time5 = Date.parse(this.backData.d_datetime5)
-          var time4  = Date.parse(this.backData.d_datetime4);
-          if (time4 > time5){
-            this.$message.error("请假终止时间必须大于请假起始时间");
-          }
-        }*/
+        console.log("aaaaaaaaaaaaa"+this.backData.d_datetime4)
       },
       //监测结束时间变化
       getDateTime5(e,datetime5){
-        // alert(datetime4)
-//        console.log("-=-=-=-=-=-=--=-=-")
         this.backData.d_datetime5 = datetime5;
-        /* if (this.backData.d_datetime4 != undefined){
-           var time5 = Date.parse(datetime5);
-           var time4  = Date.parse(this.backData.d_datetime4);
-           console.log(time4 + "  :  " + time5);
-           if (time4 > time5){
-             this.backData.d_datetime5 = '';
-             this.$message.error("请假终止时间必须大于请假起始时间");
-             return ;
-           }else{
-             this.backData.d_datetime5 = datetime5;
-           }
-         }else {
-           this.backData.d_datetime5 = datetime5;
-         }*/
       },
       dateFormat(date) {
         let date1 = new Date(date);

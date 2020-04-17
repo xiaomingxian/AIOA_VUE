@@ -142,8 +142,9 @@
                   style="margin:20px;">
                   <span style="font-size: 16px;color: rgba(0, 0, 0, 0.85);">页面意见框名称：</span>
                   <a-input maxLength="50" style="width: 180px" @change="onitaskOpinionName" v-model="itaskOpinionName" />
-                  <span v-show="showName" style="margin-left: 10px;color: red">序号为{{itaskOpinionOrder}}的意见框名字必须为"{{opinionName}}"。</span>
+                  <span v-show="showName" style="margin-left: 10px;color: red">此序号时意见框名字必须为"{{opinionName}}"。</span>
                 </a-form-item>
+                <!--序号为{{itaskOpinionOrder}}的-->
 <!--<div v-show="show">-->
 <div>
   <!--<a-form-item  style="margin:20px;">-->

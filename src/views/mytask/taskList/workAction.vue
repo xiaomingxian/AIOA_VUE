@@ -133,8 +133,6 @@
           </td>
         </tr>
 
-        <!--印发分数   分发日期   文件字号  正文页数等-->
-
         <tr>
           <!---文件字号-->
           <td width="15%" class="title">
@@ -271,10 +269,11 @@
         disabled:true,
         dateFormat:'YYYY-MM-DD HH:mm:ss',
         visible: false,
-        title: '发文',
+        title: '工作动态',
         confirmLoading: false,
         s_varchar: [],
         userData: '',
+        i_phone:'',
         //代办信息
         task: '',
         //已办信息
@@ -309,6 +308,7 @@
           s_receive_type: '',     //来文文种
           s_varchar3: '',//"办文依据"
           d_datetime1: '',//"成文日期"
+          d_datetime2:'',
           //*******
           //模块
           i_bus_model_id: '',
@@ -386,7 +386,10 @@
           //信息公开
           s_varchar4: '',
           //不公开理由
+          i_user_id: "",
           s_varchar5: '',
+          s_varchar6: '',
+          s_varchar7: '',
           s_varchar20: '',
           s_cur_proc_name: '',
           s_varchar1: '',
