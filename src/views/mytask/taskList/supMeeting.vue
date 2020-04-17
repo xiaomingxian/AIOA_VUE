@@ -76,14 +76,14 @@
           <td width="35%">
             <a-select placeholder="请选择反馈频率" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                       v-model="backData.s_varchar2">
-              <!--<a-select-option v-for="(item,index) in recFileTypeList" :key="index" :value="item.value">
+              <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="index" :value="item.value">
                 {{item.text}}
-              </a-select-option>-->
-              <a-select-option :value="0">不提示</a-select-option>
-              <a-select-option :value="1">10分钟前</a-select-option>
-              <a-select-option :value="2">30分钟前</a-select-option>
-              <a-select-option :value="3">1小时前</a-select-option>
-              <a-select-option :value="4">2小时前</a-select-option>
+              </a-select-option>
+              <!--<a-select-option :value="0">不提示</a-select-option>-->
+              <!--<a-select-option :value="1">10分钟前</a-select-option>-->
+              <!--<a-select-option :value="2">30分钟前</a-select-option>-->
+              <!--<a-select-option :value="3">1小时前</a-select-option>-->
+              <!--<a-select-option :value="4">2小时前</a-select-option>-->
             </a-select>
           </td>
         </tr>
@@ -236,6 +236,8 @@
           s_inside_deptnames: '',
           //标题
           s_title: '',
+          d_datetime2:'',
+
           //左侧参数页面头部
           s_left_parameter: '',
           //机构
@@ -287,9 +289,6 @@
           //修改时间
           d_update_time: '',
           //当前流程名称
-          s_cur_proc_name: '',
-          //当前任务名称
-          s_cur_task_name: '',
           d_sealdate: '',
           //模板id
           s_varchar8: '',
