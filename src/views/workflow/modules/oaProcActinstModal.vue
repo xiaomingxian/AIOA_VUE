@@ -4,10 +4,12 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleOk"
+    @ok="handleCancel"
     destroyOnClose
     @cancel="handleCancel"
     cancelText="关闭">
+
+
 
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
@@ -297,7 +299,6 @@
         record.recordCurrentuser = record.recordCurrentuser ? 'true' : 'false'
         record.completeTask = record.completeTask ? 'true' : 'false'
         record.isCanAdd = record.isCanAdd ? 'true' : 'false'
-        console.log('::::::', record.signer)
         record.signer = record.signer ? 'true' : 'false'
         record.isDeptFinish = record.isDeptFinish ? 'true' : 'false'
         record.userRecordVal = record.userRecordVal ? 'true' : 'false'
@@ -366,7 +367,6 @@
             if (formData.recordKeys != undefined && formData.recordKeys != null && formData.recordKeys.length > 0) {
               formData.recordKey = formData.recordKeys.join(",")
             }
-            //TODO 校验是否可以配部门
             let flag = this.check(formData)
             if (flag) {
               return
