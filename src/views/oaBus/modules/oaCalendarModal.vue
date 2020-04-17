@@ -4,8 +4,8 @@
     :width="800"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleOk"
     @cancel="handleCancel"
+    @ok="handleOk"
     cancelText="关闭">
     
     <a-spin :spinning="confirmLoading">
@@ -259,20 +259,9 @@
 
       close () {
         this.$emit('close');
-        this.$refs.joinpeopleComponent.myselfColse()
-        // console.log(this.$refs.joinpeopleComponent.myselfColse());
         this.visible = false;
-      //  myselfColse
       },
       handleOk () {
-        // console.log(this.form.getFieldsValue('stitle'));
-        // console.log(this.ischeck);
-        // console.log(this.userRealName);
-        // if(this.model.stitle==undefined){
-        //   this.$message.warning("标题不能为空");
-        //   return ;
-        // }
-
 
         if(!this.ischeck){
           const that = this;
@@ -323,7 +312,6 @@
       },
       handleCancel () {
         this.close()
-        this.$refs.joinpeopleComponent.myselfColse()
       },
       timer(timeval){
         let date1 = new Date(timeval);

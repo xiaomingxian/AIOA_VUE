@@ -261,7 +261,6 @@
   import lanAccess from "./lanAccess";
   import VideoManageFile from "./videoManageFile";
 
-
   export default {
     name: "detailFile",
     inject: ['reload'],

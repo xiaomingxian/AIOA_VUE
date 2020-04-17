@@ -62,12 +62,6 @@
                   <div class="itembox0" v-else></div>
                 </div>
               </a-col>
-
-
-
-
-
-
               <a-col :span="16" class="col3">
                 <div class="richeng">
                   <div class="titlebox">
@@ -79,6 +73,7 @@
                           <span class="shuline"></span>
                           我的日程
                           <b v-if="total2">({{total2}})</b>
+                          <img src="../../assets/add.png" >
                            <a-icon class="icon1" @click="add" type="plus"/>
                         </span>
                               <!--mytitleLists-->

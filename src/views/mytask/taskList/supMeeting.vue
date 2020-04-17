@@ -12,7 +12,7 @@
           <td>
             <a-select placeholder="请选择督查类别" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                       v-model="backData.s_varchar1">
-              <a-select-option v-for="(item,index) in recFileTypeList" :key="index" :value="item.value">
+              <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :value="item.value">
                 {{item.text}}
               </a-select-option>
             </a-select>
@@ -125,7 +125,7 @@
           </td>
           <td colspan="6">
             <!--主送部门-->
-            <a-input ref="s_main_unit_names" v-model="backData.s_main_unit_names"  v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)"></a-input>
+            <a-input ref="s_main_unit_names" v-model="backData.s_main_unit_names"  v-on:blur="blurText(backData.s_main_unit_names,$refs.s_main_unit_names)" disabled></a-input>
           </td>
         </tr>
         <tr>
@@ -134,7 +134,7 @@
             <center><h3>{{detailList.s_cc_unit_names}}</h3></center>
           </td>
           <td colspan="6">
-            <a-input ref="s_cc_unit_names" v-model="backData.s_cc_unit_names"  v-on:blur="blurText(backData.s_cc_unit_names,$refs.s_cc_unit_names)"></a-input>
+            <a-input ref="s_cc_unit_names" v-model="backData.s_cc_unit_names"  v-on:blur="blurText(backData.s_cc_unit_names,$refs.s_cc_unit_names)" disabled></a-input>
           </td>
         </tr>
 
@@ -218,7 +218,7 @@
           i_bigint2: '',   //页数
           s_receive_type: '',     //来文文种
           s_varchar3: '',//"办文依据"
-          d_datetime1: '',//"成文日期"
+          d_datetime1: '',
           //*******
           //模块
           i_bus_model_id: '',
