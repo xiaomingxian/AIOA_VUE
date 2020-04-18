@@ -1054,15 +1054,13 @@
 
 
 
-
       },
 
       //我的日程编辑成功模态框关闭，刷新父级列表
       myrichenClose(e){
         if(e){
-          getAction(this.url.list,{sCreateBy:this.userinfo.username}).then((res) => {
+          getAction(this.url.list,{sCreateBy:this.userinfo.username,date:this.localTime}).then((res) => {
             this.mytitleLists = res.result.records;
-
           });
         }
       },
