@@ -50,15 +50,15 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="字段（状态）匹配">
+          label="关联字段">
           <a-input maxLength="16" placeholder="请输入匹配字段（状态）" v-decorator="['sexcfield', {}]" />
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="使用范围">
-          <a-input  placeholder="使用范围" v-decorator="['sexcbuttonId', {}]" />
+          label="适用范围">
+          <a-input  placeholder="请输入适用的具体业务" v-decorator="['sexcbuttonId', {rules: [{ required: true, message: '请输入使用范围' }]}] " />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
