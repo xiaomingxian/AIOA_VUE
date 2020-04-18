@@ -49,7 +49,7 @@
           :wrapperCol="wrapperCol"
           label="顺序号">
           <!--<a-input-number min="1" max="99999999" v-decorator="[ 'iorder', {}]" />-->
-          <a-input min="0" type="number" style="margin-left: 5px;width: 100px;" @change="onOrder"  v-model="iorder"  oninput="if(value.length>4)value=value.slice(0,4)"/>
+          <a-input  type="number" style="margin-left: 5px;width: 100px;" @change="onOrder"  v-model="iorder"  oninput="if(value.length>4)value=value.slice(0,4)"/>
 
         </a-form-item>
         <a-form-item
@@ -107,7 +107,7 @@
           sm: { span: 16 },
         },
         data:[],
-        iorder:0,
+        iorder:'',
         buttonInfo:'',
         selectButton:'',
         iprocButtonId:'',
@@ -145,7 +145,11 @@
         // console.log(this.model);
         this.edit({});
       },
+
       edit (record) {
+//         console.log("788/////////777////////////-------------");
+//         console.log(record);
+        // console.log(this.model);
         this.getButtonList();
         this.form.resetFields();
         this.model = Object.assign({}, record);
@@ -161,7 +165,7 @@
         //---------------根据按钮ID 请求名字--------------
 //        getAction(this.url.queryById,{id:this.model.ibuttonId}).then(res=>{
 //          this.buttonInfo = res.result;
-//          this.selectButton=this.buttonInfo.iid;
+//          this.selectButton=this.model.ibuttonId;
 //        });
 
         this.ipermitType=this.model.ipermitType;
@@ -184,8 +188,12 @@
       getButtonList(){
         getAction(this.url.buttonList,{}).then(res=>{
           this.data = res.result;
-          this.model.ibuttonId=this.data[0].iid;
-          this.selectButton=this.data[0].iid;
+          if (this.model!=null && this.model.ibuttonId!=null){
+            this.selectButton=this.model.ibuttonId;
+          }else {
+            this.model.ibuttonId=this.data[0].iid;
+            this.selectButton=this.data[0].iid;
+          }
         });
       },
       getButtonId(){
@@ -196,9 +204,14 @@
         this.visible = false;
       },
       handleOkIsCreate(){
+//        console.log("2222222222222222222");
         if(this.iorder==null || this.iorder.length<1){
           this.$message.warning("顺序号不能为空");
+        }else if(this.iorder!=null && this.iorder<=0){
+//          console.log("11111111111111111");
+          this.$message.warning("顺序号最小为1");
         }else {
+//          console.log("0000000000000000000000000");
           this.handleOk ();
         }
       },

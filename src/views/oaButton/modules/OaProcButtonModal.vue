@@ -347,6 +347,13 @@
           }
         })
       },
+
+      handleEdit: function (record) {
+//        console.log("ppppppppppppppppppppppppppppp");
+        this.$refs.modalForm.edit(record);
+        this.$refs.modalForm.title = "编辑";
+        this.$refs.modalForm.disableSubmit = false;
+      },
       handleCat: function (record) {
         this.$refs.setCatModalForm.add(record);
         this.$refs.setCatModalForm.title = "查看";
