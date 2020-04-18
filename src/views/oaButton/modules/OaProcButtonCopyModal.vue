@@ -20,7 +20,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="新的按钮组合名称">
-          <a-input maxLength="50" placeholder="请输入新的按钮组合名称" v-decorator="['sbuttonSetName', {rules: [{ required: true, message: '请输入新的按钮组合名称' }]}]" />
+          <a-input maxLength="50" placeholder="按钮组合名称" v-decorator="['sbuttonSetName', {rules: [{ required: true, message: '请输入新的按钮组合名称' }]}]" />
         </a-form-item>
         <a-form-item
                  :labelCol="labelCol"

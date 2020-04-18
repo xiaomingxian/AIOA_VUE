@@ -21,7 +21,7 @@
           <!--:labelCol="labelCol"-->
           <!--:wrapperCol="wrapperCol"-->
           <!--label="流程按钮关联ID">-->
-          <!--<a-input-number v-decorator="[ 'iprocButtonId', {}]" />-->
+          <!--<a-input-number v-decorator="[ 'sexcbuttonId', {}]" />-->
         <!--</a-form-item>-->
 
         <a-form-item
@@ -33,7 +33,7 @@
                     placeholder="按钮名称"
                     :disabled="disableSubmit">
             <a-select-option  v-for="(oaButton,index) in data" :key="index" :value="oaButton.iid">
-              {{ oaButton.sbtnName }}
+              {{ oaButton.sbtnName +"【"+oaButton.sexcbuttonId+"】"}}
             </a-select-option>
           </a-select>
         </a-form-item>
@@ -49,7 +49,7 @@
           :wrapperCol="wrapperCol"
           label="顺序号">
           <!--<a-input-number min="1" max="99999999" v-decorator="[ 'iorder', {}]" />-->
-          <a-input min="0" type="number" style="margin-left: 5px;width: 120px;" @change="onOrder"  v-model="iorder"  oninput="if(value.length>4)value=value.slice(0,4)"/>
+          <a-input min="0" type="number" style="margin-left: 5px;width: 100px;" @change="onOrder"  v-model="iorder"  oninput="if(value.length>4)value=value.slice(0,4)"/>
 
         </a-form-item>
         <a-form-item

@@ -13,20 +13,20 @@
 
       <a-form>
         <a-form-item>
-          <span>流程名称：</span>
+          <span>流程名：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程名称;3-20字符"
+            placeholder="请输入流程名称"
             v-model="name"
           ></a-input>
         </a-form-item>
         <a-form-item>
-          <span>流程&nbspkey：</span>
+          <span>英文名：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="请输入流程key;3-20字符"
+            placeholder="英文名是业务流转的关键字，不能重复！"
             v-model="key"
           ></a-input>
         </a-form-item>
@@ -48,7 +48,7 @@
     components: {AFormItem, DictItemModal},
     data() {
       return {
-        title: "复制流程",
+        title: "流程复制【包含按钮、意见、环节、角色全套配置】",
         isClick:false,
         visible: false,
         confirmLoading: false,

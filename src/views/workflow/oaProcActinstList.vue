@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="1200"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleCancel"
@@ -12,33 +12,30 @@
       <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
     </template>
     <a-card :bordered="false" v-if="visible">
-
-
       <!-- 操作按钮区域 -->
       <div class="table-operator">
         <!--<a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>-->
         <a-button @click="handleAddMy" type="primary" icon="plus">新增</a-button>
-        <a-dropdown v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
-            <a-menu-item key="1" @click="batchDel">
-              <a-icon type="delete"/>
-              删除
-            </a-menu-item>
-          </a-menu>
-          <a-button style="margin-left: 8px"> 批量操作
-            <a-icon type="down"/>
-          </a-button>
-        </a-dropdown>
+        <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+          <!--<a-menu slot="overlay">-->
+            <!--<a-menu-item key="1" @click="batchDel">-->
+              <!--<a-icon type="delete"/>-->
+              <!--删除-->
+            <!--</a-menu-item>-->
+          <!--</a-menu>-->
+          <!--<a-button style="margin-left: 8px"> 批量操作-->
+            <!--<a-icon type="down"/>-->
+          <!--</a-button>-->
+        <!--</a-dropdown>-->
       </div>
 
       <!-- table区域-begin -->
       <div>
-        <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-          <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-          selectedRowKeys.length }}</a>项
-          <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-        </div>
-
+        <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+          <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+          <!--selectedRowKeys.length }}</a>项-->
+          <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+        <!--</div>-->
         <a-table
           ref="table"
           size="middle"
@@ -104,18 +101,18 @@
         visible: false,
         // 表头
         columns: [
-          {
-            title: '关键字',
-            align: "center",
-            dataIndex: 'procDefKey'
-          },
+          // {
+          //   title: '关键字',
+          //   align: "center",
+          //   dataIndex: 'procDefKey'
+          // },
           // {
           //   title: '流程定义的活动节点ID',
           //   align: "center",
           //   dataIndex: 'actId'
           // },
           {
-            title: '节点名称',
+            title: '环节名称',
             align: "center",
             dataIndex: 'actName'
           },
@@ -125,12 +122,12 @@
           //   dataIndex: 'actType'
           // },
           {
-            title: '候选人角色',
+            title: '审批角色',
             align: "center",
             dataIndex: 'candidates'
           },
           {
-            title: '是否多实例',
+            title: '多实例环节',
             align: "center",
             dataIndex: 'multAssignee',
             customRender: function (value) {
@@ -142,7 +139,7 @@
             },
           },
           {
-            title: '候选人选择范围',
+            title: '查询范围',
             align: "center",
             dataIndex: 'roleScope',
             customRender: function (value) {
@@ -186,18 +183,18 @@
           //     }
           //   }
           // },
-          {
-            title: '是否记录当前用户',
-            align: "center",
-            dataIndex: 'recordCurrentuser',
-            customRender: function (value) {
-              if (!value) {
-                return "否";
-              } else {
-                return '是';
-              }
-            }
-          },
+          // {
+          //   title: '记录当前用户',
+          //   align: "center",
+          //   dataIndex: 'recordCurrentuser',
+          //   customRender: function (value) {
+          //     if (!value) {
+          //       return "否";
+          //     } else {
+          //       return '是';
+          //     }
+          //   }
+          // },
           {
             title: '操作',
             dataIndex: 'action',

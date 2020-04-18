@@ -7,7 +7,7 @@
     @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
-    <a-spin tip="Loading..." :spinning="confirmLoading" >
+    <a-spin tip="Loading..." :spinning="confirmLoading"  style="height: 400px">
       <a-form :form="form">
         <!--<a-form-item-->
           <!--:labelCol="labelCol"-->
@@ -15,11 +15,11 @@
           <!--label="主键id">-->
           <!--<a-input-number v-decorator="[ 'iId', validatorRules.iid ]" />-->
         <!--</a-form-item>-->
-        <a-form-item style="color: #1890ff;font-weight: 800;margin: 10px 0px;font-size: 16px;">
-          <span>流程定义KEY：</span>
-          <span>{{procDefKey}}</span>
-          <!--<a-input style="width:300px;" placeholder="请输入流程定义KEY" v-decorator="['procDefKey', {}]" />-->
-        </a-form-item>
+        <!--<a-form-item style="color: #1890ff;font-weight: 800;margin: 10px 0px;font-size: 16px;">-->
+          <!--<span>流程定义KEY：</span>-->
+          <!--<span>{{procDefKey}}</span>-->
+          <!--&lt;!&ndash;<a-input style="width:300px;" placeholder="请输入流程定义KEY" v-decorator="['procDefKey', {}]" />&ndash;&gt;-->
+        <!--</a-form-item>-->
         <!--<a-form-item-->
           <!--:labelCol="labelCol"-->
           <!--:wrapperCol="wrapperCol"-->
@@ -30,13 +30,13 @@
         <!--</a-form-item>-->
         <!--水平分割-->
         <!--<a-divider />-->
-        <span style="font-weight: 1000;font-size: 16px;">选择:</span>
+        <span style="font-weight: 900;font-size: 16px;">环节按钮</span>
         <!-- 查询区域 -->
         <div class="table-page-search-wrapper">
             <a-form layout="inline">
-              <a-row :gutter="12" style="margin-top: 10px;margin-left: 50px;padding-bottom: 0px">
+              <a-row :gutter="12" style="margin-top: 10px;margin-left: 42px;padding-bottom: 0px">
                 <!--<template v-if="toggleSearchStatus">-->
-                <a-col :md="8" :sm="8" >
+                <a-col :md="15" :sm="8" >
                     <a-form-item label="流程任务">
                       <!--<a-input placeholder="请输入流程任务" v-model="queryParam.taskDefKey"></a-input>-->
                       <!--@change="handelChange"-->
@@ -51,28 +51,27 @@
                       </a-select>
                     </a-form-item>
                   </a-col>
-                  <a-col :md="8" :sm="8">
-                    <a-form-item label="按钮列表">
-                      <!--<a-input placeholder="请输入按钮名称" v-model="queryParam.iButtonId"></a-input>-->
-                      <a-select
-                        placeholder="请选择按钮名称"
-                        :getPopupContainer="triggerNode=>triggerNode.parentNode"
-                        v-model="iButtonId"
-                        @change="getButtonSetInfo">
-                        <a-select-option  v-for="(oaButton,index) in buttonList" :key="index" :value="oaButton.iid">
-                          {{ oaButton.sbtnName }}
-                        </a-select-option>
-                      </a-select>
-                    </a-form-item>
-                  </a-col>
-                <a-col :md="8" :sm="8">
-                  <!--<a-button v-if="toggleSearchStatusSet"  style="margin-left: 15px;"   @click="beforeConfirm" type="primary" icon="plus">删除当前配置</a-button>-->
+
+              </a-row>
+              <a-row :gutter="12" style="margin-top: 10px;margin-left: 42px;padding-bottom: 0px">
+                <a-col :md="15" :sm="8">
+                  <a-form-item label="操作按钮">
+                    <!--<a-input placeholder="请输入按钮名称" v-model="queryParam.iButtonId"></a-input>-->
+                    <a-select
+                      placeholder="请选择按钮名称"
+                      :getPopupContainer="triggerNode=>triggerNode.parentNode"
+                      v-model="iButtonId"
+                      @change="getButtonSetInfo">
+                      <a-select-option  v-for="(oaButton,index) in buttonList" :key="index" :value="oaButton.iid">
+                        {{ oaButton.sbtnName +"【"+oaButton.sexcbuttonId+"】"}}
+                      </a-select-option>
+                    </a-select>
+                  </a-form-item>
                 </a-col>
-                <!--</template>-->
               </a-row>
             </a-form>
           </div>
-        <span style="font-weight: 1000;font-size: 16px;">配置:</span>
+        <span style="font-weight: 900;font-size: 16px;">按钮控制</span>
         <!--水平分割-->
         <!--<a-divider />-->
         <div>
