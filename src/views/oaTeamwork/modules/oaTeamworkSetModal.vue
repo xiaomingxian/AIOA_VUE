@@ -158,9 +158,9 @@
         getAction(this.url.findMax,{TeamworkId: iteamworkId}).then((res)=>{
           this.num = res+1;
           if(res != 0) {
-            this.findMax = "不要小于" + (res) + "这个数.建议您填写:" + (res + 1);
+            this.findMax = "顺序号建议：" + (res + 1);
           }else{
-            this.findMax = "不要小于0这个数.建议您填写1";
+            this.findMax = "顺序号建议：1";
           }
 
 

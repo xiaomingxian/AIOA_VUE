@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer" :width="1200" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer" :width="800" @ok="handleOk" @cancel="handleCancle">
   <a-card :bordered="false">
 
     <!-- 查询区域 -->
@@ -118,8 +118,9 @@
             dataIndex: 'iteamworkId'
            },*/
 		   {
-            title: '协同顺序',
+            title: '顺序号',
             align:"center",
+            width: 60,
             dataIndex: 'iorder'
            },
 
@@ -138,6 +139,7 @@
             title: '操作',
             dataIndex: 'action',
             align:"center",
+            width: 100,
             scopedSlots: { customRender: 'action' },
           }
         ],

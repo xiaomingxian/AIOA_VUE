@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer"  :title="title" :width="1000" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer"  :title="title" :width="800" @ok="handleOk" @cancel="handleCancle">
 
   <a-card class="findChild" :bordered="false">
     <!-- 操作按钮区域 -->
@@ -136,18 +136,18 @@
            }
          }
            },
-		   {
-            title: '权限数据名称',
-            align:"center",
-            dataIndex: 'itypeName',
-           customRender:function (text,record,index) {
-           if(record.parentName){
-             return record.parentName + '-'+text;
-           }else{
-             return text;
-           }
-         }
-           },
+		   // {
+       //      title: '权限数据名称',
+       //      align:"center",
+       //      dataIndex: 'itypeName',
+       //     customRender:function (text,record,index) {
+       //     if(record.parentName){
+       //       return record.parentName + '-'+text;
+       //     }else{
+       //       return text;
+       //     }
+       //   }
+       //     },
 		   {
             title: '是否可见',
             align:"center",

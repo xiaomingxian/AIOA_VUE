@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer" :width="1200"  :title="title" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer" :width="800"  :title="title" @ok="handleOk" @cancel="handleCancle">
     <a-card :bordered="false" class="findChild">
       <div class="table-operator">
         <a-button @click="add"  :disabled="addDisabled" type="primary" icon="plus">新增</a-button>
@@ -116,18 +116,18 @@
               }
             }
           },
-          {
-            title: '权限数据名称',
-            align: "center",
-            dataIndex: 'itypeName',
-            customRender:function (text,record,index) {
-               if(record.parentName){
-                 return record.parentName + '-'+text;
-               }else{
-                 return text;
-               }
-            }
-          },
+          // {
+          //   title: '权限数据名称',
+          //   align: "center",
+          //   dataIndex: 'itypeName',
+          //   customRender:function (text,record,index) {
+          //      if(record.parentName){
+          //        return record.parentName + '-'+text;
+          //      }else{
+          //        return text;
+          //      }
+          //   }
+          // },
           {
             title: '是否可见',
             align: "center",

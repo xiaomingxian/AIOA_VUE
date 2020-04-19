@@ -6,12 +6,12 @@
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="8" :sm="8">
-            <a-form-item label="文件标题">
+            <a-form-item label="标题">
               <a-input placeholder="文件标题" v-model="queryParam.dataTitle"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="8">
-            <a-form-item label="文件字号">
+            <a-form-item label="文号">
               <a-input placeholder="文件字号" v-model="queryParam.fileNum"></a-input>
             </a-form-item>
           </a-col>

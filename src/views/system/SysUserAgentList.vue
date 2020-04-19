@@ -108,16 +108,18 @@
           <a @click="handleEditMy(record)">编辑</a>
 
           <a-divider type="vertical"/>
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down"/></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+           <a @click="handleDelete(record.id)">删除</a>
+
+          <!--<a-dropdown>-->
+            <!--<a class="ant-dropdown-link">更多 <a-icon type="down"/></a>-->
+            <!--<a-menu slot="overlay">-->
+              <!--<a-menu-item>-->
+                <!--<a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">-->
+                  <!--<a>删除</a>-->
+                <!--</a-popconfirm>-->
+              <!--</a-menu-item>-->
+            <!--</a-menu>-->
+          <!--</a-dropdown>-->
         </span>
 
       </a-table>
@@ -160,7 +162,7 @@
           //   }
           //  },
           {
-            title: '用户名',
+            title: '委托人',
             align: "center",
             dataIndex: 'userName'
           },
@@ -170,7 +172,7 @@
             dataIndex: 'agentUserName'
           },
           {
-            title: '所属部门',
+            title: '代理人部门',
             align: "center",
             dataIndex: 'sysOrgCode'
           },
@@ -213,6 +215,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width:100,
             scopedSlots: {customRender: 'action'},
           }
         ],

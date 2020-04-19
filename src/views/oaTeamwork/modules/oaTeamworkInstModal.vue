@@ -31,8 +31,8 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="步骤序号">
-          <a-select  v-decorator="['iorder', {rules:[{required:true,message:'步骤序号必须输入！！！'},{ min: 1, max: 10, message: '步骤序号长度不能超过10位', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]}]">
+          label="顺序号">
+          <a-select  v-decorator="['iorder', {rules:[{required:true,message:'顺序号必须输入！！！'},{ min: 1, max: 10, message: '顺序号长度不能超过10位', trigger: 'blur' },{pattern: new RegExp(/^[1-9]\d*$/), message: '请输入数字！'},]}]">
             <a-select-option v-for="(item,index) in teamworkSetList" :key="index" :value="item.iid">{{item.iorder}}
             </a-select-option>
           </a-select>
