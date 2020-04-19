@@ -8,7 +8,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin :spinning="confirmLoading">
+    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
       <a-form :form="form">
         <a-form-item
           :labelCol="labelCol"
@@ -19,19 +19,11 @@
             </a-select-option>
           </a-select>
         </a-form-item>
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="所属机构">
-          <a-select v-model="selectedUnit" @change="getUnitVal">
-            <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="业务名称">
+          label="业务功能">
           <!--:defaultValue=1 -->
           <a-select v-if="functionList" v-model="selectedFunction" placeholder="" v-decorator="[ 'ibusFunctionId', {}]"
                     ref="sss" id="selop">
@@ -40,13 +32,7 @@
           </a-select>
           <a-input v-else placeholder="暂无匹配业务"></a-input>
         </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="序号">
-          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>
-          <!--          <a-input-number v-model="iorder" :min="1" :max="100000"/>-->
-        </a-form-item>
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -95,8 +81,18 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="备注">
-          <a-textarea placeholder="" v-decorator="['sremarks',validatorRules.sremarks]"/>
+          label="序号">
+          <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>
+          <!--          <a-input-number v-model="iorder" :min="1" :max="100000"/>-->
+        </a-form-item>
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="所属机构">
+          <a-select v-model="selectedUnit" @change="getUnitVal">
+            <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
+            </a-select-option>
+          </a-select>
         </a-form-item>
         <!--部门分配-->
         <a-form-item label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
@@ -107,8 +103,14 @@
             @search="onSearch">
             <a-button slot="enterButton" icon="search">选择</a-button>
           </a-input-search>
+          <a-input type="hidden" placeholder="" v-decorator="['selecteddeparts']"/>
         </a-form-item>
-        <a-input type="hidden" placeholder="" v-decorator="['selecteddeparts']"/>
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="备注">
+          <a-textarea placeholder="" v-decorator="['sremarks',validatorRules.sremarks]"/>
+        </a-form-item>
 
       </a-form>
 

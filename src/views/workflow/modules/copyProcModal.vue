@@ -13,7 +13,7 @@
 
       <a-form>
         <a-form-item>
-          <span>流程名：</span>
+          <span>流程名称：</span>
           <a-input
             size="large"
             type="text"
@@ -22,11 +22,11 @@
           ></a-input>
         </a-form-item>
         <a-form-item>
-          <span>英文名：</span>
+          <span>流程&nbspKEY：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="英文名是业务流转的关键字，不能重复！"
+            placeholder="流程key是业务流转的关键字，不能重复！"
             v-model="key"
           ></a-input>
         </a-form-item>
@@ -134,12 +134,11 @@
             this.$message.error('系统正在处理您的请求,请耐心等待')
             return
           } else {
-            console.log('1111111111111111')
+            // console.log('1111111111111111')
             this.timeRecord = now
           }
         } else {
-          console.log('222222222222222')
-
+          // console.log('222222222222222')
           this.timeRecord = now
         }
 
@@ -175,7 +174,7 @@
 
     span {
       font-size: 16px;
-      font-weight: bold;
+      /*font-weight: bold;*/
       margin-left: 20px;
     }
 

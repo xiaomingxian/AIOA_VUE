@@ -7,19 +7,19 @@
     <template slot="footer">
       <a-button type="primary" @click.stop="close()">关闭</a-button>
     </template>
-    <a-spin :spinning="confirmLoading">
+    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
       <a-form :form="form">
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="稿纸头">
+          label="红头名称">
           <a-input placeholder="" v-decorator="['stitleName', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="单位名称">
+          label="插入二级单位名称">
           <!--<a-input placeholder="" v-decorator="['iisUnit', {}]" />-->
           <a-radio-group  v-decorator="['iisUnit', {}]" >
             <a-radio :value="1">是</a-radio>
@@ -29,7 +29,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="部门">
+          label="插入部门名称">
           <!--<a-input placeholder="" v-decorator="['iisDept', {}]" />-->
           <a-radio-group  v-decorator="['iisDept', {}]" >
             <a-radio :value="1">是</a-radio>
@@ -39,25 +39,25 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="前缀">
+          label="单位名">
           <a-input placeholder="" v-decorator="['sleftParameter', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="中部">
+          label="插入参数">
           <a-input placeholder="" v-decorator="['smddleParameter', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="后缀">
+          label="业务类型">
           <a-input placeholder="" v-decorator="['srightParameter', {}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="固定参数">
+          label="其他参数">
           <a-input placeholder="" v-decorator="['sotherParameter', {}]" />
         </a-form-item>
         <a-form-item

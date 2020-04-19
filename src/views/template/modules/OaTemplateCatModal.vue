@@ -18,7 +18,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="稿纸头规则">
+          label="红头规则">
           <!--<a-input-number v-decorator="[ 'ititleRuleId', {}]" />-->
           <!--<a-select defaultValue="selected ${value}" v-decorator="[ 'ititleRuleId', {}]">-->
             <!--<a-select-option value="0">稿纸头列表</a-select-option>-->
@@ -44,14 +44,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="备注">
-          <a-textarea placeholder="" v-decorator="['sremarks', {}]" />
-        </a-form-item>
-
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="附件名称">
+          label="模板文件">
           <a-input v-model="upFileName"/>
           <a-button type="primary"
                     icon="download"
@@ -59,6 +52,12 @@
                     @click="downFileName" v-if="upFailId === 1 && upFileName !== ''">下载</a-button>
         </a-form-item>
         <a-input v-show="false" v-model="downFilePath" />
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="备注">
+          <a-textarea placeholder="" v-decorator="['sremarks', {}]" />
+        </a-form-item>
       </a-form>
     </a-spin>
   </a-modal>

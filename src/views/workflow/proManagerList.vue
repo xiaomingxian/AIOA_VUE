@@ -12,7 +12,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <a-form-item label="英文名">
+            <a-form-item label="流程key">
               <a-input  v-model="queryParam.key"></a-input>
             </a-form-item>
           </a-col>
@@ -35,6 +35,7 @@
                    <!--@change="handleChange">-->
 
         <!---->
+        <!--<a-button @click="handleAdd" type="primary" icon="plus">画流程图</a-button>-->
         <a-button @click="showUpload"  >
           <a-icon  type="upload"  />
           上传流程图
@@ -193,7 +194,7 @@
             dataIndex: 'name'
           },
           {
-            title: '英文名',
+            title: '流程KEY',
             align: "center",
             width: 200,
             dataIndex: 'key'
