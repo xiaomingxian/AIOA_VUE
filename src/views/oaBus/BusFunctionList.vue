@@ -74,11 +74,11 @@
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+        <!--selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
       <!--
         :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
       -->
@@ -176,6 +176,7 @@
           {
             title: '业务分类',
             align: "center",
+            width: 100,
             dataIndex: 'ibusModelId',
             customRender: (text) => {
               let length = this.selectModelData.length;
@@ -200,38 +201,38 @@
             dataIndex: 'sname'
           },
           {
-            title: '左侧参数',
+            title: '单位名称',
             align: "center",
             dataIndex: 'sbusLeftParameter',
             //ellipsis: true,
 
           },
+          // {
+          //   title: '插入机构',
+          //   align: "center",
+          //   dataIndex: 'iisUnit',
+          //   customRender: (text) => {
+          //     if (text == 1) {
+          //       return '是';
+          //     } else {
+          //       return '否';
+          //     }
+          //   }
+          // },
+          // {
+          //   title: '插入部门',
+          //   align: "center",
+          //   dataIndex: 'iisDept',
+          //   customRender: (text) => {
+          //     if (text == 1) {
+          //       return '是';
+          //     } else {
+          //       return '否';
+          //     }
+          //   }
+          // },
           {
-            title: '插入机构',
-            align: "center",
-            dataIndex: 'iisUnit',
-            customRender: (text) => {
-              if (text == 1) {
-                return '是';
-              } else {
-                return '否';
-              }
-            }
-          },
-          {
-            title: '插入部门',
-            align: "center",
-            dataIndex: 'iisDept',
-            customRender: (text) => {
-              if (text == 1) {
-                return '是';
-              } else {
-                return '否';
-              }
-            }
-          },
-          {
-            title: '右侧参数',
+            title: '业务功能',
             align: "center",
             dataIndex: 'sbusRightParameter',
 
@@ -248,21 +249,22 @@
               }
             }
           },*/
-          {
-            title: '发送范围',      //(1、0)
-            align: "center",
-            dataIndex: 'iisLimits',
-            customRender: (text) => {
-              if (text == 1) {
-                return '是';
-              } else {
-                return '否';
-              }
-            }
-          },
+          // {
+          //   title: '发送范围',      //(1、0)
+          //   align: "center",
+          //   dataIndex: 'iisLimits',
+          //   customRender: (text) => {
+          //     if (text == 1) {
+          //       return '是';
+          //     } else {
+          //       return '否';
+          //     }
+          //   }
+          // },
           {
             title: '全文检索',      //(1、0)
             align: "center",
+            width: 80,
             dataIndex: 'iisEs',
             customRender: (text) => {
               if (text == 1) {
@@ -275,6 +277,7 @@
           {
             title: '流程审批',      //(1、0)
             align: "center",
+            width: 80,
             dataIndex: 'iisProc',
             customRender: (text) => {
               if (text == 1) {
@@ -313,6 +316,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 250,
             scopedSlots: {customRender: 'action'},
           }
         ],

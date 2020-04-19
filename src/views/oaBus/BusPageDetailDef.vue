@@ -1,22 +1,20 @@
 <template>
-  <a-modal :visible="visible" :title="title" :width="1200" @ok="handleOk" @cancel="handleCancel">
+  <a-modal :visible="visible" :title="title" :width="800" @ok="handleOk" @cancel="handleCancel">
 
     <!--<div style="padding:20px;"  v-show="showFlag" class="table-operator">
       <a-button type="primary" @click="handleSaveAll" >生成含义</a-button>
     </div>  -->
-    <div style="height: 550px;overflow: auto">
+    <div style="height: 360px;overflow: auto">
       <div style="width: 95%">
-
-
         <div class="table-page-search-wrapper">
           <a-form layout="inline">
             <a-row :gutter="24">
-              <a-col :md="6" :sm="8">
+              <a-col :md="8" :sm="8">
                 <a-form-item label="列名">
                   <a-input placeholder="请输入列名" v-model="queryParam.sTableColumn"></a-input>
                 </a-form-item>
               </a-col>
-              <a-col :md="6" :sm="8">
+              <a-col :md="8" :sm="8">
                 <a-form-item label="列的含义">
                   <a-input placeholder="请输入列的含义" v-model="queryParam.sColumnName"></a-input>
                 </a-form-item>
@@ -115,17 +113,17 @@
         ],
         columns1: [
           {
-            title: '列名',
+            title: '字段名',
             align: "center",
             dataIndex: 'stableColumn'
           },
           {
-            title: '列的含义',
+            title: '含义',
             align: "center",
             dataIndex: 'scolumnName'
           },
           {
-            title: '数据标题列',
+            title: '列表标题列',
             align: "center",
             dataIndex: 'iisListtitle',
             customRender: (text) => {
@@ -137,7 +135,7 @@
             }
           },
           {
-            title: '排序',
+            title: '列表顺序',
             align: "center",
             dataIndex: 'iorder',
             customRender: (text) => {
@@ -157,12 +155,12 @@
         ],
         columns: [
           {
-            title: '列名',
+            title: '字段名',
             align: "center",
             dataIndex: 'stableColumn'
           },
           {
-            title: '列的含义',
+            title: '含义',
             align: "center",
             dataIndex: 'scolumnName'
           },
@@ -170,6 +168,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 80,
             scopedSlots: {customRender: 'action'},
           }
         ],

@@ -6,20 +6,19 @@
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
-            <a-form-item label="业务模板名称">
-              <a-input placeholder="请输入业务模板名称" v-model="queryParam.sPageName"></a-input>
+            <a-form-item label="模板名称">
+              <a-input placeholder="" v-model="queryParam.sPageName"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="模板分类">
-              <!--<a-input placeholder="请输入模板分类" v-model="queryParam.ipapeType"></a-input>-->
-              <a-select placeholder="请选择模板分类" v-model="queryParam.iPapeType" v-decorator="['iPapeType', {}]">
-                <a-select-option  v-for="(item,index) in dbtable" :key="index" :value="item.value" >{{item.text}}</a-select-option>
-              </a-select>
-            </a-form-item>
+          <!--<a-col :md="6" :sm="8">-->
+            <!--<a-form-item label="模板分类">-->
+              <!--&lt;!&ndash;<a-input placeholder="请输入模板分类" v-model="queryParam.ipapeType"></a-input>&ndash;&gt;-->
+              <!--<a-select placeholder="请选择模板" v-model="queryParam.iPapeType" v-decorator="['iPapeType', {}]">-->
+                <!--<a-select-option  v-for="(item,index) in dbtable" :key="index" :value="item.value" >{{item.text}}</a-select-option>-->
+              <!--</a-select>-->
+            <!--</a-form-item>-->
 
-          </a-col>
-
+          <!--</a-col>-->
           <template v-if="toggleSearchStatus">
 
           </template>
@@ -61,11 +60,11 @@
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+        <!--selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"
@@ -89,9 +88,9 @@
           <a @click="handleEdit(record)">编辑</a>
 
           <a-divider type="vertical"/>
-          <a @click="handleDefModel(record)">定义含义</a>
+          <a @click="handleDefModel(record)">模板定义</a>
           <a-divider type="vertical"/>
-          <a @click="showPicture(record)">预览图片</a>
+          <a @click="showPicture(record)">模板预览</a>
           <a-divider type="vertical"/>
           <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
                   <a>删除</a>
@@ -142,28 +141,27 @@
         // 表头
         dbtable:'',
         columns: [
+          // {
+          //   title: '序号',
+          //   align: "center",
+          //   width: 60,
+          //   dataIndex: 'iid'
+          // },
           {
-            title: '序号',
-            align: "center",
-            width: 60,
-            dataIndex: 'iid'
-          },
-          {
-            title: '业务模板名称',
-            align: "center",
-            dataIndex: 'spageName'
-          },
-          {
-            title: '详情页面路径',    //详情页面路径（项目文件存放目录）
+            title: '模板名称',
             align: "center",
             width: "20%" ,
-            dataIndex: 'spagePath'
+            dataIndex: 'spageName'
           },
-
+          // {
+          //   title: '详情页面路径',    //详情页面路径（项目文件存放目录）
+          //   align: "center",
+          //   width: "20%" ,
+          //   dataIndex: 'spagePath'
+          // },
           {
             title: '概要',
             align: "left",
-            width: "38%" ,
             dataIndex: 'spageRemarks'
           },
 
@@ -171,6 +169,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 260,
             scopedSlots: {customRender: 'action'},
           }
         ],

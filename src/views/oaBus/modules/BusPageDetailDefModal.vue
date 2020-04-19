@@ -9,7 +9,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <div style="height: 500px;overflow: auto">
+    <div style="height: 360px;overflow: auto">
       <a-spin :spinning="confirmLoading">
         <a-form :form="form">
 
@@ -33,92 +33,18 @@
               <a-input placeholder="请输入业务数据表名" v-decorator="['sbusdataTable', {}]"/>
             </a-form-item>
           </div>
-
+          <span style="font-weight: 900;font-size: 16px;">详情页面配置</span>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="字段名">
-            <a-input style="width: 50%" placeholder="请输入字段名" v-model="stableColumn"  v-decorator="['stableColumn', {rules:[{required:true,message: '字段名不能为空'},{ min: 1, max: 50, message: '字段名长度不能超过50位！', trigger: 'blur' }]}]"/>
+            <a-input style="width: 50%"  readonly v-model="stableColumn"  v-decorator="['stableColumn', {rules:[{required:true,message: '字段名不能为空'},{ min: 1, max: 50, message: '字段名长度不能超过50位！', trigger: 'blur' }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="列名">
-            <a-input style="width: 50%" placeholder="列名" v-decorator="['scolumnName', {rules:[{required:true,message: '列名不能为空'},{ min: 1, max: 50, message: '列名长度不能超过50位！', trigger: 'blur' }]}]"/>
-          </a-form-item>
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="列输入类型">
-            <a-select style="width: 50%" disabled="disabled" v-decorator="[ 'icolumnType', {}]" >
-              <a-select-option v-for="(item,index) in columnTypeList" :key="index" :value="parseInt(item.value)">
-                {{item.text}}
-              </a-select-option>
-            </a-select>
-            <!--<a-input-number v-decorator="[ 'iBusModelId', {}]" />-->
-          </a-form-item>
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="标题列">
-            <a-radio-group  ref="refTitle"
-                           v-model="titleModel"
-                           :disabled="disableFlag"
-                           @change="listTitleChange"
-                            v-decorator="['iisListtitle', {}]">
-              <a-radio  :value="1">是</a-radio>
-              <a-radio  :value="0">否</a-radio>
-            </a-radio-group>
-            <!--<a-input placeholder="请输入是否作为列表标题列" />-->
-          </a-form-item>
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="数据列排序">
-            <a-input style="width: 50%" v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '输入0到4位的非零正整数' }]}]" />
-          </a-form-item>
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="查询条件">
-            <a-radio-group  :defaultValue="0" v-decorator="['iisListquery', {}]">
-              <a-radio :value="1">是</a-radio>
-              <a-radio :value="0">否</a-radio>
-            </a-radio-group>
-            <!--<a-input placeholder="请输入是否作为列表查询条件" v-decorator="['iisListquery', {}]"/>-->
-          </a-form-item>
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="全文检索">
-            <a-radio-group  :defaultValue="0" v-decorator="['iisEsquery', {}]">
-              <a-radio :value="1">是</a-radio>
-              <a-radio :value="0">否</a-radio>
-            </a-radio-group>
-            <!--<a-input placeholder="请输入是否作为列表查询条件" v-decorator="['iisListquery', {}]"/>-->
-          </a-form-item>
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="数据字典类别">
-            <a-select style="width: 50%" @change="dictIdClick" v-decorator="[ 'sdictId', {}]" >
-              <a-select-option v-for="(item,index) in directOpt" :key="index" :value="item.dictCode">
-                {{item.dictName}}
-              </a-select-option>
-            </a-select>
-            <!--<a-input-number v-decorator="[ 'iBusModelId', {}]" />-->
-          </a-form-item>
-          <a-form-item
-            :labelCol="labelCol"
-
-            :wrapperCol="wrapperCol"
-            label="查询sql">
-            <a-select  style="width: 50%" v-decorator="[ 'sdictSqlKey', {}]" @change="dictSqlClick">
-              <a-select-option v-for="(item,index) in sqlOpt" :key="index" :value="item.value">
-                {{item.text}}
-              </a-select-option>
-            </a-select>
-            <!--<a-input-number v-decorator="[ 'iBusModelId', {}]" />-->
+            label="含义">
+            <a-input style="width: 50%" placeholder="含义"  v-decorator="['scolumnName', {rules:[{required:true,message: '含义不能为空'},{ min: 1, max: 50, message: '列名长度不能超过50位！', trigger: 'blur' }]}]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
@@ -133,19 +59,62 @@
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="java校验">
-            <a-input  style="width: 50%" placeholder="请输入java校验规则，正则表达式" v-decorator="['scheckExpjava', {rules:[{ min: 0, max: 250, message: 'java校验长度不能超过250位！', trigger: 'blur' }]}]"/>
+            label="全文检索">
+            <a-radio-group  :defaultValue="0" v-decorator="['iisEsquery', {}]">
+              <a-radio :value="1">是</a-radio>
+              <a-radio :value="0">否</a-radio>
+            </a-radio-group>
+            <!--<a-input placeholder="请输入是否作为列表查询条件" v-decorator="['iisListquery', {}]"/>-->
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="sql校验">
-            <a-input  style="width: 50%" placeholder="请输入数据校验sql" v-decorator="['scheckExpsql', {rules:[{ min: 0, max: 250, message: 'sql校验长度不能超过250位！', trigger: 'blur' }]}]"/>
+            label="字段类型">
+            <a-select style="width: 50%" disabled="disabled" v-decorator="[ 'icolumnType', {}]" >
+              <a-select-option v-for="(item,index) in columnTypeList" :key="index" :value="parseInt(item.value)">
+                {{item.text}}
+              </a-select-option>
+            </a-select>
+            <!--<a-input-number v-decorator="[ 'iBusModelId', {}]" />-->
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="js校验">
+            label="下拉选项">
+            <a-select style="width: 50%" @change="dictIdClick" v-decorator="[ 'sdictId', {}]" >
+              <a-select-option v-for="(item,index) in directOpt" :key="index" :value="item.dictCode">
+                {{item.dictName}}
+              </a-select-option>
+            </a-select>
+            <span style="font-size: 16px;display: inline-block;width:200px;float: right;margin-right:45px; overflow: hidden;">
+              数据字典取值
+            </span>
+            <!--<a-input-number v-decorator="[ 'iBusModelId', {}]" />-->
+          </a-form-item>
+          <a-form-item
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+            label="下拉选项">
+            <a-select  style="width: 50%" v-decorator="[ 'sdictSqlKey', {}]" @change="dictSqlClick">
+              <a-select-option v-for="(item,index) in sqlOpt" :key="index" :value="item.value">
+                {{item.text}}
+              </a-select-option>
+            </a-select>
+            <span style="font-size: 16px;display: inline-block;width:200px;float: right;margin-right:45px; overflow: hidden;">
+              SQL查询取值
+            </span>
+            <!--<a-input-number v-decorator="[ 'iBusModelId', {}]" />-->
+          </a-form-item>
+          <!--<a-form-item-->
+            <!--:labelCol="labelCol"-->
+            <!--:wrapperCol="wrapperCol"-->
+            <!--label="java校验（未用）">-->
+            <!--<a-input  style="width: 50%" placeholder="请输入java校验规则，正则表达式" v-decorator="['scheckExpjava', {rules:[{ min: 0, max: 250, message: 'java校验长度不能超过250位！', trigger: 'blur' }]}]"/>-->
+          <!--</a-form-item>-->
+          <a-form-item
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+            label="合法性校验">
             <a-select  style="width: 50%" v-decorator="[ 'icheckExpjs', {}]">
               <a-select-option v-for="(item,index) in regulars" :key="index" :value="item.value">
                 {{item.text}}
@@ -153,12 +122,44 @@
             </a-select>
             <!--<a-input-number placeholder="请输入js校验规则，正则表达式（从数据字典查）" v-decorator="['icheckExpjs', {}]"/>-->
           </a-form-item>
+          <span style="font-weight: 900;font-size: 16px;">数据列表配置</span><br>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="提示信息">
-            <a-input  style="width: 50%" placeholder="请输入校验提示信息" v-decorator="['scheckShowmsg', {rules:[{ min: 0, max: 250, message: '提示信息长度不能超过250位！', trigger: 'blur' }]}]"/>
+            label="列表标题列">
+            <a-radio-group  ref="refTitle"
+                           v-model="titleModel"
+                           :disabled="disableFlag"
+                           @change="listTitleChange"
+                            v-decorator="['iisListtitle', {}]">
+              <a-radio  :value="1">是</a-radio>
+              <a-radio  :value="0">否</a-radio>
+            </a-radio-group>
+            <!--<a-input placeholder="请输入是否作为列表标题列" />-->
           </a-form-item>
+          <a-form-item
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+            label="列表顺序号">
+            <a-input style="width: 50%" v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '输入0到4位的非零正整数' }]}]" />
+          </a-form-item>
+          <a-form-item
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+            label="查询条件">
+            <a-radio-group  :defaultValue="0" v-decorator="['iisListquery', {}]">
+              <a-radio :value="1">是</a-radio>
+              <a-radio :value="0">否</a-radio>
+            </a-radio-group>
+            <!--<a-input placeholder="请输入是否作为列表查询条件" v-decorator="['iisListquery', {}]"/>-->
+          </a-form-item>
+          <span style="font-weight: 900;font-size: 16px;">数据交换配置</span>
+          <!--<a-form-item-->
+            <!--:labelCol="labelCol"-->
+            <!--:wrapperCol="wrapperCol"-->
+            <!--label="提示信息">-->
+            <!--<a-input  style="width: 50%" placeholder="请输入校验提示信息" v-decorator="['scheckShowmsg', {rules:[{ min: 0, max: 250, message: '提示信息长度不能超过250位！', trigger: 'blur' }]}]"/>-->
+          <!--</a-form-item>-->
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
@@ -186,14 +187,35 @@
               <a-button type="primary" @click="updateDetail('smarkKey')"  style="width: 180px">修改全部【本业务类别】</a-button>
             </span>
           </a-form-item>
+          <!--<a-form-item-->
+            <!--:labelCol="labelCol"-->
+            <!--:wrapperCol="wrapperCol"-->
+            <!--label="特殊计算">-->
+            <!--<a-input  style="width: 50%"  v-decorator="['scheckExpsql', {rules:[{ min: 0, max: 250, message: '不能超过250位！', trigger: 'blur' }]}]"/>-->
+            <!--<span style="font-size: 16px;display: inline-block;width:200px;float: right;margin-right:45px; overflow: hidden;">-->
+              <!--排版时，特殊书签计算-->
+            <!--</span>-->
+          <!--</a-form-item>-->
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="备注">
-            <a-input  style="width: 50%" placeholder="请输入业务数据列备注" v-decorator="['scolumnRemarks',
-            {rules:[{ min: 0, max: 50, message: '备注长度不能超过50位！', trigger: 'blur' }]}]"/>
+            label="特殊计算">
+            <a-select  style="width: 50%" v-decorator="[ 'sdictSqlKey', {}]" @change="dictSqlClick">
+              <a-select-option v-for="(item,index) in sqlOpt" :key="index" :value="item.value">
+                {{item.text}}
+              </a-select-option>
+            </a-select>
+            <span style="font-size: 16px;display: inline-block;width:200px;float: right;margin-right:45px; overflow: hidden;">
+              排版时，特殊书签计算
+            </span>
           </a-form-item>
-
+          <!--<a-form-item-->
+            <!--:labelCol="labelCol"-->
+            <!--:wrapperCol="wrapperCol"-->
+            <!--label="备注">-->
+            <!--<a-input  style="width: 50%" placeholder="请输入业务数据列备注" v-decorator="['scolumnRemarks',-->
+            <!--{rules:[{ min: 0, max: 50, message: '备注长度不能超过50位！', trigger: 'blur' }]}]"/>-->
+          <!--</a-form-item>-->
         </a-form>
       </a-spin>
     </div>

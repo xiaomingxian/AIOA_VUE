@@ -10,7 +10,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <div style="height: 500px; width:95% ;overflow: auto">
+    <div style="height: 360px; width:95% ;overflow: auto">
       <a-spin :spinning="confirmLoading">
         <a-form :form="form">
           <!-- 主表单区域 -->

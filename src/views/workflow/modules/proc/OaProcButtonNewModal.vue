@@ -71,7 +71,7 @@
               </a-row>
             </a-form>
           </div>
-        <span style="font-weight: 900;font-size: 16px;">按钮控制</span>
+        <span style="font-weight: 900;font-size: 16px;">按钮显示控制</span>
         <!--水平分割-->
         <!--<a-divider />-->
         <div>

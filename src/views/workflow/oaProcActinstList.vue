@@ -7,6 +7,9 @@
     @ok="handleCancel"
     @cancel="handleCancel"
     cancelText="关闭">
+    <!--<div style="height: 500px;overflow: auto">-->
+      <!--&lt;!&ndash;定义含义页面，保存所有列&ndash;&gt;-->
+      <!--<div style="width: 95%">-->
     <template slot="footer">
       <a-button type="primary" @click.stop="handleCancel">关闭</a-button>
       <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
@@ -80,6 +83,8 @@
       <!-- 表单区域 -->
       <oaProcActinst-modal ref="modalForm" @ok="modalFormOk"></oaProcActinst-modal>
     </a-card>
+      <!--</div>-->
+    <!--</div>-->
   </a-modal>
 </template>
 
