@@ -10,9 +10,9 @@
     >
       <div>
         <div class="bingpai" >
-          <a-button @click="showPict" block>流程图查看</a-button>
+          <a-button @click="showPict" block>查看流程图</a-button>
           <a-button @click="traceP" block>流程跟踪表</a-button>
-          <a-button @click="backRecordClick" block>撤回/回退记录</a-button>
+          <a-button @click="backRecordClick" block>退回撤回记录</a-button>
         </div>
         <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
 
@@ -130,17 +130,17 @@
             dataIndex: 'taskDefName'
           },
           {
-            title: '负责人',
+            title: '办理人员',
             align: "center",
             dataIndex: 'userName'
           },
           {
-            title: '部门',
+            title: '所属部门',
             align: "center",
             dataIndex: 'deptName'
           },
           {
-            title: '完成时间',
+            title: '办理时间',
             align: "center",
             dataIndex: 'endTime'
           },
@@ -154,22 +154,25 @@
           //   dataIndex: 'name'
           // },
           {
-            title: '撤回/回退人',
+            title: '操作人员',
             align: "center",
+            width: 120,
             dataIndex: 'userName'
           },
           {
-            title: '撤回/回退记录',
+            title: '操作记录',
             align: "left",
+            width: 300,
             dataIndex: 'log'
           }, {
-            title: '回退原因',
+            title: '退回原因',
             align: "left",
             dataIndex: 'backReason'
           },
           {
             title: '完成时间',
             align: "center",
+            width: 200,
             dataIndex: 'endTime'
           },
 
@@ -189,7 +192,7 @@
         return {
           on: {
             click: () => {
-              if (res.assignee.indexOf('回退') == 0) {
+              if (res.assignee.indexOf('退回') == 0) {
                 //查询意见 table tableid 环节 任务id
                 let url = '/oaBus/dynamic/query'
                 let taskId = res.id
@@ -218,7 +221,7 @@
                     let content_ = h('div', {}, content)
 
                     const modal = this.$success({
-                      title: '回退原因',
+                      title: '退回原因',
                       content: content_,
                     });
 
