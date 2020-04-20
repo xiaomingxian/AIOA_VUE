@@ -171,6 +171,7 @@
         this.ipermitType=this.model.ipermitType;
         this.iisCreater=this.model.iisCreater;
         this.iisReader=this.model.iisReader;
+        this.iorder=this.model.iorder;
         // iisCreater:0,
           // iisReader:0,
         // this.selectButton=this.model.sbtnName;
