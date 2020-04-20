@@ -8,12 +8,12 @@
 
           <a-col :md="6" :sm="8">
             <a-form-item label="流程名称">
-              <a-input placeholder="请输入流程名称" v-model="queryParam.name"></a-input>
+              <a-input  v-model="queryParam.name"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <a-form-item label="流程定义key">
-              <a-input placeholder="请输入流程定义key" v-model="queryParam.key"></a-input>
+            <a-form-item label="流程key">
+              <a-input  v-model="queryParam.key"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
@@ -35,36 +35,37 @@
                    <!--@change="handleChange">-->
 
         <!---->
+        <!--<a-button @click="handleAdd" type="primary" icon="plus">画流程图</a-button>-->
         <a-button @click="showUpload"  >
           <a-icon  type="upload"  />
           上传流程图
         </a-button>
       <!--</a-upload>-->
 
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="dels(0)">
-            <a-icon type="delete"/>
-            删除
-          </a-menu-item>
-          <!--<a-menu-item key="1" @click="dels(1)">-->
-          <!--<a-icon type="delete"/>-->
-          <!--级联删除-->
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="dels(0)">-->
+            <!--<a-icon type="delete"/>-->
+            <!--删除-->
           <!--</a-menu-item>-->
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作
-          <a-icon type="down"/>
-        </a-button>
-      </a-dropdown>
+          <!--&lt;!&ndash;<a-menu-item key="1" @click="dels(1)">&ndash;&gt;-->
+          <!--&lt;!&ndash;<a-icon type="delete"/>&ndash;&gt;-->
+          <!--&lt;!&ndash;级联删除&ndash;&gt;-->
+          <!--&lt;!&ndash;</a-menu-item>&ndash;&gt;-->
+        <!--</a-menu>-->
+        <!--<a-button style="margin-left: 8px"> 批量操作-->
+          <!--<a-icon type="down"/>-->
+        <!--</a-button>-->
+      <!--</a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+        <!--selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"
@@ -85,21 +86,14 @@
       >
 
         <span slot="action" slot-scope="text, record">
-          <a @click="editPro(record)">流程源码</a>
+       <a @click="showPic(record)"> 查看流程图</a>
 
-
-          <a-divider type="vertical"/>
+      <a-divider type="vertical"/>
           <a-dropdown>
             <a class="ant-dropdown-link">更多 <a-icon type="down"/></a>
             <a-menu slot="overlay">
               <a-menu-item>
-                      <a>
-                        <a-popconfirm title="是否删除?"
-                                      @confirm="confirmdel(record.deploymentId,0)"
-                                      @cancel="cancel"
-                                      okText="确认"
-                                      cancelText="取消"> 删除</a-popconfirm>
-                      </a>
+
 
                 <!--<a>-->
                 <!--<a-popconfirm title="是否级联删除?"-->
@@ -110,11 +104,18 @@
                 <!--</a>-->
                       <!--<a @click="active(record)"> 激活</a>-->
                       <!--<a @click="disactiveProcess(record)"> 挂起</a>-->
-                      <a @click="buttonPermission(record)"> 按钮权限</a>
-                      <a @click="opinionConfigure(record)"> 意见配置</a>
-                      <a @click="newIncreased(record)"> 环节配置</a>
-                      <a @click="copyProc(record)">复制流程</a>
-                      <a @click="showPic(record)"> 查看流程图</a>
+                     <a @click="buttonPermission(record)"> 按钮权限</a>
+                     <a @click="opinionConfigure(record)"> 意见配置</a>
+                     <a @click="newIncreased(record)"> 环节配置</a>
+                     <a @click="copyProc(record)">一键复制</a>
+                     <a @click="editPro(record)">流程源码</a>
+                      <a>
+                        <a-popconfirm title="是否删除?"
+                                      @confirm="confirmdel(record.deploymentId,0)"
+                                      @cancel="cancel"
+                                      okText="确认"
+                                      cancelText="取消"> 删除</a-popconfirm>
+                      </a>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
@@ -187,18 +188,21 @@
           //   dataIndex: 'id'
           // },
           {
-            title: '名称',
+            title: '流程名称',
             align: "center",
+            width: 200,
             dataIndex: 'name'
           },
           {
-            title: '关键字',
+            title: '流程KEY',
             align: "center",
+            width: 200,
             dataIndex: 'key'
           },
           {
             title: '版本',
             align: "center",
+            width: 60,
             dataIndex: 'version'
           },
           // {
@@ -206,11 +210,12 @@
           //   align: "center",
           //   dataIndex: 'deploymentId'
           // },
-          {
-            title: '资源名称',
-            align: "center",
-            dataIndex: 'resourceName'
-          },
+          // {
+          //   title: '英文名',
+          //   align: "center",
+          //   width: 200,
+          //   dataIndex: 'resourceName'
+          // },
           {
             title: '描述',
             align: "center",
@@ -225,6 +230,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 260,
             scopedSlots: {customRender: 'action'},
           }
         ],

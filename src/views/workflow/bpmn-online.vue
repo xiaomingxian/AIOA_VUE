@@ -2,7 +2,7 @@
   <div class="main">
     <!--流程描述-->
     <div id="bpmn" ref="bpmn">
-      <p class="titleBox">流程描述</p>
+      <p class="titleBox">画流程图</p>
       <div class="itembox">
         <div class="item">
           <span>流程名称：</span>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="item">
-          <span>流程&nbspkey：</span>
+          <span>流程&nbspKEY：</span>
 
           <a-input
             autocomplete="false"
@@ -30,16 +30,16 @@
           </a-input>
         </div>
 
-        <div class="item">
-          <span>流程描述：</span>
-          <a-input
-            placeholder="请输入流程描述"
-            size="large"
-            type="text"
-            v-model="bpmn.description"
-          >
-          </a-input>
-        </div>
+        <!--<div class="item">-->
+          <!--<span>流程描述：</span>-->
+          <!--<a-input-->
+            <!--placeholder="请输入流程描述"-->
+            <!--size="large"-->
+            <!--type="text"-->
+            <!--v-model="bpmn.description"-->
+          <!--&gt;-->
+          <!--</a-input>-->
+        <!--</div>-->
 
       </div>
       <div class="btnbox">
@@ -139,7 +139,7 @@
         validatorRules: {
           name: {rules: [{required: true, message: '请输入流程名称!', validator: 'click'}]},
           key: {rules: [{required: true, message: '请输入流程key!', validator: 'click'}]},
-          description: {rules: [{required: false, message: '请输入描述信息'}, {validator: this.validateInputCode}]}
+          // description: {rules: [{required: false, message: '请输入描述信息'}, {validator: this.validateInputCode}]}
         }
       }
     },
@@ -166,21 +166,6 @@
         var url_model = '/modeler.html?modelId='
         var parm = {'name': this.bpmn.name, 'key': this.bpmn.key, 'description': this.bpmn.description}
 
-
-
-        let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
-        if (!keyReg.test(this.bpmn.key)) {
-          if ((this.bpmn.key).length > 20) {
-            this.$message.error('您输入的key长度过长')
-            return
-          }
-          if ((this.bpmn.key).length < 3) {
-            this.$message.error('您输入的key长度过短')
-            return
-          }
-          this.$message.error('您输入的key不合法请检查')
-          return
-        }
         let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{2,19})$/
         if (!nameReg.test(this.bpmn.name)) {
 
@@ -196,6 +181,21 @@
 
           return
         }
+
+        let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
+        if (!keyReg.test(this.bpmn.key)) {
+          if ((this.bpmn.key).length > 20) {
+            this.$message.error('您输入的key长度过长')
+            return
+          }
+          if ((this.bpmn.key).length < 3) {
+            this.$message.error('您输入的key长度过短')
+            return
+          }
+          this.$message.error('您输入的key不合法请检查')
+          return
+        }
+
 
 
         postAction(url, parm).then((res) => {
@@ -227,18 +227,18 @@
 
     .titleBox {
       font-size: 20px;
-      font-weight: bold;
+      /*font-weight: bold;*/
       width: 100%;
       height: 45px;
       /*background: #2f54eb;*/
       line-height: 45px;
       border-bottom: 1px solid #dddddd;
-      color: #2f54eb;
+      /*color: #2f54eb;*/
     }
 
     .itembox {
       width: 100%;
-      height: 280px;
+      height: 130px;
       /*background: aliceblue;*/
       .item {
         display: flex;
@@ -248,8 +248,7 @@
 
         span {
           font-size: 18px;
-          font-weight: bold;
-
+          /*font-weight: bold;*/
           margin-left: 30px;
         }
 

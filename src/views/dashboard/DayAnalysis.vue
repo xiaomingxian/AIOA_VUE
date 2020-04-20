@@ -51,7 +51,7 @@
                       <!--&lt;!&ndash;<span style="font-size: 12px;color: #666666">{{item.dCreateTime}}</span>&ndash;&gt;-->
                       <!--</p>-->
                       <div class="contentbox" >
-                        <p class="content" :title="item.stitle+'('+item.suserNames+')'">{{item.stitle +"("+ item.suserNames+")"|filterText}}</p>
+                        <p :style="iisFontSize" class="content" :title="item.stitle+'('+item.suserNames+')'">{{item.stitle|filterText}}</p>
                         <div class="div2">
                           <!--<img class="img0 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">-->
                         </div>
@@ -84,11 +84,11 @@
                                   <!--<span style="font-size: 12px;color: #666666">{{myitem.dCreateTime}}</span>-->
                                   <!--</p>-->
                                   <div class="contentbox">
-                                    <p class="content"  :title="myitem.stateName+myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stateName+myitem.stitle+"("+ myitem.suserNames+")"|filterText}}</p>
+                                    <p :style="iisFontSize" class="content"  :title="myitem.stateName+myitem.stitle+'('+myitem.suserNames+')'">{{myitem.stateName+myitem.stitle+"("+ myitem.suserNames+")"|filterText3}}</p>
                                     <div v-if="myitem.stateName != ''" class="div5">
                                       <div >
                                         <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                                        <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle1(mytitleLists[index])">
+                                        <img class="img1 addSize" src="../../assets/edit.png" :title="编辑" @click.stop="editstitle1(mytitleLists[index])">
 
                                         <img class="img1 addSize" src="../../assets/del.png"  :title="删除" @click.stop="delstitle1(myitem.iid)">
                                       </div>
@@ -96,8 +96,8 @@
                                     <div v-else class="div5">
                                       <div >
                                         <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                                        <img class="img1 addSize" src="../../assets/edit.png" @click.stop="editstitle(mytitleLists[index])">
-                                        <img class="img1 addSize" src="../../assets/del.png" @click.stop="delstitle(myitem.iid)">
+                                        <img class="img1 addSize" src="../../assets/edit.png" :title="编辑" @click.stop="editstitle(mytitleLists[index])">
+                                        <img class="img1 addSize" src="../../assets/del.png" :title="删除" @click.stop="delstitle(myitem.iid)">
                                       </div>
                                     </div>
 
@@ -121,7 +121,7 @@
                               <div class="itemboxx"   v-if="publictitleLists!=''">
                                 <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click.stop="chakan(publicitem.iid)">
                                   <div class="contentbox">
-                                    <p class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText}}</p>
+                                    <p :style="iisFontSize" class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText3}}</p>
                                     <div class="div5">
                                       <img class="img2 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">
                                     </div>
@@ -166,7 +166,7 @@
                     <div class="left">
                       <i></i>
                       <p class="tongzhi">[{{postitem.s_varchar5}}]</p>
-                      <span :title="postitem.s_title">{{postitem.s_title|filterText2}}</span>
+                      <span :style="iisFontSize" :title="postitem.s_title">{{postitem.s_title|filterText2}}</span>
                       <!--<i></i>-->
                     </div>
                     <span class="time">{{postitem.d_create_time|timeStrings}}</span>
@@ -255,7 +255,7 @@
                             <div class="p">
                               <template v-if="willdoindex==2">
                                 <p>
-                              <span :title="item.s_title+'   '+item.d_create_time">
+                              <span :style="iisFontSize" :title="item.s_title+'   '+item.d_create_time">
                                <i></i>
                               <span>  {{item.s_title|filterText1}}
                                 <div v-if="item.important==1">
@@ -264,7 +264,7 @@
                               </span>
                              </span>
                                 </p>
-                                <span>{{item.d_create_time|timeText}}</span>
+                                <span >{{item.d_create_time|timeText}}</span>
                               </template>
                             </div>
                           </div>
@@ -466,8 +466,17 @@
     filters:{
       filterText(text){
         if(text!=undefined) {
-          if (text.length > 17) {
-            return text.substring(0, 14) + '...'
+          if (text.length > 11) {
+            return text.substring(0, 10) + '...'
+          } else {
+            return text
+          }
+        }
+      },
+      filterText3(text){
+        if(text!=undefined) {
+          if (text.length > 24) {
+            return text.substring(0,23) + '...'
           } else {
             return text
           }
@@ -1045,15 +1054,13 @@
 
 
 
-
       },
 
       //我的日程编辑成功模态框关闭，刷新父级列表
       myrichenClose(e){
         if(e){
-          getAction(this.url.list,{sCreateBy:this.userinfo.username}).then((res) => {
+          getAction(this.url.list,{sCreateBy:this.userinfo.username,date:this.localTime}).then((res) => {
             this.mytitleLists = res.result.records;
-
           });
         }
       },

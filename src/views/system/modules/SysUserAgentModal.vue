@@ -14,26 +14,26 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="代理开始时间">
+          label="开始时间">
           <a-date-picker showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'startTime', {}]"/>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="代理结束时间">
+          label="结束时间">
           <a-date-picker showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ 'endTime', {}]"/>
         </a-form-item>
 
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="请选择代理人">
+          label="代理人">
           <j-select-user-by-dep-single v-decorator="[ 'agentUserName', {}]"></j-select-user-by-dep-single>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="状态选择">
+          label="状态">
           <!--:defaultValue-->
           <a-radio-group buttonStyle="solid" v-decorator="['status', {} ]" size="small" defaultValue="1">
             <a-radio-button value="1">有效</a-radio-button>

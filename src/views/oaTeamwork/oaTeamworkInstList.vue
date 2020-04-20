@@ -10,15 +10,15 @@
             <a-form-item
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
-              label="协同业务">
-              <a-select       v-model="queryParam.iteamworkId" @change="getTeamwork" placeholder="请选择协同业务">
+             >
+              <a-select  v-model="queryParam.iteamworkId" @change="getTeamwork" placeholder="协同业务">
                 <a-select-option v-for="(item,index) in teamworkList" :key="index" :value="item.iid">{{item.steamworkName}}
                 </a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8" >
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" @click="searchQuery1" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset1" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>
@@ -123,6 +123,7 @@
 		   {
             title: '协同业务',
             align:"center",
+            width: 110,
             dataIndex: 'iteamworkName',
              sorter: (i, ii, type) => {
            //descend倒叙
@@ -136,8 +137,8 @@
          },
            },
 		   {
-            title: '标题',
-            align:"center",
+            title: '业务标题【第一步】',
+            align:"left",
             dataIndex: 'stitle',
             customRender:function (text,record,index) {
            if(record.busFunctionName){
@@ -156,8 +157,9 @@
            },
 
           {
-            title: '当前步骤',
+            title: '协同位置',
             align:"center",
+            width: 100,
             dataIndex: 'lastOrder',
             sorter: (i, ii, type) => {
               //descend倒叙
@@ -171,24 +173,26 @@
             },
 
           },
-          {
-            title: '总步骤',
-            align:"center",
-            dataIndex: 'orders',
-            sorter: (i, ii, type) => {
-              //descend倒叙
-              //ascend正序
-              this.queryParam.tableOrder = true
-              //置空其他环节
-              this.nullOther('Orders')
-              this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
-              return true
-            },
-
-          },
+          // {
+          //   title: '总步骤',
+          //   align:"center",
+          //   width: 100,
+          //   dataIndex: 'orders',
+          //   sorter: (i, ii, type) => {
+          //     //descend倒叙
+          //     //ascend正序
+          //     this.queryParam.tableOrder = true
+          //     //置空其他环节
+          //     this.nullOther('Orders')
+          //     this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+          //     return true
+          //   },
+          //
+          // },
           {
             title: '创建时间',
             align:"center",
+            width: 150,
             dataIndex: 'dCreateTime',
             sorter: (i, ii, type) => {
               //descend倒叙
@@ -205,6 +209,7 @@
             title: '操作',
             dataIndex: 'action',
             align:"center",
+            width: 80,
             scopedSlots: { customRender: 'action' },
           }
         ],

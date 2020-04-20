@@ -8,7 +8,7 @@
 
 
           <a-col :md="6" :sm="8">
-            <a-form-item label="稿纸头">
+            <a-form-item label="红头名称">
               <a-input placeholder="" v-model="queryParam.sTitleName"></a-input>
             </a-form-item>
           </a-col>
@@ -17,20 +17,20 @@
               <!--<a-input placeholder="请输入是否稿纸头前缀（直接取机构名称）" v-model="queryParam.iIsUnit"></a-input>-->
             <!--</a-form-item>-->
           <!--</a-col>-->
-          <a-col :md="6" :sm="8">
-            <a-form-item label="是否部门">
-              <!--<a-input placeholder="" v-model="queryParam.iIsDept"></a-input>-->
-              <a-radio-group v-model="queryParam.iIsDept">
-                <a-radio :value="1">是</a-radio>
-                <a-radio :value="0">否</a-radio>
-              </a-radio-group>
-            </a-form-item>
-          </a-col>
           <!--<a-col :md="6" :sm="8">-->
-            <!--<a-form-item label="稿纸头前缀">-->
-              <!--<a-input placeholder="请输入稿纸头前缀" v-model="queryParam.sLeftParameter"></a-input>-->
+            <!--<a-form-item label="是否部门">-->
+              <!--&lt;!&ndash;<a-input placeholder="" v-model="queryParam.iIsDept"></a-input>&ndash;&gt;-->
+              <!--<a-radio-group v-model="queryParam.iIsDept">-->
+                <!--<a-radio :value="1">是</a-radio>-->
+                <!--<a-radio :value="0">否</a-radio>-->
+              <!--</a-radio-group>-->
             <!--</a-form-item>-->
           <!--</a-col>-->
+          <a-col :md="6" :sm="8">
+            <a-form-item label="单位名">
+              <a-input placeholder="" v-model="queryParam.sLeftParameter"></a-input>
+            </a-form-item>
+          </a-col>
           <a-col :md="6" :sm="8" style="position: relative;right: 1%;">
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
@@ -53,20 +53,20 @@
 <!--      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">-->
 <!--        <a-button type="primary" icon="import">导入</a-button>-->
 <!--      </a-upload>-->
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
-      </a-dropdown>
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>-->
+        <!--</a-menu>-->
+        <!--<a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>-->
+      <!--</a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"
@@ -130,7 +130,7 @@
     },
     data () {
       return {
-        description: '稿纸头配置管理页面',
+        description: '红头配置管理页面',
         iisFontSize: '16px',
         // 表头
         columns: [
@@ -145,77 +145,78 @@
             }
            },
 		   {
-            title: '稿纸头',
-            align:"center",
+            title: '红头名称',
+            align:"left",
             dataIndex: 'stitleName'
            },
-		  {
-            title: '单位名称',
-            align:"center",
-            dataIndex: 'iisUnit',
-            customRender:function (id) {
-              if (id == "1"){
-                return "是";
-              } else if(id == "0"){
-                return "否";
-              }else {
-                return id;
-              }
-            }
-         },
+		  // {
+      //       title: '单位名称',
+      //       align:"center",
+      //       dataIndex: 'iisUnit',
+      //       customRender:function (id) {
+      //         if (id == "1"){
+      //           return "是";
+      //         } else if(id == "0"){
+      //           return "否";
+      //         }else {
+      //           return id;
+      //         }
+      //       }
+      //    },
+		  //  {
+      //       title: '部门',
+      //       align:"center",
+      //       dataIndex: 'iisDept',
+      //        customRender:function (id) {
+      //          if (id == "1"){
+      //            return "是";
+      //          } else if(id == "0"){
+      //            return "否";
+      //          }else {
+      //            return id;
+      //          }
+      //        }
+      //      },
 		   {
-            title: '部门',
-            align:"center",
-            dataIndex: 'iisDept',
-             customRender:function (id) {
-               if (id == "1"){
-                 return "是";
-               } else if(id == "0"){
-                 return "否";
-               }else {
-                 return id;
-               }
-             }
-           },
-		   {
-            title: '前缀',
-            align:"center",
+            title: '单位名',
+            align:"left",
             dataIndex: 'sleftParameter'
            },
+		   // {
+       //      title: '中部',
+       //      align:"center",
+       //      dataIndex: 'smddleParameter'
+       //     },
 		   {
-            title: '中部',
-            align:"center",
-            dataIndex: 'smddleParameter'
-           },
-		   {
-            title: '后缀',
+            title: '业务类型',
             align:"center",
             dataIndex: 'srightParameter'
            },
-		   {
-            title: '固定参数',
-            align:"center",
-            dataIndex: 'sotherParameter'
-           },
-		   {
-            title: '默认稿纸头',
-            align:"center",
-            dataIndex: 'iisDefault',
-             customRender:function (id) {
-               if (id == "1"){
-                 return "是";
-               } else if(id == "0"){
-                 return "否";
-               }else {
-                 return id;
-               }
-             }
-           },
+		   // {
+       //      title: '固定参数',
+       //      align:"center",
+       //      dataIndex: 'sotherParameter'
+       //     },
+		   // {
+       //      title: '默认稿纸头',
+       //      align:"center",
+       //      dataIndex: 'iisDefault',
+       //       customRender:function (id) {
+       //         if (id == "1"){
+       //           return "是";
+       //         } else if(id == "0"){
+       //           return "否";
+       //         }else {
+       //           return id;
+       //         }
+       //       }
+       //     },
 
           {
             title: '操作',
             dataIndex: 'action',
             align:"center",
+            width:160,
             scopedSlots: { customRender: 'action' },
           }
         ],

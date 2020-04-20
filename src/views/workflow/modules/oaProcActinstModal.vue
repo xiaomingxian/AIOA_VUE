@@ -10,8 +10,7 @@
     cancelText="关闭">
 
 
-
-    <a-spin :spinning="confirmLoading">
+    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
       <a-form :form="form">
 
         <!--<a-form-item-->
@@ -29,8 +28,8 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="节点名称选择">
-          <a-select placeholder="请选流程动节点名称" v-decorator="['actName', {}]" @change="actChange">
+          label="环节名称">
+          <a-select placeholder="请选择环节名称" v-decorator="['actName', {}]" @change="actChange">
             <a-select-option v-for="(item,index) in dbactName" :key="index" :value="item.id">{{item.name}}
             </a-select-option>
           </a-select>
@@ -39,8 +38,8 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="候选人角色">
-          <a-select placeholder="请选流程动节点名称" v-decorator="['candidates', {}]">
+          label="审批角色">
+          <a-select placeholder="请选择审批角色" v-decorator="['candidates', {}]">
             <a-select-option v-for="(item,index) in role" :key="index" :value="item.roleName">{{item.roleName}}
             </a-select-option>
           </a-select>
@@ -49,8 +48,8 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="候选人选择范围">
-          <a-select placeholder="请选择候选人选择范围" v-decorator="['roleScope', {}]">
+          label="查询范围">
+          <a-select placeholder="请选择查询范围" v-decorator="['roleScope', {}]">
             <a-select-option v-for="(item,index) in roleScope" :key="index" :value="item.itemValue">{{item.itemText}}
             </a-select-option>
           </a-select>
@@ -59,7 +58,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="是否多实例">
+          label="多实例">
           <a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['multAssignee', {} ]"
                          size="small">
             <a-radio-button value="false">否</a-radio-button>
@@ -71,7 +70,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="是否是签发人">
+          label="签发人">
           <a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['signer', {} ]"
                          size="small">
             <a-radio-button value="false">否</a-radio-button>
@@ -83,7 +82,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="是否可追加">
+          label="可追加">
           <a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['isCanAdd', {} ]"
                          size="small">
             <a-radio-button value="false">否</a-radio-button>
@@ -94,7 +93,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="是否可部门完成">
+          label="可部门完成">
           <a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['isDeptFinish', {} ]"
                          size="small">
             <a-radio-button value="false">否</a-radio-button>
@@ -143,7 +142,7 @@
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="是否记录当前用户">
+            label="记录当前用户">
             <a-radio-group buttonStyle="solid" defaultValue="false" v-decorator="['recordCurrentuser', {} ]"
                            @change="recordUser" size="small">
               <a-radio-button value="false">不记录</a-radio-button>
@@ -167,8 +166,8 @@
             <a-form-item
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
-              label="使用该记录的环节">
-              <a-select placeholder="请选流程动节点名称" mode="multiple" v-decorator="['recordKeys', {}]">
+              label="使用当前用户">
+              <a-select placeholder="请选择环节名称" mode="multiple" v-decorator="['recordKeys', {}]">
                 <a-select-option v-for="(item,index) in canUserRecorduser" :key="index"
                                  :value="item.id+'-'+item.assignee">{{item.name}}
                 </a-select-option>
@@ -436,5 +435,4 @@
 </script>
 
 <style lang="less" scoped>
-
 </style>

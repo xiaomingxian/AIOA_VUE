@@ -19,7 +19,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="稿纸头规则">
+          label="红头规则">
           <!--<a-input-number v-decorator="[ 'ititleRuleId', {}]" />-->
           <!--<a-select defaultValue="selected ${value}" v-decorator="[ 'ititleRuleId', {}]">-->
           <!--<a-select-option value="0">稿纸头列表</a-select-option>-->
@@ -46,12 +46,7 @@
             <a-radio :value="3">办文单</a-radio>
           </a-radio-group>
         </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="备注">
-          <a-textarea placeholder="" v-decorator="['sremarks', validatorRules.sremarks]"/>
-        </a-form-item>
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -91,7 +86,12 @@
           </div>
           <a-input v-show="false" v-model="fileId" v-decorator="['ifileId', {}]"/>
         </a-form-item>
-
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="备注">
+          <a-textarea placeholder="" v-decorator="['sremarks', validatorRules.sremarks]"/>
+        </a-form-item>
       </a-form>
     </a-spin>
   </a-modal>

@@ -33,7 +33,7 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="方法名value">
+          label="方法名">
           <a-input  maxLength="20" placeholder="请输入方法名" v-decorator="['sbtnValue', {rules: [{ required: true, message: '请输入方法名' }]}]" />
         </a-form-item>
         <!--<a-form-item-->
@@ -47,16 +47,19 @@
             <!--<a-select-option  v-for="(oaButton,index) in buttonList" :key="index" :value="oaButton.iid" >-->
               <!--{{oaButton.sbtnName}}</a-select-option>-->
           <!--</a-select>-->
-          <!--&lt;!&ndash;<a-input placeholder="请输入互斥按钮id" v-decorator="['sexcbuttonId', {}]" />&ndash;&gt;-->
-        <!--</a-form-item>-->
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="字段（状态）匹配">
+          label="关联字段">
           <a-input maxLength="16" placeholder="请输入匹配字段（状态）" v-decorator="['sexcfield', {}]" />
         </a-form-item>
 
-
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="适用范围">
+          <a-input  placeholder="请输入适用的具体业务" v-decorator="['sexcbuttonId', {rules: [{ required: true, message: '请输入使用范围' }]}] " />
+        </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"

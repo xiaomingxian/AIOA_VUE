@@ -184,10 +184,11 @@
           {
             title: '顺序号',
             align: "center",
+            width:60,
             dataIndex: 'iorder'
           },
           {
-            title: '任务环节名称',
+            title: '任务环节',
             align: "center",
             dataIndex: 'taskDefKey',
             customRender:(text,row,index)=>{
@@ -233,7 +234,7 @@
             }
           },
           {
-            title: '控制',
+            title: '显示控制',
             align: "center",
             dataIndex: 'ipermitType',
             customRender:(text,row,index)=>{

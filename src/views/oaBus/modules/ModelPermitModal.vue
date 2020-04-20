@@ -1,24 +1,24 @@
 <template>
-  <a-modal :visible="showFunPer"  :title="title" :width="1000" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer"  :title="title" :width="800" @ok="handleOk" @cancel="handleCancle">
 
   <a-card class="findChild" :bordered="false">
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="add"  :disabled="addDisabled" type="primary" icon="plus">新增</a-button>
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
-      </a-dropdown>
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>-->
+        <!--</a-menu>-->
+        <!--<a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>-->
+      <!--</a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"
@@ -136,18 +136,18 @@
            }
          }
            },
-		   {
-            title: '权限数据名称',
-            align:"center",
-            dataIndex: 'itypeName',
-           customRender:function (text,record,index) {
-           if(record.parentName){
-             return record.parentName + '-'+text;
-           }else{
-             return text;
-           }
-         }
-           },
+		   // {
+       //      title: '权限数据名称',
+       //      align:"center",
+       //      dataIndex: 'itypeName',
+       //     customRender:function (text,record,index) {
+       //     if(record.parentName){
+       //       return record.parentName + '-'+text;
+       //     }else{
+       //       return text;
+       //     }
+       //   }
+       //     },
 		   {
             title: '是否可见',
             align:"center",

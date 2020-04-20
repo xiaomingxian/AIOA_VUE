@@ -64,18 +64,19 @@
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
-
           <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+          <a @click="handleDelete(record.iid)">删除</a>
+
+          <!--<a-dropdown>-->
+            <!--<a class="ant-dropdown-link">更多 <a-icon type="down" /></a>-->
+            <!--<a-menu slot="overlay">-->
+              <!--<a-menu-item>-->
+                <!--<a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">-->
+                  <!--<a>删除</a>-->
+                <!--</a-popconfirm>-->
+              <!--</a-menu-item>-->
+            <!--</a-menu>-->
+          <!--</a-dropdown>-->
         </span>
 
       </a-table>
@@ -111,13 +112,14 @@
           },
           {
             title: '意见内容',
-            align:"center",
+            align:"left",
             dataIndex: 'scontent'
           },
           {
             title: '操作',
             dataIndex: 'action',
             align:"center",
+            width: 100,
             scopedSlots: { customRender: 'action' },
           }
         ],

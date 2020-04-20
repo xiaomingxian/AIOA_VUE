@@ -85,26 +85,26 @@
                     <!--@change="handleImportExcel">-->
             <!--<a-button style="margin-left: 10px;"  type="primary" icon="import">导入</a-button>-->
           <!--</a-upload>-->
-          <a-dropdown v-if="selectedRowKeys.length > 0">
-            <a-menu slot="overlay">
-              <a-menu-item key="1" @click="batchDel">
-                <a-icon type="delete"/>
-                删除
-              </a-menu-item>
-            </a-menu>
-            <a-button style="margin-left: 8px"> 批量操作
-              <a-icon type="down"/>
-            </a-button>
-          </a-dropdown>
+          <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+            <!--<a-menu slot="overlay">-->
+              <!--<a-menu-item key="1" @click="batchDel">-->
+                <!--<a-icon type="delete"/>-->
+                <!--删除-->
+              <!--</a-menu-item>-->
+            <!--</a-menu>-->
+            <!--<a-button style="margin-left: 8px"> 批量操作-->
+              <!--<a-icon type="down"/>-->
+            <!--</a-button>-->
+          <!--</a-dropdown>-->
         </div>
 
         <!-- table区域-begin -->
         <div>
-          <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-            <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-            selectedRowKeys.length }}</a>项
-            <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-          </div>
+          <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+            <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+            <!--selectedRowKeys.length }}</a>项-->
+            <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+          <!--</div>-->
 
           <a-table
             ref="table"
@@ -221,6 +221,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 260,
             scopedSlots: {customRender: 'action'},
           }
         ],

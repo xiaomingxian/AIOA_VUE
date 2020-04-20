@@ -1,13 +1,13 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭">
-    <div>
-      <img :src="picurl" width="750" alt="">
+    <div style="overflow: auto">
+      <img :src="picurl" width="100%" height="100%" alt="">
     </div>
   </a-modal>
 
@@ -26,7 +26,7 @@
     data() {
       return {
         visible:false,
-        title:'图片预览',
+        title:'模板预览',
         confirmLoading: false,
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         picurl: ''

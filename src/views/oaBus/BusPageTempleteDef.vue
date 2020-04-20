@@ -1,28 +1,29 @@
 <template>
   <a-modal :visible="visible"
            :title="title"
-           :width="1200"
+           :width="900"
            @ok="handleOk"
            @cancel="handleCancel"
            cancelText="关闭">
-
+    <div style="height: 360px;overflow: auto">
     <!--定义含义页面，保存所有列-->
-    <div class="table-page-search-wrapper">
+     <div style="width: 95%">
+    <div class="table-page-search-wrapper" >
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
-            <a-form-item label="列名：">
-              <a-input placeholder="请输入列名" v-model="stableColumn"></a-input>
+            <a-form-item label="字段名：">
+              <a-input v-model="stableColumn"></a-input>
             </a-form-item>
 
           </a-col>
           <a-col :md="6" :sm="8">
-            <a-form-item label="列的含义：">
-              <a-input placeholder="请输入列的含义" v-model="scolumnName" ></a-input>
+            <a-form-item label="初始含义：">
+              <a-input  v-model="scolumnName" ></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <a-form-item label="类型：">
+            <a-form-item label="字段类型：">
               <a-select placeholder="请选择类型" v-model="icolumnType">
                 <a-select-option  v-for="(item,index) in columnType" :key="index" :value="item.value" >{{item.text}}</a-select-option>
               </a-select>
@@ -56,9 +57,9 @@
        </div>
       </h3>
     </div>-->
-    <div style="padding-left:20px;" class="table-operator">
-     <h3>已定义数据</h3>
-    </div>
+    <!--<div style="padding-left:20px;" class="table-operator">-->
+     <!--<h3>已定</h3>-->
+    <!--</div>-->
     <a-table
       ref="table"
       size="middle"
@@ -72,6 +73,8 @@
           <a @click="handleDelect(record.iid)">删除</a>
         </span>
     </a-table>
+      </div>
+    </div>
   </a-modal>
 </template>
 
@@ -96,17 +99,19 @@
         columnType:[],
         columns: [
           {
-            title: '列名',
+            title: '字段名',
             align: "center",
+            width: 220,
             dataIndex: 'stableColumn'
           },
           {
-            title: '列的含义',
+            title: '初始含义',
             align: "center",
             dataIndex: 'scolumnName'
           },
           {
             title: '类型',
+            width: 80,
             align: "center",
             dataIndex: 'icolumnType',
             customRender: (text)=> {
@@ -125,6 +130,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 80,
             scopedSlots: {customRender: 'action'},
           }
         ],
@@ -192,26 +198,26 @@
       show(rec) {
         this.visible = true;
         if(rec.spageName != null || rec.spageName != "" || rec.spageName != undefined){
-          this.title = rec.spageName + '含义定义';
+          this.title = rec.spageName ;
         }
         this.pageId = rec.iid ;
         this.initTable1();
       },
       add() {
         if(this.stableColumn.length > 30){
-          this.$message.error("列名长度不能超过30位！");
+          this.$message.error("字段名长度不能超过30位！");
           return ;
         }
         if(this.scolumnName.length > 30){
-          this.$message.error("列的含义长度不能超过30位！");
+          this.$message.error("初始含义长度不能超过30位！");
           return ;
         }
         if(this.stableColumn == undefined || this.stableColumn == ''){
-          this.$message.error("请输入列名！！！");
+          this.$message.error("请输入字段名！！！");
           return ;
         }
         if(this.scolumnName == undefined || this.scolumnName == ''){
-          this.$message.error("请输入列的含义！！！");
+          this.$message.error("请输入初始含义！！！");
           return ;
         }
         if(this.icolumnType == undefined || this.icolumnType == ''){

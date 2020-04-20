@@ -1,87 +1,4 @@
-<style lang="scss" scoped>
 
-  .input {
-    background-color: #f0f5fc;
-  }
-
-  input::-webkit-input-placeholder{
-    color: rgba(0, 0, 0, 0.65);
-  }
-
-  .ant-select-selection--single {
-    background-color: #f0f5fc !important;
-  }
-
-  .ant-table-thead > tr > th {
-    color: #fff;
-    background-color: #006db9;
-    /*border: none !important;*/
-    /*border-color: #779ecb !important;*/
-  }
-
-  /deep/ .ant-table-middle .ant-table-tbody > tr:hover {
-    cursor: pointer;
-  }
-
-  .light-row {
-    background-color: #fff;
-  }
-
-  .dark-row {
-    /*background:linear-gradient(to bottom,rgb(221,221,255),rgb(167,196,255)) repeat scroll 0% 0%;*/
-    background-color: #c2d9f8;
-  }
-
-  .dark-row:hover {
-    background-color: #ffadd2;
-  }
-
-  /*.ant-tabs-nav-scroll{*/
-  /*height:39px;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar{*/
-  /*border:none;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-nav{*/
-  /*!*background-color: #ffadd2;*!*/
-  /*border:1px solid #909090;*/
-  /*border-radius: 25%;*/
-  /*height: 27px;*/
-  /*top: 5px;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab{*/
-  /*font-size: 14px;*/
-  /*padding-top: 2px;*/
-  /*margin-right: 0px;*/
-  /*bottom: 1px;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab:hover{*/
-  /*color: #0061cb;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab-active{*/
-  /*color: #fff;*/
-  /*background-color: #7d70ff;*/
-  /*border-radius: 27%;*/
-  /*height:27px;*/
-  /*}*/
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-ink-bar-animated{*/
-  /*display: none !important;*/
-  /*}*/
-
-  .table-page-search-submitButtons .ant-btn {
-    background: linear-gradient(180deg, rgba(115, 128, 255, 1), rgba(47, 86, 255, 1)) repeat scroll 0% 0%;
-  }
-
-  .table-page-search-submitButtons .ant-btn svg {
-    fill: cyan;
-  }
-
-</style>
 
 <template>
   <div class="table-page-search-wrapper">
@@ -104,13 +21,13 @@
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a @click="toggleAdvanced" style="position: absolute;bottom: 58%;right: 7%;">
-                {{ advanced ? '收起' : '展开' }}
+                {{ advanced ? '收起' : '查询' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
           </a-col>
           <template v-if="advanced">
-            <a-row :gutter="48" style="width: 88.3%;">
+            <a-row :gutter="48" style="margin-left: -18px; margin-right: -24px;width: 88.3%;">
               <a-col :md="7" :sm="24">
               <a-form-item>
               <a-select @change="changFunId1" v-model="queryParam.function_id">
@@ -151,7 +68,7 @@
                     <a-select-option value="0">由我创建</a-select-option>
                   </a-select>
 
-                  <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 114%;">
+                  <span :style="advanced && { overflow: 'hidden' } || {} " style="position: absolute;top: -34%;left: 115%;width: 210px;">
                       <a-button type="primary" icon="search" @click="collapseListOrNot" style="margin-right: 14px;">查询</a-button>
                       <a-button type="primary" icon="reload" @click="resetPgConditionList1">重置</a-button>
                   </span >
@@ -1327,3 +1244,85 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+
+  .input {
+    background-color: #f0f5fc;
+  }
+
+  input::-webkit-input-placeholder{
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .ant-select-selection--single {
+    background-color: #f0f5fc !important;
+  }
+
+  .ant-table-thead > tr > th {
+    color: #fff;
+    background-color: #006db9;
+    /*border: none !important;*/
+    /*border-color: #779ecb !important;*/
+  }
+
+  /deep/ .ant-table-middle .ant-table-tbody > tr:hover {
+    cursor: pointer;
+  }
+
+  .light-row {
+    background-color: #fff;
+  }
+
+  .dark-row {
+    /*background:linear-gradient(to bottom,rgb(221,221,255),rgb(167,196,255)) repeat scroll 0% 0%;*/
+    background-color: #c2d9f8;
+  }
+
+  .dark-row:hover {
+    background-color: #ffadd2;
+  }
+
+  /*.ant-tabs-nav-scroll{*/
+  /*height:39px;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar{*/
+  /*border:none;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-nav{*/
+  /*!*background-color: #ffadd2;*!*/
+  /*border:1px solid #909090;*/
+  /*border-radius: 25%;*/
+  /*height: 27px;*/
+  /*top: 5px;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab{*/
+  /*font-size: 14px;*/
+  /*padding-top: 2px;*/
+  /*margin-right: 0px;*/
+  /*bottom: 1px;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab:hover{*/
+  /*color: #0061cb;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab-active{*/
+  /*color: #fff;*/
+  /*background-color: #7d70ff;*/
+  /*border-radius: 27%;*/
+  /*height:27px;*/
+  /*}*/
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-ink-bar-animated{*/
+  /*display: none !important;*/
+  /*}*/
+
+
+
+  .table-page-search-submitButtons .ant-btn svg {
+    fill: cyan;
+  }
+
+</style>

@@ -11,33 +11,24 @@
     
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="序号">
-          <!--<a-input-number  :min="0" :max="10000" v-decorator="[ 'iorder', {}]" />-->
-          <a-input  v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '输入4位以内的非零正整数' }]}]" />
-<!--
-          <a-input  v-decorator="[ 'iorder', {rules:[{validator:validateNum}]}]" />
--->
+          label="菜单名称">
+          <a-input placeholder="请输入菜单名称" v-decorator="['sname', {rules:[{required:true,message:'菜单名称不能为空'},{ min: 1, max: 50, message: '菜单名称长度不能超过50位', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="业务菜单名称">
-          <a-input placeholder="请输入业务菜单名称" v-decorator="['sname', {rules:[{required:true,message:'业务菜单名称不能为空'},{ min: 1, max: 50, message: '业务菜单名称长度不能超过50位', trigger: 'blur' }]}]" />
+          label="英文简写">
+          <a-input placeholder="定义业务英文简写，菜单配置用！" v-decorator="['senName', {rules:[{required:true,message:'英文简写不能为空'},{ min: 1, max: 50, message: '业务路径名称不能超过50位', trigger: 'blur' }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="业务路径名称">
-          <a-input placeholder="请输入业务路径名称" v-decorator="['senName', {rules:[{required:true,message:'业务路径名称不能为空'},{ min: 1, max: 50, message: '业务路径名称不能超过50位', trigger: 'blur' }]}]" />
-        </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="业务分类">
-          <a-select placeholder="请选择业务分类" v-decorator="['sbusdataTable', {rules:[{required:true,message:'业务分类不能为空'}]}]">
+          label="业务归类">
+          <a-select placeholder="请选择业务归类" v-decorator="['sbusdataTable', {rules:[{required:true,message:'业务归类不能为空'}]}]">
             <a-select-option  v-for="(item,index) in dbtable" :key="index" :value="item.value" >{{item.text}}</a-select-option>
           </a-select>
           <!--<a-input placeholder="" @change="updateOher" v-model="busDataTable" v-decorator="['sbusdataTable', {}]" />-->
@@ -45,10 +36,20 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="是否为页签方式">
+          label="顺序号">
+          <!--<a-input-number  :min="0" :max="10000" v-decorator="[ 'iorder', {}]" />-->
+          <a-input  v-decorator="[ 'iorder', {rules:[{ pattern: /^[1-9]\d{0,3}$/, message: '请输入不超过4位的数字' }]}]" />
+          <!--
+                    <a-input  v-decorator="[ 'iorder', {rules:[{validator:validateNum}]}]" />
+          -->
+        </a-form-item>
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="数据展示">
           <a-radio-group  :defaultValue="0" v-decorator="['iisRadio', {}]">
-            <a-radio :value="1" >是</a-radio>
-            <a-radio :value="0" >否</a-radio>
+            <a-radio :value="1" >页签切换</a-radio>
+            <a-radio :value="0" >下拉菜单</a-radio>
           </a-radio-group>
         </a-form-item>
 		

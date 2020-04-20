@@ -6,8 +6,8 @@
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
-            <a-form-item label="业务菜单名称">
-              <a-input placeholder="请输入业务菜单名称" v-model="queryParam.sName"></a-input>
+            <a-form-item label="菜单名称">
+              <a-input placeholder="请输入菜单名称" v-model="queryParam.sName"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
@@ -32,11 +32,11 @@
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+        <!--selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"
@@ -120,17 +120,17 @@
             dataIndex: 'iorder'
           },
           {
-            title: '业务菜单名称',
+            title: '菜单名称',
             align: "center",
             dataIndex: 'sname',
             ellipsis: true,
           },{
-            title: '业务参数',
+            title: '英文简写',
             align: "center",
             dataIndex: 'senName',
             ellipsis: true,
           },{
-            title: '业务分类',
+            title: '业务归类',
             align: "center",
             dataIndex: 'sbusdataTable',
             customRender:  (text)=> {
@@ -172,6 +172,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 200,
             scopedSlots: {customRender: 'action'},
 
           }

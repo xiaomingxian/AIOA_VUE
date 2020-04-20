@@ -9,7 +9,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
     <div>
-      <a-spin :spinning="confirmLoading">
+      <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
         <a-form :form="form">
 
           <!--<a-form-item
@@ -21,26 +21,31 @@
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="页面名称">
-            <a-input placeholder="请输入页面名称" v-decorator="['spageName', validatorRules.spageName]"/>
+            label="模板名称">
+            <a-input placeholder="请输入模板名称" v-decorator="['spageName', validatorRules.spageName]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="详情页面路径">
-            <a-input placeholder="请输入详情页面路径" v-decorator="['spagePath', validatorRules.spagePath]"/>
+            label="模板路径">
+            <a-input placeholder="请输入模板路径" v-decorator="['spagePath', validatorRules.spagePath]"/>
           </a-form-item>
-
-
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="模板分类">
-            <a-select placeholder="请选择模板分类" v-decorator="['ipapeType', {}]">
+            label="模板归类">
+            <a-select placeholder="请选择模板归类" v-decorator="['ipapeType', {}]">
               <a-select-option v-for="(item,index) in dbtable" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
             </a-select>
             <!--<a-input-number v-decorator="[ 'ipapeType', {}]"/>-->
+          </a-form-item>
+          <a-form-item
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+            label="概要">
+            <a-textarea v-decorator="['spageRemarks', {}]"></a-textarea>
+            <!-- <a-input placeholder="请输入概要说明" v-decorator="['spageRemarks', {}]"/>-->
           </a-form-item>
 
           <a-form-item
@@ -85,20 +90,12 @@
             </a-radio-group>
             <!--<a-input placeholder="请输入是否是VIP模板(1、0)" v-decorator="['iisVip', {}]" />-->
           </a-form-item>
-
           <!--<a-form-item v-if="upFailId === 1"
                        :labelCol="labelCol"
                        :wrapperCol="wrapperCol"
                        label="附件id">
             <a-input placeholder="请输入附件id" v-model="fileId" v-decorator="['ifileId', {}]"/>
           </a-form-item>-->
-          <a-form-item
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-            label="概要">
-            <a-textarea v-decorator="['spageRemarks', {}]"></a-textarea>
-            <!-- <a-input placeholder="请输入概要说明" v-decorator="['spageRemarks', {}]"/>-->
-          </a-form-item>
 
           <!-- <a-form-item v-if="upFailId === 1"
                         :labelCol="labelCol"
@@ -111,7 +108,7 @@
           <a-form-item
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
-            label="上传阅览图片">
+            label="上传预览图片">
             <a-upload name="file"
                       :fileList="fileList"
                       :beforeUpload="beforeUpload"

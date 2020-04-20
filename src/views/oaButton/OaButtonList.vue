@@ -70,12 +70,12 @@
       <!--<a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">-->
         <!--<a-button type="primary" icon="import">导入</a-button>-->
       <!--</a-upload>-->
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
-      </a-dropdown>
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>-->
+        <!--</a-menu>-->
+        <!--<a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>-->
+      <!--</a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
@@ -174,20 +174,20 @@
 		   {
             title: '按钮名称',
             align:"center",
-            width:500,
+            width:150,
             dataIndex: 'sbtnName'
            },
 		   {
-            title: '方法名value',
+            title: '方法名',
             align:"center",
-            width:300,
+            width:200,
             dataIndex: 'sbtnValue'
            },
-		   // {
-       //      title: '互斥按钮id',
-       //      align:"center",
-       //      dataIndex: 'sexcbuttonId'
-       //     },
+		   {
+            title: '使用范围',
+            align:"left",
+            dataIndex: 'sexcbuttonId'
+           },
 		  /* {
             title: '互斥状态字段（如正文排版、封发日期）',
             align:"center",
@@ -207,6 +207,7 @@
             title: '基础按钮',
             align:"center",
             dataIndex: 'iisBase',
+            width:100,
             customRender:(text,row,index)=>{
               if (text==true){
                 return "是";
@@ -296,7 +297,7 @@
             title: '操作栏',
             dataIndex: 'action',
             align:"center",
-            width:150,
+            width:100,
             scopedSlots: { customRender: 'action' },
           }
         ],

@@ -5,37 +5,37 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
-
-          <a-col :md="8" :sm="6">
-            <a-form-item label="所属机构">
+          <a-col :md="6" :sm="8">
+            <a-form-item label="业务分类">
               <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
-              <a-select v-model="queryParam.iBusUnitId" @change="getUnitVal">
-                <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
+              <a-select v-model="queryParam.iBusModelId" @change="getModelValue">
+                <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
                 </a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
 
-          <a-col :md="6" :sm="8">
-          <a-form-item label="业务分类">
-            <!--<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>-->
-            <a-select v-model="queryParam.iBusModelId" @change="getModelValue">
-              <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-        </a-col>
+          <!--<a-col :md="6" :sm="8">-->
+            <!--<a-form-item label="业务名称">-->
+              <!--&lt;!&ndash;<a-input placeholder="" v-model="queryParam.iBusFunctionId"></a-input>&ndash;&gt;-->
+              <!--<a-select v-model="queryParam.iBusFunctionId" @change="getFunctionId">-->
+                <!--<a-select-option v-for="(item,index) in functionList" :key="index" :value="item.iid">{{item.sname}}-->
+                <!--</a-select-option>-->
+              <!--</a-select>-->
+              <!--&lt;!&ndash;<a-input v-else placeholder="暂无匹配业务"></a-input>&ndash;&gt;-->
+            <!--</a-form-item>-->
+          <!--</a-col>-->
 
-          <a-col :md="6" :sm="8">
-            <a-form-item label="业务名称">
-              <!--<a-input placeholder="" v-model="queryParam.iBusFunctionId"></a-input>-->
-              <a-select v-model="queryParam.iBusFunctionId" @change="getFunctionId">
-                <a-select-option v-for="(item,index) in functionList" :key="index" :value="item.iid">{{item.sname}}
-                </a-select-option>
-              </a-select>
-              <!--<a-input v-else placeholder="暂无匹配业务"></a-input>-->
-            </a-form-item>
-          </a-col>
+          <!--<a-col :md="8" :sm="6">-->
+            <!--<a-form-item label="所属机构">-->
+              <!--&lt;!&ndash;<a-input placeholder="" v-model="queryParam.ibusModelId"></a-input>&ndash;&gt;-->
+              <!--<a-select v-model="queryParam.iBusUnitId" @change="getUnitVal">-->
+                <!--<a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}-->
+                <!--</a-select-option>-->
+              <!--</a-select>-->
+            <!--</a-form-item>-->
+          <!--</a-col>-->
+
           <a-col :md="6" :sm="8">
             <a-form-item label="文号名称">
               <a-input placeholder="" v-model="queryParam.sName"></a-input>
@@ -67,26 +67,26 @@
 <!--                @change="handleImportExcel">-->
 <!--        <a-button type="primary" icon="import">导入</a-button>-->
 <!--      </a-upload>-->
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel">
-            <a-icon type="delete"/>
-            删除
-          </a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作
-          <a-icon type="down"/>
-        </a-button>
-      </a-dropdown>
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="batchDel">-->
+            <!--<a-icon type="delete"/>-->
+            <!--删除-->
+          <!--</a-menu-item>-->
+        <!--</a-menu>-->
+        <!--<a-button style="margin-left: 8px"> 批量操作-->
+          <!--<a-icon type="down"/>-->
+        <!--</a-button>-->
+      <!--</a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+        <!--selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"
@@ -107,11 +107,9 @@
       >
 
         <span slot="action" slot-scope="text, record">
-          <a @click="handleCat(record)">查看</a>
-          <a-divider type="vertical"/>
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
-          <a @click="handleCopy(record)">复制文号</a>
+          <a @click="handleCopy(record)">一键复制</a>
           <a-divider type="vertical"/>
           <a @click="docNumExportXls(record)">导出文件目录</a>
           <a-divider type="vertical"/>
@@ -153,7 +151,7 @@
         // 表头
         columns: [
           {
-            title: '编号',
+            title: '序号',
             dataIndex: '',
             key: 'rowIndex',
             width: 60,
@@ -162,18 +160,13 @@
               return parseInt(index) + 1;
             }
           },
+          // {
+          //   title: '业务分类',
+          //   align: "center",
+          //   dataIndex: 'mname'
+          // },
           {
-            title: '业务分类',
-            align: "center",
-            dataIndex: 'mname'
-          },
-          {
-            title: '所属机构',
-            align: "center",
-            dataIndex: 'uname'
-          },
-          {
-            title: '业务名称',
+            title: '业务功能',
             align: "center",
             dataIndex: 'fname'
           },
@@ -183,19 +176,27 @@
             dataIndex: 'sname'
           },
           {
-            title: '当前文号',
-            align: "center",
-            dataIndex: 'idocNum'
-          },
-          {
             title: '文号规则',
             align: "center",
             dataIndex: 'sdocRule'
           },
           {
+            title: '当前文号',
+            align: "center",
+            width: 80,
+            dataIndex: 'idocNum'
+          },
+          {
+            title: '所属机构',
+            align: "center",
+            dataIndex: 'uname'
+          },
+
+          {
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width: 300,
             scopedSlots: {customRender: 'action'},
           }
         ],

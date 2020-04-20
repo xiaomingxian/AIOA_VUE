@@ -1,91 +1,3 @@
-<style lang="scss" scoped>
-
-  .ant-input {
-    background-color: #f0f5fc;
-  }
-
-  .ant-select-selection--single {
-    background-color: #f0f5fc !important;
-  }
-
-  .ant-table-thead > tr > th {
-    color: #fff;
-    background-color: #006db9;
-    border: none !important;
-  }
-
-  /deep/ .ant-table-middle .ant-table-tbody > tr:hover {
-    cursor: pointer;
-  }
-
-  .light-row {
-    background-color: #fff;
-  }
-
-
-  .dark-row {
-    /*background:linear-gradient(to bottom,rgb(221,221,255),rgb(167,196,255)) repeat scroll 0% 0%;*/
-    background-color: #c2d9f8;
-  }
-
-  .dark-row:hover {
-    background-color: #ffadd2;
-  }
-
-  .ant-table-middle .ant-table-tbody .ant-table-row-selected {
-    background-color: #000 !important;
-  }
-
-  /*.ant-tabs-nav-scroll{*/
-  /*height:39px;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar{*/
-  /*border:none;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-nav{*/
-  /*!*background-color: #ffadd2;*!*/
-  /*border:1px solid #909090;*/
-  /*border-radius: 25%;*/
-  /*height: 27px;*/
-  /*top: 5px;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab{*/
-  /*font-size: 14px;*/
-  /*padding-top: 2px;*/
-  /*margin-right: 0px;*/
-  /*bottom: 1px;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab:hover{*/
-  /*color: #0061cb;*/
-  /*}*/
-
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab-active{*/
-  /*color: #fff;*/
-  /*background-color: #7d70ff;*/
-  /*border-radius: 27%;*/
-  /*height:27px;*/
-  /*}*/
-  /*.ant-card-body .ant-tabs-bar .ant-tabs-ink-bar-animated{*/
-  /*display: none !important;*/
-  /*}*/
-
-  .table-page-search-submitButtons .ant-btn {
-    background: linear-gradient(180deg, rgba(115, 128, 255, 1), rgba(47, 86, 255, 1)) repeat scroll 0% 0%;
-  }
-
-  .table-page-search-submitButtons .ant-btn svg {
-    fill: cyan;
-  }
-
-  [v-cloak] {
-    display: none;
-  }
-
-</style>
 
 <template>
   <a-card :bordered="false">
@@ -95,12 +7,12 @@
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="8" :sm="8">
-            <a-form-item label="文件标题">
+            <a-form-item>
               <a-input placeholder="文件标题" v-model="queryParam.dataTitle"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="8">
-            <a-form-item label="文件字号">
+            <a-form-item>
               <a-input placeholder="文件字号" v-model="queryParam.fileNum"></a-input>
             </a-form-item>
           </a-col>
@@ -108,8 +20,8 @@
 
           <template v-if="toggleSearchStatus">
             <a-col :md="8" :sm="8">
-              <a-form-item label="领导关注">
-                <a-select v-model="queryParam.iImport">
+              <a-form-item >
+                <a-select  placeholder="领导关注" v-model="queryParam.iImport">
                   <a-select-option value="1">是</a-select-option>
                   <a-select-option value="0">否</a-select-option>
                 </a-select>
@@ -122,9 +34,8 @@
             <!--</a-col>-->
 
             <a-col :md="8" :sm="8">
-
-              <a-form-item label="任务类型">
-                <a-select  @change="taskTypeChange" v-model="queryParam.taskType">
+              <a-form-item >
+                <a-select  placeholder="任务类型" @change="taskTypeChange" v-model="queryParam.taskType">
                   <a-select-option value="全部">全部</a-select-option>
                   <a-select-option value="传阅">传阅</a-select-option>
                   <a-select-option value="主办">主办</a-select-option>
@@ -132,22 +43,20 @@
                 </a-select>
               </a-form-item>
             </a-col>
-
-
+            <!--<a-col :md="8" :sm="8">-->
+              <!--<a-form-item label="开始时间">-->
+                <!--<a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 100%;padding: 0;box-sizing: border-box;"-->
+                               <!--v-model='queryParam.startTimeFake' @change="startTime"/>-->
+              <!--</a-form-item>-->
+            <!--</a-col>-->
+            <!--<a-col :md="8" :sm="8">-->
+              <!--<a-form-item label="结束时间">-->
+                <!--<a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 100%;padding: 0;box-sizing: border-box;"-->
+                               <!--v-model='queryParam.endTimeFake' @change="endTime"/>-->
+              <!--</a-form-item>-->
+            <!--</a-col>-->
             <a-col :md="8" :sm="8">
-              <a-form-item label="开始时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 100%;padding: 0;box-sizing: border-box;"
-                               v-model='queryParam.startTimeFake' @change="startTime"/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="8">
-              <a-form-item label="结束时间">
-                <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 100%;padding: 0;box-sizing: border-box;"
-                               v-model='queryParam.endTimeFake' @change="endTime"/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="8">
-              <a-form-item label="主办部门">
+              <a-form-item >
                 <a-input placeholder="主办部门" v-model="queryParam.mainDept"></a-input>
               </a-form-item>
             </a-col>
@@ -156,7 +65,7 @@
 
 
           <a-col :md="6" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" ref="reSearchQuery" @click="collapseListOrNot" icon="search">查询</a-button>
               <a-button type="primary" @click="searchResetMy" icon="reload" style="margin-left: 8px">重置</a-button>
               <a @click="handleToggleSearch" style="margin-left: 8px">
@@ -172,11 +81,11 @@
 
 
     <!-- table区域-begin -->
-    <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-      <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-      selectedRowKeys.length }}</a>项
-      <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-    </div>
+    <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+      <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+      <!--selectedRowKeys.length }}</a>项-->
+      <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+    <!--</div>-->
 
     <div v-if="iisFold == 0">
 
@@ -200,10 +109,9 @@
       >
 
                   <span slot="action" slot-scope="text, record">
-          <a @click.stop="unDo(record)">未办理信息</a>
-
-          <br>
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="unDo(record)">未办信息</a>
+           <a-divider type="vertical"/>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 
@@ -249,10 +157,9 @@
         >
 
                     <span slot="action" slot-scope="text, record">
-          <a @click.stop="unDo(record)">未办理信息</a>
-
-          <br>
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="unDo(record)">未办信息</a>
+          <a-divider type="vertical"/>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 
@@ -1012,7 +919,7 @@
             title: '序号',
             dataIndex: '',
             key: 'rowIndex',
-            width: 60,
+            width: 50,
             align: "center",
             customRender: function (t, r, index) {
               return parseInt(index) + 1;
@@ -1031,9 +938,22 @@
               this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
               return true
             },
-            width: 400,
             align: "left",
             dataIndex: 'title'
+          },
+          {
+            title: '文号',
+            width: 120,
+            sorter: (i, ii, type) => {
+
+              this.queryParam.tableOrder = true
+              this.nullOther('orederByWenHao')
+
+              this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+              return true
+            },
+            align: "center",
+            dataIndex: 'index'
           },
           // {
           //   title: '流程名称',
@@ -1045,7 +965,7 @@
           // },
           {
             title: '当前环节',
-            width: 180,
+
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByHuanJie')
@@ -1054,6 +974,7 @@
               return true
             },
             align: "center",
+            width: 110,
             customRender: function (t, r, index) {
               console.log('--', t, r, index)
               var name = t.name
@@ -1066,19 +987,19 @@
             }
             // dataIndex: 'name'
           },
+
           {
-            title: '文号',
-            width: 100,
+            title: '拟稿人',
             sorter: (i, ii, type) => {
-
               this.queryParam.tableOrder = true
-              this.nullOther('orederByWenHao')
+              this.nullOther('orederByDrafter')
 
-              this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+              this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
               return true
             },
             align: "center",
-            dataIndex: 'index'
+            width: 100,
+            dataIndex: 'drafter'
           },
           {
             title: '转发时间',
@@ -1090,25 +1011,16 @@
               return true
             },
             align: "center",
+            width: 150,
             dataIndex: 'createTime'
           },
-          {
-            title: '拟稿人',
-            sorter: (i, ii, type) => {
-              this.queryParam.tableOrder = true
-              this.nullOther('orederByDrafter')
 
-              this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
-              return true
-            },
-            align: "center",
-            dataIndex: 'drafter'
-          },
 
           {
-            title: '操作',
+            title: '审批信息',
             dataIndex: 'action',
             align: "center",
+            width: 140,
             scopedSlots: {customRender: 'action'},
           });
 
@@ -1324,3 +1236,91 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+
+  .ant-input {
+    background-color: #f0f5fc;
+  }
+
+  .ant-select-selection--single {
+    background-color: #f0f5fc !important;
+  }
+
+  .ant-table-thead > tr > th {
+    color: #fff;
+    background-color: #006db9;
+    border: none !important;
+  }
+
+  /deep/ .ant-table-middle .ant-table-tbody > tr:hover {
+    cursor: pointer;
+  }
+
+  .light-row {
+    background-color: #fff;
+  }
+
+
+  .dark-row {
+    /*background:linear-gradient(to bottom,rgb(221,221,255),rgb(167,196,255)) repeat scroll 0% 0%;*/
+    background-color: #c2d9f8;
+  }
+
+  .dark-row:hover {
+    background-color: #ffadd2;
+  }
+
+  .ant-table-middle .ant-table-tbody .ant-table-row-selected {
+    background-color: #000 !important;
+  }
+
+  /*.ant-tabs-nav-scroll{*/
+  /*height:39px;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar{*/
+  /*border:none;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-nav{*/
+  /*!*background-color: #ffadd2;*!*/
+  /*border:1px solid #909090;*/
+  /*border-radius: 25%;*/
+  /*height: 27px;*/
+  /*top: 5px;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab{*/
+  /*font-size: 14px;*/
+  /*padding-top: 2px;*/
+  /*margin-right: 0px;*/
+  /*bottom: 1px;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab:hover{*/
+  /*color: #0061cb;*/
+  /*}*/
+
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-tab-active{*/
+  /*color: #fff;*/
+  /*background-color: #7d70ff;*/
+  /*border-radius: 27%;*/
+  /*height:27px;*/
+  /*}*/
+  /*.ant-card-body .ant-tabs-bar .ant-tabs-ink-bar-animated{*/
+  /*display: none !important;*/
+  /*}*/
+
+  .table-page-search-submitButtons .ant-btn {
+    background: linear-gradient(180deg, rgba(115, 128, 255, 1), rgba(47, 86, 255, 1)) repeat scroll 0% 0%;
+  }
+
+  .table-page-search-submitButtons .ant-btn svg {
+    fill: cyan;
+  }
+
+  [v-cloak] {
+    display: none;
+  }
+
+</style>

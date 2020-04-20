@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer" :width="1200" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer" :width="800" @ok="handleOk" @cancel="handleCancle">
     <a-card :bordered="false">
       <!-- 查询区域 -->
       <div class="table-page-search-wrapper">
@@ -46,26 +46,26 @@
                   <!--@change="handleImportExcel">-->
           <!--<a-button type="primary" icon="import">导入</a-button>-->
         <!--</a-upload>-->
-        <a-dropdown v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
-            <a-menu-item key="1" @click="batchDel">
-              <a-icon type="delete"/>
-              删除
-            </a-menu-item>
-          </a-menu>
-          <a-button style="margin-left: 8px"> 批量操作
-            <a-icon type="down"/>
-          </a-button>
-        </a-dropdown>
+        <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+          <!--<a-menu slot="overlay">-->
+            <!--<a-menu-item key="1" @click="batchDel">-->
+              <!--<a-icon type="delete"/>-->
+              <!--删除-->
+            <!--</a-menu-item>-->
+          <!--</a-menu>-->
+          <!--<a-button style="margin-left: 8px"> 批量操作-->
+            <!--<a-icon type="down"/>-->
+          <!--</a-button>-->
+        <!--</a-dropdown>-->
       </div>
 
       <!-- table区域-begin -->
       <div>
-        <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-          <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-          selectedRowKeys.length }}</a>项
-          <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-        </div>
+        <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+          <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+          <!--selectedRowKeys.length }}</a>项-->
+          <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+        <!--</div>-->
 
         <a-table
           ref="table"
@@ -82,8 +82,6 @@
         <span slot="action" slot-scope="text, record">
                <a @click="handleCat(record)">意见配置</a>
           <a-divider type="vertical"/>
-          <a @click="handleCopy(record)">复制配置</a>
-          <a-divider type="vertical"/>
           <a @click="handleEditNewName(record)">修改名称</a>
           <a-divider type="vertical"/>
           <!--<a @click="handleEdit1(record)">编辑</a>-->
@@ -92,6 +90,8 @@
             <!--<a>删除</a>-->
            <!--</a-popconfirm>-->
           <a @click="beforeConfirm(record.iid)">删除</a>
+          <a-divider type="vertical"/>
+          <a @click="handleCopy(record)">一键复制</a>
         </span>
 
         </a-table>
@@ -145,14 +145,14 @@
           //   align: "center",
           //   dataIndex: 'iid'
           // },
+          // {
+          //   title: '流程定义KEY',
+          //   align:"center",
+          //   dataIndex: 'procDefKey'
+          // },
           {
-            title: '流程定义KEY',
-            align:"center",
-            dataIndex: 'procDefKey'
-          },
-          {
-            title: '意见组合名称',
-            align: "center",
+            title: '名称',
+            align: "left",
             width: "45%",
             dataIndex: 'sprocOpinionName'
           },

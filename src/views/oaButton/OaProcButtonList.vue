@@ -17,9 +17,9 @@
             <!--</a-form-item>-->
           <!--</a-col>-->
           <!--<template v-if="toggleSearchStatus">-->
-            <a-col :md="6" :sm="8">
-              <a-form-item label="按钮组合名称">
-                <a-input placeholder="请输入按钮组合名称" v-model="queryParam.sButtonSetName"></a-input>
+            <a-col :md="10" :sm="8">
+              <a-form-item label="名称">
+                <a-input placeholder="" v-model="queryParam.sButtonSetName"></a-input>
               </a-form-item>
             </a-col>
           <!--</template>-->
@@ -46,17 +46,17 @@
                 <!--@change="handleImportExcel">-->
         <!--<a-button type="primary" icon="import">导入</a-button>-->
       <!--</a-upload>-->
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel">
-            <a-icon type="delete"/>
-            删除
-          </a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作
-          <a-icon type="down"/>
-        </a-button>
-      </a-dropdown>
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="batchDel">-->
+            <!--<a-icon type="delete"/>-->
+            <!--删除-->
+          <!--</a-menu-item>-->
+        <!--</a-menu>-->
+        <!--<a-button style="margin-left: 8px"> 批量操作-->
+          <!--<a-icon type="down"/>-->
+        <!--</a-button>-->
+      <!--</a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
@@ -88,14 +88,14 @@
         <span slot="action" slot-scope="text, record">
                <a @click="handleCat(record)">查看</a>
           <a-divider type="vertical"/>
-          <a @click="handleCopy(record)">复制配置</a>
-          <a-divider type="vertical"/>
-          <a @click="handleEdit1(record)">按钮维护</a>
+          <a @click="handleEdit1(record)">按钮配置</a>
           <a-divider type="vertical"/>
           <!--<a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">-->
             <!--<a>删除</a>-->
            <!--</a-popconfirm>-->
            <a @click="beforeConfirm(record.iid)">删除</a>
+            <a-divider type="vertical"/>
+           <a @click="handleCopy(record)">一键复制</a>
         </span>
       </a-table>
     </div>
@@ -154,14 +154,15 @@
                 },*/
           {
             title: '按钮组合名称',
-            align: "center",
-            width:800,
+            align: "left",
+
             dataIndex: 'sbuttonSetName'
           },
           {
             title: '操作',
             dataIndex: 'action',
             align: "center",
+            width:300,
             scopedSlots: {customRender: 'action'},
           }
         ],

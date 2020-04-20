@@ -51,7 +51,6 @@
                 ref="isSearchWords"
                 mode="combobox"
                 labelInValue
-                placeholder="全文检索"
                 style="width: 100%"
                 @search="fetchUser"
                 @change="handleChange"
@@ -65,11 +64,11 @@
             </a-select>
           </a-col>
 
-          <a-col :md="1" :sm="24" >
-            <span class="table-page-search-submitButtons">
-              <a-button type="primary" icon="search" @click="getPgSearchList">查询全部</a-button>
-              <a-button type="primary" icon="file-search" @click="getPgSearchList">文件检索</a-button>
-              <a-button type="primary" icon="solution" @click="getPgSearchList">公文检索</a-button>
+          <a-col :md="2" :sm="24" >
+            <span >
+              <a-button type="primary" icon="search" @click="getPgSearchList">查询全部</a-button>&nbsp;
+              <!--<a-button type="primary" icon="file-search" @click="getPgSearchList">文件检索</a-button>&nbsp;-->
+              <!--<a-button type="primary" icon="solution" @click="getPgSearchList">公文检索</a-button>-->
             </span>
           </a-col>
         </a-row>

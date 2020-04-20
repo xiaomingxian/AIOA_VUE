@@ -94,28 +94,28 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="24">
-          <a-col :md="4" :sm="8">
-            <a-form-item label="标题">
+          <a-col :md="8" :sm="8">
+            <a-form-item>
               <a-input placeholder="标题" v-model="queryParam.dataTitle"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="7" :sm="8">
-            <a-form-item label="开始时间">
+          <a-col :md="5" :sm="8">
+            <a-form-item>
               <!-- -->
-              <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择开始时间" style="width: 100%;padding: 0;box-sizing: border-box;"
+              <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="开始时间" style="width: 100%;padding: 0;box-sizing: border-box;"
                              v-model='queryParam.startTimeFake' @change="startTime"/>
             </a-form-item>
           </a-col>
-          <a-col :md="7" :sm="8">
-            <a-form-item label="结束时间">
+          <a-col :md="5" :sm="8">
+            <a-form-item >
               <!--style="width: 100%;padding: 0;box-sizing: border-box;"-->
-              <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="请选择结束时间" style="width: 100%;padding: 0;box-sizing: border-box;"
+              <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" placeholder="结束时间" style="width: 100%;padding: 0;box-sizing: border-box;"
                              v-model='queryParam.endTimeFake' @change="endTime"/>
             </a-form-item>
           </a-col>
 
           <a-col :md="6" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" ref="reSearchQuery" @click="collapseListOrNot" icon="search">查询</a-button>
               <a-button type="primary" @click="searchResetMy" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>
@@ -130,31 +130,31 @@
     <!-- table区域-begin -->
 
     <!-- 操作按钮区域 -->
-    <div class="table-operator">
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchEnd">
-            <a-icon type="delete"/>
-            批量办结
-          </a-menu-item>
-          <a-menu-item v-if="(url.list=='/wf/task/queryTask?operstatus=my_chuanyue') "
-                       key="1" @click="batchPiYue">
-            <a-icon type="delete"/>
-            批量批阅
-          </a-menu-item>
-        </a-menu>
+    <!--<div class="table-operator">-->
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="batchEnd">-->
+            <!--<a-icon type="delete"/>-->
+            <!--批量办结-->
+          <!--</a-menu-item>-->
+          <!--<a-menu-item v-if="(url.list=='/wf/task/queryTask?operstatus=my_chuanyue') "-->
+                       <!--key="1" @click="batchPiYue">-->
+            <!--<a-icon type="delete"/>-->
+            <!--批量批阅-->
+          <!--</a-menu-item>-->
+        <!--</a-menu>-->
 
-        <a-button style="margin-left: 8px"> 批量操作
-          <a-icon type="down"/>
-        </a-button>
-      </a-dropdown>
-    </div>
+        <!--<a-button style="margin-left: 8px"> 批量操作-->
+          <!--<a-icon type="down"/>-->
+        <!--</a-button>-->
+      <!--</a-dropdown>-->
+    <!--</div>-->
 
-    <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-      <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-      selectedRowKeys.length }}</a>项
-      <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-    </div>
+    <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+      <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+      <!--selectedRowKeys.length }}</a>项-->
+      <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+    <!--</div>-->
 
 
           <div v-if="iisFold == 0">
@@ -182,7 +182,7 @@
           <!--<a @click="doTask(record)">办理</a>-->
 
                     <!--<a-divider type="vertical"/>-->
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 
@@ -871,6 +871,22 @@
                 return parseInt(index) + 1;
               }
             },
+
+            {
+              title: '标题',
+              sorter: (i, ii, type) => {
+                //descend倒叙
+                //ascend正序
+
+                this.queryParam.tableOrder = true
+                //置空其他环节
+                this.nullOther('orederByTile')
+                this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+                return true
+              },
+              align: "left",
+              dataIndex: 'title'
+            },
             {
               title: '文号',
               width: 100,
@@ -886,24 +902,8 @@
               dataIndex: 'wenHao'
             },
             {
-              title: '标题',
-              width: 350,
-              sorter: (i, ii, type) => {
-                //descend倒叙
-                //ascend正序
-
-                this.queryParam.tableOrder = true
-                //置空其他环节
-                this.nullOther('orederByTile')
-                this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "left",
-              dataIndex: 'title'
-            },
-            {
               title: '当前环节',
-              width: 180,
+              width: 120,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
                 this.nullOther('orederByHuanJie')
@@ -914,22 +914,23 @@
               align: "center",
               dataIndex: 'name'
             },
-            {
-              title: '拟稿人',
-              width: 100,
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByDrafter')
-
-                this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'drafter'
-            },
+            // {
+            //   title: '拟稿人',
+            //   width: 100,
+            //   sorter: (i, ii, type) => {
+            //     this.queryParam.tableOrder = true
+            //     this.nullOther('orederByDrafter')
+            //
+            //     this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
+            //     return true
+            //   },
+            //   align: "center",
+            //   dataIndex: 'drafter'
+            // },
             {
               title: '代理人',
               align: "center",
+              width: 100,
               dataIndex: 'agentUserName'
             },
             {
@@ -946,8 +947,9 @@
               dataIndex: 'createTime'
             },
             {
-              title: '操作',
+              title: '审批信息',
               dataIndex: 'action',
+              width: 80,
               align: "center",
               scopedSlots: {customRender: 'action'},
             });
@@ -1017,33 +1019,19 @@
           //   }
           // }
 
-          this.columns.push({
+          this.columns.push(
+            {
               title: '序号',
               dataIndex: '',
               key: 'rowIndex',
-              width: 60,
+              width: 50,
               align: "center",
               customRender: function (t, r, index) {
                 return parseInt(index) + 1;
               }
             },
             {
-              title: '文号',
-              width: 100,
-              align: "center",
-              sorter: (i, ii, type) => {
-
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByWenHao')
-
-                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-                return true
-              },
-              dataIndex: 'wenHao'
-            },
-            {
               title: '标题',
-              width: 350,
               sorter: (i, ii, type) => {
                 //descend倒叙
                 //ascend正序
@@ -1058,8 +1046,23 @@
               dataIndex: 'title'
             },
             {
+              title: '文号',
+              width: 120,
+              align: "center",
+              sorter: (i, ii, type) => {
+
+                this.queryParam.tableOrder = true
+                this.nullOther('orederByWenHao')
+
+                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+                return true
+              },
+              dataIndex: 'wenHao'
+            },
+
+            {
               title: '当前环节',
-              width: 180,
+              width: 110,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
                 this.nullOther('orederByHuanJie')
@@ -1070,22 +1073,23 @@
               align: "center",
               dataIndex: 'name'
             },
-            {
-              title: '拟稿人',
-              width: 100,
-              sorter: (i, ii, type) => {
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByDrafter')
-
-                this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'drafter'
-            },
+            // {
+            //   title: '拟稿人',
+            //   width: 100,
+            //   sorter: (i, ii, type) => {
+            //     this.queryParam.tableOrder = true
+            //     this.nullOther('orederByDrafter')
+            //
+            //     this.queryParam.orederByDrafter = type == 'descend' ? -1 : 1;
+            //     return true
+            //   },
+            //   align: "center",
+            //   dataIndex: 'drafter'
+            // },
             {
               title: '代理人',
               align: "center",
+              width: 100,
               dataIndex: 'agentUserName'
             },
             {
@@ -1102,8 +1106,9 @@
               dataIndex: 'createTime'
             },
             {
-              title: '操作',
+              title: '审批信息',
               dataIndex: 'action',
+              width: 80,
               align: "center",
               scopedSlots: {customRender: 'action'},
             });
