@@ -241,7 +241,7 @@
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 
   //import JSelectDepartModal from './modal/JSelectDepartModal'
-  import moment from "moment"
+  // import moment from "moment"
   import JSelectDepartModal from "../../../components/jeecgbiz/modal/JSelectDepartModal";
   import BusFunctionViewModal from "./BusFunctionViewModal";
   import BusFunctionProcButtonModal from "./BusFunctionProcButtonModal";
