@@ -8,7 +8,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin :spinning="confirmLoading" style="height: 400px;overflow: auto">
+    <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
         <a-button  type="primary"  icon="plus" style="margin-bottom: 5px"  @click="handleEdit1()">新建</a-button>
         <a-divider type="vertical"/>

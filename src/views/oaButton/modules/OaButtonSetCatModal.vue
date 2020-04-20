@@ -8,7 +8,7 @@
       <a-button type="primary" @click.stop="close()">关闭</a-button>
     </template>
     
-    <a-spin :spinning="confirmLoading" style="height: 400px;overflow: auto">
+    <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
       
        <!-- <a-form-item

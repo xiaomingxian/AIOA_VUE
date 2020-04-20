@@ -8,7 +8,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin  tip="Loading..."  :spinning="confirmLoading" style="height: 400px;margin-left: 50px">
+    <a-spin  tip="Loading..."  :spinning="confirmLoading" style="height: 400px; width:100%;margin-left: 50px">
       <a-form :form="form">
 
         <!--<a-form-item-->

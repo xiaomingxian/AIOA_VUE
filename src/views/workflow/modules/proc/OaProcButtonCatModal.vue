@@ -51,7 +51,7 @@
       </a-form>
     </div>
 
-    <a-spin tip="Loading..." :spinning="confirmLoading" style="height: 400px;overflow: auto">
+    <a-spin tip="Loading..." :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
         <a-button  type="primary"  icon="plus" style="margin-bottom: 10px" @click="handleEdit1()">新建</a-button>
         <!--<a-divider type="vertical"/>-->

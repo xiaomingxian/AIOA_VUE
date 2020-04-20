@@ -3,7 +3,7 @@
     <div class="setting-drawer">
       <a-drawer
         :title="title"
-        :width="scrWidth"
+        :width="900"
         placement="right"
         :closable="visible"
         @close="handleCancel"

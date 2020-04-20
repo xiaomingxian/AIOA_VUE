@@ -4,7 +4,7 @@
     <!--<div style="padding:20px;"  v-show="showFlag" class="table-operator">
       <a-button type="primary" @click="handleSaveAll" >生成含义</a-button>
     </div>  -->
-    <div style="height: 400px;overflow: auto">
+    <div style="height: 400px; width:100%;overflow: auto">
       <div style="width: 95%">
         <div class="table-page-search-wrapper">
           <a-form layout="inline">
