@@ -355,6 +355,18 @@
             // formData.dCreateTime = formData.dCreateTime?formData.dCreateTime.format('YYYY-MM-DD HH:mm:ss'):null;
             // formData.dUpdateTime = formData.dUpdateTime?formData.dUpdateTime.format('YYYY-MM-DD HH:mm:ss'):null;
 
+            if(formData.iisVideo == undefined){
+              formData.iisVideo = 0 ;
+            }
+            if(formData.iisSend == undefined){
+              formData.iisSend = 0 ;
+            }
+            if(formData.iisCopy == undefined){
+              formData.iisCopy = 0 ;
+            }
+            if(formData.iisVip == undefined){
+              formData.iisVip = 0 ;
+            }
             console.log("提交后" + formData);
             httpAction(httpurl, formData, method).then((res) => {
               if (res.success) {
