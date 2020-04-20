@@ -56,6 +56,7 @@
                 </a-input>
                 <a-button icon="search" @click="onSearch">选择</a-button>
               </a-input-group>
+            </a-form-item>
             <a-input type="hidden" placeholder="" v-decorator="['selecteddeparts']" />
         </div>
         <a-form-item
