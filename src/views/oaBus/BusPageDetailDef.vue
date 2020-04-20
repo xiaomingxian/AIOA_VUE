@@ -1,5 +1,11 @@
 <template>
-  <a-modal :visible="visible" :title="title" :width="900" @ok="handleOk" @cancel="handleCancel">
+  <a-modal
+    :visible="visible"
+    :title="title"
+    :width="800"
+    @ok="handleOk"
+    @cancel="handleCancel"
+    cancelText="关闭">
 
     <!--<div style="padding:20px;"  v-show="showFlag" class="table-operator">
       <a-button type="primary" @click="handleSaveAll" >生成含义</a-button>

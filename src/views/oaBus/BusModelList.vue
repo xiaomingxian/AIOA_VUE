@@ -60,10 +60,10 @@
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
           <a @click="permitConfig(record)">拟稿权限</a>
-          <a-divider type="vertical"/>
+         <!-- <a-divider type="vertical"/>
           <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
                   <a>删除</a>
-          </a-popconfirm>
+          </a-popconfirm>-->
 
           <!--<a-dropdown>
           <a-divider type="vertical"/>
