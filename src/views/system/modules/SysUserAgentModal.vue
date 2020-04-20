@@ -131,7 +131,7 @@
 
         // alert(start+"    "+end)
 
-        if (new Date(start) > new Date(end)) {
+        if (new Date(start) >= new Date(end)) {
           this.$message.error('结束时间不得小于开始时间')
           return true
         }
