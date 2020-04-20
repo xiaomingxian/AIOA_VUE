@@ -5,7 +5,7 @@
     @close="handleCancel"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
+    :wrapStyle="{height: 'calc(100%)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <div :style="{width: '100%',border: '1px solid #e9e9e9',padding: '10px 16px',background: '#fff',}">
     <a-spin :spinning="confirmLoading">
@@ -60,7 +60,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="前端组件">
-          <a-input placeholder="请输入前端组件" v-decorator="[ 'component', {rules:[{required:true,message:'请输入前端组件！'},{ min: 0, max: 255, message: '菜单路径长度不能超过255位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入前端组件" v-decorator="[ 'component', {rules:[{required:false,message:'请输入前端组件！'},{ min: 0, max: 255, message: '菜单路径长度不能超过255位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -278,7 +278,7 @@
 
         this.visible = true;
         this.loadTree();
-        let fieldsVal = pick(this.model,'name','perms','permsType','component','url','sortNo','menuType','status');
+        let fieldsVal = pick(this.model,'name','perms','permsType','component','redirect','url','sortNo','menuType','status');
         this.$nextTick(() => {
           this.form.setFieldsValue(fieldsVal)
         });
@@ -289,6 +289,7 @@
         this.visible = false;
       },
       handleOk () {
+
         const that = this;
         // 触发表单验证
         console.log("22222")
