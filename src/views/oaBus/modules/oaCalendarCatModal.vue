@@ -10,7 +10,7 @@
     :okButtonProps="{props:{disabled:true}}"
     cancelText="关闭">
     
-    <a-spin :spinning="confirmLoading">
+    <a-spin :spinning="confirmLoading" style="height: 505px; width:100%;overflow: auto">
       <a-form :form="form">
         <a-form-item
           :labelCol="labelCol"
