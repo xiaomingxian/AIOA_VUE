@@ -37,7 +37,7 @@
         </template>
 
         <a-form-item label="用户名字" :labelCol="labelCol" :wrapperCol="wrapperCol" >
-          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', {rules:[{required:true },{ min: 0, max: 100, message: '用户名称长度不能超过100位！', trigger: 'blur'  }] }]"  />
+          <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', {rules:[{required:true,message:'请输入用户名称!' },{ min: 0, max: 100, message: '用户名称长度不能超过100位！', trigger: 'blur'  }] }]"  />
         </a-form-item>
 
         <a-form-item label="角色分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!roleDisabled" >
@@ -85,7 +85,7 @@
         </a-form-item>-->
 
         <a-form-item label="顺序" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-input placeholder="请输入顺序" v-decorator="[ 'show_order', {rules:[{required:false ,message:'请输入排序!'},{pattern: /^[1-9]\d{0,9}$/, message: '排序只能为数字且不能超过10位！'}] }]" />
+          <a-input placeholder="请输入顺序" v-decorator="[ 'show_order', {rules:[{required:false ,message:'请输入排序!'},{pattern: /^[0-9]\d{0,9}$/, message: '排序只能为数字且不能超过10位！'}] }]" />
         </a-form-item>
        <!-- <a-form-item label="生日" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-date-picker
