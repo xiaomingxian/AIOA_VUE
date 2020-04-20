@@ -46,29 +46,17 @@
   import {httpAction, getAction,putAction, postAction, getRoleList, getUserList, getServiceList} from '@/api/manage'
   export default {
         name: "PingJiaList",
-        url:{List:'/oaBus/taskInAct/workTrack'},
+        url:{List:'/oadatafetailedinst/oaDatadetailedInst/findJinZhanList'},
        mixins: [JeecgListMixin],
         data() {
           return {
-            dataSource:[
-              {
-                taskDefinitionKey: "usertask1",
-                deptName: "科技科",
-                taskDefName: "拟稿",
-                endTime: null,
-                dept: "",
-                type: "user",
-                userName: "admin",
-                user: "e9ca23d68d884d4ebb19d07889727dae",
-                taskId: "640006",
-              }
-            ],
+            dataSource:[],
             columns: [
-              {
+             /* {
                 title: '环节名称',
                 align: "center",
                 dataIndex: 'taskDefName'
-              },
+              },*/
               {
                 title: '负责人',
                 align: "center",
@@ -78,6 +66,11 @@
                 title: '部门',
                 align: "center",
                 dataIndex: 'deptName'
+              },
+              {
+                title: '评分',
+                align: "center",
+                dataIndex: 'sum'
               },
               {
                 title: '完成时间',
@@ -90,16 +83,17 @@
         },
 
         methods:{
-          traceP(e) {
-            let url = 'oaBus/taskInAct/workTrack'
+          traceP(e,c) {
+            let url = '/oadatafetailedinst/oaDatadetailedInst/findJinZhanList'
             getAction(url, {
               proInstId: e,
+              tableid:c,
               endTime: this.endTime
 
             }).then(res => {
               console.log(res);
               if (res.success) {
-                // this.dataSource = res.result
+                this.dataSource = res.result
                 this.showPic = false
                 this.trace = true
                 this.backRecord = false
