@@ -58,7 +58,6 @@
           <a-input-search
             placeholder="点击右侧按钮选择部门"
             v-model="checkedDepartNameString"
-            disabled
             @search="onSearch">
             <a-button slot="enterButton" icon="search">选择</a-button>
           </a-input-search>
