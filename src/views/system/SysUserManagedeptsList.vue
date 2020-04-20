@@ -218,18 +218,26 @@
         // this.$refs.departWindow.add(this.checkedDepartKeys, this.userId);
         this.$refs.modalForm.add(this.dataSource[0].userId);
       },*/
+      searchReset(){
+        this.queryParam.deptName = ''
+        this.modalFormOk();
+      },
       searchQuery(){
         if (this.queryParam.deptName == '' || this.queryParam.deptName == undefined){
           this.modalFormOk();
           return;
         }
-        console.log(this.dataSource);
-        console.log(this.dataSource[0].userId);
-        console.log("9999999")
         getAction(this.url.queryById,{userId:this.userId,deptName:this.queryParam.deptName}).then((res)=>{
           if(res.success){
-            console.log(res.result)
+            this.dataSource = [];
             this.dataSource = res.result.records;
+            for(let i in this.dataSource){
+              if(this.dataSource[i].parentName != ""){
+                this.dataSource[i].parentName += "-";
+                this.dataSource[i].parentName += this.dataSource[i].deptName;
+                this.dataSource[i].deptName = this.dataSource[i].parentName;
+              }
+            }
           }else{
             this.$message.warning(res.message);
           }
@@ -269,26 +277,12 @@
           }
         })
       },
-
-/*      loadData() {//请求表格数据
-        console.log("************")
-        // getAction(this.url.list, {iProcOpinionId: iid}).then(res => {
-        //   this.dataSource = res.result.records;
-        // })
-        getAction(this.url.list,{}).then((res)=>{
-          // console.log("====================================");
-          // console.log(res);
-          this.data=res.result;
-          this.dataSource=res.result.records;
-        })
-      },*/
       handleTableChange(page) {
         this.ipagination.current = page.current;
         this.ipagination.pageSize = page.pageSize;
         this.loadData1();
       },
       clearDate(){
-        console.log("1111111111111")
         this.dataSource = [];
       },
       loadData1() {
@@ -296,7 +290,6 @@
         this.clearDate(this.ipagination.pageSize);
 
         getAction(this.url.list, {username: this.username,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then((res) => {
-          console.log(res.result);
           this.dataSource = [];
           this.ipagination.total = res.result.total;
           this.userId = res.result.records[0].userId;
@@ -311,15 +304,7 @@
               this.dataSource[i].deptName = this.dataSource[i].parentName;
             }
           }
-
         })
-
-        /*getAction(this.url.list, {username: username,pageNo:this.ipagination.current,pageSize:this.ipagination.pageSize}).then((res) => {
-          console.log("-------------");
-          console.log(res.result);
-          this.dataSource = res.result.records;
-          this.ipagination.total = res.result.total;
-        })*/
       },
       loadData(){
 
