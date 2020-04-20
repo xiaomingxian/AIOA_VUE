@@ -61,7 +61,7 @@
 
     <a-modal
       title="操作"
-      :width="800"
+      :width="900"
       v-model="visible"
       @ok="handleOk"
     >

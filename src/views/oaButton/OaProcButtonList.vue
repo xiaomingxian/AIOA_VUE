@@ -24,7 +24,7 @@
             </a-col>
           <!--</template>-->
           <a-col :md="6" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
               <!--<a @click="handleToggleSearch" style="margin-left: 8px">-->
@@ -61,11 +61,11 @@
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+        <!--selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"

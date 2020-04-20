@@ -1,14 +1,14 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
+    <a-spin :spinning="confirmLoading" style="height: 400px;overflow: auto">
       <a-form :form="form">
         <a-button  type="primary"  icon="plus" style="margin-bottom: 5px"  @click="handleEdit1()">新建</a-button>
         <a-divider type="vertical"/>

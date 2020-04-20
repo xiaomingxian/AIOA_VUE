@@ -1,14 +1,14 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <a-spin  tip="Loading..."  :spinning="confirmLoading" style="height: 360px;margin-left: 50px">
+    <a-spin  tip="Loading..."  :spinning="confirmLoading" style="height: 400px;margin-left: 50px">
       <a-form :form="form">
 
         <!--<a-form-item-->
@@ -17,11 +17,11 @@
           <!--label="主键id">-->
           <!--<a-input-number v-decorator="[ 'iId', validatorRules.iid ]" />-->
         <!--</a-form-item>-->
-        <a-form-item style="color: #1890ff;font-weight: 800;margin: 10px 0px;font-size: 16px;">
-          <span>流程定义KEY：</span>
-          <!--<a-input placeholder="请输入流程定义KEY" v-decorator="['procDefKey', {}]" />-->
-          <span >{{procDefKey}}</span>
-        </a-form-item>
+        <!--<a-form-item style="color: #1890ff;font-weight: 800;margin: 10px 0px;font-size: 16px;">-->
+          <!--<span>流程定义KEY：</span>-->
+          <!--&lt;!&ndash;<a-input placeholder="请输入流程定义KEY" v-decorator="['procDefKey', {}]" />&ndash;&gt;-->
+          <!--<span >{{procDefKey}}</span>-->
+        <!--</a-form-item>-->
         <!--<a-form-item-->
         <!--:labelCol="labelCol"-->
         <!--:wrapperCol="wrapperCol"-->

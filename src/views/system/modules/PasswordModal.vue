@@ -1,7 +1,7 @@
 <template>
   <a-modal
     title="重新设定密码"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleSubmit"

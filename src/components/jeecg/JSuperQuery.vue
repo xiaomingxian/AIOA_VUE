@@ -1,7 +1,7 @@
 <template>
   <a-modal
     title="高级查询构造器"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @cancel="handleCancel"

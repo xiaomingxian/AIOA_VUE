@@ -3,7 +3,7 @@
     <a-modal
       centered
       :title="title"
-      :width="1200"
+      :width="900"
       :visible="visible"
       @ok="handleOk"
       @cancel="handleCancel"

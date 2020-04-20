@@ -1,13 +1,13 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     @cancel="handleCancel"
     :visible="visible">
     <template slot="footer">
       <a-button type="primary" @click.stop="close()">关闭</a-button>
     </template>
-    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
+    <a-spin :spinning="confirmLoading" style="height: 400px;overflow: auto">
       <a-form :form="form">
 
         <a-form-item

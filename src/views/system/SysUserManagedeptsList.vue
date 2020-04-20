@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer" :width="1200" @ok="handleOk" @cancel="handleCancle" title="分管部门管理"  cancelText="关闭">
+  <a-modal :visible="showFunPer" :width="900" @ok="handleOk" @cancel="handleCancle" title="分管部门管理"  cancelText="关闭">
   <a-card :bordered="false">
 
     <!-- 查询区域 -->

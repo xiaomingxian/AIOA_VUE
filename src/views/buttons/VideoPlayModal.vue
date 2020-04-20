@@ -2,7 +2,7 @@
   <a-modal
     :modal-append-to-body="false"
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     @cancel="handleCancel"
     cancelText="关闭">
