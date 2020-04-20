@@ -60,6 +60,8 @@
     <pai-ban-deng-ji ref="paiBanDengJi" @confimName="confimName"></pai-ban-deng-ji>
     <video-upload-modal ref="videoModalForm" @watchSub="watchSub"></video-upload-modal>
     <oa-datadetailed-inst-modal ref="detailedInst"></oa-datadetailed-inst-modal>
+    <dunning-button-modal ref="dunningModalForm"></dunning-button-modal>
+    <jin-zhan-modal ref="jinzhanModalForm"></jin-zhan-modal>
     <!--模态框-->
     <a-modal
       title="温馨提示"
@@ -104,7 +106,8 @@
   import AddUsersModalChuanYue from '../mytask/modules/AddUsersModalChuanYue'
   import VideoUploadModal from "./VideoUploadModal";
   import oaDatadetailedInstModal  from "../datainst/oaDatadetailedInstModal";
-
+  import DunningButtonModal from "./dunningButtonModal";
+  import JinZhanModal from "./JinZhanModal";
 
   export default {
     name: "taskBtn",
@@ -132,7 +135,9 @@
       picModal,
       AddUsersModal,
       paiBanDengJi,
-      AddUsersModalChuanYue
+      AddUsersModalChuanYue,
+      DunningButtonModal,
+      JinZhanModal
     },
     data() {
       return {
