@@ -3,7 +3,7 @@
     <a-modal
       centered
       :title="title"
-      :width="1200"
+      :width="900"
       :visible="visible"
       @ok="handleOk"
       @cancel="handleCancel"
@@ -195,6 +195,7 @@
       },
       searchReset() {
         this.queryParam = {};
+        this.loadData(1);
       },
       handleCancel() {
         this.onClearSelected();

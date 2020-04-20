@@ -1,14 +1,14 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOkIsCreate"
     @cancel="handleCancel"
     cancelText="关闭">
     
-    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
+    <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
       
        <!-- <a-form-item
@@ -87,7 +87,7 @@
 <script>
   import { httpAction,getAction } from '@/api/manage'
   import pick from 'lodash.pick'
-  import moment from "moment"
+  // import moment from "moment"
   import AFormItem from "ant-design-vue/es/form/FormItem";
 
   export default {
@@ -171,6 +171,7 @@
         this.ipermitType=this.model.ipermitType;
         this.iisCreater=this.model.iisCreater;
         this.iisReader=this.model.iisReader;
+        this.iorder=this.model.iorder;
         // iisCreater:0,
           // iisReader:0,
         // this.selectButton=this.model.sbtnName;

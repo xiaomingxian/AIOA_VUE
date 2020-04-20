@@ -9,7 +9,7 @@
     cancelText="关闭"
     wrapClassName="ant-modal-cust-warp"
     >
-    <div style="height: 400px;overflow: auto">
+    <div style="height: 400px; width:100%;overflow: auto">
     <!--部门树-->
     <template>
       <a-form :form="form">

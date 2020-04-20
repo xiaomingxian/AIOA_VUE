@@ -6,7 +6,7 @@
         <!-- 按钮操作区域 -->
         <a-row style="margin-left: 14px">
           <a-button @click="handleAdd(2)" type="primary">添加子部门</a-button>
-          <a-button @click="handleAdd(1)" type="primary">添加一级部门</a-button>
+          <!--<a-button @click="handleAdd(1)" type="primary">添加一级部门</a-button>-->
           <!--<a-button type="primary" icon="download" @click="handleExportXls('部门信息')">导出</a-button>
           <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader"
                     :action="importExcelUrl" @change="handleImportExcel">
@@ -98,7 +98,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="排序">
-            <a-input placeholder="请输入排序" maxLength="10" v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序!'}] }]"/>
+            <a-input placeholder="请输入排序" v-decorator="[ 'departOrder',{rules:[{required:false ,message:'请输入排序!'},{pattern: /^[0-9]\d{0,9}$/, message: '排序只能为数字且不能超过10位！'}] }]"/>
           </a-form-item>
           <a-form-item
             :labelCol="labelCol"

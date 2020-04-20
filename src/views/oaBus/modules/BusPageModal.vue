@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     destroyOnClose="true"
@@ -9,7 +9,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
     <div>
-      <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
+      <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
         <a-form :form="form">
 
           <!--<a-form-item
@@ -355,6 +355,18 @@
             // formData.dCreateTime = formData.dCreateTime?formData.dCreateTime.format('YYYY-MM-DD HH:mm:ss'):null;
             // formData.dUpdateTime = formData.dUpdateTime?formData.dUpdateTime.format('YYYY-MM-DD HH:mm:ss'):null;
 
+            if(formData.iisVideo == undefined){
+              formData.iisVideo = 0 ;
+            }
+            if(formData.iisSend == undefined){
+              formData.iisSend = 0 ;
+            }
+            if(formData.iisCopy == undefined){
+              formData.iisCopy = 0 ;
+            }
+            if(formData.iisVip == undefined){
+              formData.iisVip = 0 ;
+            }
             console.log("提交后" + formData);
             httpAction(httpurl, formData, method).then((res) => {
               if (res.success) {

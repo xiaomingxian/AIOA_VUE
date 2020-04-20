@@ -475,8 +475,8 @@
       },
       filterText3(text){
         if(text!=undefined) {
-          if (text.length > 24) {
-            return text.substring(0,23) + '...'
+          if (text.length > 22) {
+            return text.substring(0,20) + '...'
           } else {
             return text
           }
@@ -658,20 +658,20 @@
         if( this.LinkList.length==1){
           this.show(this.LinkList[0].i_id, 0)
           this.LinkList.push(
-            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
           )
 
         }else if( this.LinkList.length==2){
           this.show(this.LinkList[0].i_id, 0)
           this.show(this.LinkList[1].i_id, 1)
           this.LinkList.push(
-            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
 
           )
         }else if( this.LinkList.length==3){
@@ -680,17 +680,17 @@
           this.show(this.LinkList[2].i_id, 2)
 
           this.LinkList.push(
-            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
           )
         }else if( this.LinkList.length==0){
           this.LinkList.push(
-            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
-            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.baidu.com'},
+            {s_title:'未定义',value:0,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:1,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:2,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
+            {s_title:'未定义',value:3,picUrl1:'/img/2.890a7b1c.png',s_varchar4:'www.icfcc.com'},
           )
         }else{
           // this.LinkList = JSON.parse(JSON.stringify(res));

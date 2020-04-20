@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
@@ -38,7 +38,7 @@
 <script>
   import { httpAction } from '@/api/manage'
   import pick from 'lodash.pick'
-  import moment from "moment"
+  // import moment from "moment"
 
   export default {
     name: "OaProcButtonModal",

@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @cancel="handleCancel"
@@ -10,7 +10,7 @@
     :okButtonProps="{props:{disabled:true}}"
     cancelText="关闭">
     
-    <a-spin :spinning="confirmLoading">
+    <a-spin :spinning="confirmLoading" style="height: 505px; width:100%;overflow: auto">
       <a-form :form="form">
         <a-form-item
           :labelCol="labelCol"

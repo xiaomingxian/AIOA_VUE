@@ -11,7 +11,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
               <!--<a @click="handleToggleSearch" style="margin-left: 8px">
@@ -60,10 +60,10 @@
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical"/>
           <a @click="permitConfig(record)">拟稿权限</a>
-          <a-divider type="vertical"/>
+         <!-- <a-divider type="vertical"/>
           <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.iid)">
                   <a>删除</a>
-          </a-popconfirm>
+          </a-popconfirm>-->
 
           <!--<a-dropdown>
           <a-divider type="vertical"/>

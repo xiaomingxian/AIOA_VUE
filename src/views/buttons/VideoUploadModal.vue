@@ -2,13 +2,13 @@
   <a-modal
     :modal-append-to-body="false"
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @cancel="handleCancel"
     cancelText="关闭">
     <template slot="footer">
-      <a-button type="primary" @click.stop="close()">取消</a-button>
+      <a-button type="primary" @click.stop="close()"></a-button>
       <a-button type="primary" @click.stop="confrimUpLoad()" :disabled="isUploadBtn == true">确定</a-button>
     </template>
     <a-spin :spinning="confirmLoading">

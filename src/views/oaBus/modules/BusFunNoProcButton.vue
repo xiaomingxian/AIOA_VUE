@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :key="nowKey"
     :confirmLoading="confirmLoading"
@@ -35,7 +35,7 @@
 <script>
   import {httpAction, getAction} from '@/api/manage'
   import pick from 'lodash.pick'
-  import moment from "moment"
+  // import moment from "moment"
 
   export default {
     name: "BusFunNoProcButton",

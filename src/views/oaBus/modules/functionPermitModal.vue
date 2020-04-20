@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer" :width="800"  :title="title" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer" :width="900"  :title="title" @ok="handleOk" @cancel="handleCancle">
     <a-card :bordered="false" class="findChild">
       <div class="table-operator">
         <a-button @click="add"  :disabled="addDisabled" type="primary" icon="plus">新增</a-button>

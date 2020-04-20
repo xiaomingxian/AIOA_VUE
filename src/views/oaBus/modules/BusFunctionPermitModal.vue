@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
@@ -49,13 +49,15 @@
         <div v-else-if="spermitType==2">
           <a-form-item  label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol"
                        v-show="!departDisabled" v-decorator="[ 'itypeId', {}]">
-            <a-input-search
-              placeholder="点击右侧按钮选择部门"
-              v-model="checkedDepartNameString"
-              disabled
-              @search="onSearch">
-              <a-button slot="enterButton" icon="search">选择</a-button>
-            </a-input-search>
+            <a-input-group style="display: inline-flex">
+              <a-input
+                style="pointer-events: auto"
+                placeholder="点击右侧按钮选择部门"
+                v-model="checkedDepartNameString"
+                disabled>
+              </a-input>
+              <a-button icon="search" @click="onSearch">选择</a-button>
+            </a-input-group>
           </a-form-item>
           <a-input type="hidden" placeholder="" v-decorator="['selecteddeparts']"/>
         </div>

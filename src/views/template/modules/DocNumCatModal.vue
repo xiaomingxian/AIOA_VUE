@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     @cancel="handleCancel"
     >
@@ -9,7 +9,7 @@
     <template slot="footer" >
       <a-button  type="primary" @click.stop="close()" >关闭</a-button>
     </template>
-    <a-spin :spinning="confirmLoading" style="height: 360px;overflow: auto">
+    <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
         <a-form-item
           :labelCol="labelCol"
@@ -92,13 +92,15 @@
           <a-input placeholder=""  :value="uname" />
         </a-form-item>
         <a-form-item label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
-          <a-input-search
-            placeholder="点击右侧按钮选择部门"
-            v-model="checkedDepartNameString"
-            disabled
-            @search="onSearch">
-            <!--<a-button slot="enterButton" icon="search">选择</a-button>-->
-          </a-input-search>
+          <a-input-group style="display: inline-flex">
+            <a-input
+              style="pointer-events: auto"
+              placeholder="点击右侧按钮选择部门"
+              v-model="checkedDepartNameString"
+              disabled>
+            </a-input>
+            <a-button icon="search" @click="onSearch">选择</a-button>
+          </a-input-group>
           <a-input type="hidden" placeholder="" v-decorator="['selecteddeparts']" />
         </a-form-item>
         <a-form-item

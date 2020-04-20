@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
@@ -56,8 +56,8 @@
 
 <script>
   import {httpAction, getAction} from '@/api/manage'
-  import pick from 'lodash.pick'
-  import moment from "moment"
+  // import pick from 'lodash.pick'
+  // import moment from "moment"
 
   export default {
     name: "BusFunctionViewModal",

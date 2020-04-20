@@ -1,7 +1,7 @@
 <template>
   <a-modal
     title="未办理信息"
-    :width="1200"
+    :width="900"
 
     :visible="visible"
 

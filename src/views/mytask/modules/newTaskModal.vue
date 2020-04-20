@@ -34,7 +34,7 @@
       </div>
 
       <div class="childBoxs">
-        <div class="childBox" style="height: 400px; overflow-y: scroll ">
+        <div class="childBox" style="height: 400px; width:100%; overflow-y: scroll ">
           <a-list bordered>
             <!-- //functionSName   :style="index%2==0?'background:#d6ebff ;':'background:#fff'"-->
             <a-list-item class="eachitem" :style="parentIndex==index?' background: #dae8f5;':''"
@@ -43,7 +43,7 @@
             </a-list-item>
           </a-list>
         </div>
-        <div class="childBox" style="height: 400px; overflow-y: scroll ">
+        <div class="childBox" style="height: 400px; width:100%; overflow-y: scroll ">
           <a-list bordered>
             <!--functionSName-->
             <a-list-item class="eachitem" :style="childIndex==index?' background: #dae8f5;':''"

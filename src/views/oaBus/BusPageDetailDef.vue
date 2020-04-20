@@ -1,26 +1,32 @@
 <template>
-  <a-modal :visible="visible" :title="title" :width="800" @ok="handleOk" @cancel="handleCancel">
+  <a-modal
+    :visible="visible"
+    :title="title"
+    :width="800"
+    @ok="handleOk"
+    @cancel="handleCancel"
+    cancelText="关闭">
 
     <!--<div style="padding:20px;"  v-show="showFlag" class="table-operator">
       <a-button type="primary" @click="handleSaveAll" >生成含义</a-button>
     </div>  -->
-    <div style="height: 360px;overflow: auto">
+    <div style="height: 400px; width:100%;overflow: auto">
       <div style="width: 95%">
         <div class="table-page-search-wrapper">
           <a-form layout="inline">
             <a-row :gutter="24">
               <a-col :md="8" :sm="8">
-                <a-form-item label="列名">
-                  <a-input placeholder="请输入列名" v-model="queryParam.sTableColumn"></a-input>
+                <a-form-item label="字段名">
+                  <a-input placeholder="请输入字段名" v-model="queryParam.sTableColumn"></a-input>
                 </a-form-item>
               </a-col>
               <a-col :md="8" :sm="8">
-                <a-form-item label="列的含义">
-                  <a-input placeholder="请输入列的含义" v-model="queryParam.sColumnName"></a-input>
+                <a-form-item label="含义">
+                  <a-input placeholder="字段的含义" v-model="queryParam.sColumnName"></a-input>
                 </a-form-item>
               </a-col>
               <a-col :md="6" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" @click="searchTable1" icon="search">查询</a-button>
               <a-button type="primary" @click="refesh" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>

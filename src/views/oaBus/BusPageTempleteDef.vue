@@ -5,7 +5,7 @@
            @ok="handleOk"
            @cancel="handleCancel"
            cancelText="关闭">
-    <div style="height: 360px;overflow: auto">
+    <div style="height: 400px; width:100%;overflow: auto">
     <!--定义含义页面，保存所有列-->
      <div style="width: 95%">
     <div class="table-page-search-wrapper" >
@@ -30,7 +30,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" @click="add" icon="search">添加</a-button>
             </span>
           </a-col>
@@ -67,8 +67,9 @@
       rowKey="id"
       :columns="columns"
       :dataSource="dataSource2"
-      :pagination="ipagination"
-      :loading="loading">
+      :pagination=false
+      :loading="loading"
+      style="margin-bottom: 30px">
        <span slot="action" slot-scope="text, record">
           <a @click="handleDelect(record.iid)">删除</a>
         </span>

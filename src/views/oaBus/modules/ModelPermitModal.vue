@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer"  :title="title" :width="800" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer"  :title="title" :width="900" @ok="handleOk" @cancel="handleCancle">
 
   <a-card class="findChild" :bordered="false">
     <!-- 操作按钮区域 -->
