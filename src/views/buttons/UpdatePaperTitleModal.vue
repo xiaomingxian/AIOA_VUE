@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     @ok="handleOk"
     :confirmLoading="confirmLoading"
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-  import { httpAction } from '@/api/manage'
-  import pick from 'lodash.pick'
+  /*import { httpAction } from '@/api/manage'
+  import pick from 'lodash.pick'*/
   import { getAction } from '@/api/manage'
     export default {
         name: "UpdatePaperTitle",

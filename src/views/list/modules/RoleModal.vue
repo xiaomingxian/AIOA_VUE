@@ -1,7 +1,7 @@
 <template>
   <a-modal
     title="操作"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"

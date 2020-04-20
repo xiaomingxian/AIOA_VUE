@@ -55,13 +55,15 @@
 
         <!--部门分配-->
         <a-form-item label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
-          <a-input-search
-            placeholder="点击右侧按钮选择部门"
-            v-model="checkedDepartNameString"
-            disabled
-            @search="onSearch">
-            <a-button slot="enterButton" icon="search">选择</a-button>
-          </a-input-search>
+          <a-input-group style="display: inline-flex">
+            <a-input
+              style="pointer-events: auto"
+              placeholder="点击右侧按钮选择部门"
+              v-model="checkedDepartNameString"
+              disabled>
+            </a-input>
+            <a-button icon="search" @click="onSearch">选择</a-button>
+          </a-input-group>
         </a-form-item>
        <!-- <a-form-item label="头像" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-upload

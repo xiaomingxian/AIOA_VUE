@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="800"
+    :width="900"
     :visible="visible"
     :confirmLoading="confirmLoading"
     @ok="handleOk"
@@ -25,18 +25,18 @@
           <!--</a-col>-->
           <!--<template v-if="toggleSearchStatus">-->
           <a-col :md="8" :sm="6">
-            <a-form-item label="任务环节">
-              <a-input maxLength="40" placeholder="请输入任务环节名称" v-model="name"></a-input>
+            <a-form-item label="环节">
+              <a-input maxLength="30" placeholder="任务环节名称" v-model="name"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="6">
-            <a-form-item label="按钮名称">
-              <a-input maxLength="50" placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
+            <a-form-item label="按钮">
+              <a-input maxLength="30" placeholder="请输入按钮名称" v-model="sbtnName"></a-input>
             </a-form-item>
           </a-col>
           <!--</template>-->
           <a-col :md="6" :sm="8">
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+            <span style="float: left;overflow: hidden;" >
               <a-button type="primary" @click="searchQueryCha" icon="search">查询</a-button>
               <a-button type="primary" @click="searchResetOne" icon="reload" style="margin-left: 8px">重置</a-button>
 
@@ -51,7 +51,7 @@
       </a-form>
     </div>
 
-    <a-spin tip="Loading..." :spinning="confirmLoading" style="height: 360px;overflow: auto">
+    <a-spin tip="Loading..." :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
         <a-button  type="primary"  icon="plus" style="margin-bottom: 10px" @click="handleEdit1()">新建</a-button>
         <!--<a-divider type="vertical"/>-->

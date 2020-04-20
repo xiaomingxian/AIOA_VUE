@@ -49,7 +49,7 @@
       padding-right: 52px;
       zoom: 1;
       img {
-        height: 360px;
+        height: 400px;
         max-width: 430px;
       }
     }

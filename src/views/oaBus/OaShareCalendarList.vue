@@ -6,8 +6,8 @@
       <a-form layout="inline">
         <a-row :gutter="24">
              <a-col :md="6" :sm="8">
-            <a-form-item label="选择日程">
-              <a-select v-model="serchSubData.richengName" @change="getSearchType">
+            <a-form-item >
+              <a-select  placeholder="日程类型" v-model="serchSubData.richengName" @change="getSearchType">
                 <a-select-option value="0">全部日程</a-select-option>
                 <a-select-option value="1">我的日程</a-select-option>
                 <a-select-option value="2">领导日程</a-select-option>
@@ -16,12 +16,12 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="8">
-            <a-form-item label="日程内容">
-              <a-input placeholder="请输入日程内容" v-model="serchSubData.sTitle"></a-input>
+            <a-form-item >
+              <a-input placeholder="日程内容" v-model="serchSubData.sTitle"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="8">
-            <a-form-item label="时段选择">
+            <a-form-item >
               <a-range-picker
                 style="width: 250px"
                 :showTime="{format:'HH:mm'}"
@@ -31,8 +31,8 @@
               />
             </a-form-item>
           </a-col>
-          <a-col :md="2" :sm="8" >
-            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+          <a-col :md="4" :sm="8" >
+            <span style="width:190px;float: right;overflow: hidden;" >
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>
@@ -49,20 +49,20 @@
       <a-upload style="margin-left: 10px;" name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
       </a-upload>-->
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
-      </a-dropdown>
+      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
+        <!--<a-menu slot="overlay">-->
+          <!--<a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>-->
+        <!--</a-menu>-->
+        <!--<a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>-->
+      <!--</a-dropdown>-->
     </div>
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         class="pointer"
@@ -177,7 +177,7 @@
             dataIndex: 'stitle'
           },
           {
-            title: '对象',
+            title: '人员',
             align:"left",
             dataIndex: 'suserNames',
             key: 'suserNames',

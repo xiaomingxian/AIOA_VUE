@@ -777,8 +777,12 @@
           this.model3Lists = res.model3.list.splice(0, 4);
           this.model4Lists = res.model4.list.splice(0, 4);
 
-          this.total1 = this.model2Lists.length;
-          this.total2 = this.model3Lists.length;
+          // console.log('00000000000000000000000000000000000000000000000')
+          // console.log(this.model2)
+          // console.log(this.model3)
+
+          this.total1 = this.model2.total;
+          this.total2 = this.model3.total;
 
         });
       },

@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer" :width="800" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer" :width="900" @ok="handleOk" @cancel="handleCancle">
   <a-card :bordered="false">
 
     <!-- 查询区域 -->

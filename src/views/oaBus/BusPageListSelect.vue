@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :visible="visible"
-    :width="1200"
+    :width="900"
     @ok="handleOk"
     destroyOnClose="true"
     @cancel="handleCancle"

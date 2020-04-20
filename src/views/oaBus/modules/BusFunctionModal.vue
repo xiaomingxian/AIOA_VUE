@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="title"
-    :width="modelWidth"
+    :width="900"
     :visible="visible"
     :key="nowKey"
     destroyOnClose="true"
@@ -10,7 +10,7 @@
     @cancel="handleCancel"
     cancelText="关闭">
 
-    <div style="height: 360px; width:95% ;overflow: auto">
+    <div style="height: 400px; width:100% ;overflow: auto">
       <a-spin :spinning="confirmLoading">
         <a-form :form="form">
           <!-- 主表单区域 -->

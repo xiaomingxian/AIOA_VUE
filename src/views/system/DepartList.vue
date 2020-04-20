@@ -6,7 +6,7 @@
         <!-- 按钮操作区域 -->
         <a-row style="margin-left: 14px">
           <a-button @click="handleAdd(2)" type="primary">添加子部门</a-button>
-          <a-button @click="handleAdd(1)" type="primary">添加一级部门</a-button>
+          <!--<a-button @click="handleAdd(1)" type="primary">添加一级部门</a-button>-->
           <!--<a-button type="primary" icon="download" @click="handleExportXls('部门信息')">导出</a-button>
           <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader"
                     :action="importExcelUrl" @change="handleImportExcel">
