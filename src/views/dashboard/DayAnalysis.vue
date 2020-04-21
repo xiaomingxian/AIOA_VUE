@@ -1157,7 +1157,7 @@
             let params = {tableName: res.result.tableName, busdataId: res.result.ifunDataId};
             this.$store.commit('pushNewDetial', params)
             // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
-            window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
+            window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
             if(res.result.stateName == "【未阅】"){
               putAction(this.url.edit,subdata).then((res) => {
                 this.$message.success(res.message);
