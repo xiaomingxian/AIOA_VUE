@@ -1182,7 +1182,7 @@
       //  领导日程 &userId="+this.userid;
       leaderList(timestamp){
         getAction(this.url.findByLeader,{date:timestamp}).then((res) => {
-          let stitleLists = res.result.records.splice(0,4);
+          let stitleLists = res.result.records.splice(0,6);
           this.stitleLists = stitleLists;
 
         });
@@ -1191,7 +1191,7 @@
       //  我的日程
       myDayLists(timestamp){
         getAction(this.url.list,{sCreateBy:this.userinfo.username,date:timestamp}).then((res) => {
-          this.mytitleLists = res.result.records.splice(0,5);
+          this.mytitleLists = res.result.records.splice(0,6);
           this.total2 = res.result.total;
         });
       },
@@ -1200,7 +1200,7 @@
         getAction(this.url.queryPageList,{date:timestamp}).then((res) => {
 
           // alert( res.result.records.length)
-          this.publictitleLists = res.result.records.splice(0,5);
+          this.publictitleLists = res.result.records.splice(0,6);
           this.total3 = res.result.total;
 
         });
