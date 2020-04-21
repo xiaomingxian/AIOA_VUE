@@ -22,11 +22,9 @@
           label="权限类型"
         >
           <a-select v-model="typeModel"
-
                     @change="getTypeVal"
                     placeholder="权限类型"
                     :disabled="disableSubmit"
-
            >
 
             <a-select-option   v-for="(item,index) in isno" :value="item.value">{{item.typename}}</a-select-option>
@@ -36,7 +34,6 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-
           label="角色" v-if="spermitType==1">
           <a-select  v-model="selectedRole"  @change="getRole">
             <a-select-option  v-for="(role,roleindex) in roleList" :key="roleindex" :value="role.id">
