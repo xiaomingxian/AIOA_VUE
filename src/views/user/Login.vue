@@ -185,6 +185,7 @@
 <script>
   //import md5 from "md5"
   import axios from 'axios'
+  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import ATextarea from "ant-design-vue/es/input/TextArea";
   import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
   import {mapActions} from "vuex"
@@ -197,6 +198,7 @@
   import store from '@/store/'
 
   export default {
+    mixins: [JeecgListMixin],
     components: {
       TwoStepCaptcha,
       JGraphicCode,

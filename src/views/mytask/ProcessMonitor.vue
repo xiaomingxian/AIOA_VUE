@@ -21,7 +21,8 @@
           <template v-if="toggleSearchStatus">
             <a-col :md="8" :sm="8">
               <a-form-item >
-                <a-select  placeholder="领导关注" v-model="queryParam.iImport">
+                <a-select v-model="queryParam.iImport">
+                  <a-select-option value="" disabled selected hidden>领导关注</a-select-option>
                   <a-select-option value="1">是</a-select-option>
                   <a-select-option value="0">否</a-select-option>
                 </a-select>
@@ -35,7 +36,8 @@
 
             <a-col :md="8" :sm="8">
               <a-form-item >
-                <a-select  placeholder="任务类型" @change="taskTypeChange" v-model="queryParam.taskType">
+                <a-select @change="taskTypeChange" v-model="queryParam.taskType">
+                  <a-select-option value="" disabled selected hidden>任务类型</a-select-option>
                   <a-select-option value="全部">全部</a-select-option>
                   <a-select-option value="传阅">传阅</a-select-option>
                   <a-select-option value="主办">主办</a-select-option>
@@ -286,9 +288,10 @@
         queryParam: {
           dataTitle: '',
           fileNum: '',
+          iImport: '',
           createName: '',
           mainDept: '',
-          taskType: null,
+          taskType: '',
           startTimeFake: null,
           endTimeFake: null
         },
@@ -1242,6 +1245,10 @@
     background-color: #f0f5fc;
   }
 
+  input::-webkit-input-placeholder{
+    color: rgba(0, 0, 0, 0.65);
+  }
+
   .ant-select-selection--single {
     background-color: #f0f5fc !important;
   }
@@ -1311,13 +1318,13 @@
   /*display: none !important;*/
   /*}*/
 
-  .table-page-search-submitButtons .ant-btn {
-    background: linear-gradient(180deg, rgba(115, 128, 255, 1), rgba(47, 86, 255, 1)) repeat scroll 0% 0%;
-  }
+  /*.table-page-search-submitButtons .ant-btn {*/
+    /*background: linear-gradient(180deg, rgba(115, 128, 255, 1), rgba(47, 86, 255, 1)) repeat scroll 0% 0%;*/
+  /*}*/
 
-  .table-page-search-submitButtons .ant-btn svg {
-    fill: cyan;
-  }
+  /*.table-page-search-submitButtons .ant-btn svg {*/
+    /*fill: cyan;*/
+  /*}*/
 
   [v-cloak] {
     display: none;

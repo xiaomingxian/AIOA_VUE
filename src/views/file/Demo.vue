@@ -15,7 +15,9 @@
 
 <script>
  import Ntko from './Ntko'
+ import {JeecgListMixin} from '@/mixins/JeecgListMixin'
     export default {
+      mixins: [JeecgListMixin],
         // components:{Ntko},
         data(){
           return{

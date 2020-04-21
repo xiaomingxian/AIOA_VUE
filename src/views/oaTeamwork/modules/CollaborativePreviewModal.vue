@@ -33,11 +33,13 @@
 
 <script>
   import { httpAction,getAction,postAction } from '@/api/manage'
+  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import pick from 'lodash.pick'
   import moment from "moment"
 
   export default {
     name: "CollaborativePreviewModal",
+    mixins: [JeecgListMixin],
     data () {
       return {
         title:"操作",

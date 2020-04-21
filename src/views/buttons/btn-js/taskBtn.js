@@ -16,6 +16,7 @@ import request from "ant-design-vue/es/vc-upload/src/request";
 export const taskBth = {
   //接收父组件传值
   props: ['backData', 'busFunction', 'taskMsg', 'opts', 'deptMsg', 'backDataOpt', 'btnStatusA'],
+  mixins: [JeecgListMixin],
   inject: ['reload'],
   data() {
     return {

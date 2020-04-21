@@ -374,6 +374,7 @@
   import oaCalendarModal from '../oaBus/modules/oaCalendarModal'
   import detailFile from '../mytask/taskList/detailFile'
   import DetailModel from './DetailModel'
+  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 
   import Swiper from 'swiper/js/swiper.min.js'
   import 'swiper/css/swiper.min.css'
@@ -384,6 +385,7 @@
 
   export default {
     name: "Dayanalysis",
+    mixins: [JeecgListMixin],
     data () {
 
       this.lastFetchId = 0;
@@ -963,7 +965,7 @@
         // console.log(this.$store.state.postDetialLists);
 
         // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
-        window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + i_id + '&navisshow=false')
+        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + i_id + '&navisshow=false')
         // this.$router.push({path:'/mytask/taskList/Test-detailFile',query:params})
 
       },
@@ -1155,7 +1157,7 @@
             let params = {tableName: res.result.tableName, busdataId: res.result.ifunDataId};
             this.$store.commit('pushNewDetial', params)
             // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
-            window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
+            window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.ifunDataId + '&navisshow=false')
             if(res.result.stateName == "【未阅】"){
               putAction(this.url.edit,subdata).then((res) => {
                 this.$message.success(res.message);

@@ -51,13 +51,21 @@ export const JeecgListMixin = {
     }
   },
   created() {
+    this.WindowsLocationIE();
     //先获取上次缓存的参数(如果有的话)
     this.getQueryParamsMy();
-    this.loadData();
+    this.loadData(1);
     //初始化字典配置 在自己页面定义
     this.initDictConfig();
   },
   methods: {
+    WindowsLocationIE(){
+      // if (window["context"] == undefined) {
+        if (!window.location.origin) {
+          window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        }
+      // }
+    },
     //获取存储的查询条件
     getQueryParamsMy() {
       let path = this.$route.path;
@@ -122,7 +130,7 @@ export const JeecgListMixin = {
         this.superQueryFlag = true;
         this.superQueryParams = JSON.stringify(arg)
       }
-      this.loadData()
+      this.loadData(1)
     },
     getQueryParams() {
       //获取查询条件
@@ -184,7 +192,7 @@ export const JeecgListMixin = {
             deleteAction(that.url.deleteBatch, {ids: ids}).then((res) => {
               if (res.success) {
                 that.$message.success(res.message);
-                that.loadData();
+                that.loadData(1);
                 that.onClearSelected();
               } else {
                 that.$message.warning(res.message);
@@ -203,7 +211,7 @@ export const JeecgListMixin = {
       deleteAction(that.url.delete, {id: id}).then((res) => {
         if (res.success) {
           that.$message.success(res.message);
-          that.loadData();
+          that.loadData(1);
         } else {
           that.$message.warning(res.message);
         }
@@ -227,14 +235,14 @@ export const JeecgListMixin = {
         this.isorter.order = "ascend" == sorter.order ? "asc" : "desc";
       }
       this.ipagination = pagination;
-      this.loadData();
+      this.loadData(1);
     },
     handleToggleSearch() {
       this.toggleSearchStatus = !this.toggleSearchStatus;
     },
     modalFormOk() {
       // 新增/修改 成功时，重载列表
-      this.loadData();
+      this.loadData(1);
     },
     handleDetail: function (record) {
       this.$refs.modalForm.edit(record);
@@ -284,7 +292,7 @@ export const JeecgListMixin = {
       if (info.file.status === 'done') {
         if (info.file.response.success) {
           this.$message.success(`${info.file.name} 文件上传成功`);
-          this.loadData();
+          this.loadData(1);
         } else {
           this.$message.error(`${info.file.name} ${info.file.response.message}.`);
         }
