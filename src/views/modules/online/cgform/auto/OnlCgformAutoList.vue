@@ -321,7 +321,7 @@
             currColumns.push(this.actionColumn);
             this.table.columns = [...currColumns]
             this.hasBpmStatusFilter();
-            this.loadData();
+            this.loadData(1);
             this.initQueryInfo();
           }else{
             this.$message.warning(res.message)
@@ -369,7 +369,7 @@
           this.isorter.order = "ascend"==sorter.order?"asc":"desc"
         }
         this.table.pagination = pagination;
-        this.loadData();
+        this.loadData(1);
       },
       handleAdd(){
         this.cgButtonJsHandler('beforeAdd')
@@ -433,7 +433,7 @@
         deleteAction(this.url.optPre+this.code+"/"+id).then((res)=>{
           if(res.success){
             this.$message.success(res.message)
-            this.loadData()
+            this.loadData(1)
           }else{
             this.$message.warning(res.message)
           }
@@ -441,7 +441,7 @@
       },
 
       handleFormSuccess(){
-        this.loadData()
+        this.loadData(1)
       },
       onClearSelected(){
         this.table.selectedRowKeys = []
@@ -556,7 +556,7 @@
         console.log("自定义按钮请求后台参数：",params)
         postAction(this.url.buttonAction,params).then(res=>{
           if(res.success){
-            this.loadData()
+            this.loadData(1)
             this.$message.success("处理完成!")
           }else{
             this.$message.warning("处理失败!")
@@ -578,7 +578,7 @@
           console.log("自定义按钮link请求后台参数：",params)
           postAction(this.url.buttonAction,params).then(res=>{
             if(res.success){
-              this.loadData()
+              this.loadData(1)
               this.$message.success("处理完成!")
             }else{
               this.$message.warning("处理失败!")

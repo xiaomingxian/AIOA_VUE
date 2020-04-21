@@ -159,7 +159,7 @@
         :columns="columns"
         :dataSource="dataSource"
         :pagination="false"
-        :loading="loading"
+        :loading="false"
         :showAlertInfo="false"
         :showHeader="false"
         :expandIconAsCell="false"
@@ -177,7 +177,7 @@
           :columns="columnes"
           :dataSource="dataSources"
           :pagination="false"
-          :loading="loading"
+          :loading="false"
           :showAlertInfo="false"
           :rowKey="record => record.key"
           :customRow="onClick"
@@ -199,7 +199,7 @@
         :columns="columns"
         :dataSource="dataSource"
         :pagination="paginations"
-        :loading="loading"
+        :loading="false"
         :showAlertInfo="false"
         bordered
         :rowKey="record => record.id"
@@ -340,7 +340,7 @@
               :columns="columns"
               :dataSource="dataSource"
               :pagination="false"
-              :loading="loading"
+              :loading="false"
               :showAlertInfo="false"
               :showHeader="false"
               :expandIconAsCell="false"
@@ -358,7 +358,7 @@
                 :columns="columnes"
                 :dataSource="dataSources"
                 :pagination="false"
-                :loading="loading"
+                :loading="false"
                 :showAlertInfo="false"
                 :rowKey="record => record.key"
                 :customRow="onClick"
@@ -380,7 +380,7 @@
             :columns="columns"
             :dataSource="dataSource"
             :pagination="paginations"
-            :loading="loading"
+            :loading="false"
             :showAlertInfo="false"
             bordered
             :rowKey="record => record.id"
@@ -411,12 +411,14 @@
   import moment from "moment"
   import axios from 'axios';
   import {httpAction, getAction, postAction, getRoleList, getUserList, getServiceList} from '@/api/manage'
+  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import pick from 'lodash.pick'
   import ARadioGroup from "ant-design-vue/es/radio/Group";
   import DetailFile from "@/views/mytask/taskList/detailFile";
 
   export default {
     name: "CollapseListOrNot",
+    mixins: [JeecgListMixin],
     inject: ['reload'],
     components: {
       DetailFile,

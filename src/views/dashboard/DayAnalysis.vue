@@ -374,6 +374,7 @@
   import oaCalendarModal from '../oaBus/modules/oaCalendarModal'
   import detailFile from '../mytask/taskList/detailFile'
   import DetailModel from './DetailModel'
+  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 
   import Swiper from 'swiper/js/swiper.min.js'
   import 'swiper/css/swiper.min.css'
@@ -384,6 +385,7 @@
 
   export default {
     name: "Dayanalysis",
+    mixins: [JeecgListMixin],
     data () {
 
       this.lastFetchId = 0;

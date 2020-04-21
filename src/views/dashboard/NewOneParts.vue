@@ -328,6 +328,7 @@
   import {ACCESS_TOKEN} from "../../store/mutation-types";
 
   export default {
+    mixins:[JeecgListMixin],
     components: {
       HeadInfo
     },

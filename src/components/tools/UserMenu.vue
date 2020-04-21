@@ -89,6 +89,7 @@
 <script>
   import HeaderNotice from './HeaderNotice'
   import UserPassword from './UserPassword'
+  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import SettingDrawer from "@/components/setting/SettingDrawer";
   import DepartSelect from './DepartSelect'
   import { mapActions, mapGetters } from 'vuex'
@@ -99,7 +100,7 @@
 
   export default {
     name: "UserMenu",
-    mixins: [mixinDevice],
+    mixins: [mixinDevice,JeecgListMixin],
     components: {
       HeaderNotice,
       UserPassword,

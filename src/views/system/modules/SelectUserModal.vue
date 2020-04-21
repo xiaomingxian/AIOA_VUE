@@ -187,7 +187,7 @@
       }
     },
     created() {
-      this.loadData();
+      this.loadData(1);
     },
     methods: {
       searchQuery() {
@@ -289,7 +289,7 @@
           this.isorter.order = "ascend" == sorter.order ? "asc" : "desc"
         }
         this.ipagination = pagination;
-        this.loadData();
+        this.loadData(1);
       }
     },
   }

@@ -442,7 +442,7 @@
           this.isorter.order = "ascend"==sorter.order?"asc":"desc"
         }
         this.pagination = pagination;
-        this.loadData();
+        this.loadData(1);
       },
       /*-------数据格式化-begin----------*/
       getDateNoTime(text){
@@ -489,7 +489,7 @@
         deleteAction(this.url.optPre+this.code+"/"+id).then((res)=>{
           if(res.success){
             this.$message.success(res.message)
-            this.loadData()
+            this.loadData(1)
           }else{
             this.$message.warning(res.message)
           }
@@ -500,7 +500,7 @@
         this.$refs.modal.add(this.formTemplate);
       },
       handleFormSuccess(){
-        this.loadData()
+        this.loadData(1)
       },
       handleImportXls(){
         this.$refs.importModal.show()
@@ -575,7 +575,7 @@
           console.log("自定义按钮link请求后台参数：",params)
           postAction(this.url.buttonAction,params).then(res=>{
             if(res.success){
-              this.loadData()
+              this.loadData(1)
               this.$message.success("处理完成!")
             }else{
               this.$message.warning("处理失败!")
@@ -606,7 +606,7 @@
         console.log("自定义按钮请求后台参数：",params)
         postAction(this.url.buttonAction,params).then(res=>{
           if(res.success){
-            this.loadData()
+            this.loadData(1)
             this.$message.success("处理完成!")
           }else{
             this.$message.warning("处理失败!")

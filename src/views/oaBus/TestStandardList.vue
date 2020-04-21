@@ -120,12 +120,14 @@
 <script>
   import HeadInfo from '@/components/tools/HeadInfo'
   import { getAction, postAction } from '@/api/manage'
+  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   // import jsonp from 'fetch-jsonp';
   import querystring from 'querystring';
   import debounce from 'lodash/debounce';
 
   export default {
     name: "TestStandardList",
+    mixins: [JeecgListMixin],
     components: {
       HeadInfo
     },
