@@ -889,7 +889,7 @@
             },
             {
               title: '文号',
-              width: 100,
+              width: 180,
               align: "center",
               sorter: (i, ii, type) => {
 
@@ -935,7 +935,7 @@
             },
             {
               title: '转发时间',
-              width: 160,
+              width: 180,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
                 this.nullOther('orederByTime')

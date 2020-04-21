@@ -946,7 +946,7 @@
           },
           {
             title: '文号',
-            width: 120,
+            width: 180,
             sorter: (i, ii, type) => {
 
               this.queryParam.tableOrder = true
@@ -1014,7 +1014,7 @@
               return true
             },
             align: "center",
-            width: 150,
+            width: 180,
             dataIndex: 'createTime'
           },
 

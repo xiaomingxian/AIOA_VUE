@@ -947,7 +947,7 @@
           {
             title: '文号',
             align: "center",
-            width: 120,
+            width: 180,
             sorter: (i, ii, type) => {
 
               this.queryParam.tableOrder = true
@@ -993,7 +993,7 @@
           },
           {
             title: '办理时间',
-            width: 150,
+            width: 180,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByTime')
