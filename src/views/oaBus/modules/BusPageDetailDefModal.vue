@@ -225,7 +225,7 @@
 <script>
   import {httpAction, getAction,postAction} from '@/api/manage'
   import pick from 'lodash.pick'
-  import moment from "moment"
+  // import moment from "moment"
 
   export default {
     name: "BusPageDetailDefModal",

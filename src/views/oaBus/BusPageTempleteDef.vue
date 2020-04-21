@@ -67,8 +67,9 @@
       rowKey="id"
       :columns="columns"
       :dataSource="dataSource2"
-      :pagination="ipagination"
-      :loading="loading">
+      :pagination=false
+      :loading="loading"
+      style="margin-bottom: 30px">
        <span slot="action" slot-scope="text, record">
           <a @click="handleDelect(record.iid)">删除</a>
         </span>

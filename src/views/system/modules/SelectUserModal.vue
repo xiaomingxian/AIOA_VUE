@@ -195,6 +195,7 @@
       },
       searchReset() {
         this.queryParam = {};
+        this.loadData(1);
       },
       handleCancel() {
         this.onClearSelected();

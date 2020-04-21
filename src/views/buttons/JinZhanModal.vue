@@ -41,6 +41,8 @@
           visible:false,
           tabShow:1,
           proInstId:'',
+          tableId:'',
+          backData:[],
           url: {
             currentUnDo: '/oadatafetailedinst/oaDatadetailedInst/queryTaskUnDoCurrent',
             cuiBan: '/testt/sysUserSet/chuiban',
@@ -52,6 +54,8 @@
          show(a,b){
            this.proInstId = a;
            this.visible=true
+           this.tableId =  b.i_id;
+          console.log(b.i_id)
 
            this.$refs.PingJia.traceP(this.proInstId);
          },
@@ -59,7 +63,9 @@
            console.log(e)
            this.tabShow = e;
            if(e==2){
-             this.$refs.PingJia.traceP(this.proInstId);
+             this.$refs.PingJia.traceP(this.proInstId, this.tableId );
+           }else{
+             this.$refs.BanJie.show(this.proInstId, this.tableId );
            }
           // this.startAnalysis();
          },

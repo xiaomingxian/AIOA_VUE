@@ -1,4 +1,4 @@
-<template>
+  <template>
   <a-row :gutter="10">
     <a-col :md="leftColMd" :sm="24" style="margin-bottom: 20px">
       <a-card :bordered="false">
