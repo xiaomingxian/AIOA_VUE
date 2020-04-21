@@ -1,13 +1,14 @@
 <template>
   <a-modal
     :title="title"
-    :width="1000"
+    :width="900"
     :visible="visible"
     @ok="handleOk"
     :confirmLoading="confirmLoading"
     @cancel="handleCancel"
     cancelText="关闭">
-    <div v-for="(item,index) in dataSource" :key="index">
+    <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
+    <div v-for="(item,index) in dataSource" :key="index" >
       <p class="title" @click="Clicks(index)"><span>{{deptName[index]}}</span><a-icon :ref="tables[index].down"  type="down" style="position: absolute;right: 5%;display: none;" /><a-icon :ref="tables[index].up"  type="up" style="position: absolute;right: 5%;display: block;" /></p>
       <a-table
         :ref="tables[index].table"
@@ -19,6 +20,7 @@
       >
       </a-table>
     </div>
+    </a-spin>
   </a-modal>
 </template>
 
@@ -40,14 +42,14 @@
             title: '用户',
             align: "center",
             dataIndex: 'userName',
-            width:'50%'
+            width:'30%'
           },
 
           {
             title: '已读情况',
             align: "center",
             dataIndex: 'isRead',
-            width:'50%',
+
             customRender: function (readCase) {
               if (readCase == '1') {
                 return "已阅读";

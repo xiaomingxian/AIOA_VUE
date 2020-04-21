@@ -1,4 +1,5 @@
 const path = require('path')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -25,6 +26,30 @@ module.exports = {
     //生产环境取消 console.log
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+      // 开启gzip压缩
+      config.plugins.push(new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: /\.js$|\.html$|\.json$|\.css/,
+        threshold: 10240,
+        minRatio: 0.8
+      }))
+    }
+    config.optimization = {
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 20000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+              return `npm.${packageName.replace('@', '')}`
+            }
+          }
+        }
+      }
     }
   },
   chainWebpack: (config) => {
