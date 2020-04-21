@@ -41,7 +41,7 @@
               </a-select-option>
             </a-select>-->
 
-            <a-select placeholder="请选择发文单位" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.i_is_important)" v-model="backData.s_varchar1" @change="selectType">
+            <a-select placeholder="请选择发文单位" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1" @change="selectType">
               <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
             </a-select>

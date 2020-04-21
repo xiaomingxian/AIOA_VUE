@@ -647,9 +647,9 @@
         this.conditionList = [];
         this.queryParam = {
           function_id: '',
-            i_is_state: '',
-            selType: '',
-            s_create_name: '',
+          i_is_state: '',
+          selType: '',
+          s_create_name: '',
           d_create_time: '',
           orderFlag: '',    //排序字段
         };
@@ -1321,8 +1321,8 @@
 
 
 
-  .table-page-search-submitButtons .ant-btn svg {
-    fill: cyan;
-  }
+  /*.table-page-search-submitButtons .ant-btn svg {*/
+    /*fill: cyan;*/
+  /*}*/
 
 </style>

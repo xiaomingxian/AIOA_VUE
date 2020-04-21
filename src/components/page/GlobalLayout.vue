@@ -807,13 +807,13 @@
     background-color: #fff !important;
   }
 
-  .table-page-search-submitButtons .ant-btn{
-    background:linear-gradient(180deg,rgba(115,128,255,1),rgba(47,86,255,1)) repeat scroll 0% 0%;
-  }
+  /*.table-page-search-submitButtons .ant-btn{*/
+    /*background:linear-gradient(180deg,rgba(115,128,255,1),rgba(47,86,255,1)) repeat scroll 0% 0%;*/
+  /*}*/
 
-  .table-page-search-submitButtons .ant-btn svg{
-    fill:cyan;
-  }
+  /*.table-page-search-submitButtons .ant-btn svg{*/
+    /*fill:cyan;*/
+  /*}*/
 
   .ant-input-disabled{
     background-color: #fff !important;
