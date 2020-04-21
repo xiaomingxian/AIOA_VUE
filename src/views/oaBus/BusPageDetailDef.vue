@@ -2,7 +2,7 @@
   <a-modal
     :visible="visible"
     :title="title"
-    :width="800"
+    :width="900"
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭">
@@ -304,7 +304,7 @@
       },
       show(rec) {
         this.visible = true;
-        this.title = "含义配置：" + rec.sname;
+        this.title = "配置含义：" + rec.sname;
         console.log("****" + JSON.stringify(rec))
         this.pageId = rec.ipageId;
         this.functionId = rec.iid;

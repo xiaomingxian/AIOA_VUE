@@ -949,7 +949,7 @@
             {
               title: '审批信息',
               dataIndex: 'action',
-              width: 80,
+              width: 120,
               align: "center",
               scopedSlots: {customRender: 'action'},
             });

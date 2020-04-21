@@ -1020,7 +1020,7 @@
             title: '审批信息',
             dataIndex: 'action',
             align: "center",
-            width: 140,
+            width: 180,
             scopedSlots: {customRender: 'action'},
           });
 
