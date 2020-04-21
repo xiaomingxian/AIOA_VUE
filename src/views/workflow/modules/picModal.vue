@@ -4,7 +4,7 @@
   <div class="setting-drawer">
     <a-drawer
       :title="title"
-      :width="900"
+      :width="scrWidth*0.7"
       placement="right"
       :closable="visible"
       @close="handleCancel"
@@ -23,7 +23,7 @@
     <!--okText="关闭">-->
 
 
-    <div id="pic"  :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
+    <div id="pic"  :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',height: scrHeight}">
 
       <div style="width:100%;position: relative">
         <!--@click='showPicFull'-->
