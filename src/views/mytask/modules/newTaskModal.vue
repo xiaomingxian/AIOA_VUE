@@ -156,15 +156,11 @@
         event.status = 1;
       },
       dissaved(event){
-        // console.log("---------------------xxx"+JSON.stringify(event.status))
-        // console.log("---------------------xxx"+JSON.stringify(event))
-        // console.log("---------------------xxx"+JSON.stringify(this.userId))
         postAction("/sys/user/addUserFun?userId="+this.userId+"&modelId="+event.modelId+"&functionId="+event.functionid+"&status="+event.status).then(res => {
           if (res.success){
             this.$message.warning("取消收藏失败")
           } else {
             this.$message.success("取消收藏成功")
-
           }
         })
         event.status = 0;
@@ -182,8 +178,6 @@
 
         })
 
-        // console.log('------------------------<<<' + 1);
-        // console.log('------------------------<<<' + JSON.stringify(e));
         this.userId=e;
         this.selectInit = '请选任务类型';
         this.selectInit2 = '请选任务详情';
@@ -248,15 +242,15 @@
 
 
         //-----------------------------
-        let paramUser = {
-          userId: this.userId,
-          modelId: this.ModelId,
-          functionId: this.FunctionId
-        };
-
-        postAction("/sys/user/addUserFun", paramUser).then(res => {
-          alert(res.success())
-        })
+        // let paramUser = {
+        //   userId: this.userId,
+        //   modelId: this.ModelId,
+        //   functionId: this.FunctionId
+        // };
+        //
+        // postAction("/sys/user/addUserFun", {userId:this.userId,modelId: this.ModelId,functionId: this.FunctionId}).then(res => {
+        //   // alert(res.success())
+        // })
 
         //清空数据
         this.$emit('close');
