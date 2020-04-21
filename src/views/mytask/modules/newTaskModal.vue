@@ -96,7 +96,7 @@
     data() {
       return {
         userId: "",
-        loading: false,// 加载状态
+        loading: true,// 加载状态
         parentIndex: '',
         childIndex: '',
         parentsData: [],
@@ -132,7 +132,7 @@
     },
     created() {
 
-      this.loading = true;
+
       // 初始化任务类型
       getAction(this.url.selectTaskType).then(res => {
         // console.log(res.result);
@@ -230,83 +230,13 @@
             // })
           }
         })
-
-        // for(let i=0;i<this.saveData.length;i++){
-        //   for(let j=0;j<this.childData.length;j++){
-        //     if(this.saveData[i].functionId === this.childData[j].functionId){
-        //       // this.childData = Object.assign(this.childData,this.childData[j],this.saveData[i].status)
-        //       // this.childData=Vue.set(this.childData,"status",this.saveData[i].status);
-        //       console.log('999999999999999999999999999')
-        //       console.log(this.childData)
-        //     }
-        //   }
-        // }
-
-
       },
-
-      //展示页面
-      //show() {
-      /*   this.selectInit = '请选任务类型'
-         this.selectInit2 = '请选任务详情'
-         //选择任务类型
-         getAction(this.url.selectTaskType).then(res => {
-           if (res.success) {
-             this.tasks = res.result
-           }
-         })
-         this.visible = true
-
-
-         //查看当前用户信息和部门信息
-         getAction(this.url.userMsgGet).then(res => {
-           if (res.success) {
-             //业务数据
-             this.taskDetail.data.s_create_by = res.result.sysUserId
-             this.taskDetail.data.s_create_name = res.result.sysUserName
-             this.taskDetail.data.s_create_dept = res.result.sysDeptName
-             this.taskDetail.data.s_create_deptid = res.result.deptId
-             this.taskDetail.data.s_create_unitid = res.result.parentId
-           }
-         })*/
-
-      // },
-      /*     //一级选择
-           selectTaskType(idAndTable) {
-
-             var id = idAndTable.split(',')[0]
-             getAction(this.url.selectTask, {
-               iBusModelId: id
-             }).then(res => {
-               if (res.success) {
-                 this.task = res.result.records
-               }
-             })
-             this.selectInit2 = '请选任务详情'
-
-           },
-           //二级选择
-           taskSelect(typeDetail) {
-
-             this.typeDetail = JSON.parse(typeDetail)
-
-
-           },*/
       //确定:打开具体的任务页面
       confirm() {
-        // window.open('http://localhost:4000/mytask/taskList/detailFile');
-        // if(this.tasksDetialsLists.length<=0){
-        //   this.$message.warning("没有对应的业务功能");
-        //   return ;
-        //   this.visible = true;
-        // }
-        //校验数据
         let param = {
           modelId: this.ModelId,
           functionId: this.FunctionId,
         }
-
-
         postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
           if (res.success) {
             window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&status=newtask&navisshow=false')
@@ -314,6 +244,9 @@
             this.$message.error(res.message)
           }
         });
+
+
+
         //-----------------------------
         let paramUser = {
           userId: this.userId,
@@ -342,6 +275,8 @@
         this.visible = false;
       },
       initData() {
+        this.parentIndex = 0
+        this.childIndex = 0
         this.parentsData = [] ;
         this.tasks = []
         this.task = []

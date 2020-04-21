@@ -383,7 +383,6 @@
           busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
           getModelIdByUrl: '/oaBus/busModel/getModelIdByUrl',
           getConditionByFunId: '/oaBus/busPageDetail/getConditionByFunId',
-
           list: "/wf/task/queryTask?operstatus=jump",
           yewuDataQuery: "/oaBus/dynamic/query",
           actShowQuery: '/oaBus/busPage/queryActShowByPageRef',
