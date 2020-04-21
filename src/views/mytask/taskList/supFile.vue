@@ -37,11 +37,11 @@
            <!-- <a-select placeholder="请选择发文单位" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                       v-model="backData.s_varchar1">
               <a-select-option v-for="(item,index) in recFileTypeList" :key="index" :value="item.value">
-                {{item.text}}
+                {{item.text}}   placeholder="请选择发文单位"
               </a-select-option>
             </a-select>-->
 
-            <a-select placeholder="请选择发文单位" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1" @change="selectType">
+            <a-select  ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)" v-model="backData.s_varchar1" @change="selectType">
               <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :value="item.value">{{item.text}}
               </a-select-option>
             </a-select>
@@ -110,11 +110,11 @@
             </a-radio-group>
           </td>
           <td class="title" width="15%">
-            <!--反馈频率-->
+            <!--反馈频率  placeholder="请选择反馈频率" -->
             <center><h3>{{detailList.s_varchar2}}</h3></center>
           </td>
           <td width="35%">
-            <a-select placeholder="请选择反馈频率" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
+            <a-select  ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                       v-model="backData.s_varchar2">
               <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="index" :value="item.value">
                 {{item.text}}

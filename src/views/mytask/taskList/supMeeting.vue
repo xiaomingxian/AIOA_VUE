@@ -10,7 +10,7 @@
             <center><h3>{{detailList.s_varchar1}}</h3></center>
           </td>
           <td>
-            <a-select placeholder="请选择督查类别" ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
+            <a-select  ref="s_varchar1" v-on:blur="blurText(backData.s_varchar1,$refs.s_varchar1)"
                       v-model="backData.s_varchar1">
               <a-select-option v-for="(item,index) in optionMap.s_varchar1_option" :key="index" :value="item.value">
                 {{item.text}}
@@ -58,11 +58,11 @@
             </a-select>-->
 
             <!--<a-radio-group ref="i_is_important" v-on:blur="blurText(backData.i_is_important,$refs.i_is_important)" v-model="backData.i_is_important"  @change="selectType" style="padding-left: 14px;">
-              <a-radio v-for="(item,index) in optionMap.i_is_important_option" :key="index" :value="item.value">{{item.text}}</a-radio>
+              <a-radio v-for="(item,index) in optionMap.i_is_important_option" :key="index" :value="item.value">{{item.text}}</a-radio>  @change="selectType"
               &lt;!&ndash;<a-radio :value="1">否</a-radio>&ndash;&gt;
             </a-radio-group>-->
 
-            <a-radio-group :defaultValue="0" ref="i_is_important" v-on:blur="blurText(backData.i_is_important,$refs.i_is_important)" v-model="backData.i_is_important"  @change="selectType" style="padding-left: 14px;">
+            <a-radio-group  :defaultValue="0" ref="i_is_important" v-on:blur="blurText(backData.i_is_important,$refs.i_is_important)" v-model="backData.i_is_important" @change="radioGroup"   style="padding-left: 14px;">
               <!--<a-radio v-for="(item,index) in optionMap.i_is_important_option" :key="index" :value="item.value">{{item.text}}</a-radio>-->
               <a-radio :value="0">否</a-radio>
               <a-radio :value="1">是</a-radio>
@@ -74,7 +74,7 @@
             <center><h3>{{detailList.s_varchar2}}</h3></center>
           </td>
           <td width="35%">
-            <a-select placeholder="请选择反馈频率" ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
+            <a-select  ref="s_varchar2" v-on:blur="blurText(backData.s_varchar2,$refs.s_varchar2)"
                       v-model="backData.s_varchar2">
               <a-select-option v-for="(item,index) in optionMap.s_varchar2_option" :key="index" :value="item.value">
                 {{item.text}}
@@ -303,7 +303,8 @@
           //当前任务名称
           s_cur_task_name: '',
           //是否重要
-          i_is_important: ''
+          i_is_important: '',
+          s_varchar7:'',
         },
 
         url: {
@@ -331,6 +332,13 @@
     },
     methods: {
       moment,
+      radioGroup(e){
+        if (e.target.value == 0){
+          this.backData.s_varchar7 = "否"
+        }else if (e.target.value == 1) {
+          this.backData.s_varchar7 = "是"
+        }
+      },
       getDateTime2(e,datetime2){
         this.backData.d_datetime2 = datetime2;
       },
@@ -378,6 +386,7 @@
 
       //页面初始化调用方法，初始化渲染页面
       show(taskDetail) {
+
         /*console.log("页面数据---：" + JSON.stringify(this.detailList))
         console.log("基础数据---：" + JSON.stringify(this.backDataRef))*/
         //查询出优先级
@@ -391,6 +400,14 @@
             }
           })
         }
+
+
+        /*if(this.optionMap.s_varchar4_option != undefined && this.optionMap.s_varchar4_option.length >0){
+          this.recFileTypeList = this.optionMap.s_varchar4_option ;
+          this.backData.i_is_important
+        }*/
+
+
         //参数为3：查询对应的不公开理由
         postAction("/oaBus/oaBusdata/querySysDictData",{param:3}).then((res) => {
           this.regularsList = res.result.regulars;
