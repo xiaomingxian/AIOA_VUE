@@ -137,7 +137,7 @@
       //初始化--最大上传总量
       getFileMaxTotal() {
         getAction(this.url.getDictValue, {dictKey: 'uploadFile_maxSize'}).then(res => {
-          if (res.success && res.result[0].value !==undefined) {
+          if (res.success && res.result.length>0 && res.result[0].value !==undefined) {
             this.maxSize =this.countTotal(res.result[0].value);
             this.maxSizeName =res.result[0].description;
             console.log(this.maxSize)
@@ -147,7 +147,7 @@
       //初始化--文件格式
       getFileSuffix() {
         getAction(this.url.getDictValue, {dictKey: 'uploadFile_suffix'}).then(res => {
-          if (res.success && res.result[0].value !==undefined) {
+          if (res.success && res.result.length>0 && res.result[0].value !==undefined) {
             this.fileSuffix = res.result[0].value.split(",");
           }
         })
@@ -192,6 +192,7 @@
               postAction('/oaBus/dynamic/updateData', param).then(res => {
               })
               this.$emit('watchSub', true);
+
               this.close();
             }
           })

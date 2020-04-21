@@ -1985,7 +1985,8 @@ export const taskBth = {
                       this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                       this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
                   } else {
-                    alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
+                    // alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
+                    this.$message.error('您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！')
                   }
                 }
                 if (this.brower == "firefox") {
@@ -1995,7 +1996,9 @@ export const taskBth = {
                       this.currentBtn.iid + "&docNumId=" + parseInt(this.backData.s_varchar8) + "&userId=" +
                       this.currentUserMessage.sysUserId + "&password=" + this.password + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
                   } else {
-                    alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
+                    // alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
+                    this.$message.error('您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！')
+
                   }
                 }
               } else {
@@ -2183,20 +2186,8 @@ export const taskBth = {
 
     //办理进度
     showDetailInst(){
-      console.log("====================>>>1111"+JSON.stringify(this.backData))
       this.$refs.detailedInst.show(this.backData);
-      // alert(1)
-      // let oaDatadetailedInst={
-      //   iBusFunctionId: 120,
-      //   sTable: "oa_busdata10",
-      //   iTableId: 3276802
-      // }
-      // getAction("/oadata/oaDatadetailedInst/list", oaDatadetailedInst).then(res => {
-      //   alert(1)
-      //   console.log("====================>>>"+JSON.stringify(res))
-      // })
     },
-
 
     //日期格式化
     dateFormat(date) {
