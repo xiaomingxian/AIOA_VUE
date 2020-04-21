@@ -2,7 +2,7 @@
   <div class="setting-drawer">
     <a-drawer
       :title="title"
-      :width="900"
+      :width="scrWidth*0.7"
       placement="right"
       :closable="visible"
       @close="handleCancel"
@@ -14,7 +14,7 @@
           <a-button @click="traceP" block>流程跟踪表</a-button>
           <a-button @click="backRecordClick" block>退回撤回记录</a-button>
         </div>
-        <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',border: '1px solid #e0e0e0',height: scrHeight}">
+        <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',height:scrHeight}">
 
 
           <div style="width:100%;position: relative" v-if="showPic">
@@ -105,7 +105,7 @@
     data() {
       return {
         scrWidth: window.innerWidth,
-        scrHeight: window.innerHeight-150 + 'px',//- 320
+        scrHeight: window.innerHeight-100 + 'px',//- 320
         // scrHeight: window.innerHeight + 'px',
         // scrHeight: 500 + 'px',
         styles: [],

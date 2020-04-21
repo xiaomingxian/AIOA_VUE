@@ -1,12 +1,13 @@
 <template>
   <a-modal
     :title="title"
-    :width="1000"
+    :width="900"
     :visible="visible"
     @ok="handleOk"
     :confirmLoading="confirmLoading"
     @cancel="handleCancel"
     cancelText="关闭">
+    <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
     <div v-for="(item,index) in dataSource">
       <p class="title"><span>{{item.name}}</span></p>
       <a-table ref="table"
@@ -18,6 +19,7 @@
       >
       </a-table>
     </div>
+    </a-spin>
   </a-modal>
 </template>
 
@@ -38,7 +40,7 @@
         columns: [
           {
             title: '部门',
-            width: 100,
+            width: 120,
             align: "center",
             dataIndex: 'sdeptName',
             customRender: (value, row, index) => {
@@ -68,13 +70,12 @@
           {
             title: '姓名',
             align: "center",
-            width: 130,
+            width: 120,
             dataIndex: 'sname'
           },
           {
             title: '意见',
-            align: "center",
-            width: 150,
+            align: "left",
             dataIndex: 'sopinion',
           }
         ],
