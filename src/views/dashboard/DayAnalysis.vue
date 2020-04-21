@@ -963,7 +963,7 @@
         // console.log(this.$store.state.postDetialLists);
 
         // window,open('http://localhost:4000/mytask/taskList/Test-detailFile?tableName=oa_busdata10&busdataId=515')
-        window, open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + i_id + '&navisshow=false')
+        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + i_id + '&navisshow=false')
         // this.$router.push({path:'/mytask/taskList/Test-detailFile',query:params})
 
       },
