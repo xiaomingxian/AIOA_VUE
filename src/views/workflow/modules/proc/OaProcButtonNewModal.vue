@@ -145,10 +145,9 @@
                 <a-form-item  style="margin: 0px;">
                   <span style="margin-left: 30px" class="configOption">显示的角色：</span>
                   <a-select
-                  mode="tags"
+                  mode="multiple"
                   style="width: 40%"
                   placeholder="请选择显示的角色"
-                  :defaultValue="[]"
                   @change="onChange2"
                   v-model="sRoles">
                   <a-select-option v-for="Activity in iisDefendLink" :value="Activity.id">
@@ -347,7 +346,7 @@
         this.iisLastsender=0;
         this.iisTransactors=0;
         this.iisDefault=0;
-        this.sRoles=' ';
+        this.sRoles=[];
         this.toggleSearchStatus=true;
         this.model.taskDefKey=this.taskDefKey;
         this.model.iButtonId=this.iButtonId;
@@ -359,7 +358,7 @@
             this.btnSetModel = res.result;
             this.toggleSearchStatusSet=true;
             this.iorder=this.btnSetModel.iorder;
-             if (this.model!=null&&this.btnSetModel.sroles!=null){
+             if (this.model!=null&&this.btnSetModel.sroles!=null && this.btnSetModel.sroles!=''){
               this.sRoles=this.btnSetModel.sroles.split(',');
              }
             this.ipermitType=this.btnSetModel.ipermitType;
@@ -463,8 +462,8 @@
         this.btnSetModel.iisDefault=this.iisDefault;
       },
       onChange2 (value) {
-//        console.log("55555555555555555555555");
-//        console.log(value.toString());
+        console.log("55555555555555555555555");
+        console.log(value.toString());
         this.btnSetModel.sroles=value.toString();
       },
       // loadData(iid) {
@@ -473,6 +472,7 @@
       //   })
       // },
       add() {
+        this.btnSetModel.sroles=[];
         this.edit({});
       },
       editBefore(record,TaskLinkId,res){

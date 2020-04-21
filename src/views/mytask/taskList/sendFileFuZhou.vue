@@ -92,12 +92,12 @@
         <tr>
           <td width="15%" class="title">
             <!--规范性文件：-->
-            <center><h3>{{detailList.s_varchar8}}</h3></center>
+            <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td>
-            <a-select placeholder="请选择规范性文件" ref="s_varchar8" v-on:blur="blurText(backData.s_varchar8,$refs.s_varchar8)"
-                        v-model="backData.s_varchar8" @change="varEightSelectType">
-            <a-select-option v-for="(item,index) in optionMap.s_varchar8_option" :key="index" :value="item.value">{{item.text}}
+            <a-select placeholder="请选择规范性文件" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)"
+                        v-model="backData.s_varchar3" @change="varEightSelectType">
+            <a-select-option v-for="(item,index) in optionMap.s_varchar3_option" :key="index" :value="item.value">{{item.text}}
             </a-select-option>
           </a-select>
           </td>
@@ -257,7 +257,7 @@
         <tr>
           <td width="10%" class="title">
             <!--""办文依据""-->
-            <center><h3>{{detailList.s_varchar3}}</h3></center>
+            <center><h3>办文依据</h3></center>
           </td>
           <td colspan="3">
             <div  v-for="(item,index) in banWenFileList" style="padding-left: 15px">
@@ -489,7 +489,7 @@
         this.backData.s_varchar7=e;
       },
       varEightSelectType(e){
-        this.backData.s_varchar8=e;
+        this.backData.s_varchar3=e;
       },
       witeDepart(param) {
         this.backData.s_main_unit_names = param.str1;
