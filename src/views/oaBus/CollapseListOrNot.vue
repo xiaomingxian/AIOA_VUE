@@ -1199,17 +1199,24 @@
 
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
-          this.iisFold = res.result.iisFold;
+          if(res.result == null){
+            this.getPgSearchList();
+          }else {
+            this.iisFold = res.result.iisFold;
+            getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
+              this.collapse = res.result;
+              if (this.iisFold == 1 && this.collapse == 1) {
+                this.getPgFirstList();
+              } else {
+                this.getPgSearchList();
+              }
+
+            })
+
+          }
+
         })
 
-        await getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
-          this.collapse = res.result;
-          if (this.iisFold == 1 && this.collapse == 1) {
-            this.getPgFirstList();
-          } else {
-            this.getPgSearchList();
-          }
-        })
       }
     },
     watch: {

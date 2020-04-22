@@ -1195,13 +1195,19 @@
       collapseListOrNot: async function () {
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
-          console.log('------------', JSON.stringify(res.result))
-          this.iisFold = res.result.iisFold;
-          if (this.iisFold == 1) {
-            this.getPgFirstList();
-          } else {
+          // console.log('------------', JSON.stringify(res.result))
+
+          if(res.result == null){
             this.getPgSearchList();
+          }else {
+            this.iisFold = res.result.iisFold;
+            if (this.iisFold == 1) {
+              this.getPgFirstList();
+            } else {
+              this.getPgSearchList();
+            }
           }
+
         })
       }
     },
