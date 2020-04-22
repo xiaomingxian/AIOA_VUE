@@ -6,7 +6,7 @@
     :confirmLoading="confirmLoading"
     @ok="handleOk"
     @cancel="handleCancel"
-    cancelText="取消">
+    cancelText="关闭">
 
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
@@ -18,10 +18,11 @@
          </a-form-item>
 
         <a-form-item
+          style="margin-left: -100px;margin-top: 25px"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="新名称">
-          <a-input  maxLength="60"  placeholder="请输入新的按钮组合名称"  />
+          <a-input  maxLength="60"  placeholder="请输入新的按钮组合名称"   v-decorator="['sbuttonSetName', {rules: [{ required: true, message: '请输入新的按钮组合名称' }]}]"/>
         </a-form-item>
         <a-form-item
                  :labelCol="labelCol"
@@ -83,6 +84,7 @@
 
       },
       close () {
+        this.model={};
         this.$emit('close');
         this.visible = false;
       },
