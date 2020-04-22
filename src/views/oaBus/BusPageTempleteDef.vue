@@ -71,7 +71,10 @@
       :loading="loading"
       style="margin-bottom: 30px">
        <span slot="action" slot-scope="text, record">
-          <a @click="handleDelect(record.iid)">删除</a>
+          <!--<a @click="handleDelect(record.iid)">删除</a>-->
+         <a-popconfirm title="确定删除吗?" @confirm="() => handleDelect(record.iid)">
+                  <a>删除</a>
+          </a-popconfirm>
         </span>
     </a-table>
       </div>

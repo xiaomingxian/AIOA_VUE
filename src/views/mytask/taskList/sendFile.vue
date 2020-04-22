@@ -232,7 +232,7 @@
 
   export default {
     name: "sendFile",
-    mixins: [JeecgListMixin],
+    mixins: [JeecgListMixin, busdataTemplate],
     components: {
       ATextarea,
       DelTime,

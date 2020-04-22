@@ -2155,6 +2155,21 @@ export const taskBth = {
       this.$emit('callaboration')
 
     },
+    //催办
+    dunningButton(){
+      console.log('----------------',this.taskMsg.processInstanceId)
+      this.$refs.dunningModalForm.qucik(this.taskMsg.processInstanceId,this.backData);
+      this.$refs.dunningModalForm.title = "催办";
+      this.$refs.dunningModalForm.visible = true;
+
+    },
+    //进展分析
+    jinzhanButton(){
+      this.$refs.jinzhanModalForm.show(this.taskMsg.processInstanceId,this.backData);
+      this.$refs.jinzhanModalForm.title = "进展分析";
+      this.$refs.jinzhanModalForm.visible = true;
+
+    },
 
     //查看意见
     opinionModal: function () {
