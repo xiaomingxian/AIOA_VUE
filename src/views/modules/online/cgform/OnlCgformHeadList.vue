@@ -253,14 +253,14 @@
           this.tableTypeDictOptions = res.result
         }
       })
-      this.loadData(1)
+      this.loadData()
     },
     methods: {
       doDbSynch(id) {
         postAction(this.url.doDbSynch + id, { synMethod: '1' }).then((res) => {
           if (res.success) {
             this.$message.success(res.message)
-            this.loadData(1)
+            this.loadData()
           } else {
             this.$message.warning(res.message)
           }
@@ -276,7 +276,7 @@
           this.syncLoading = false
           if (res.success) {
             this.$message.success(res.message)
-            this.loadData(1)
+            this.loadData()
           } else {
             this.$message.warning(res.message)
           }
@@ -314,7 +314,7 @@
             deleteAction(that.url.removeRecord, { id: id }).then((res) => {
               if (res.success) {
                 that.$message.success('移除成功')
-                that.loadData(1)
+                that.loadData()
               } else {
                 that.$message.warning(res.message)
               }
@@ -358,7 +358,7 @@
         this.$refs.transd2o.show()
       },
       transOk() {
-        this.loadData(1)
+        this.loadData()
       },
       goGenerateCode() {
         if (!this.selectedRowKeys || this.selectedRowKeys.length != 1) {

@@ -162,7 +162,7 @@
       }
     },
     created() {
-      this.loadData(1);
+      this.loadData();
     },
     methods: {
       add (selectUser,userIds) {
@@ -230,7 +230,7 @@
           this.isorter.order = "ascend"==sorter.order?"asc":"desc"
         }
         this.ipagination = pagination;
-        this.loadData(1);
+        this.loadData();
       },
       handleCancel () {
         this.selectionRows = [];
