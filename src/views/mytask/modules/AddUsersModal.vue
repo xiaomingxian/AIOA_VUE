@@ -100,7 +100,7 @@
                     size="small"
                     bordered
                     rowKey="id"
-                    :loading="loading"
+                    :loading="false"
                     :columns="columns2"
                     :customRow="departClickCheck"
                     :dataSource="mockData"
@@ -197,7 +197,7 @@
           size="small"
           bordered
           rowKey="id"
-          :loading="loading"
+          :loading="false"
           :customRow="customRowMy"
           :columns="columns3"
           :dataSource="actChoice"
