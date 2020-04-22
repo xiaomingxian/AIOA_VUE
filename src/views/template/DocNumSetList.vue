@@ -304,7 +304,7 @@
       },
       docNumExportXls(record) {
         const fileName = record.fname + "-" + record.sname + new Date().getTime()
-        getAction('/papertitle/docNumSet/queryBusdataListByDocNum',{iId: record.iid,sCreateBy:record.screateBy}).then(res=>{
+        getAction('/papertitle/docNumSet/queryBusdataListByDocNum',{iId: record.iid}).then(res=>{
             if (res.code == '200' && res.result.length >0){
               downFile("/papertitle/docNumSet/docNumExportXls", {
                 iid: record.iid,
