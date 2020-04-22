@@ -62,7 +62,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="名称">
-            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'},{ min: 0, max: 100, message: '机构/部门名称长度不能超过50位！', trigger: 'blur'  }] }]"/>
+            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'},{ min: 0, max: 100, message: '机构/部门名称长度不能超过100位！', trigger: 'blur'  }] }]"/>
           </a-form-item>
           <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="上级部门">
             <a-tree-select
