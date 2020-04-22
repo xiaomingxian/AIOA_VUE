@@ -94,6 +94,7 @@
               </div>
 
               <!--选部门-->
+              <!-- :loading="loading"-->
               <div class="box" v-if="isDept">
                 <!--左侧部门-->
                 <div class="left">
@@ -102,7 +103,7 @@
                     size="small"
                     bordered
                     rowKey="id"
-                    :loading="loading"
+                    :loading="false"
                     :columns="columns2"
                     :customRow="departClickCheck"
                     :dataSource="mockData"
