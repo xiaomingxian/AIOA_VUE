@@ -49,12 +49,12 @@
     data() {
       return {
         title: "流程复制【包含按钮、意见、环节、角色全套配置】",
-        isClick:false,
+        isClick: false,
         visible: false,
         confirmLoading: false,
         name: undefined,
         key: undefined,
-        timeRecord:null,
+        timeRecord: null,
         proMSg: {},
         url: {
           copy: '/workflowSet/copy'
@@ -68,7 +68,7 @@
         this.name = undefined
         this.key = undefined
         this.visible = true
-        this.isClick=false
+        this.isClick = false
       },
       close() {
         this.$emit('close');
@@ -77,8 +77,7 @@
       handleOk() {
 
 
-
-        if (this.isClick){
+        if (this.isClick) {
           this.$message.error("请勿重复点击")
         }
         if (this.name == undefined) {
@@ -142,10 +141,12 @@
           this.timeRecord = now
         }
 
+        // String str1 = java.net.URLDecoder.decode(str1,"utf-8");
+        let name = encodeURI(this.name)
 
-        postAction(this.url.copy + '?copyKey=' + this.key + '&copyName=' + this.name + '&sourceDefId=' + this.proMSg.id).then(res => {
+        postAction(this.url.copy + '?copyKey=' + this.key + '&copyName=' + name + '&sourceDefId=' + this.proMSg.id).then(res => {
           if (res.success) {
-            this.isClick=true
+            this.isClick = true
             this.$message.success(res.message)
             //刷新父页面
             this.$emit('reload')
