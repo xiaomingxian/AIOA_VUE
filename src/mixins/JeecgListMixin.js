@@ -52,6 +52,7 @@ export const JeecgListMixin = {
     }
   },
   created() {
+    this.WindowsLocationIE();
     //先获取上次缓存的参数(如果有的话)
     this.getQueryParamsMy()
     this.loadData();
@@ -59,6 +60,13 @@ export const JeecgListMixin = {
     this.initDictConfig();
   },
   methods: {
+    WindowsLocationIE(){
+      // if (window["context"] == undefined) {
+      if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+      }
+      // }
+    },
     //获取存储的查询条件
     getQueryParamsMy() {
       let path = this.$route.path
