@@ -4,7 +4,7 @@
     :width="drawerWidth"
     @close="onClose"
     :visible="visible"
-    :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}"
+    :wrapStyle="{height: 'calc(100%)',overflow: 'auto',paddingBottom: '108px'}"
   >
     <!-- 抽屉内容的border -->
     <div
