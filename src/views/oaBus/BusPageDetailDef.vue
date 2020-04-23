@@ -347,6 +347,7 @@
         this.dataSource2 = [];
         this.dataSource1 = [];
         this.visible = false;
+        this.queryParam = {} ;
       },
       //选择页面
       selectPageOk(data) {

@@ -262,6 +262,7 @@
           if(param.ip == this.isnewbody.ip){//ip没有改动
             postAction(this.url.edit,subdata).then((res) => {
               this.$message.success(res.message);
+
               this.InitializeQuery();
             })
              console.log(this.isnewbody.ip)
@@ -308,6 +309,10 @@
         this.userid = userid;
         let url = "/testt/sysUserSet/queryByUserId";
         getAction(url,{userId:userid}).then((res) => {
+          //将用户设置信息添加到session缓存中
+          var storage = window.sessionStorage;
+          storage.setItem('userSet', JSON.stringify(res.result));
+
           this.iisFontSize = res.result.iisFontSize;
           console.log(res.result);
           this.isnewbody = res.result;
