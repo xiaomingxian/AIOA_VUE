@@ -5,8 +5,7 @@
         :title="title"
         :width="scrWidth"
         placement="right"
-        :closable="visible"
-        @close="handleCancel"
+        @close="closeDetailList"
         :visible="visible"
         :style="{}"
       >
@@ -47,12 +46,12 @@
               </div>
             </div>
             <a-button style="position: fixed;bottom:5px;right:100px" type="primary" @click="addDetail">新增</a-button>
-            <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="handleCancel">关闭</a-button>
+            <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="closeDetailList">关闭</a-button>
           </div>
         </div>
       </a-drawer>
     </div>
-    <detailed-inst :detailData="detailData" ref="detailedInst" @ok="sx"></detailed-inst>
+    <detailed-inst ref="detailedInst" @refresh="refresh"></detailed-inst>
   </div>
 </template>
 
@@ -127,6 +126,8 @@
         ],
         dataSource: [],
         expandedRowss: [],
+        cmd: 1,
+        // data1:{},
         detailData: {
           iid: 0,
           stable: "",
@@ -140,12 +141,11 @@
           screateBy: "",
           screateDept: "",
           screateDeptid: "",
-          cmd: 1,
         },
         confirmLoading: false,
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         visible: false,
-        visible1: false,
+        // visible1: false,
         title: "办理进展",
         scrWidth: window.innerWidth,
         scrHeight: window.innerHeight - 118 + 'px'
@@ -155,41 +155,35 @@
     created() {
 
     },
-    // mounted() {
-    //   window.addEventListener('dblclick', e => this.handleCancel(e))
-    // },
+    mounted() {
+      // window.addEventListener('dblclick', e => this.handleCancel(e))
+    },
     methods: {
 
       doTask(record, index) {
         return {
           on: {
             click: (event) => {
-              console.log(record);
-              console.log(index);
+              // console.log(record);
+              // console.log(index);
               // console.log(event);
-              this.detailData.cmd = 2;
-              this.$refs.detailedInst.showDrawer22(record);
+              this.cmd = 2;
+              // console.log("===========================>>>111111!!!"+JSON.stringify(record))
+              this.$refs.detailedInst.showDrawerList(record, this.cmd);
             }
           }
         }
-
-
       },
 
 
       // getPgSecondList(expandedRows){
-
       // console.log(expandedRows)
-
       // this.expandedRowss = expandedRows[expandedRows.length - 1];
-      //
       // this.detailData=this.dataSource[this.expandedRowss]
       // this.detailData.cmd=2;
       // console.log("================================@@@@>>>列表"+JSON.stringify(this.detailData))
-      //
       // this.$refs.detailedInst.showDrawer22(this.detailData);
       // },
-
       // onSelectChangeMy2(rowKeys, rows) {
       //   // alert(rowKeys)
       //   // alert(JSON.stringify(rows))
@@ -229,12 +223,15 @@
       },
 
       addDetail() {
-        this.detailData.cmd = 1;
-        this.$refs.detailedInst.showDrawer12(this.detailData);
+        this.cmd = 1;
+        console.log("===========================>>>新增!!!" + JSON.stringify(this.detailData))
+
+        this.$refs.detailedInst.showaddDrawer(this.detailData, this.cmd);
       },
 
       //列表展示
       show(data) {
+        // this.data=data;
         this.detailData.stable = data.table;
         this.detailData.itableId = data.i_id;
         this.detailData.screateName = data.s_create_name;
@@ -252,38 +249,31 @@
         this.visible = true
       },
 
-      sx(cmd) {
+      refresh(cmd) {
         console.log("================================@@@@>>>!!!!《《《刷新" + JSON.stringify(this.detailData))
         // console.log("================================@@@@>>>!!!!《《《"+JSON.stringify(this.detailData.sTable))
-        // console.log("================================@@@@>>>!!!!《《《"+JSON.stringify(cmd))
-        let myurl = "/oadatafetailedinst/oaDatadetailedInst/selectdetailedInst"
-        if (cmd == 3) {
-          getAction(myurl, {
-            sTable: this.detailData.stable, iTableId: this.detailData.itableId,
-            sCreateBy: this.detailData.screateBy, sCreateDeptid: this.detailData.screateDeptid
-          }).then(res => {
-            this.dataSource = res.result;
-          });
-        } else {
-
-          getAction(myurl, {
-            sTable: this.detailData.stable, iTableId: this.detailData.itableId,
-            sCreateBy: this.detailData.screateBy, sCreateDeptid: this.detailData.screateDeptid
-          }).then(res => {
-            this.dataSource = res.result;
-          });
-        }
+        console.log("================================@@@@>>>删除!!!!《《《"+JSON.stringify(cmd))
+        let myurl = "/oadatafetailedinst/oaDatadetailedInst/selectdetailedInst";
+        getAction(myurl, {
+          sTable: this.detailData.stable, iTableId: this.detailData.itableId,
+          sCreateBy: this.detailData.screateBy, sCreateDeptid: this.detailData.screateDeptid
+        }).then(res => {
+          this.dataSource = res.result;
+        });
 
       },
-      delete() {
-
-      },
-      handleCancel() {
+      closeDetailList() {
         this.$emit('close');
         this.visible = false;
-      }
+      },
+    },
 
-    }
+
+    // dataup(data){
+    //   this.data1=data
+    //   console.log("3333333333333333",JSON.stringify(this.data1))
+    // }
+
   }
 </script>
 

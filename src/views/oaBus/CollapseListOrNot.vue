@@ -200,7 +200,7 @@
         :columns="columns"
         :dataSource="dataSource"
         :pagination="paginations"
-        :loading="false"
+        :loading="loading1"
         :showAlertInfo="false"
         bordered
         :rowKey="record => record.id"
@@ -381,7 +381,7 @@
             :columns="columns"
             :dataSource="dataSource"
             :pagination="paginations"
-            :loading="false"
+            :loading="loading1"
             :showAlertInfo="false"
             bordered
             :rowKey="record => record.id"
@@ -504,7 +504,7 @@
           getModelIdByUrl: '/oaBus/busModel/getModelIdByUrl',
           getConditionByFunId: '/oaBus/busPageDetail/getConditionByFunId',
         },
-        loading: false,
+        loading1: false,
         selectedRowKeys: [],
         selectedRows: [],
         toggleSearchStatus: false,
@@ -916,7 +916,7 @@
         this.setFontSize();
       },
       getPgSearchList() {
-
+        this.loading1 = true ;
         this.chooseSearch();
         let url = "/oaBus/oaBusdata/queryByModelId";
         // this.queryParam.function_id = this.queryParam.function_id.toString();
@@ -941,7 +941,7 @@
 
           this.dataSource = this.searchList.records;
 
-
+          this.loading1 = false ;
           // console.log('-------------++++++++++++++++++++++++++++++---------------');
           // console.log(res);
 
