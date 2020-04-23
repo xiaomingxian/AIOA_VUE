@@ -179,56 +179,6 @@
           }
 
 
-
-
-         /* let url2 = '/data/dataAnalysis/Rate'; //办理率
-          getAction(url2,data).then((res)=>{
-            console.log(res);
-            this.$refs.bar.getData1(res);
-            this.$refs.pie.getData1(res);
-            this.$refs.line.getData1(res);
-
-
-            this.$refs.departbar.getData1(res);
-            this.$refs.deparpie.getData1(res);
-            this.$refs.deparline.getData1(res);
-
-          })
-          let url3 = '/data/dataAnalysis/Handling';  //总共办理的公文数量
-          getAction(url3,data).then((res)=>{
-            console.log(res);
-            this.$refs.bar.getData2(res);
-            this.$refs.pie.getData2(res);
-            this.$refs.line.getData2(res);
-
-            this.$refs.departbar.getData2(res);
-            this.$refs.deparpie.getData2(res);
-            this.$refs.deparline.getData2(res);
-          })
-          let url4 = '/data/dataAnalysis/PeerNum';  //办理的数量占同行办理数量的比例
-          getAction(url4,data).then((res)=>{
-            console.log(res);
-            this.$refs.bar.getData3(res);
-            this.$refs.pie.getData3(res);
-            this.$refs.line.getData3(res);
-
-            this.$refs.departbar.getData3(res);
-            this.$refs.deparpie.getData3(res);
-            this.$refs.deparline.getData3(res);
-          })
-          let url5 = "/data/dataAnalysis/HandlingRate";   // 办结率
-          getAction(url5,data).then((res) => {
-
-            this.$refs.bar.getData4(res);
-            this.$refs.pie.getData4(res);
-            this.$refs.line.getData4(res);
-            console.log('===========================================================',res);
-            this.$refs.departbar.getData4(res);
-            this.$refs.deparpie.getData4(res);
-            this.$refs.deparline.getData4(res);
-
-
-          })*/
           let url6 = "/data/dataAnalysis/MonthAverage";   // 超过平均值月份
           getAction(url6,data).then((res) => {
             console.log(res);

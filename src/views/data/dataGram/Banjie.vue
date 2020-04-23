@@ -62,13 +62,16 @@
           console.log(res);
           if(res.reta){
             this.series = [];
-            if((res.reta)%1===0){
-              this.series.push((res.reta)*100);
-            }else{
-              this.series.push(((res.reta)*100).toFixed(2));
-            }
+            this.banjielvNum = true
+            // if((res.reta)%1===0){
+            //   this.series.push((res.reta)*100);
+            // }else{
+
+            //   this.series.push(((res.reta)*100).toFixed(2));
+            // }
+            this.series.push(((res.reta)*100).toFixed(2));
           }else{
-            this.banjielvNum = false
+              this.banjielvNum = false
           }
 
         })

@@ -1,6 +1,7 @@
 <template>
-  <a-card :bordered="false" :loading="loading">
-    <div class="searchBox">
+  <div style="position: relative">
+    <a-card :bordered="false" >
+      <div class="searchBox">
         <p>
           <span>所属模块：</span>
           <a-select style="width: 260px;"  placeholder="请选择所属模块（必选项）" :defaultValue="ModelData[0].iid"  @change="getModelVal">
@@ -9,53 +10,61 @@
           </a-select>
         </p>
 
-      <p>
-        <span>所属业务：</span>
-        <a-select style="width: 260px;" :allowClear='allowClear' ref="dsdsds"  v-model="defaultValue"   placeholder="请选择所属业务" @change="getProVal">
-          <a-select-option v-for="(item,index) in ProData"  :key="index" :value="item.iid">{{item.sname}}
-          </a-select-option>
-        </a-select>
-      </p>
+        <p>
+          <span>所属业务：</span>
+          <a-select style="width: 260px;" :allowClear='allowClear' ref="dsdsds"  v-model="defaultValue"   placeholder="请选择所属业务" @change="getProVal">
+            <a-select-option v-for="(item,index) in ProData"  :key="index" :value="item.iid">{{item.sname}}
+            </a-select-option>
+          </a-select>
+        </p>
 
-      <p>
-        <span>申请年份：</span>
-        <a-select style="width: 260px;"   placeholder="请选择申请年份（必选项）" :defaultValue="YearData[0].year" @change="getYearVal">
-          <a-select-option v-for="(item,index) in YearData" :key="index" :value="item.year">{{item.year}}
-          </a-select-option>
-        </a-select>
-      </p>
+        <p>
+          <span>申请年份：</span>
+          <a-select style="width: 260px;"   placeholder="请选择申请年份（必选项）" :defaultValue="YearData[0].year" @change="getYearVal">
+            <a-select-option v-for="(item,index) in YearData" :key="index" :value="item.year">{{item.year}}
+            </a-select-option>
+          </a-select>
+        </p>
 
-      <p>
-        <!--<a-button type="primary" @click="startAnalysis">开始数据分析</a-button>-->
-      </p>
+        <p>
+          <!--<a-button type="primary" @click="startAnalysis">开始数据分析</a-button>-->
+        </p>
+      </div>
+
+      <a-tabs @change="getTabVal">
+
+        <a-tab-pane  tab="分布情况" key="1">
+
+        </a-tab-pane>
+
+        <a-tab-pane  tab="办结率" key="2">
+        </a-tab-pane>
+
+      </a-tabs>
+      <!--<Banjie v-show="false"    ref="banjieCompoment"/>-->
+      <Distribution @startAnalysis="startAnalysis" v-show="tabShow==1?true:false" ref="distributionComponent"/>
+      <Banjie  v-show="tabShow==2?true:false"    ref="banjieCompoment"/>
+    </a-card>
+
+    <div v-show="loading" class="loading">
+      <a-spin />
+        加载中...
     </div>
-
-    <a-tabs @change="getTabVal">
-
-      <a-tab-pane  tab="分布情况" key="1">
-
-      </a-tab-pane>
-
-      <a-tab-pane  tab="办结率" key="2">
-      </a-tab-pane>
-
-    </a-tabs>
-    <!--<Banjie v-show="false"    ref="banjieCompoment"/>-->
-    <Distribution @startAnalysis="startAnalysis" v-show="tabShow==1?true:false" ref="distributionComponent"/>
-    <Banjie  v-show="tabShow==2?true:false"    ref="banjieCompoment"/>
-  </a-card>
+  </div>
 </template>
 
 <script>
   import {httpAction,getAction} from '@/api/manage'
   import Distribution from './dataGram/Distribution'
   import Banjie from './dataGram/Banjie'
+  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
     export default {
       name: "dataAnalysis",
       components: {
           Distribution,
           Banjie
       },
+      mixins:[JeecgListMixin],
       inject:['reload'],
       filters:{
         numberSlipce(val){
@@ -72,7 +81,7 @@
           defaultValue:'',
           //ModelData[0].sname
           tabShow:1,
-          loading:false,
+          loading:true,
           fenbuqingkuang:false,
           allowClear:true,
           cheackModel:'',
@@ -110,16 +119,26 @@
         this.getYearList();
         //  初始化 加载图表
         setTimeout(()=>{
+          // alert(this.initModal)
           this.startAnalysis(this.initModal,this.initYear,'')
+
           let url = "/oaBus/busModelPermit/findFunctionListByModelId?id="+ this.initModal;
           getAction(url).then((res)=>{
             this.ProData = res.result;
+            this.loading = false
           })
-        },1000)
+        },2000)
+
+
+
+
 
 
       },
       mounted(){
+
+
+
 
 
       },
@@ -142,7 +161,8 @@
             this.initModal = this.ModelData[0].iid;
 
             // alert( res.result[0].iid)
-            // this.defaultValue = res.result[0].iid
+            this.getProList(res.result[0].iid)
+
           })
         },
 
@@ -151,6 +171,9 @@
           let url = "/oaBus/busModelPermit/findFunctionListByModelId?id="+value;
           getAction(url).then((res)=>{
             this.ProData = res.result;
+
+            console.log(res.result);
+            // this.defaultValue = res.result[0].iid
           })
 
         },
@@ -175,6 +198,7 @@
         //------------------------------------------------------------------------------------------------------------
         //获取选值    所属模块value   此value值时所属业务的方法的基本参数
         getModelVal(e){
+          this.loading = true;
           this.cheackModel = e;
           this.subData.modelId = e;
 
@@ -273,7 +297,7 @@
 
               // this.$refs.distributionComponent.asDepartCheack(this.subData);
 
-
+              this.loading = false;
             }
         },
 
@@ -284,6 +308,22 @@
 </script>
 
 <style scoped lang="less">
+
+  .loading{
+    width: 100%;
+    height: 638px;
+    /*background: cyan;*/
+    background:rgba(255,255,255,.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+  }
+
+
+
     .searchBox{
       width: 100%;
       height: 60px;

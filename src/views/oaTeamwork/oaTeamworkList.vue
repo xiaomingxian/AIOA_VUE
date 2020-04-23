@@ -1,41 +1,9 @@
 <template>
   <a-card :bordered="false">
-
-    <!-- 查询区域 -->
-    <!--<div class="table-page-search-wrapper">-->
-      <!--<a-form layout="inline">-->
-        <!--<a-row :gutter="24">-->
-          <!--<a-col :md="8" :sm="4">-->
-            <!--<a-form-item   :labelCol="labelCol"-->
-                           <!--:wrapperCol="wrapperCol"  >-->
-             <!--<a-select  v-model="queryParam.sTeamworkName" placeholder="协同业务" >-->
-               <!--<a-select-option v-for="(item,index) in TenworkList" :key="index" :value="item.steamworkName">{{item.steamworkName}}-->
-                <!--</a-select-option>-->
-               <!--</a-select>-->
-            <!--</a-form-item>-->
-          <!--</a-col>-->
-          <!--<a-col :md="6" :sm="8" >-->
-            <!--<span style="float: left;overflow: hidden;" >-->
-              <!--<a-button type="primary" @click="searchQuery" icon="search">查询</a-button>-->
-              <!--<a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>-->
-            <!--</span>-->
-          <!--</a-col>-->
-
-        <!--</a-row>-->
-      <!--</a-form>-->
-    <!--</div>-->
-
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
-        <!--<a-menu slot="overlay">-->
-          <!--<a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>-->
-        <!--</a-menu>-->
-        <!--<a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>-->
-      <!--</a-dropdown>-->
     </div>
-
     <!-- table区域-begin -->
     <div>
       <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
@@ -115,7 +83,7 @@
         },
         // 表头
         columns: [
-          {
+         /* {
             title: '序号',
             dataIndex: '',
             key:'rowIndex',
@@ -124,7 +92,7 @@
             customRender:function (t,r,index) {
               return parseInt(index)+1;
             }
-          },
+          },*/
 		      {
             title: '协同业务名称',
             align:"center",
@@ -151,7 +119,7 @@
           exportXlsUrl: "oateamwork/oaTeamwork/exportXls",
           importExcelUrl: "oateamwork/oaTeamwork/importExcel",
        },
-        keysObjs:[],
+        //keysObjs:[],
         ids:'',
 
         visibleDel:false,
@@ -189,7 +157,7 @@
         })
       },
       // 多选事件
-      onSelectChange(selectedRowKeys,keysObjs){
+     /* onSelectChange(selectedRowKeys,keysObjs){
         console.log(selectedRowKeys)
         console.log(keysObjs)
         let ids = []
@@ -200,7 +168,7 @@
         this.keysObjs = keysObjs;
         this.ids=ids.toString()
         this.selectedRowKeys = selectedRowKeys
-      },
+      },*/
       handleConfig: function (record) {
         this.$refs.teamworkSetList.open(record);
         this.$refs.teamworkSetList.title = "查看";
@@ -211,6 +179,8 @@
         getAction(this.url.list).then((res) => {
           this.dataSource = res.result.records;
           this.ipagination.total =  res.result.total;
+          this.selectedRowKeys = []
+          this.selectionRows = []
         })
       } ,
       selectOption(){
@@ -266,10 +236,10 @@
                 this.$message.success(res.message);
                 this.showOpen();
 
-                this.selectedRowKeys = []
+               // this.selectedRowKeys = []
               } else {
                 this.$message.warning(res.message);
-                this.selectedRowKeys = []
+               // this.selectedRowKeys = []
 
               }
             });
