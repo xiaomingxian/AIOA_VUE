@@ -24,6 +24,7 @@
           <!--<a-input placeholder="请输入流程定义KEY" v-decorator="['procdefKey', {}]" />-->
         <!--</a-form-item>-->
         <a-form-item
+          style="margin-left: -120px;margin-top: 25px"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="名称">

@@ -203,7 +203,7 @@
           confirmpassword:{
             // initialValue:'123456',
             rules: [{
-              required: true, message: '请重新输入登陆密码!',
+              required: true, message: '请重新输入登录密码!',
             }, {
               validator: this.compareToFirstPassword,
             }],

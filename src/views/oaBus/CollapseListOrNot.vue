@@ -2,6 +2,7 @@
 
 <template>
   <div class="table-page-search-wrapper">
+    <!--这个是下拉框的数据-->
     <a-card v-if="i_is_radio == 0" :bordered="ture">
       <a-form layout="inline">
 
@@ -199,7 +200,7 @@
         :columns="columns"
         :dataSource="dataSource"
         :pagination="paginations"
-        :loading="false"
+        :loading="loading1"
         :showAlertInfo="false"
         bordered
         :rowKey="record => record.id"
@@ -216,7 +217,7 @@
 
       </a-table>
     </a-card>
-
+    <!--这个是页签形式的数据-->
     <a-card v-else :bordered="ture">
       <a-tabs @change="changFunId"  :activeKey="defaultActiveKey">
         <a-tab-pane v-for="(item,index) in selectList" :tab="item.sname" :key="(index+1)">
@@ -226,7 +227,7 @@
             <span class="table-page-search-submitButtons"
                   :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
               <a @click="toggleAdvanced" style="position: absolute;bottom: 58%;right: 7%;">
-                {{ advanced ? '收起' : '展开' }}
+                {{ advanced ? '收起' : '查询' }}
                 <a-icon :type="advanced ? 'up' : 'down'"/>
               </a>
             </span>
@@ -380,7 +381,7 @@
             :columns="columns"
             :dataSource="dataSource"
             :pagination="paginations"
-            :loading="false"
+            :loading="loading1"
             :showAlertInfo="false"
             bordered
             :rowKey="record => record.id"
@@ -503,7 +504,7 @@
           getModelIdByUrl: '/oaBus/busModel/getModelIdByUrl',
           getConditionByFunId: '/oaBus/busPageDetail/getConditionByFunId',
         },
-        loading: false,
+        loading1: false,
         selectedRowKeys: [],
         selectedRows: [],
         toggleSearchStatus: false,
@@ -736,15 +737,15 @@
         //let url = "/papertitle/docNumSet/busModelList";
         await getAction(this.url.getModelIdByUrl, {str: str}).then((res) => {
 
-          this.modelId = res;
-
-          getAction("/oaBus/oaBusdata/queryModel", {
+          this.modelId = res.result.iid;
+          this.i_is_radio = res.result.iisRadio ;
+          /*getAction("/oaBus/oaBusdata/queryModel", {
             modelId: parseInt(this.modelId)
           }).then((res) => {
 
             this.i_is_radio = res.result;
 
-          })
+          })*/
 
           this.getPgConditionList();
 
@@ -915,7 +916,7 @@
         this.setFontSize();
       },
       getPgSearchList() {
-
+        this.loading1 = true ;
         this.chooseSearch();
         let url = "/oaBus/oaBusdata/queryByModelId";
         // this.queryParam.function_id = this.queryParam.function_id.toString();
@@ -940,7 +941,7 @@
 
           this.dataSource = this.searchList.records;
 
-
+          this.loading1 = false ;
           // console.log('-------------++++++++++++++++++++++++++++++---------------');
           // console.log(res);
 
@@ -1199,17 +1200,24 @@
 
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
-          this.iisFold = res.result.iisFold;
+          if(res.result == null){
+            this.getPgSearchList();
+          }else {
+            this.iisFold = res.result.iisFold;
+            getAction('/modify/fields/getProcDefKey', {functionId: this.queryParam.function_id}).then((res) => {
+              this.collapse = res.result;
+              if (this.iisFold == 1 && this.collapse == 1) {
+                this.getPgFirstList();
+              } else {
+                this.getPgSearchList();
+              }
+
+            })
+
+          }
+
         })
 
-        await getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
-          this.collapse = res.result;
-          if (this.iisFold == 1 && this.collapse == 1) {
-            this.getPgFirstList();
-          } else {
-            this.getPgSearchList();
-          }
-        })
       }
     },
     watch: {

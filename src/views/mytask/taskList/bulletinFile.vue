@@ -69,7 +69,7 @@
             <center><h3>{{detailList.s_signer}}</h3></center>
           </td>
           <td>
-            <a-input maxLength="50" ref="s_signer" v-on:blur="blurText(backData.s_signer,$refs.s_signer)" v-model="backData.s_signer"></a-input>
+            <a-input disabled maxLength="50" ref="s_signer" v-on:blur="blurText(backData.s_signer,$refs.s_signer)" v-model="backData.s_signer"></a-input>
           </td>
           <td class="title" width="15%">
             <!--简报类别-->
@@ -212,7 +212,7 @@
             <center><h3>{{detailList.s_file_num}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input   :value="backData.s_file_num"></a-input>
+            <a-input disabled  :value="backData.s_file_num"></a-input>
           </td>
         </tr>
       </table>
@@ -266,6 +266,7 @@
         userData: '',
         //代办信息
         task: '',
+        i_user_id:'',//意见用户
         //已办信息
         taskDone: '',
         //detailList: null,    //  文档数据   字段含义
@@ -289,7 +290,7 @@
           //业务配置表id-用于查询按钮/意见权限
           iprocSetId: '',
           //对应的业务数据表
-          table: '',
+          table: 'oa_busdata30',
           //---------------------------------- 以下为表存储字段
           //*******
           i_id: '',

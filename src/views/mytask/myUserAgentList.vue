@@ -251,7 +251,7 @@
           <!--<a @click="doTask(record)">办理</a>-->
 
                        <!--<a-divider type="vertical"/>-->
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 
@@ -1309,12 +1309,18 @@
     collapseListOrNot: async function () {
         const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
         await  getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
-          this.iisFold = res.result.iisFold;
-          if (this.iisFold == 1) {
-            this.getPgFirstList();
-          } else {
+
+          if(res.result == null){
             this.getPgSearchList();
+          }else {
+            this.iisFold = res.result.iisFold;
+            if (this.iisFold == 1) {
+              this.getPgFirstList();
+            } else {
+              this.getPgSearchList();
+            }
           }
+
         })
       }
     },

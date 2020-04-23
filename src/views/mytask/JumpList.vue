@@ -133,7 +133,7 @@
           <!--<a @click.stop="unDo(record)">未办理信息</a>-->
           <!--<br>-->
           <!--<a-divider type="vertical"/>-->
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 

@@ -304,24 +304,32 @@
       },
       docNumExportXls(record) {
         const fileName = record.fname + "-" + record.sname + new Date().getTime()
-        downFile("/papertitle/docNumSet/docNumExportXls", {
-          iid: record.iid,
-          s_create_by: record.screateBy
-        }).then((data) => {
-          if (data.type === "application/json") {
-            this.$message.error("暂无数据！")
-            return
-          }
-          let url = window.URL.createObjectURL(new Blob([data]))
-          let link = document.createElement('a')
-          link.style.display = 'none'
-          link.href = url
-          link.setAttribute('download', fileName + '.xls')
-          document.body.appendChild(link)
-          link.click()
-          document.body.removeChild(link); //下载完成移除元素
-          window.URL.revokeObjectURL(url); //释放掉blob对象
+        getAction('/papertitle/docNumSet/queryBusdataListByDocNum',{iId: record.iid}).then(res=>{
+            if (res.code == '200' && res.result.length >0){
+              downFile("/papertitle/docNumSet/docNumExportXls", {
+                iid: record.iid,
+                s_create_by: record.screateBy
+              }).then((data) => {
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                  var csvData = new Blob([data], { type: 'text/csv' });
+                  window.navigator.msSaveOrOpenBlob(csvData,  fileName + '.xls');
+                }else{
+                  let url = window.URL.createObjectURL(new Blob([data]))
+                  let link = document.createElement('a')
+                  link.style.display = 'none'
+                  link.href = url
+                  link.setAttribute('download', fileName + '.xls')
+                  document.body.appendChild(link)
+                  link.click()
+                  document.body.removeChild(link); //下载完成移除元素
+                  window.URL.revokeObjectURL(url); //释放掉blob对象
+                }
+              })
+            }else{
+              this.$message.error("暂无数据！")
+            }
         })
+
       },
     }
   }

@@ -75,7 +75,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -169,7 +168,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
-            width: 260,
+            width: 270,
             scopedSlots: {customRender: 'action'},
           }
         ],

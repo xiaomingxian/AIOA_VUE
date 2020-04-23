@@ -15,7 +15,7 @@
 
 <script>
   import {httpAction} from '@/api/manage'
-  // import Vue from 'vue'
+  import Vue from 'vue'
   import {ACCESS_TOKEN} from "../../../store/mutation-types";
   import axios from 'axios'
   export default {

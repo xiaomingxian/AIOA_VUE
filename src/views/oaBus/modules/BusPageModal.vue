@@ -44,7 +44,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="概要">
-            <a-textarea v-decorator="['spageRemarks', {}]"></a-textarea>
+            <a-textarea v-decorator="['spageRemarks', {rules:[{ min: 0, max: 200, message: '概要长度不能超过200位！', trigger: 'blur' }]}]"></a-textarea>
             <!-- <a-input placeholder="请输入概要说明" v-decorator="['spageRemarks', {}]"/>-->
           </a-form-item>
 
@@ -203,7 +203,7 @@
         form: this.$form.createForm(this),
         validatorRules: {
           iId: {rules: [{required: true, message: '请输入主键id!'}]},
-          spagePath: {rules: [{required: true, message: '请输入路径!'}]},
+          spagePath: {rules: [{required: true, message: '请输入路径!'},{ min: 0, max: 50, message: '模板路径长度不能超过50位！', trigger: 'blur' }]},
           spageName: {rules:[{required:true,message: '页面名称不能为空'},{ min: 0, max: 30, message: '页面名称长度不能超过30位！', trigger: 'blur' }]},
         },
         url: {

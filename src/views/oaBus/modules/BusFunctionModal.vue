@@ -66,7 +66,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="左侧参数">
-            <a-input placeholder="请输入左侧参数" v-decorator="['sbusLeftParameter', {}]"/>
+            <a-input placeholder="请输入左侧参数" v-decorator="['sbusLeftParameter', {rules:[{ min: 0, max: 50, message: '左侧参数长度不能超过50位！', trigger: 'blur' }]}]"/>
           </a-form-item>
 
 
@@ -74,7 +74,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="右侧参数">
-            <a-input placeholder="请输入右侧参数" v-decorator="[ 'sbusRightParameter', {}]"/>
+            <a-input placeholder="请输入右侧参数" v-decorator="[ 'sbusRightParameter', {rules:[{ min: 0, max: 50, message: '右侧参数长度不能超过50位！', trigger: 'blur' }]}]"/>
             <!--<span style="display: inline-block;width:81px;float: right;overflow: hidden;">
               <a-button type="primary" @click="openBusPage" icon="search" style="width: 81px">选择</a-button>
             </span>-->

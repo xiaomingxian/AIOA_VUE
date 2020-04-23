@@ -53,32 +53,32 @@ export const JeecgListMixin = {
   created() {
     this.WindowsLocationIE();
     //先获取上次缓存的参数(如果有的话)
-    this.getQueryParamsMy();
-    this.loadData(1);
+    this.getQueryParamsMy()
+    this.loadData();
     //初始化字典配置 在自己页面定义
     this.initDictConfig();
   },
   methods: {
     WindowsLocationIE(){
       // if (window["context"] == undefined) {
-        if (!window.location.origin) {
-          window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        }
+      if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+      }
       // }
     },
     //获取存储的查询条件
     getQueryParamsMy() {
-      let path = this.$route.path;
+      let path = this.$route.path
       let userInfo = localStorage.getItem('userdata');
-      if (userInfo == undefined) return;
-      let user = JSON.parse(userInfo);
-      let uid = user.userInfo.id;
-      let paramMsg = localStorage.getItem(uid + path);
-      if (paramMsg == undefined) return;
-      let params = JSON.parse(paramMsg);
+      if (userInfo == undefined) return
+      let user = JSON.parse(userInfo)
+      let uid = user.userInfo.id
+      let paramMsg = localStorage.getItem(uid + path)
+      if (paramMsg == undefined) return
+      let params = JSON.parse(paramMsg)
 
-      this.ipagination.current= params.ipagination.current;
-      this.ipagination.pageSize= params.ipagination.pageSize;
+      this.ipagination.current= params.ipagination.current
+      this.ipagination.pageSize= params.ipagination.pageSize
 
       this.queryParam = params.queryParams
 
@@ -88,9 +88,9 @@ export const JeecgListMixin = {
     setQueryParams() {
       let path = this.$route.path
       let userInfo = localStorage.getItem('userdata');
-      if (userInfo == undefined) return;
-      let user = JSON.parse(userInfo);
-      let uid = user.userInfo.id;
+      if (userInfo == undefined) return
+      let user = JSON.parse(userInfo)
+      let uid = user.userInfo.id
       let params = {
         ipagination: this.ipagination,
         queryParams: this.queryParam
@@ -106,7 +106,7 @@ export const JeecgListMixin = {
       }
       var params = this.getQueryParams();//查询条件
       //记录查询信息到缓存
-      this.setQueryParams();
+      this.setQueryParams()
       this.loading = true;
       getAction(this.url.list, params).then((res) => {
         if (res.success) {
@@ -124,13 +124,13 @@ export const JeecgListMixin = {
     handleSuperQuery(arg) {
       //高级查询方法
       if (!arg) {
-        this.superQueryParams = '';
+        this.superQueryParams = ''
         this.superQueryFlag = false
       } else {
-        this.superQueryFlag = true;
+        this.superQueryFlag = true
         this.superQueryParams = JSON.stringify(arg)
       }
-      this.loadData(1)
+      this.loadData()
     },
     getQueryParams() {
       //获取查询条件
@@ -168,12 +168,12 @@ export const JeecgListMixin = {
       this.$refs.superQueryModal.show();
     },
     searchReset() {
-      this.queryParam = {};
+      this.queryParam = {}
       this.loadData(1);
     },
     batchDel: function () {
       if (!this.url.deleteBatch) {
-        this.$message.error("请设置url.deleteBatch属性!");
+        this.$message.error("请设置url.deleteBatch属性!")
         return
       }
       if (this.selectedRowKeys.length <= 0) {
@@ -192,7 +192,7 @@ export const JeecgListMixin = {
             deleteAction(that.url.deleteBatch, {ids: ids}).then((res) => {
               if (res.success) {
                 that.$message.success(res.message);
-                that.loadData(1);
+                that.loadData();
                 that.onClearSelected();
               } else {
                 that.$message.warning(res.message);
@@ -204,14 +204,14 @@ export const JeecgListMixin = {
     },
     handleDelete: function (id) {
       if (!this.url.delete) {
-        this.$message.error("请设置url.delete属性!");
+        this.$message.error("请设置url.delete属性!")
         return
       }
       var that = this;
       deleteAction(that.url.delete, {id: id}).then((res) => {
         if (res.success) {
           that.$message.success(res.message);
-          that.loadData(1);
+          that.loadData();
         } else {
           that.$message.warning(res.message);
         }
@@ -232,17 +232,17 @@ export const JeecgListMixin = {
       //TODO 筛选
       if (Object.keys(sorter).length > 0) {
         this.isorter.column = sorter.field;
-        this.isorter.order = "ascend" == sorter.order ? "asc" : "desc";
+        this.isorter.order = "ascend" == sorter.order ? "asc" : "desc"
       }
       this.ipagination = pagination;
-      this.loadData(1);
+      this.loadData();
     },
     handleToggleSearch() {
       this.toggleSearchStatus = !this.toggleSearchStatus;
     },
     modalFormOk() {
       // 新增/修改 成功时，重载列表
-      this.loadData(1);
+      this.loadData();
     },
     handleDetail: function (record) {
       this.$refs.modalForm.edit(record);
@@ -263,22 +263,22 @@ export const JeecgListMixin = {
       if (this.selectedRowKeys && this.selectedRowKeys.length > 0) {
         param['selections'] = this.selectedRowKeys.join(",")
       }
-      // console.log("导出参数", param)
+      console.log("导出参数", param)
       downFile(this.url.exportXlsUrl, param).then((data) => {
         if (!data) {
-          this.$message.warning("文件下载失败");
+          this.$message.warning("文件下载失败")
           return
         }
         if (typeof window.navigator.msSaveBlob !== 'undefined') {
           window.navigator.msSaveBlob(new Blob([data]), fileName + '.xls')
         } else {
-          let url = window.URL.createObjectURL(new Blob([data]));
-          let link = document.createElement('a');
-          link.style.display = 'none';
-          link.href = url;
-          link.setAttribute('download', fileName + '.xls');
-          document.body.appendChild(link);
-          link.click();
+          let url = window.URL.createObjectURL(new Blob([data]))
+          let link = document.createElement('a')
+          link.style.display = 'none'
+          link.href = url
+          link.setAttribute('download', fileName + '.xls')
+          document.body.appendChild(link)
+          link.click()
           document.body.removeChild(link); //下载完成移除元素
           window.URL.revokeObjectURL(url); //释放掉blob对象
         }
@@ -287,12 +287,12 @@ export const JeecgListMixin = {
     /* 导入 */
     handleImportExcel(info) {
       if (info.file.status !== 'uploading') {
-        // console.log(info.file, info.fileList);
+        console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
         if (info.file.response.success) {
           this.$message.success(`${info.file.name} 文件上传成功`);
-          this.loadData(1);
+          this.loadData();
         } else {
           this.$message.error(`${info.file.name} ${info.file.response.message}.`);
         }

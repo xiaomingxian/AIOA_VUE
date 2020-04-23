@@ -39,37 +39,37 @@
         },
         columns: [
           {
-            title: '用户账号',
+            title: '账号',
             align: "center",
             dataIndex: 'username',
             fixed: 'left',
             width: 200
           },
           {
-            title: '用户真实姓名',
+            title: '姓名',
             align: "center",
             dataIndex: 'realname',
           },
-          {
-            title: '性别',
-            align: "center",
-            dataIndex: 'sex_dictText'
-          },
-          {
-            title: '手机号码',
-            align: "center",
-            dataIndex: 'phone'
-          },
+          // {
+          //   title: '性别',
+          //   align: "center",
+          //   dataIndex: 'sex_dictText'
+          // },
+          // {
+          //   title: '手机号码',
+          //   align: "center",
+          //   dataIndex: 'phone'
+          // },
           {
             title: '邮箱',
             align: "center",
             dataIndex: 'email'
           },
-          {
-            title: '状态',
-            align: "center",
-            dataIndex: 'status_dictText'
-          }
+          // {
+          //   title: '状态',
+          //   align: "center",
+          //   dataIndex: 'status_dictText'
+          // }
         ]
       }
     },

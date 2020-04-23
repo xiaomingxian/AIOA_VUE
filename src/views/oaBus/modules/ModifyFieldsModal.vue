@@ -193,7 +193,7 @@
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
-          <a-date-picker showTime="true" format="YYYY-MM-DD"  v-decorator="[ atom.s_table_column, {}]"/>
+          <a-date-picker  format="YYYY-MM-DD"  v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
         <!--单选框-->
         <a-form-item v-if="atom.i_column_type==6" v-show="atom.s_table_column!='i_id'"

@@ -62,7 +62,7 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="名称">
-            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'},{ min: 0, max: 100, message: '机构/部门名称长度不能超过50位！', trigger: 'blur'  }] }]"/>
+            <a-input placeholder="请输入机构/部门名称" v-decorator="['departName', {rules:[{required:true ,message:'请输入机构/部门名称!'},{ min: 0, max: 100, message: '机构/部门名称长度不能超过100位！', trigger: 'blur'  }] }]"/>
           </a-form-item>
           <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="上级部门">
             <a-tree-select
@@ -86,9 +86,11 @@
             label="类型">
 
 
-            <a-radio-group  buttonStyle="solid" v-decorator="['orgType', validatorRules.orgType ]" size="small">
-              <a-radio-button value="1"  >机构</a-radio-button>
+            <a-radio-group  buttonStyle="solid" v-decorator="['orgType', {rules:[{required:true ,message:'请选择机构/部门类型!'}]} ]" size="small">
+              <a-radio-button value="1" >机构</a-radio-button>
               <a-radio-button value="2" >部门</a-radio-button>
+              <a-radio-button value="3" >私有群组</a-radio-button>
+              <a-radio-button value="4" >共享群组</a-radio-button>
             </a-radio-group>
 
 
