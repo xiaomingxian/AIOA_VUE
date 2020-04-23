@@ -48,8 +48,15 @@
           data.map((item)=>{
             arrdata.push(item.num)
           })
-          this.series[0].data = arrdata;
+         // this.series[0].data = arrdata;
 
+          this.$nextTick(()=>{
+            this.series=[{
+              data:arrdata,
+            }];
+
+
+          })
 
         },
       /*  getData1(data){
