@@ -10,11 +10,22 @@
 
     <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
+
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="所属机构">
+          <a-select @change="getUnitVal" v-decorator="[ 'ibusUnitId', validatorRules.ibusUnitId]">
+            <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="业务分类">
-          <a-select v-model="selectedModel" @change="getModalVal">
+          <a-select @change="getModalVal" v-decorator="[ 'ibusModelId', validatorRules.ibusModelId]">
             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
             </a-select-option>
           </a-select>
@@ -25,12 +36,12 @@
           :wrapperCol="wrapperCol"
           label="业务功能">
           <!--:defaultValue=1 -->
-          <a-select v-if="functionList" v-model="selectedFunction" placeholder="" v-decorator="[ 'ibusFunctionId', {}]"
+          <a-select placeholder="" v-decorator="[ 'ibusFunctionId', validatorRules.ibusFunctionId]"
                     ref="sss" id="selop">
             <a-select-option v-for="(item,index) in functionList" :key="index" :value="item.iid">{{item.sname}}
             </a-select-option>
           </a-select>
-          <a-input v-else placeholder="暂无匹配业务"></a-input>
+          <!--          <a-input v-else placeholder="暂无匹配业务"></a-input>-->
         </a-form-item>
 
         <a-form-item
@@ -85,15 +96,7 @@
           <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>
           <!--          <a-input-number v-model="iorder" :min="1" :max="100000"/>-->
         </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="所属机构">
-          <a-select v-model="selectedUnit" @change="getUnitVal">
-            <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
+
         <!--部门分配-->
         <a-form-item label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
           <a-input-group style="display: inline-flex">
@@ -156,18 +159,25 @@
           sm: {span: 16},
         },
         confirmLoading: false,
+        loading: false,// 加载状态
         form: this.$form.createForm(this),
         validatorRules: {
           // ibusFunctionId:{rules: [{ required: true, message: '请输入主键id!' }]},
-          // ibusModelId:{rules: [
-          //     { required: true, message: '请选择业务分类！' },
-          //   ]},
-          // ibusUnitId:{rules: [
-          //     { required: true, message: '请输入所属机构！' },
-          //   ]},
-          // ibusFunctionId:{rules: [
-          //     { required: true, message: '请输入业务名称！' },
-          //   ]},
+          ibusModelId: {
+            rules: [
+              {required: true, message: '请选择业务分类！'},
+            ]
+          },
+          ibusUnitId: {
+            rules: [
+              {required: true, message: '请选择所属机构！'},
+            ]
+          },
+          ibusFunctionId: {
+            rules: [
+              {required: true, message: '请选择业务功能！'},
+            ]
+          },
           sname: {
             rules: [
               {required: true, message: '请输入文号名称！'},
@@ -238,8 +248,9 @@
         this.getTemplateOffice();
       },
       add() {
-        this.selectedUnit = this.unitData[0].id;
-        this.edit({});
+        var record = {};
+        record.ibusUnitId = this.unitData[0].id;
+        this.edit(record);
       },
       edit(record) {
         this.form.resetFields();
@@ -255,7 +266,7 @@
           this.selectedUnit = record.ibusUnitId;
           //选中所选业务
           this.initFunctionList(this.selectedModel, this.selectedUnit);
-          this.selectedFunction = record.ibusFunctionId;
+          // this.selectedFunction = record.ibusFunctionId;
         }
         // 调用查询用户对应的部门信息的方法
         this.checkedDepartKeys = [];
@@ -285,13 +296,22 @@
       },
       //选择模块--》更新查业务
       getModalVal(model) {
-        this.model.ibusModelId = model;
+        this.functionList = ""
+        this.model.ibusFunctionId = "";
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model, 'ibusModelId'))
+          this.form.setFieldsValue(pick(this.model, 'ibusFunctionId'))
         });
+        this.selectedModel = model;
+        if (this.selectedUnit === null) {
+          return;
+        }
         // console.log(value);
         let url = "/papertitle/docNumSet/busFunctionList";
         getAction(url, {iBusModelId: model, iBusUnitId: this.selectedUnit}).then((res) => {
+          if (res.result === null) {
+            this.$message.error("请确认该机构该业务类别是否有对应的的业务功能！")
+          }
+          this.loading = true;
           this.functionList = res.result;
           this.selectedFunction = null;
           this.form.setFieldsValue({
@@ -299,10 +319,23 @@
           })
         })
       },
-      //选择模块--》更新查业务
+      //选择机构--》更新查业务
       getUnitVal(unit) {
+        this.functionList = ""
+        this.model.ibusFunctionId = "";
+        this.$nextTick(() => {
+          this.form.setFieldsValue(pick(this.model, 'ibusFunctionId'))
+        });
+        this.selectedUnit = unit;
         let url = "/papertitle/docNumSet/busFunctionList";
+        if (this.selectedModel === undefined) {
+          return;
+        }
         getAction(url, {iBusModelId: this.selectedModel, iBusUnitId: unit}).then((res) => {
+          if (res.result === null) {
+            this.$message.error("请确认该机构该业务类别是否有对应的的业务功能！")
+          }
+          this.loading = true;
           this.functionList = res.result;
           this.selectedFunction = null;
           this.form.setFieldsValue({
@@ -387,6 +420,9 @@
         this.checkedDepartKeys = [];
         this.selectedDepartKeys = [];
         this.functionList = [];
+        this.selectedModel = null;
+        this.selectedFunction = null;
+        this.selectedUnit = null;
       },
       handleOk() {
         const that = this;
@@ -404,9 +440,9 @@
               method = 'put';
             }
             let formData = Object.assign(this.model, values);
-            formData.ibusModelId = this.selectedModel;
-            formData.ibusFunctionId = this.selectedFunction;
-            formData.ibusUnitId = this.selectedUnit;
+            // formData.ibusModelId = this.selectedModel;
+            // formData.ibusFunctionId = this.selectedFunction;
+            // formData.ibusUnitId = this.selectedUnit;
             // formData.iorder = this.iorder;
             formData.selecteddeparts = this.userDepartModel.departIdList.length > 0 ? this.userDepartModel.departIdList.join(",") : '';
             httpAction(httpurl, formData, method).then((res) => {

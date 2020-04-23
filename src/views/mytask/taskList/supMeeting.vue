@@ -19,11 +19,11 @@
           </td>
           <td class="title" width="15%">
             <!--办理时限-->
-            <center><h3>{{detailList.d_datetime1}}</h3></center>
+            <center><h3>{{detailList.d_datetime2}}</h3></center>
           </td>
           <td width="35%">
-            <a-date-picker v-if="backData.d_datetime1" ref="d_datetime1" v-on:blur="blurText([backData.d_datetime1],$refs.d_datetime1)"  :defaultValue="moment(backData.d_datetime1,'YYYY-MM-DD HH:mm:ss')" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
-            <a-date-picker v-else @change="getDateTime1" ref="d_datetime1" v-on:blur="blurText([backData.d_datetime1],$refs.d_datetime1)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+            <a-date-picker v-if="backData.d_datetime2" ref="d_datetime2" v-on:blur="blurText([backData.d_datetime2],$refs.d_datetime2)"  :defaultValue="moment(backData.d_datetime2,'YYYY-MM-DD HH:mm:ss')" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+            <a-date-picker v-else @change="getDateTime2" ref="d_datetime2" v-on:blur="blurText([backData.d_datetime2],$refs.d_datetime2)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
           </td>
         </tr>
 
@@ -37,11 +37,11 @@
           </td>
           <td class="title" width="15%">
             <!--会议时间-->
-            <center><h3>{{detailList.d_datetime2}}</h3></center>
+            <center><h3>{{detailList.d_datetime1}}</h3></center>
           </td>
           <td width="35%">
-            <a-date-picker v-if="backData.d_datetime2" ref="d_datetime2" v-on:blur="blurText([backData.d_datetime2],$refs.d_datetime2)"  :defaultValue="moment(backData.d_datetime2,'YYYY-MM-DD HH:mm:ss')" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
-            <a-date-picker v-else @change="getDateTime2" ref="d_datetime2" v-on:blur="blurText([backData.d_datetime2],$refs.d_datetime2)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+            <a-date-picker v-if="backData.d_datetime1" ref="d_datetime1" v-on:blur="blurText([backData.d_datetime1],$refs.d_datetime1)"  :defaultValue="moment(backData.d_datetime1,'YYYY-MM-DD HH:mm:ss')" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
+            <a-date-picker v-else @change="getDateTime1" ref="d_datetime1" v-on:blur="blurText([backData.d_datetime1],$refs.d_datetime1)" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"></a-date-picker>
           </td>
         </tr>
 

@@ -113,7 +113,7 @@
                     departIdList:this.departList}
                   // console.log(formData)
                   this.checkedKeys = [];
-                  alert(this.checkedKeys)
+                  // alert(this.checkedKeys)
                   that.$emit('ok', formData);
                 }
               }).finally(() => {
