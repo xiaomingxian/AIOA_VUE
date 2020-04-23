@@ -919,10 +919,25 @@
             this.$message.error('请选择用户')
             return
           }
-          // ////console.log('==========部门：：：', ids, JSON.stringify(this.currentClick))
-          //校验
+
+          //构造一个新map 部门v 用户是k
+          let user_dept ={}
+          for (let k of Object.keys(this.userGroupByDepts)) {
+
+            if (this.userGroupByDepts[k].length > 0) {
+              //去重
+              let setArr = new Set(this.userGroupByDepts[k])
+              let iids = Array.from(setArr)
+              for (let v of iids){
+                user_dept[v]=k
+              }
+            }
+
+          }
+          this.deptTypes(this.currentClick)
+          this.currentClick.user_dept=user_dept
           this.$emit('func', ids, this.currentClick, this.endTime, depMSg)
-          this.cancel()
+
         } else if (this.endType) {
           this.$emit('func', ids, this.currentClick, this.endTime)
           this.cancel()
@@ -939,6 +954,39 @@
           this.$emit('func', ids, this.currentClick, this.endTime)
           this.cancel()
         }
+      },
+      deptTypes(depMSg) {
+        depMSg.mainDept = ''
+        depMSg.fuDept = ''
+        depMSg.cyDept = ''
+        for (let k  of Object.keys(this.departSelect)) {
+
+          var types = this.departSelect[k]
+          for (let i in types) {
+            if (k.indexOf('主办') >= 0) {
+              if (depMSg.mainDept == '') {
+                depMSg.mainDept += types[i].departName
+              } else {
+                depMSg.mainDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('辅办') >= 0) {
+              if (depMSg.fuDept == '') {
+                depMSg.fuDept += types[i].departName
+              } else {
+                depMSg.fuDept += '_' + types[i].departName
+              }
+            }
+            if (k.indexOf('传阅') >= 0) {
+              if (depMSg.cyDept == '') {
+                depMSg.cyDept += types[i].departName
+              } else {
+                depMSg.cyDept += '_' + types[i].departName
+              }
+            }
+          }
+        }
+
       },
       //穿梭方法实现
       toRight: function (item) {
