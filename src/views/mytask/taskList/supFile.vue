@@ -27,7 +27,8 @@
             <center><h3>{{detailList.s_receive_num}}</h3></center>
           </td>
           <td>
-            <a-input ref="s_receive_num" v-model="backData.s_receive_num"  v-on:blur="blurText(backData.s_receive_num,$refs.s_receive_num)"></a-input>
+            <!--<a-input ref="s_receive_num" v-model="backData.s_receive_num"  v-on:blur="blurText(backData.s_receive_num,$refs.s_receive_num)"></a-input>-->
+            <div style="padding-left: 10px;">{{backData.s_receive_num}}</div>
           </td>
           <td class="title" width="15%">
             <!--发文单位-->
@@ -75,7 +76,8 @@
           <td width="35%">
             <!--<a-input style="padding-left: 10px" v-model="backData.d_create_time"></a-input>-->
             <!--<a-date-picker @change="getDateTime4" showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%"  ></a-date-picker>-->
-            <a-date-picker :defaultValue="moment(backData.d_create_time,'YYYY-MM-DD HH:mm:ss')"  showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%" disabled></a-date-picker>
+            <!--<a-date-picker :defaultValue="moment(backData.d_create_time,'YYYY-MM-DD HH:mm:ss')"  showTime="true" format="YYYY-MM-DD HH:mm:ss"  style="width: 100%" disabled></a-date-picker>-->
+            <div style="padding-left: 10px;">{{backData.d_create_time}}</div>
           </td>
           <td class="title" width="15%">
             <!--收文总号-->
@@ -480,6 +482,10 @@
           getAction(this.url.functionQuery, {
             iBusModelId: this.backData.i_bus_function_id
           }).then(res => {
+
+            console.log("123456789")
+            console.log(res)
+
             if (res.success) {
               this.backData.ilevel = res.result.records.ilevel
             }
