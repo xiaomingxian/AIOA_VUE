@@ -76,7 +76,13 @@
           arrdata.push(item.num)
           footer.push(item.s_create_dept)
         })
-        this.series[0].data = arrdata;
+        this.$nextTick(()=>{
+          this.series=[{
+            data:arrdata,
+          }];
+
+
+        })
         this.chartOptions = {
           xaxis: {
             categories: footer

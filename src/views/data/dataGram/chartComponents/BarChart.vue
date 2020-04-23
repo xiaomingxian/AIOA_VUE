@@ -16,6 +16,7 @@
 <script>
 
   export default {
+        inject:['reload'],
         name: "BarChart.vue",
         // props:{
         //   bardata:{
@@ -24,15 +25,15 @@
         //   }
         // },
          filters:{
-      numberSlipce(val){
-        if(val%1===0){
-          return  val;
-        }else{
-          return  parseFloat(val).toFixed(2);
-        }
-        // return val*100
-      }
-    },
+            numberSlipce(val){
+              if(val%1===0){
+                return  val;
+              }else{
+                return  parseFloat(val).toFixed(2);
+              }
+              // return val*100
+            }
+        },
         components:{
             // apexchart:VueApexCharts,
         },
@@ -61,6 +62,7 @@
     created(){
       // console.log();
       // alert(this.bardata)
+
     },
     updated(){
 
@@ -68,103 +70,37 @@
 
       methods:{
         //图表数据  按月统计展示
-        getData(data){
-            let arrdata = [];
-            data.map((item)=>{
-              arrdata.push(item.num)
-            })
-            this.series[0].data = arrdata;
+        getData(data) {
 
-          //  若数组中有一个大于零则显示数组    否则显示未查询到您要分析的数据
-          // arrdata.filter((item)=>{
-          //   if(item>0){
-          //     this.isHaveDta = true
-          //   }
-          //
-          //   // alert(item)
-          // })
+
+
+          let data1 = JSON.stringify(data);
+          console.log(JSON.parse(data1));
+          let arrdata = [];
+          JSON.parse(data1).map((item) => {
+            arrdata.push(item.num)
+          })
+
+          this.$nextTick(()=>{
+            this.series=[{
+              data:arrdata,
+            }];
+
+
+          })
+
+          // console.log(arrdata);
+          // this.series[0].data = [0, 0, 12, 4, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 
           //  月份中最大值
-          this.maxMounth =  arrdata.indexOf(Math.max(...arrdata));
-
-
-        //   //数组求和
-        //   let sum = 0;
-        //   for(let i = 0;i<arrdata.length;i++){
-        //     sum+=arrdata[i]
-        //   }
-        //   //平局值
-        //   this.averageValue = sum/arrdata.length;
-        //
-        //
-        // //  过滤大于平均值得值
-        //   let greaterThan  = [];
-        //   arrdata.filter((item,index)=>{
-        //     if(item> this.averageValue){
-        //       greaterThan.push(item)
-        //     }
-        //   })
-        //
-        //   console.log(greaterThan);
-        //
-        //
-        //
-        // //  取出大于平均值的索引
-        //   let monthLists = [];
-        //   greaterThan.map((item)=>{
-        //     // alert(item)
-        //     monthLists.push(arrdata.indexOf(item));
-        //   })
-        //
-        //
-        //   console.log(monthLists)
-        //
-        //   monthLists.map((item)=>{
-        //     this.thanAverageValue = '';
-        //     this.thanAverageValue +=(item+1)+'月，'
-        //   })
+          this.maxMounth = arrdata.indexOf(Math.max(...arrdata));
 
         },
-       /* getData1(data){
-          console.log(data);
-          // alert(JSON.stringify(data))
-          this.currtenreta = parseFloat(data[0].reta*100).toFixed(2);
 
-        },
-          getData2(data){
-            console.log(data);
-            this.fenSum = data.num1;
-          },
-          getData3(data){
-            console.log(data);
-            if(data[0]==null){
-              this.PeerNum = '0'
-            }else{
-              this.PeerNum = parseFloat(data[0].reta*100).toFixed(2);
-            }
-
-
-          },
-          getData4(data){
-            console.log(data);
-            console.log('bar----------------------------------',data)
-
-            if(data[0]==null){
-              this.banJie =0
-            }else{
-              this.banJie =parseFloat(data[0].reta*100).toFixed(2);
-              this.currtentYear = data[1].year;
-            }
-
-          },*/
           getData5(res){
-        /*  let sds = [];
-          data.map((item)=>{
-            sds.push(item.i_create_month+'月');
-          })
-          this.thanAverageValue = sds.toString();*/
+
         console.log(res)
             if(res[0] == 0){
               this.banJie = 0;

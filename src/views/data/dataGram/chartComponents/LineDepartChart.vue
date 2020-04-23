@@ -51,7 +51,14 @@
           arrdata.push(item.num)
           partdata.push(item.s_create_dept)
         })
-        this.series[0].data = arrdata;
+       // this.series[0].data = arrdata;
+        this.$nextTick(()=>{
+          this.series=[{
+            data:arrdata,
+          }];
+
+
+        })
         this. chartOptions ={
           xaxis: {
             categories: partdata

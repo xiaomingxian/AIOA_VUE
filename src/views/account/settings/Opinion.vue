@@ -51,7 +51,7 @@
         rowKey="iid"
         :columns="columns"
         :dataSource="dataSource"
-        :pagination="ipagination"
+        :pagination="pagination"
         :loading="loading"
         :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
@@ -65,8 +65,7 @@
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
-          <a @click="handleDelete(record.iid)">删除</a>
-
+          <a @click="handleDelete(record.iid)" title="确定删除吗?">删除</a>
           <!--<a-dropdown>-->
             <!--<a class="ant-dropdown-link">更多 <a-icon type="down" /></a>-->
             <!--<a-menu slot="overlay">-->
@@ -80,6 +79,15 @@
         </span>
 
       </a-table>
+      <!--模态框-->
+      <a-modal
+        title="温馨提示"
+        :visible="visibleDel"
+        @ok="comfirmDelOrBatchDel"
+        @cancel="handleCancel"
+      >
+        <p>请确认是否要删除该条数据</p>
+      </a-modal>
     </div>
     <!-- table区域-end -->
     <!-- 表单区域 -->
@@ -90,7 +98,7 @@
 <script>
   import OpinionModal from './OpinionModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import { getAction } from '@/api/manage'
+  import { getAction,deleteAction } from '@/api/manage'
 
   export default {
     name: "Opinion",
@@ -102,6 +110,20 @@
       return {
         description: '快捷意见管理页面',
         iisFontSize: '16px',
+        visibleDel : false,
+        iid:'',
+        pagination: {
+          current: 1,
+          pageSize: 10,
+          pageSizeOptions: ['10', '20', '30'],
+          showTotal: (total, range) => {
+            return range[0] + '-' + range[1] + ' 共' + total + '条'
+          },
+          showQuickJumper: true,
+          showSizeChanger: true,
+          total: 0,
+          current:''
+        },
         // 表头
         columns: [
           {
@@ -158,7 +180,48 @@
           }
           document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
         })
-      }
+      },
+      handleDelete(id){
+        this.visibleDel = true;
+         this.iid = id
+      },
+      //确认删除模态框
+      comfirmDelOrBatchDel(){
+          deleteAction(this.url.delete,{id:this.iid}).then((res) => {
+            console.log(res.success);
+            //--------------删除成功后   刷新列表-----------------
+            if(res.success){
+              this.$message.success(res.message)
+              this.visibleDel = false;
+              this.show();
+            }
+
+          })
+      },
+      show(){
+        getAction(this.url.list,{pageNo:this.pagination.current,pageSize:10,more:1}).then((res) => {
+          this.dataSource = res.result.records;
+          this.pagination.total = res.result.total
+          alert(res.result.total)
+
+        });
+      },
+      handleTableChange(pagination){
+        console.log(pagination);
+        const pager = {...this.pagination};
+        pager.current = pagination.current;
+        this.pagination = pager;
+        getAction(this.url.list,{pageNo:this.pagination.current,pageSize:10,more:1}).then((res) => {
+          this.dataSource = res.result.records;
+          this.pagination.total = res.result.total
+
+        });
+
+      },
+      //确定删除的取消按钮
+      handleCancel(){
+        this.visibleDel = false;
+      },
     }
   }
 </script>
