@@ -1204,7 +1204,7 @@
             this.getPgSearchList();
           }else {
             this.iisFold = res.result.iisFold;
-            getAction('/modify/fields/getProcDefKey', {functionId: '113'}).then((res) => {
+            getAction('/modify/fields/getProcDefKey', {functionId: this.queryParam.function_id}).then((res) => {
               this.collapse = res.result;
               if (this.iisFold == 1 && this.collapse == 1) {
                 this.getPgFirstList();
