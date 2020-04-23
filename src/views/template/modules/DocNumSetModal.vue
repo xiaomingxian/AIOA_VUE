@@ -10,7 +10,8 @@
 
     <a-spin :spinning="confirmLoading" style="height: 400px; width:100%;overflow: auto">
       <a-form :form="form">
-        <a-form-item
+
+   <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="所属机构">
@@ -407,14 +408,16 @@
       },
       handleOk() {
         const that = this;
-        if (this.selectedModel == null) {
-          this.$message.error("请选择业务分类！")
-        }
-        if (this.selectedFunction == null) {
-          this.$message.error("请选择业务功能！")
-        }
         // 触发表单验证
         this.form.validateFields((err, values) => {
+          if (this.selectedModel == null) {
+            this.$message.error("请选择业务分类！")
+            return;
+          }
+          if (this.selectedFunction == null) {
+            this.$message.error("请选择业务功能！")
+            return;
+          }
           if (!err) {
             that.confirmLoading = true;
             let httpurl = '';
