@@ -199,7 +199,7 @@
           size="small"
           bordered
           rowKey="id"
-          :loading="loading"
+          :loading="false"
           :customRow="customRowMy"
           :columns="columns3"
           :dataSource="actChoice"
@@ -959,11 +959,30 @@
             this.$message.error('请选择用户')
             return
           }
+
+          //构造一个新map 部门v 用户是k
+          let user_dept ={}
+          for (let k of Object.keys(this.userGroupByDepts)) {
+            console.log('-----------kk--',k)
+
+            if (this.userGroupByDepts[k].length > 0) {
+              //去重
+              let setArr = new Set(this.userGroupByDepts[k])
+              let iids = Array.from(setArr)
+              for (let v of iids){
+                user_dept[v]=k
+              }
+            }
+
+          }
+
           //主办/辅办/传阅 部门记录
           this.deptTypes(this.currentClick)
+          this.currentClick.user_dept=user_dept
           this.$emit('func', ids, this.currentClick, this.endTime, depMSg)
           this.cancel()
-        } else if (this.endType) {
+        }
+        else if (this.endType) {
           this.$emit('func', ids, this.currentClick, this.endTime)
           this.cancel()
         } else {

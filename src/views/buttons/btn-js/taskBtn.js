@@ -948,6 +948,7 @@ export const taskBth = {
     },
     //选择下一办理人的同时办理任务
     confirmNextUsers(ids, activity, endTime, depts) {
+
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id
@@ -996,6 +997,7 @@ export const taskBth = {
         deptMsg['tskId'] = this.taskMsg.id
         deptMsg['taskDefKey'] = activity.actMsg.id
         deptMsg['deptMsg'] = depts
+        deptMsg['userDeptMap']=activity.user_dept
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
 
@@ -1016,6 +1018,10 @@ export const taskBth = {
       //this.sendMesToUser(data.assignee);
       //参数构造完毕***********************
       var flag = true
+      // console.log(':::::::::',activity)
+      // console.log('---->>>',data)
+      //
+      // return
       postAction(this.url.doTask, data).then(res => {
         if (res.success) {
           // this.$message.success(res.message)
@@ -1172,6 +1178,7 @@ export const taskBth = {
         }
       }
       let taskInfoVoList = {list: datas}
+
 
       this.updateTaskStatus( datas[0].taskId)
       //请求后台
@@ -1347,11 +1354,13 @@ export const taskBth = {
           //     ids.push(inids)
           //   }
           // }
+          let user_dept={}
           let userGroupByDept = {}
           for (let k of Object.keys(v.departUsersMsg)) {
             for (let user of v.departUsersMsg[k]) {
               let uid = user.id
               let did = user.departId
+              user_dept[uid]=did
               if (userGroupByDept[did] == undefined) {
                 userGroupByDept[did] = []
                 userGroupByDept[did].push(uid)
@@ -1380,6 +1389,7 @@ export const taskBth = {
           // deptMsg['mainDept'] = mainDept
           //记录主办部门信息
           deptMsg['deptMsg'] = v.departUsersId
+          deptMsg['userDeptMap']=user_dept
           //主办 辅办 传阅 部门记录
           this.deptTypes(deptMsg, v.departSelect)
           data['taskWithDepts'] = deptMsg
