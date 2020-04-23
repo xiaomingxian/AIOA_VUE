@@ -13,6 +13,16 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
+          label="所属机构">
+          <a-select v-model="selectedUnit" @change="getUnitVal">
+            <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
           label="业务分类">
           <a-select v-model="selectedModel" @change="getModalVal">
             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}
@@ -25,12 +35,12 @@
           :wrapperCol="wrapperCol"
           label="业务功能">
           <!--:defaultValue=1 -->
-          <a-select v-if="functionList" v-model="selectedFunction" placeholder="" v-decorator="[ 'ibusFunctionId', {}]"
+          <a-select v-model="selectedFunction" placeholder="" v-decorator="[ 'ibusFunctionId', {}]"
                     ref="sss" id="selop">
             <a-select-option v-for="(item,index) in functionList" :key="index" :value="item.iid">{{item.sname}}
             </a-select-option>
           </a-select>
-          <a-input v-else placeholder="暂无匹配业务"></a-input>
+          <!--          <a-input v-else placeholder="暂无匹配业务"></a-input>-->
         </a-form-item>
 
         <a-form-item
@@ -85,15 +95,7 @@
           <a-input v-decorator="[ 'iorder', validatorRules.iorder]"/>
           <!--          <a-input-number v-model="iorder" :min="1" :max="100000"/>-->
         </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="所属机构">
-          <a-select v-model="selectedUnit" @change="getUnitVal">
-            <a-select-option v-for="(item,index) in unitData" :key="index" :value="item.id">{{item.departName}}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
+
         <!--部门分配-->
         <a-form-item label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
           <a-input-group style="display: inline-flex">
@@ -156,6 +158,7 @@
           sm: {span: 16},
         },
         confirmLoading: false,
+        loading: false,// 加载状态
         form: this.$form.createForm(this),
         validatorRules: {
           // ibusFunctionId:{rules: [{ required: true, message: '请输入主键id!' }]},
@@ -289,9 +292,16 @@
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model, 'ibusModelId'))
         });
+        if (this.selectedUnit === null) {
+          return;
+        }
         // console.log(value);
         let url = "/papertitle/docNumSet/busFunctionList";
         getAction(url, {iBusModelId: model, iBusUnitId: this.selectedUnit}).then((res) => {
+          if (res.result === null) {
+            this.$message.error("请确认该机构该业务类别是否有对应的的业务功能！")
+          }
+          this.loading = true;
           this.functionList = res.result;
           this.selectedFunction = null;
           this.form.setFieldsValue({
@@ -302,7 +312,14 @@
       //选择模块--》更新查业务
       getUnitVal(unit) {
         let url = "/papertitle/docNumSet/busFunctionList";
+        if (this.selectedModel === undefined) {
+          return;
+        }
         getAction(url, {iBusModelId: this.selectedModel, iBusUnitId: unit}).then((res) => {
+          if (res.result === null) {
+            this.$message.error("请确认该机构该业务类别是否有对应的的业务功能！")
+          }
+          this.loading = true;
           this.functionList = res.result;
           this.selectedFunction = null;
           this.form.setFieldsValue({
@@ -390,6 +407,12 @@
       },
       handleOk() {
         const that = this;
+        if (this.selectedModel == null) {
+          this.$message.error("请选择业务分类！")
+        }
+        if (this.selectedFunction == null) {
+          this.$message.error("请选择业务功能！")
+        }
         // 触发表单验证
         this.form.validateFields((err, values) => {
           if (!err) {
