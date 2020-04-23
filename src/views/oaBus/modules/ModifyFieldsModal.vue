@@ -189,7 +189,8 @@
           :label="atom.s_column_name">
           <a-date-picker showTime="true" format="YYYY-MM-DD HH:mm:ss"  v-decorator="[ atom.s_table_column, {}]"/>
         </a-form-item>
-        <a-form-item v-if="atom.s_table_column=='d_sealdate'" v-show="atom.s_table_column!='i_id'"
+        <a-form-item v-if="atom.s_table_column=='d_sealdate' || atom.s_table_column=='d_date1'  || atom.s_table_column=='d_date2'"
+                     v-show="atom.s_table_column!='i_id'"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
@@ -338,6 +339,8 @@
                this.form.setFieldsValue({d_create_time:this.model.d_create_time?moment(this.model.d_create_time):null})
               this.form.setFieldsValue({d_update_time:this.model.d_update_time?moment(this.model.d_update_time):null})
               this.form.setFieldsValue({d_sealdate:this.model.d_sealdate?moment(this.model.d_sealdate):null})
+              this.form.setFieldsValue({d_date1:this.model.d_date1?moment(this.model.d_date1):null})
+              this.form.setFieldsValue({d_date2:this.model.d_date2?moment(this.model.d_date2):null})
               this.form.setFieldsValue({d_datetime1:this.model.d_datetime1?moment(this.model.d_datetime1):null})
               this.form.setFieldsValue({d_datetime2:this.model.d_datetime2?moment(this.model.d_datetime2):null})
               this.form.setFieldsValue({d_datetime3:this.model.d_datetime3?moment(this.model.d_datetime3):null})
@@ -374,6 +377,8 @@
             formData.d_create_time = formData.d_create_time?formData.d_create_time.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_update_time = formData.d_update_time?formData.d_update_time.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_sealdate =formData.d_sealdate?formData.d_sealdate.format('YYYY-MM-DD'):null;
+            formData.d_date1 =formData.d_date1?formData.d_date1.format('YYYY-MM-DD'):null;
+            formData.d_date2 =formData.d_date2?formData.d_date2.format('YYYY-MM-DD'):null;
             formData.d_datetime1 = formData.d_datetime1?formData.d_datetime1.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_datetime2 = formData.d_datetime2?formData.d_datetime2.format('YYYY-MM-DD HH:mm:ss'):null;
             formData.d_datetime3 = formData.d_datetime3?formData.d_datetime3.format('YYYY-MM-DD HH:mm:ss'):null;

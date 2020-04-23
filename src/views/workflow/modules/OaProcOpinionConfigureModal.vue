@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="showFunPer" :width="900" @ok="handleOk" @cancel="handleCancle">
+  <a-modal :visible="showFunPer" :width="900" @ok="handleOk" @cancel="handleCancle"  cancelText="关闭">
     <a-card :bordered="false">
       <!-- 查询区域 -->
       <div class="table-page-search-wrapper">
