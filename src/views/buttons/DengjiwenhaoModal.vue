@@ -67,8 +67,8 @@
               <a @click="()=>set(record)">设置线下占用</a>
             </div>
             <div v-else class="editable-row-operations" style="color: #999999;">
-              <span>选择使用</span>&nbsp
-              <span>设置线下占用</span>
+              <span></span>&nbsp
+              <span></span>
             </div>
           </template>
         </a-table>
@@ -136,8 +136,8 @@
               <a @click="()=>set(record)">设置线下占用</a>
             </div>
             <div v-else class="editable-row-operations" style="color: #999999;">
-              <span>选择使用</span>&nbsp
-              <span>设置线下占用</span>
+              <span></span>&nbsp
+              <span></span>
             </div>
           </template>
         </a-table>
@@ -202,7 +202,7 @@
         loading: true,
         defaultYear: new Date().getFullYear(),
         model: {},
-        listName: '展开空号列表',
+        listName: '查询空号列表',
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         columns,
         numId: '',
@@ -281,9 +281,9 @@
 
           if (this.isshowTable) {
             this.isshowTable = false;
-            this.listName = '展开空号列表';
+            this.listName = '查询空号列表';
           } else {
-            this.listName = '收起空号列表';
+            this.listName = '查询空号列表';
             this.isshowTable = true;
           }
         } else {

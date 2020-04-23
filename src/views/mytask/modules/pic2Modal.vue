@@ -105,7 +105,7 @@
     data() {
       return {
         scrWidth: window.innerWidth,
-        scrHeight: window.innerHeight-100 + 'px',//- 320
+        scrHeight: window.innerHeight-150 + 'px',//- 320
         // scrHeight: window.innerHeight + 'px',
         // scrHeight: 500 + 'px',
         styles: [],

@@ -62,9 +62,9 @@ export const JeecgListMixin = {
   methods: {
     WindowsLocationIE(){
       // if (window["context"] == undefined) {
-        if (!window.location.origin) {
-          window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        }
+      if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+      }
       // }
     },
     //获取存储的查询条件
@@ -172,14 +172,14 @@ export const JeecgListMixin = {
       this.selectionRows = [];
     },
     searchQuery() {
-      this.loadData();
+      this.loadData(1);
     },
     superQuery() {
       this.$refs.superQueryModal.show();
     },
     searchReset() {
       this.queryParam = {}
-      this.loadData();
+      this.loadData(1);
     },
     batchDel: function () {
       if (!this.url.deleteBatch) {

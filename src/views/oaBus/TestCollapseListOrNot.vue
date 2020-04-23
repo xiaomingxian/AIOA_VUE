@@ -213,9 +213,9 @@
 
           <a @click.stop="jump(record)">重置</a>
            <a-divider type="vertical"/>
-          <a @click.stop="unDo(record)">未办理信息</a>
+          <a @click.stop="unDo(record)">未办信息</a>
           <a-divider type="vertical"/>
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 
@@ -262,7 +262,7 @@
            <a-divider type="vertical"/>
           <a @click.stop="unDo(record)">未办理信息</a>
           <a-divider type="vertical"/>
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 

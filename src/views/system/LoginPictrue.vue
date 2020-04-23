@@ -9,9 +9,6 @@
 
         <div style="height: auto; background: #fff;  padding: 27px;">
 
-          <div style="display: flex;position: relative;bottom: 32px;right: 27px;">
-            <img src="~@/assets/settingTitle@2x.png" style="width: 1672.7px;height: 43px;"/>
-          </div>
 
           <div style="width: 100%;display: flex;background: #fff;align-items: center;justify-content: flex-start;margin-left: 96px;">
             <span>默认使用背景图 :&nbsp&nbsp</span>
@@ -125,15 +122,15 @@
               <a-input style="width: 371px;" maxlength="50" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}"  @input="getLoginPic"  v-model="picDetail.editTitleText" />
             </div>
 
-            <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;margin-left: 353px;">
-              <a-button size="middle" icon="check-circle" @click="confirmPic"  type="primary">确认替换</a-button>
+            <div>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a-button size="middle" icon="check-circle" @click="confirmPic"  type="primary">确认替换</a-button>
             </div>
           </div>
 
           <div style="height: 41px;display: flex;margin-left: 96px;">
             <div style="background: #fff;display: flex;align-items: center;justify-content: flex-start;">
-              <span style="color: #d60303;">实例1：XX省综合办公服务平台&XX市中心支行。登录页系统名：XX省综合办公服务平台；系统内系统名：XX市中心支行<br/>
-                                            实例2：XX省综合办公服务平台。登录页系统名：XX省综合办公服务平台；系统内系统名：XX省综合办公服务平台
+              <span style="color: #d60303;">实例1：XX综合办公服务平台&XX分支。登录页系统名：XX省综合办公服务平台；系统内系统名：XX分支<br/>
+                                            实例2：XX综合办公服务平台。登录页系统名：XX综合办公服务平台；系统内系统名：XX综合办公服务平台
               </span>
             </div>
           </div>
@@ -785,9 +782,7 @@
     color: #3a80ff !important;
   }
 
-  .ant-btn-primary{
-    background:linear-gradient(180deg,rgba(115,128,255,1),rgba(47,86,255,1)) repeat scroll 0% 0%;
-  }
+
 
   /deep/.ant-btn-primary svg{
     fill: cyan;

@@ -86,7 +86,7 @@
       >
 
         <span slot="action" slot-scope="text, record">
-       <a @click="showPic(record)"> 查看流程图</a>
+       <a @click="showPic(record)"> 流程图</a>
 
       <a-divider type="vertical"/>
           <a-dropdown>

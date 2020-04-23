@@ -251,7 +251,7 @@
           <!--<a @click="doTask(record)">办理</a>-->
 
                        <!--<a-divider type="vertical"/>-->
-          <a @click.stop="showPic(record)">查看流程图</a>
+          <a @click.stop="showPic(record)">流程图</a>
 
         </span>
 
