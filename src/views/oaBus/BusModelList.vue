@@ -47,7 +47,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="false"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
