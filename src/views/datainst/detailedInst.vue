@@ -11,16 +11,16 @@
         <a-row :gutter="16">
           <a-col :span="12">
             <a-form-item label="是否公开:">
-              <a-select :defaultValue="detailData.iis1" @change="getiIsOpen"
+              <a-select  :value="detailData.iis1" @change="getiIsOpen"
               >
                 <a-select-option value="1">是</a-select-option>
                 <a-select-option value="0">否</a-select-option>
               </a-select>
-            </a-form-item>
+            </a-form-item label="是否公开:">
           </a-col>
           <a-col :span="12">
             <a-form-item label="办理状态:">
-              <a-select :defaultValue="detailData.iisOpen" @change="getiIs1"
+              <a-select :value="detailData.iisOpen"  @change="getiIs1"
               >
                 <a-select-option value="0">办理中</a-select-option>
                 <a-select-option value="1">已办结</a-select-option>
@@ -32,7 +32,6 @@
           <a-col :span="24">
             <a-form-item label="办理进度：">
               <a-textarea v-model="detailData.sopinion"
-
                           :rows="4"
                           placeholder="请填写办理意见"
               />
@@ -88,7 +87,7 @@
         <a-button :style="{ marginRight: '25px' }" type="primary" @click="fujian">
           上传附件
         </a-button>
-        <a-button @click="onClose" type="primary">确定</a-button>
+        <a-button @click="updataDInst" type="primary">确定</a-button>
       </div>
     </a-drawer>
     <yin-ru-ban-wen-modal ref="banwenForm" @watchSub="showSub"></yin-ru-ban-wen-modal>
@@ -100,83 +99,100 @@
   import YinRuBanWenModal from "../buttons/YinRuBanWenModal";
   import {busdataTemplate} from "@/views/buttons/btn-js/busdataTemplate";
   import DelTime from "../buttons/DelTimeModal";
-  import {systemTool} from '@/views/buttons/btn-js/systemTools.js'
-  import {ntkoBrowser} from '@/views/buttons/btn-js/ntkobackground.min.js'
+  import {systemTool} from "../buttons/btn-js/systemTools"
+  import {ntkoBrowser} from '../buttons/btn-js/ntkobackground.min.js'
 
   export default {
     name: "detailedInst",
-    mixins: [busdataTemplate,systemTool,ntkoBrowser],
+    mixins: [busdataTemplate, systemTool, ntkoBrowser],
     components: {DelTime, YinRuBanWenModal},
-    // props: {
-    //   detailData:{
-    //     type: String,
-    //     required: true
-    //   }
-    // },
+    props: {
+      dataed: {
+        type: Object,
+        required: false
+      }
+    },
     data() {
       return {
+        aaa: this.dataed,
         visible: false,
         oaFileList: [],
         banWenFileList: [],
         tableName: "oa_datadetailed_inst",
         // detailData:{},
+        cmd: 1,
         detailData: {
           iid: 0,
           stable: "",
           itableId: 0,
           sopinion: "",
-          iisOpen: 0,
-          iis1: 0,
-          iis2: 0,
+          iisOpen: "",
+          iis1: "",
+          iis2: "",
           ddatetime1: "",
           screateName: "",
           screateBy: "",
           screateDept: "",
           screateDeptid: "",
-          cmd: 1,
+
         },
       };
     },
-    created() {
+    watch: {
+      value(val) {
+        this.dataed = val
+      },
+      aaa(val) {
+        this.$emit("dataup", val)
+      }
+    },
 
+    created() {
+      // console.log("9999999999999999999999999999999",JSON.stringify(this.dataed))
     },
     methods: {
-      showDrawer12(data) {
+      showaddDrawer(data, cmd) {
         // this.detailData={};
         // console.log(this.detailData)
-        this.detailData.cmd = data.cmd;
+        this.cmd = cmd;
+        // this.detailData.cmd = data.cmd;
         this.detailData.iid = data.iid;
-        this.detailData.stable = data.sTable;
-        this.detailData.itableId = data.iTableId;
+        this.detailData.stable = data.stable;
+        this.detailData.itableId = data.itableId;
         this.detailData.sopinion = "";
-        this.detailData.screateBy = data.sCreateBy;
-        this.detailData.screateName = data.sCreateName;
-        this.detailData.screateDept = data.sCreateDept;
-        this.detailData.screateDeptid = data.sCreateDeptid;
-        // console.log("===========================>>>111111!!!"+JSON.stringify(data))
-        // console.log("==========================>>>111111!!!"+JSON.stringify(this.detailData))
+        this.detailData.screateBy = data.screateBy;
+        this.detailData.screateName = data.screateName;
+        this.detailData.screateDept = data.screateDept;
+        this.detailData.screateDeptid = data.screateDeptid;
+        this.detailData.iis1 = "0";
+        this.detailData.iisOpen = "0";
+        console.log("===========================>>>新增子组件展示!!!---" + JSON.stringify(this.detailData))
+        console.log("==========================>>>新增子组件展示22222!!!----" + JSON.stringify(data))
         let detailedInst = {
-          s_table: data.sTable,
-          i_table_id: data.iTableId,
-          s_create_name: data.sCreateName,
-          s_create_by: data.sCreateBy,
-          s_create_dept: data.sCreateDept,
-          s_create_deptid: data.sCreateDeptid
+          s_table: data.stable,
+          i_table_id: data.itableId,
+          s_create_name: data.screateName,
+          s_create_by: data.screateBy,
+          s_create_dept: data.screateDept,
+          s_create_deptid: data.screateDeptid
         };
-        if (this.detailData.cmd == 1) {
+        console.log("===========================>>>新增子组件展示-----参数!!!---" + JSON.stringify(detailedInst))
+        if (this.cmd == 1) {
           var addurl = "/oadatafetailedinst/oaDatadetailedInst/adddatadetailedInst";
           postAction(addurl, detailedInst).then(res => {
             this.detailData.iid = res.result;
+            console.log("===========================>>>新增子组件展示-----明细iD----!!!---" + JSON.stringify(this.detailData.iid))
           })
         }
         this.visible = true;
       },
 
-      showDrawer22(data) {
+      showDrawerList(data, cmd) {
         // alert(JSON.stringify(data))
         // this.detailData=data;
-        console.log("==========================>>>000!!!~~~~~~" + JSON.stringify(data))
-        this.detailData.cmd = data.cmd;
+
+        this.cmd = cmd;
+        // this.detailData.cmd = data.cmd;
         this.detailData.iid = data.iid;
         this.detailData.stable = data.stable;
         this.detailData.itableId = data.itableId;
@@ -185,10 +201,11 @@
         this.detailData.screateName = data.screateName;
         this.detailData.screateDept = data.screateDept;
         this.detailData.screateDeptid = data.screateDeptid;
-        this.detailData.iis1 =data.iis1;
-        this.detailData.iis2 =data.iis2;
-        this.detailData.iisOpen =data.iisOpen;
-        console.log("==========================>>>111111!!!~~~~~~" + JSON.stringify(this.detailData))
+        this.detailData.iis1 = String(data.iis1);
+        this.detailData.iis2 = data.iis2;
+        this.detailData.iisOpen = String(data.iisOpen);
+        console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(this.detailData))
+        console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(data))
         // let detailedInst = {
         //   s_table: this.detailData.sTable,
         //   i_table_id: this.detailData.iTableId,
@@ -209,10 +226,11 @@
       },
 
       onClose1() {
-        this.visible = false;
+        this.changevisible();
       },
 
-      onClose() {
+      //确定更新数据
+      updataDInst() {
         let detailedInst = {
           i_id: this.detailData.iid,
           s_table: this.detailData.stable,
@@ -224,33 +242,37 @@
           s_create_by: this.detailData.screateBy,
           s_create_dept: this.detailData.screateDept,
           s_create_deptid: this.detailData.screateDeptid,
-          cmd: this.detailData.cmd
+          // cmd: this.detailData.cmd
         };
-        // console.log("================================>>>4444444"+JSON.stringify(this.detailData.iTableId))
+        console.log("================================>>>子组件详情页面----确定按钮-----" + JSON.stringify(this.detailData))
         var updataurl = "/oadatafetailedinst/oaDatadetailedInst/updatadetailedInst";
-        if (this.detailData.cmd == 1) {
+        if (this.cmd == 1) {
           postAction(updataurl, detailedInst).then(res => {
             if (res.success) {
               this.$message.success("新建办理成功");
               // let cmd=3;
-              this.$emit('ok');
+              this.$emit('refresh');
             } else {
               this.$message.warning("新建办理失败")
             }
           })
-        } else if (this.detailData.cmd == 2) {
-          console.log("~~~~~~~~~~~~~~~~~~!~~~~~~", JSON.stringify(detailedInst))
+        } else if (this.cmd == 2) {
           postAction(updataurl, detailedInst).then(res => {
             if (res.success) {
               this.$message.success("更新办理成功");
               // let cmd=3;
-              this.$emit('ok');
+              this.$emit('refresh');
             } else {
               this.$message.warning("更新办理失败")
             }
           })
         }
-        this.visible = false;
+        // if (oaFileList.length>0){
+        //   let num=1;
+        //   this.upDataDetailStats(num);
+        // }
+        // this.visible = false;
+        this.changevisible();
       },
 
       deleteDataInst() {
@@ -259,40 +281,56 @@
           if (res.success) {
             this.$message.success("删除办理成功");
             let cmd = 3;
-            this.$emit('ok', cmd);
+            this.$emit('refresh',cmd);
           } else {
             this.$message.warning("删除办理失败")
           }
         })
-        this.visible = false;
+
+      },
+
+      fujian() {
+        let param = {};
+        param.table = this.tableName,
+          param.i_id = this.detailData.iid,
+          // console.log("===========================>>>!!!!222222附件" + JSON.stringify(this.detailData.iId))
+          this.$refs.banwenForm.show(param);
+        this.$refs.banwenForm.title = "引入附件";
+        this.$refs.banwenForm.disableSubmit = false;
+      },
+
+      upDataDetailStats(num) {
+        var updataStatsurl = "/oadatafetailedinst/oaDatadetailedInst/updataDetailedIsStats";
+        getAction(updataStatsurl, {iId: this.detailData.iid,num : num }).then(res => {
+          if (res.success) {
+            // this.$message.success("");
+          } else {
+            // this.$message.warning("")
+          }
+        })
       },
 
       getiIs1(num) {
         this.detailData.iis1 = parseInt(num);
       },
+
       getiIsOpen(num) {
         this.detailData.iisOpen = parseInt(num);
       },
-      fujian() {
-        let param = {};
-        param.table = this.tableName,
-          param.i_id = this.detailData.iid,
-          console.log("===========================>>>!!!!222222附件" + JSON.stringify(this.detailData.iId))
-        alert(JSON.stringify(param))
-        this.$refs.banwenForm.show(param);
-        this.$refs.banwenForm.title = "引入附件";
-        this.$refs.banwenForm.disableSubmit = false;
+
+      changevisible(){
+        if (FileList.length<=0){
+          let num=0;
+          this.upDataDetailStats(num);
+        } else {
+          let num=1;
+          this.upDataDetailStats(num);
+        }
+        this.visible = false;
       },
-      upDataDetail() {
-        var updataStatsurl = "/oadatafetailedinst/oaDatadetailedInst/updataDetailedIsStats";
-        getAction(updataStatsurl, {iId: this.detailData.iid}).then(res => {
-          if (res.success) {
-            // this.$message.success("删除办理成功");
-          } else {
-            // this.$message.warning("删除办理失败")
-          }
-        })
-      },
+
+      //**************************************************附件
+
       showSub() {
         // let param={};
         // param.table="oa_busdata40"
@@ -388,7 +426,7 @@
                     if (this.os != 'Win7' && this.os != 'Win10') {
                       if (this.brower == "chrome") {
                         if (this.browerNum <= 42) {
-                          window.open("/ntko/xpeditindex.html?cmd="+ + index + "&fileId=" + item.iid + "&password=" + this.password
+                          window.open("/ntko/xpeditindex.html?cmd=" + +index + "&fileId=" + item.iid + "&password=" + this.password
                             + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
                         } else {
                           alert("您的浏览器版本太高，控件无法正常使用，请安装chrome42以下版本！");
@@ -402,7 +440,7 @@
                           alert("您的浏览器版本太高，控件无法正常使用，请安装firefox52.3以下版本！");
                         }
                       }
-                    }else {
+                    } else {
                       ntkoBrowser.openWindow("/ntko/editindex.html?cmd=" + index + "&fileId=" + item.iid + "&password=" + this.password
                         + "&orgSchema=" + this.orgSchema + "&url=" + window._CONFIG['domianURL']);
                     }
@@ -440,3 +478,9 @@
     },
   };
 </script>
+
+<style scoped>
+  .delCss{
+    width:23.3%
+  }
+</style>
