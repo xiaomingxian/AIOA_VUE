@@ -28,7 +28,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="代理人">
-          <j-select-user-by-dep-single v-decorator="[ 'agentUserName', {}]"></j-select-user-by-dep-single>
+          <j-select-user-by-dep-single :userRealName="userRealName" v-decorator="[ 'agentUserName', {}]"></j-select-user-by-dep-single>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -177,6 +177,8 @@
       },
       edit(record) {
 
+
+        // alert(JSON.stringify(record))
         // return
         this.form.resetFields();
         this.model = Object.assign({}, record);
