@@ -32,7 +32,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="4" :sm="8" >
-            <span style="width:190px;float: right;overflow: hidden;" >
+            <span style="width:190px;float: right;overflow: hidden;margin-right: 80px" >
               <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
               <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>
