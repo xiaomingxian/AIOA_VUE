@@ -127,7 +127,10 @@
 
           <div class="barBox">
               <p class="cheackNav">
-                  <span v-for="(item,index) in cheackNavList"   :style="getNavIndex==index?'color:#2f54eb':''"     @click="currentTab(item.id)" :key="index">{{item.title}}</span>
+                  <span class="itemLine" v-for="(item,index) in cheackNavList"   :style="getNavIndex==index?'color:#2f54eb':''"     @click="currentTab(item.id)" :key="index">
+                      <span>{{item.title}}</span>
+                      <span>|</span>
+                  </span>
               </p>
 
             <div style="width: 98%;">
@@ -742,21 +745,25 @@
     margin-top: 20px;
     .cheackNav{
 
-        width: 30%;
+        width: 40%;
         display: flex;
         align-items: center;
         justify-content: space-between;
       margin-top: 10px;
-          span{
-            margin-left: 20px;
-            font-weight: bolder;
+      .itemLine{
+        span:first-child{
+          margin-left: 20px;
+          font-weight: bolder;
+          margin-right: 20px;
 
-          }
+        }
 
-          span:hover{
-            cursor: pointer;
-            color: #2f54eb;
-          }
+        span:first-child:hover{
+          cursor: pointer;
+          color: #2f54eb;
+        }
+      }
+
     }
   }
 </style>
