@@ -290,10 +290,10 @@
 
       changeSelectString(event, obj) {
         this.model[obj] = event.toString();
-        console.log('----------------------------------------------------------');
-        console.log("key: " + obj + " value: " + event);
-        console.log('----------------------------------------------------------');
-        console.log(this.model);
+//        console.log('----------------------------------------------------------');
+//        console.log("key: " + obj + " value: " + event);
+//        console.log('----------------------------------------------------------');
+//        console.log(this.model);
       },
       changeSelectNum(event, obj) {
         this.model[obj] = event;
