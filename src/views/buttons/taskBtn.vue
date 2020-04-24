@@ -64,6 +64,7 @@
     <jin-zhan-modal ref="jinzhanModalForm"></jin-zhan-modal>
     <date-postpone ref="datePostpone" @showTime="showTime"></date-postpone>
     <guan-lian-modal ref="guanlianModal"></guan-lian-modal>
+    <show-urge-log ref="showurgelog"></show-urge-log>
     <!--模态框-->
     <a-modal
       title="温馨提示"
@@ -114,11 +115,13 @@
   //督办详情
   import JinZhanModal from "./JinZhanModal";
   import DatePostpone from "./datePostponeModal";
+  import ShowUrgeLog from "./ShowUrgeLogModel";
 
   export default {
     name: "taskBtn",
     mixins: [taskBth],
     components: {
+      ShowUrgeLog,
       DatePostpone,
       oaDatadetailedInstModal,
       VideoUploadModal,
