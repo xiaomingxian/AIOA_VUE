@@ -66,7 +66,7 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
         label="人员">
-        <j-select-user-by-dep v-decorator="[ 'itypeId', {}]"  @senUserId="senUserId" v-model="userRealName" @getUD2="getUD2" ></j-select-user-by-dep>
+        <j-select-user-by-dep-single v-decorator="[ 'itypeId', {}]"  @senUserId="senUserId" v-model="userRealName":userRealName="userRealName" @getUD2="getUD2" ></j-select-user-by-dep-single>
       </a-form-item>
       <a-form-item
         v-else="spermitType==0">
@@ -96,7 +96,7 @@
   import {addUser, editUser, queryUserRole, queryall} from '@/api/api'
   import {disabledAuthFilter} from "@/utils/authFilter"
   import {duplicateCheck} from '@/api/api'
-  import JSelectUserByDep from '@/components/jeecgbiz/JSelectUserByDep'
+  import JSelectUserByDepSingle from "../../../components/jeecgbiz/JSelectUserByDepSingle";
 
   import Vue from 'vue'
 
@@ -105,7 +105,7 @@
     name: "BusFunctionPermitModal",
     components: {
       departWindow,
-      JSelectUserByDep
+      JSelectUserByDepSingle
     },
     data() {
       return {

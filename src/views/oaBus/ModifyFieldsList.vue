@@ -309,7 +309,7 @@
         return str;
       },
       editModify(record) {
-        this.$refs.modalForm.edit(record,this.queryParam.function_id,this.tableName);
+        this.$refs.modalForm.edit(record,this.queryParam.function_id,this.tableName,this.iBMId);
         this.$refs.modalForm.title = "编辑";
         this.$refs.modalForm.disableSubmit = false;
       },
@@ -400,7 +400,7 @@
         this.getPgSearchList(this.iBMId);
       },
       getPgSearchList(iBMId) {
-        console.log("75757575757**********************************");
+//        console.log("75757575757**********************************");
 //        console.log(this.queryParam.function_id);
         this.columns = [];
         if (iBMId!=null && iBMId>0){

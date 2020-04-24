@@ -88,16 +88,16 @@
                                     <div v-if="myitem.stateName != ''" class="div5">
                                       <div >
                                         <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                                        <img class="img1 addSize" src="../../assets/edit.png" :title="编辑" @click.stop="editstitle1(mytitleLists[index])">
+                                        <img class="img1 addSize" src="../../assets/edit.png" title="编辑" @click.stop="editstitle1(mytitleLists[index])">
 
-                                        <img class="img1 addSize" src="../../assets/del.png"  :title="删除" @click.stop="delstitle1(myitem.iid)">
+                                        <img class="img1 addSize" src="../../assets/del.png"  title="删除" @click.stop="delstitle1(myitem.iid)">
                                       </div>
                                     </div>
                                     <div v-else class="div5">
                                       <div >
                                         <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
-                                        <img class="img1 addSize" src="../../assets/edit.png" :title="编辑" @click.stop="editstitle(mytitleLists[index])">
-                                        <img class="img1 addSize" src="../../assets/del.png" :title="删除" @click.stop="delstitle(myitem.iid)">
+                                        <img class="img1 addSize" src="../../assets/edit.png" title="编辑" @click.stop="editstitle(mytitleLists[index])">
+                                        <img class="img1 addSize" src="../../assets/del.png" title="删除" @click.stop="delstitle(myitem.iid)">
                                       </div>
                                     </div>
 
@@ -123,7 +123,7 @@
                                   <div class="contentbox">
                                     <p :style="iisFontSize" class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText3}}</p>
                                     <div class="div5">
-                                      <img class="img2 addSize" src="../../assets/check.png" @click.stop="chakan(publicitem.iid)">
+                                      <img class="img2 addSize" src="../../assets/check.png" title="查看" @click.stop="chakan(publicitem.iid)">
                                     </div>
                                   </div>
                                 </div>

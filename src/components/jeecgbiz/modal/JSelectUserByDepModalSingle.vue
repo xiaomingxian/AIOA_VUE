@@ -158,7 +158,16 @@
           this.scrollTrigger = {};
         }
       },
-      showModal() {
+      showModal(userid) {
+
+        if(userid){
+
+          console.log(userid[0]);
+          // console.log(JSON.stringify(userid));
+          this.selectedRowKeys[0] = String(userid[0]);
+          //
+          console.log( this.selectedRowKeys);
+        }
         this.visible = true;
         this.assignRoleName(this.dataSource);
         this.queryDepartTree();
@@ -225,6 +234,7 @@
       },
       // 点击树节点,筛选出对应的用户
       onSelect(selectedKeys) {
+
         if (selectedKeys[0] != null) {
           this.queryUserByDepId(selectedKeys); // 调用方法根据选选择的id查询用户信息
           if (this.selectedKeys[0] !== selectedKeys[0]) {
@@ -233,6 +243,9 @@
         }
       },
       onSelectChange(selectedRowKeys, selectionRows) {
+        console.log(selectedRowKeys)
+        console.log(selectionRows)
+
         this.selectedRowKeys = selectedRowKeys;
         this.selectionRows = selectionRows;
       },
