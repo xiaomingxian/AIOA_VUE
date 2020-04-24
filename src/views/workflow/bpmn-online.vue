@@ -161,7 +161,8 @@
           document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
         })
       },
-      bpmn_create() {
+      bpmn_create()
+      {
         var url = '/modeler/create'
         var url_model = '/modeler.html?modelId='
         var parm = {'name': this.bpmn.name, 'key': this.bpmn.key, 'description': this.bpmn.description}
