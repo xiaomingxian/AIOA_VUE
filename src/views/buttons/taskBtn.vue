@@ -63,6 +63,7 @@
     <dunning-button-modal ref="dunningModalForm"></dunning-button-modal>
     <jin-zhan-modal ref="jinzhanModalForm"></jin-zhan-modal>
     <date-postpone ref="datePostpone" @showTime="showTime"></date-postpone>
+    <!--<jin-zhan-modal ref="jinzhanMosaveGongwenDataalForm"></jin-zhan-modal>-->
     <guan-lian-modal ref="guanlianModal"></guan-lian-modal>
     <show-urge-log ref="showurgelog"></show-urge-log>
     <!--模态框-->

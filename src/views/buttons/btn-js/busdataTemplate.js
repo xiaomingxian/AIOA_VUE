@@ -408,10 +408,9 @@ export const busdataTemplate = {
     },
     //按钮-引入公文链接
     saveGongwenData(data) {
-      this.backData.s_file_num = data.sfileNum
-      this.backData.s_create_dept = data.sdeptName
-      this.backData.s_title = data.stitle
-      this.backData.d_create_time = data.dcreateTime;
+      this.backData.s_varchar5 = data.i_id
+      this.backData.s_varchar3 = data.s_title
+      this.backData.s_varchar7 = data.tableName;
     },
     //按钮-封发日期
     saveDelTime(data) {
