@@ -61,7 +61,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="人员">
-          <j-select-user-by-dep v-decorator="[ 'itypeId', {}]"  @senUserId="senUserId" v-model="userRealName" @getUD2="getUD2"  ></j-select-user-by-dep>
+          <j-select-user-by-dep-single  v-decorator="[ 'itypeId', {}]" :userRealName="userRealName"  @senUserId="senUserId"  v-model="userRealName" @getUD2="getUD2"  ></j-select-user-by-dep-single>
         </a-form-item>
         <a-form-item
           v-else="spermitType==0">
@@ -88,7 +88,7 @@
   import {ACCESS_TOKEN} from "@/store/mutation-types"
   import {addUser, duplicateCheck, editUser, queryall, queryUserRole} from '@/api/api'
   import {disabledAuthFilter} from "@/utils/authFilter"
-  import JSelectUserByDep from '@/components/jeecgbiz/JSelectUserByDep'
+  import JSelectUserByDepSingle from "../../../components/jeecgbiz/JSelectUserByDepSingle";
 
   import Vue from 'vue'
 
@@ -96,7 +96,7 @@
     name: "BusModelPermitModal",
     components: {
       departWindow,
-      JSelectUserByDep
+      JSelectUserByDepSingle
     },
     data () {
       return {
@@ -175,6 +175,7 @@
       typeModel:'initialUserList'
     },
     methods: {
+
       senUserId(ids) {
         this.model.itypeId = ids.toString();
       },
@@ -282,7 +283,9 @@
           this.checkedDepartNameString = this.model.itypeName;
         }
         else if(this.typeModel=='3'){
+          // this.$refs.userModal.showName(this.model.itypeName);
           this.userRealName = this.model.itypeName;
+          // alert(this.model.itypeName)
         }
       },
       initialRoleList: function () {

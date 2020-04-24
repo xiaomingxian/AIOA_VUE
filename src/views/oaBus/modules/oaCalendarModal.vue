@@ -237,7 +237,7 @@
         // console.log(a._d);
 
         let startTimeStemp = new Date(a._d).getTime();
-        // console.log(startTimeStemp)
+         console.log(startTimeStemp)
         this.startTimeStemp = startTimeStemp;
         this.model.dStartTime = a._d;;
       },
@@ -247,7 +247,7 @@
 
         let endTimeStemp = new Date(a._d).getTime();
         this.endTimeStemp = endTimeStemp;
-
+        console.log(endTimeStemp);
         if( this.endTimeStemp>this.startTimeStemp ){
           this.model.dEndTime = a._d;
         }else{
@@ -276,16 +276,16 @@
                 httpurl+=this.url.add;
                 method = 'post';
                 formData.dStartTime = this.timer( this.model.dStartTime);
-                formData.dstartTime = this.timer( this.model.dStartTime);
-                formData.dEndTime =this.timer(this.model.dEndTime)  ;
-                formData.dendTime =this.timer(this.model.dEndTime)  ;
+                formData.dstartTime =   formData.dStartTime
+                formData.dEndTime = this.timer(this.model.dEndTime)  ;
+                formData.dendTime = formData.dEndTime  ;
               }else{
                 httpurl+=this.url.edit;
                 method = 'put';
                 formData.dStartTime = this.timer( this.model.dStartTime);
-                formData.dstartTime = this.timer( this.model.dStartTime);
+                formData.dstartTime = formData.dStartTime;
                 formData.dEndTime =this.timer(this.model.dEndTime)  ;
-                formData.dendTime =this.timer(this.model.dEndTime)  ;
+                formData.dendTime = formData.dEndTime  ;
               }
               // formData.suserNames = this.model.suserNames?this.model.suserNames:this.userRealName;
               formData.suserNames = this.model.suserNames ? this.model.suserNames : this.defaultUser.usernameadmin;

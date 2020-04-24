@@ -298,6 +298,10 @@
               vm.isShowProgress = false;
               for (let i in json.result) {
                 for (let j in vm.fileList) {
+                  //IE文件名称返回绝对路径处理
+                  if (json.result[i].sfileName.lastIndexOf("\\") != -1){
+                    json.result[i].sfileName = json.result[i].sfileName.slice(json.result[i].sfileName.lastIndexOf("\\")+1)
+                  }
                   if (vm.fileList[j].name == json.result[i].sfileName) {
                     vm.fileList[j].sFilePath = json.result[i].sfilePath
                     vm.fileList[j].sFileName = json.result[i].sfileName
