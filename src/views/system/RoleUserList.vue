@@ -7,7 +7,7 @@
           <!-- 搜索区域 -->
           <a-form layout="inline">
             <a-row :gutter="24">
-              <a-col :md="12" :sm="12">
+              <a-col :md="7" :sm="12">
                 <a-form-item label="角色名称" :labelCol="{span: 5}" :wrapperCol="{span: 18, offset: 1}">
                   <a-input placeholder="" v-model="queryParam.role"></a-input>
                 </a-form-item>

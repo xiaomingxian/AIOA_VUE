@@ -24,7 +24,7 @@
           :wrapperCol="wrapperCol"
           :label="menuLabel"
           hasFeedback >
-          <a-input placeholder="请输入菜单名称" v-decorator="[ 'name',  {rules:[{required:true,message:'请输入菜单名称!'},{ min: 0, max: 100, message: '菜单名称长度不能超过100位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
+          <a-input :placeholder="'请输入'+menuLabel" v-decorator="[ 'name',  {rules:[{required:true,message:'请输入'+menuLabel+'!'},{ min: 0, max: 100, message: '菜单名称长度不能超过100位！', trigger: 'blur'  }] }]" :readOnly="disableSubmit"/>
         </a-form-item>
 
 
