@@ -167,12 +167,12 @@ export const taskBth = {
           return true
         } else {
           this.timeRecord[mval] = now
-          console.log('-------------->>>>>成功请求方法222')
+          // console.log('-------------->>>>>成功请求方法222')
 
         }
       } else {
         this.timeRecord[mval] = now
-        console.log('-------------->>>>>成功请求方法111')
+        // console.log('-------------->>>>>成功请求方法111')
       }
       return false
 
@@ -337,15 +337,15 @@ export const taskBth = {
 
 
 
-      console.log("000000000000000")
-      console.log(this.backData)
+      // console.log("000000000000000")
+      // console.log(this.backData)
       let param = {
         busdataId: this.backData.i_id,  //发文的busdata的id
         tableName: this.backData.table, //发文存储的表名
       }
       postAction("/oaBus/oaBusdata/getOaDataAllByBusdataId", param).then(res => {
-        console.log("------------------------")
-        console.log(res)
+        // console.log("------------------------")
+        // console.log(res)
         if (res.success) {
           this.$refs.guanlianModal.show(res.result)
         }
@@ -468,7 +468,7 @@ export const taskBth = {
 
       document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
-          console.log(_this.$route.path.endsWith('NewOneParts'));
+          // console.log(_this.$route.path.endsWith('NewOneParts'));
           if (_this.$route.path.endsWith('NewOneParts')
             || _this.$route.path.endsWith('analysis')
             || _this.$route.path.endsWith('Test-detailFile')
@@ -592,7 +592,7 @@ export const taskBth = {
       }*/
       // 按钮校验
       if (this.btn != undefined && this.btn.length > 0) {
-        console.log(JSON.stringify(this.btn))
+        // console.log(JSON.stringify(this.btn))
         for (let i = 0; i < this.btn.length; i++) {
           //查看是否要校验按钮
           if (this.btn[i].iisCheckbus == 1) {
@@ -1081,7 +1081,7 @@ export const taskBth = {
       localStorage.removeItem('密级:' + this.backData.table + this.backData.i_id)
     },
     updateTaskStatus(taskId){
-      console.log('-------------------',taskId)
+      // console.log('-------------------',taskId)
       if (taskId==undefined || taskId==null ||taskId==''){
 
       }else {
@@ -1299,7 +1299,7 @@ export const taskBth = {
     },
     //通过ids查询用户，查看是否设置了代办消息发送
     sendMesToUser(ids) {
-      console.log('AAAA', ids)
+      // console.log('AAAA', ids)
       let url = "/testt/sysUserSet/queryUserSet";
       postAction(url, {ids: ids}).then(res => {
         let userList = res.result;
@@ -1352,7 +1352,7 @@ export const taskBth = {
     },
     //追加用户
     confirmAddUserSingle(ids, activity, endTime, depts) {
-      console.log(' 节点属性：：', activity)
+      // console.log(' 节点属性：：', activity)
       //传后台的参数
       var data = {};
       var taskId = this.taskMsg.id;
@@ -2310,7 +2310,7 @@ export const taskBth = {
     },
     //催办
     dunningButton(){
-      console.log('----------------',this.taskMsg.processInstanceId)
+      // console.log('----------------',this.taskMsg.processInstanceId)
       this.$refs.dunningModalForm.qucik(this.taskMsg.processInstanceId,this.backData);
       this.$refs.dunningModalForm.title = "催办";
       this.$refs.dunningModalForm.visible = true;

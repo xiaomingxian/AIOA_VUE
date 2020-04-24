@@ -90,10 +90,13 @@
         // visible: false,
         // full: false,
         trace: false,
-        showPic: true,
+        // showPic: true,
         // picurl: '',
         // locationUrl: '',
         record: '',
+        paramData:{},
+        stable:'',
+        tableId:'',
         //************* table **************
         dataSource: [],
         columns: [
@@ -110,22 +113,22 @@
           {
             title: '操作用户',
             align: "center",
-            dataIndex: 'taskDefName'
+            dataIndex: 'screateName'
           },
           {
             title: '所属部门',
             align: "center",
-            dataIndex: 'userName'
+            dataIndex: 'screateDept'
           },
           {
             title: '原办理时限',
             align: "center",
-            dataIndex: 'deptName'
+            dataIndex: 'dDatetime1'
           },
           {
             title: '新办理时限',
             align: "center",
-            dataIndex: 'endTime'
+            dataIndex: 'dDatetime2'
           },
 
         ],
@@ -135,7 +138,7 @@
             title: '序号',
             dataIndex: '',
             key: 'rowIndex',
-            width: 60,
+            width: 80,
             align: "center",
             customRender: function (t, r, index) {
               return parseInt(index) + 1;
@@ -144,17 +147,18 @@
           {
             title: '催办用户',
             align: "center",
-            width: 120,
+            width: 300,
             dataIndex: 'userName'
           },
           {
             title: '所属部门',
-            align: "left",
+            align: "center",
             width: 300,
             dataIndex: 'log'
-          }, {
+          },
+          {
             title: '催办时间',
-            align: "left",
+            align: "center",
             dataIndex: 'backReason'
           },
         ]
@@ -219,7 +223,17 @@
           }
         }
       },
-      showDrawer() {
+      showDrawer(data) {
+        // console.log("--------->>",JSON.stringify(data))
+        this.paramData=data;
+        this.tableId=data.i_id;
+        this.stable=data.table;
+        this.trace=true
+        let url="/oadeferlog/oaDeferLog/selecturgeLog"
+        getAction(url,{sTable:this.stable,iTableId:this.tableId}).then(res =>{
+          this.dataSource=res.result;
+          // console.log("--------->>",JSON.stringify(this.dataSource))
+        })
         this.visible = true
       },
       show(record) {
@@ -229,23 +243,12 @@
       },
 
       traceP() {
-        let url = 'oaBus/taskInAct/workTrack'
-        getAction(url, {
-          proInstId: this.record.processInstanceId,
-          endTime: this.endTime
-
-        }).then(res => {
-          if (res.success) {
-            this.dataSource = res.result
-            this.showPic = false
-            this.trace = true
-            this.backRecord = false
-          } else {
-            this.$message.error(res.message)
-          }
+        this.backRecord=true;
+        this.trace=false;
+        let url="/oadeferlog/oaDeferLog/selecturgeInform"
+        getAction(url,{iTableId:this.tableId}).then(res =>{
+          this.dataSource=res.result;
         })
-
-
       },
       handleCancel() {
         this.$emit('close');
