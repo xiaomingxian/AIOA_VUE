@@ -40,6 +40,10 @@
           <a-icon  type="upload"  />
           上传流程图
         </a-button>
+      <a-button @click="bpmn_create"  >
+          <a-icon  type="primary"  />
+          画流程图
+        </a-button>
       <!--</a-upload>-->
 
       <!--<a-dropdown v-if="selectedRowKeys.length > 0">-->
@@ -135,6 +139,8 @@
     <copy-proc-modal ref="copyProc" @reload="reload"></copy-proc-modal>
 
     <upload-proc ref="upload" @reload="reload"></upload-proc>
+
+    <bpmn-on-line ref="bpmnOnLine"></bpmn-on-line>
   </a-card>
 </template>
 
@@ -144,12 +150,13 @@
   import picModal from './modules/picModal'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import {ACCESS_TOKEN} from "../../store/mutation-types";
-  import {deleteAction, getAction} from "../../api/manage";
+  import {deleteAction, getAction,postAction} from "../../api/manage";
   import OaProcButtonFastModal from "./modules/OaProcButtonFastModal";
   import OaProcOpinionConfigureModal from "./modules/OaProcOpinionConfigureModal";
   import oaProcActinstList from './oaProcActinstList'
   import copyProcModal from './modules/copyProcModal'
   import uploadProc from './modules/uploadProc'
+  import bpmnOnLine from './modules/bpmn-online'
 
   export default {
     name: "proManagerList",
@@ -161,7 +168,8 @@
       picModal,
       editPro,
       oaProcActinstList,
-      copyProcModal
+      copyProcModal,
+      bpmnOnLine
     },
     data() {
       return {
@@ -267,6 +275,10 @@
           }
           document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
         })
+      },
+      bpmn_create() {
+        this.$refs.bpmnOnLine.visible=true
+
       },
       reload() {
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')

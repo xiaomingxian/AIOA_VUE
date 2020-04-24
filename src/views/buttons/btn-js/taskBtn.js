@@ -1399,6 +1399,7 @@ export const taskBth = {
         deptMsg['cyDept'] = activity.cyDept
         deptMsg['tskId'] = this.taskMsg.id
         deptMsg['taskDefKey'] = activity.actMsg.id
+        deptMsg['userDeptMap']=activity.user_dept
         deptMsg['deptMsg'] = depts
         data['taskWithDepts'] = deptMsg
         data['isDept'] = true
