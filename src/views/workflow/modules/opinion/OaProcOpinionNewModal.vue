@@ -39,7 +39,7 @@
           <a-form layout="inline">
             <a-row :gutter="12" style="margin-top: 25px;margin-left: 35px">
               <!--<template v-if="toggleSearchStatus">-->
-              <a-col :md="10" :sm="8">
+              <a-col :md="12" :sm="8">
                 <a-form-item label="流 程 任 务">
                   <!--<a-input placeholder="请输入流程任务" v-model="queryParam.taskDefKey"></a-input>-->
                   <!--@change="handelChange"-->
@@ -81,7 +81,7 @@
             </a-row>
 
             <a-row :gutter="12" style="margin-left: 35px">
-              <a-col :md="10" :sm="8">
+              <a-col :md="12" :sm="8">
                 <a-form-item label="办文单类型">
                   <a-select v-model="type" @change="getType">
                     <a-select-option v-for="(item,index) in typeList" :key="index" :value="item.itemValue">{{item.itemText}}
