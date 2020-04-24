@@ -58,16 +58,16 @@
                 <a-row :gutter="12" style="width: 100%;display: inline-flex">
                   <a-col :md="7" :sm="24">
                       <a-form-item label="分析维度" style="display: inline-flex">
-                      <a-select v-model="queryParam.d_create_time" style="width:200px;">
+                      <a-select v-model="queryParam.d_create_time" style="width:120px;">
                         <a-select-option value="" disabled selected hidden>年份</a-select-option>
                         <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
                         </a-select-option>
                       </a-select>
                     </a-form-item>
                   </a-col>
-                  <a-col :md="7" :sm="24" style="width:200px;margin-left: 20%">
+                  <a-col :md="7" :sm="24" style="width:100px;margin-left: 20%">
                     <a-form-item label="年度" style="display: inline-flex">
-                      <a-select v-model="queryParam.d_create_time" style="width:200px;">
+                      <a-select v-model="queryParam.d_create_time" style="width:140px;">
                         <a-select-option value="" disabled selected hidden>年份</a-select-option>
                         <a-select-option v-for="(item,index) in analysisDate" :key="index" :value="item">{{item.year}}
                         </a-select-option>
@@ -92,32 +92,29 @@
 
 
 
-      <div class="bottom bbottom" style="width: 60.3%">
-      <div class="left" style="width: 100%; height: 235px;text-align: center;display: inline-block">
+        <div class="bottom bbottom" style="width: 60.3%">
+        <div class="left" style="width: 100%; height: 235px;text-align: center;display: inline-block">
 
           <a-card class="aCard">
             <p>领导批示办结率</p>
-            <p>99%</p>
+            <p>{{hangrate}}%</p>
           </a-card>
-        <a-card class="aCard">
-          <p>办结率</p>
-          <p>56%</p>
-        </a-card>
-        <a-card class="aCard">
-          <p>督办件</p>
-          <p>2030件</p>
-        </a-card>
-
-
-
-      </div>
+          <a-card class="aCard">
+            <p>办结率</p>
+            <p>{{rate}}%</p>
+          </a-card>
+          <a-card class="aCard">
+            <p>督办件</p>
+            <p>{{total}}件</p>
+          </a-card>
+        </div>
       </div>
 
 
 
       <div class="bottom bbottom">
 
-        <div class="right" style="width: 100%;height: 349px;">
+        <div class="right" style="width: 100%;height: 389px;">
           <p class="titlebox">
               <span>
                  <span class="shuline"></span>
@@ -128,37 +125,16 @@
             <!--<span :style="iisFontSize" class="more" @click="openmore(model4.url,model4.sName)">更多 <a-icon type="plus"></a-icon> </span>-->
           </p>
 
+          <div class="barBox">
+              <p class="cheackNav">
+                  <span v-for="(item,index) in cheackNavList"   :style="getNavIndex==index?'color:#2f54eb':''"     @click="currentTab(item.id)" :key="index">{{item.title}}</span>
+              </p>
 
-            <a-tabs @change="callback" type="card" style="width: 100%">
-              <a-tab-pane tab="主办数量" key="1">
-                <bar-chart ref="bar"></bar-chart>
-              </a-tab-pane>
-              <a-tab-pane tab="协办数量" key="2">
-                <bar-chart ref="bar"></bar-chart>
-              </a-tab-pane>
-              <a-tab-pane tab="办结数量" key="3">
-                <bar-chart ref="bar"></bar-chart>
-              </a-tab-pane>
-              <a-tab-pane tab="超期数量" key="4">
-                <bar-chart ref="bar"></bar-chart>
-              </a-tab-pane>
-            </a-tabs>
+            <div style="width: 98%;">
+              <apexchart  type='bar' height="280px;" title="部门统计" :options="chartOptions" :series="series"></apexchart>
+            </div>
 
-          <!--<script>-->
-            <!--export default {-->
-              <!--data() {-->
-                <!--return {};-->
-              <!--},-->
-              <!--methods: {-->
-                <!--callback(key) {-->
-                  <!--console.log(key);-->
-                <!--},-->
-              <!--},-->
-            <!--};-->
-          <!--</script>-->
-
-
-
+          </div>
 
         </div>
       </div>
@@ -228,6 +204,31 @@
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+
+        cheackNavList:[
+          {title:'主办数量',id:0},
+          {title:'协办数量',id:1},
+          {title:'办结数量',id:2},
+          {title:'超期数量',id:3},
+
+        ],
+        getNavIndex:0,
+
+        series: [{
+          data: [],
+        }],
+        chartOptions: {
+          xaxis: {
+            categories: []
+          },
+
+        },
+
+        total:'',//办理总件数
+        hangrate:'', // 行领导批量办结率
+        rate:'',// 办结率
+
+
         // 查询参数
         queryParam: {
           function_id: '',
@@ -274,8 +275,13 @@
           DaiBanlist: "/oaBus/supervisionPage/queryTask?operstatus=task_todo",
           analysisDate: "/data/dataAnalysis//analysis",
           Supervision:"/oaBus/supervisionPage/SupervisorSum",
+
           HostNum:"/oaBus/supervisionPage/HostNum",
           organizeNum:"/oaBus/supervisionPage/organizeNum",
+          RateNum:"/oaBus/supervisionPage/RateNum",
+          ExtensionsNum:"/oaBus/supervisionPage/ExtensionsNum",
+
+
           HomeList: '/oaBus/homeAnalysis/HomeList',
           Posturl: '/oaBus/oaBusdata/queryByModelId',
           MostUserLink: '/oaBus/Calendar/oaCalendar/MostUserLink',
@@ -336,15 +342,9 @@
       this.userid = userid;
 
 
-      // this.$nextTick(() => {
-      //   this.homeLists(this.userid);
-      // })
-
-      // this.waiteDoWith();
-
       this.DaiBan();
-      this.dataAnalysis();
-      this.sectorDistribution();
+      this.dataAnalysis(this.url.HostNum)
+
 
     },
     mounted() {
@@ -387,6 +387,64 @@
       detailFile,
     },
     methods: {
+
+      //部门分布中  柱状图展示  author:cpf
+      currentTab(e){
+        console.log(e);
+        this.getNavIndex = e
+
+        switch(e) {
+          case 0:
+            this.dataAnalysis(this.url.HostNum)
+            break;
+          case 1:
+            this.dataAnalysis(this.url.organizeNum)
+            break;
+          case 2:
+            this.dataAnalysis(this.url.RateNum)
+            break;
+          default:
+            this.dataAnalysis(this.url.ExtensionsNum)
+        }
+
+      },
+      //初始化   柱状表1  author:cpf
+      dataAnalysis(url){
+        getAction(url).then((res) => {
+          console.log('2222222222222222222222222222222222222222')
+          console.log(res)
+
+          let Y_axis = [];
+          let X_axis = [];
+
+          res.map((item,index)=>{
+            Y_axis.push(item.count)
+            X_axis.push(item.departName)
+          })
+
+
+          this.$nextTick(()=>{
+            this.series=[{
+              data:Y_axis,
+            }];
+
+            this.chartOptions= {
+              xaxis: {
+                categories: X_axis
+              },
+
+            };
+
+
+          })
+
+
+        })
+
+      },
+
+
+
       callback(key) {
       console.log(key);
       },
@@ -437,28 +495,7 @@
         }
 
 
-        // console.log(e);
-        // console.log(this.$refs[e][0]);
-        // let lastChildNode = this.$refs[e][0].lastChild;
-        // console.log(lastChildNode.childNodes[0].nodeType);
-        //判断文本节点3     还是元素节点1
-        // let nodeType = lastChildNode.childNodes[0].nodeType;
-        // if (nodeType == '3') {
-        //   console.log(lastChildNode.childNodes[0].nodeValue);
-        //   let nodeValueUrl = lastChildNode.childNodes[0].nodeValue;
-        //   window.open('http://' + nodeValueUrl)
-        // } else {
-        //   console.log(lastChildNode.childNodes[0].childNodes[0].getAttribute('href'));
-        //   let nodeValueUrl1 = lastChildNode.childNodes[0].childNodes[0].getAttribute('href');
-        //   console.log(lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href'))
-        //   let nodeValueUrl2 = lastChildNode.childNodes[0].childNodes[0].childNodes[0].childNodes[0].getAttribute('href')
-        //   if(nodeValueUrl1!=null){
-        //     window.open(nodeValueUrl1)
-        //   }else{
-        //     window.open(nodeValueUrl2)
-        //   }
-        //   console.log(nodeValueUrl1)
-        // }
+
 
       },
       fetchUser(value) {
@@ -504,43 +541,19 @@
 
         })
 
+
         getAction(this.url.Supervision).then((res) => {
 
-          // console.log('00000000000000000000000000000000000000000000000000')
-          // console.log(res)
-
-        })
-
-      },
-      dataAnalysis(){
-
-        getAction(this.url.organizeNum).then((res) => {
-
-          console.log('2222222222222222222222222222222222222222')
-          console.log(res)
-          this.baseData = res;
-          this.$refs.bar.getData(this.baseData)
-
-
-        })
-
-        getAction(this.url.analysisDate).then((res) => {
-
-          this.analysisDate = res.year;
-
-        })
-
-     },
-      sectorDistribution(){
-
-        getAction(this.url.HostNum).then((res) => {
-
-          console.log('111111111111111111111111111111')
+          this.total = res.total
+          this.hangrate = parseFloat(res.hangrate*100).toFixed(2);
+          this.rate = parseFloat(res.rate*100).toFixed(2);
           console.log(res)
 
         })
 
       },
+
+
       //动态模块儿  业务详情
       openDetialModel(tableName, i_id) {
 
@@ -698,10 +711,52 @@
   @import "../../assets/less/indexStyle1.less";
 
   .aCard{
-    width: 300px;
+    width: 200px;
     display: inline-block;
-    margin: 3.3% 1%;
-    font-size: x-large;
-    border-radius: 14%;
+    margin: 6.5% 1%;
+    font-size: 18px;
+    font-weight: bolder;
+    border-radius: 10px;
+    color: #ffffff;
+    p:last-child{
+      font-weight: 400;
+
+    }
+  }
+
+  .aCard:first-child{
+    background: red;
+  }
+  .aCard:nth-child(2){
+    background: orange;
+  }
+  .aCard:last-child{
+    background: blue;
+  }
+
+  .barBox{
+    width: 98%;
+    height: 80%;
+    /*background: #dddddd;*/
+    margin: 0 auto;
+    margin-top: 20px;
+    .cheackNav{
+
+        width: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      margin-top: 10px;
+          span{
+            margin-left: 20px;
+            font-weight: bolder;
+
+          }
+
+          span:hover{
+            cursor: pointer;
+            color: #2f54eb;
+          }
+    }
   }
 </style>
