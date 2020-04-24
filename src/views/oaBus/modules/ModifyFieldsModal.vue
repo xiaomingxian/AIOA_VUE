@@ -51,7 +51,7 @@
           </a-select>
         </a-form-item>
         <!--s_varchar4 公开理由-->
-        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar4' && functionId==131"
+        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar4' && iBMId==1"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
@@ -63,7 +63,7 @@
         </a-form-item>
         <!--s_varchar5  不公开理由-->
         <!--v-decorator="[model.s_varchar5, {rules: [{ required: model.s_varchar4=='bgk'?true:false, message: '请选择不公开理由' }]}]"-->
-        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar5' && functionId==131"
+        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar5' && iBMId==1"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
@@ -74,7 +74,7 @@
           </a-select>
         </a-form-item>
         <!--s_varchar4-->
-        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar4' && functionId!=131"
+        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar4' && iBMId!=1"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
@@ -85,7 +85,7 @@
           </a-select>
         </a-form-item>
         <!--s_varchar5-->
-        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar5' && functionId!=131"
+        <a-form-item v-if="atom.i_column_type==2 && atom.s_table_column=='s_varchar5' && iBMId!=1"
                      :labelCol="labelCol"
                      :wrapperCol="wrapperCol"
                      :label="atom.s_column_name">
@@ -260,7 +260,7 @@
         functionId:'',
         xxgkList:[],
         bgklyList:[],
-
+        iBMId:'',
 //     下拉列表集中定义---------------end---------------------
         confirmLoading: false,
         form: this.$form.createForm(this),
@@ -301,29 +301,27 @@
       add () {
         this.edit({});
       },
-      edit (record,functionId,tableName) {
+      edit (record,functionId,tableName,iBMId) {
+        this.iBMId=iBMId;
         this.functionId=functionId;
 //        console.log("ywwuwaid-------------")
 //        console.log(this.functionId)
         //参数为3：查询对应的不公开理由
-//        if( this.functionId==131){
           postAction("/oaBus/oaBusdata/querySysDictData",{param:3}).then((res) => {
 //            console.log("公开理由-------------")
 //            console.log(res)
             this.xxgkList = res.result.xxgk;
             this.bgklyList = res.result.bgkly;
           })
-//        }
-
 //        console.log(record);
         this.tableName=tableName;
         httpAction("/modify/fields/queryOaBusPageDetailColumns", {functionId: functionId,iid:record.i_id,tableName:tableName},'post').then((res) => {
-//          console.log('--------------------根据业务Id查询数据------------------------------');
+//          console.log('--------------------33333333333333333333------------------------------');
 //          console.log(res);
           this.searchColumns=res.result.allColumsList;
           record=res.result.data[0];
           this.optionMap=res.result.columnAlldata;
-//          console.log(this.searchColumns);
+//          console.log(this.optionMap);
           this.form.resetFields();
           this.model = Object.assign({}, record);
           this.visible = true;
