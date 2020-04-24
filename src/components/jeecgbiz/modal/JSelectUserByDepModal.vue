@@ -176,12 +176,13 @@
         }
       },
       showModal(useridlists) {
-         console.log(useridlists);
+
         if(useridlists !==undefined && useridlists !==''){
           useridlists.map((item)=>{
             // console.log(item.toString());
             this.selectedRowKeys.push(item.toString())
           })
+          // this.selectedRowKeys = ["10107", "10503",]
         }
         // this.selectedRowKeys =['2','3'];
         console.log(this.selectedRowKeys );
@@ -246,6 +247,7 @@
         that.$emit('getUserName', this.chooseUserName);
 
         that.close();
+        console.log(this.chooseUserId);
         return this.chooseUserId;
 
       },
@@ -273,6 +275,7 @@
 
         console.log(selectedRowKeys);
         console.log(selectionRows);
+
         this.selectedRowKeys = selectedRowKeys;
         this.selectionRows = selectionRows;
       },

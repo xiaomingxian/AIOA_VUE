@@ -62,7 +62,8 @@
     data() {
       return {
         selectedDepUsers: "",
-        selectedDepUsersid:''
+        selectedDepUsersid:'',
+        userIds:''
       }
     },
 
@@ -83,7 +84,7 @@
       this.userIdLists.push(this.defaultUser.id)
       console.log(this.selectedDepUsers);
 
-      // alert(this.defaultUser)
+
     },
     mounted() {
       if(this.value){
@@ -98,9 +99,21 @@
       },
       getUserId(data) {
         this.$emit('senUserId', data);
+
+        this.userIds = data
+
         this.$emit('getUD2')
+        // alert(this.userIds)
+
       },
       getUserName(data) {
+        // console.log(data);
+        this.$nextTick(()=>{
+          // alert(data.toString())
+
+          this.selectedDepUsers = data.toString()
+
+        })
         this.$emit('senUserName', data);
         this.$emit('getUD2')
       },
@@ -109,8 +122,9 @@
       },
       //通过组织机构筛选选择用户
       onSearchDepUser() {
-          // alert(this.userIdLists)
-        this.$refs.selectModal.showModal(this.userIdLists)
+
+          // alert(this.userIds)
+        this.$refs.selectModal.showModal(this.userIds)
          // this.onSearchDepUserCallBack('')
       },
       show() {

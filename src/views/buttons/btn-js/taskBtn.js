@@ -36,7 +36,9 @@ export const taskBth = {
         modelId: '',//根据字典值查询获取
         table: '', //根据字典值查询获取
         unitName: "", //上报中支名称
-        unitId: ''
+        unitId: '',
+        duModelId:'', //督查使用的modelId
+        duFunctionId:'', //督查使用的functionId
       },
       insideReadingData: {}, //内部传阅业务数据
       flag: false, //填写环节控制
@@ -254,6 +256,146 @@ export const taskBth = {
       // //console.log("-----------------------")
       this.$emit('destoryObj')
     },
+    //列入督办
+    lieruduban: function () {
+      //数据字典获取functionID
+      getAction(this.url.getDictByKey, {dictKey: 'modelId_functionId'}).then(res => {
+        if (res.success && res.result[0].value != undefined) {
+          this.dictData.duModelId = res.result[0].text //modelId
+          this.dictData.duFunctionId = res.result[0].value //functionId
+          let param = {
+            modelId: this.dictData.duModelId,
+            functionId: this.dictData.duFunctionId,
+          }
+          postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
+            if (res.success) {
+              var tableName = res.result.tableName;
+              var busdataId = res.result.busdataId;
+              let param1 = {
+                a_busdataId: this.backData.i_id,  //发文的busdata的id
+                a_tableName: this.backData.table, //发文存储的表名
+                b_busdataId: res.result.busdataId,  //督查的busdata的id
+                b_tableName: res.result.tableName,  //督查存储的表名
+                s_file_type: 3, //3列入督办类型
+              }
+              postAction("/oaBus/oaBusdata/createSuperiseDataByDispatch", param1).then(res => {
+                if (res.success){
+                  window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + busdataId + '&status=newtask&navisshow=false')
+                }else {
+                  this.$message.error(res.message);
+                }
+              });
+            } else {
+              this.$message.error(res.message)
+            }
+          });
+        }
+      });
+
+    },
+
+    //起草发文
+    qicaofawen: function () {
+      //数据字典获取functionID
+      getAction(this.url.getDictByKey, {dictKey: 'modelId_functionId'}).then(res => {
+        if (res.success && res.result[0].value != undefined) {
+          this.dictData.duModelId = res.result[0].text //modelId
+          this.dictData.duFunctionId = res.result[0].value //functionId
+          let param = {
+            modelId: this.dictData.duModelId,
+            functionId: this.dictData.duFunctionId,
+          }
+          postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
+            if (res.success) {
+              let param1 = {
+                a_busdataId: this.backData.i_id,  //发文的busdata的id
+                a_tableName: this.backData.table, //发文存储的表名
+                b_busdataId: res.result.busdataId,  //督查的busdata的id
+                b_tableName: res.result.tableName,  //督查存储的表名
+                s_file_type: 2, //2起草发文
+              }
+              var tableName = res.result.tableName;
+              var busdataId = res.result.busdataId;
+              postAction("/oaBus/oaBusdata/createSuperiseDataByDispatch", param1).then(res => {
+                if (res.success){
+                  window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + tableName + '&busdataId=' + busdataId + '&status=newtask&navisshow=false')
+                }else {
+                  this.$message.error(res.message);
+                }
+              });
+            } else {
+              this.$message.error(res.message)
+            }
+          });
+        }
+      });
+
+    },
+
+    //关联文件
+    associatedFiles() {
+
+
+
+      console.log("000000000000000")
+      console.log(this.backData)
+      let param = {
+        busdataId: this.backData.i_id,  //发文的busdata的id
+        tableName: this.backData.table, //发文存储的表名
+      }
+      postAction("/oaBus/oaBusdata/getOaDataAllByBusdataId", param).then(res => {
+        console.log("------------------------")
+        console.log(res)
+        if (res.success) {
+          this.$refs.guanlianModal.show(res.result)
+        }
+
+
+      });
+
+
+      /*getAction(this.url.getDictByKey, {dictKey: 'modelId_functionId'}).then(res => {
+        if (res.success && res.result[0].value != undefined) {
+          this.dictData.duModelId = res.result[0].text //modelId
+          this.dictData.duFunctionId = res.result[0].value //functionId
+          let param = {
+            modelId: this.dictData.duModelId,
+            functionId: this.dictData.duFunctionId,
+          }
+          postAction("/oaBus/oaBusdata/queryNewTaskMsg", param).then(res => {
+            if (res.success) {
+              let param1 = {
+                a_busdataId: this.backData.i_id,  //发文的busdata的id
+                a_tableName: this.backData.table, //发文存储的表名
+                b_busdataId: res.result.busdataId,  //督查的busdata的id
+                b_tableName: res.result.tableName,  //督查存储的表名
+                s_file_type: 2, //2起草发文
+              }
+              postAction("/oaBus/oaBusdata/createSuperiseDataByDispatch", param1).then(res => {
+                if (res.success){
+                  window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + res.result.tableName + '&busdataId=' + res.result.busdataId + '&status=newtask&navisshow=false')
+                }else {
+                  this.$message.error(res.message);
+                }
+              });
+            } else {
+              this.$message.error(res.message)
+            }
+          });
+        }
+      });*/
+
+    },
+
+  /*    function () {
+        postAction('oaBus/dynamic/shareFile', this.backData).then(res => {
+          if (res.success && res.result == true) {
+            this.$message.success("共享完成")
+          } else {
+            this.$message.error("请检查相关配置是否完善")
+          }
+        })*/
+
     //确定登记排版
     confimName() {
       const userinfo = JSON.parse(localStorage.getItem('userdata')).userInfo;
@@ -2214,6 +2356,14 @@ export const taskBth = {
       this.$refs.detailedInst.show(this.backData);
     },
 
+    //督办延期
+    datePostpone(){
+      this.$refs.datePostpone.showPostpone(this.backData);
+    },
+    showTime(data){
+      // console.log("-----------yanqi",data)
+      this.backData.d_datetime2=data;
+    },
     //日期格式化
     dateFormat(date) {
       let date1 = new Date(date);
