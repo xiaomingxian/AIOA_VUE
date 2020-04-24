@@ -16,7 +16,7 @@
                 <a-select-option value="1">是</a-select-option>
                 <a-select-option value="0">否</a-select-option>
               </a-select>
-            </a-form-item label="是否公开:">
+            </a-form-item >
           </a-col>
           <a-col :span="12">
             <a-form-item label="办理状态:">
@@ -119,7 +119,6 @@
         oaFileList: [],
         banWenFileList: [],
         tableName: "oa_datadetailed_inst",
-        // detailData:{},
         cmd: 1,
         detailData: {
           iid: 0,
@@ -148,14 +147,11 @@
     },
 
     created() {
-      // console.log("9999999999999999999999999999999",JSON.stringify(this.dataed))
     },
     methods: {
+      //新增按钮展示赋值
       showaddDrawer(data, cmd) {
-        // this.detailData={};
-        // console.log(this.detailData)
         this.cmd = cmd;
-        // this.detailData.cmd = data.cmd;
         this.detailData.iid = data.iid;
         this.detailData.stable = data.stable;
         this.detailData.itableId = data.itableId;
@@ -187,9 +183,8 @@
         this.visible = true;
       },
 
+      //列表对象展示
       showDrawerList(data, cmd) {
-        // alert(JSON.stringify(data))
-        // this.detailData=data;
 
         this.cmd = cmd;
         // this.detailData.cmd = data.cmd;
@@ -206,26 +201,13 @@
         this.detailData.iisOpen = String(data.iisOpen);
         console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(this.detailData))
         console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(data))
-        // let detailedInst = {
-        //   s_table: this.detailData.sTable,
-        //   i_table_id: this.detailData.iTableId,
-        //   s_create_name: this.detailData.sCreateName,
-        //   s_create_by: this.detailData.sCreateBy,
-        //   s_create_dept: this.detailData.sCreateDept,
-        //   s_create_deptid: this.detailData.sCreateDeptid
-        // };
-        // console.log("==========================>>>111111!!!~~~~~~"+JSON.stringify(detailedInst))
-        // if (this.detailData.cmd == 1) {
-        //   var addurl = "/oadatafetailedinst/oaDatadetailedInst/adddatadetailedInst";
-        //   postAction(addurl, detailedInst).then(res => {
-        //     this.detailData.iId = res.result;
-        //   })
-        // }
+
         this.getOaFiles(this.tableName, this.detailData.iid);
         this.visible = true;
       },
 
       onClose1() {
+        alert(1)
         this.changevisible();
       },
 
@@ -250,7 +232,6 @@
           postAction(updataurl, detailedInst).then(res => {
             if (res.success) {
               this.$message.success("新建办理成功");
-              // let cmd=3;
               this.$emit('refresh');
             } else {
               this.$message.warning("新建办理失败")
@@ -260,35 +241,28 @@
           postAction(updataurl, detailedInst).then(res => {
             if (res.success) {
               this.$message.success("更新办理成功");
-              // let cmd=3;
               this.$emit('refresh');
             } else {
               this.$message.warning("更新办理失败")
             }
           })
         }
-        // if (oaFileList.length>0){
-        //   let num=1;
-        //   this.upDataDetailStats(num);
-        // }
-        // this.visible = false;
         this.changevisible();
       },
-
+      //删除按钮
       deleteDataInst() {
         var updataurl = "/oadatafetailedinst/oaDatadetailedInst/deteledetailedInst";
         getAction(updataurl, {iId: this.detailData.iid}).then(res => {
           if (res.success) {
             this.$message.success("删除办理成功");
-            let cmd = 3;
-            this.$emit('refresh',cmd);
+            this.$emit('refresh');
           } else {
             this.$message.warning("删除办理失败")
           }
         })
 
       },
-
+      //引入附件
       fujian() {
         let param = {};
         param.table = this.tableName,
@@ -298,7 +272,7 @@
         this.$refs.banwenForm.title = "引入附件";
         this.$refs.banwenForm.disableSubmit = false;
       },
-
+      //更新临时数据
       upDataDetailStats(num) {
         var updataStatsurl = "/oadatafetailedinst/oaDatadetailedInst/updataDetailedIsStats";
         getAction(updataStatsurl, {iId: this.detailData.iid,num : num }).then(res => {
@@ -332,9 +306,6 @@
       //**************************************************附件
 
       showSub() {
-        // let param={};
-        // param.table="oa_busdata40"
-        // param.i_id=1
         let table = this.tableName;
         let id = this.detailData.iid
         console.log("===========================>>>!!!!附件" + JSON.stringify(this.detailData.iId))

@@ -46,7 +46,8 @@
               </div>
             </div>
             <a-button style="position: fixed;bottom:5px;right:100px" type="primary" @click="addDetail">新增</a-button>
-            <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="closeDetailList">关闭</a-button>
+            <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="closeDetailList">关闭
+            </a-button>
           </div>
         </div>
       </a-drawer>
@@ -159,7 +160,7 @@
       // window.addEventListener('dblclick', e => this.handleCancel(e))
     },
     methods: {
-
+      //点击列表对象事件
       doTask(record, index) {
         return {
           on: {
@@ -175,21 +176,6 @@
         }
       },
 
-
-      // getPgSecondList(expandedRows){
-      // console.log(expandedRows)
-      // this.expandedRowss = expandedRows[expandedRows.length - 1];
-      // this.detailData=this.dataSource[this.expandedRowss]
-      // this.detailData.cmd=2;
-      // console.log("================================@@@@>>>列表"+JSON.stringify(this.detailData))
-      // this.$refs.detailedInst.showDrawer22(this.detailData);
-      // },
-      // onSelectChangeMy2(rowKeys, rows) {
-      //   // alert(rowKeys)
-      //   // alert(JSON.stringify(rows))
-      //   this.selectedRowKeys2 = rowKeys
-      //   this.selectedRows2 = rows
-      // },
 
       //个人
       showPersonage() {
@@ -218,10 +204,11 @@
           this.dataSource = res.result;
         });
       },
+
       handleSizeChange(e) {
         this.size = e.target.value;
       },
-
+      //新增
       addDetail() {
         this.cmd = 1;
         console.log("===========================>>>新增!!!" + JSON.stringify(this.detailData))
@@ -249,10 +236,10 @@
         this.visible = true
       },
 
-      refresh(cmd) {
+      //刷新列表
+      refresh() {
         console.log("================================@@@@>>>!!!!《《《刷新" + JSON.stringify(this.detailData))
         // console.log("================================@@@@>>>!!!!《《《"+JSON.stringify(this.detailData.sTable))
-        console.log("================================@@@@>>>删除!!!!《《《"+JSON.stringify(cmd))
         let myurl = "/oadatafetailedinst/oaDatadetailedInst/selectdetailedInst";
         getAction(myurl, {
           sTable: this.detailData.stable, iTableId: this.detailData.itableId,

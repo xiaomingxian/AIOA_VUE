@@ -2356,6 +2356,14 @@ export const taskBth = {
       this.$refs.detailedInst.show(this.backData);
     },
 
+    //督办延期
+    datePostpone(){
+      this.$refs.datePostpone.showPostpone(this.backData);
+    },
+    showTime(data){
+      // console.log("-----------yanqi",data)
+      this.backData.d_datetime2=data;
+    },
     //日期格式化
     dateFormat(date) {
       let date1 = new Date(date);

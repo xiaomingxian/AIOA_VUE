@@ -62,6 +62,7 @@
     <oa-datadetailed-inst-modal ref="detailedInst"></oa-datadetailed-inst-modal>
     <dunning-button-modal ref="dunningModalForm"></dunning-button-modal>
     <jin-zhan-modal ref="jinzhanModalForm"></jin-zhan-modal>
+    <date-postpone ref="datePostpone" @showTime="showTime"></date-postpone>
     <guan-lian-modal ref="guanlianModal"></guan-lian-modal>
     <!--模态框-->
     <a-modal
@@ -110,12 +111,15 @@
   import VideoUploadModal from "./VideoUploadModal";
   import oaDatadetailedInstModal  from "../datainst/oaDatadetailedInstModal";
   import DunningButtonModal from "./dunningButtonModal";
+  //督办详情
   import JinZhanModal from "./JinZhanModal";
+  import DatePostpone from "./datePostponeModal";
 
   export default {
     name: "taskBtn",
     mixins: [taskBth],
     components: {
+      DatePostpone,
       oaDatadetailedInstModal,
       VideoUploadModal,
       YinRuYiJuModal,
