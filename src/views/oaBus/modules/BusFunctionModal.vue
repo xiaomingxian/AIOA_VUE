@@ -453,13 +453,15 @@
       },
       busFunProcButOpin(procButtonOpinion) {
         //this.procButtonOpinion = {};
-        this.procButtonOpinion.procDefKey = procButtonOpinion.procDefKey.val;
+        // this.procButtonOpinion.procDefKey = procButtonOpinion.procDefKey.val;
+        this.procButtonOpinion.procDefKey = procButtonOpinion.procDefKey.key;
         this.procButtonOpinion.iprocOpinionId = procButtonOpinion.iprocOpinionId.iid;
         this.procButtonOpinion.iprocButtonId = procButtonOpinion.iprocButtonId.iid;
 
         this.showFlag2 = false;
         this.showFlag = true;
-        this.nameProc = procButtonOpinion.procDefKey.key;
+        // this.nameProc = procButtonOpinion.procDefKey.key;
+        this.nameProc = procButtonOpinion.procDefKey.val;
         this.nameOpinion = procButtonOpinion.iprocOpinionId.sprocOpinionName;
         this.nameButton = procButtonOpinion.iprocButtonId.sbuttonSetName;
         //console.log(this.procButtonOpinionObj)

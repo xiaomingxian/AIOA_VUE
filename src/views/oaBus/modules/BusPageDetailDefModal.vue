@@ -200,8 +200,8 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
             label="特殊计算">
-            <a-select  style="width: 50%" v-decorator="[ 'sdictSqlKey', {}]" @change="dictSqlClick">
-              <a-select-option v-for="(item,index) in sqlOpt" :key="index" :value="item.value">
+            <a-select  style="width: 50%" v-decorator="[ 'scheckExpjava', {}]" >
+              <a-select-option v-for="(item,index) in bookmarkList" :key="index" :value="item.value">
                 {{item.text}}
               </a-select-option>
             </a-select>
@@ -236,6 +236,7 @@
         model: {},
         directOpt: [],
         sqlOpt: [],
+        bookmarkList: [],
         regulars: [],
         //列输入类型
         columnTypeList: [],
@@ -348,6 +349,7 @@
           this.directOpt = rec.result.dicList;
           this.sqlOpt = rec.result.dictByCodeList;
           this.regulars = rec.result.regulars;
+          this.bookmarkList = rec.result.bookmarkList;
 
           for(let i = 0;i < this.regulars.length;i++){
             this.regulars[i].value = parseInt(this.regulars[i].value);

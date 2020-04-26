@@ -2,7 +2,7 @@
   <div>
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
-        <div class="watchHeader" style="position: absolute;bottom: 112.7%;left: -1%;">
+        <div class="watchHeader" style="position: absolute;bottom: 113.9%;left: -1%;">
           <img v-if="picDetail.pic1" :src="picDetail.pic1" style="width: 101%;height: 59px;background-color: #055bc4;"/>
           <img v-else src="~@/assets/titlebg@2x.png" style="width: 101%;height: 59px;background-color: #055bc4;"/>
         </div>
