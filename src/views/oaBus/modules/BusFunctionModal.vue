@@ -461,7 +461,9 @@
         this.showFlag2 = false;
         this.showFlag = true;
         // this.nameProc = procButtonOpinion.procDefKey.key;
-        this.nameProc = procButtonOpinion.procDefKey.val;
+        let proName = procButtonOpinion.procDefKey.val ;
+        let name1 = proName.split("【")[0];
+        this.nameProc = name1;
         this.nameOpinion = procButtonOpinion.iprocOpinionId.sprocOpinionName;
         this.nameButton = procButtonOpinion.iprocButtonId.sbuttonSetName;
         //console.log(this.procButtonOpinionObj)
