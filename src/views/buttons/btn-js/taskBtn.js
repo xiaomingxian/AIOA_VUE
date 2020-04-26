@@ -157,7 +157,7 @@ export const taskBth = {
         return
       }
       if(item.iisDefend){
-        console.log('============>>>允许多次点击',item,item.i_is_defend)
+        console.log('============>>>允许多次点击',item)
 
         return false
       }
