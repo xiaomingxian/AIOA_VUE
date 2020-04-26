@@ -87,6 +87,7 @@
       handleOk() {
 
 
+
         if (this.isClick) {
           this.$message.error("请勿重复点击")
         }
@@ -173,6 +174,8 @@
 
       },
       handleCancel() {
+        this.description=''
+        this.name=''
         this.close();
       },
     }

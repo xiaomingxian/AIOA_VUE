@@ -156,6 +156,11 @@ export const taskBth = {
         this.$message.error('该按钮配置不完善,请检查按钮配置')
         return
       }
+      if(item.iisDefend){
+        console.log('============>>>允许多次点击',item,item.i_is_defend)
+
+        return false
+      }
       let time = this.timeRecord[mval]
       var now = Date.parse(new Date());
 
@@ -1806,12 +1811,12 @@ export const taskBth = {
       }
       if (this.taskMsg.processInstanceId == null && flag) {
         getAction(this.url.lastVersionProc + '?key=' + key).then(res => {
-          if (res.success) {
-            this.$refs.picModalNoTask.show(res.result.id)
-            this.$refs.picModalNoTask.title = res.result.name
-          } else {
-            this.$message.error(res.message)
-          }
+            if (res.success) {
+              this.$refs.picModalNoTask.show(res.result.id)
+              this.$refs.picModalNoTask.title = res.result.name
+            } else {
+              this.$message.error(res.message)
+            }
         })
       } else {
         if (!flag) {
