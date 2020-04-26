@@ -17,7 +17,7 @@
           :wrapperCol="wrapperCol"
           label="任务类名"
           hasFeedback >
-          <a-input placeholder="请输入任务类名" v-decorator="['jobClassName', {rules: [{ required: true, message: '请输入任务类名!' }]}]" />
+          <a-input placeholder="请输入任务类名" v-decorator="['jobClassName', {rules: [{ required: true, message: '请输入任务类名!' },{ min: 0, max: 255, message: '任务类名长度不能超过255位！', trigger: 'blur'  }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -28,21 +28,21 @@
 <!--                      <a-icon type="share-alt" />-->
 <!--                      在线cron表达式生成-->
 <!--                    </a>-->
-          <j-cron ref="innerVueCron" v-decorator="['cronExpression', {'initialValue':'0/1 * * * * ?',rules: [{ required: true, message: '请输入cron表达式!' }]}]"  @change="setCorn"></j-cron>
+          <j-cron ref="innerVueCron" v-decorator="['cronExpression', {'initialValue':'0/1 * * * * ?',rules: [{ required: true, message: '请输入cron表达式!' },{ min: 0, max: 255, message: 'cron表达式长度不能超过255位！', trigger: 'blur'  }]}]"  @change="setCorn"></j-cron>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="参数"
           hasFeedback >
-          <a-input placeholder="请输入参数" v-decorator="['parameter', {}]" />
+          <a-input placeholder="请输入参数" v-decorator="['parameter' , {rules: [{ required: true, message: '请输入参数!' },{ min: 0, max: 255, message: '参数长度不能超过255位！', trigger: 'blur'  }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述"
           hasFeedback >
-          <a-input placeholder="请输入描述" v-decorator="['description', {}]" />
+          <a-input placeholder="请输入描述" v-decorator="['description', {rules: [{ required: true, message: '请输入描述!' },{ min: 0, max: 255, message: '描述长度不能超过255位！', trigger: 'blur'  }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -118,6 +118,25 @@
 
       },
       close () {
+        this.model = {
+          createBy: null,
+          createTime: null,
+          cronExpression: '',
+          delFlag:'',
+          description: '',
+          id: '',
+          jobClassName: '',
+          parameter: '',
+          status: '',
+          updateBy: '',
+          updateTime: '',
+          description:'',
+          status:''
+        }
+        this.$nextTick(() => {
+          this.form.setFieldsValue(pick(this.model,'jobClassName','cronExpression','parameter','description','status'));
+        });
+
         this.$emit('close');
         this.visible = false;
       },
