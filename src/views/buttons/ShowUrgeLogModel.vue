@@ -10,8 +10,8 @@
     >
       <div>
         <div class="bingpai" >
-          <a-button @click="showPict" block>延期记录</a-button>
-          <a-button @click="traceP" block>催办记录</a-button>
+          <a-button @click="postponeLog" block>延期记录</a-button>
+          <a-button @click="urgeLog" block>催办记录</a-button>
         </div>
         <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',height:scrHeight}">
           <!--<div style="width:100%;position: relative" v-if="showPic">-->
@@ -177,51 +177,19 @@
         return {
           on: {
             click: () => {
-              if (res.assignee.indexOf('退回') == 0) {
-                //查询意见 table tableid 环节 任务id
-                let url = '/oaBus/dynamic/query'
-                let taskId = res.id
-                let table = this.record.table + '_opinion'
-                let dataId = this.record.tableId
-                postAction(url, {
-                  i_busdata_id: dataId,
-                  table: table,
-                  s_task_id: taskId,
-                  s_opinion_type: -1
-                }).then(res => {
-                  if (res.success) {
-                    console.log()
-
-
-                    const h = this.$createElement;
-                    let content = []
-                    for (let i in res.result.records) {
-                      let msg = res.result.records[i]
-                      content.push(h('p', `${msg.s_name} (${msg.s_dept_name}) ：${msg.s_opinion}`))
-                    }
-
-                    if (content.length == 0) {
-                      content = ['暂无数据']
-                    }
-                    let content_ = h('div', {}, content)
-
-                    const modal = this.$success({
-                      title: '退回原因',
-                      content: content_,
-                    });
-
-                  } else {
-                    this.$message.error('查询意见失败')
-                  }
-                })
-
-              } else {
-                console.log('---------->>>>撤回没有意见')
-              }
 
             }
           }
         }
+      },
+      postponeLog() {
+        this.trace = true
+        this.backRecord = false
+        let url="/oadeferlog/oaDeferLog/selecturgeLog"
+        getAction(url,{sTable:this.stable,iTableId:this.tableId}).then(res =>{
+          this.dataSource=res.result;
+          // console.log("--------->>",JSON.stringify(this.dataSource))
+        })
       },
       showDrawer(data) {
         // console.log("--------->>",JSON.stringify(data))
@@ -242,7 +210,7 @@
         this.visible = true
       },
 
-      traceP() {
+      urgeLog() {
         this.backRecord=true;
         this.trace=false;
         let url="/oadeferlog/oaDeferLog/selecturgeInform"
