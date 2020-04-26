@@ -194,7 +194,13 @@
             <center><h3>{{detailList.s_varchar3}}</h3></center>
           </td>
           <td colspan="3">
-            <a-input style="padding-left: 10px" ref="s_varchar3" v-on:blur="blurText(backData.s_varchar3,$refs.s_varchar3)" onkeyPress="if(event.keyCode == 32){event.keyCode = 0;event.returnValue = false}" v-model="backData.s_varchar3" disabled></a-input>
+            <div style="padding-left: 15px">
+              <div class="qiCao"><span class="hoverred" @click="openDetail">{{backData.s_varchar3}}</span>
+                <span class="delCss" v-show="isShowFile">
+                    <img v-show="backData.s_varchar3" @click="delItem" :title="fileBtnName(3)" class="pices" src="../../../../src/assets/delete.png"/>
+                </span>
+              </div>
+            </div>
           </td>
         </tr>
 
@@ -354,6 +360,7 @@
           s_varchar8: '',
           //信息公开
           s_varchar4: '',
+          s_varchar7:'',
           //不公开理由
           s_varchar5: '',
           s_varchar20: '',
@@ -390,6 +397,33 @@
       // this.backData = {};
     },
     methods: {
+      openDetail(){
+        console.log(this.backData.s_varchar5)
+        console.log(this.backData.s_varchar7)
+        window.open(window.location.origin + '/mytask/taskList/Test-detailFile?tableName=' + this.backData.s_varchar7 + '&busdataId=' + this.backData.s_varchar5 + '&status=newtask&navisshow=false')
+
+      },
+      delItem(){
+        console.log(this.backData)
+        console.log(this.backData.i_id)
+        console.log(this.backData.table)
+        let param = {
+          id: this.backData.i_id,
+          table: this.backData.table,
+        }
+        postAction("/oaBus/oaBusdata/clearOaBusdata", param).then(res => {
+          console.log("1111")
+          console.log(res)
+          if (res.success){
+            this.backData.s_varchar5='';
+            this.backData.s_varchar7='';
+            this.backData.s_varchar3='';
+          }else {
+            this.$message.error(res.message);
+          }
+        });
+
+      },
       moment,
       getDateTime1(e,datetime1){
         this.backData.d_datetime1 = datetime1;
@@ -410,53 +444,24 @@
         // alert(datetime4)
         console.log("111111111111111")
         this.backData.d_datetime4 = datetime4;
-        /*if (this.backData.d_datetime5 != undefined){
-          var time4 = Date.parse(datetime4);
-          var time5  = Date.parse(this.backData.d_datetime5);
-          console.log(time4 + "  :  " + time5);
-          if (time4 > time5){
-            this.backData.d_datetime4 = '';
-            this.$message.error("请假终止时间必须大于请假起始时间");
-            return ;
-          }else{
-            this.backData.d_datetime4 = datetime4;
-          }
-        }else {
-          this.backData.d_datetime4 = datetime4;
-        }*/
-
-        /*if (this.backData.d_datetime5 != undefined){
-          console.log("22222222222222")
-          var time5 = Date.parse(this.backData.d_datetime5)
-          var time4  = Date.parse(this.backData.d_datetime4);
-          if (time4 > time5){
-            this.$message.error("请假终止时间必须大于请假起始时间");
-          }
-        }*/
       },
       infoOut(e){
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^");
         console.log(this.$refs.s_varchar5);
         if (e=="gk"){
          this.disabled=true;
-          //this.$refs.s_varchar5.disabled=true;
         }else {
           this.disabled=false;
-          //this.$refs.s_varchar5.disabled=false;
         }
       },
       witeDepart(param) {
         this.backData.s_main_unit_names = param.str1;
         this.backData.s_cc_unit_names = param.str2;
-        // this.backData.s_inside_deptnames = param.str3;
       },
       //选择主送单位
       selDepartName() {
-        //this.$refs.selDepartNameRef.show() ;
         let param = {
           str1: this.backData.s_main_unit_names,
           str2: this.backData.s_cc_unit_names,
-          // str3: this.backData.s_inside_deptnames
         }
         this.$refs.selDepartNameRef.show(param);
       },
@@ -474,8 +479,6 @@
 
       //页面初始化调用方法，初始化渲染页面
       show(taskDetail) {
-        /*console.log("页面数据---：" + JSON.stringify(this.detailList))
-        console.log("基础数据---：" + JSON.stringify(this.backDataRef))*/
         //查询出优先级
         if (this.backData.ilevel != '') {
           //去查一次
