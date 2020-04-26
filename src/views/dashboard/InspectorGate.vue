@@ -58,18 +58,18 @@
                 <a-row :gutter="12" style="width: 100%;display: inline-flex">
                   <a-col :md="7" :sm="24">
                       <a-form-item label="分析维度" style="display: inline-flex">
-                      <a-select v-model="queryParam.d_create_time" style="width:120px;">
-                        <a-select-option value="" disabled selected hidden>年份</a-select-option>
-                        <a-select-option v-for="(item,index) in timeList" :key="index" :value="item">{{item}}
+                      <a-select v-model="queryParam.function_id" @change="updateDataAnalysisPei" style="width:227px;">
+                        <!--<a-select-option value="" disabled selected hidden>维度</a-select-option>-->
+                        <a-select-option v-for="(item,index) in AnalysisDimension" :key="index" :value="item.important ?  '' : item.id">{{item.text}}
                         </a-select-option>
                       </a-select>
                     </a-form-item>
                   </a-col>
                   <a-col :md="7" :sm="24" style="width:100px;margin-left: 20%">
                     <a-form-item label="年度" style="display: inline-flex">
-                      <a-select v-model="queryParam.d_create_time" style="width:140px;">
-                        <a-select-option value="" disabled selected hidden>年份</a-select-option>
-                        <a-select-option v-for="(item,index) in analysisDate" :key="index" :value="item">{{item.year}}
+                      <a-select v-model="queryParam.d_create_time" @change="toUpdateDataAnalysisPei" style="width:227px;">
+                        <!--<a-select-option value="" disabled selected hidden>年份</a-select-option>-->
+                        <a-select-option v-for="(item,index) in analysisDate" :key="index" :value="item.year">{{item.year}}
                         </a-select-option>
                       </a-select>
                     </a-form-item>
@@ -80,7 +80,7 @@
 
 
 
-              <pei-chart v-show="showtype==1&&typeChart==1?true:false" ref="pie"> </pei-chart>
+              <pei-chart ref="pie"> </pei-chart>
             </div>
 
           </div>
@@ -234,14 +234,17 @@
 
         // 查询参数
         queryParam: {
-          function_id: '',
+          function_id: '162',
           i_is_state: '',
           selType: '',
           s_create_name: '',
-          d_create_time: '',
+          d_create_time: 2020,
+          important: '',
           orderFlag: '',    //排序字段
         },
+        AnalysisDimension: '',
         analysisDate: '',
+        supervisionPei: '',
         iisFontSize: {
           fontSize: '14px'
         },
@@ -276,7 +279,9 @@
           busDataAndColums: 'oaBus/oaBusdata/queryBusdataById',
           list: "/wf/task/queryTask?operstatus=task_todo",
           DaiBanlist: "/oaBus/supervisionPage/queryTask?operstatus=task_todo",
-          analysisDate: "/data/dataAnalysis//analysis",
+          AnalysisDimension: "/oaBus/supervisionPage/AnalysisDimension",
+          analysisDate: "/data/dataAnalysis/analysis",
+          supervisionPei: "/oaBus/supervisionPage/Leader",
           Supervision:"/oaBus/supervisionPage/SupervisorSum",
 
           HostNum:"/oaBus/supervisionPage/HostNum",
@@ -346,7 +351,8 @@
 
 
       this.DaiBan();
-      this.dataAnalysis(this.url.HostNum)
+      this.dataAnalysis();
+      this.departmentDistribution(this.url.HostNum)
 
 
     },
@@ -356,14 +362,23 @@
       const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
       let url = "/testt/sysUserSet/queryByUserId";
       getAction(url, {userId: userid}).then((res) => {
+
         if (res.result.iisFontSize == 1) {
+
           this.iisFontSize.fontSize = '18px';
+
         } else if (res.result.iisFontSize == 3) {
+
           this.iisFontSize.fontSize = '14px';
+
         } else {
+
           this.iisFontSize.fontSize = '16px';
+
         }
+
         // document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
+
       })
 
       let height = document.body.clientHeight - 145;
@@ -398,24 +413,23 @@
 
         switch(e) {
           case 0:
-            this.dataAnalysis(this.url.HostNum)
+            this.departmentDistribution(this.url.HostNum)
             break;
           case 1:
-            this.dataAnalysis(this.url.organizeNum)
+            this.departmentDistribution(this.url.organizeNum)
             break;
           case 2:
-            this.dataAnalysis(this.url.RateNum)
+            this.departmentDistribution(this.url.RateNum)
             break;
           default:
-            this.dataAnalysis(this.url.ExtensionsNum)
+            this.departmentDistribution(this.url.ExtensionsNum)
         }
 
       },
-      //初始化   柱状表1  author:cpf
-      dataAnalysis(url){
+      departmentDistribution(url){
         getAction(url).then((res) => {
-          console.log('2222222222222222222222222222222222222222')
-          console.log(res)
+          // console.log('2222222222222222222222222222222222222222')
+          // console.log(res)
 
           let Y_axis = [];
           let X_axis = [];
@@ -443,10 +457,77 @@
 
 
         })
+  },
+      //初始化   柱状表1  author:cpf
+      dataAnalysis(){
+
+        getAction(this.url.AnalysisDimension).then((res) => {
+
+          this.AnalysisDimension = res;
+
+          this.AnalysisDimension[0] = Object.assign({},this.AnalysisDimension[0],{id : '162'});
+
+          this.AnalysisDimension[1] = Object.assign({},this.AnalysisDimension[1],{important : '1'});
+
+          this.AnalysisDimension[2] = Object.assign({},this.AnalysisDimension[2],{id : '160'});
+
+          this.AnalysisDimension[3] = Object.assign({},this.AnalysisDimension[3],{id : '159'});
+
+
+        })
+
+        getAction(this.url.analysisDate).then((res) => {
+
+          this.analysisDate = res.year;
+
+        })
+
+
+        this.getDataAnalysisPei();
+
 
       },
+      getDataAnalysisPei(){
 
+        if(this.queryParam.function_id == ''){
 
+          this.queryParam.important = '1';
+
+        }else {
+
+          this.queryParam.important = '';
+
+        }
+
+        console.log('0000000004675483568876876879879870000000000000000')
+        console.log(this.queryParam.function_id)
+        console.log(this.queryParam.d_create_time)
+        console.log(this.queryParam.important)
+
+        getAction(this.url.supervisionPei,{busFunctionId: this.queryParam.function_id,year: this.queryParam.d_create_time,important: this.queryParam.important}).then((res) => {
+
+          console.log('00000000000000000000000000000000000000')
+          console.log(res)
+
+          this.supervisionPei = res;
+
+        })
+      },
+
+      updateDataAnalysisPei(value){
+
+        this.queryParam.function_id = value;
+
+        this.getDataAnalysisPei();
+
+      },
+      toUpdateDataAnalysisPei(value){
+
+        this.queryParam.d_create_time = value;
+
+        this.getDataAnalysisPei();
+
+      },
 
       callback(key) {
       console.log(key);
