@@ -538,7 +538,22 @@
         this.paginations.current = 1 ;
       },
       setFontSize(){
-        const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
+        var storage = window.sessionStorage;
+        var userSet = JSON.parse(storage.getItem('userSet'))
+        if(userSet != null){
+          if(userSet.iisFontSize == 1){
+            this.iisFontSize = '18px';
+          }else if(userSet.iisFontSize == 3){
+            this.iisFontSize = '14px';
+          }else{
+            this.iisFontSize = '16px';
+          }
+          for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
+            document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
+          }
+        }
+
+        /*const  userid =JSON.parse( localStorage.getItem('userdata')).userInfo.id;
         let url = "/testt/sysUserSet/queryByUserId";
         getAction(url,{userId:userid}).then((res) => {
           if(res.result.iisFontSize == 1){
@@ -551,7 +566,9 @@
           for(let i = 0;i < document.getElementsByClassName('ant-table').length;i++){
             document.getElementsByClassName('ant-table')[i].style.fontSize = this.iisFontSize;
           }
+
         })
+        */
       },
       // changFunId(index) {
       //
@@ -1198,8 +1215,26 @@
       // }
       collapseListOrNot: async function () {
 
-        const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
-        await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
+        //const userid = JSON.parse(localStorage.getItem('userdata')).userInfo.id;
+        var storage = window.sessionStorage;
+        var userSet = JSON.parse(storage.getItem('userSet'))
+        // console.log("AAAAAAAAAAAA",userSet)
+        if(userSet == null){
+          this.getPgSearchList();
+        }else{
+          this.iisFold = userSet.iisFold;
+          getAction('/modify/fields/getProcDefKey', {functionId: this.queryParam.function_id}).then((res) => {
+            this.collapse = res.result;
+            if (this.iisFold == 1 && this.collapse == 1) {
+              this.getPgFirstList();
+            } else {
+              this.getPgSearchList();
+            }
+
+          })
+        }
+
+        /*await getAction('/testt/sysUserSet/queryByUserId', {userId: userid}).then((res) => {
           if(res.result == null){
             this.getPgSearchList();
           }else {
@@ -1213,11 +1248,9 @@
               }
 
             })
-
           }
-
         })
-
+*/
       }
     },
     watch: {

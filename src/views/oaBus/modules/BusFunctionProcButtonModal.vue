@@ -19,8 +19,8 @@
           label="选择流程">
           <!--v-decorator="[ 'procDefKeyVal', {}]"-->
           <a-select v-model="procDefKey" @change="changeDefKey">
-            <a-select-option v-for="role in procDefKeyList" :key="role.key" :value="role.val">
-              {{ role.key }}
+            <a-select-option v-for="role in procDefKeyList" :key="role.key" :value="role.key">
+              {{ role.val }}
             </a-select-option>
           </a-select>
 
@@ -111,11 +111,13 @@
       },
       changeDefKey(index, item) {
         console.log(index, item);
-        let num = item.data.key
+        // let num = item.data.key
         for(var entry in this.procDefKeyList){
           //console.log(this.procDefKeyList[entry])
-          if(this.procDefKeyList[entry].key == num ){
+          console.log(entry)
+          if(this.procDefKeyList[entry].key == index ){
             this.procDefKeyObj = this.procDefKeyList[entry]
+              console.log(this.procDefKeyObj)
           }
         }
         /*
@@ -146,16 +148,20 @@
       initProcDef: function (resolve,reject) {
         let url = "/wf/process/defKv";
         getAction(url).then((res) => {
+          this.procDefKeyList = [] ;
+          console.log(res)
           for (let i in res) {
-            let v = res[i]
-            this.procDefKeyList.push({'key': i, 'val': v})
+            let v = res[i].key;
+            let name = res[i].name ;
+            let des = res[i].description == null ? "" : res[i].description ;
+            name = name + "【"+des + "】";
+            this.procDefKeyList.push({'key': res[i].key, 'val': name})
           }
           resolve(this.procDefKeyList)
         })
       },
       add(params) {
         this.nowKey = (new Date()).valueOf();
-        let that
         //this.initProcDef();
         /*.catch(function (reason) {
           console.log("失败L"+reason)
@@ -171,15 +177,23 @@
               }
             }*/
             for(var entry in result){
-              if(result[entry].val == params.procDefKey ){
+              console.log(entry)
+              if(result[entry].key == params.procDefKey ){
+
                 this.procDefKeyObj = result[entry]
                 console.log(this.procDefKeyObj)
               }
             }
+
+            console.log(this.procDefKeyList) ;
+            this.procDefKey = params.procDefKey ;
+            this.selectButton(this.procDefKey);
+            this.selectOpinion(this.procDefKey);
           })
+         /* console.log(this.procDefKeyList) ;
           this.procDefKey = params.procDefKey ;
           this.selectButton(this.procDefKey);
-          this.selectOpinion(this.procDefKey);
+          this.selectOpinion(this.procDefKey);*/
         }
 
        /* this.procButton = params.iprocButtonId ;

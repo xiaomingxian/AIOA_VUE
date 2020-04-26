@@ -376,7 +376,15 @@
               that.Login(loginParams).then((res) => {
                 //储存用户信息到本地
                 const userdata = res.result;
-
+                // console.log(userdata.userInfo.id)
+                //将用户设置添加到缓存中
+                getAction('/testt/sysUserSet/queryByUserId', {userId: userdata.userInfo.id}).then((userSetRes) => {
+                  if(userSetRes.result != null){
+                    var storage = window.sessionStorage;
+                    storage.setItem('userSet', JSON.stringify(userSetRes.result));
+                    // console.log(storage.getItem('userSet')) ;
+                  }
+                })
                 window.localStorage.setItem('userdata',JSON.stringify(userdata));
                 this.departConfirm(res)
               }).catch((err) => {
