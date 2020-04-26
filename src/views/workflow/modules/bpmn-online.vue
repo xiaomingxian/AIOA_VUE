@@ -23,17 +23,28 @@
           >
           </a-input>
         </a-form-item>
-        <a-form-item>
-          <span>流程&nbspKEY：</span>
-          <a-input
-            autocomplete="false"
-            placeholder="以字母开头,只能包含字母,数字,下划线;长度大于等于3小于等于20"
-            size="large"
-            type="key"
-            v-model="bpmn.key"
-          >
-          </a-input>
-        </a-form-item>
+        <!--<a-form-item>-->
+          <!--<span>流程&nbspKEY：</span>-->
+          <!--<a-input-->
+            <!--autocomplete="false"-->
+            <!--placeholder="以字母开头,只能包含字母,数字,下划线;长度大于等于3小于等于20"-->
+            <!--size="large"-->
+            <!--type="key"-->
+            <!--v-model="bpmn.key"-->
+          <!--&gt;-->
+          <!--</a-input>-->
+        <!--</a-form-item>-->
+
+        <!--<a-form-item >-->
+          <!--<span>流程描述：</span>-->
+          <!--<a-input-->
+            <!--size="large"-->
+            <!--type="text"-->
+            <!--placeholder="请输入流程描述"-->
+            <!--v-model="bpmn.description"-->
+          <!--&gt;-->
+          <!--</a-input>-->
+        <!--</a-form-item>-->
 
       </a-form>
 
@@ -68,6 +79,7 @@
       }
     },
     created() {
+
     },
     methods: {
       show() {
@@ -75,16 +87,15 @@
         this.key = undefined
         this.visible = true
         this.isClick = false
+
+
       },
       close() {
+        this.bpmn.name=''
         this.$emit('close');
         this.visible = false;
       },
-      handleOk()
-      {
-
-
-
+      handleOk() {
 
         var url = '/modeler/create'
         var url_model = '/modeler.html?modelId='
@@ -106,19 +117,19 @@
           return
         }
 
-        let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
-        if (!keyReg.test(this.bpmn.key)) {
-          if ((this.bpmn.key).length > 20) {
-            this.$message.error('您输入的key长度过长')
-            return
-          }
-          if ((this.bpmn.key).length < 3) {
-            this.$message.error('您输入的key长度过短')
-            return
-          }
-          this.$message.error('您输入的key不合法请检查')
-          return
-        }
+        // let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
+        // if (!keyReg.test(this.bpmn.key)) {
+        //   if ((this.bpmn.key).length > 20) {
+        //     this.$message.error('您输入的key长度过长')
+        //     return
+        //   }
+        //   if ((this.bpmn.key).length < 3) {
+        //     this.$message.error('您输入的key长度过短')
+        //     return
+        //   }
+        //   this.$message.error('您输入的key不合法请检查')
+        //   return
+        // }
 
 
         let time = this.timeRecord
@@ -140,7 +151,6 @@
           // console.log('222222222222222')
           this.timeRecord = now
         }
-
 
 
         postAction(url, parm).then((res) => {

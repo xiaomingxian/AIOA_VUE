@@ -21,13 +21,22 @@
             v-model="name"
           ></a-input>
         </a-form-item>
+        <!--<a-form-item>-->
+        <!--<span>流程&nbspKEY：</span>-->
+        <!--<a-input-->
+        <!--size="large"-->
+        <!--type="text"-->
+        <!--placeholder="流程key是业务流转的关键字，不能重复！"-->
+        <!--v-model="key"-->
+        <!--&gt;</a-input>-->
+        <!--</a-form-item>-->
         <a-form-item>
-          <span>流程&nbspKEY：</span>
+          <span>流程描述：</span>
           <a-input
             size="large"
             type="text"
-            placeholder="流程key是业务流转的关键字，不能重复！"
-            v-model="key"
+            placeholder="流程描述"
+            v-model="description"
           ></a-input>
         </a-form-item>
 
@@ -54,6 +63,7 @@
         confirmLoading: false,
         name: undefined,
         key: undefined,
+        description: undefined,
         timeRecord: null,
         proMSg: {},
         url: {
@@ -84,26 +94,30 @@
           this.$message.error('请输入流程名称')
           return
         }
-        if (this.key == undefined) {
-          this.$message.error('请输入流程key')
+        // if (this.key == undefined) {
+        //   this.$message.error('请输入流程key')
+        //   return
+        // }
+        if (this.description == undefined) {
+          this.$message.error('请输入描述信息')
           return
         }
 
 
         //key校验
-        let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
-        if (!keyReg.test(this.key)) {
-          if ((this.key).length > 20) {
-            this.$message.error('您输入的key长度过长')
-            return
-          }
-          if ((this.key).length < 3) {
-            this.$message.error('您输入的key长度过短')
-            return
-          }
-          this.$message.error('您输入的key不合法请检查')
-          return
-        }
+        // let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
+        // if (!keyReg.test(this.key)) {
+        //   if ((this.key).length > 20) {
+        //     this.$message.error('您输入的key长度过长')
+        //     return
+        //   }
+        //   if ((this.key).length < 3) {
+        //     this.$message.error('您输入的key长度过短')
+        //     return
+        //   }
+        //   this.$message.error('您输入的key不合法请检查')
+        //   return
+        // }
 
         let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{2,19})$/
         if (!nameReg.test(this.name)) {
@@ -144,7 +158,7 @@
         // String str1 = java.net.URLDecoder.decode(str1,"utf-8");
         let name = encodeURI(this.name)
 
-        postAction(this.url.copy + '?copyKey=' + this.key + '&copyName=' + name + '&sourceDefId=' + this.proMSg.id).then(res => {
+        postAction(this.url.copy + '?copyName=' + name + '&sourceDefId=' + this.proMSg.id+'&description='+this.description).then(res => {
           if (res.success) {
             this.isClick = true
             this.$message.success(res.message)
