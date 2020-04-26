@@ -77,6 +77,16 @@
         // selectedRows2: [],
         columns: [
           {
+            title: '序号',
+            dataIndex: '',
+            key: 'rowIndex',
+            width: 60,
+            align: "center",
+            customRender: function (t, r, index) {
+              return parseInt(index) + 1;
+            }
+          },
+          {
             title: '部门',
             align: "center",
             dataIndex: 'screateDept',

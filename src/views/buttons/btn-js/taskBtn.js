@@ -167,12 +167,12 @@ export const taskBth = {
           return true
         } else {
           this.timeRecord[mval] = now
-          console.log('-------------->>>>>成功请求方法222')
+          // console.log('-------------->>>>>成功请求方法222')
 
         }
       } else {
         this.timeRecord[mval] = now
-        console.log('-------------->>>>>成功请求方法111')
+        // console.log('-------------->>>>>成功请求方法111')
       }
       return false
 
@@ -334,23 +334,18 @@ export const taskBth = {
 
     //关联文件
     associatedFiles() {
-
-
-
-      console.log("000000000000000")
-      console.log(this.backData)
       let param = {
         busdataId: this.backData.i_id,  //发文的busdata的id
         tableName: this.backData.table, //发文存储的表名
       }
       postAction("/oaBus/oaBusdata/getOaDataAllByBusdataId", param).then(res => {
-        console.log("------------------------")
-        console.log(res)
         if (res.success) {
-          this.$refs.guanlianModal.show(res.result)
+          if (res.result.length <= 1){
+            this.$message.error(res.message);
+          }else{
+            this.$refs.guanlianModal.show(res.result)
+          }
         }
-
-
       });
 
 
@@ -2214,7 +2209,7 @@ export const taskBth = {
     ,
     //弹框-引入公文链接
     yrOfficeDoc: function () {
-      this.$refs.officeForm.yinru();
+      this.$refs.officeForm.yinru(this.backData);
       this.$refs.officeForm.title = "引入公文链接";
       this.$refs.officeForm.disableSubmit = false;
     }
@@ -2356,14 +2351,6 @@ export const taskBth = {
       this.$refs.detailedInst.show(this.backData);
     },
 
-    //督办延期
-    datePostpone(){
-      this.$refs.datePostpone.showPostpone(this.backData);
-    },
-    showTime(data){
-      // console.log("-----------yanqi",data)
-      this.backData.d_datetime2=data;
-    },
     //日期格式化
     dateFormat(date) {
       let date1 = new Date(date);
