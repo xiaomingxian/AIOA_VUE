@@ -207,7 +207,6 @@
       },
 
       onClose1() {
-        alert(1)
         this.changevisible();
       },
 

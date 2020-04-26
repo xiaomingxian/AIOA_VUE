@@ -156,6 +156,11 @@ export const taskBth = {
         this.$message.error('该按钮配置不完善,请检查按钮配置')
         return
       }
+      if(item.iisDefend){
+        console.log('============>>>允许多次点击',item)
+
+        return false
+      }
       let time = this.timeRecord[mval]
       var now = Date.parse(new Date());
 
@@ -1806,12 +1811,12 @@ export const taskBth = {
       }
       if (this.taskMsg.processInstanceId == null && flag) {
         getAction(this.url.lastVersionProc + '?key=' + key).then(res => {
-          if (res.success) {
-            this.$refs.picModalNoTask.show(res.result.id)
-            this.$refs.picModalNoTask.title = res.result.name
-          } else {
-            this.$message.error(res.message)
-          }
+            if (res.success) {
+              this.$refs.picModalNoTask.show(res.result.id)
+              this.$refs.picModalNoTask.title = res.result.name
+            } else {
+              this.$message.error(res.message)
+            }
         })
       } else {
         if (!flag) {
@@ -2349,6 +2354,22 @@ export const taskBth = {
     //办理进度
     showDetailInst(){
       this.$refs.detailedInst.show(this.backData);
+    },
+
+    //督办延期
+    datePostpone(){
+      this.$refs.datePostpone.showPostpone(this.backData);
+    },
+
+    //回显延期时间
+    showTime(data){
+      // console.log("-----------yanqi",data)
+      this.backData.d_datetime2=data;
+    },
+
+    //督办日志
+    urgelog(){
+      this.$refs.showurgelog.showDrawer(this.backData);
     },
 
     //日期格式化
