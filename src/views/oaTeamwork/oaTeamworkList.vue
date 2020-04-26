@@ -15,7 +15,7 @@
         ref="table"
         size="middle"
         bordered
-        rowKey="id"
+        rowKey="iid"
         :columns="columns"
         :dataSource="dataSource"
         :pagination="ipagination"
