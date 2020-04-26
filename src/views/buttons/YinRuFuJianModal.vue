@@ -10,13 +10,13 @@
   <div class="box">
       <div class="line1" style="display: inline-flex">
         <p>
-          <span>模块类别</span>
+          <span>业务分类</span>
           <a-select v-model="selectedModel" style="width: 260px;margin-right:13px;" @change="getModelVal">
             <a-select-option v-for="(item,index) in modelData" :key="index" :value="item.iid">{{item.sname}}</a-select-option>
           </a-select>
         </p>
         <p style="margin-left: 30px">
-          <span>详情类别</span>
+          <span>业务功能</span>
           <a-select v-model="selectedFunction" style="width: 260px;margin-right:13px;">
             <a-select-option v-for="(item,index) in functionData" :key="index" :value="item.iid">{{item.sname}}</a-select-option>
           </a-select>
@@ -26,7 +26,7 @@
     <div class="line2">
         <p>
           <span>文件标题</span>
-          <a-input  v-model="fileTitle"  style="width: 150px;" ></a-input>
+          <a-input  v-model="fileTitle"  style="width: 645px;" ></a-input>
           <a-button @click="selectOfficeList" type="primary" style="margin-left: 10px;">查询</a-button>
         </p>
     </div>
@@ -69,25 +69,28 @@
     },
     {
       title:'文件标题',
-      align:"center",
+      align:"left",
       dataIndex:'s_title',
       // width:'20%'
     },
     {
-      title:'单位',
+      title:'拟稿部门',
       align:"center",
+      width:120,
       dataIndex:'s_create_dept',
       // width:'20%'
     },
     {
-      title:'时间',
+      title:'拟稿时间',
       align:"center",
+      width:180,
       dataIndex:'d_create_time',
       // width:'20%'
     },
     {
       title:'操作',
       align:"center",
+      width:60,
       dataIndex:'work',
       // width:'45%',
       scopedSlots: { customRender: 'action' },
