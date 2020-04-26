@@ -233,7 +233,7 @@
             </span>
           </a-col>
             <template v-if="advanced">
-              <a-row :gutter="48" style="width: 88.3%;">
+              <a-row :gutter="48" style="width: 88.3%;margin-left: -17px;">
                 <!--<a-col :md="7" :sm="24">-->
                 <!--<a-form-item>-->
                 <!--<a-select @change="changFunId1" v-model="queryParam.function_id">-->
@@ -301,7 +301,7 @@
                 </a-col>
               </a-row>
 
-            <a-row :gutter="48" style="width: 88.3%;">
+            <a-row :gutter="48" style="width: 88.3%;margin-left: -17px;">
                 <a-col v-for="(atom,index) in conditionList" :key="index" :value="atom.s_table_column" :md="7" :sm="24">
                   <a-form-item>
                     <a-select v-if="atom.i_column_type == 2" @change="changeSelect($event,atom.s_table_column)" :placeholder="atom.s_column_name">
