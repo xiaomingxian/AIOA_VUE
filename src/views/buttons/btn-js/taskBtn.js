@@ -2093,6 +2093,9 @@ export const taskBth = {
       this.openFile(13)
     }
     ,
+    urgeweekly(){
+      this.openFile(14)
+    },
     /*//打开附件
         showFujianFile() {
           this.openFile(9, fileName)
