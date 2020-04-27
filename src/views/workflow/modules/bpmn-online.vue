@@ -16,7 +16,7 @@
           <span>流程名称：</span>
 
           <a-input
-            placeholder="以中文或英文开头,只能包含中文/英文/数字/下划线;长度大于等于3小于等于20"
+
             size="large"
             type="text"
             v-model="bpmn.name"
@@ -63,7 +63,7 @@
     components: {AFormItem, DictItemModal},
     data() {
       return {
-        title: "画流图",
+        title: "画流程图",
         isClick: false,
         visible: false,
         confirmLoading: false,
@@ -105,14 +105,14 @@
         if (!nameReg.test(this.bpmn.name)) {
 
           if ((this.bpmn.name).length > 20) {
-            this.$message.error('您输入的名称长度过长')
+            this.$message.error('流程名称不能超过20位！')
             return
           }
-          if ((this.bpmn.name).length < 3) {
-            this.$message.error('您输入的名称长度过短')
+          if ((this.bpmn.name).length < 1) {
+            this.$message.error('流程名称不能为空！')
             return
           }
-          this.$message.error('您输入的名称不合法请检查')
+          this.$message.error('建议流程名称以3位以上的汉字开头！')
 
           return
         }
@@ -136,12 +136,12 @@
         var now = Date.parse(new Date());
 
         if (time != null) {
-          if ((now - time) < 7 * 1000) {
+          if ((now - time) < 3 * 1000) {
             // let t = (7 - (now - time) / 1000) == 0 ? 1 : (7 - (now - time) / 1000)
 
-            // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
+           this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
 
-            this.$message.error('系统正在处理您的请求,请耐心等待')
+            // this.$message.error('系统正在处理您的请求,请耐心等待')
             return
           } else {
             // console.log('1111111111111111')
