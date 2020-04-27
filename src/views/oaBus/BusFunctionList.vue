@@ -162,8 +162,8 @@
         unitList: [],
         iBMId: '',
         columns: [
-          /*{
-              title: '#',
+          {
+              title: '序号',
               dataIndex: '',
               key: 'rowIndex',
               width: 60,
@@ -171,7 +171,7 @@
               customRender: function (t, r, index) {
                   return parseInt(index) + 1;
               }
-          },*/
+          },
           {
             title: '业务分类',
             align: "center",

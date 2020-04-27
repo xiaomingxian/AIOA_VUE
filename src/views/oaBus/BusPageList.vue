@@ -147,6 +147,16 @@
           //   dataIndex: 'iid'
           // },
           {
+              title: '序号',
+              dataIndex: '',
+              key: 'rowIndex',
+              width: 60,
+              align: "center",
+              customRender: function (t, r, index) {
+                  return parseInt(index) + 1;
+              }
+          },
+          {
             title: '模板名称',
             align: "center",
             width: "20%" ,
