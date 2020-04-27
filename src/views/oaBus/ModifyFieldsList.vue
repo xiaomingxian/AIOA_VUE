@@ -19,7 +19,7 @@
             <!--</span>-->
           <!--</a-col>-->
           <template v-if="advanced">
-            <a-col :md="6" :sm="24" style="margin:0 0 -7px 2px;">
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 5px;">
               <a-form-item >
                 <a-select placeholder="业务分类" v-model="iBMId"
                           @change="getFunctionList">
@@ -56,7 +56,7 @@
             <!--</a-radio-group>-->
             <!--</a-form-item>-->
             <!--</a-col>-->
-            <a-col :md="6" :sm="24" style="margin:0 0 -7px 2px;">
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 5px;">
               <a-form-item >
                 <a-select placeholder="申请年份" v-model="queryParam.d_create_time">
                   <a-select-option  v-for="(item,index) in timeList" :key="index" :value="item">{{item}}</a-select-option>
