@@ -69,6 +69,7 @@
         dataSource:[],
         titleName:'',
         iBusDataId:'',
+        loading:false,
         tableName:'',
         busModelId :'',
         busFunctionId :'',
@@ -152,6 +153,7 @@
         }).then(res => {
           if (res.success) {
             console.log(res)
+            this.loading = false;
             this.dataSource= res.result
 
           } else {
@@ -166,7 +168,6 @@
 
 
         this.selectedList.map((item,index)=>{
-          console.log(item[index])
           console.log(this.selectedList[index])
           this.usernames = this.selectedList[index].userName+","+this.usernames
           console.log(this.usernames+"-----------------------")
@@ -179,25 +180,35 @@
           if (res.success) {
 
               this.tipstime.push('success')
-              this.$message.success(res.message);
-            let data1 = {
-              stitle:this.titleName,
-              suserNames:this.usernames,
-              saddress:"",
-              iisTop:0,
-              iisLeader:0,
-              iremindType:0,
-              iopenType:0,
-              screateBy:this.sCreateName,
-              ibusModelId: this.busModelId,
-              ibusFunctionId:this.busFunctionId,
-              ifunDataId:this.iBusDataId,
-              state :'1',
-            }
-            putAction(this.url.add,data1).then((res) => {
+              this.$message.success("催办成功");
+              this.selectedList.map((item,index)=>{
+              console.log(this.selectedList[index])
+              this.usernames = this.selectedList[index].userName+","+this.usernames
+              console.log(this.usernames+"-----------------------")
+              let data1 = {
+                stitle:this.titleName,
+                suserNames:this.selectedList[index].userName,
+                saddress:"",
+                iisTop:0,
+                iisLeader:0,
+                iremindType:0,
+                iopenType:0,
+                screateBy:this.sCreateName,
+                ibusModelId: this.busModelId,
+                ibusFunctionId:this.busFunctionId,
+                ifunDataId:this.iBusDataId,
+                taskId:this.selectedList[index].taskId,
+                taskUserId:this.selectedList[index].deptName,
+                state :'1',
+              }
+              putAction(this.url.add,data1).then((res) => {
+              })
+
+              /* this.cuiban(item);*/
             })
+
           } else {
-            this.$message.error(res.message)
+            this.$message.error("催办失败")
           }
         })
 
@@ -216,6 +227,7 @@
           if (res.success) {
               this.tipstime.push('success')
               this.$message.success(res.message);
+              console.log(e);
             let data1 = {
               stitle:this.titleName,
               suserNames:e.userName,
@@ -228,6 +240,8 @@
               ibusModelId: this.busModelId,
               ibusFunctionId:this.busFunctionId,
               ifunDataId:this.iBusDataId,
+              taskId:e.taskId,
+              taskUserId:e.deptName,
               state :'1',
             }
             putAction(this.url.add,data1).then((res) => {

@@ -15,7 +15,6 @@
                    <a-divider type="vertical" />
                 <span @click="showTypeChart(2)" :style="typeChart==2? 'color:#2eabff':'color:rgba(0, 0, 0, 0.65)'">折线图</span>
                  <a-divider type="vertical" />
-                  <span @click="downLoad('日程管理表')" >生成报表</span>
               </span>
             </div>
             <!--<apexchart width="60%" style="margin-top: 20px;" type="bar" height="400" v-if="showtype==1?true:false" title="月份排行" :options="chartOptions" :series="series" ></apexchart>-->
