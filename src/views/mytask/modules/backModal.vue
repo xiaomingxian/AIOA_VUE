@@ -9,7 +9,7 @@
     destroyOnClose
     okText="确定"
     cancelText="取消">
-    <template slot="footer">
+    <template slot="footer" v-if="!isBack">
       <a-button type="primary" @click.stop="handleCancel()">关闭</a-button>
       <!--      <a-button type="primary" @click.stop="confrimUpLoad()">确定</a-button>-->
     </template>
