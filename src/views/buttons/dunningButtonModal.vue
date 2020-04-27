@@ -230,13 +230,13 @@
               console.log(e);
             let data1 = {
               stitle:this.titleName,
-              suserNames:e.userName,
+              suserNames:"",
               saddress:"",
               iisTop:0,
               iisLeader:0,
               iremindType:0,
               iopenType:0,
-              screateBy:this.sCreateName,
+              screateBy:e.userName,
               ibusModelId: this.busModelId,
               ibusFunctionId:this.busFunctionId,
               ifunDataId:this.iBusDataId,
