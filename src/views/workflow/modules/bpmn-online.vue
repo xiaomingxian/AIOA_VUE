@@ -101,8 +101,8 @@
         var url_model = '/modeler.html?modelId='
         var parm = {'name': this.bpmn.name, 'key': this.bpmn.key, 'description': this.bpmn.description}
 
-        let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{2,19})$/
-        if (!nameReg.test(this.bpmn.name)) {
+        // let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{2,19})$/
+        // if (!nameReg.test(this.bpmn.name)) {
 
           if ((this.bpmn.name).length > 20) {
             this.$message.error('流程名称不能超过20位！')
@@ -112,10 +112,10 @@
             this.$message.error('流程名称不能为空！')
             return
           }
-          this.$message.error('建议流程名称以3位以上的汉字开头！')
+          // this.$message.error('建议流程名称以3位以上的汉字开头！')
 
-          return
-        }
+          // return
+        // }
 
         // let keyReg = /^([a-zA-Z])([-_a-zA-Z0-9]{2,19})$/
         // if (!keyReg.test(this.bpmn.key)) {
