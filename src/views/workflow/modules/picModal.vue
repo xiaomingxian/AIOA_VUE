@@ -23,15 +23,15 @@
     <!--okText="关闭">-->
 
 
-    <div  id="pic"  :style="{overflow: 'auto', position: 'relative',backgroundColor: '#ffffff',height: scrHeight}">
+    <div  id="pic"  :style="{overflow: 'auto', backgroundColor: '#ffffff',height: scrHeight}">
 
-      <div style="width:100%">
+      <div style="width:100%;position: relative">
         <!--@click='showPicFull'-->
-        <img style="position:relative;left:50px;top:5px" :src="picurl"  v-if="visible"  />
+        <img style="position:absolute;left:50px;top:5px" :src="picurl"  v-if="visible"  />
         <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
         <!--<a-button style="float: right" @click="handleCancel">关闭</a-button>-->
-        <a-button style="position: fixed;bottom:5px;right:20px" type="primary"  @click="handleCancel">关闭</a-button>
+        <a-button style="position: fixed;bottom:5px;right:20px" type="primary"  v-if="visible"  @click="handleCancel">关闭</a-button>
 
 
       </div>

@@ -70,7 +70,7 @@
 
           </div>
           <!--position:fixed;-->
-          <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="handleCancel">关闭</a-button>
+          <a-button style="position: fixed;bottom:5px;right:22px" type="primary" v-if="visible" @click="handleCancel">关闭</a-button>
 
 
         </div>
