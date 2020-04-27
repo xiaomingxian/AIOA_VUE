@@ -120,19 +120,12 @@
         //   return
         // }
 
-        let nameReg = /^([\u4e00-\u9fa5]|[a-zA-Z])([-\u4e00-\u9fa5_-_a-zA-Z0-9]{2,19})$/
-        if (!nameReg.test(this.name)) {
-
-          if ((this.name).length > 20) {
-            this.$message.error('您输入的名称长度过长')
-            return
-          }
-          if ((this.name).length < 3) {
-            this.$message.error('您输入的名称长度过短')
-            return
-          }
-          this.$message.error('您输入的名称不合法请检查')
-
+        if ((this.bpmn.name).length > 20) {
+          this.$message.error('流程名称不能超过20位！')
+          return
+        }
+        if ((this.bpmn.name).length < 1) {
+          this.$message.error('流程名称不能为空！')
           return
         }
 
@@ -140,7 +133,7 @@
         var now = Date.parse(new Date());
 
         if (time != null) {
-          if ((now - time) < 7 * 1000) {
+          if ((now - time) < 3 * 1000) {
             // let t = (7 - (now - time) / 1000) == 0 ? 1 : (7 - (now - time) / 1000)
 
             // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
