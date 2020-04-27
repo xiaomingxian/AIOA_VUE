@@ -221,6 +221,7 @@
         // login type: 0 email, 1 username, 2 telephone
         loginType: 0,
         requiredTwoStepCaptcha: false,
+        orgSchema:"",
         stepCaptchaVisible: false,
         form: this.$form.createForm(this),
         encryptedString:{
@@ -261,7 +262,11 @@
       }
     },
     created () {
-
+      let query = this.$route.query ;
+      console.log(query) ;
+      if(query.orgSchema != undefined && query.orgSchema != "" && query.orgSchema != null){
+          this.orgSchema = query.orgSchema ;
+      }
 
       this.getOrgSchemaList();
       this.show();
@@ -286,9 +291,24 @@
         getAction(this.url.getOrgSchemaList).then(res=>{
           this.orgSchemaList = res.result ;
           if(this.orgSchemaList.length>0){
+            if(this.orgSchema != undefined && this.orgSchema != null && this.orgSchema != ""){
+              let orgFlag = true ;
+              for(let i = 0 ; i< this.orgSchemaList.length ; i++){
+                if(this.orgSchema == this.orgSchemaList[i].value ){
+                  this.form.setFieldsValue({'orgSchema': this.orgSchemaList[i].value});
+                  orgFlag = false ;
+                  break ;
+                }
+              }
+              if(orgFlag){
+                  this.form.setFieldsValue({'orgSchema': this.orgSchemaList[0].value});
+              }
+            }else{
+
+              this.form.setFieldsValue({'orgSchema': this.orgSchemaList[0].value});
+              console.log(this.form.getFieldValue('orgSchema'))
+            }
             this.orgSchemaFlag = true ;
-            this.form.setFieldsValue({'orgSchema': this.orgSchemaList[0].value});
-            console.log(this.form.getFieldValue('orgSchema'))
           }
         })
       },
