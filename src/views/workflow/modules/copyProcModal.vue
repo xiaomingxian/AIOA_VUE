@@ -120,11 +120,11 @@
         //   return
         // }
 
-        if ((this.bpmn.name).length > 20) {
+        if ((this.name).length > 20) {
           this.$message.error('流程名称不能超过20位！')
           return
         }
-        if ((this.bpmn.name).length < 1) {
+        if ((this.name).length < 1) {
           this.$message.error('流程名称不能为空！')
           return
         }
@@ -133,7 +133,7 @@
         var now = Date.parse(new Date());
 
         if (time != null) {
-          if ((now - time) < 3 * 1000) {
+          if ((now - time) < 7 * 1000) {
             // let t = (7 - (now - time) / 1000) == 0 ? 1 : (7 - (now - time) / 1000)
 
             // this.$message.error('您点击过于频繁,请' + (t) + '秒后重试')
