@@ -69,15 +69,15 @@
                       <template>
                         <a-tabs defaultActiveKey="1" @change="doWill1" style="width: 95%;  position: absolute;top: -7px;">
                           <a-tab-pane key="1">
-                        <span slot="tab">
-                          <span class="shuline"></span>
-                          我的日程
-                          <b v-if="total2">({{total2}})</b>
-                          <img src="../../assets/add.png" >
-                           <a-icon class="icon1" @click="add" type="plus"/>
-                        </span>
+                              <span slot="tab">
+                                <span class="shuline"></span>
+                                我的日程
+                                <b v-if="total2">({{total2}})</b>
+                                <img src="../../assets/add.png" >
+                                 <a-icon class="icon1" @click="add" type="plus"/>
+                              </span>
                               <!--mytitleLists-->
-                              <div class="itembox"  v-if="mytitleLists!=''">
+                              <div class="itembox" v-if="mytitleLists!=''">
                                 <div class="itemline" v-for="(myitem,index) in mytitleLists" :key="index"  @click.stop="chakan(myitem.iid)">
                                   <!--<p class="time">-->
                                   <!--<i></i>-->
@@ -94,7 +94,7 @@
                                       </div>
                                     </div>
                                     <div v-else class="div5">
-                                      <div >
+                                      <div v-show="mineIsShow">
                                         <!-- <img style="width: 22px;" src="../../assets/check.png" @click.stop="editstitle1(mytitleLists[index],1)">-->
                                         <img class="img1 addSize" src="../../assets/edit.png" title="编辑" @click.stop="editstitle(mytitleLists[index])">
                                         <img class="img1 addSize" src="../../assets/del.png" title="删除" @click.stop="delstitle(myitem.iid)">
@@ -107,22 +107,22 @@
                               <!--暂无日程显示-->
                               <div class="itembox1" v-else style=""></div>
                           </a-tab-pane>
-                          <a-tab-pane key="2" >
+                          <a-tab-pane key="2">
 
                         <!--<span slot="tab">-->
                                <!--<span>{{this.model1}}</span>-->
                                <!--<b  v-if="total1">({{total1}})</b>-->
                         <!--</span>-->
-                        <span slot="tab">
-                          <span class="shuline"></span>
-                          共享日程
-                          <b v-if="total3">({{total3}})</b>
-                        </span>
+                              <span slot="tab">
+                                <span class="shuline"></span>
+                                共享日程
+                                <b v-if="total3">({{total3}})</b>
+                              </span>
                               <div class="itemboxx"   v-if="publictitleLists!=''">
                                 <div class="itemline" v-for="(publicitem,index) in publictitleLists" :key="index" @click.stop="chakan(publicitem.iid)">
                                   <div class="contentbox">
                                     <p :style="iisFontSize" class="content"  :title="publicitem.stitle+'('+publicitem.suserNames+')'">{{publicitem.stitle+"("+ publicitem.suserNames+")"|filterText3}}</p>
-                                    <div class="div5">
+                                    <div  v-show="publicIsShow" class="div5">
                                       <img class="img2 addSize" src="../../assets/check.png" title="查看" @click.stop="chakan(publicitem.iid)">
                                     </div>
                                   </div>
@@ -388,9 +388,13 @@
     mixins: [JeecgListMixin],
     data () {
 
+
       this.lastFetchId = 0;
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
+        mineIsShow:true,
+        publicIsShow:false,
+        javascriptEnabled: true,
         iisFontSize: {
           fontSize: '14px'
         },
@@ -1074,11 +1078,15 @@
           // alert(e)
           this.doindex = 1;
           this.findwaitLists('oaCalendar');
+          this.mineIsShow = true;
+          this.publicIsShow = false
         }else{
 
           // alert(e)
           this.doindex = 3;
           this.findwaitLists('oaShareCalendar');
+          this.publicIsShow = true;
+          this.mineIsShow = false;
 
         }
       },
@@ -1200,7 +1208,6 @@
       //共享日程
       publicLists(timestamp){
         getAction(this.url.queryPageList,{date:timestamp}).then((res) => {
-
           // alert( res.result.records.length)
           this.publictitleLists = res.result.records.splice(0,6);
           this.total3 = res.result.total;
