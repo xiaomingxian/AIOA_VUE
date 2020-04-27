@@ -76,7 +76,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -154,15 +153,14 @@
                 },*/
           {
             title: '按钮组合名称',
-            align: "left",
-
+            align: "center",
             dataIndex: 'sbuttonSetName'
           },
           {
             title: '操作',
             dataIndex: 'action',
             align: "center",
-            width:300,
+            width:360,
             scopedSlots: {customRender: 'action'},
           }
         ],
