@@ -24,7 +24,7 @@
           <a-col :md="6" :sm="10" >
             <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
               <a-button type="primary" @click="getQuartzJobList" icon="search">查询</a-button>
-              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+              <a-button type="primary" @click="quartzJobSearchReset" icon="reload" style="margin-left: 8px">重置</a-button>
             </span>
           </a-col>
 
@@ -251,6 +251,11 @@
           document.getElementsByClassName('ant-table')[0].style.fontSize = this.iisFontSize;
         })
       },
+      quartzJobSearchReset(){
+        this.queryParam = [];
+        this.getQuartzJobList()
+
+      },
       getQuartzJobList(){
         // console.log("2222222222")
 
@@ -291,7 +296,7 @@
           title:"确认暂停",
           content:"是否暂停选中任务?",
           onOk: function(){
-            getAction(that.url.pause,{jobClassName:record.jobClassName}).then((res)=>{
+            getAction(that.url.pause,{jobClassName:record.job_class_name}).then((res)=>{
               if(res.success){
                 that.$message.success(res.message);
                 // that.loadData();
@@ -330,7 +335,7 @@
           onOk: ()=>{
             console.log("11111")
             console.log(record)
-            getAction(that.url.resume,{jobClassName:record.jobClassName}).then((res)=>{
+            getAction(that.url.resume,{jobClassName:record.job_class_name}).then((res)=>{
               if(res.success){
                 that.$message.success(res.message);
                 that.getQuartzJobList();
