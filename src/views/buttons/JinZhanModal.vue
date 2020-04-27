@@ -8,7 +8,7 @@
     @cancel="handleCancel"
     okText="确定"
     cancelText="取消">
-    <a-tabs @change="getTabVal">
+    <a-tabs @change="getTabVal" defaultActiveKey="1">
 
       <a-tab-pane  tab="办结率" key="1">
 
@@ -42,6 +42,7 @@
           tabShow:1,
           proInstId:'',
           tableId:'',
+          functionId:'',
           backData:[],
           url: {
             currentUnDo: '/oadatafetailedinst/oaDatadetailedInst/queryTaskUnDoCurrent',
@@ -52,9 +53,11 @@
       },
        methods: {
          show(a,b){
+           console.log(b);
            this.proInstId = a;
            this.visible=true
            this.tableId =  b.i_id;
+           this.functionId = b.i_bus_function_id;
           console.log(b.i_id)
 
            this.$refs.PingJia.traceP(this.proInstId);
@@ -63,9 +66,9 @@
            console.log(e)
            this.tabShow = e;
            if(e==2){
-             this.$refs.PingJia.traceP(this.proInstId, this.tableId );
+             this.$refs.PingJia.traceP(this.proInstId, this.tableId ,this.functionId );
            }else{
-             this.$refs.BanJie.show(this.proInstId, this.tableId );
+             this.$refs.BanJie.show(this.proInstId, this.tableId ,this.functionId);
            }
           // this.startAnalysis();
          },

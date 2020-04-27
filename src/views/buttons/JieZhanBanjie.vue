@@ -46,10 +46,10 @@
     },
     methods:{
       //图表数据   获取父级传参   subData
-      show(a,b){
+      show(a,b,c){
         // alert(data)
         let url =  '/oadatafetailedinst/oaDatadetailedInst/findRate'
-        getAction(url,{proInstId:a,itableId:b}).then((res) => {
+        getAction(url,{proInstId:a,itableId:b,functionId:c}).then((res) => {
           console.log(res);
           if(res.reta){
             this.series = [];

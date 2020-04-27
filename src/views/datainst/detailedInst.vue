@@ -3,7 +3,7 @@
     <a-drawer
       title="办理详情"
       :width="720"
-      @close="onClose1"
+      @close="onClose2"
       :visible="visible"
       :bodyStyle="{ paddingBottom: '80px' }"
     >
@@ -11,16 +11,16 @@
         <a-row :gutter="16">
           <a-col :span="12">
             <a-form-item label="是否公开:">
-              <a-select  :value="detailData.iis1" @change="getiIsOpen"
+              <a-select :value="detailInsrtData.iisOpen" @change="getiIsOpen"
               >
                 <a-select-option value="1">是</a-select-option>
                 <a-select-option value="0">否</a-select-option>
               </a-select>
-            </a-form-item >
+            </a-form-item>
           </a-col>
           <a-col :span="12">
             <a-form-item label="办理状态:">
-              <a-select :value="detailData.iisOpen"  @change="getiIs1"
+              <a-select :value="detailInsrtData.iis1" @change="getiIs1"
               >
                 <a-select-option value="0">办理中</a-select-option>
                 <a-select-option value="1">已办结</a-select-option>
@@ -31,7 +31,7 @@
         <a-row :gutter="16">
           <a-col :span="24">
             <a-form-item label="办理进度：">
-              <a-textarea v-model="detailData.sopinion"
+              <a-textarea v-model="detailInsrtData.sopinion"
                           :rows="4"
                           placeholder="请填写办理意见"
               />
@@ -75,7 +75,6 @@
           background: '#fff',
           textAlign: 'right',
           zIndex: 1,
-
         }"
       >
         <a-button :style="{ marginRight: '25px' }" type="primary" @click="onClose1">
@@ -120,7 +119,9 @@
         banWenFileList: [],
         tableName: "oa_datadetailed_inst",
         cmd: 1,
-        detailData: {
+        detailiid: 0,
+        dListiid: 0,
+        detailInsrtData: {
           iid: 0,
           stable: "",
           itableId: 0,
@@ -133,10 +134,11 @@
           screateBy: "",
           screateDept: "",
           screateDeptid: "",
-
         },
+        resultData: {},
       };
     },
+
     watch: {
       value(val) {
         this.dataed = val
@@ -152,18 +154,18 @@
       //新增按钮展示赋值
       showaddDrawer(data, cmd) {
         this.cmd = cmd;
-        this.detailData.iid = data.iid;
-        this.detailData.stable = data.stable;
-        this.detailData.itableId = data.itableId;
-        this.detailData.sopinion = "";
-        this.detailData.screateBy = data.screateBy;
-        this.detailData.screateName = data.screateName;
-        this.detailData.screateDept = data.screateDept;
-        this.detailData.screateDeptid = data.screateDeptid;
-        this.detailData.iis1 = "0";
-        this.detailData.iisOpen = "0";
-        console.log("===========================>>>新增子组件展示!!!---" + JSON.stringify(this.detailData))
-        console.log("==========================>>>新增子组件展示22222!!!----" + JSON.stringify(data))
+        this.detailInsrtData.iid = data.iid;
+        this.detailInsrtData.stable = data.stable;
+        this.detailInsrtData.itableId = data.itableId;
+        this.detailInsrtData.sopinion = "";
+        this.detailInsrtData.screateBy = data.screateBy;
+        this.detailInsrtData.screateName = data.screateName;
+        this.detailInsrtData.screateDept = data.screateDept;
+        this.detailInsrtData.screateDeptid = data.screateDeptid;
+        this.detailInsrtData.iis1 = "0";
+        this.detailInsrtData.iisOpen = "0";
+        // console.log("===========================>>>新增子组件展示!!!---" + JSON.stringify(this.detailData))
+        // console.log("==========================>>>新增子组件展示22222!!!----" + JSON.stringify(data))
         let detailedInst = {
           s_table: data.stable,
           i_table_id: data.itableId,
@@ -172,60 +174,83 @@
           s_create_dept: data.screateDept,
           s_create_deptid: data.screateDeptid
         };
-        console.log("===========================>>>新增子组件展示-----参数!!!---" + JSON.stringify(detailedInst))
+
+        // console.log("===========================>>>新增子组件展示-----参数!!!---" + JSON.stringify(detailedInst))
         if (this.cmd == 1) {
           var addurl = "/oadatafetailedinst/oaDatadetailedInst/adddatadetailedInst";
           postAction(addurl, detailedInst).then(res => {
-            this.detailData.iid = res.result;
-            console.log("===========================>>>新增子组件展示-----明细iD----!!!---" + JSON.stringify(this.detailData.iid))
+            this.detailiid = res.result;
+            // console.log("===========================>>>新增子组件展示-----明细iD----!!!---" + JSON.stringify(this.detailiid))
+
+            this.getOaFiles(this.tableName, this.detailiid);
+            this.visible = true;
           })
         }
-        this.visible = true;
       },
 
       //列表对象展示
       showDrawerList(data, cmd) {
-
         this.cmd = cmd;
         // this.detailData.cmd = data.cmd;
-        this.detailData.iid = data.iid;
-        this.detailData.stable = data.stable;
-        this.detailData.itableId = data.itableId;
-        this.detailData.sopinion = data.sopinion;
-        this.detailData.screateBy = data.screateBy;
-        this.detailData.screateName = data.screateName;
-        this.detailData.screateDept = data.screateDept;
-        this.detailData.screateDeptid = data.screateDeptid;
-        this.detailData.iis1 = String(data.iis1);
-        this.detailData.iis2 = data.iis2;
-        this.detailData.iisOpen = String(data.iisOpen);
-        console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(this.detailData))
-        console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(data))
-
-        this.getOaFiles(this.tableName, this.detailData.iid);
+        // this.detailInsrtData.iid = data.iid;
+        this.dListiid = data.iid;
+        this.detailInsrtData.stable = data.stable;
+        this.detailInsrtData.itableId = data.itableId;
+        this.detailInsrtData.sopinion = data.sopinion;
+        this.detailInsrtData.screateBy = data.screateBy;
+        this.detailInsrtData.screateName = data.screateName;
+        this.detailInsrtData.screateDept = data.screateDept;
+        this.detailInsrtData.screateDeptid = data.screateDeptid;
+        this.detailInsrtData.iis1 = String(data.iis1);
+        this.detailInsrtData.iis2 = data.iis2;
+        this.detailInsrtData.iisOpen = String(data.iisOpen);
+        // console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(this.detailInsrtData))
+        // console.log("==========================>>>编辑进子组件!!!~~~~~~" + JSON.stringify(data))
+        this.getOaFiles(this.tableName, this.dListiid);
         this.visible = true;
       },
 
       onClose1() {
+        // console.log("8888888888888")
         this.changevisible();
+      },
+
+      onClose2() {
+        // console.log("999999999")
+        // this.changevisible();
+        this.visible = false
       },
 
       //确定更新数据
       updataDInst() {
+        // console.log("999999999", this.detailiid)
         let detailedInst = {
-          i_id: this.detailData.iid,
-          s_table: this.detailData.stable,
-          i_table_id: this.detailData.itableId,
-          s_opinion: this.detailData.sopinion,
-          i_is_open: this.detailData.iisOpen,
-          i_is_1: this.detailData.iis1,
-          s_create_name: this.detailData.screateName,
-          s_create_by: this.detailData.screateBy,
-          s_create_dept: this.detailData.screateDept,
-          s_create_deptid: this.detailData.screateDeptid,
-          // cmd: this.detailData.cmd
+          i_id: this.detailiid,
+          s_table: this.detailInsrtData.stable,
+          i_table_id: this.detailInsrtData.itableId,
+          s_opinion: this.detailInsrtData.sopinion,
+          i_is_open: this.detailInsrtData.iisOpen,
+          i_is_1: this.detailInsrtData.iis1,
+          s_create_name: this.detailInsrtData.screateName,
+          s_create_by: this.detailInsrtData.screateBy,
+          s_create_dept: this.detailInsrtData.screateDept,
+          s_create_deptid: this.detailInsrtData.screateDeptid,
+          cmd: this.cmd
         };
-        console.log("================================>>>子组件详情页面----确定按钮-----" + JSON.stringify(this.detailData))
+        let detailedInstList = {
+          i_id: this.dListiid,
+          s_table: this.detailInsrtData.stable,
+          i_table_id: this.detailInsrtData.itableId,
+          s_opinion: this.detailInsrtData.sopinion,
+          i_is_open: this.detailInsrtData.iisOpen,
+          i_is_1: this.detailInsrtData.iis1,
+          s_create_name: this.detailInsrtData.screateName,
+          s_create_by: this.detailInsrtData.screateBy,
+          s_create_dept: this.detailInsrtData.screateDept,
+          s_create_deptid: this.detailInsrtData.screateDeptid,
+          cmd: this.cmd
+        };
+        // console.log("================================>>>确定更新数据----确定按钮-----" + JSON.stringify(detailedInst))
         var updataurl = "/oadatafetailedinst/oaDatadetailedInst/updatadetailedInst";
         if (this.cmd == 1) {
           postAction(updataurl, detailedInst).then(res => {
@@ -237,7 +262,7 @@
             }
           })
         } else if (this.cmd == 2) {
-          postAction(updataurl, detailedInst).then(res => {
+          postAction(updataurl, detailedInstList).then(res => {
             if (res.success) {
               this.$message.success("更新办理成功");
               this.$emit('refresh');
@@ -247,26 +272,27 @@
           })
         }
         this.changevisible();
+        this.visible = false
       },
       //删除按钮
       deleteDataInst() {
         var updataurl = "/oadatafetailedinst/oaDatadetailedInst/deteledetailedInst";
-        getAction(updataurl, {iId: this.detailData.iid}).then(res => {
+        getAction(updataurl, {iId: this.dListiid}).then(res => {
           if (res.success) {
             this.$message.success("删除办理成功");
             this.$emit('refresh');
+            this.visible = false
           } else {
             this.$message.warning("删除办理失败")
           }
         })
-
       },
+
       //引入附件
       fujian() {
         let param = {};
         param.table = this.tableName,
-          param.i_id = this.detailData.iid,
-          // console.log("===========================>>>!!!!222222附件" + JSON.stringify(this.detailData.iId))
+          param.i_id = this.detailiid,
           this.$refs.banwenForm.show(param);
         this.$refs.banwenForm.title = "引入附件";
         this.$refs.banwenForm.disableSubmit = false;
@@ -274,7 +300,7 @@
       //更新临时数据
       upDataDetailStats(num) {
         var updataStatsurl = "/oadatafetailedinst/oaDatadetailedInst/updataDetailedIsStats";
-        getAction(updataStatsurl, {iId: this.detailData.iid,num : num }).then(res => {
+        getAction(updataStatsurl, {iId: this.detailiid, num: num}).then(res => {
           if (res.success) {
             // this.$message.success("");
           } else {
@@ -284,19 +310,19 @@
       },
 
       getiIs1(num) {
-        this.detailData.iis1 = parseInt(num);
+        this.detailInsrtData.iis1 = num;
       },
 
       getiIsOpen(num) {
-        this.detailData.iisOpen = parseInt(num);
+        this.detailInsrtData.iisOpen =num;
       },
 
-      changevisible(){
-        if (FileList.length<=0){
-          let num=0;
+      changevisible() {
+        if (this.oaFileList.length <= 0) {
+          let num = 0;
           this.upDataDetailStats(num);
         } else {
-          let num=1;
+          let num = 1;
           this.upDataDetailStats(num);
         }
         this.visible = false;
@@ -306,9 +332,12 @@
 
       showSub() {
         let table = this.tableName;
-        let id = this.detailData.iid
-        console.log("===========================>>>!!!!附件" + JSON.stringify(this.detailData.iId))
-        console.log("--------------->>确定")
+        let id=this.detailiid;
+        if (this.cmd==2){
+          id=this.dListiid;
+        }
+        // console.log("===========================>>>!!!!附件" + JSON.stringify(this.detailiid))
+        // console.log("--------------->>确定")
         this.getOaFiles(table, id)
       },
 
@@ -318,7 +347,11 @@
       },
       //刷新附件列表
       reloadAfterUpdate() {
-        this.getOaFiles(this.tableName, this.detailData.iid);
+        let id=this.detailiid;
+        if (this.cmd==2){
+          id=this.dListiid;
+        }
+        this.getOaFiles(this.tableName, id);
       },
 
       //附件-删除
@@ -328,7 +361,11 @@
         param.table = 'oa_file';
         postAction('/oaBus/dynamic/delete', param).then(res => {
           if (type == 4) {
-            this.getOaFiles(this.tableName, this.detailData.iid);
+            let id=this.detailiid;
+            if (this.cmd==2){
+              id=this.dListiid;
+            }
+            this.getOaFiles(this.tableName, id);
           }
         });
         if (type == 4) {
@@ -343,7 +380,11 @@
         //参数：1.i_id 2.table
         postAction('/oaBus/dynamic/delete', param).then(res => {
           if (type == 4) {
-            this.getOaFiles(this.tableName, this.detailData.iid);
+            let id=this.detailiid;
+            if (this.cmd==2){
+              id=this.dListiid;
+            }
+            this.getOaFiles(this.tableName, id);
           }
         })
       },
@@ -357,7 +398,11 @@
             param.id2 = this.oaFileList[index - 1].iid;
             param.iorder2 = this.oaFileList[index - 1].iorder;
             postAction("/oaBus/oaFile/sortFile", param).then(res => {
-              this.getOaFiles(this.tableName, this.detailData.iid);
+              let id=this.detailiid;
+              if (this.cmd==2){
+                id=this.dListiid;
+              }
+              this.getOaFiles(this.tableName, id);
             })
           }
         }
@@ -440,7 +485,11 @@
             param.id2 = this.oaFileList[index + 1].iid;
             param.iorder2 = this.oaFileList[index + 1].iorder;
             postAction("/oaBus/oaFile/sortFile", param).then(res => {
-              this.getOaFiles(this.tableName, this.detailData.iid);
+              let id=this.detailiid;
+              if (this.cmd==2){
+                id=this.dListiid;
+              }
+              this.getOaFiles(this.tableName, id);
             })
           }
         }
@@ -450,7 +499,7 @@
 </script>
 
 <style scoped>
-  .delCss{
-    width:23.3%
+  .delCss {
+    width: 23.3%
   }
 </style>

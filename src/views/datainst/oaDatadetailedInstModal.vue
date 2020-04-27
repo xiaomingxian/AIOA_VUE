@@ -153,6 +153,8 @@
           screateDept: "",
           screateDeptid: "",
         },
+        resultData:{},
+
         confirmLoading: false,
         headers: {'X-Access-Token': Vue.ls.get(ACCESS_TOKEN)},
         visible: false,
@@ -221,14 +223,15 @@
       //新增
       addDetail() {
         this.cmd = 1;
-        console.log("===========================>>>新增!!!" + JSON.stringify(this.detailData))
+        // console.log("===========================>>>新增!!!" + JSON.stringify(this.detailData))
 
         this.$refs.detailedInst.showaddDrawer(this.detailData, this.cmd);
       },
 
       //列表展示
       show(data) {
-        // this.data=data;
+        this.resultData=data;
+        // console.log("===========================>>>展示show!!!" + JSON.stringify(this.resultData))
         this.detailData.stable = data.table;
         this.detailData.itableId = data.i_id;
         this.detailData.screateName = data.s_create_name;
@@ -248,7 +251,9 @@
 
       //刷新列表
       refresh() {
-        console.log("================================@@@@>>>!!!!《《《刷新" + JSON.stringify(this.detailData))
+        // console.log("================================@@@@>>>!!!!《《《刷新" + JSON.stringify(this.detailData.iid))
+        // console.log("================================@@@@>>>!!!!《《《刷新" + JSON.stringify(this.detailData.stable))
+        // console.log("================================@@@@>>>!!!!《《《刷新" + JSON.stringify(this.detailData.itableId))
         // console.log("================================@@@@>>>!!!!《《《"+JSON.stringify(this.detailData.sTable))
         let myurl = "/oadatafetailedinst/oaDatadetailedInst/selectdetailedInst";
         getAction(myurl, {
@@ -257,7 +262,6 @@
         }).then(res => {
           this.dataSource = res.result;
         });
-
       },
       closeDetailList() {
         this.$emit('close');

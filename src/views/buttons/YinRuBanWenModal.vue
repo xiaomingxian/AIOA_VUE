@@ -189,10 +189,11 @@
               param.table = this.fileData.sTable;
               param.i_id = this.fileData.iTableId;
               param.i_is_file = 1;
-              postAction('/oaBus/dynamic/updateData', param).then(res => {
-              })
+              if (param.table !== "oa_datadetailed_inst") {
+                postAction('/oaBus/dynamic/updateData', param).then(res => {
+                })
+              }
               this.$emit('watchSub', true);
-
               this.close();
             }
           })

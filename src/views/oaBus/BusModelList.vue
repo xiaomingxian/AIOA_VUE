@@ -113,10 +113,14 @@
               dataIndex: 'iid'
           },*/
           {
-            title: '序号',
-            align: "center",
-            width: 60,
-            dataIndex: 'iorder'
+              title: '序号',
+              dataIndex: '',
+              key: 'rowIndex',
+              width: 60,
+              align: "center",
+              customRender: function (t, r, index) {
+                  return parseInt(index) + 1;
+              }
           },
           {
             title: '菜单名称',
@@ -140,6 +144,12 @@
               }
               return text ;
             }
+          },
+          {
+              title: '业务序号',
+              align: "center",
+              width: 80,
+              dataIndex: 'iorder'
           },
         /*  {
             title: '路径名称',
