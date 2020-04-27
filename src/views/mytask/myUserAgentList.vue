@@ -158,7 +158,7 @@
 
 
           <div v-if="iisFold == 0">
-
+<!--              :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
             <a-table
               ref="table"
               size="middle"
@@ -168,7 +168,6 @@
               :dataSource="dataSource"
               :pagination="ipagination"
               :loading="loading"
-              :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
               @change="handleTableChange"
               :customRow="doTask"
               :rowClassName="(record,index) => {
@@ -889,7 +888,7 @@
             },
             {
               title: '文号',
-              width: 180,
+              width: 120,
               align: "center",
               sorter: (i, ii, type) => {
 
@@ -903,7 +902,7 @@
             },
             {
               title: '当前环节',
-              width: 120,
+              width: 110,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
                 this.nullOther('orederByHuanJie')
@@ -949,7 +948,7 @@
             {
               title: '审批信息',
               dataIndex: 'action',
-              width: 120,
+              width: 160,
               align: "center",
               scopedSlots: {customRender: 'action'},
             });
@@ -1108,7 +1107,7 @@
             {
               title: '审批信息',
               dataIndex: 'action',
-              width: 80,
+              width: 160,
               align: "center",
               scopedSlots: {customRender: 'action'},
             });

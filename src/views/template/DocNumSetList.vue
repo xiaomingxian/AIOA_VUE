@@ -97,7 +97,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -105,6 +104,7 @@
               return className;
           }"
       >
+<!--        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>

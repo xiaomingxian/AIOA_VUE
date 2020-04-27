@@ -115,6 +115,7 @@
       <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
     <!--</div>-->
 
+    <!--:rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
     <div v-if="iisFold == 0">
 
       <a-table
@@ -126,7 +127,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :customRow="doTask"
         :rowClassName="(record,index) => {
@@ -919,7 +919,7 @@
               },
               {
                 title: '文号',
-                width: 100,
+                width: 120,
                 sorter: (i, ii, type) => {
 
                   this.queryParam.tableOrder = true
@@ -941,7 +941,7 @@
                   return true
                 },
                 align: "center",
-                width: 180,
+                width: 110,
                 dataIndex: 'name'
               },
               {
@@ -954,7 +954,7 @@
                   return true
                 },
                 align: "center",
-                width: 140,
+                width: 120,
                 dataIndex: 'drafter'
               },
               {
@@ -971,7 +971,7 @@
                 dataIndex: 'createTime'
               },
               {
-                title: '操作',
+                title: '审批信息',
                 dataIndex: 'action',
                 align: "center",
                 width: 160,
@@ -1104,7 +1104,7 @@
           },
           {
             title: '文号',
-            width: 180,
+            width: 120,
             sorter: (i, ii, type) => {
 
               this.queryParam.tableOrder = true
@@ -1159,7 +1159,7 @@
             title: '审批信息',
             dataIndex: 'action',
             align: "center",
-            width: 120,
+            width: 160,
             scopedSlots: {customRender: 'action'},
           });
 

@@ -46,7 +46,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -100,7 +99,16 @@
         description: '个人协同办公业务配置分类管理页面',
         // 表头
           columns: [
-
+            {
+              title: '序号',
+              dataIndex: '',
+              key:'rowIndex',
+              width:60,
+              align:"center",
+              customRender:function (t,r,index) {
+                return parseInt(index)+1;
+              }
+            },
             {
               title: '协同业务名称',
               align:"center",

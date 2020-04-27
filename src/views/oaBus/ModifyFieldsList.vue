@@ -19,26 +19,26 @@
             <!--</span>-->
           <!--</a-col>-->
           <template v-if="advanced">
-            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item label="业务分类">
-                <a-select v-model="iBMId"
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 5px;">
+              <a-form-item >
+                <a-select placeholder="业务分类" v-model="iBMId"
                           @change="getFunctionList">
                   <a-select-option v-for="(item,index) in modelList" :key="index" :value="item.iid">{{item.sname}}
                   </a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item label="业务功能">
-                <a-select v-model="queryParam.function_id" @change="getFunctionListId">
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 2px;">
+              <a-form-item >
+                <a-select placeholder="业务功能" v-model="queryParam.function_id" @change="getFunctionListId">
                   <a-select-option v-for="(item,index) in selectList" :key="index" :value="item.iid">{{item.sname}}
                   </a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-            <a-form-item label="公文状态">
-            <a-select v-model="queryParam.i_is_state">
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 2px;">
+            <a-form-item >
+            <a-select placeholder="公文状态" v-model="queryParam.i_is_state">
             <!--<a-select-option  v-for="(item,index) in selectList" :key="index" :value="item.i_id">{{item.s_name}}</a-select-option>-->
             <a-select-option value="1">已办结</a-select-option>
             <a-select-option value="0">未办结</a-select-option>
@@ -56,28 +56,28 @@
             <!--</a-radio-group>-->
             <!--</a-form-item>-->
             <!--</a-col>-->
-            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item label="申请年份">
-                <a-select v-model="queryParam.d_create_time">
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 5px;">
+              <a-form-item >
+                <a-select placeholder="申请年份" v-model="queryParam.d_create_time">
                   <a-select-option  v-for="(item,index) in timeList" :key="index" :value="item">{{item}}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
 
-            <a-col :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item :label="label.title" >
+            <a-col :md="6" :sm="24" style="margin:0 0 -7px 2px;">
+              <a-form-item >
                 <!--<label slot="label">标&nbsp;&nbsp;&nbsp;&nbsp;题</label>-->
-                <a-input v-model="queryParam.s_title"></a-input>
+                <a-input placeholder="文件标题" v-model="queryParam.s_title"></a-input>
               </a-form-item>
             </a-col>
-            <a-col v-show="iBMId==3" :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item label="来文字号">
-                <a-input v-model="queryParam.s_receive_num"></a-input>
+            <a-col v-show="iBMId==3" :md="6" :sm="24" style="margin:0 0 -7px 2px;">
+              <a-form-item >
+                <a-input placeholder="文件标题" v-model="queryParam.s_receive_num"></a-input>
               </a-form-item>
             </a-col>
-            <a-col v-show="iBMId!=3" :md="6" :sm="24" style="margin:0 0 -7px 15px;">
-              <a-form-item label="文件字号">
-                <a-input v-model="queryParam.s_file_num"></a-input>
+            <a-col v-show="iBMId!=3" :md="6" :sm="24" style="margin:0 0 -7px 2px;">
+              <a-form-item >
+                <a-input  placeholder="文件字号" v-model="queryParam.s_file_num"></a-input>
               </a-form-item>
             </a-col>
 
@@ -95,7 +95,7 @@
             </a-col>
 
 
-            <a-col :md="4" :sm="24" style="text-align: center;">
+            <a-col :md="5" :sm="24" style="text-align: center;">
             <span class="table-page-search-submitButtons" :style="advanced && { overflow: 'hidden' } || {} ">
                <a-button type="primary" icon="search" @click="getPgSearchList">查询</a-button>
                <a-button type="primary" @click="chongZ" icon="reload" style="margin-left: 8px">重置</a-button>

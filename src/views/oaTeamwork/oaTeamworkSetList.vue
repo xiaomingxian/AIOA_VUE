@@ -28,7 +28,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -85,11 +84,16 @@
         description: '个人协同办公业务配置明细管理页面',
         // 表头
         columns: [
-		/*   {
-            title: '流程按钮关联ID',
+          {
+            title: '序号',
+            dataIndex: '',
+            key:'rowIndex',
+            width:60,
             align:"center",
-            dataIndex: 'iteamworkId'
-           },*/
+            customRender:function (t,r,index) {
+              return parseInt(index)+1;
+            }
+          },
 		   {
             title: '顺序号',
             align:"center",

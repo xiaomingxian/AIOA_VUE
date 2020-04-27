@@ -91,6 +91,7 @@
 
     <div v-if="iisFold == 0">
 
+      <!--        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
       <a-table
         ref="table"
         size="middle"
@@ -100,7 +101,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :customRow="doTask"
         :rowClassName="(record,index) => {
@@ -767,9 +767,22 @@
                 this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
                 return true
               },
-              width: 400,
               align: "left",
               dataIndex: 'title'
+            },
+            {
+              title: '文号',
+              width: 120,
+              sorter: (i, ii, type) => {
+
+                this.queryParam.tableOrder = true
+                this.nullOther('orederByWenHao')
+
+                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+                return true
+              },
+              align: "center",
+              dataIndex: 'index'
             },
             // {
             //   title: '流程名称',
@@ -781,7 +794,7 @@
             // },
             {
               title: '当前环节',
-              width: 180,
+              width: 110,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
                 this.nullOther('orederByHuanJie')
@@ -801,20 +814,7 @@
                 }
               }
             },
-            {
-              title: '文号',
-              width: 100,
-              sorter: (i, ii, type) => {
 
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByWenHao')
-
-                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'index'
-            },
             {
               title: '转发时间',
               sorter: (i, ii, type) => {
@@ -825,6 +825,7 @@
                 return true
               },
               align: "center",
+              width: 180,
               dataIndex: 'createTime'
             },
             {
@@ -837,13 +838,15 @@
                 return true
               },
               align: "center",
+              width: 100,
               dataIndex: 'drafter'
             },
 
             {
-              title: '操作',
+              title: '审批信息',
               dataIndex: 'action',
               align: "center",
+              width: 160,
               scopedSlots: {customRender: 'action'},
             });
 
@@ -946,7 +949,7 @@
           },
           {
             title: '文号',
-            width: 180,
+            width: 120,
             sorter: (i, ii, type) => {
 
               this.queryParam.tableOrder = true
@@ -1023,7 +1026,7 @@
             title: '审批信息',
             dataIndex: 'action',
             align: "center",
-            width: 180,
+            width: 160,
             scopedSlots: {customRender: 'action'},
           });
 

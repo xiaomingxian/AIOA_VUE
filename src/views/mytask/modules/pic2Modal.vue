@@ -2,33 +2,32 @@
   <div class="setting-drawer">
     <a-drawer
       :title="title"
-      :width="scrWidth*0.7"
+      :width="scrWidth*0.8"
       placement="right"
       :closable="visible"
       @close="handleCancel"
       :visible="visible"
     >
-      <div>
+      <div  >
         <div class="bingpai" >
           <a-button @click="showPict" block>查看流程图</a-button>
           <a-button @click="traceP" block>流程跟踪表</a-button>
           <a-button @click="backRecordClick" block>退回撤回记录</a-button>
         </div>
-        <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',height:scrHeight}">
+        <div  :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',height:scrHeight}">
 
 
-          <div style="width:100%;position: relative" v-if="showPic">
+          <div  v-if="showPic">
 
 
             <div v-for="item in styles" class="div" :style='item'></div>
 
-            <img :src="picurl" v-show="visible"/>
+            <img style="position:relative;left:50px;top:5px" :src="picurl" v-show="visible"/>
             <!--position:fixed; bottom:0;right:0px-->
             <!--<a-button style="position: absolute;bottom:0px;right:0px" @click="handleCancel">关闭</a-button>-->
 
-
           </div>
-          <div v-if="trace" style="width: 98%;margin: 1%;">
+          <div v-if="trace" style="width: 100%;">
 
             <a-table
               ref="table"
@@ -50,7 +49,7 @@
 
           </div>
 
-          <div v-if="backRecord" style="width: 98%;margin: 1%;">
+          <div v-if="backRecord" style="width: 100%;">
 
             <!--  :customRow="rowClick"-->
             <a-table
@@ -71,7 +70,7 @@
 
           </div>
           <!--position:fixed;-->
-          <a-button style="position: fixed;bottom:5px;right:22px" type="primary" @click="handleCancel">关闭</a-button>
+          <a-button style="position: fixed;bottom:5px;right:22px" type="primary" v-if="visible" @click="handleCancel">关闭</a-button>
 
 
         </div>

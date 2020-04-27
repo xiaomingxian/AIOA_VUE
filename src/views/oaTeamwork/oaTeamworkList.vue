@@ -20,7 +20,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -83,7 +82,7 @@
         },
         // 表头
         columns: [
-         /* {
+        {
             title: '序号',
             dataIndex: '',
             key:'rowIndex',
@@ -92,7 +91,7 @@
             customRender:function (t,r,index) {
               return parseInt(index)+1;
             }
-          },*/
+          },
 		      {
             title: '协同业务名称',
             align:"center",

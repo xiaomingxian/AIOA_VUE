@@ -89,8 +89,8 @@
 
     </div>
 
-    <!-- table区域-begin         :pagination="pagination"
--->
+    <!-- table区域-begin         :pagination="pagination"-->
+    <!--        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
     <div v-if="iisFold == 0">
       <a-table
         ref="table"
@@ -99,7 +99,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         :showAlertInfo="false"
         bordered
         rowKey="processInstanceId"
@@ -761,20 +760,7 @@
                 return parseInt(index) + 1;
               }
             },
-            {
-              title: '文号',
-              align: "center",
-              width: 150,
-              sorter: (i, ii, type) => {
 
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByWenHao')
-
-                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-                return true
-              },
-              dataIndex: 'wenHao'
-            },
             {
               title: '标题',
               sorter: (i, ii, type) => {
@@ -787,9 +773,23 @@
                 this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
                 return true
               },
-              width: 400,
+
               align: "left",
               dataIndex: 'title'
+            },
+            {
+              title: '文号',
+              align: "center",
+              width: 120,
+              sorter: (i, ii, type) => {
+
+                this.queryParam.tableOrder = true
+                this.nullOther('orederByWenHao')
+
+                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+                return true
+              },
+              dataIndex: 'wenHao'
             },
             // {
             //   title: '流程名称',
@@ -798,7 +798,7 @@
             // },
             {
               title: '当前环节',
-              width: 180,
+              width: 110,
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
                 this.nullOther('orederByHuanJie')
@@ -836,8 +836,8 @@
               dataIndex: 'startTime'
             },
             {
-              title: '操作',
-              width: 115,
+              title: '审批信息',
+              width: 160,
               dataIndex: 'action',
               align: "center",
               scopedSlots: {customRender: 'action'},

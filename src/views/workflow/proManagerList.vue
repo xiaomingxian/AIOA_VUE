@@ -6,16 +6,16 @@
       <a-form layout="inline">
         <a-row :gutter="24">
 
-          <a-col :md="6" :sm="8">
+          <a-col :md="12" :sm="8">
             <a-form-item label="流程名称">
               <a-input  v-model="queryParam.name"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :md="6" :sm="8">
-            <a-form-item label="流程key">
-              <a-input  v-model="queryParam.key"></a-input>
-            </a-form-item>
-          </a-col>
+          <!--<a-col :md="6" :sm="8">-->
+            <!--<a-form-item label="流程key">-->
+              <!--<a-input  v-model="queryParam.key"></a-input>-->
+            <!--</a-form-item>-->
+          <!--</a-col>-->
           <a-col :md="6" :sm="8">
             <span style="float: left;overflow: hidden;" >
               <a-button type="primary" ref="reSearchQuery" @click="searchQuery" icon="search">查询</a-button>
@@ -71,6 +71,7 @@
         <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
       <!--</div>-->
 
+      <!--:rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
       <a-table
         ref="table"
         size="middle"
@@ -80,7 +81,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -201,12 +201,12 @@
             width: 200,
             dataIndex: 'name'
           },
-          {
-            title: '流程KEY',
-            align: "center",
-            width: 200,
-            dataIndex: 'key'
-          },
+          // {
+          //   title: '流程KEY',
+          //   align: "center",
+          //   width: 200,
+          //   dataIndex: 'key'
+          // },
           {
             title: '版本',
             align: "center",
@@ -226,7 +226,7 @@
           // },
           {
             title: '描述',
-            align: "center",
+            align: "left",
             dataIndex: 'description'
           },
           // {
@@ -238,7 +238,7 @@
             title: '操作',
             dataIndex: 'action',
             align: "center",
-            width: 260,
+            width: 150,
             scopedSlots: {customRender: 'action'},
           }
         ],

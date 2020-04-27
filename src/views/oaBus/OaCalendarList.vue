@@ -75,7 +75,6 @@
         :pagination="pagination"
         :loading="loading"
         :customRow="doTask"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -176,6 +175,16 @@
         dataSource11:[],
         // 表头
         columns: [
+          {
+            title: '序号',
+            dataIndex: '',
+            key:'rowIndex',
+            width:60,
+            align:"center",
+            customRender:function (t,r,index) {
+              return parseInt(index)+1;
+            }
+          },
           {
             title: '日程内容',
             align:"left",

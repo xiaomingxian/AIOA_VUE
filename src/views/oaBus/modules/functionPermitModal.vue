@@ -31,7 +31,6 @@
           :dataSource="data"
           :pagination="ipagination"
           :loading="loading"
-          :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
           @change="handleTableChange"
         >
 

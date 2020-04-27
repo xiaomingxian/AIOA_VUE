@@ -72,7 +72,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :rowClassName="(record,index) => {
               let className  = 'light-row';
@@ -80,6 +79,7 @@
               return className;
           }"
       >
+<!--        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleCat(record)">查看</a>
@@ -142,7 +142,7 @@
            },
           {
             title: '模板名称',
-            align:"left",
+            align:"center",
             dataIndex: 'sname'
           },
 		   {
