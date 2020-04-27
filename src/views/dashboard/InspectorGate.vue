@@ -60,7 +60,7 @@
                       <a-form-item label="分析维度" style="display: inline-flex">
                       <a-select v-model="queryParam.function_id" @change="updateDataAnalysisPei" style="width:227px;">
                         <!--<a-select-option value="" disabled selected hidden>维度</a-select-option>-->
-                        <a-select-option v-for="(item,index) in AnalysisDimension" :key="index" :value="item.important ?  '' : item.id">{{item.text}}
+                        <a-select-option v-for="(item,index) in AnalysisDimension" :key="index" :value="item.important || item.type ?  '' : item.id" @click="item.type ? getDataAnalysisPei1 : updateDataAnalysisPei">{{item.text}}
                         </a-select-option>
                       </a-select>
                     </a-form-item>
@@ -322,6 +322,8 @@
           RateNum:"/oaBus/supervisionPage/RateNum",
           ExtensionsNum:"/oaBus/supervisionPage/ExtensionsNum",
 
+          TimeQuery:"/oaBus/supervisionPage/TimeQuery",
+
 
           HomeList: '/oaBus/homeAnalysis/HomeList',
           Posturl: '/oaBus/oaBusdata/queryByModelId',
@@ -496,6 +498,10 @@
 
         getAction(this.url.AnalysisDimension).then((res) => {
 
+
+          console.log('000000000000000000000000000000000000000')
+          console.log(res)
+
           this.AnalysisDimension = res;
 
           this.AnalysisDimension[0] = Object.assign({},this.AnalysisDimension[0],{id : '162'});
@@ -505,6 +511,10 @@
           this.AnalysisDimension[2] = Object.assign({},this.AnalysisDimension[2],{id : '160'});
 
           this.AnalysisDimension[3] = Object.assign({},this.AnalysisDimension[3],{id : '159'});
+
+          this.AnalysisDimension[4] = Object.assign({},this.AnalysisDimension[4],{type  : 'sup_progress'});
+
+          this.AnalysisDimension[5] = Object.assign({},this.AnalysisDimension[5],{type  : 'sup_end'});
 
 
         })
@@ -570,18 +580,84 @@
         })
       },
 
+      getDataAnalysisPei1(value){
+
+        if(this.queryParam.function_id == ''){
+
+          this.queryParam.selType = value;
+
+        }else {
+
+          this.queryParam.selType = '';
+
+        }
+
+        console.log('0000000004675483568876876879879870000000000000000')
+        console.log(this.queryParam.d_create_time)
+        console.log(this.queryParam.selType)
+
+        getAction(this.url.TimeQuery,{year: this.queryParam.d_create_time,type: this.queryParam.selType}).then((res) => {
+
+          console.log('00000000000000000000000000000000000000')
+          console.log(res)
+
+          this.supervisionPei = res;
+
+          let series = [];
+          let labels = [];
+
+          for(let i in this.supervisionPei) {
+            for(let j in this.supervisionPei[i]) {
+
+              series.push(this.supervisionPei[i][j]);
+
+              labels.push(j);
+
+            }
+          }
+
+          this.$nextTick(()=>{
+            this.showData[0].series= series;
+
+            this.showData[0].chartOptions= {
+              labels: labels,
+
+            };
+
+          })
+
+        })
+      },
+
       updateDataAnalysisPei(value){
 
         this.queryParam.function_id = value;
 
-        this.getDataAnalysisPei();
+        if(this.queryParam.selType == ''){
+
+          this.getDataAnalysisPei();
+
+        }else {
+
+          this.getDataAnalysisPei1();
+
+        }
 
       },
       toUpdateDataAnalysisPei(value){
 
         this.queryParam.d_create_time = value;
 
-        this.getDataAnalysisPei();
+
+        if(this.queryParam.selType == ''){
+
+          this.getDataAnalysisPei();
+
+        }else {
+
+          this.getDataAnalysisPei1();
+
+        }
 
       },
 
