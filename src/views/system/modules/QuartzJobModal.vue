@@ -17,7 +17,7 @@
           :wrapperCol="wrapperCol"
           label="任务类名"
           hasFeedback >
-          <a-input placeholder="请输入任务类名" v-decorator="['jobClassName', {rules: [{ required: true, message: '请输入任务类名!' },{ min: 0, max: 255, message: '任务类名长度不能超过255位！', trigger: 'blur'  }]}]" />
+          <a-input placeholder="请输入任务类名" v-decorator="['job_class_name', {rules: [{ required: true, message: '请输入任务类名!' },{ min: 0, max: 255, message: '任务类名长度不能超过255位！', trigger: 'blur'  }]}]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -28,7 +28,7 @@
 <!--                      <a-icon type="share-alt" />-->
 <!--                      在线cron表达式生成-->
 <!--                    </a>-->
-          <j-cron ref="innerVueCron" v-decorator="['cronExpression', {'initialValue':'0/1 * * * * ?',rules: [{ required: true, message: '请输入cron表达式!' },{ min: 0, max: 255, message: 'cron表达式长度不能超过255位！', trigger: 'blur'  }]}]"  @change="setCorn"></j-cron>
+          <j-cron ref="innerVueCron" v-decorator="['cron_expression', {'initialValue':'0/1 * * * * ?',rules: [{ required: true, message: '请输入cron表达式!' },{ min: 0, max: 255, message: 'cron表达式长度不能超过255位！', trigger: 'blur'  }]}]"  @change="setCorn"></j-cron>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -113,7 +113,7 @@
         console.log(this.model)
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'jobClassName','cronExpression','parameter','description','status'));
+          this.form.setFieldsValue(pick(this.model,'job_class_name','cron_expression','parameter','description','status'));
         });
 
       },
@@ -125,16 +125,14 @@
           delFlag:'',
           description: '',
           id: '',
-          jobClassName: '',
+          job_class_name: '',
           parameter: '',
-          status: '',
           updateBy: '',
           updateTime: '',
           description:'',
-          status:''
         }
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'jobClassName','cronExpression','parameter','description','status'));
+          this.form.setFieldsValue(pick(this.model,'job_class_name','cronExpression','parameter','description'));
         });
 
         this.$emit('close');
