@@ -221,23 +221,9 @@
               return parseInt(index) + 1;
             }
           },
-          {
-            title: '文号',
-            width: 100,
-            sorter: (i, ii, type) => {
 
-              this.queryParam.tableOrder = true
-              this.nullOther('orederByWenHao')
-
-              this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-              return true
-            },
-            align: "center",
-            dataIndex: 'wenHao'
-          },
           {
             title: '标题',
-            width: 350,
             sorter: (i, ii, type) => {
               //descend倒叙
               //ascend正序
@@ -252,6 +238,20 @@
             dataIndex: 'title'
           },
           {
+            title: '文号',
+            width: 120,
+            sorter: (i, ii, type) => {
+
+              this.queryParam.tableOrder = true
+              this.nullOther('orederByWenHao')
+
+              this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+              return true
+            },
+            align: "center",
+            dataIndex: 'wenHao'
+          },
+          {
             title: '当前环节',
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
@@ -261,6 +261,7 @@
               return true
             },
             align: "center",
+            width: 110,
             dataIndex: 'name'
           },
           {
@@ -273,6 +274,7 @@
               return true
             },
             align: "center",
+            width: 100,
             dataIndex: 'drafter'
           },
           {
@@ -285,10 +287,12 @@
               return true
             },
             align: "center",
+            width: 180,
             dataIndex: 'createTime'
           },
           {
-            title: '操作',
+            title: '审批信息',
+            width: 160,
             dataIndex: 'action',
             align: "center",
             scopedSlots: {customRender: 'action'},

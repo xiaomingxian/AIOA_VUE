@@ -211,23 +211,9 @@
               return parseInt(index) + 1;
             }
           },
-          {
-            title: '文号',
-            width: 100,
-            align: "center",
-            sorter: (i, ii, type) => {
 
-              this.queryParam.tableOrder = true
-              this.nullOther('orederByWenHao')
-
-              this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-              return true
-            },
-            dataIndex: 'wenHao'
-          },
           {
             title: '标题',
-            width: 350,
             align: "left",
             sorter: (i, ii, type) => {
               //descend倒叙
@@ -243,8 +229,23 @@
             dataIndex: 'title'
           },
           {
+            title: '文号',
+            width: 120,
+            align: "center",
+            sorter: (i, ii, type) => {
+
+              this.queryParam.tableOrder = true
+              this.nullOther('orederByWenHao')
+
+              this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+              return true
+            },
+            dataIndex: 'wenHao'
+          },
+          {
             title: '当前环节',
             align: "center",
+            width: 120,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByHuanJie')
@@ -257,6 +258,7 @@
           {
             title: '拟稿人',
             align: "center",
+            width: 120,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByDrafter')
@@ -269,6 +271,7 @@
           {
             title: '转发时间',
             align: "center",
+            width: 180,
             sorter: (i, ii, type) => {
               this.queryParam.tableOrder = true
               this.nullOther('orederByTime')
@@ -279,7 +282,8 @@
             dataIndex: 'createTime'
           },
           {
-            title: '操作',
+            title: '审批信息',
+            width: 160,
             dataIndex: 'action',
             sorter: (i, ii, type) => {
               return true
