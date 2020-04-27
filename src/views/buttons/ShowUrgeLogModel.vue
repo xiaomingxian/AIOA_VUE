@@ -9,10 +9,14 @@
       :visible="visible"
     >
       <div>
-        <div class="bingpai" >
-          <a-button @click="postponeLog" block>延期记录</a-button>
-          <a-button @click="urgeLog" block>催办记录</a-button>
-        </div>
+        <!--<div class="bingpai" >-->
+          <!--<a-button @click="postponeLog" block>延期记录</a-button>-->
+          <!--<a-button @click="urgeLog" block>催办记录</a-button>-->
+        <!--</div>-->
+        <a-radio-group :value="size" @change="SizeChange">
+          <a-radio-button value="0" @click="postponeLog">延期记录</a-radio-button>
+          <a-radio-button value="1" @click="urgeLog">催办记录</a-radio-button>
+        </a-radio-group>
         <div :style="{overflow: 'auto', position: 'relative',backgroundColor: '#f6f6f6',height:scrHeight}">
           <!--<div style="width:100%;position: relative" v-if="showPic">-->
             <!--<div v-for="item in styles" class="div" :style='item'></div>-->
@@ -148,18 +152,18 @@
             title: '催办用户',
             align: "center",
             width: 300,
-            dataIndex: 'userName'
+            dataIndex: 'suserNames'
           },
           {
             title: '所属部门',
             align: "center",
             width: 300,
-            dataIndex: 'log'
+            dataIndex: 'taskUserId'
           },
           {
             title: '催办时间',
             align: "center",
-            dataIndex: 'backReason'
+            dataIndex: 'dcreateTime'
           },
         ]
       }
@@ -182,6 +186,10 @@
           }
         }
       },
+      SizeChange(e) {
+        this.size = e.target.value;
+      },
+
       postponeLog() {
         this.trace = true
         this.backRecord = false
@@ -213,9 +221,12 @@
       urgeLog() {
         this.backRecord=true;
         this.trace=false;
+        console.log('----------------',JSON.stringify(this.tableId))
+
         let url="/oadeferlog/oaDeferLog/selecturgeInform"
         getAction(url,{iTableId:this.tableId}).then(res =>{
           this.dataSource=res.result;
+          console.log('----------------',JSON.stringify(this.dataSource))
         })
       },
       handleCancel() {
