@@ -704,7 +704,8 @@
 
       },
       postMore() {
-        this.$router.push('/' + 'publicMessage/electronicFile');
+          this.$router.push('/'+'publicMessage/electronicFile?moduleName=电子公告');
+
       },
       openmore(url, moduleName) { //四个模块的跳转
 

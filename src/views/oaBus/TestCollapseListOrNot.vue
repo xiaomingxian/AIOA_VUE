@@ -764,23 +764,9 @@
                 return parseInt(index) + 1;
               }
             },
-            {
-              title: '文号',
-              width: 100,
-              sorter: (i, ii, type) => {
 
-                this.queryParam.tableOrder = true
-                this.nullOther('orederByWenHao')
-
-                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'wenHao'
-            },
             {
               title: '标题',
-              width: 350,
               align: "center",
               sorter: (i, ii, type) => {
                 //descend倒叙
@@ -796,6 +782,20 @@
               dataIndex: 'title'
             },
             {
+              title: '文号',
+              width: 120,
+              sorter: (i, ii, type) => {
+
+                this.queryParam.tableOrder = true
+                this.nullOther('orederByWenHao')
+
+                this.queryParam.orederByWenHao = type == 'descend' ? -1 : 1;
+                return true
+              },
+              align: "center",
+              dataIndex: 'wenHao'
+            },
+            {
               title: '当前环节',
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
@@ -805,6 +805,7 @@
                 return true
               },
               align: "center",
+              width: 110,
               dataIndex: 'name'
             },
             {
@@ -817,6 +818,7 @@
                 return true
               },
               align: "center",
+              width: 120,
               dataIndex: 'drafter'
             },
             {
@@ -829,12 +831,14 @@
                 return true
               },
               align: "center",
+              width: 180,
               dataIndex: 'createTime'
             },
             {
-              title: '操作',
+              title: '审批信息',
               dataIndex: 'action',
               align: "center",
+              width: 160,
               scopedSlots: {customRender: 'action'},
             });
 
@@ -902,9 +906,26 @@
                 return parseInt(index) + 1;
               }
             },
+
+            {
+              title: '标题',
+
+              align: "center",
+              sorter: (i, ii, type) => {
+                //descend倒叙
+                //ascend正序
+
+                this.queryParam.tableOrder = true
+                //置空其他环节
+                this.nullOther('orederByTile')
+                this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
+                return true
+              },
+              dataIndex: 'title'
+            },
             {
               title: '文号',
-              width: 100,
+              width: 120,
               sorter: (i, ii, type) => {
 
                 this.queryParam.tableOrder = true
@@ -917,23 +938,6 @@
               dataIndex: 'wenHao'
             },
             {
-              title: '标题',
-              width: 350,
-              align: "center",
-              sorter: (i, ii, type) => {
-                //descend倒叙
-                //ascend正序
-
-                this.queryParam.tableOrder = true
-                //置空其他环节
-                this.nullOther('orederByTile')
-                this.queryParam.orederByTile = type == 'descend' ? -1 : 1;
-                return true
-              },
-              align: "center",
-              dataIndex: 'title'
-            },
-            {
               title: '当前环节',
               sorter: (i, ii, type) => {
                 this.queryParam.tableOrder = true
@@ -943,6 +947,7 @@
                 return true
               },
               align: "center",
+              width: 110,
               dataIndex: 'name'
             },
             {
@@ -955,7 +960,8 @@
                 return true
               },
               align: "center",
-              dataIndex: 'drafter'
+              dataIndex: 'drafter',
+              width: 120,
             },
             {
               title: '转发时间',
@@ -967,12 +973,14 @@
                 return true
               },
               align: "center",
+              width: 180,
               dataIndex: 'createTime'
             },
             {
-              title: '操作',
+              title: '审批信息',
               dataIndex: 'action',
               align: "center",
+              width: 160,
               scopedSlots: {customRender: 'action'},
             });
 
