@@ -79,8 +79,11 @@
 
 
 
+              <div id="chart" style="position: absolute;top: 14%;left: 27%;">
+                <apexchart ref="pie" type="pie" width="380" :options="showData[0].chartOptions" :series="showData[0].series"></apexchart>
+              </div>
 
-              <pei-chart ref="pie"> </pei-chart>
+
             </div>
 
           </div>
@@ -127,14 +130,14 @@
 
           <div class="barBox">
               <p class="cheackNav">
-                  <span class="itemLine" v-for="(item,index) in cheackNavList"   :style="getNavIndex==index?'color:#2f54eb':''"     @click="currentTab(item.id)" :key="index">
+                  <span class="itemLine" v-for="(item,index) in showData[1].cheackNavList"   :style="showData[1].getNavIndex==index?'color:#2f54eb':''"     @click="currentTab(item.id)" :key="index">
                       <span>{{item.title}}</span>
                       <span>|</span>
                   </span>
               </p>
 
             <div style="width: 98%;">
-              <apexchart  type='bar' height="280px;" title="部门统计" :options="chartOptions" :series="series"></apexchart>
+              <apexchart  type='bar' height="280px;" title="部门统计" :options="showData[1].chartOptions" :series="showData[1].series"></apexchart>
             </div>
 
           </div>
@@ -208,29 +211,59 @@
       this.fetchUser = debounce(this.fetchUser, 800);
       return {
 
-        cheackNavList:[
-          {title:'主办数量',id:0},
-          {title:'协办数量',id:1},
-          {title:'办结数量',id:2},
-          {title:'超期数量',id:3},
 
-        ],
-        getNavIndex:0,
 
-        series: [{
-          data: [],
-        }],
-        chartOptions: {
-          xaxis: {
-            categories: []
+
+
+
+
+        showData: [{
+
+            series: [],
+            chartOptions: {
+              chart: {
+                width: 380,
+                type: 'pie',
+              },
+              labels: [],
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            },
           },
 
-        },
+          {
+          cheackNavList: [
+            {title: '主办数量', id: 0},
+            {title: '协办数量', id: 1},
+            {title: '办结数量', id: 2},
+            {title: '超期数量', id: 3},
+
+          ],
+          getNavIndex: 0,
+
+          series: [{
+            data: [],
+          }],
+          chartOptions: {
+            xaxis: {
+              categories: []
+            },
+          }
+
+        }],
 
         total:'',//办理总件数
         hangrate:'', // 行领导批量办结率
         rate:'',// 办结率
-
 
         // 查询参数
         queryParam: {
@@ -409,7 +442,7 @@
       //部门分布中  柱状图展示  author:cpf
       currentTab(e){
         console.log(e);
-        this.getNavIndex = e
+        this.showData[1].getNavIndex = e
 
         switch(e) {
           case 0:
@@ -441,11 +474,11 @@
 
 
           this.$nextTick(()=>{
-            this.series=[{
+            this.showData[1].series=[{
               data:Y_axis,
             }];
 
-            this.chartOptions= {
+            this.showData[1].chartOptions= {
               xaxis: {
                 categories: X_axis
               },
@@ -458,7 +491,7 @@
 
         })
   },
-      //初始化   柱状表1  author:cpf
+      //初始化   饼状表  author:cpf
       dataAnalysis(){
 
         getAction(this.url.AnalysisDimension).then((res) => {
@@ -510,6 +543,29 @@
           console.log(res)
 
           this.supervisionPei = res;
+
+          let series = [];
+          let labels = [];
+
+          for(let i in this.supervisionPei) {
+            for(let j in this.supervisionPei[i]) {
+
+              series.push(this.supervisionPei[i][j]);
+
+              labels.push(j);
+
+            }
+          }
+
+          this.$nextTick(()=>{
+            this.showData[0].series= series;
+
+            this.showData[0].chartOptions= {
+              labels: labels,
+
+            };
+
+          })
 
         })
       },
