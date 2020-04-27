@@ -91,6 +91,7 @@
 
     <div v-if="iisFold == 0">
 
+      <!--        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
       <a-table
         ref="table"
         size="middle"
@@ -100,7 +101,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :customRow="doTask"
         :rowClassName="(record,index) => {

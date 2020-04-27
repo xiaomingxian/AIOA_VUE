@@ -115,6 +115,7 @@
       <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
     <!--</div>-->
 
+    <!--:rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
     <div v-if="iisFold == 0">
 
       <a-table
@@ -126,7 +127,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         @change="handleTableChange"
         :customRow="doTask"
         :rowClassName="(record,index) => {

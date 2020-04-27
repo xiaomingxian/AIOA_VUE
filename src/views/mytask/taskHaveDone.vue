@@ -89,8 +89,8 @@
 
     </div>
 
-    <!-- table区域-begin         :pagination="pagination"
--->
+    <!-- table区域-begin         :pagination="pagination"-->
+    <!--        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"-->
     <div v-if="iisFold == 0">
       <a-table
         ref="table"
@@ -99,7 +99,6 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
         :showAlertInfo="false"
         bordered
         rowKey="processInstanceId"
