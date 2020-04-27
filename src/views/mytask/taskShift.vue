@@ -134,11 +134,10 @@
         <span slot="action" slot-scope="text, record">
 
           <a @click.stop="taskShift(record)">任务移交</a>
-          <a-divider type="vertical"/>
-
+          <br>
           <a @click.stop="unDo(record)">未办信息</a>
-          <a-divider type="vertical"/>
-          <a @click.stop="showPic(record)">流程图</a>
+          <br>
+          <a @click.stop="showPic(record)">流转信息</a>
 
         </span>
 

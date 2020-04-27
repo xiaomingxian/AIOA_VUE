@@ -100,11 +100,11 @@
     <!-- table区域-begin -->
     <div>
 
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{
-        selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      <!--<div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">-->
+        <!--<i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{-->
+        <!--selectedRowKeys.length }}</a>项-->
+        <!--<a style="margin-left: 24px" @click="onClearSelected">清空</a>-->
+      <!--</div>-->
 
       <a-table
         ref="table"
@@ -133,7 +133,7 @@
           <!--<a @click.stop="unDo(record)">未办理信息</a>-->
           <!--<br>-->
           <!--<a-divider type="vertical"/>-->
-          <a @click.stop="showPic(record)">流程图</a>
+          <a @click.stop="showPic(record)">流转信息</a>
 
         </span>
 
